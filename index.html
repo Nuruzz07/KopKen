@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promo Kopi Kenangan - Pesan via WhatsApp</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome untuk Ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            beige: '#FDFBF7',
+                            brown: '#4A3525',
+                            accent: '#F5E6D3',
+                            green: '#25D366',
+                            red: '#D32F2F',
+                            dark: '#1E140C'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #f3f4f6;
+            -webkit-tap-highlight-color: transparent;
+            overflow-x: hidden;
+        }
+
+        /* Mobile App Simulator Wrapper */
+        .app-wrapper {
+            max-width: 480px;
+            margin: 0 auto;
+            background-color: #FDFBF7;
+            min-height: 100vh;
+            position: relative;
+            box-shadow: 0 0 25px rgba(0,0,0,0.07);
+        }
+        
+        /* Hide scrollbar for category nav but keep functionality */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        /* Smooth scrolling */
+        html { scroll-behavior: smooth; }
+
+        /* Ambient Falling Particles */
+        @keyframes float-particle {
+            0% {
+                transform: translateY(-5vh) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.35;
+            }
+            90% {
+                opacity: 0.35;
+            }
+            100% {
+                transform: translateY(105vh) translateX(25px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        .ambient-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .particle {
+            position: absolute;
+            top: -40px;
+            pointer-events: none;
+            animation: float-particle linear infinite;
+        }
+
+        /* Modal transitions */
+        .modal-active {
+            opacity: 1 !important;
+            pointer-events: auto !important;
+        }
+        .modal-sheet {
+            transform: translateY(100%);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .modal-active .modal-sheet {
+            transform: translateY(0);
+        }
+
+        /* Customized options checkboxes and radios */
+        .custom-option-input:checked + .custom-option-label {
+            border-color: #4A3525;
+            background-color: #4A3525;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <!-- App Container -->
+    <div class="app-wrapper flex flex-col justify-between relative min-h-screen">
+        
+        <!-- Ambient Animation Canvas Container -->
+        <div class="ambient-container" id="ambient-canvas"></div>
+
+        <!-- Content Area -->
+        <div class="relative z-10 flex-1 pb-32">
+            <!-- Header Section -->
+            <header class="bg-gradient-to-b from-brand-accent/50 to-brand-beige pt-8 pb-6 px-5 text-center relative overflow-hidden border-b border-gray-100">
+                <div class="flex flex-col items-center justify-center relative">
+                    <!-- Brand Logo -->
+                    <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center shadow-md mb-4 p-3 border-4 border-white/50">
+                        <img src="https://i.postimg.cc/GpwttdxX/Logo-Kopi-Kenangan-Format-PNG-AI-EPS-CDR-PDF-SVG.png" alt="Logo Kopi Kenangan" class="w-full h-full object-contain">
+                    </div>
+                    
+                    <h1 class="text-xs font-bold text-brand-brown tracking-[0.2em] uppercase mb-1">PROMO SPESIAL</h1>
+                    <h2 class="text-2xl font-extrabold text-brand-dark tracking-wide">KOPI KENANGAN</h2>
+                    <div class="inline-flex items-center mt-3 bg-brand-brown/10 text-brand-brown text-[11px] font-bold px-3 py-1 rounded-full border border-brand-brown/10">
+                        <i class="fa-solid fa-mug-hot mr-1.5 animate-bounce"></i> Custom Resep Favoritmu
+                    </div>
+                </div>
+            </header>
+
+            <!-- Sticky Navigation -->
+            <nav class="sticky top-0 z-30 bg-brand-beige/95 backdrop-blur-md shadow-sm border-b border-gray-100">
+                <div class="flex overflow-x-auto no-scrollbar py-3 px-4 gap-2" id="category-nav">
+                    <a href="#cat-bundling" class="nav-pill flex-shrink-0 bg-brand-brown text-white px-4 py-1.5 rounded-full text-xs font-semibold transition-all">🔥 Bundling Hemat</a>
+                    <a href="#cat-coffee" class="nav-pill flex-shrink-0 bg-gray-100 text-gray-500 px-4 py-1.5 rounded-full text-xs font-semibold transition-all">☕ Coffee & Oatside</a>
+                    <a href="#cat-noncoffee" class="nav-pill flex-shrink-0 bg-gray-100 text-gray-500 px-4 py-1.5 rounded-full text-xs font-semibold transition-all">🍋 Non-Coffee</a>
+                    <a href="#cat-bakery" class="nav-pill flex-shrink-0 bg-gray-100 text-gray-500 px-4 py-1.5 rounded-full text-xs font-semibold transition-all">🍞 Toast & Bakery</a>
+                </div>
+            </nav>
+
+            <!-- Main Content Container -->
+            <main class="p-4 space-y-6">
+                <!-- Informative Disclaimer Banner -->
+                <div class="bg-amber-50/75 backdrop-blur-sm border border-amber-200/60 rounded-2xl p-4 flex gap-3 shadow-sm">
+                    <div class="text-amber-700 mt-0.5"><i class="fa-solid fa-circle-info text-lg"></i></div>
+                    <div>
+                        <p class="text-xs text-amber-900 font-bold leading-normal">
+                            Ingin Melihat Foto Asli Menu?
+                        </p>
+                        <p class="text-[11px] text-amber-800/85 mt-1 leading-relaxed">
+                            Semua gambar menu sementara di bawah menggunakan ilustrasi logo. Untuk melihat foto asli produk asli, Anda bisa langsung menghubungi admin ya!
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Catalog Wrapper -->
+                <div id="catalog-container">
+                    <!-- Dynamic content will be injected here -->
+                </div>
+            </main>
+        </div>
+
+        <!-- Floating Shopping Cart Sheet -->
+        <div id="cart-footer" class="fixed bottom-0 left-0 right-0 z-40 transform translate-y-full transition-transform duration-300 ease-in-out">
+            <div class="max-w-[480px] mx-auto bg-white border-t border-gray-200 shadow-[0_-12px_24px_rgba(0,0,0,0.08)] rounded-t-3xl overflow-hidden">
+                <!-- Collapsible Details Header -->
+                <div class="bg-brand-beige border-b border-gray-100 px-5 py-3 flex justify-between items-center cursor-pointer" onclick="toggleCartDrawer()">
+                    <span class="text-xs font-bold text-brand-brown uppercase tracking-wider flex items-center">
+                        <i class="fa-solid fa-cart-shopping mr-2 text-sm"></i> Detail Belanjaan Anda
+                    </span>
+                    <i class="fa-solid fa-chevron-up text-brand-brown text-xs transition-transform" id="drawer-arrow"></i>
+                </div>
+
+                <!-- Expanded Items Review Container -->
+                <div id="cart-drawer-items" class="max-h-[160px] overflow-y-auto px-5 divide-y divide-gray-100 hidden">
+                    <!-- Cart items reviewed here dynamically -->
+                </div>
+
+                <!-- Form Data Pemesan -->
+                <div class="p-4 border-t border-gray-100 bg-brand-beige/50 space-y-3">
+                    <div>
+                        <label class="block text-[11px] font-extrabold text-brand-brown uppercase tracking-wider mb-1.5 flex items-center">
+                            Nama Pemesan <span class="text-brand-red ml-0.5">*</span>
+                        </label>
+                        <input type="text" id="cust-name" oninput="validateCheckoutForm()" placeholder="Masukkan nama Anda..." class="w-full bg-white border border-gray-200 rounded-xl px-3 py-2.5 text-xs focus:outline-none focus:border-brand-brown focus:ring-1 focus:ring-brand-brown shadow-sm">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-extrabold text-brand-brown uppercase tracking-wider mb-1.5">
+                            Catatan Tambahan Transaksi <span class="text-gray-400 font-normal">(Opsional)</span>
+                        </label>
+                        <input type="text" id="global-note" placeholder="Contoh: Kirim secepatnya ya..." class="w-full bg-white border border-gray-200 rounded-xl px-3 py-2.5 text-xs focus:outline-none focus:border-brand-brown focus:ring-1 focus:ring-brand-brown shadow-sm">
+                    </div>
+                </div>
+
+                <!-- Main Action Checkout Row -->
+                <div class="p-4 flex justify-between items-center gap-4 bg-white">
+                    <div class="flex flex-col">
+                        <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Total Pembayaran</span>
+                        <span class="text-lg font-extrabold text-brand-brown" id="cart-total-price">Rp 0</span>
+                    </div>
+                    <button id="checkout-btn" disabled onclick="handleCheckout()" class="bg-gray-300 text-gray-500 font-bold px-6 py-3 rounded-xl text-xs flex-1 flex items-center justify-center gap-2 transition-all cursor-not-allowed">
+                        <i class="fa-brands fa-whatsapp text-sm"></i> Kirim Ke WhatsApp
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Section -->
+        <footer class="bg-brand-dark py-8 px-5 text-center relative z-10 border-t border-brand-brown/20">
+            <p class="text-xs text-brand-accent/60 font-semibold mb-1">Kopi Kenangan Promo Partner</p>
+            <p class="text-[11px] text-brand-accent/40 font-medium mb-3">&copy; 2026 Seluruh Hak Cipta Dilindungi</p>
+            <div class="inline-block bg-brand-brown/30 text-brand-accent/70 text-[10px] font-bold px-3 py-1 rounded-md border border-brand-brown/40">
+                Promo by Bintang
+            </div>
+        </footer>
+
+        <!-- Customization Bottom Sheet Backdrop -->
+        <div id="custom-modal" class="fixed inset-0 bg-brand-dark/60 backdrop-blur-xs z-50 opacity-0 pointer-events-none transition-opacity duration-300 flex items-end justify-center">
+            
+            <!-- Bottom Sheet Container -->
+            <div class="bg-white w-full max-w-[480px] rounded-t-3xl max-h-[85vh] flex flex-col justify-between overflow-hidden shadow-2xl modal-sheet">
+                
+                <!-- Modal Sticky Header -->
+                <div class="p-5 border-b border-gray-100 flex justify-between items-start shrink-0">
+                    <div>
+                        <span class="bg-brand-red text-white text-[9px] font-extrabold px-2 py-0.5 rounded-full uppercase tracking-wider inline-block mb-1.5">Kustomisasi</span>
+                        <h3 id="modal-item-name" class="font-extrabold text-sm text-brand-dark leading-snug">Nama Produk</h3>
+                        <p id="modal-item-price" class="text-xs font-bold text-brand-red mt-0.5">Rp 0</p>
+                    </div>
+                    <button onclick="closeCustomizationModal()" class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-gray-200 transition-colors">
+                        <i class="fa-solid fa-xmark text-sm"></i>
+                    </button>
+                </div>
+
+                <!-- Modal Scrollable Recipe Customizers -->
+                <div class="p-5 overflow-y-auto space-y-6 flex-1 text-xs" id="customizer-options-area">
+                    <!-- Dynamic Options Injected Here -->
+                </div>
+
+                <!-- Modal Bottom Action Bar -->
+                <div class="p-4 border-t border-gray-100 flex items-center gap-4 bg-gray-50 shrink-0">
+                    <!-- Qty Stepper -->
+                    <div class="flex items-center bg-white border border-gray-200 rounded-xl overflow-hidden shadow-xs">
+                        <button onclick="changeModalQty(-1)" class="w-10 h-10 flex items-center justify-center text-gray-500 hover:bg-gray-100 transition-colors font-bold text-lg">-</button>
+                        <span id="modal-item-qty" class="w-8 text-center font-extrabold text-brand-dark">1</span>
+                        <button onclick="changeModalQty(1)" class="w-10 h-10 flex items-center justify-center text-brand-brown hover:bg-gray-100 transition-colors font-bold text-lg">+</button>
+                    </div>
+                    <!-- Submit button (Flat Rp 0 - no extra added to sum) -->
+                    <button onclick="saveItemToCart()" class="flex-1 bg-brand-brown hover:bg-brand-dark text-white font-extrabold py-3 px-5 rounded-xl text-xs transition-colors shadow-sm flex justify-between items-center">
+                        <span>Tambahkan Ke Keranjang</span>
+                        <span id="modal-sum-price">Rp 0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // BRAND LOGO RESOURCE
+        const EMBEDDED_LOGO = "https://i.postimg.cc/GpwttdxX/Logo-Kopi-Kenangan-Format-PNG-AI-EPS-CDR-PDF-SVG.png";
+
+        // Complete static catalog database conforming to Master PRD v1.3
+        const categories = [
+            { id: "bundling", title: "🔥 Paket Bundling Hemat", anchor: "cat-bundling" },
+            { id: "coffee", title: "☕ Coffee & Oatside Series", anchor: "cat-coffee" },
+            { id: "noncoffee", title: "🍋 Fresh Non-Coffee Series", anchor: "cat-noncoffee" },
+            { id: "bakery", title: "🍞 Kenangan Toast & Bakery", anchor: "cat-bakery" }
+        ];
+
+        const products = [
+            // BUNDLING
+            { id: "bnd1", category: "bundling", name: "Paket Hemat 40K (10 Pilihan Combo Makanan + Minuman)", priceBefore: 60000, priceAfter: 40000, isDrink: false },
+            { id: "bnd2", category: "bundling", name: "Bundling Bertiga 38K (3 Cup Regular)", priceBefore: 75000, priceAfter: 38000, isDrink: false },
+            { id: "bnd3", category: "bundling", name: "Puas Banget Mix Large 33K (2 Cup Large)", priceBefore: 50000, priceAfter: 33000, isDrink: false },
+            
+            // COFFEE
+            { id: "cof1", category: "coffee", name: "Kopi Kenangan Mantan (R)", priceBefore: 25000, priceAfter: 14500, isDrink: true },
+            { id: "cof2", category: "coffee", name: "Oatside Latte (R)", priceBefore: 25000, priceAfter: 16500, isDrink: true },
+            { id: "cof3", category: "coffee", name: "Oatside Kopi Kenangan Mantan (R)", priceBefore: 22000, priceAfter: 20000, isDrink: true },
+            { id: "cof4", category: "coffee", name: "Latte (R)", priceBefore: 29000, priceAfter: 15000, isDrink: true },
+            { id: "cof5", category: "coffee", name: "Americano (R)", priceBefore: 22000, priceAfter: 13500, isDrink: true },
+            { id: "cof6", category: "coffee", name: "Spanish Latte (R)", priceBefore: 19000, priceAfter: 13500, isDrink: true },
+            { id: "cof7", category: "coffee", name: "Mocha Caramel (R)", priceBefore: 26000, priceAfter: 17000, isDrink: true },
+
+            // FRESH NON-COFFEE
+            { id: "non1", category: "noncoffee", name: "OG Thai Tea (R)", priceBefore: 19000, priceAfter: 13500, isDrink: true },
+            { id: "non2", category: "noncoffee", name: "Matcha Latte (R)", priceBefore: 25000, priceAfter: 16500, isDrink: true },
+            { id: "non3", category: "noncoffee", name: "Milo Dinosaurus (R)", priceBefore: 30000, priceAfter: 16000, isDrink: true },
+            { id: "non4", category: "noncoffee", name: "Susu Grass Jelly (R)", priceBefore: 24000, priceAfter: 16000, isDrink: true },
+            { id: "non5", category: "noncoffee", name: "Oreo Shake (R)", priceBefore: 26000, priceAfter: 17000, isDrink: true },
+            { id: "non6", category: "noncoffee", name: "Dutch Chocolate (R)", priceBefore: 36000, priceAfter: 17000, isDrink: true },
+            { id: "non7", category: "noncoffee", name: "Raspberry Hibiscus (R)", priceBefore: 20000, priceAfter: 14000, isDrink: true },
+            { id: "non8", category: "noncoffee", name: "Fresh Lemonade (R)", priceBefore: 17000, priceAfter: 13500, isDrink: true },
+            { id: "non9", category: "noncoffee", name: "Lemon Black Tea (R)", priceBefore: 17000, priceAfter: 12500, isDrink: true },
+
+            // TOAST & BAKERY
+            { id: "bak1", category: "bakery", name: "Salt Bread Original", priceBefore: 12000, priceAfter: 10500, isDrink: false },
+            { id: "bak2", category: "bakery", name: "Salt Bread Beef & Cheese", priceBefore: 15000, priceAfter: 11000, isDrink: false },
+            { id: "bak3", category: "bakery", name: "Butter Croissant", priceBefore: 15000, priceAfter: 11500, isDrink: false },
+            { id: "bak4", category: "bakery", name: "Bambang Choco Cheese Toast", priceBefore: 17000, priceAfter: 12500, isDrink: false },
+            { id: "bak5", category: "bakery", name: "Wahyu Sapi Toast", priceBefore: 19000, priceAfter: 13500, isDrink: false },
+            { id: "bak6", category: "bakery", name: "Adam Ayam Toast", priceBefore: 19000, priceAfter: 13500, isDrink: false },
+            { id: "bak7", category: "bakery", name: "Chocolate Croissant", priceBefore: 19000, priceAfter: 13500, isDrink: false },
+            { id: "bak8", category: "bakery", name: "Sandwich Smoked Beef & Cheese", priceBefore: 22000, priceAfter: 15000, isDrink: false },
+            { id: "bak9", category: "bakery", name: "Sandwich Chicken Tartar", priceBefore: 22000, priceAfter: 15000, isDrink: false }
+        ];
+
+        // Global state vars
+        let cart = []; // Array of cart items (each item has unique cartId, product, options, qty, notes, priceAfter)
+        let currentlyEditingProduct = null;
+        let currentModalQty = 1;
+        let cartDrawerOpen = false;
+
+        // Rupiah Formatter Helper
+        const formatRp = (amount) => {
+            return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(amount);
+        };
+
+        // Ambient particles creator
+        function createAmbientParticles() {
+            const canvas = document.getElementById('ambient-canvas');
+            const icons = ['fa-seedling', 'fa-cubes', 'fa-leaf']; // Coffee beans, Ice, Leaf analogies
+            const particleCount = 12;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle text-brand-brown/15';
+                
+                // Random select fa icon
+                const randomIcon = icons[Math.floor(Math.random() * icons.length)];
+                particle.innerHTML = `<i class="fa-solid ${randomIcon}"></i>`;
+                
+                // Random positioning and delays
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.animationDuration = `${10 + Math.random() * 15}s`;
+                particle.style.animationDelay = `${Math.random() * -20}s`;
+                particle.style.fontSize = `${14 + Math.random() * 14}px`;
+                
+                canvas.appendChild(particle);
+            }
+        }
+
+        // Render Main Catalog Content
+        function renderCatalog() {
+            const catalogContainer = document.getElementById('catalog-container');
+            let htmlContent = '';
+
+            categories.forEach(cat => {
+                const categoryProducts = products.filter(p => p.category === cat.id);
+                if (categoryProducts.length === 0) return;
+
+                htmlContent += `
+                    <div id="${cat.anchor}" class="mb-8 pt-4 scroll-mt-20">
+                        <div class="flex items-center mb-4">
+                            <h3 class="text-sm font-extrabold text-brand-brown uppercase tracking-wider">${cat.title}</h3>
+                            <div class="flex-grow h-px bg-brand-brown/10 ml-3"></div>
+                        </div>
+                        <div class="grid grid-cols-1 gap-3">
+                `;
+
+                categoryProducts.forEach(prod => {
+                    htmlContent += `
+                        <div onclick="openCustomizationModal('${prod.id}')" class="bg-white rounded-2xl p-3 flex gap-3 shadow-xs border border-brand-brown/5 hover:border-brand-brown/30 hover:shadow-md transition-all duration-300 cursor-pointer active:scale-[0.98]">
+                            <!-- Image Container -->
+                            <div class="w-16 h-16 flex-shrink-0 bg-brand-accent/30 rounded-xl overflow-hidden relative flex items-center justify-center border border-brand-brown/10">
+                                <img src="${EMBEDDED_LOGO}" alt="Logo" class="w-10 h-10 object-contain">
+                                <div class="absolute top-0 left-0 bg-brand-red text-white text-[8px] font-extrabold px-1.5 py-0.5 rounded-br-lg uppercase tracking-wider">
+                                    PROMO
+                                </div>
+                            </div>
+                            
+                            <!-- Info Container -->
+                            <div class="flex-grow flex flex-col justify-between py-0.5">
+                                <div>
+                                    <h4 class="text-xs font-bold text-brand-dark leading-snug line-clamp-2">${prod.name}</h4>
+                                    <div class="mt-1 flex items-baseline gap-1.5">
+                                        <span class="text-[10px] text-gray-400 line-through decoration-gray-300">${formatRp(prod.priceBefore)}</span>
+                                        <span class="text-xs font-extrabold text-brand-red">${formatRp(prod.priceAfter)}</span>
+                                    </div>
+                                </div>
+                                <div class="flex justify-end">
+                                    <span class="inline-flex items-center bg-brand-accent/50 text-brand-brown text-[10px] font-extrabold px-3 py-1 rounded-lg border border-brand-brown/10">
+                                        Pilih <i class="fa-solid fa-plus ml-1.5 text-[9px]"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                htmlContent += `</div></div>`;
+            });
+
+            catalogContainer.innerHTML = htmlContent;
+        }
+
+        // Open Customization Sheet Modal
+        function openCustomizationModal(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            currentlyEditingProduct = product;
+            currentModalQty = 1;
+
+            document.getElementById('modal-item-name').textContent = product.name;
+            document.getElementById('modal-item-price').textContent = formatRp(product.priceAfter);
+            document.getElementById('modal-item-qty').textContent = currentModalQty;
+
+            const optionsArea = document.getElementById('customizer-options-area');
+            let optionsHtml = '';
+
+            if (product.isDrink) {
+                // DRINK CUSTOMIZATION (Options exist but flat +Rp 0)
+                optionsHtml += `
+                    <!-- Temperature Option -->
+                    <div class="space-y-2.5">
+                        <span class="block font-extrabold text-[10px] text-brand-brown uppercase tracking-wider">Temperature</span>
+                        <div class="flex gap-2">
+                            <div class="relative flex-1">
+                                <input type="radio" id="temp-ice" name="opt-temp" value="Ice" checked class="hidden custom-option-input">
+                                <label for="temp-ice" class="custom-option-label block text-center py-2.5 border border-gray-200 rounded-xl font-bold text-[11px] cursor-pointer hover:bg-gray-50 transition-colors">Ice</label>
+                            </div>
+                            <div class="relative flex-1">
+                                <input type="radio" id="temp-hot" name="opt-temp" value="Hot" class="hidden custom-option-input">
+                                <label for="temp-hot" class="custom-option-label block text-center py-2.5 border border-gray-200 rounded-xl font-bold text-[11px] cursor-pointer hover:bg-gray-50 transition-colors">Hot</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Size Option -->
+                    <div class="space-y-2.5">
+                        <div class="flex justify-between items-center">
+                            <span class="block font-extrabold text-[10px] text-brand-brown uppercase tracking-wider">Size Option</span>
+                            <span class="text-[9px] bg-brand-brown/10 text-brand-brown px-1.5 py-0.5 rounded-md font-bold uppercase tracking-wider">PROMO FREE</span>
+                        </div>
+                        <div class="flex gap-2">
+                            <div class="relative flex-1">
+                                <input type="radio" id="size-reg" name="opt-size" value="Regular" checked class="hidden custom-option-input">
+                                <label for="size-reg" class="custom-option-label block text-center py-2.5 border border-gray-200 rounded-xl font-bold text-[11px] cursor-pointer hover:bg-gray-50 transition-colors">Regular</label>
+                            </div>
+                            <div class="relative flex-1">
+                                <input type="radio" id="size-large" name="opt-size" value="Large" class="hidden custom-option-input">
+                                <label for="size-large" class="custom-option-label block text-center py-2.5 border border-gray-200 rounded-xl font-bold text-[11px] cursor-pointer hover:bg-gray-50 transition-colors">Large (+Rp 0)</label>
+                            </div>
+                            <div class="relative flex-1">
+                                <input type="radio" id="size-jumbo" name="opt-size" value="Jumbo" class="hidden custom-option-input">
+                                <label for="size-jumbo" class="custom-option-label block text-center py-2.5 border border-gray-200 rounded-xl font-bold text-[11px] cursor-pointer hover:bg-gray-50 transition-colors">Jumbo (+Rp 0)</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Coffee Beans Option -->
+                    <div class="space-y-2.5">
+                        <span class="block font-extrabold text-[10px] text-brand-brown uppercase tracking-wider">Pilihan Biji Kopi</span>
+                        <div class="flex gap-2">
+                            <div class="relative flex-1">
+                                <input type="radio" id="beans-kenangan" name="opt-beans" value="Kenangan Blend" checked class="hidden custom-option-input">
+                                <label for="beans-kenangan" class="custom-option-label block text-center py-2.5 border border-gray-200 rounded-xl font-bold text-[11px] cursor-pointer hover:bg-gray-50 transition-colors">Kenangan Blend</label>
+                            </div>
+                            <div class="relative flex-1">
+                                <input type="radio" id="beans-juwara" name="opt-beans" value="Juwara Beans" class="hidden custom-option-input">
+                                <label for="beans-juwara" class="custom-option-label block text-center py-2.5 border border-gray-200 rounded-xl font-bold text-[11px] cursor-pointer hover:bg-gray-50 transition-colors">Juwara Beans (+Rp 0)</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Milk Option -->
+                    <div class="space-y-2.5">
+                        <span class="block font-extrabold text-[10px] text-brand-brown uppercase tracking-wider">Opsi Susu (Milk Option)</span>
+                        <div class="flex gap-2">
+                            <div class="relative flex-1">
+                                <input type="radio" id="milk-standard" name="opt-milk" value="Milk" checked class="hidden custom-option-input">
+                                <label for="milk-standard" class="custom-option-label block text-center py-2.5 border border-gray-200 rounded-xl font-bold text-[11px] cursor-pointer hover:bg-gray-50 transition-colors">Milk</label>
+                            </div>
+                            <div class="relative flex-1">
+                                <input type="radio" id="milk-oatside" name="opt-milk" value="Oatside" class="hidden custom-option-input">
+                                <label for="milk-oatside" class="custom-option-label block text-center py-2.5 border border-gray-200 rounded-xl font-bold text-[11px] cursor-pointer hover:bg-gray-50 transition-colors">Oatside (+Rp 0)</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sugar Level Option -->
+                    <div class="space-y-2.5">
+                        <span class="block font-extrabold text-[10px] text-brand-brown uppercase tracking-wider">Tingkat Kemanisan (Sugar Level)</span>
+                        <div class="flex gap-2">
+                            <div class="relative flex-1">
+                                <input type="radio" id="sugar-normal" name="opt-sugar" value="Normal Sugar" checked class="hidden custom-option-input">
+                                <label for="sugar-normal" class="custom-option-label block text-center py-2.5 border border-gray-200 rounded-xl font-bold text-[11px] cursor-pointer hover:bg-gray-50 transition-colors">Normal</label>
+                            </div>
+                            <div class="relative flex-1">
+                                <input type="radio" id="sugar-less" name="opt-sugar" value="Less Sugar" class="hidden custom-option-input">
+                                <label for="sugar-less" class="custom-option-label block text-center py-2.5 border border-gray-200 rounded-xl font-bold text-[11px] cursor-pointer hover:bg-gray-50 transition-colors">Less Sugar</label>
+                            </div>
+                            <div class="relative flex-1">
+                                <input type="radio" id="sugar-none" name="opt-sugar" value="No Sugar" class="hidden custom-option-input">
+                                <label for="sugar-none" class="custom-option-label block text-center py-2.5 border border-gray-200 rounded-xl font-bold text-[11px] cursor-pointer hover:bg-gray-50 transition-colors">No Sugar</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Syrup Option -->
+                    <div class="space-y-2.5">
+                        <span class="block font-extrabold text-[10px] text-brand-brown uppercase tracking-wider">Tambahan Sirup</span>
+                        <select id="opt-syrup" class="w-full bg-white border border-gray-200 rounded-xl p-3 text-xs focus:outline-none focus:border-brand-brown shadow-sm">
+                            <option value="Tanpa Sirup">Tanpa Sirup</option>
+                            <option value="Vanilla Syrup">Vanilla Syrup (+Rp 0)</option>
+                            <option value="Hazelnut Syrup">Hazelnut Syrup (+Rp 0)</option>
+                            <option value="Caramel Syrup">Caramel Syrup (+Rp 0)</option>
+                            <option value="Choco Sauce">Choco Sauce (+Rp 0)</option>
+                            <option value="Butterscotch Sauce">Butterscotch Sauce (+Rp 0)</option>
+                        </select>
+                    </div>
+
+                    <!-- Topping Option -->
+                    <div class="space-y-2.5">
+                        <span class="block font-extrabold text-[10px] text-brand-brown uppercase tracking-wider">Tambahan Topping</span>
+                        <select id="opt-topping" class="w-full bg-white border border-gray-200 rounded-xl p-3 text-xs focus:outline-none focus:border-brand-brown shadow-sm">
+                            <option value="Tanpa Topping">Tanpa Topping</option>
+                            <option value="Espresso Shot Kenangan Blend">Espresso Shot Kenangan Blend (+Rp 0)</option>
+                            <option value="Grass Jelly">Grass Jelly (+Rp 0)</option>
+                            <option value="Oreo">Oreo (+Rp 0)</option>
+                            <option value="Whipped Cream">Whipped Cream (+Rp 0)</option>
+                        </select>
+                    </div>
+
+                    <!-- Item Notes -->
+                    <div class="space-y-2.5">
+                        <span class="block font-extrabold text-[10px] text-brand-brown uppercase tracking-wider">Catatan Khusus Varian</span>
+                        <input type="text" id="modal-item-note" placeholder="Contoh: Less ice ya, ga pake sedotan..." maxlength="100" class="w-full bg-white border border-gray-200 rounded-xl p-3 text-xs focus:outline-none focus:border-brand-brown shadow-sm">
+                    </div>
+                `;
+            } else {
+                // FOOD/BUNDLING CUSTOMIZATION (Generic)
+                optionsHtml += `
+                    <div class="bg-brand-accent/30 rounded-2xl p-4 text-center border border-brand-brown/5 space-y-2">
+                        <i class="fa-solid fa-cookie-bite text-2xl text-brand-brown/40"></i>
+                        <p class="font-extrabold text-[11px] text-brand-brown uppercase tracking-wider">Varian Makanan & Bundling</p>
+                        <p class="text-gray-500 text-[10px] leading-relaxed">Menu bundling/makanan tidak membutuhkan kustomisasi resep tambahan khusus.</p>
+                    </div>
+                    <!-- Item Notes -->
+                    <div class="space-y-2.5 mt-4">
+                        <span class="block font-extrabold text-[10px] text-brand-brown uppercase tracking-wider">Catatan Khusus Varian</span>
+                        <input type="text" id="modal-item-note" placeholder="Contoh: Tolong rotinya dipanggang agak lama..." maxlength="100" class="w-full bg-white border border-gray-200 rounded-xl p-3 text-xs focus:outline-none focus:border-brand-brown shadow-sm">
+                    </div>
+                `;
+            }
+
+            optionsArea.innerHTML = optionsHtml;
+            updateModalCalculation();
+
+            // Toggle modal class
+            document.getElementById('custom-modal').classList.add('modal-active');
+            document.body.style.overflow = 'hidden'; // Lock background scroll
+        }
+
+        // Close Customization Sheet Modal
+        function closeCustomizationModal() {
+            document.getElementById('custom-modal').classList.remove('modal-active');
+            document.body.style.overflow = ''; // Unlock background scroll
+            currentlyEditingProduct = null;
+        }
+
+        // Modal quantity changes
+        function changeModalQty(val) {
+            currentModalQty += val;
+            if (currentModalQty < 1) currentModalQty = 1;
+            document.getElementById('modal-item-qty').textContent = currentModalQty;
+            updateModalCalculation();
+        }
+
+        // Calculate Modal Price dynamically
+        function updateModalCalculation() {
+            if (!currentlyEditingProduct) return;
+            // Calculations remain strictly promo price as options are +Rp 0
+            const singlePrice = currentlyEditingProduct.priceAfter;
+            const totalPrice = singlePrice * currentModalQty;
+            document.getElementById('modal-sum-price').textContent = formatRp(totalPrice);
+        }
+
+        // Save customized item to local state cart
+        function saveItemToCart() {
+            if (!currentlyEditingProduct) return;
+
+            const isDrink = currentlyEditingProduct.isDrink;
+            const uniqueCartId = `${currentlyEditingProduct.id}-${Date.now()}`;
+            const itemNote = document.getElementById('modal-item-note') ? document.getElementById('modal-item-note').value.trim() : "";
+
+            let recipeOptions = {};
+            if (isDrink) {
+                recipeOptions = {
+                    temperature: document.querySelector('input[name="opt-temp"]:checked').value,
+                    size: document.querySelector('input[name="opt-size"]:checked').value,
+                    beans: document.querySelector('input[name="opt-beans"]:checked').value,
+                    milk: document.querySelector('input[name="opt-milk"]:checked').value,
+                    sugar: document.querySelector('input[name="opt-sugar"]:checked').value,
+                    syrup: document.getElementById('opt-syrup').value,
+                    topping: document.getElementById('opt-topping').value
+                };
+            }
+
+            const cartItem = {
+                cartId: uniqueCartId,
+                product: currentlyEditingProduct,
+                qty: currentModalQty,
+                options: recipeOptions,
+                note: itemNote,
+                unitPrice: currentlyEditingProduct.priceAfter,
+                totalPrice: currentlyEditingProduct.priceAfter * currentModalQty
+            };
+
+            cart.push(cartItem);
+            closeCustomizationModal();
+            updateCartFooter();
+            renderCartDrawer();
+        }
+
+        // Remove item from cart completely
+        function removeCartItem(cartId) {
+            cart = cart.filter(item => item.cartId !== cartId);
+            updateCartFooter();
+            renderCartDrawer();
+        }
+
+        // Update Sticky Footer UI Bar
+        function updateCartFooter() {
+            const footer = document.getElementById('cart-footer');
+            const itemsCountEl = document.getElementById('cart-items');
+            const totalPriceEl = document.getElementById('cart-total-price');
+
+            let totalItems = 0;
+            let totalPrice = 0;
+
+            cart.forEach(item => {
+                totalItems += item.qty;
+                totalPrice += item.totalPrice;
+            });
+
+            if (totalItems > 0) {
+                footer.classList.remove('translate-y-full');
+                totalPriceEl.textContent = formatRp(totalPrice);
+                itemsCountEl.textContent = `${totalItems} Produk Terpilih`;
+            } else {
+                footer.classList.add('translate-y-full');
+                cartDrawerOpen = false;
+                document.getElementById('cart-drawer-items').classList.add('hidden');
+                document.getElementById('drawer-arrow').className = 'fa-solid fa-chevron-up text-brand-brown text-xs transition-transform';
+            }
+
+            validateCheckoutForm();
+        }
+
+        // Toggle collapsible Cart Drawer list items
+        function toggleCartDrawer() {
+            const drawerItems = document.getElementById('cart-drawer-items');
+            const arrow = document.getElementById('drawer-arrow');
+
+            if (cart.length === 0) return;
+
+            cartDrawerOpen = !cartDrawerOpen;
+            if (cartDrawerOpen) {
+                drawerItems.classList.remove('hidden');
+                arrow.className = 'fa-solid fa-chevron-down text-brand-brown text-xs transition-transform';
+            } else {
+                drawerItems.classList.add('hidden');
+                arrow.className = 'fa-solid fa-chevron-up text-brand-brown text-xs transition-transform';
+            }
+        }
+
+        // Render detailed items review inside footer collapsible drawer
+        function renderCartDrawer() {
+            const drawerContainer = document.getElementById('cart-drawer-items');
+            let html = '';
+
+            cart.forEach(item => {
+                let optionsLabels = [];
+                if (item.product.isDrink) {
+                    optionsLabels.push(item.options.temperature);
+                    optionsLabels.push(item.options.size);
+                    optionsLabels.push(item.options.beans);
+                    optionsLabels.push(item.options.milk);
+                    optionsLabels.push(item.options.sugar);
+                    if (item.options.syrup !== 'Tanpa Sirup') optionsLabels.push(`Sirup: ${item.options.syrup}`);
+                    if (item.options.topping !== 'Tanpa Topping') optionsLabels.push(`Topping: ${item.options.topping}`);
+                }
+
+                html += `
+                    <div class="py-3 flex justify-between items-start gap-4">
+                        <div class="flex-1">
+                            <h5 class="text-xs font-extrabold text-brand-dark">${item.qty}x ${item.product.name}</h5>
+                            ${optionsLabels.length > 0 ? `
+                                <p class="text-[10px] text-gray-500 mt-0.5 leading-normal italic">
+                                    Racikan: ${optionsLabels.join(', ')}
+                                </p>
+                            ` : ''}
+                            ${item.note ? `
+                                <p class="text-[10px] text-brand-brown mt-0.5 leading-normal">
+                                    Catatan: "${item.note}"
+                                </p>
+                            ` : ''}
+                        </div>
+                        <div class="text-right shrink-0 flex flex-col items-end">
+                            <span class="text-xs font-bold text-brand-brown">${formatRp(item.totalPrice)}</span>
+                            <button onclick="removeCartItem('${item.cartId}')" class="text-brand-red text-[11px] font-bold mt-1 hover:underline">
+                                <i class="fa-solid fa-trash-can mr-1"></i> Hapus
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            drawerContainer.innerHTML = html;
+        }
+
+        // Form Validation Check (Name input required)
+        function validateCheckoutForm() {
+            const nameValue = document.getElementById('cust-name').value.trim();
+            const checkoutBtn = document.getElementById('checkout-btn');
+
+            if (nameValue.length > 0 && cart.length > 0) {
+                checkoutBtn.disabled = false;
+                checkoutBtn.className = "bg-brand-green hover:bg-green-600 text-white font-extrabold px-6 py-3 rounded-xl text-xs flex-1 flex items-center justify-center gap-2 transition-all cursor-pointer shadow-md";
+            } else {
+                checkoutBtn.disabled = true;
+                checkoutBtn.className = "bg-gray-300 text-gray-500 font-bold px-6 py-3 rounded-xl text-xs flex-1 flex items-center justify-center gap-2 transition-all cursor-not-allowed";
+            }
+        }
+
+        // Formulate and trigger checkout to WhatsApp API
+        function handleCheckout() {
+            const nameInput = document.getElementById('cust-name').value.trim();
+            const globalNote = document.getElementById('global-note').value.trim();
+
+            if (nameInput.length === 0 || cart.length === 0) return;
+
+            let textMessage = `Nama Pemesan: ${nameInput}\n`;
+            if (globalNote.length > 0) {
+                textMessage += `Catatan Transaksi: "${globalNote}"\n`;
+            }
+            textMessage += `--------------------------------------------------\n`;
+            textMessage += `Detail Menu PROMO yang dipesan:\n\n`;
+
+            let overallTotal = 0;
+
+            cart.forEach((item, index) => {
+                textMessage += `${index + 1}. ${item.qty}x ${item.product.name}\n`;
+                
+                if (item.product.isDrink) {
+                    let detailsArr = [
+                        item.options.temperature,
+                        item.options.size,
+                        item.options.beans,
+                        item.options.milk,
+                        item.options.sugar
+                    ];
+                    if (item.options.syrup !== "Tanpa Sirup") detailsArr.push(item.options.syrup);
+                    if (item.options.topping !== "Tanpa Topping") detailsArr.push(item.options.topping);
+
+                    textMessage += `   * Racikan: [${detailsArr.join(', ')}]\n`;
+                }
+
+                if (item.note.length > 0) {
+                    textMessage += `   * Catatan Item: "${item.note}"\n`;
+                }
+
+                textMessage += `   * Subtotal Web: ${formatRp(item.totalPrice)}\n\n`;
+                overallTotal += item.totalPrice;
+            });
+
+            textMessage += `--------------------------------------------------\n`;
+            textMessage += `Total Sementara (Web): *${formatRp(overallTotal)}*\n\n`;
+            textMessage += `*Catatan: Total harga final (termasuk tambahan kustomisasi size/topping) akan dihitung kembali secara akurat oleh Admin/Kasir saat memproses pesanan ini.*`;
+
+            const encodedMsg = encodeURIComponent(textMessage);
+            const waNumber = "6285959633342"; // Conforms to PRD
+            const waUrl = `https://wa.me/${waNumber}?text=${encodedMsg}`;
+
+            window.open(waUrl, '_blank');
+        }
+
+        // Simple single-page category scroll highlighting logic
+        document.addEventListener('scroll', () => {
+            const sections = categories.map(cat => document.getElementById(cat.anchor));
+            const navPills = document.querySelectorAll('.nav-pill');
+            
+            let currentActiveIdx = 0;
+            const scrollPos = window.scrollY + 100;
+
+            sections.forEach((sec, idx) => {
+                if (sec && scrollPos >= sec.offsetTop) {
+                    currentActiveIdx = idx;
+                }
+            });
+
+            navPills.forEach((pill, idx) => {
+                if (idx === currentActiveIdx) {
+                    pill.className = "nav-pill flex-shrink-0 bg-brand-brown text-white px-4 py-1.5 rounded-full text-xs font-semibold transition-all";
+                } else {
+                    pill.className = "nav-pill flex-shrink-0 bg-gray-100 text-gray-500 px-4 py-1.5 rounded-full text-xs font-semibold transition-all";
+                }
+            });
+        });
+
+        // Window load initiation
+        window.onload = function() {
+            createAmbientParticles();
+            renderCatalog();
+        };
+    </script>
+</body>
+</html>
