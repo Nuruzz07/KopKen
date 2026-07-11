@@ -1,36 +1,22 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Promo Kopi Kenangan - Sistem Bantu Order</title>
-    
-    <!-- Google Fonts: Plus Jakarta Sans -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <!-- Tailwind CSS -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Bintang Store - Portal Hiburan & F&B</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: {
-                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-                    },
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
                     colors: {
-                        brand: {
-                            beige: '#FDFBF7',
-                            brown: '#4A3525',
-                            accent: '#F5E6D3',
-                            green: '#25D366',
-                            red: '#D32F2F',
-                            dark: '#1E140C'
-                        }
+                        kenangan: { dark: '#2C1A0D', primary: '#A05C3A', accent: '#E8A359', light: '#F9F1E7' },
+                        netflix: { dark: '#141414', primary: '#E50914', light: '#F5F5F1' },
+                        portal: { dark: '#0F172A', accent: '#38BDF8' }
                     }
                 }
             }
@@ -39,991 +25,1255 @@
 
     <style>
         body {
-            background-color: #f7f5f0;
-            -webkit-tap-highlight-color: transparent;
+            background-color: #0F172A; /* Default Portal Dark */
+            color: #ffffff;
             overflow-x: hidden;
-        }
-
-        /* Mobile Container Simulation */
-        .app-wrapper {
-            max-width: 480px;
-            margin: 0 auto;
-            background: linear-gradient(180deg, #FDFBF7 0%, #F5EFE6 100%);
-            min-height: 100vh;
             position: relative;
-            box-shadow: 0 0 35px rgba(74, 53, 37, 0.08);
-        }
-        
-        /* Smooth Custom Scrollbar removal */
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-        
-        html { scroll-behavior: smooth; }
-
-        /* Premium Glassmorphism Card Style */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px border rgba(255, 255, 255, 0.5);
+            transition: background-color 0.5s ease;
         }
 
-        /* Ambient Spinning / Falling Coffee Beans Animation */
-        @keyframes float-particle {
-            0% {
-                transform: translateY(-10vh) translateX(0) rotate(0deg) scale(0.8);
-                opacity: 0;
-            }
-            15% {
-                opacity: 0.15;
-            }
-            85% {
-                opacity: 0.15;
-            }
-            100% {
-                transform: translateY(110vh) translateX(30px) rotate(360deg) scale(1.1);
-                opacity: 0;
-            }
-        }
-        .ambient-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+        /* Premium Dynamic Glow Background */
+        .bg-glow {
+            position: fixed;
+            top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle at 50% 50%, rgba(56, 189, 248, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 40%);
+            animation: pulseGlow 15s infinite alternate linear;
+            z-index: -2;
             pointer-events: none;
-            overflow: hidden;
-            z-index: 1;
+            transition: background 0.5s ease;
+        }
+
+        @keyframes pulseGlow {
+            0% { transform: rotate(0deg) scale(1); }
+            100% { transform: rotate(10deg) scale(1.1); }
+        }
+
+        /* Glassmorphism Utilities */
+        .glass {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+        .glass-dark {
+            background: rgba(20, 20, 20, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .glass-portal {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        /* 3D Ambient Particles */
+        #particle-container {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: -1; overflow: hidden;
         }
         .particle {
             position: absolute;
-            top: -50px;
-            pointer-events: none;
-            animation: float-particle linear infinite;
+            opacity: 0.6;
+            animation: fall linear infinite, spin linear infinite;
+        }
+        @keyframes fall {
+            0% { transform: translateY(-10vh); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(110vh); opacity: 0; }
+        }
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
         }
 
-        /* Modal bottom sheet dynamics */
-        .modal-active {
-            opacity: 1 !important;
-            pointer-events: auto !important;
-        }
-        .modal-sheet {
-            transform: translateY(100%);
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .modal-active .modal-sheet {
-            transform: translateY(0);
-        }
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #A05C3A; border-radius: 10px; }
 
-        /* Customized options check buttons styling */
-        .custom-option-input:checked + .custom-option-label {
-            border-color: #4A3525;
-            background-color: #4A3525;
-            color: #ffffff;
-            box-shadow: 0 4px 12px rgba(74, 53, 37, 0.2);
-            transform: scale(1.02);
+        input[type="number"]::-webkit-inner-spin-button, 
+        input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+
+        /* View Transitions */
+        .view-section {
+            animation: fadeIn 0.5s ease forwards;
         }
-        .custom-option-label {
-            transition: all 0.2s ease;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
-<body>
-    <!-- App Main Simulator Frame -->
-    <div class="app-wrapper flex flex-col justify-between relative min-h-screen">
+<body class="antialiased">
+
+    <!-- Background Glows & Particles -->
+    <div class="bg-glow" id="main-glow"></div>
+    <div id="particle-container"></div>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="fixed top-20 left-1/2 transform -translate-x-1/2 z-[110] flex flex-col gap-2 w-[90%] max-w-sm pointer-events-none"></div>
+
+    <!-- ========================================== -->
+    <!-- VIEW 1: PORTAL BINTANG STORE (HUB UTAMA)   -->
+    <!-- ========================================== -->
+    <div id="view-portal" class="view-section min-h-screen flex flex-col items-center justify-center px-6 py-10">
+        <div class="text-center mb-10">
+            <div class="w-24 h-24 bg-gradient-to-tr from-blue-500 to-purple-500 rounded-3xl mx-auto flex items-center justify-center shadow-[0_0_40px_rgba(56,189,248,0.4)] mb-6 transform rotate-12 hover:rotate-0 transition duration-500">
+                <i class="fas fa-star text-white text-5xl transform -rotate-12"></i>
+            </div>
+            <h1 class="text-4xl font-bold text-white mb-3 tracking-tight">Bintang Store</h1>
+            <p class="text-gray-300 text-sm max-w-xs mx-auto leading-relaxed">Satu portal untuk semua kebutuhan healing-mu. Ngopi jalan, maraton drakor aman!</p>
+        </div>
+
+        <div class="w-full max-w-sm space-y-5">
+            <!-- Kopken Button -->
+            <button onclick="switchView('kopken')" class="w-full relative group overflow-hidden rounded-3xl glass-portal p-6 text-left transition duration-300 hover:scale-105 active:scale-95 border-l-4 border-l-kenangan-accent">
+                <div class="absolute -right-10 -top-10 w-32 h-32 bg-kenangan-primary/20 rounded-full blur-2xl group-hover:bg-kenangan-primary/40 transition duration-500"></div>
+                <div class="flex items-center gap-4 relative z-10">
+                    <div class="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center flex-shrink-0">
+                        <img src="https://i.postimg.cc/GpwttdxX/Logo-Kopi-Kenangan-Format-PNG-AI-EPS-CDR-PDF-SVG.png" alt="Kopi Kenangan" class="w-8 h-8 object-contain">
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-bold text-white mb-1">Kopi Kenangan</h2>
+                        <p class="text-xs text-gray-400">Pesan minuman & roti promo</p>
+                    </div>
+                    <i class="fas fa-chevron-right text-gray-500 ml-auto group-hover:text-white transition"></i>
+                </div>
+            </button>
+
+            <!-- Netflix Button -->
+            <button onclick="switchView('netflix')" class="w-full relative group overflow-hidden rounded-3xl glass-portal p-6 text-left transition duration-300 hover:scale-105 active:scale-95 border-l-4 border-l-netflix-primary">
+                <div class="absolute -right-10 -top-10 w-32 h-32 bg-netflix-primary/20 rounded-full blur-2xl group-hover:bg-netflix-primary/40 transition duration-500"></div>
+                <div class="flex items-center gap-4 relative z-10">
+                    <div class="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-play text-netflix-primary text-2xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-bold text-white mb-1">Netflix Premium</h2>
+                        <p class="text-xs text-gray-400">Sewa akun no limit, garansi full</p>
+                    </div>
+                    <i class="fas fa-chevron-right text-gray-500 ml-auto group-hover:text-white transition"></i>
+                </div>
+            </button>
+        </div>
         
-        <!-- Ambient Particles Canvas Container -->
-        <div class="ambient-container" id="ambient-canvas"></div>
+        <p class="mt-auto pt-10 text-[10px] text-gray-500 font-medium tracking-widest uppercase">© 2026 Bintang Store</p>
+    </div>
 
-        <!-- Content Flow -->
-        <div class="relative z-10 flex-1 pb-44">
-            <!-- Header Banner Section -->
-            <header class="bg-gradient-to-b from-brand-accent/40 to-brand-beige/20 pt-8 pb-6 px-5 text-center relative overflow-hidden border-b border-orange-100/40">
-                <div class="flex flex-col items-center justify-center relative">
-                    <!-- Inline SVG Logo (Ensuring 100% Mobile Render Guarantee) -->
-                    <div class="w-20 h-20 bg-white rounded-2xl flex items-center justify-center shadow-lg mb-4 p-2 border-2 border-brand-accent/30 animate-pulse">
-                        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
-                            <circle cx="50" cy="50" r="46" fill="#4A3525"/>
-                            <path d="M30 40c0-10 8-12 20-12s20 2 20 12c0 15-20 30-20 30S30 55 30 40z" fill="#FFF5EE"/>
-                            <path d="M42 45s3 3 8 3 8-3 8-3" stroke="#4A3525" stroke-width="4" stroke-linecap="round"/>
-                            <circle cx="42" cy="36" r="3" fill="#4A3525"/>
-                            <circle cx="58" cy="36" r="3" fill="#4A3525"/>
-                        </svg>
-                    </div>
-                    
-                    <h1 class="text-[10px] font-black text-brand-brown tracking-[0.25em] uppercase mb-1">PROMO SPESIAL</h1>
-                    <h2 class="text-2xl font-extrabold text-brand-dark tracking-wide">KOPI KENANGAN</h2>
-                    <div class="inline-flex items-center mt-3 bg-brand-brown/10 text-brand-brown text-[10px] font-black px-4 py-1.5 rounded-full border border-brand-brown/15">
-                        <i class="fa-solid fa-mug-hot mr-1.5 animate-bounce"></i> Sistem Bantu Order Praktis
-                    </div>
-                </div>
-            </header>
-
-            <!-- Sticky Horizontal Navigation Category Bars -->
-            <nav class="sticky top-0 z-30 bg-brand-beige/90 backdrop-blur-md shadow-sm border-b border-orange-100/30">
-                <div class="flex overflow-x-auto no-scrollbar py-3 px-4 gap-2" id="category-nav">
-                    <a href="#cat-bundling" class="nav-pill flex-shrink-0 bg-brand-brown text-white px-4 py-2 rounded-xl text-xs font-bold transition-all">🔥 Bundling</a>
-                    <a href="#cat-coffee" class="nav-pill flex-shrink-0 bg-white/50 text-gray-500 border border-gray-100 px-4 py-2 rounded-xl text-xs font-bold transition-all">☕ Coffee</a>
-                    <a href="#cat-noncoffee" class="nav-pill flex-shrink-0 bg-white/50 text-gray-500 border border-gray-100 px-4 py-2 rounded-xl text-xs font-bold transition-all">🍋 Non-Coffee</a>
-                    <a href="#cat-bakery" class="nav-pill flex-shrink-0 bg-white/50 text-gray-500 border border-gray-100 px-4 py-2 rounded-xl text-xs font-bold transition-all">🍞 Bakery</a>
-                </div>
-            </nav>
-
-            <!-- Catalog List Main Wrapper -->
-            <main class="p-4 space-y-6">
-                <!-- Informative Realpict Disclaimer Card -->
-                <div class="glass-card border border-amber-200/50 rounded-2xl p-4 flex gap-3 shadow-xs">
-                    <div class="text-amber-700 mt-0.5"><i class="fa-solid fa-camera text-lg"></i></div>
-                    <div>
-                        <p class="text-xs text-amber-900 font-extrabold leading-normal">
-                            Ingin Melihat Foto Asli Menu?
-                        </p>
-                        <p class="text-[11px] text-amber-800/85 mt-1 leading-relaxed font-semibold">
-                            Semua gambar menu di bawah merupakan ilustrasi logo. Untuk melihat tampilan foto real-pict aslinya, Anda bisa langsung menghubungi admin ya!
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Catalog Grid Injected Content -->
-                <div id="catalog-container" class="space-y-6">
-                    <!-- Dynamic injection of items -->
-                </div>
-            </main>
-        </div>
-
-        <!-- Floating Checkout Panel and Dynamic Form Data -->
-        <div id="cart-footer" class="fixed bottom-0 left-0 right-0 z-40 transform translate-y-full transition-transform duration-300 ease-in-out">
-            <div class="max-w-[480px] mx-auto bg-white/95 backdrop-blur-xl border-t border-gray-200 shadow-[0_-12px_30px_rgba(74,53,37,0.1)] rounded-t-3xl overflow-hidden">
-                <!-- Collapsible Header Banner -->
-                <div class="bg-brand-beige border-b border-gray-100 px-5 py-3.5 flex justify-between items-center cursor-pointer" onclick="toggleCartDrawer()">
-                    <span class="text-xs font-black text-brand-brown uppercase tracking-wider flex items-center">
-                        <i class="fa-solid fa-basket-shopping mr-2 text-sm animate-pulse"></i> Detail Keranjang Belanjaan
-                    </span>
-                    <i class="fa-solid fa-chevron-up text-brand-brown text-xs transition-transform" id="drawer-arrow"></i>
-                </div>
-
-                <!-- Expanded List Area -->
-                <div id="cart-drawer-items" class="max-h-[160px] overflow-y-auto px-5 divide-y divide-gray-100 hidden">
-                    <!-- Dynamic Cart Items Reviewed Here -->
-                </div>
-
-                <!-- Mandatory Customer Detail Forms -->
-                <div class="p-4 border-t border-gray-100 bg-brand-beige/50 space-y-3.5">
-                    <div>
-                        <label class="block text-[10px] font-black text-brand-brown uppercase tracking-wider mb-1.5 flex items-center">
-                            Nama Pemesan <span class="text-brand-red ml-0.5">*</span>
-                        </label>
-                        <input type="text" id="cust-name" oninput="validateCheckoutForm()" placeholder="Ketik nama panggilan Anda..." class="w-full bg-white border border-gray-200 rounded-xl px-3 py-2.5 text-xs font-bold focus:outline-none focus:border-brand-brown focus:ring-1 focus:ring-brand-brown shadow-xs">
-                    </div>
-                    
-                    <div class="grid grid-cols-2 gap-2">
-                        <div>
-                            <label class="block text-[10px] font-black text-brand-brown uppercase tracking-wider mb-1.5">
-                                Kota Pengambilan <span class="text-brand-red ml-0.5">*</span>
-                            </label>
-                            <select id="user-city" onchange="updateOutletDropdown(); validateCheckoutForm();" class="w-full bg-white border border-gray-200 rounded-xl px-2 py-2.5 text-xs font-bold focus:outline-none focus:border-brand-brown shadow-xs">
-                                <option value="">-- Pilih Kota --</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-[10px] font-black text-brand-brown uppercase tracking-wider mb-1.5">
-                                Nama Outlet <span class="text-brand-red ml-0.5">*</span>
-                            </label>
-                            <select id="user-outlet" onchange="validateCheckoutForm()" class="w-full bg-white border border-gray-200 rounded-xl px-2 py-2.5 text-xs font-bold focus:outline-none focus:border-brand-brown shadow-xs">
-                                <option value="">-- Pilih Outlet --</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div>
-                        <label class="block text-[10px] font-black text-brand-brown uppercase tracking-wider mb-1.5">
-                            Catatan Catatan Transaksi <span class="text-gray-400 font-normal">(Opsional)</span>
-                        </label>
-                        <input type="text" id="global-note" placeholder="Contoh: Titip pos satpam / Kirim segera..." class="w-full bg-white border border-gray-200 rounded-xl px-3 py-2.5 text-xs focus:outline-none focus:border-brand-brown focus:ring-1 focus:ring-brand-brown shadow-xs">
-                    </div>
-                </div>
-
-                <!-- Footer Summary Actions Row -->
-                <div class="p-4 flex justify-between items-center gap-4 bg-white">
-                    <div class="flex flex-col">
-                        <span class="text-[9px] text-gray-400 font-black uppercase tracking-wider">Total Pembayaran</span>
-                        <span class="text-xl font-black text-brand-brown" id="cart-total-price">Rp 0</span>
-                    </div>
-                    <button id="checkout-btn" disabled onclick="handleCheckout()" class="bg-gray-200 text-gray-400 font-black px-6 py-3.5 rounded-2xl text-xs uppercase tracking-widest flex-1 flex items-center justify-center gap-2 transition-all cursor-not-allowed shadow-md">
-                        <i class="fa-brands fa-whatsapp text-sm"></i> Kirim Ke WhatsApp
-                    </button>
-                </div>
-                
-                <!-- Minimalist Footer Signature Label (Free of Partner Claims) -->
-                <div class="text-center py-2 bg-brand-beige border-t border-gray-100">
-                    <span class="text-[9px] font-black text-gray-400 tracking-[0.25em] uppercase">Promo by Bintang</span>
+    <!-- ========================================== -->
+    <!-- VIEW 2: KOPI KENANGAN                      -->
+    <!-- ========================================== -->
+    <div id="view-kopken" class="view-section hidden text-kenangan-dark pb-32">
+        <header class="glass sticky top-0 z-40 px-4 py-3 flex items-center justify-between transition-all duration-300 shadow-sm" id="main-header">
+            <div class="flex items-center gap-3">
+                <button onclick="switchView('portal')" class="w-8 h-8 flex items-center justify-center rounded-full bg-white/50 text-kenangan-dark hover:bg-white transition">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <img src="https://i.postimg.cc/GpwttdxX/Logo-Kopi-Kenangan-Format-PNG-AI-EPS-CDR-PDF-SVG.png" alt="Logo Kopi Kenangan" class="w-9 h-9 object-contain drop-shadow-sm">
+                <div>
+                    <h1 class="font-bold text-kenangan-dark leading-tight text-md">Promo Kopi Kenangan</h1>
                 </div>
             </div>
+            <button id="cart-icon-btn" onclick="scrollToCart()" class="relative p-2 text-kenangan-dark transition-all duration-300">
+                <i class="fas fa-shopping-bag text-xl transform transition-transform duration-300" id="cart-icon"></i>
+                <span id="cart-badge" class="absolute top-0 right-0 bg-red-500 text-white text-[10px] font-bold h-4 w-4 rounded-full flex items-center justify-center hidden transition-transform duration-300">0</span>
+            </button>
+        </header>
+
+        <nav class="glass sticky top-[60px] z-30 px-4 py-2 mb-4 overflow-x-auto no-scrollbar whitespace-nowrap border-b border-white/50">
+            <div class="flex gap-2">
+                <a href="#cat-bundling" class="px-4 py-1.5 rounded-full bg-white/80 text-kenangan-dark text-sm font-semibold shadow-sm border border-white">Bundling</a>
+                <a href="#cat-coffee" class="px-4 py-1.5 rounded-full bg-white/80 text-kenangan-dark text-sm font-semibold shadow-sm border border-white">Coffee</a>
+                <a href="#cat-noncoffee" class="px-4 py-1.5 rounded-full bg-white/80 text-kenangan-dark text-sm font-semibold shadow-sm border border-white">Non-Coffee</a>
+                <a href="#cat-bakery" class="px-4 py-1.5 rounded-full bg-white/80 text-kenangan-dark text-sm font-semibold shadow-sm border border-white">Bakery</a>
+            </div>
+        </nav>
+
+        <div class="mx-4 mb-6 p-3 bg-kenangan-accent/20 border border-kenangan-accent/30 rounded-xl text-center shadow-sm">
+            <p class="text-xs text-kenangan-dark font-medium"><i class="fas fa-info-circle mr-1 text-kenangan-primary"></i> Untuk melihat foto asli produk promo, silakan langsung menghubungi admin ya!</p>
         </div>
 
-        <!-- Customization Bottom Sheet Backdrop Modal Wrapper -->
-        <div id="custom-modal" class="fixed inset-0 bg-brand-dark/70 backdrop-blur-xs z-50 opacity-0 pointer-events-none transition-opacity duration-300 flex items-end justify-center">
+        <main class="px-4 space-y-8" id="menu-container">
+            <!-- Menu categories injected via JS -->
+        </main>
+
+        <section id="checkout-section" class="mx-4 mt-10 p-5 glass rounded-2xl">
+            <h2 class="text-xl font-bold text-kenangan-dark mb-4 flex items-center gap-2">
+                <i class="fas fa-clipboard-list text-kenangan-primary"></i> Detail Pesanan
+            </h2>
+
+            <div id="cart-items-container" class="space-y-3 mb-6 max-h-60 overflow-y-auto pr-2">
+                <p class="text-sm text-gray-500 italic text-center py-4">Keranjang masih kosong.</p>
+            </div>
+
+            <div class="space-y-4 border-t border-gray-300/50 pt-4">
+                <div>
+                    <label class="block text-xs font-semibold text-kenangan-dark mb-1">Nama Pemesan <span class="text-red-500">*</span></label>
+                    <input type="text" id="cust-name" placeholder="Masukkan nama Anda" class="w-full px-3 py-2 rounded-lg bg-white/80 border border-white shadow-inner focus:outline-none focus:ring-2 focus:ring-kenangan-primary text-sm transition text-kenangan-dark" oninput="validateKopkenForm()">
+                </div>
+                
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-kenangan-dark mb-1">Kota <span class="text-red-500">*</span></label>
+                        <select id="cust-city" class="w-full px-3 py-2 rounded-lg bg-white/80 border border-white shadow-inner focus:outline-none focus:ring-2 focus:ring-kenangan-primary text-sm transition text-kenangan-dark" onchange="handleCityChange()">
+                            <option value="">Pilih Kota...</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-kenangan-dark mb-1">Outlet <span class="text-red-500">*</span></label>
+                        <select id="cust-branch" class="w-full px-3 py-2 rounded-lg bg-white/80 border border-white shadow-inner focus:outline-none focus:ring-2 focus:ring-kenangan-primary text-sm transition text-kenangan-dark" onchange="validateKopkenForm()" disabled>
+                            <option value="">Pilih Kota Dulu</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-kenangan-dark mb-1">Catatan Tambahan (Opsional)</label>
+                    <input type="text" id="cust-notes" placeholder="Misal: Titip di pos satpam" class="w-full px-3 py-2 rounded-lg bg-white/80 border border-white shadow-inner focus:outline-none focus:ring-2 focus:ring-kenangan-primary text-sm transition text-kenangan-dark">
+                </div>
+            </div>
+
+            <div class="mt-6 bg-white/60 p-4 rounded-xl shadow-sm border border-white/50">
+                <div class="flex justify-between text-sm mb-2 text-gray-700">
+                    <span>Subtotal Menu:</span>
+                    <span id="summary-subtotal">Rp 0</span>
+                </div>
+                <div id="mall-surcharge-row" class="flex justify-between text-sm mb-2 text-kenangan-primary font-medium hidden">
+                    <span>Biaya Outlet (Mall):</span>
+                    <span>+ Rp 3.000</span>
+                </div>
+                <hr class="my-2 border-gray-300">
+                <div class="flex justify-between font-bold text-lg text-kenangan-dark">
+                    <span>Total Final:</span>
+                    <span id="summary-total">Rp 0</span>
+                </div>
+                <p class="text-[10px] text-gray-500 mt-2 leading-tight text-center bg-kenangan-accent/10 p-2 rounded">
+                    *Harga pas, tidak ada biaya tambahan lagi di outlet.
+                </p>
+            </div>
+
+            <div class="mt-5 space-y-3">
+                <button id="btn-submit-tele-kopken" disabled onclick="submitOrderKopken('telegram')" class="w-full bg-gray-400 text-white font-bold py-3 rounded-xl shadow-lg transition duration-300 flex justify-center items-center gap-2 cursor-not-allowed">
+                    <i class="fas fa-bolt text-xl"></i> Pesan Otomatis (Langsung Diproses)
+                </button>
+                <button id="btn-submit-wa-kopken" disabled onclick="submitOrderKopken('whatsapp')" class="w-full bg-gray-400 text-white font-bold py-3 rounded-xl shadow-lg transition duration-300 flex justify-center items-center gap-2 cursor-not-allowed">
+                    <i class="fab fa-whatsapp text-xl"></i> Pesan via Admin (Tanya-tanya)
+                </button>
+            </div>
+        </section>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- VIEW 3: NETFLIX PREMIUM                    -->
+    <!-- ========================================== -->
+    <div id="view-netflix" class="view-section hidden text-white pb-32">
+        <header class="glass-dark sticky top-0 z-40 px-4 py-3 flex items-center gap-3 shadow-md border-b border-red-500/20">
+            <button onclick="switchView('portal')" class="w-8 h-8 flex items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <i class="fas fa-play text-netflix-primary text-2xl drop-shadow-[0_0_8px_rgba(229,9,20,0.8)]"></i>
+            <h1 class="font-bold text-lg tracking-wide">Netflix Premium</h1>
+        </header>
+
+        <main class="px-4 mt-6">
+            <div class="text-center mb-8">
+                <span class="bg-netflix-primary/20 text-netflix-primary border border-netflix-primary/50 px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase mb-3 inline-block">Termurah & Bergaransi</span>
+                <h2 class="text-2xl font-bold mb-2">Sewa Akun Private</h2>
+                <p class="text-sm text-gray-400">Mau nonton film dan serial favorit tanpa ribet dan ramah di kantong? Yuk, langsung keep paketnya sekarang!</p>
+            </div>
+
+            <!-- Features -->
+            <div class="grid grid-cols-2 gap-3 mb-8">
+                <div class="glass-dark p-3 rounded-xl border border-white/5">
+                    <i class="fas fa-user-shield text-netflix-primary mb-2 text-xl"></i>
+                    <h3 class="font-bold text-xs mb-1">Private (1 User)</h3>
+                    <p class="text-[10px] text-gray-400">1 Profil 1 User. Gak bakal tabrakan screen.</p>
+                </div>
+                <div class="glass-dark p-3 rounded-xl border border-white/5">
+                    <i class="fas fa-tv text-netflix-primary mb-2 text-xl"></i>
+                    <h3 class="font-bold text-xs mb-1">No Limit & UHD</h3>
+                    <p class="text-[10px] text-gray-400">Bisa di HP, Laptop, atau Smart TV.</p>
+                </div>
+                <div class="glass-dark p-3 rounded-xl border border-white/5">
+                    <i class="fas fa-edit text-netflix-primary mb-2 text-xl"></i>
+                    <h3 class="font-bold text-xs mb-1">Bebas Request</h3>
+                    <p class="text-[10px] text-gray-400">Bebas request nama profil dan PIN sendiri.</p>
+                </div>
+                <div class="glass-dark p-3 rounded-xl border border-white/5">
+                    <i class="fas fa-check-circle text-netflix-primary mb-2 text-xl"></i>
+                    <h3 class="font-bold text-xs mb-1">Full Garansi</h3>
+                    <p class="text-[10px] text-gray-400">Garansi penuh selama masa sewa (S&K berlaku).</p>
+                </div>
+            </div>
+
+            <!-- Pricing Form -->
+            <section class="glass-dark p-5 rounded-2xl border border-white/10 relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-netflix-primary/10 rounded-full blur-3xl -z-10"></div>
+                
+                <h3 class="text-lg font-bold mb-4 flex items-center gap-2"><i class="fas fa-shopping-cart text-netflix-primary"></i> Form Pemesanan</h3>
+
+                <div class="space-y-5">
+                    <!-- Package Selection -->
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-300 mb-2">Pilih Paket <span class="text-netflix-primary">*</span></label>
+                        <div class="grid grid-cols-1 gap-2">
+                            <label class="relative cursor-pointer">
+                                <input type="radio" name="nflx-pkg" value="7 Hari" data-price="10000" class="peer sr-only" onchange="calcNetflixTotal()">
+                                <div class="rounded-xl border border-white/10 bg-white/5 py-3 px-4 flex justify-between items-center transition-all peer-checked:border-netflix-primary peer-checked:bg-netflix-primary/10">
+                                    <span class="font-bold text-sm">Paket 7 Hari</span>
+                                    <span class="text-netflix-primary font-bold">Rp 10.000</span>
+                                </div>
+                            </label>
+                            <label class="relative cursor-pointer">
+                                <input type="radio" name="nflx-pkg" value="14 Hari" data-price="15000" class="peer sr-only" onchange="calcNetflixTotal()">
+                                <div class="rounded-xl border border-white/10 bg-white/5 py-3 px-4 flex justify-between items-center transition-all peer-checked:border-netflix-primary peer-checked:bg-netflix-primary/10">
+                                    <span class="font-bold text-sm">Paket 14 Hari</span>
+                                    <span class="text-netflix-primary font-bold">Rp 15.000</span>
+                                </div>
+                            </label>
+                            <label class="relative cursor-pointer">
+                                <input type="radio" name="nflx-pkg" value="1 Bulan" data-price="30000" class="peer sr-only" onchange="calcNetflixTotal()">
+                                <div class="rounded-xl border border-white/10 bg-white/5 py-3 px-4 flex justify-between items-center transition-all peer-checked:border-netflix-primary peer-checked:bg-netflix-primary/10">
+                                    <span class="font-bold text-sm">Paket 1 Bulan</span>
+                                    <span class="text-netflix-primary font-bold">Rp 30.000</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Inputs -->
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-300 mb-1">Nama Pemesan <span class="text-netflix-primary">*</span></label>
+                        <input type="text" id="nflx-name" placeholder="Nama Anda" class="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 focus:border-netflix-primary focus:outline-none text-sm text-white" oninput="validateNetflixForm()">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-300 mb-1">Request Nama Profil <span class="text-netflix-primary">*</span></label>
+                        <input type="text" id="nflx-profile" placeholder="Misal: Bintang (Max 8 Huruf)" class="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 focus:border-netflix-primary focus:outline-none text-sm text-white" maxlength="15" oninput="validateNetflixForm()">
+                    </div>
+
+                    <!-- T&C Box -->
+                    <div class="bg-red-900/20 border border-red-500/30 p-3 rounded-lg mt-4">
+                        <h4 class="text-[10px] font-bold text-red-400 mb-1 uppercase"><i class="fas fa-exclamation-triangle"></i> Syarat & Ketentuan Wajib</h4>
+                        <ul class="text-[10px] text-gray-300 space-y-1 list-disc pl-3">
+                            <li>Dilarang mengubah email dan password akun.</li>
+                            <li>Dilarang mengunci/mengubah PIN profil milik orang lain.</li>
+                            <li>Maksimal login dan streaming hanya di 1 perangkat bersamaan.</li>
+                            <li class="text-red-300 font-semibold">Pelanggaran S&K = Garansi Hangus / Banned.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Total & Submit -->
+                    <div class="pt-4 border-t border-white/10 flex items-center justify-between font-bold text-lg">
+                        <span>Total Bayar:</span>
+                        <span id="nflx-total" class="text-netflix-primary">Rp 0</span>
+                    </div>
+
+                    <div class="space-y-3 mt-4">
+                        <button id="btn-submit-tele-nflx" disabled onclick="submitOrderNetflix('telegram')" class="w-full bg-white/10 text-gray-400 font-bold py-3 rounded-xl transition duration-300 flex justify-center items-center gap-2 cursor-not-allowed border border-transparent">
+                            <i class="fas fa-bolt text-xl"></i> Pesan Otomatis (Proses Cepat)
+                        </button>
+                        <button id="btn-submit-wa-nflx" disabled onclick="submitOrderNetflix('whatsapp')" class="w-full bg-white/10 text-gray-400 font-bold py-3 rounded-xl transition duration-300 flex justify-center items-center gap-2 cursor-not-allowed border border-transparent">
+                            <i class="fab fa-whatsapp text-xl"></i> Pesan via Admin WA
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- GLOBAL ANIMATIONS & POPUPS                 -->
+    <!-- ========================================== -->
+
+    <!-- Fullscreen Thank You Animation -->
+    <div id="thankyou-screen" class="fixed inset-0 z-[100] bg-black/90 backdrop-blur-md flex flex-col items-center justify-center hidden opacity-0 transition-opacity duration-500">
+        <div class="text-center scale-75 opacity-0 transition-all duration-700 delay-100 flex flex-col items-center w-full px-6" id="thankyou-content">
+            <div id="thankyou-icon-wrapper" class="w-24 h-24 bg-white/10 rounded-full flex items-center justify-center mb-6">
+                <!-- Icon injected dynamically -->
+            </div>
+            <h2 id="thankyou-title" class="text-3xl font-bold text-white mb-3">Memproses...</h2>
+            <p id="thankyou-quote" class="text-gray-300 text-sm leading-relaxed italic text-center min-h-[60px]"></p>
             
-            <!-- Bottom Sheet Content Area -->
-            <div class="bg-white w-full max-w-[480px] rounded-t-3xl max-h-[85vh] flex flex-col justify-between overflow-hidden shadow-2xl modal-sheet">
-                
-                <!-- Modal Top Sticky Header -->
-                <div class="p-5 border-b border-gray-100 flex justify-between items-start shrink-0 bg-brand-beige/50">
-                    <div>
-                        <span class="bg-brand-red text-white text-[9px] font-black px-2.5 py-0.5 rounded-md uppercase tracking-wider inline-block mb-1">Kustomisasi Menu</span>
-                        <h3 id="modal-item-name" class="font-extrabold text-sm text-brand-dark leading-snug">Nama Produk</h3>
-                        <p id="modal-item-price" class="text-xs font-black text-brand-red mt-0.5">Rp 0</p>
-                    </div>
-                    <button onclick="closeCustomizationModal()" class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-gray-200 transition-colors">
-                        <i class="fa-solid fa-xmark text-sm"></i>
-                    </button>
-                </div>
+            <div class="flex gap-2 mt-6">
+                <div class="w-3 h-3 bg-white rounded-full animate-bounce" style="animation-delay: 0s;"></div>
+                <div class="w-3 h-3 bg-white rounded-full animate-bounce" style="animation-delay: 0.2s;"></div>
+                <div class="w-3 h-3 bg-white rounded-full animate-bounce" style="animation-delay: 0.4s;"></div>
+            </div>
+            <p class="text-white/40 text-[10px] mt-6 text-center">Mohon tunggu sebentar... (5 Detik)</p>
+        </div>
+    </div>
 
-                <!-- Customization Policy Disclaimer Spanduk -->
-                <div class="mx-5 mt-4 p-3 bg-amber-50/80 border border-amber-200/50 rounded-xl text-[10px] text-amber-900 leading-relaxed font-bold">
-                    ⚠️ *Opsi kustomisasi tambahan ini dibuat agar barista mengetahui racikan resep yang Anda inginkan. Biaya kustomisasi tambahan dihitung dan disesuaikan murni mengikuti struk resmi mesin kasir outlet Kopi Kenangan.*
-                </div>
-
-                <!-- Modal Scrollable Recipe Forms -->
-                <div class="p-5 overflow-y-auto space-y-6 flex-1 text-xs" id="customizer-options-area">
-                    <!-- Injectable Options -->
-                </div>
-
-                <!-- Modal Bottom Checkout Action Row -->
-                <div class="p-4 border-t border-gray-100 flex items-center gap-4 bg-gray-50 shrink-0">
-                    <!-- Qty Stepper Counter -->
-                    <div class="flex items-center bg-white border border-gray-200 rounded-xl overflow-hidden shadow-xs">
-                        <button onclick="changeModalQty(-1)" class="w-11 h-11 flex items-center justify-center text-gray-500 hover:bg-gray-100 transition-colors font-bold text-lg">-</button>
-                        <span id="modal-item-qty" class="w-8 text-center font-black text-brand-dark">1</span>
-                        <button onclick="changeModalQty(1)" class="w-11 h-11 flex items-center justify-center text-brand-brown hover:bg-gray-100 transition-colors font-bold text-lg">+</button>
-                    </div>
-                    
-                    <!-- Submit Cart Addition button -->
-                    <button onclick="saveItemToCart()" class="flex-1 bg-brand-brown hover:bg-brand-dark text-white font-black py-3.5 px-5 rounded-2xl text-xs uppercase tracking-wider transition-colors shadow-md flex justify-center items-center">
-                        Masukkan Ke Keranjang
-                    </button>
-                </div>
+    <!-- Payment Popup (Telegram Only) -->
+    <div id="payment-popup" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[120] hidden opacity-0 transition-opacity duration-300 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-6 max-w-sm w-full text-center shadow-2xl transform scale-95 transition-transform duration-300" id="payment-popup-content">
+            <div class="w-16 h-16 bg-blue-100 text-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-check-circle text-4xl"></i>
+            </div>
+            <h3 class="font-bold text-2xl text-gray-800 mb-2">Pesanan Diterima!</h3>
+            <p class="text-sm text-gray-600 mb-6 leading-relaxed">Sistem telah meneruskan pesanan otomatis Anda ke layar Admin kami. <br><br><b class="text-red-500 bg-red-50 px-2 py-1 rounded">Namun pesanan ini BELUM DIBAYAR!</b><br><br>Silakan segera konfirmasi admin via WA untuk meminta nomor rekening/QRIS pembayaran. Pesanan baru aktif setelah lunas ya! ✨</p>
+            <div class="space-y-3">
+                <a href="https://wa.me/6285959633342?text=Halo%20Admin,%20saya%20sudah%20pesan%20via%20sistem%20web.%20Tolong%20dicek%20dan%20minta%20QRIS/Rekening%20pembayarannya%20ya!" target="_blank" class="w-full flex justify-center items-center gap-2 bg-green-500 hover:bg-green-600 text-white font-bold py-3 rounded-xl shadow-md active:scale-95 transition">
+                    <i class="fab fa-whatsapp text-lg"></i> Konfirmasi Bayar ke WA
+                </a>
+                <button onclick="closePaymentPopup()" class="w-full bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold py-3 rounded-xl shadow-md active:scale-95 transition">Tutup Dulu</button>
             </div>
         </div>
+    </div>
 
+    <!-- KOPKEN Modal Overlay (Bottom Sheet Fixed) -->
+    <div id="modal-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[200] hidden opacity-0 transition-opacity duration-300" onclick="closeModal(event)">
+        <div id="modal-content" class="absolute bottom-0 left-0 right-0 mx-auto w-full max-w-md bg-white rounded-t-3xl shadow-[0_-10px_40px_rgba(0,0,0,0.2)] transform translate-y-full transition-transform duration-300 max-h-[85vh] flex flex-col text-kenangan-dark pb-6" onclick="event.stopPropagation()">
+            <!-- Handle Garis Atas -->
+            <div class="w-full flex justify-center pt-4 pb-2 cursor-pointer" onclick="closeModal(event)">
+                <div class="w-12 h-1.5 bg-gray-300 rounded-full"></div>
+            </div>
+            
+            <div class="px-5 pb-3 flex justify-between items-start border-b border-gray-100 shrink-0">
+                <div>
+                    <h3 id="modal-title" class="font-bold text-lg leading-tight">Nama Menu</h3>
+                    <p id="modal-price" class="text-kenangan-primary font-semibold mt-1">Rp 0</p>
+                </div>
+                <button onclick="closeModal(event)" class="w-8 h-8 bg-gray-100 rounded-full flex justify-center items-center text-gray-500 flex-shrink-0 hover:bg-gray-200 active:scale-90 transition">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <!-- Area scroll untuk Opsi Menu -->
+            <div id="modal-options-container" class="px-5 py-4 overflow-y-auto flex-grow space-y-4"></div>
+
+            <div class="p-4 border-t border-gray-100 bg-gray-50 shrink-0">
+                <button onclick="addToCartFromModal()" class="w-full bg-kenangan-dark hover:bg-[#1a0f07] text-white font-bold py-3.5 rounded-xl shadow-md active:scale-95 transition flex justify-between px-5 items-center">
+                    <span>Simpan ke Keranjang</span>
+                    <span id="modal-btn-price" class="bg-white/20 px-2 py-1 rounded text-sm">Rp 0</span>
+                </button>
+            </div>
+        </div>
     </div>
 
     <script>
-        // High quality inline SVG data URI base representation for stable loading
-        const EMBEDDED_LOGO = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="%234A3525"/><path d="M30 40c0-10 8-12 20-12s20 2 20 12c0 15-20 30-20 30S30 55 30 40z" fill="%23FFF5EE"/><path d="M42 45s3 3 8 3 8-3 8-3" stroke="%234A3525" stroke-width="4" stroke-linecap="round"/><circle cx="42" cy="36" r="3" fill="%234A3525"/><circle cx="58" cy="36" r="3" fill="%234A3525"/></svg>`;
+        // ==========================================
+        // KONFIGURASI GLOBAL & BOT API
+        // ==========================================
+        const botToken = "8765196047:AAGSnN7VoGnXxQK5rl5459ifGqBVE3EKsWo";
+        const chatId = "6731058601";
+        const waNumber = "6285959633342";
 
-        // Dynamic 2-tier cascading data outlets mapping
-        const listKotaSemua = ["Jakarta", "Tangerang", "Sidoarjo", "Semarang", "Bandung", "Sumedang", "Solo", "Bogor", "Karawang", "Lampung", "Makassar", "Palembang", "Bekasi", "Surabaya", "Yogyakarta", "Gresik", "Depok", "Cirebon", "Banten", "Batu", "Purwakarta", "Cilegon", "Malang", "Medan"];
+        const formatRp = (num) => 'Rp ' + parseInt(num).toLocaleString('id-ID');
 
-        const outletData = {
-            "Jakarta": [
-                "Menara Standart Chartered", "Setiabudi One", "Kota Kasablanka", "Grand Indonesia (L&C)", "Plaza Oleos (HANA)", 
-                "Capital Place", "Skyline Building", "Graha CIMB Niaga", "Sahid Sudirman", "Cibubur Junction", 
-                "Pasaraya Blok M", "Summitmas Tower", "Plaza Festival", "Baywalk Mall Pluit", "Menara Jamsostek", 
-                "Lotte Mart Fatmawati", "City Plaza Jatinegara", "Gandaria City", "Mall Taman Anggrek", "Citywalk Gajah Mada (L&C)", 
-                "ITC Cempaka Mas", "ITC Mangga Dua", "Plaza Indonesia", "Smartfren Sabang", "Mall Ciputra Jakarta", 
-                "Lippo Mall Puri (2)", "NEO SOHO (L&C)", "Grab Kitchen Cengkareng", "UOB Plaza", "Citra Towers Kemayoran", 
-                "Cilandak Town Square", "Lokasari Square", "Plaza Senayan", "Ruko PIK", "Artha Graha", 
-                "Shell Antasari", "RS. Polri", "Thamrin City", "SPBU Arta Gading", "Menara Digitaraya", 
-                "One Bell Park Cinere", "Ruko Cempaka Putih", "Ruko Rawamangun (Jl. Paus)", "Cik Ditiro Menteng (Container)", "Lotte Grosir Kelapa Gading", 
-                "Plaza Kuningan", "Shell Cipinang", "Plaza Kalibata", "Ruko Lebak Bulus", "Food Hub Cyber Tower 2", 
-                "Metro Park Residence", "Ruko Metro Pondok Indah", "Senayan Park", "FX Mall Sudirman", "BP Meruya (Container)", 
-                "Superindo M. Kahfi (Container)", "Ruko Cipayung", "SPBU Pertamina COCO S Parman", "RDTX Tower (HANA)", "Tempo Scan Tower", 
-                "Menara Karya", "Electronic City", "Mayapada Hospital", "Lippo Mall Puri", "Pejaten Village", 
-                "Kyai Maja", "Mall Kelapa Gading 3", "Thamrin Residence (HANA)", "Wisma KEIAI", "Mall @BASSURA CITY", 
-                "Sopo Del Tower", "Kelapa Gading Barat (HANA)", "Lippo Plaza Kramat Jati", "AEON Mall Jakarta Garden City", "Pusat Grosir Cililitan", 
-                "Central Park", "Emporium Pluit", "Blok M Plaza", "Mall Metro Cipulir", "La Codefin Kemang", 
-                "The Vida Kebon Jeruk", "Grab Kitchen Fatmawati", "Grab Kitchen Tendean", "Padang Merdeka Kota Tua", "Grab Kitchen Kramat", 
-                "Ruko Tanjung Duren", "Gedung Aurum Container", "Tamini Square", "Wisma BNI 46", "Grab Kitchen Tomang", 
-                "Grab Kitchen Pasar Minggu", "Bidakara", "Shell Pasar Minggu", "Shell Gunung Sahari", "RS. Saint Carolus", 
-                "The Crest West Vista", "SPBU Jalan Supomo", "Ruko Jalan Bek. Murad", "Mandiri Lounge Senayan City", "Mall Artha Gading", 
-                "Ruko MOI", "Shell Kedoya (Container)", "Green Terrace Mall", "Ruko Rawa Belong", "Ruko Cideng", 
-                "Point Square", "Ruko Jalan Tebet Raya", "Ruko Radio Dalam", "Ruko Citra 6", "Ruko Taman Mutiara Palem", 
-                "Plaza Bintaro Satoe (Superindo)", "SPBU Pertamina COCO Lenteng Agung", "Cibis Tower 9", "Generali Tower", "Naga Swalayan Ciracas", 
-                "Equity Tower (HANA)", "Plaza Semanggi", "Mangkuluhur City (HANA)", "Lotte Avenue", "Plaza Atrium", 
-                "Kalibata City", "Mall Ambasador", "Citywalk Sudirman", "Tempo Pavilion 1", "Pondok Indah Mall 2 (L&C)", 
-                "Food Centrum Sunter", "Pacific Place", "Green Pramuka Square", "Sudirman Park", "Smartfren Plaza BII", 
-                "Pluit Village", "Epicentrum Walk", "Transmart Cempaka Putih", "Season City", "Grab Kitchen Kelapa Gading", 
-                "Grab Kitchen Kemayoran", "Grab Kitchen Pluit", "BP Jamsostek", "Lippo Mall Kemang", "Grand Cakung Mall", 
-                "Raffles Square Juanda Jakarta", "Gojek Kitchen Cilandak", "Transmart Cilandak", "JB Tower", "Mangga Dua Square", 
-                "Teras Benhil", "Ratu Plaza", "SPBU Jalan Panjang", "Gedung GKBI", "City Plaza Wisma Mulia", 
-                "Mall Graha Cijantung", "SOHO Pancoran", "Pancoran China Town", "Pasar Pagi Mangga Dua", "Grab Kitchen Pahlawan Revolusi", 
-                "Shell Ciputat 1 (Container)", "Alamanda Tower", "Shell Semper Koja (Container)", "Ruko Citra 7", "Mal Cipinang Indah", 
-                "LA Terrace", "Menara Tendean Office", "Green Sedayu Mall", "Mall Matahari Daan Mogot"
-            ],
-            "Bandung": [
-                "Bandung Indah Plaza", "Festival Citylink Bandung", "Istana Plaza", "Grab Kitchen Bandung Tubis", "Grab Kitchen Moh.Ramdan Bandung", 
-                "Transmart Buah Batu Square Bandung", "Ruko Paskal", "Miko Mall", "Ubertos", "Limijati Container (Riau Bandung)", 
-                "Bursa Efek Bandung", "Paris Van Java", "Metro Indah Mall", "Ruko Jalan Setia Budi", "Ruko Surya Sumantri", 
-                "Cihampelas Walk", "Electronic Center", "Toserba Yogya (Pahlawan)", "Toserba Yogya (Ciumbuleuit)", "Braga City Walk", 
-                "Toserba Yogya (Sunda)", "Ruko Buah Batu", "Ramayana Mal Padalarang", "Ruko Cibaduyut"
-            ],
-            "Tangerang": [
-                "Summarecon Mall Serpong", "Giant Supermarket Bintaro", "The Breeze", "Lotte Mart Bintaro", "Aeon Mall BSD", 
-                "Paramount BSD", "BP Metland", "Bintaro Jaya Exchange", "TerasKota", "Transpark Bintaro", 
-                "Ruko UIN", "Mall Balekota Tangerang", "CBD Ciledug", "Padang Merdeka Bintaro", "Living Plaza Pamulang", 
-                "Bandara Soekarno Hatta Terminal 2D", "Living World Alam Sutera", "AEON BSD (Food Court)", "Garuda HQ", "Supermall Karawaci", 
-                "Bintaro Plaza", "Shell Serpong", "Shell Pamulang", "BP Ciater Pamulang", "Ruko Tangerang City", 
-                "Ruko Cipondoh", "Ruko Palem Semi Karawaci", "RS Medika BSD", "Mall Ciputra Citraraya", "Giant Ekspres Pondok Cabe Gaplek", 
-                "BP BSD Delatinos", "Grab Kitchen Pondok Aren", "Grab Kitchen Karawaci", "Giant Supermarket BSD", "Living Plaza Bintaro", 
-                "Shell Suwarna Cengkareng", "City Plaza Kotabumi", "Shell Puspitek", "Tangerang City Mall", "Giant Supermarket Rempoa", 
-                "Ruko Azores", "Ruko Daan Mogot", "Padang Merdeka Bez Serpong", "Summarecon Digital Center (SDC Serpong)", "Ruko Curug", 
-                "SPBU DODO Pertamina Cirendeu Raya", "Serpong Paradise Walk"
-            ],
-            "Bogor": [
-                "Botani Square Mall", "Lippo Plaza Ekalokasari", "Transmart Yasmin Bogor", "Bogor Trade Mall", "Mall Boxies 123", 
-                "Ruko Legenda Wisata", "Ruko Kota Wisata", "Lotte Grosir Pakansari", "SPBU Cibogo", "Cibinong City Mall", 
-                "Toserba Yogya (Grand Dramaga)", "Metland Cileungsi", "Aeon Mall Sentul City", "Plaza Jambu Dua", "Superindo Limus Pratama", 
-                "SPBU Pertamina COCO Mayor Oking Cibinong (Container)"
-            ],
-            "Yogyakarta": [
-                "Hartono Mall Jogja", "Jogya City Mall", "Galeria Mall", "Sleman City Hall", "Lippo Plaza Jogja", 
-                "Malioboro Mall", "Ramai Malioboro", "Wisma Hartono", "Ruko Jalan Seturan", "Ruko Malioboro 39"
-            ]
-        };
+        // ==========================================
+        // SISTEM VIEW SWITCHER (SPA ROUTER)
+        // ==========================================
+        function switchView(target) {
+            // Sembunyikan semua
+            document.getElementById('view-portal').classList.add('hidden');
+            document.getElementById('view-kopken').classList.add('hidden');
+            document.getElementById('view-netflix').classList.add('hidden');
 
-        // Static categorization and products database conforming to PRD 1.5
-        const categories = [
-            { id: "bundling", title: "🔥 Paket Bundling Hemat", anchor: "cat-bundling", type: "bundling" },
-            { id: "coffee", title: "☕ Coffee & Oatside Series", anchor: "cat-coffee", type: "drink" },
-            { id: "noncoffee", title: "🍋 Fresh Non-Coffee Series", anchor: "cat-noncoffee", type: "drink" },
-            { id: "bakery", title: "🍞 Kenangan Toast & Bakery", anchor: "cat-bakery", type: "food" }
-        ];
+            // Tampilkan target
+            document.getElementById(`view-${target}`).classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
 
-        const products = [
-            // BUNDLING PACKS (Wajib milih resep variasi)
-            { 
-                id: "bnd1", 
-                category: "bundling", 
-                name: "Paket Hemat 40K (10 Pilihan Combo Makanan + Minuman)", 
-                priceBefore: 60000, 
-                priceAfter: 40000, 
-                isDrink: false,
-                isBundle: true,
-                combos: [
-                    "Combo 1: Kopi Kenangan Mantan (R) + Salt Bread Original",
-                    "Combo 2: Kopi Kenangan Mantan (R) + Salt Bread Beef and Cheese",
-                    "Combo 3: Oatside Latte (R) + Butter Croissant",
-                    "Combo 4: Latte (R) + Bambang Choco Cheese Toast",
-                    "Combo 5: Americano (R) + Wahyu Sapi Toast",
-                    "Combo 6: Spanish Latte (R) + Adam Ayam Toast",
-                    "Combo 7: OG Thai Tea (R) + Chocolate Croissant",
-                    "Combo 8: Matcha Latte (R) + Salt Bread Original",
-                    "Combo 9: Milo Dinosaurus (R) + Butter Croissant",
-                    "Combo 10: Lemon Black Tea (R) + Salt Bread Original"
-                ]
-            },
-            { 
-                id: "bnd2", 
-                category: "bundling", 
-                name: "Bundling Bertiga 38K (3 Cup Regular)", 
-                priceBefore: 75000, 
-                priceAfter: 38000, 
-                isDrink: false,
-                isBundle: true,
-                combos: [
-                    "Paket 3 Cup Regular Spanish Latte",
-                    "Paket 3 Cup Regular Tiramisu Latte",
-                    "Paket 3 Cup Regular Kopi Kenangan Mantan",
-                    "Paket 3 Cup Large Kopi Kenangan Mantan"
-                ]
-            },
-            { 
-                id: "bnd3", 
-                category: "bundling", 
-                name: "Puas Banget Mix Large 33K (2 Cup Large)", 
-                priceBefore: 50000, 
-                priceAfter: 33000, 
-                isDrink: false,
-                isBundle: true,
-                combos: [
-                    "Paket 2 Cup Large Kopi Kenangan Mantan",
-                    "Paket 2 Cup Large Spanish Latte",
-                    "Paket Kombinasi: 1 Large Kopi Kenangan Mantan + 1 Large OG Thai Tea",
-                    "Paket Kombinasi: 1 Large Latte + 1 Large Milo Dinosaurus",
-                    "Paket Custom Mix Varian Large (Tulis detail rasa di catatan)"
-                ]
-            },
-            
-            // COFFEE
-            { id: "cof1", category: "coffee", name: "Kopi Kenangan Mantan (R)", priceBefore: 25000, priceAfter: 14500, isDrink: true },
-            { id: "cof2", category: "coffee", name: "Oatside Latte (R)", priceBefore: 25000, priceAfter: 16500, isDrink: true },
-            { id: "cof3", category: "coffee", name: "Oatside Kopi Kenangan Mantan (R)", priceBefore: 22000, priceAfter: 20000, isDrink: true },
-            { id: "cof4", category: "coffee", name: "Latte (R)", priceBefore: 29000, priceAfter: 15000, isDrink: true },
-            { id: "cof5", category: "coffee", name: "Americano (R)", priceBefore: 22000, priceAfter: 13500, isDrink: true },
-            { id: "cof6", category: "coffee", name: "Spanish Latte (R)", priceBefore: 19000, priceAfter: 13500, isDrink: true },
-            { id: "cof7", category: "coffee", name: "Mocha Caramel (R)", priceBefore: 26000, priceAfter: 17000, isDrink: true },
+            const body = document.body;
+            const glow = document.getElementById('main-glow');
 
-            // FRESH NON-COFFEE
-            { id: "non1", category: "noncoffee", name: "OG Thai Tea (R)", priceBefore: 19000, priceAfter: 13500, isDrink: true },
-            { id: "non2", category: "noncoffee", name: "Matcha Latte (R)", priceBefore: 25000, priceAfter: 16500, isDrink: true },
-            { id: "non3", category: "noncoffee", name: "Milo Dinosaurus (R)", priceBefore: 30000, priceAfter: 16000, isDrink: true },
-            { id: "non4", category: "noncoffee", name: "Susu Grass Jelly (R)", priceBefore: 24000, priceAfter: 16000, isDrink: true },
-            { id: "non5", category: "noncoffee", name: "Oreo Shake (R)", priceBefore: 26000, priceAfter: 17000, isDrink: true },
-            { id: "non6", category: "noncoffee", name: "Dutch Chocolate (R)", priceBefore: 36000, priceAfter: 17000, isDrink: true },
-            { id: "non7", category: "noncoffee", name: "Raspberry Hibiscus (R)", priceBefore: 20000, priceAfter: 14000, isDrink: true },
-            { id: "non8", category: "noncoffee", name: "Fresh Lemonade (R)", priceBefore: 17000, priceAfter: 13500, isDrink: true },
-            { id: "non9", category: "noncoffee", name: "Lemon Black Tea (R)", priceBefore: 17000, priceAfter: 12500, isDrink: true },
-
-            // TOAST & BAKERY
-            { id: "bak1", category: "bakery", name: "Salt Bread Original", priceBefore: 12000, priceAfter: 10500, isDrink: false },
-            { id: "bak2", category: "bakery", name: "Salt Bread Beef & Cheese", priceBefore: 15000, priceAfter: 11000, isDrink: false },
-            { id: "bak3", category: "bakery", name: "Butter Croissant", priceBefore: 15000, priceAfter: 11500, isDrink: false },
-            { id: "bak4", category: "bakery", name: "Bambang Choco Cheese Toast", priceBefore: 17000, priceAfter: 12500, isDrink: false },
-            { id: "bak5", category: "bakery", name: "Wahyu Sapi Toast", priceBefore: 19000, priceAfter: 13500, isDrink: false },
-            { id: "bak6", category: "bakery", name: "Adam Ayam Toast", priceBefore: 19000, priceAfter: 13500, isDrink: false },
-            { id: "bak7", category: "bakery", name: "Chocolate Croissant", priceBefore: 19000, priceAfter: 13500, isDrink: false },
-            { id: "bak8", category: "bakery", name: "Sandwich Smoked Beef & Cheese", priceBefore: 22000, priceAfter: 15000, isDrink: false },
-            { id: "bak9", category: "bakery", name: "Sandwich Chicken Tartar", priceBefore: 22000, priceAfter: 15000, isDrink: false }
-        ];
-
-        // Global State variables
-        let cart = [];
-        let currentlyEditingProduct = null;
-        let currentModalQty = 1;
-        let cartDrawerOpen = false;
-
-        // Rupiah Formatter Helper
-        const formatRp = (amount) => {
-            return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(amount);
-        };
-
-        function createAmbientParticles() {
-            const canvas = document.getElementById('ambient-canvas');
-            const icons = ['fa-seedling', 'fa-cubes', 'fa-leaf'];
-            const particleCount = 14;
-
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle text-brand-brown/15';
-                
-                const randomIcon = icons[Math.floor(Math.random() * icons.length)];
-                particle.innerHTML = `<i class="fa-solid ${randomIcon}"></i>`;
-                
-                particle.style.left = `${Math.random() * 100}%`;
-                particle.style.animationDuration = `${12 + Math.random() * 15}s`;
-                particle.style.animationDelay = `${Math.random() * -20}s`;
-                particle.style.fontSize = `${16 + Math.random() * 14}px`;
-                
-                canvas.appendChild(particle);
+            if (target === 'portal') {
+                body.style.backgroundColor = '#0F172A';
+                glow.style.background = 'radial-gradient(circle at 50% 50%, rgba(56, 189, 248, 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 40%)';
+                document.getElementById('particle-container').innerHTML = ''; // Clear particles
+            } 
+            else if (target === 'kopken') {
+                body.style.backgroundColor = '#F9F1E7';
+                glow.style.background = 'radial-gradient(circle at 50% 50%, rgba(232, 163, 89, 0.15) 0%, rgba(249, 241, 231, 0) 50%), radial-gradient(circle at 80% 20%, rgba(160, 92, 58, 0.1) 0%, rgba(249, 241, 231, 0) 40%)';
+                initKopkenParticles();
+            } 
+            else if (target === 'netflix') {
+                body.style.backgroundColor = '#141414';
+                glow.style.background = 'radial-gradient(circle at 50% 50%, rgba(229, 9, 20, 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(0, 0, 0, 0.1) 0%, transparent 40%)';
+                document.getElementById('particle-container').innerHTML = ''; // Clear particles
             }
         }
 
-        function renderCatalog() {
-            const catalogContainer = document.getElementById('catalog-container');
-            let htmlContent = '';
-
-            categories.forEach(cat => {
-                const categoryProducts = products.filter(p => p.category === cat.id);
-                if (categoryProducts.length === 0) return;
-
-                htmlContent += `
-                    <div id="${cat.anchor}" class="mb-8 pt-4 scroll-mt-20">
-                        <div class="flex items-center mb-4">
-                            <h3 class="text-xs font-black text-brand-brown uppercase tracking-wider">${cat.title}</h3>
-                            <div class="flex-grow h-px bg-brand-brown/15 ml-3"></div>
-                        </div>
-                        <div class="grid grid-cols-1 gap-3.5">
-                `;
-
-                categoryProducts.forEach(prod => {
-                    htmlContent += `
-                        <div onclick="openCustomizationModal('${prod.id}')" class="bg-white/70 rounded-2xl p-3.5 flex gap-3.5 shadow-sm border border-orange-100/30 hover:border-brand-brown/30 hover:shadow-md transition-all duration-300 cursor-pointer active:scale-[0.98] relative overflow-hidden">
-                            <!-- Image container -->
-                            <div class="w-16 h-16 flex-shrink-0 bg-brand-accent/25 rounded-xl overflow-hidden relative flex items-center justify-center border border-brand-accent/40 shadow-inner">
-                                <img src="${EMBEDDED_LOGO}" alt="Logo Kopi Kenangan" class="w-10 h-10 object-contain">
-                                <div class="absolute top-0 left-0 bg-brand-red text-white text-[8px] font-black px-1.5 py-0.5 rounded-br-lg uppercase tracking-wider shadow-xs">
-                                    PROMO
-                                </div>
-                            </div>
-                            
-                            <!-- Info container -->
-                            <div class="flex-grow flex flex-col justify-between py-0.5">
-                                <div>
-                                    <h4 class="text-xs font-bold text-brand-dark leading-snug line-clamp-2">${prod.name}</h4>
-                                    <div class="mt-1 flex items-baseline gap-1.5">
-                                        <span class="text-[10px] text-gray-400 line-through decoration-gray-300">${formatRp(prod.priceBefore)}</span>
-                                        <span class="text-xs font-black text-brand-red">${formatRp(prod.priceAfter)}</span>
-                                    </div>
-                                </div>
-                                <div class="flex justify-end mt-1">
-                                    <span class="inline-flex items-center bg-brand-accent/40 text-brand-brown text-[9px] font-black px-3 py-1 rounded-lg border border-brand-brown/10">
-                                        PILIH <i class="fa-solid fa-plus ml-1.5 text-[8px]"></i>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                });
-
-                htmlContent += `</div></div>`;
+        // ==========================================
+        // LOGIKA TOAST & ANIMASI GLOBAL
+        // ==========================================
+        function showToast(message) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'bg-gray-900/95 backdrop-blur-md text-white px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-3 transform transition-all duration-500 translate-y-[-30px] opacity-0 border border-white/10 z-[200]';
+            toast.innerHTML = `<div class="bg-green-500/20 text-green-400 p-2 rounded-full flex-shrink-0 w-8 h-8 flex items-center justify-center"><i class="fas fa-check"></i></div> <p class="text-sm font-medium leading-tight">${message}</p>`;
+            
+            container.appendChild(toast);
+            requestAnimationFrame(() => {
+                toast.classList.remove('translate-y-[-30px]', 'opacity-0');
+                toast.classList.add('translate-y-0', 'opacity-100');
             });
-
-            catalogContainer.innerHTML = htmlContent;
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-[-30px]', 'opacity-0');
+                setTimeout(() => toast.remove(), 500);
+            }, 3000);
         }
 
-        function populateCities() {
-            const citySelect = document.getElementById('user-city');
-            listKotaSemua.sort().forEach(kota => {
-                let opt = document.createElement('option');
-                opt.value = kota;
-                opt.textContent = kota;
+        function showFullscreenLoader(type, isWaRedirect, waUrl) {
+            const screen = document.getElementById('thankyou-screen');
+            const content = document.getElementById('thankyou-content');
+            const quoteEl = document.getElementById('thankyou-quote');
+            const titleEl = document.getElementById('thankyou-title');
+            const iconWrap = document.getElementById('thankyou-icon-wrapper');
+
+            let quotes = [];
+            if (type === 'kopken') {
+                iconWrap.innerHTML = '<i class="fas fa-coffee text-5xl text-kenangan-accent animate-bounce"></i>';
+                iconWrap.className = "w-24 h-24 bg-white/10 rounded-full flex items-center justify-center mb-6 shadow-[0_0_40px_rgba(232,163,89,0.4)]";
+                titleEl.textContent = "Pesanan Dirangkai!";
+                quotes = [
+                    "Beli kopi buat begadang,<br>Jangan lupa bayar pakai uang.<br>Terima kasih sudah datang,<br>Pesananmu segera direkap sayang! ☕",
+                    "Pergi ke pasar beli melati,<br>Pulangnya beli Kenangan Mantan.<br>Pesananmu sudah kami dapati,<br>Siap meluncur ke tujuan! 🚀",
+                    "Jalan-jalan ke Cileunyi,<br>Jangan lupa mampir ngopi.<br>Pesananmu diproses di sini,<br>Sistem beralih bentar lagi! ✨"
+                ];
+            } else if (type === 'netflix') {
+                iconWrap.innerHTML = '<i class="fas fa-play text-5xl text-netflix-primary animate-pulse"></i>';
+                iconWrap.className = "w-24 h-24 bg-white/10 rounded-full flex items-center justify-center mb-6 shadow-[0_0_40px_rgba(229,9,20,0.4)]";
+                titleEl.textContent = "Menyiapkan Akun...";
+                quotes = [
+                    "Siapin cemilan dan posisi pewe,<br>Akun Netflix kamu lagi diproses nih! 🍿",
+                    "Udah tau mau maraton drakor apa hari ini?<br>Tunggu bentar ya, admin lagi siapin profilnya! 🎬",
+                    "Mantan boleh ngilang, tapi langganan Netflix pantang tumbang. Sistem memproses pesananmu! ✨"
+                ];
+            }
+
+            quoteEl.innerHTML = quotes[Math.floor(Math.random() * quotes.length)];
+
+            screen.classList.remove('hidden');
+            setTimeout(() => screen.classList.remove('opacity-0'), 10);
+            
+            setTimeout(() => {
+                content.classList.remove('scale-75', 'opacity-0');
+                content.classList.add('scale-100', 'opacity-100');
+            }, 100);
+
+            // Tunggu 5 Detik
+            setTimeout(() => {
+                if (isWaRedirect) {
+                    window.open(waUrl, '_blank');
+                } else {
+                    showPaymentPopup();
+                }
+
+                setTimeout(() => {
+                    screen.classList.add('opacity-0');
+                    content.classList.remove('scale-100', 'opacity-100');
+                    content.classList.add('scale-75', 'opacity-0');
+                    setTimeout(() => screen.classList.add('hidden'), 500);
+                }, 1000);
+            }, 5000);
+        }
+
+        function showPaymentPopup() {
+            const popup = document.getElementById('payment-popup');
+            const popupContent = document.getElementById('payment-popup-content');
+            popup.classList.remove('hidden');
+            setTimeout(() => {
+                popup.classList.remove('opacity-0');
+                popupContent.classList.remove('scale-95');
+                popupContent.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closePaymentPopup() {
+            const popup = document.getElementById('payment-popup');
+            const popupContent = document.getElementById('payment-popup-content');
+            popup.classList.add('opacity-0');
+            popupContent.classList.remove('scale-100');
+            popupContent.classList.add('scale-95');
+            setTimeout(() => popup.classList.add('hidden'), 300);
+        }
+
+        // ==========================================
+        // LOGIKA NETFLIX MODULE
+        // ==========================================
+        let netflixPrice = 0;
+
+        function calcNetflixTotal() {
+            const selected = document.querySelector('input[name="nflx-pkg"]:checked');
+            if(selected) {
+                netflixPrice = parseInt(selected.getAttribute('data-price'));
+                document.getElementById('nflx-total').textContent = formatRp(netflixPrice);
+            }
+            validateNetflixForm();
+        }
+
+        function validateNetflixForm() {
+            const pkg = document.querySelector('input[name="nflx-pkg"]:checked');
+            const name = document.getElementById('nflx-name').value.trim();
+            const profile = document.getElementById('nflx-profile').value.trim();
+            const btnTele = document.getElementById('btn-submit-tele-nflx');
+            const btnWa = document.getElementById('btn-submit-wa-nflx');
+
+            if (pkg && name.length > 1 && profile.length > 0) {
+                // Aktifkan Tele
+                btnTele.disabled = false;
+                btnTele.className = "w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl shadow-lg shadow-blue-900/50 transition duration-300 flex justify-center items-center gap-2 active:scale-95 border border-blue-500";
+                // Aktifkan WA
+                btnWa.disabled = false;
+                btnWa.className = "w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-xl shadow-lg shadow-green-900/50 transition duration-300 flex justify-center items-center gap-2 active:scale-95 border border-green-500";
+            } else {
+                // Nonaktifkan
+                btnTele.disabled = true;
+                btnTele.className = "w-full bg-white/10 text-gray-500 font-bold py-3 rounded-xl transition duration-300 flex justify-center items-center gap-2 cursor-not-allowed border border-transparent";
+                btnWa.disabled = true;
+                btnWa.className = "w-full bg-white/10 text-gray-500 font-bold py-3 rounded-xl transition duration-300 flex justify-center items-center gap-2 cursor-not-allowed border border-transparent";
+            }
+        }
+
+        function submitOrderNetflix(method) {
+            const pkgValue = document.querySelector('input[name="nflx-pkg"]:checked').value;
+            const name = document.getElementById('nflx-name').value.trim();
+            const profile = document.getElementById('nflx-profile').value.trim();
+            
+            const message = `🍿 *ORDER NETFLIX PREMIUM* 🍿
+--------------------------------------------------
+Nama Pemesan: ${name}
+Paket Sewa: ${pkgValue} (Private 1 User)
+Request Nama Profil: "${profile}"
+--------------------------------------------------
+Total Tagihan: ${formatRp(netflixPrice)}
+
+Mohon dibantu proses aktivasi akun dan tagihan QRIS/Rekeningnya ya min!`;
+
+            const encodedMessage = encodeURIComponent(message);
+
+            if (method === 'telegram') {
+                const urlAPI = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodedMessage}`;
+                
+                // Loading UI Button
+                const btn = document.getElementById('btn-submit-tele-nflx');
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin text-xl"></i> Memproses...';
+                btn.disabled = true;
+
+                fetch(urlAPI)
+                    .then(res => {
+                        if(res.ok) {
+                            showFullscreenLoader('netflix', false, '');
+                            // Reset Form
+                            document.getElementById('nflx-name').value = '';
+                            document.getElementById('nflx-profile').value = '';
+                            document.querySelector('input[name="nflx-pkg"]:checked').checked = false;
+                            document.getElementById('nflx-total').textContent = 'Rp 0';
+                            netflixPrice = 0;
+                        } else {
+                            showToast("Gagal kirim ke bot, silakan gunakan opsi WA.");
+                        }
+                    })
+                    .catch(err => showToast("Koneksi error, gunakan opsi WA."))
+                    .finally(() => {
+                        btn.innerHTML = '<i class="fas fa-bolt text-xl"></i> Pesan Otomatis (Proses Cepat)';
+                        validateNetflixForm();
+                    });
+
+            } else if (method === 'whatsapp') {
+                const waUrl = `https://wa.me/${waNumber}?text=${encodedMessage}`;
+                showFullscreenLoader('netflix', true, waUrl);
+            }
+        }
+
+        // ==========================================
+        // LOGIKA KOPI KENANGAN MODULE 
+        // ==========================================
+        const rawOutlets = [
+            "Jakarta|Menara Standart Chartered,Setiabudi One,Kota Kasablanka,Tempo Scan Tower,Menara Karya,Grand Indonesia,Capital Place,Skyline Building,Graha CIMB Niaga,Electronic City,Mayapada Hospital,Lippo Mall Puri,Pejaten Village,Kyai Maja,Lotte Avenue,Plaza Atrium,Kalibata City,Mall Ambasador,Citywalk Sudirman,Sahid Sudirman,Cibubur Junction,Pasaraya Blok M,Summitmas Tower,Plaza Festival,Mall Kelapa Gading 3,Wisma KEIAI,Mall @BASSURA CITY,Sopo Del Tower,Tempo Pavilion 1,Pondok Indah Mall 2,Food Centrum Sunter,Pacific Place,Green Pramuka Square,Baywalk Mall Pluit,Menara Jamsostek,Lotte Mart Fatmawati,City Plaza Jatinegara,Gandaria City,Lippo Plaza Kramat Jati,AEON Mall Jakarta Garden City,Pusat Grosir Cililitan,Central Park,Sudirman Park,Pluit Village,Epicentrum Walk,Transmart Cempaka Putih,Mall Taman Anggrek,Citywalk Gajah Mada,ITC Cempaka Mas,ITC Mangga Dua,Plaza Indonesia,Emporium Pluit,Blok M Plaza,Mall Metro Cipulir,La Codefin Kemang,The Vida Kebon Jeruk,Mall Ciputra Jakarta,Lippo Mall Puri (2),NEO SOHO,Padang Merdeka Kota Tua,Season City,BP Jamsostek,Citra Towers Kemayoran,Cilandak Town Square,Lokasari Square,Plaza Senayan,Gedung Aurum,Tamini Square,Wisma BNI 46,Lippo Mall Kemang,Grand Cakung Mall,Raffles Square Juanda,Transmart Cilandak,Ruko PIK,Artha Graha,RS. Polri,Thamrin City,Bidakara,Shell Pasar Minggu,Shell Gunung Sahari,RS. Saint Carolus,The Crest West Vista,JB Tower,Mangga Dua Square,Teras Benhil,Ratu Plaza,SPBU Jalan Panjang,SPBU Arta Gading,Menara Digitaraya,One Bell Park Cinere,Ruko Rawamangun,SPBU Jalan Supomo,Ruko Jalan Bek. Murad,Ruko Cempaka Putih,Ruko Tanjung Duren,Ruko Cideng,Pasar Pagi Mangga Dua,Shell Ciputat 1,Alamanda Tower,Shell Semper Koja,Ruko Lebak Bulus,Food Hub Cyber Tower 2,Metro Park Residence,Cik Ditiro Menteng,Mall Artha Gading,Ruko MOI,Gedung GKBI,City Plaza Wisma Mulia,SOHO Pancoran,Pancoran China Town,Ruko Taman Mutiara Palem,LA Terrace,Menara Tendean Office,Green Sedayu Mall,FX Mall Sudirman,BP Meruya,Superindo M. Kahfi,SPBU Pertamina (Kapten Tendean),SPBU Pertamina (S. Parman),SPBU Pertamina (Kalimalang Duren Sawit),SPBU Pertamina (Gandaria Pasar Rebo),SPBU Pertamina (Lenteng Agung),Ruko Pulogadung Trade Center,SPBU Pertamina (M. Kahfi II),SPBU Pertamina (Taman Surya),SPBU Pertamina (Kamal Muara),SPBU Pertamina (Jembatan Tiga),SPBU Pertamina (Radjiman Cakung),SPBU Pertamina (Panjang Kelapa Dua),SPBU Pertamina (Palmerah Utara),SPBU Pertamina (Petukangan),Palmerah,SPBU DODO (Raya Condet),SPBU DODO (Raden Inten),SPBU Pertamina (Pasar Minggu),SPBU Pertamina (Gatot Subroto),SPBU Pertamina (Pulo Gebang),SPBU Pertamina (Gedong Panjang),Pusat Mode Tanah Abang,SPBU Pertamina (Tongkol),Rumah Kenangan,Ruko Elang Laut,Ruko Joglo,SPBU Meruya Utara,Ruko Duta Mas Jelambar,Ruko Muara Karang,RS Pelni,SPBU Hayam Wuruk,Ruko Boulevard Kelapa Gading,Ruko Kramat Jaya Koja,RS Husada,Ruko Bendungan Hilir,Stasiun Gambir Selatan,Stasiun Mangga Besar,Stasiun Palmerah,Stasiun Jakarta Kota,Stasiun Duri,Lotte Shopping Avenue (Lower Ground),Central Grand Indonesia 2nd Floor,Taman Ismail Marzuki,Pusat Jantung Nasional Harapan Kita,Food Court PIM 1,Point Square,Cipete Raya,Intiland Tower,RS Yarsi,Mampang,Ruko Kalisari,SPBU Jagakarsa,Ruko Pisangan,Stasiun Senen,Ruko Dewi Sartika,Kemayoran (DT),Ruko Greenville,Thamrine Nine,Blok M Plaza (LG),Epicentrum Walk,Ceger,Stasiun Klender,SPBU Minangkabau,SPBU Pondok Kopi,SPBU Letjen Suprapto,SPBU Kebayoran Lama,SPBU Perintis Kemerdekaan,SPBU Shell Hasyim Ashari,Beltway Office Park,Pasar Jaya Teluk Gong 2,Gama Tower,Rumah Sakit Jakarta,Cilangkap,Ruko Johar Baru,Pusdiklat Depnaker,SPBU Sunter Kemayoran,Menara Imperium,Ruko Sedayu City,Grapari Telkomsel Mall Sarinah,Ruko Bukit Duri Tebet,Ruko Malaka Sari,The Park Pejaten,Ruko Karang Tengah Lebak Bulus,Ruko Sunset Avenue Citra 8,RSCM Gedung Kirana,Ruko Pecenongan",
+            "Bogor|Botani Square Mall,Lippo Plaza Ekalokasari,Transmart Yasmin Bogor,Bogor Trade Mall,Mall Boxies 123,Lotte Grosir Pakansari,Ruko Kota Wisata,SPBU Cibogo,Ruko Gadog Ciawi,Super Indo Pajajaran Bogor,Ruko Pasirkuda Ciomas,Ruko Cisarua Puncak,SPBU Mayor Oking Cibinong,SPBU Cikaret Cibinong,Superindo Limus Pratama,SPBU Pajajaran Bogor,SPBU Kedung Halang,Ruko Pomad,Ruko Pandu Raya Bogor,Cibinong City Mall,Toserba Yogya (Grand Dramaga),Metland Cileungsi,Ruko Cileungsi,Ruko Legenda Wisata,Ruko Sukahati Cibinong,Ruko Pondok Rajeg,SPBU Jampang Parung,Ruko Parung,Rest Area KM 21 Jagorawi,Stasiun Bogor,Stasiun Cilebut,Stasiun Parung Panjang,SPBU BP Alternatif Sentul,Rancamaya Bogor,Cilendek Bogor,Ruko Babakan Madang Bogor,Living World Kota Wisata,Millennium City",
+            "Depok|Pesona Square Depok,DMall Depok,Trans Studio Mall Cibubur,Mall Cinere,Lippo Cinere,Giant Supermarket Bojong Sari,Giant Supermarket Cimanggis,SPBU Buperta Cibubur,Ruko Margonda,Ruko Waterpark Grand Depok City,Transmart Depok,Ruko Sawangan Depok,SPBU Margonda Raya,SPBU Gas Alam,Ruko Gandul,SPBU Kartini,SPBU Limo Raya,SPBU Juanda Depok,SPBU Sawangan Baru,Ruko Kelapa Dua Depok,Apotek Roxy Nusantara Depok,The Park Sawangan,Ruko Kejayaan Depok,Ruko Tapos Pekapuran,Ruko Citayam Centre,Alfamidi Abdul Ghani Cilodong,FMIPA UI,Agung Podomoro Golf View Cimanggis,M Kahfi,SPBU Leuwinanggung,Ruko Mekarsari,Ruko Perumahan Jatijajar",
+            "Tangerang|Summarecon Mall Serpong,Giant Supermarket Bintaro,The Breeze,Lotte Mart Bintaro,Aeon Mall BSD,Living World Alam Sutera,Garuda HQ,Supermall Karawaci,Bintaro Jaya Exchange,Teras Kota,Transpark Bintaro,Shell Serpong,Living Plaza Bintaro,BP Metland,Ruko Tangerang City,BP BSD Delatinos,Shell Suwarna Cengkareng,City Plaza Kotabumi,Shell Puspitek,Tangerang City Mall,Giant Supermarket Rempoa,BP Ciater Pamulang,SPBU Citra Raya Tangerang,SPBU Pasar Kemis,SPBU MH Thamrin Serpong,SPBU Alam Sutera,SPBU Cikupa,Ruko Menjangan,Alfamidi Stasiun Pondok Ranji,Ruko Graha Raya,Ruko Puri Beta,SPBU Tigaraksa,SPBU Jatake,Ruko Sepatan,Ruko Balaraja,Ruko Harapan Kita Karawaci,Serpong Paradise Walk,Ruko UIN,Mall Balekota Tangerang,CBD Ciledug,Ruko Poris,SPBU Duta Garden,SPBU Modernland,SPBU Puspitek,Ruko Cordoba Green Lake City,Ruko Karang Tengah,Ruko Surya Kencana Pamulang,Padang Merdeka Bez Serpong,Summarecon Digital Center (SDC Serpong),Ruko Curug,SPBU DODO Pertamina (Cirendeu Raya),SPBU Pertamina DODO (Curug),Living Plaza Pamulang,Ruko Daan Mogot,Ruko Cipondoh,Ruko Azores,Ruko Bandara Mas,Marchand Hype Station,Ruko Moh Toha Tangerang,Alfamidi Teluk Naga,Ruko Ceger,Ruko Gading Serpong,Ruko Bandara City Mall Tangerang,Stasiun Tangerang,Tokyo Hub Pantai Indah Kapuk 2,Grand Batavia,Ruko Madison Grande,Ruko Barcelona BSD,Taman Royal Cipondoh,Ruko Jatiuwung Tangerang,Telaga Bestari,EF Gading Serpong,U Town Bintaro,Fakultas Kedokteran UPH,BP Legok",
+            "Bekasi|Transmart Juanda Bekasi,Mall Lippo Cikarang,Revo Town,Mega Bekasi Hypermall,Metropolitan Mall Bekasi,Blu Plaza,Mall Ciputra Cibubur,BP KHI Boulevard,Transmart Transyogi Cibubur,BP Jababeka Hollywood,Living World Plaza Jababeka,District 1 Meikarta,Ruko Grand Kota Bintang,Ruko Bintara,Deltamas,Dapur Kitchen Bekasi,Dukuh Zamrud,SPBU Jatiwarna,SPBU Menjangan Jababeka II,Ruko Mangunjaya Tambun,Ruko Grand Wisata Bekasi,Grand Icon Caman,Ruko Kemang Pratama,Ruko Gading Terrace,Naga Swalayan Hankam,Naga Swalayan Pekayon,Citrus Department Store,Plasa Cibubur,Living Plaza Kota Harapan Indah,Plaza Pondok Gede,SPBU Bulak Kapal,SPBU Cibitung Bekasi,Ruko Cikarang Utara,Super Indo Cerewed Bekasi,Ruko Candrabaga Pd. Ungu,Ruko Jatimakmur,Ruko RA Kartini Bekasi,Ruko Boulevard Hijau Bekasi,Ruko Perumnas 3 Bekasi,Naga Swalayan Wisma Asri,SPBU Pengasinan,SPBU Rawalumbu,Ruko Kaliabang,Ruko Topaz Summarecon Bekasi,RS Primaya Bekasi Utara,AEON Mall Deltamas,Pasar Kota Pondok Gede,Ruko Hankam Jatiwarna,Jaticempaka Kota Bekasi,Cibubur (Drive Thru),Ruko Cikarang Festival,Ruko Karangasih Cikarang Utara,Ruko Vasanta Innopark",
+            "Bandung & Cimahi|Paris Van Java,Cihampelas Walk,Bandung Indah Plaza,Festival Citylink,Istana Plaza,Ubertos,Limijati Container,Bursa Efek Bandung,Metro Indah Mall,Toserba Yogya (Pahlawan),Toserba Yogya (Ciumbuleuit),Braga City Walk,Toserba Yogya (Sunda),Transmart Buah Batu Square,Bandung Electronic Center,Ruko Paskal,Ruko Setia Budi,Ruko Cibaduyut,Ruko Buah Batu,Ruko Surya Sumantri,Miko Mall,Ruko Margacinta,Yogya Grand Kepatihan,Ruko Padasuka Cimahi,Ruko Taman Kopo Indah 2,Ruko Ketapang Soreang,SPBU 34.40502 Kota Cimahi,RSUP Dr Hasan Sadikin Bandung,Summarecon Mall Bandung Island,Graha POS RE Martadinata,Ruko Gading Tutuka Soreang,Ruko Antapani,Ruko Rancaekek,SPBU 34.40316 Baleendah,SPBU 34.40338 Banjaran,SPBU 34.40310 Cibiru,SPBU 34.40314 Cicalengka,Stasiun KCJB Padalarang,Ruko Batununggal,Djunjunan Pasteur Bandung",
+            "Surabaya|Tunjungan Plaza 3,Grand City Surabaya,Lenmarc Mall,Graha Pena,City Of Tomorrow,Surabaya Town Square,BP Kertajaya Indah,BP Pemuda,BP Margorejo,Transmart Rungkut,Pakuwon Mall,Ciputra World Surabaya,WTC Surabaya,BG Junction,Galaxy Mall 3,East Coast Centre Mall,Lagoon Avenue Sungkono,Royal Plaza Surabaya,Shell Dupak,SPBU Panjang Jiwo,SPBU Ngagel,SPBU Kenjeran,Ruko Mulyosari,Ruko Ngagel,Ruko G Walk,Ruko Rungkut Madya,Ruko Wiyung,Ruko Ketintang,Kupang Jaya,Adityawarman Surabaya,Fairway Nine,The Square Surabaya,SPBU Jemusari,SPBU Sutorejo,Stasiun Gubeng,Stasiun Pasar Turi,Ruko Dharmahusada,Ruko Avenue A-6 (MERR),Rs. PHC Surabaya,Ruko Manukan,Ruko Iskandar Muda,BP Embong Malang",
+            "Semarang|Paragon Mall Semarang,DP Mall,Transmart Majapahit,Stasiun Tawang,SIM Square,Rest Area KM 429,Queen City Semarang,Tentrem Mall Semarang,SPBU Pamularsih,Ruko Kedungmundu,Ruko Ngaliyan,Jl. Majapahit No. 324,Ruko Banyumanik,SPBU Kaliwiru,Gedung KAI Veteran,Ruko Tlogosari,Mall Ciputra Semarang,Ruko A. Yani Ungaran",
+            "Yogyakarta|Hartono Mall Jogja,Jogya City Mall,Galeria Mall,Sleman City Hall,Lippo Plaza Jogja,Malioboro Mall,Wisma Hartono,Ramai Malioboro,Ruko Seturan,Super Indo Parangtritis,Ruko Taman Siswa,Ruko Kaliurang,Alfamidi Super Kaliurang KM 9,RSUP Dr. Sardjito,Pakuwon Jogja",
+            "Solo & Sekitarnya|Solo Paragon,Hartono Mall Solo,Solo Square,The Park Mall Solo,Super Indo Ronggowarsito,Ruko Harlin Solo,Alfamidi Adi Sucipto Solo,Stasiun Solo Balapan,SPBU Jonggrangan Klaten,Metro Swalayan Klaten,Ruko Pemuda Klaten",
+            "Medan & Sekitarnya|Sun Plaza,Deli Park,Medan Fair,Thamrin Plaza,Binjai Supermall,Manhattan Time Square,Irian Supermarket Marelan,Suzuya Plaza Marelan,Suzuya Plaza Binjai,Suzuya Plaza Tamora,Singapore Station Brig. Katamso,Singapore Station 2 Adam Malik,SPBU H. Anif Cemara Asri,Ruko Iskandar Muda,Ruko Komplek OCBC,SPBU Pertamina (AR Hakim),SPBU Pertamina (Helvetia),SPBU Pertamina (Sisingamangaraja),SPBU Batang Kuis,SPBU Selayang Utama,Cambridge City Store,Ruko JCity Square,Ruko Katamso,Ruko M. Yamin,Ruko Jl. Krakatau,Gatot Subroto Medan (Drive Thru),SPBU Tembung,SPBU Lubuk Pakam,SPBU Semayang,SPBU Sunggal,SPBU Lau Chỉ,Ruko Helvetia,Ruko Brayan,SPBU Amplas,Ruko Setiabudi,Ruko Sultan Hasanuddin Binjai,SPBU Kebun Lada Binjai,Ruko Ahmad Yani Rantau Prapat,Suzuya Rantau Prapat Mall,Ruko MH Thamrin Tebing Tinggi,Ruko Merci,SPBU Tanjung Morawa,SPBU Laut Dendang,RSU Mitra Sejati,Multatuli",
+            "Makassar|Trans Studio Mall Makassar,Phinisi Point,Nipah Mall,Panakkukang Mall,Panakkukang Square,Mall Ratu Indah,Makassar Town Square,Ruko A. Yani,Ruko Alauddin,Ruko Perintis,Ruko Citraland Celebes,SPBU Andalas,SPBU Perintis,Ruko Cendrawasih,Ruko Bawakareeng,Ruko Tamangapa,Ruko Landak,SPBU Pangayoman,Ruko Pallangga Gowa",
+            "Bali|Sidewalk Jimbaran,Ruko Teuku Umar,Ruko By Pass Ngurah Rai,Ruko Sesetan,Ruko Batubulan,Ruko Dewi Sri,Ruko Gatot Subroto Barat,Ruko Canggu Raya,Ruko Padang Luwih,Level 21 Mall,Discovery Mall Bali",
+            "Palembang|Palembang Icon,Opi Mall,Palembang Indah Mall,Dermaga Point,Ruko Palembang Trade Center,Ruko Lemabang,Kenten Food Market,Singapore Station M. Isa,Super Indo Basilica,Ruko Plaju,Social Market Palembang,Ruko Demang",
+            "Balikpapan|E Walk Balikpapan,Pentacity,Plaza Bunsay,Ruko Jl. MT Haryono,Ruko Mulawarman,Ruko Ahmad Yani,Ruko Soekarno Hatta,Ruko Ruhui Rahayu,Ruko Manggar,Ruko MT Haryono 2",
+            "Samarinda|Samarinda Central Plaza,Big Mall Samarinda,Ruko Merak,Ruko Bung Tomo,Ruko M Yamin,SPBU Slamet Riyadi,SPBU Kesuma Bangsa,Ruko Alaya,Ruko Ir H Juanda,SPBU Jl. Urip Sumoharjo",
+            "Batam|Grand Batam Mall,Panbil Mall,Batam City Square,Megamall Batam,Ruko Palm Spring,Ruko Tiban,Botania,Ruko Greenland Batam Center,Ruko Nagoya Hill",
+            "Pekanbaru|Mall SKA Pekanbaru,Ruko Sudirman,Ruko Sudirman Awal Bros,Living World Pekanbaru,Ruko Jl. Riau,Ruko Hang Tuah Ujung,Ruko Gobah,Ruko Panam",
+            "Lampung|City Plaza Ramayana Lampung,Transmart Lampung,Ruko Antasari,Ruko Ahmad Yani,Ruko Chandra Pringsewu,Ruko Kemiling,Metro Lampung,Ruko Chandra Teluk Betung,Ruko Tanjung Karang,ZA Pagar Alam Kedaton",
+            "Cirebon|Cirebon Super Block,Shell Cirebon,Toserba Yogya (Cherbon Junction),Grage Mall,Ruko Perjuangan,Ruko Kota Ciledug,RSD Gunung Jati,RS Mitra Plumbon,Rest Area Km 207A,Rest Area 228A",
+            "Malang & Batu|Malang Town Square,Lippo Plaza Batu,Dinoyo Mall Malang,Malang City Point,Ruko Jalan Soekarno Hatta,Transmart MX Mall,Stand Alone Ijen,Ruko Sarinah,SPBU Plaosan Blimbing,Ruko Kawi",
+            "Karawang|Resinda Park Mall,BP Karawang Barat,Rest Area KM 62B,Toserba Yogya (Karawang),Rest Area KM 57,Shell Galuhmas,Ruko Mall Cikampek,SPBU Teluk Jambe,Ruko Juanda Cikampek,SPBU Wadas,Ruko Syeh Quro,Ruko Telagasari Kosambi,Ruko Kondangjaya,Karawang Central Plaza",
+            "Sidoarjo|Suncity Sidoarjo,Transmart Sidoarjo,Rest Area KM 754,SPBU Gedangan,SPBU Waru,SPBU Juanda,SPBU Jenggolo,SPBU Tropodo,SPBU Gelam,Ruko Citra Harmoni,Ruko Pondokjati,RSUD Sidoarjo,Rest Area Km 753",
+            "Gresik|Icon Mall Gresik,Rest Area KM 726,SPBU Gresik,Super Indo Greenland,Ruko Gresik Kota Baru,Rest Area 725A",
+            "Cilegon & Serang|Cilegon Centre Mall,Mall of Serang,Transmart Cilegon,Ruko Serang,SPBU Benggala Yumaga Serang,Ruko Citraland Puri Serang",
+            "Purwakarta|BP Rest Area KM 72,Rest Area KM 88A Cipularang,Ruko Veteran,Ruko Bungursari",
+            "Banjarmasin & Banjar Baru|Duta Mall Banjarmasin,Q Mall Banjarbaru,Citraland Banjarmasin,Ruko Brigjen Hasan Basri,Ruko Gatot Subroto,Ruko Pangeran Hidayatullah,Hypermart Kertak Hanyar,SPBU COCO Pasar Kemuning",
+            "Manado|Manado Town Square,Transmart Kawanua,Ruko Sam Ratulangi,Kawasan Megamas,Ruko Yos Sudarso Paal Dua,Ruko Sudirman,Ruko Bahu,SPBU Sario",
+            "Padang|Basko Grand Mall,Ruko Proklamasi,Ruko Arau,Ruko Gajah Mada,Ruko Sutomo,Stasiun Tabing,SPBU Khatib Sulaeman",
+            "Jambi|WTC Batanghari,SPBU Samsat Gajah Mada,Ruko Selincah,Ruko Beringin,Sipin Jambi (Drive Thru),Jambi Prima Mall",
+            "Pontianak|Hypermart Ayani Megamal,Ruko Komplek Serdam,Ruko Dr. Wahidin,Ruko Sultan Abdurrahman",
+            "Aceh|Ruko Nyak Makam,SPBU Lamnyong,Ruko Panglima Polem",
+            "Tasikmalaya|Plaza Asia,SPBU Rancabango,Ruko Martadinata,Ruko Singaparna",
+            "Banyumas & Purwokerto|Rita Supermall Purwokerto,Ruko Bunyamin,Ruko Suharso,SPBU Karanglewas,Alfamidi Wahid Hasyim,Ruko Sokaraja",
+            "Jember|Roxy Square Jember,Ruko Sumbersari,Telkom Jember",
+            "Banyuwangi|Roxy Banyuwangi,Ruko Genteng,Ruko Rogojampi",
+            "Madiun|Ruko Cokroaminoto,SPBU Panjaitan,Plaza Madiun",
+            "Kediri|Ruko Hayam Wuruk,Ruko Wachid Hasyim",
+            "Pasuruan|SPBU Beji,Rest Area KM 66 B,Rest Area KM 66 A,Ruko Taman Dayu Pandaan,SPBU Lawang",
+            "Salatiga|SPBU Veteran Salatiga,Ruko Kartini,Ruko Kaloka Patimura,SPBU Tingkir",
+            "Magelang|Pakelan Magelang,SPBU Baledono,Ruko Muntilan,Armada Town Square",
+            "Tegal|Pacific Mall Tegal,Ruko Citraland Tegal",
+            "Pekalongan|Plaza Pekalongan,SPBU Baros",
+            "Cilacap|Ruko Ahmad Yani,Alfamidi Limbangan",
+            "Pematang Siantar|Ruko Pematang Siantar,SPBU A. Yani,Ruko Megaland",
+            "Sukabumi|Yogya Sukabumi,Ruko Graha Siliwangi",
+            "Kendari|Lippo Plaza Kendari,Ruko Edi Sabara,Ruko Anduonohu,Ruko Rabam",
+            "Subang|SPBU Rawa Badak,Ruko Otista",
+            "Sumedang|Jatinangor Town Square,SPBU Ciromed",
+            "Brebes|Rest Area 260B",
+            "Ngawi|Rest Area Km 575",
+            "Batang|Rest Area 360B,Rest Area Km 379A",
+            "Garut|Ruko IBC Garut",
+            "Mojokerto|Sunrise Mall Mojokerto"
+        ];
+        const cityData = {};
+        rawOutlets.forEach(line => {
+            const parts = line.split('|');
+            const city = parts[0];
+            const branches = parts[1].split(',').sort();
+            cityData[city] = branches;
+        });
+
+        const menuData = [
+            // BUNDLING (Latar Cokelat Gelap)
+            { id: 'b1', cat: 'bundling', name: 'Paket Hemat 40K', old: 60000, new: 40000, type: 'bundling', img: 'https://placehold.co/400x400/2C1A0D/F9F1E7?text=Paket+Hemat&font=Montserrat', opts: [
+                'Combo 1 (Kopi Mantan R + Salt Bread Ori)', 
+                'Combo 2 (Latte R + Butter Croissant)', 
+                'Combo 3 (Spanish Latte R + Choco Toast)', 
+                'Combo 4 (Americano R + Sapi Toast)', 
+                'Combo 5 (Thai Tea R + Salt Bread Beef)', 
+                'Combo 6 (Matcha Latte R + Ayam Toast)', 
+                'Combo 7 (Milo R + Choco Croissant)', 
+                'Combo 8 (Mocha Caramel R + Salt Bread Ori)', 
+                'Combo 9 (Oatside Latte R + Butter Croissant)', 
+                'Combo 10 (Lemon Tea R + Sapi Toast)'
+            ], placeholderNote: 'Misal: Kak, rotinya dipisah aja, takut disemutin kayak janji manisnya.' },
+            { id: 'b2', cat: 'bundling', name: 'Bundling Bertiga 38K', old: 75000, new: 38000, type: 'bundling', img: 'https://placehold.co/400x400/2C1A0D/F9F1E7?text=Bertiga+38K&font=Montserrat', opts: ['3 Cup Reg Spanish Latte', '3 Cup Reg Tiramisu Latte', '3 Cup Reg Kopi Mantan', '3 Cup Lrg Kopi Mantan'], placeholderNote: 'Misal: Tulisin di cup-nya: Semangat bestie, cowok di bumi masih banyak!' },
+            { id: 'b3', cat: 'bundling', name: 'Puas Banget Mix Large', old: 50000, new: 33000, type: 'bundling', img: 'https://placehold.co/400x400/2C1A0D/F9F1E7?text=Mix+Large&font=Montserrat', opts: ['2 Cup Lrg Mantan', '2 Cup Lrg Spanish Latte', '1 Lrg Mantan + 1 Lrg Thai Tea', '1 Lrg Latte + 1 Lrg Milo', 'Custom Mix Varian Large'], placeholderNote: 'Misal: Puasin ngopinya, biar kuat ngadepin revisian dari dosen.' },
+            
+            // COFFEE & OATSIDE (Latar Karamel Gelap)
+            { id: 'c1', cat: 'coffee', name: 'Kopi Kenangan Mantan (R)', old: 25000, new: 14500, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Kopi+Mantan&font=Montserrat', placeholderNote: 'Misal: Manisnya tolong dibikin pas, jangan terlalu manis kayak omongan dia di awal.' },
+            { id: 'c2', cat: 'coffee', name: 'Oatside Latte (R)', old: 25000, new: 16500, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Oatside+Latte&font=Montserrat', placeholderNote: 'Misal: Biar dompet tipis, yang penting ngopi oatside tetep eksis.' },
+            { id: 'c3', cat: 'coffee', name: 'Oatside Kopi Mantan (R)', old: 22000, new: 20000, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Oatside+Mantan&font=Montserrat', placeholderNote: 'Misal: Mantan yang ini vegan friendly dan gak bikin sakit hati.' },
+            { id: 'c4', cat: 'coffee', name: 'Latte (R)', old: 29000, new: 15000, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Latte&font=Montserrat', placeholderNote: 'Misal: Latte-in aja perasaanku ke kamu, gapapa...' },
+            { id: 'c5', cat: 'coffee', name: 'Americano (R)', old: 22000, new: 13500, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Americano&font=Montserrat', placeholderNote: 'Misal: Hitam dan pahit aja kak, sekelam masa depanku tanpanya.' },
+            { id: 'c6', cat: 'coffee', name: 'Spanish Latte (R)', old: 19000, new: 13500, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Spanish+Latte&font=Montserrat', placeholderNote: 'Misal: Hola! Tolong di-adjust senikmat senyuman dia ya kak.' },
+            { id: 'c7', cat: 'coffee', name: 'Mocha Caramel (R)', old: 26000, new: 17000, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Mocha+Caramel&font=Montserrat', placeholderNote: 'Misal: Caramelnya dibanyakin dong, hidup ini udah terlalu pahit.' },
+
+            // NON COFFEE (Latar Karamel Terang)
+            { id: 'n1', cat: 'noncoffee', name: 'OG Thai Tea (R)', old: 19000, new: 13500, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=Thai+Tea&font=Montserrat', placeholderNote: 'Misal: Sawatdee kha! Bikin seger kayak baru gajian dong kak.' },
+            { id: 'n2', cat: 'noncoffee', name: 'Matcha Latte (R)', old: 25000, new: 16500, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=Matcha+Latte&font=Montserrat', placeholderNote: 'Misal: Matcha-nin aja terus sampe dia peka.' },
+            { id: 'n3', cat: 'noncoffee', name: 'Milo Dinosaurus (R)', old: 30000, new: 16000, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=Milo&font=Montserrat', placeholderNote: 'Misal: Biar kuat ngadepin kenyataan yang gedenya sedinosaurus.' },
+            { id: 'n4', cat: 'noncoffee', name: 'Susu Grass Jelly (R)', old: 24000, new: 16000, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=Grass+Jelly&font=Montserrat', placeholderNote: 'Misal: Kenyal-kenyal gemes kayak pipi ayang pas lagi ngambek.' },
+            { id: 'n5', cat: 'noncoffee', name: 'Oreo Shake (R)', old: 26000, new: 17000, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=Oreo+Shake&font=Montserrat', placeholderNote: 'Misal: Diputar, dijilat, dicelupin... terus ditinggalin.' },
+            { id: 'n6', cat: 'noncoffee', name: 'Dutch Chocolate (R)', old: 36000, new: 17000, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=Dutch+Choco&font=Montserrat', placeholderNote: 'Misal: Coklatnya yang premium ya kak, se-premium rinduku padanya.' },
+            { id: 'n7', cat: 'noncoffee', name: 'Raspberry Hibiscus (R)', old: 20000, new: 14000, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=Raspberry&font=Montserrat', placeholderNote: 'Misal: Asam manis seger, kayak drakor percintaan masa SMA.' },
+            { id: 'n8', cat: 'noncoffee', name: 'Fresh Lemonade (R)', old: 17000, new: 13500, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=Lemonade&font=Montserrat', placeholderNote: 'Misal: Extra es dong, biar sedingin sikapnya ke aku sekarang.' },
+            { id: 'n9', cat: 'noncoffee', name: 'Lemon Black Tea (R)', old: 17000, new: 12500, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=Lemon+Tea&font=Montserrat', placeholderNote: 'Misal: Tehnya pekat, lemonnya nendang, persis rasa cemburuku ke dia.' },
+
+            // BAKERY (Latar Krem Terang)
+            { id: 'f1', cat: 'bakery', name: 'Salt Bread Original', old: 12000, new: 10500, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Salt+Bread&font=Montserrat', placeholderNote: 'Misal: Asin gurih... mirip air mataku habis diputusin.' },
+            { id: 'f2', cat: 'bakery', name: 'Salt Bread Beef Cheese', old: 15000, new: 11000, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Salt+Bread+Beef&font=Montserrat', placeholderNote: 'Misal: Kejunya lumerin aja kak, selumer hatiku ditatap dia.' },
+            { id: 'f3', cat: 'bakery', name: 'Butter Croissant', old: 15000, new: 11500, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Croissant&font=Montserrat', placeholderNote: 'Misal: Renyah di luar, lembut di dalam, fix ini cowok tsundere.' },
+            { id: 'f4', cat: 'bakery', name: 'Bambang Choco Toast', old: 17000, new: 12500, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Choco+Toast&font=Montserrat', placeholderNote: 'Misal: Coklatnya penuhin aja, biar lupain mantannya gampang.' },
+            { id: 'f5', cat: 'bakery', name: 'Wahyu Sapi Toast', old: 19000, new: 13500, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Sapi+Toast&font=Montserrat', placeholderNote: 'Misal: Daging sapinya empuk ya, jangan kayak hatinya yang keras.' },
+            { id: 'f6', cat: 'bakery', name: 'Adam Ayam Toast', old: 19000, new: 13500, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Ayam+Toast&font=Montserrat', placeholderNote: 'Misal: Di-toast sampai garing, segaring chatku yang cuma di-read.' },
+            { id: 'f7', cat: 'bakery', name: 'Chocolate Croissant', old: 19000, new: 13500, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Choco+Croissant&font=Montserrat', placeholderNote: 'Misal: Bismillah, semoga coklatnya mengobati rasa di-ghosting.' },
+            { id: 'f8', cat: 'bakery', name: 'Sandwich Smoked Beef', old: 22000, new: 15000, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Smoked+Beef&font=Montserrat', placeholderNote: 'Misal: Daging asapnya kerasa banget, kayak kode dia ngabur.' },
+            { id: 'f9', cat: 'bakery', name: 'Sandwich Chicken Tartar', old: 22000, new: 15000, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Chicken+Tartar&font=Montserrat', placeholderNote: 'Misal: Sausnya agak banyakin, biar kisah kasihku ga kering-kering amat.' }
+        ];
+
+        let cart = [];
+        let currentModalItem = null;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initCities();
+            renderMenu();
+        });
+
+        function initKopkenParticles() {
+            const container = document.getElementById('particle-container');
+            container.innerHTML = '';
+            const icons = ['fa-coffee', 'fa-leaf', 'fa-cube'];
+            for(let i=0; i<15; i++) {
+                const particle = document.createElement('i');
+                particle.className = `fas ${icons[Math.floor(Math.random() * icons.length)]} particle text-kenangan-primary/20`;
+                particle.style.left = `${Math.random() * 100}vw`;
+                particle.style.animationDuration = `${5 + Math.random() * 10}s, ${3 + Math.random() * 5}s`;
+                particle.style.fontSize = `${10 + Math.random() * 20}px`;
+                particle.style.animationDelay = `-${Math.random() * 10}s`;
+                container.appendChild(particle);
+            }
+        }
+
+        function initCities() {
+            const citySelect = document.getElementById('cust-city');
+            const allCities = Object.keys(cityData).sort();
+            allCities.forEach(city => {
+                const opt = document.createElement('option');
+                opt.value = city;
+                opt.textContent = city;
                 citySelect.appendChild(opt);
             });
         }
 
-        function updateOutletDropdown() {
-            const citySelect = document.getElementById('user-city');
-            const outletSelect = document.getElementById('user-outlet');
-            const selectedCity = citySelect.value;
+        function renderMenu() {
+            const container = document.getElementById('menu-container');
+            const categories = [
+                { id: 'cat-bundling', title: 'Paket Bundling Hemat', filter: 'bundling' },
+                { id: 'cat-coffee', title: 'Coffee & Oatside', filter: 'coffee' },
+                { id: 'cat-noncoffee', title: 'Fresh Non-Coffee', filter: 'noncoffee' },
+                { id: 'cat-bakery', title: 'Kenangan Toast & Bakery', filter: 'bakery' }
+            ];
 
-            // Clear previous items
-            outletSelect.innerHTML = '<option value="">-- Pilih Outlet --</option>';
+            categories.forEach(c => {
+                const section = document.createElement('div');
+                section.id = c.id;
+                section.innerHTML = `<h2 class="text-xl font-bold text-kenangan-dark mb-4 drop-shadow-sm">${c.title}</h2>`;
+                
+                const grid = document.createElement('div');
+                grid.className = 'grid grid-cols-2 md:grid-cols-4 gap-4';
 
-            if (!selectedCity) return;
-
-            // If selected city has exact outlet lists in database
-            if (outletData[selectedCity] && outletData[selectedCity].length > 0) {
-                outletData[selectedCity].sort().forEach(outlet => {
-                    let opt = document.createElement('option');
-                    opt.value = outlet;
-                    opt.textContent = outlet;
-                    outletSelect.appendChild(opt);
-                });
-            } else {
-                // Sidoarjo, Gresik, Medan, Sidoarjo, etc. -> Direct fallback to WhatsApp manual identification
-                let opt = document.createElement('option');
-                opt.value = "Konfirmasi Manual via WA";
-                opt.textContent = "Hubungi Admin via WA (Konfirmasi Outlet Terdekat)";
-                outletSelect.appendChild(opt);
-            }
-        }
-
-        function openCustomizationModal(productId) {
-            const product = products.find(p => p.id === productId);
-            if (!product) return;
-
-            currentlyEditingProduct = product;
-            currentModalQty = 1;
-
-            document.getElementById('modal-item-name').textContent = product.name;
-            document.getElementById('modal-item-price').textContent = formatRp(product.priceAfter);
-            document.getElementById('modal-item-qty').textContent = currentModalQty;
-
-            const optionsArea = document.getElementById('customizer-options-area');
-            let optionsHtml = '';
-
-            // 1. IF PRODUCT IS BUNDLING PACK - FORCE BUNDLING COMBINATION SELECTION
-            if (product.isBundle && product.combos) {
-                optionsHtml += `
-                    <div class="space-y-3">
-                        <span class="block font-black text-[10px] text-brand-brown uppercase tracking-wider">Pilih Kombinasi Varian Paket *</span>
-                        <div class="grid grid-cols-1 gap-2">
-                `;
-                product.combos.forEach((comb, idx) => {
-                    optionsHtml += `
-                        <div class="relative w-full custom-chip">
-                            <input type="radio" id="bundle-combo-${idx}" name="opt-bundle" value="${comb}" ${idx === 0 ? 'checked' : ''} class="hidden custom-option-input">
-                            <label for="bundle-combo-${idx}" class="custom-option-label block py-3 px-4 border border-gray-200 rounded-xl font-bold text-xs cursor-pointer bg-gray-50/50 hover:bg-gray-100 transition-all leading-normal text-brand-dark">
-                                ${comb}
-                            </label>
+                menuData.filter(m => m.cat === c.filter).forEach(item => {
+                    grid.innerHTML += `
+                        <div class="glass rounded-xl p-3 flex flex-col justify-between h-full relative overflow-hidden group">
+                            <div class="absolute top-0 right-0 bg-red-600 text-white text-[10px] font-bold px-2 py-1 rounded-bl-lg z-10">PROMO</div>
+                            <img src="${item.img}" alt="${item.name}" class="w-full h-32 object-cover rounded-lg mb-3 group-hover:scale-105 transition duration-300 shadow-sm" loading="lazy">
+                            <div class="flex-grow flex flex-col justify-between">
+                                <div>
+                                    <h3 class="font-bold text-kenangan-dark text-sm leading-tight mb-1">${item.name}</h3>
+                                    <p class="text-xs text-gray-500 line-through">${formatRp(item.old)}</p>
+                                </div>
+                                <div class="flex justify-between items-center mt-2">
+                                    <p class="font-bold text-kenangan-primary text-sm">${formatRp(item.new)}</p>
+                                    <button onclick="openModal('${item.id}')" class="w-8 h-8 rounded-full bg-kenangan-dark text-white flex items-center justify-center shadow-md active:scale-90 transition">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     `;
                 });
-                optionsHtml += `</div></div>`;
+                section.appendChild(grid);
+                container.appendChild(section);
+            });
+        }
+
+        window.toggleIceOptions = function() {
+            const temp = document.querySelector('input[name="mod-temp"]:checked')?.value;
+            const iceContainer = document.getElementById('ice-level-container');
+            if (iceContainer) {
+                if (temp === 'Hot') {
+                    iceContainer.style.display = 'none';
+                } else {
+                    iceContainer.style.display = 'block';
+                }
             }
-            // 2. IF PRODUCT IS REGULAR DRINK
-            else if (product.isDrink) {
-                optionsHtml += `
-                    <!-- Temperature -->
-                    <div class="space-y-2.5">
-                        <span class="block font-black text-[10px] text-brand-brown uppercase tracking-wider">Temperatur</span>
-                        <div class="flex gap-2">
-                            <div class="relative flex-1">
-                                <input type="radio" id="temp-ice" name="opt-temp" value="Ice" checked class="hidden custom-option-input">
-                                <label for="temp-ice" class="custom-option-label block text-center py-2.5 border border-gray-200 rounded-xl font-bold text-[11px] cursor-pointer bg-gray-50/50">Ice</label>
-                            </div>
-                            <div class="relative flex-1">
-                                <input type="radio" id="temp-hot" name="opt-temp" value="Hot" class="hidden custom-option-input">
-                                <label for="temp-hot" class="custom-option-label block text-center py-2.5 border border-gray-200 rounded-xl font-bold text-[11px] cursor-pointer bg-gray-50/50">Hot</label>
-                            </div>
-                        </div>
-                    </div>
+        };
 
-                    <!-- Size (With Implicit Asterisk *) -->
-                    <div class="space-y-2.5">
-                        <span class="block font-black text-[10px] text-brand-brown uppercase tracking-wider">Ukuran (Size)</span>
-                        <div class="flex gap-2">
-                            <div class="relative flex-1">
-                                <input type="radio" id="size-reg" name="opt-size" value="Regular" checked class="hidden custom-option-input">
-                                <label for="size-reg" class="custom-option-label block text-center py-2.5 border border-gray-200 rounded-xl font-bold text-[11px] cursor-pointer bg-gray-50/50">Regular</label>
-                            </div>
-                            <div class="relative flex-1">
-                                <input type="radio" id="size-large" name="opt-size" value="Large" class="hidden custom-option-input">
-                                <label for="size-large" class="custom-option-label block text-center py-2.5 border border-gray-200 rounded-xl font-bold text-[11px] cursor-pointer bg-gray-50/50">Large (*)</label>
-                            </div>
-                            <div class="relative flex-1">
-                                <input type="radio" id="size-jumbo" name="opt-size" value="Jumbo" class="hidden custom-option-input">
-                                <label for="size-jumbo" class="custom-option-label block text-center py-2.5 border border-gray-200 rounded-xl font-bold text-[11px] cursor-pointer bg-gray-50/50">Jumbo (*)</label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Coffee Beans (With Implicit Asterisk *) -->
-                    <div class="space-y-2.5">
-                        <span class="block font-black text-[10px] text-brand-brown uppercase tracking-wider">Pilihan Biji Kopi</span>
-                        <div class="flex gap-2">
-                            <div class="relative flex-1">
-                                <input type="radio" id="beans-kenangan" name="opt-beans" value="Kenangan Blend" checked class="hidden custom-option-input">
-                                <label for="beans-kenangan" class="custom-option-label block text-center py-2.5 border border-gray-200 rounded-xl font-bold text-[11px] cursor-pointer bg-gray-50/50">Kenangan Blend</label>
-                            </div>
-                            <div class="relative flex-1">
-                                <input type="radio" id="beans-juwara" name="opt-beans" value="Juwara Beans" class="hidden custom-option-input">
-                                <label for="beans-juwara" class="custom-option-label block text-center py-2.5 border border-gray-200 rounded-xl font-bold text-[11px] cursor-pointer bg-gray-50/50">Juwara Beans (*)</label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Milk Option (With Implicit Asterisk *) -->
-                    <div class="space-y-2.5">
-                        <span class="block font-black text-[10px] text-brand-brown uppercase tracking-wider">Opsi Susu (Milk Option)</span>
-                        <div class="flex gap-2">
-                            <div class="relative flex-1">
-                                <input type="radio" id="milk-standard" name="opt-milk" value="Milk" checked class="hidden custom-option-input">
-                                <label for="milk-standard" class="custom-option-label block text-center py-2.5 border border-gray-200 rounded-xl font-bold text-[11px] cursor-pointer bg-gray-50/50">Milk</label>
-                            </div>
-                            <div class="relative flex-1">
-                                <input type="radio" id="milk-oatside" name="opt-milk" value="Oatside" class="hidden custom-option-input">
-                                <label for="milk-oatside" class="custom-option-label block text-center py-2.5 border border-gray-200 rounded-xl font-bold text-[11px] cursor-pointer bg-gray-50/50">Oatside (*)</label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Sugar Levels -->
-                    <div class="space-y-2.5">
-                        <span class="block font-black text-[10px] text-brand-brown uppercase tracking-wider">Tingkat Kemanisan (Sugar Level)</span>
-                        <div class="flex gap-2">
-                            <div class="relative flex-1">
-                                <input type="radio" id="sugar-normal" name="opt-sugar" value="Normal Sugar" checked class="hidden custom-option-input">
-                                <label for="sugar-normal" class="custom-option-label block text-center py-2.5 border border-gray-200 rounded-xl font-bold text-[11px] cursor-pointer bg-gray-50/50">Normal</label>
-                            </div>
-                            <div class="relative flex-1">
-                                <input type="radio" id="sugar-less" name="opt-sugar" value="Less Sugar" class="hidden custom-option-input">
-                                <label for="sugar-less" class="custom-option-label block text-center py-2.5 border border-gray-200 rounded-xl font-bold text-[11px] cursor-pointer bg-gray-50/50">Less Sugar</label>
-                            </div>
-                            <div class="relative flex-1">
-                                <input type="radio" id="sugar-none" name="opt-sugar" value="No Sugar" class="hidden custom-option-input">
-                                <label for="sugar-none" class="custom-option-label block text-center py-2.5 border border-gray-200 rounded-xl font-bold text-[11px] cursor-pointer bg-gray-50/50">No Sugar</label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Syrup Dropdown -->
-                    <div class="space-y-2.5">
-                        <span class="block font-black text-[10px] text-brand-brown uppercase tracking-wider">Tambahan Sirup (Syrup)</span>
-                        <select id="opt-syrup" class="w-full bg-white border border-gray-200 rounded-xl p-3 text-xs font-bold text-gray-700 focus:outline-none focus:border-brand-brown shadow-xs">
-                            <option value="Tanpa Sirup">Tanpa Sirup</option>
-                            <option value="Vanilla Syrup">Vanilla Syrup (*)</option>
-                            <option value="Hazelnut Syrup">Hazelnut Syrup (*)</option>
-                            <option value="Caramel Syrup">Caramel Syrup (*)</option>
-                            <option value="Choco Sauce">Choco Sauce (*)</option>
-                        </select>
-                    </div>
-
-                    <!-- Topping Dropdown -->
-                    <div class="space-y-2.5">
-                        <span class="block font-black text-[10px] text-brand-brown uppercase tracking-wider">Tambahan Topping</span>
-                        <select id="opt-topping" class="w-full bg-white border border-gray-200 rounded-xl p-3 text-xs font-bold text-gray-700 focus:outline-none focus:border-brand-brown shadow-xs">
-                            <option value="Tanpa Topping">Tanpa Topping</option>
-                            <option value="Espresso Shot">Espresso Shot Kenangan Blend (*)</option>
-                            <option value="Grass Jelly">Grass Jelly (*)</option>
-                            <option value="Oreo">Oreo Crumb (*)</option>
-                            <option value="Whipped Cream">Whipped Cream (*)</option>
-                        </select>
-                    </div>
-
-                    <!-- Item Note -->
-                    <div class="space-y-2.5">
-                        <span class="block font-black text-[10px] text-brand-brown uppercase tracking-wider">Catatan Varian Khusus Menu Ini</span>
-                        <input type="text" id="modal-item-note" placeholder="Contoh: Less ice ya, ga pake sedotan..." maxlength="100" class="w-full bg-white border border-gray-200 rounded-xl p-3 text-xs font-medium focus:outline-none focus:border-brand-brown shadow-xs">
-                    </div>
-                `;
-            } else {
-                // FOODS/BAKERY
-                optionsHtml += `
-                    <div class="bg-brand-accent/25 rounded-2xl p-4 text-center border border-brand-brown/10 space-y-2">
-                        <i class="fa-solid fa-cookie-bite text-2xl text-brand-brown/40"></i>
-                        <p class="font-black text-[11px] text-brand-brown uppercase tracking-wider">Varian Makanan Saji</p>
-                        <p class="text-gray-500 text-[10px] leading-relaxed font-bold">Produk bakery/makanan tidak membutuhkan racikan resep tambahan khusus.</p>
-                    </div>
-                    <div class="space-y-2.5 mt-4">
-                        <span class="block font-black text-[10px] text-brand-brown uppercase tracking-wider">Catatan Khusus Menu Ini</span>
-                        <input type="text" id="modal-item-note" placeholder="Contoh: Tolong rotinya dipanggang agak hangat..." maxlength="100" class="w-full bg-white border border-gray-200 rounded-xl p-3 text-xs font-medium focus:outline-none focus:border-brand-brown shadow-xs">
-                    </div>
-                `;
-            }
-
-            optionsArea.innerHTML = optionsHtml;
+        function openModal(itemId) {
+            const item = menuData.find(m => m.id === itemId);
+            currentModalItem = item;
             
-            // Toggle Modal
-            document.getElementById('custom-modal').classList.add('modal-active');
-            document.body.style.overflow = 'hidden';
-        }
+            document.getElementById('modal-title').textContent = item.name;
+            document.getElementById('modal-price').textContent = formatRp(item.new);
+            document.getElementById('modal-btn-price').textContent = formatRp(item.new);
 
-        function closeCustomizationModal() {
-            document.getElementById('custom-modal').classList.remove('modal-active');
-            document.body.style.overflow = '';
-            currentlyEditingProduct = null;
-        }
+            const optionsContainer = document.getElementById('modal-options-container');
+            optionsContainer.innerHTML = ''; 
 
-        function changeModalQty(val) {
-            currentModalQty += val;
-            if (currentModalQty < 1) currentModalQty = 1;
-            document.getElementById('modal-item-qty').textContent = currentModalQty;
-        }
-
-        function saveItemToCart() {
-            if (!currentlyEditingProduct) return;
-
-            const isDrink = currentlyEditingProduct.isDrink;
-            const uniqueCartId = `${currentlyEditingProduct.id}-${Date.now()}`;
-            const itemNote = document.getElementById('modal-item-note') ? document.getElementById('modal-item-note').value.trim() : "";
-
-            let recipeOptions = {};
-            if (currentlyEditingProduct.isBundle) {
-                recipeOptions = {
-                    bundleCombo: document.querySelector('input[name="opt-bundle"]:checked').value
-                };
-            } else if (isDrink) {
-                recipeOptions = {
-                    temperature: document.querySelector('input[name="opt-temp"]:checked').value,
-                    size: document.querySelector('input[name="opt-size"]:checked').value,
-                    beans: document.querySelector('input[name="opt-beans"]:checked').value,
-                    milk: document.querySelector('input[name="opt-milk"]:checked').value,
-                    sugar: document.querySelector('input[name="opt-sugar"]:checked').value,
-                    syrup: document.getElementById('opt-syrup').value,
-                    topping: document.getElementById('opt-topping').value
-                };
+            if (item.type === 'bundling') {
+                let html = `<label class="block text-sm font-semibold mb-2">Pilih Kombinasi Wajib <span class="text-red-500">*</span></label>
+                            <select id="mod-bundle-sel" class="w-full p-3 rounded-lg border border-gray-200 bg-gray-50 focus:ring-kenangan-primary text-sm outline-none">`;
+                item.opts.forEach(opt => {
+                    html += `<option value="${opt}">${opt}</option>`;
+                });
+                html += `</select>`;
+                optionsContainer.innerHTML = html;
+            } 
+            else if (item.type === 'drink') {
+                optionsContainer.innerHTML = `
+                    <div class="space-y-5">
+                        <div>
+                            <label class="block text-sm font-semibold mb-2">Penyajian <span class="text-red-500">*</span></label>
+                            <div class="grid grid-cols-2 gap-3">
+                                <label class="relative cursor-pointer">
+                                    <input type="radio" name="mod-temp" value="Ice" class="peer sr-only" checked onchange="toggleIceOptions()">
+                                    <div class="rounded-xl border-2 border-gray-200 bg-white py-2.5 px-3 text-center transition-all hover:bg-blue-50 peer-checked:border-blue-500 peer-checked:bg-blue-50 peer-checked:text-blue-700 font-bold shadow-sm">
+                                        <i class="fas fa-snowflake text-blue-400 mr-1"></i> Ice
+                                    </div>
+                                </label>
+                                <label class="relative cursor-pointer">
+                                    <input type="radio" name="mod-temp" value="Hot" class="peer sr-only" onchange="toggleIceOptions()">
+                                    <div class="rounded-xl border-2 border-gray-200 bg-white py-2.5 px-3 text-center transition-all hover:bg-orange-50 peer-checked:border-orange-500 peer-checked:bg-orange-50 peer-checked:text-orange-700 font-bold shadow-sm">
+                                        <i class="fas fa-mug-hot text-orange-400 mr-1"></i> Hot
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold mb-2">Ukuran Cup</label>
+                            <select id="mod-size" class="w-full p-2.5 rounded-lg border border-gray-200 bg-gray-50 text-sm outline-none focus:ring-2 focus:ring-kenangan-primary">
+                                <option value="Regular">Regular</option>
+                                <option value="Large">Large (*)</option>
+                            </select>
+                        </div>
+                        <div class="grid grid-cols-1 gap-4 bg-gray-50 p-3 rounded-xl border border-gray-100">
+                            <div>
+                                <label class="block text-xs font-semibold mb-2 text-gray-600">Level Gula</label>
+                                <div class="grid grid-cols-3 gap-2">
+                                    <label class="cursor-pointer">
+                                        <input type="radio" name="mod-sugar" value="Normal Sugar" class="peer sr-only" checked>
+                                        <div class="rounded-md border border-gray-200 bg-white py-1.5 text-center text-xs transition-all peer-checked:bg-kenangan-primary peer-checked:text-white peer-checked:border-kenangan-primary font-medium">Normal</div>
+                                    </label>
+                                    <label class="cursor-pointer">
+                                        <input type="radio" name="mod-sugar" value="Less Sugar" class="peer sr-only">
+                                        <div class="rounded-md border border-gray-200 bg-white py-1.5 text-center text-xs transition-all peer-checked:bg-kenangan-primary peer-checked:text-white peer-checked:border-kenangan-primary font-medium">Less</div>
+                                    </label>
+                                    <label class="cursor-pointer">
+                                        <input type="radio" name="mod-sugar" value="No Sugar" class="peer sr-only">
+                                        <div class="rounded-md border border-gray-200 bg-white py-1.5 text-center text-xs transition-all peer-checked:bg-kenangan-primary peer-checked:text-white peer-checked:border-kenangan-primary font-medium">No Sugar</div>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div id="ice-level-container">
+                                <label class="block text-xs font-semibold mb-2 text-gray-600">Level Es</label>
+                                <div class="grid grid-cols-3 gap-2">
+                                    <label class="cursor-pointer">
+                                        <input type="radio" name="mod-ice" value="Normal Ice" class="peer sr-only" checked>
+                                        <div class="rounded-md border border-gray-200 bg-white py-1.5 text-center text-xs transition-all peer-checked:bg-blue-500 peer-checked:text-white peer-checked:border-blue-500 font-medium">Normal</div>
+                                    </label>
+                                    <label class="cursor-pointer">
+                                        <input type="radio" name="mod-ice" value="Less Ice" class="peer sr-only">
+                                        <div class="rounded-md border border-gray-200 bg-white py-1.5 text-center text-xs transition-all peer-checked:bg-blue-500 peer-checked:text-white peer-checked:border-blue-500 font-medium">Less</div>
+                                    </label>
+                                    <label class="cursor-pointer">
+                                        <input type="radio" name="mod-ice" value="Extra Ice" class="peer sr-only">
+                                        <div class="rounded-md border border-gray-200 bg-white py-1.5 text-center text-xs transition-all peer-checked:bg-blue-500 peer-checked:text-white peer-checked:border-blue-500 font-medium">Extra</div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold mb-2">Kustomisasi Ekstra</label>
+                            <div class="space-y-2 text-sm">
+                                <label class="flex items-center gap-2 p-2 border border-gray-100 rounded-lg bg-white shadow-sm cursor-pointer"><input type="checkbox" value="Oatside Milk (*)" class="mod-extras accent-kenangan-primary w-4 h-4"> Oatside Milk (*)</label>
+                                <label class="flex items-center gap-2 p-2 border border-gray-100 rounded-lg bg-white shadow-sm cursor-pointer"><input type="checkbox" value="Juwara Beans (*)" class="mod-extras accent-kenangan-primary w-4 h-4"> Juwara Beans (*)</label>
+                            </div>
+                        </div>
+                    </div>
+                `;
             }
 
-            const cartItem = {
-                cartId: uniqueCartId,
-                product: currentlyEditingProduct,
-                qty: currentModalQty,
-                options: recipeOptions,
-                note: itemNote,
-                unitPrice: currentlyEditingProduct.priceAfter,
-                totalPrice: currentlyEditingProduct.priceAfter * currentModalQty
-            };
+            optionsContainer.innerHTML += `
+                <div class="${item.type === 'drink' ? 'mt-4' : ''}">
+                    <label class="block text-sm font-semibold mb-2">Catatan Item (Opsional)</label>
+                    <input type="text" id="mod-note" placeholder="${item.placeholderNote}" class="w-full p-3 rounded-lg border border-gray-200 bg-gray-50 text-sm outline-none focus:border-kenangan-primary focus:ring-1 focus:ring-kenangan-primary transition text-kenangan-dark">
+                </div>
+            `;
 
-            cart.push(cartItem);
-            closeCustomizationModal();
-            updateCartFooter();
-            renderCartDrawer();
+            // Animasi memunculkan modal bergaya Bottom Sheet
+            const overlay = document.getElementById('modal-overlay');
+            const content = document.getElementById('modal-content');
+            
+            // Kunci scroll body/halaman di belakang agar tidak ikut tergulung
+            document.body.style.overflow = 'hidden';
+            
+            overlay.classList.remove('hidden');
+            setTimeout(() => {
+                overlay.classList.remove('opacity-0');
+                content.classList.remove('translate-y-full'); // Geser ke atas
+                content.classList.add('translate-y-0');
+            }, 10);
         }
 
-        function removeCartItem(cartId) {
-            cart = cart.filter(item => item.cartId !== cartId);
-            updateCartFooter();
-            renderCartDrawer();
+        function closeModal(e) {
+            if(e) e.preventDefault();
+            const overlay = document.getElementById('modal-overlay');
+            const content = document.getElementById('modal-content');
+            
+            overlay.classList.add('opacity-0');
+            content.classList.remove('translate-y-0');
+            content.classList.add('translate-y-full'); // Geser ke bawah
+            
+            // Buka kunci scroll body/halaman kembali
+            document.body.style.overflow = '';
+            
+            setTimeout(() => {
+                overlay.classList.add('hidden');
+            }, 300);
+            currentModalItem = null;
         }
 
-        function updateCartFooter() {
-            const footer = document.getElementById('cart-footer');
-            const itemsCountEl = document.getElementById('cart-items');
-            const totalPriceEl = document.getElementById('cart-total-price');
+        function addToCartFromModal() {
+            if (!currentModalItem) return;
+            const itemName = currentModalItem.name;
+            let details = [];
 
-            let totalItems = 0;
-            let totalPrice = 0;
+            if (currentModalItem.type === 'bundling') {
+                details.push(document.getElementById('mod-bundle-sel').value);
+            } else if (currentModalItem.type === 'drink') {
+                const temp = document.querySelector('input[name="mod-temp"]:checked').value;
+                const size = document.getElementById('mod-size').value;
+                const sugar = document.querySelector('input[name="mod-sugar"]:checked').value;
+                
+                details.push(temp, size);
+                if(sugar !== 'Normal Sugar') details.push(sugar);
+                if (temp === 'Ice') {
+                    const ice = document.querySelector('input[name="mod-ice"]:checked').value;
+                    if(ice !== 'Normal Ice') details.push(ice);
+                }
+                document.querySelectorAll('.mod-extras:checked').forEach(chk => {
+                    details.push(chk.value);
+                });
+            }
 
-            cart.forEach(item => {
-                totalItems += item.qty;
-                totalPrice += item.totalPrice;
+            const note = document.getElementById('mod-note').value;
+            cart.push({
+                item: currentModalItem,
+                details: details.join(', '),
+                note: note
             });
 
-            if (totalItems > 0) {
-                footer.classList.remove('translate-y-full');
-                totalPriceEl.textContent = formatRp(totalPrice);
-                itemsCountEl.textContent = `${totalItems} Produk Terpilih`;
-            } else {
-                footer.classList.add('translate-y-full');
-                cartDrawerOpen = false;
-                document.getElementById('cart-drawer-items').classList.add('hidden');
-                document.getElementById('drawer-arrow').className = 'fa-solid fa-chevron-up text-brand-brown text-xs transition-transform';
-            }
+            closeModal();
+            updateCartUI();
+            validateKopkenForm();
 
-            validateCheckoutForm();
+            playFlyToCartAnimation();
+            showToast(`<b>${itemName}</b><br>Berhasil masuk ke keranjang!`);
         }
 
-        function toggleCartDrawer() {
-            const drawerItems = document.getElementById('cart-drawer-items');
-            const arrow = document.getElementById('drawer-arrow');
+        function playFlyToCartAnimation() {
+            const cartBtn = document.getElementById('cart-icon-btn');
+            const cartIcon = document.getElementById('cart-icon');
+            const badge = document.getElementById('cart-badge');
+            const rect = cartBtn.getBoundingClientRect();
 
-            if (cart.length === 0) return;
+            const flyer = document.createElement('div');
+            flyer.innerHTML = '<i class="fas fa-coffee text-white text-xl"></i>';
+            flyer.className = 'fixed z-[100] flex items-center justify-center w-12 h-12 bg-kenangan-primary rounded-full shadow-lg';
+            flyer.style.left = '50%';
+            flyer.style.top = '70%';
+            flyer.style.transform = 'translate(-50%, -50%) scale(0)';
+            flyer.style.transition = 'all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+            document.body.appendChild(flyer);
 
-            cartDrawerOpen = !cartDrawerOpen;
-            if (cartDrawerOpen) {
-                drawerItems.classList.remove('hidden');
-                arrow.className = 'fa-solid fa-chevron-down text-brand-brown text-xs transition-transform';
-            } else {
-                drawerItems.classList.add('hidden');
-                arrow.className = 'fa-solid fa-chevron-up text-brand-brown text-xs transition-transform';
-            }
+            flyer.getBoundingClientRect();
+            flyer.style.transform = 'translate(-50%, -50%) scale(1)';
+
+            setTimeout(() => {
+                flyer.style.left = `${rect.left + rect.width / 2}px`;
+                flyer.style.top = `${rect.top + rect.height / 2}px`;
+                flyer.style.transform = 'translate(-50%, -50%) scale(0.2)';
+                flyer.style.opacity = '0';
+            }, 400);
+
+            setTimeout(() => {
+                flyer.remove();
+                cartIcon.classList.add('scale-150', 'text-kenangan-primary');
+                badge.classList.add('scale-150');
+                setTimeout(() => {
+                    cartIcon.classList.remove('scale-150', 'text-kenangan-primary');
+                    badge.classList.remove('scale-150');
+                }, 300);
+            }, 900);
         }
 
-        function renderCartDrawer() {
-            const drawerContainer = document.getElementById('cart-drawer-items');
-            let html = '';
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+            validateKopkenForm();
+        }
 
-            cart.forEach(item => {
-                let optionsLabels = [];
-                if (item.product.isBundle) {
-                    optionsLabels.push(`Paket: ${item.options.bundleCombo}`);
-                } else if (item.product.isDrink) {
-                    optionsLabels.push(item.options.temperature);
-                    optionsLabels.push(item.options.size);
-                    optionsLabels.push(item.options.beans);
-                    optionsLabels.push(item.options.milk);
-                    optionsLabels.push(item.options.sugar);
-                    if (item.options.syrup !== 'Tanpa Sirup') optionsLabels.push(`Sirup: ${item.options.syrup}`);
-                    if (item.options.topping !== 'Tanpa Topping') optionsLabels.push(`Topping: ${item.options.topping}`);
-                }
+        function handleCityChange() {
+            const city = document.getElementById('cust-city').value;
+            const branchSelect = document.getElementById('cust-branch');
+            branchSelect.innerHTML = '<option value="">Pilih Outlet...</option>';
+            
+            if (!city) {
+                branchSelect.disabled = true;
+            } else {
+                branchSelect.disabled = false;
+                let branches = cityData[city] || [];
+                branches.forEach(b => {
+                    const cleanName = b.replace('Kopi Kenangan ', '').trim();
+                    branchSelect.innerHTML += `<option value="${cleanName}">${cleanName}</option>`;
+                });
+            }
+            validateKopkenForm();
+        }
 
-                html += `
-                    <div class="py-3 flex justify-between items-start gap-4">
-                        <div class="flex-1">
-                            <h5 class="text-xs font-extrabold text-brand-dark">${item.qty}x ${item.product.name}</h5>
-                            ${optionsLabels.length > 0 ? `
-                                <p class="text-[10px] text-gray-500 mt-0.5 leading-normal italic font-bold">
-                                    Varian: ${optionsLabels.join(', ')}
-                                </p>
-                            ` : ''}
-                            ${item.note ? `
-                                <p class="text-[10px] text-brand-brown mt-0.5 leading-normal font-bold">
-                                    Catatan: "${item.note}"
-                                </p>
-                            ` : ''}
-                        </div>
-                        <div class="text-right shrink-0 flex flex-col items-end">
-                            <span class="text-xs font-black text-brand-brown">${formatRp(item.totalPrice)}</span>
-                            <button onclick="removeCartItem('${item.cartId}')" class="text-brand-red text-[11px] font-black mt-1 hover:underline">
-                                <i class="fa-solid fa-trash-can mr-1"></i> Hapus
+        function checkMallSurcharge() {
+            const branch = document.getElementById('cust-branch').value;
+            const mallPattern = /mall|plaza|tower|city|junction|avenue|walk|central park|grand indonesia|paris van java/i;
+            return mallPattern.test(branch) ? 3000 : 0;
+        }
+
+        function updateCartUI() {
+            const container = document.getElementById('cart-items-container');
+            const badge = document.getElementById('cart-badge');
+            
+            if (cart.length === 0) {
+                container.innerHTML = '<p class="text-sm text-gray-500 italic text-center py-4">Keranjang masih kosong.</p>';
+                badge.classList.add('hidden');
+            } else {
+                badge.classList.remove('hidden');
+                badge.textContent = cart.length;
+                container.innerHTML = '';
+                
+                cart.forEach((c, idx) => {
+                    container.innerHTML += `
+                        <div class="flex justify-between items-start bg-white/50 p-3 rounded-lg border border-white">
+                            <div class="flex-grow pr-2">
+                                <h4 class="font-bold text-sm text-kenangan-dark">${c.item.name}</h4>
+                                ${c.details ? `<p class="text-[10px] text-gray-600 mt-0.5"><i class="fas fa-sliders-h"></i> ${c.details}</p>` : ''}
+                                ${c.note ? `<p class="text-[10px] text-gray-500 italic mt-0.5">Catatan: "${c.note}"</p>` : ''}
+                                <p class="text-xs font-semibold text-kenangan-primary mt-1">${formatRp(c.item.new)}</p>
+                            </div>
+                            <button onclick="removeFromCart(${idx})" class="text-red-400 hover:text-red-600 p-1">
+                                <i class="fas fa-trash-alt"></i>
                             </button>
                         </div>
-                    </div>
-                `;
-            });
-
-            drawerContainer.innerHTML = html;
-        }
-
-        function validateCheckoutForm() {
-            const nameValue = document.getElementById('cust-name').value.trim();
-            const cityValue = document.getElementById('user-city').value;
-            const outletValue = document.getElementById('user-outlet').value;
-            const checkoutBtn = document.getElementById('checkout-btn');
-
-            if (nameValue.length >= 2 && cityValue !== "" && outletValue !== "" && cart.length > 0) {
-                checkoutBtn.disabled = false;
-                checkoutBtn.className = "bg-brand-green hover:bg-green-600 text-white font-black px-6 py-3.5 rounded-2xl text-xs uppercase tracking-widest flex-1 flex items-center justify-center gap-2 transition-all cursor-pointer shadow-md";
-            } else {
-                checkoutBtn.disabled = true;
-                checkoutBtn.className = "bg-gray-200 text-gray-400 font-black px-6 py-3.5 rounded-2xl text-xs uppercase tracking-widest flex-1 flex items-center justify-center gap-2 transition-all cursor-not-allowed";
+                    `;
+                });
             }
         }
 
-        function handleCheckout() {
-            const nameInput = document.getElementById('cust-name').value.trim();
-            const cityInput = document.getElementById('user-city').value;
-            const outletInput = document.getElementById('user-outlet').value;
-            const globalNote = document.getElementById('global-note').value.trim();
+        function validateKopkenForm() {
+            const name = document.getElementById('cust-name').value.trim();
+            const city = document.getElementById('cust-city').value;
+            const branch = document.getElementById('cust-branch').value;
+            const btnTele = document.getElementById('btn-submit-tele-kopken');
+            const btnWa = document.getElementById('btn-submit-wa-kopken');
 
-            if (nameInput.length === 0 || cityInput === "" || outletInput === "" || cart.length === 0) return;
+            let subtotal = cart.reduce((sum, c) => sum + c.item.new, 0);
+            document.getElementById('summary-subtotal').textContent = formatRp(subtotal);
 
-            let textMessage = `Nama Pemesan: *${nameInput}*\n`;
-            textMessage += `Kota Pengambilan: *${cityInput}*\n`;
-            textMessage += `Outlet Tujuan: *${outletInput}*\n`;
+            let surcharge = 0;
+            const surchargeRow = document.getElementById('mall-surcharge-row');
             
-            if (globalNote.length > 0) {
-                textMessage += `Catatan Tambahan: "${globalNote}"\n`;
-            }
-            textMessage += `--------------------------------------------------\n`;
-            textMessage += `Detail Menu PROMO yang dipesan:\n\n`;
-
-            let overallTotal = 0;
-
-            cart.forEach((item, index) => {
-                textMessage += `${index + 1}. ${item.qty}x ${item.product.name}\n`;
-                
-                if (item.product.isBundle) {
-                    textMessage += `   * Racikan: [${item.options.bundleCombo}]\n`;
-                } else if (item.product.isDrink) {
-                    let detailsArr = [
-                        item.options.temperature,
-                        item.options.size,
-                        item.options.beans,
-                        item.options.milk,
-                        item.options.sugar
-                    ];
-                    if (item.options.syrup !== "Tanpa Sirup") detailsArr.push(item.options.syrup);
-                    if (item.options.topping !== "Tanpa Topping") detailsArr.push(item.options.topping);
-
-                    textMessage += `   * Racikan: [${detailsArr.join(', ')}]\n`;
-                }
-
-                if (item.note.length > 0) {
-                    textMessage += `   * Catatan Item: "${item.note}"\n`;
-                }
-
-                textMessage += `   * Subtotal Web: ${formatRp(item.totalPrice)}\n\n`;
-                overallTotal += item.totalPrice;
-            });
-
-            textMessage += `--------------------------------------------------\n`;
-            textMessage += `Total Sementara (Web): *${formatRp(overallTotal)}*\n\n`;
-            textMessage += `*Catatan:* Total harga final keseluruhan (termasuk penyesuaian kustomisasi size/topping di luar harga diskon web) akan dikalkulasi kembali secara akurat oleh Admin sesuai aplikasi kasir resmi outlet Kopi Kenangan.\n\n`;
-            textMessage += `Mohon dibantu bantu order ya, terima kasih!`;
-
-            const encodedMsg = encodeURIComponent(textMessage);
-            const waNumber = "6285959633342";
-            const waUrl = `https://wa.me/${waNumber}?text=${encodedMsg}`;
-
-            window.open(waUrl, '_blank');
-        }
-
-        // Horizontal Category Tab Pills Scroll Highlighting
-        document.addEventListener('scroll', () => {
-            const sections = categories.map(cat => document.getElementById(cat.anchor));
-            const navPills = document.querySelectorAll('.nav-pill');
-            
-            let currentActiveIdx = 0;
-            const scrollPos = window.scrollY + 120;
-
-            sections.forEach((sec, idx) => {
-                if (sec && scrollPos >= sec.offsetTop) {
-                    currentActiveIdx = idx;
-                }
-            });
-
-            navPills.forEach((pill, idx) => {
-                if (idx === currentActiveIdx) {
-                    pill.className = "nav-pill flex-shrink-0 bg-brand-brown text-white px-4 py-2 rounded-xl text-xs font-bold transition-all shadow-sm";
+            if (branch && cart.length > 0) {
+                surcharge = checkMallSurcharge();
+                if(surcharge > 0) {
+                    surchargeRow.classList.remove('hidden');
                 } else {
-                    pill.className = "nav-pill flex-shrink-0 bg-white/50 text-gray-500 border border-gray-100 px-4 py-2 rounded-xl text-xs font-bold transition-all";
+                    surchargeRow.classList.add('hidden');
                 }
-            });
-        });
+            } else {
+                surchargeRow.classList.add('hidden');
+            }
 
-        window.onload = function() {
-            createAmbientParticles();
-            renderCatalog();
-            populateCities();
-        };
+            const total = subtotal + surcharge;
+            document.getElementById('summary-total').textContent = formatRp(total);
+
+            if (cart.length > 0 && name.length >= 2 && city !== "" && branch !== "") {
+                btnTele.disabled = false;
+                btnTele.classList.remove('bg-gray-400', 'cursor-not-allowed');
+                btnTele.classList.add('bg-kenangan-primary', 'hover:bg-kenangan-dark', 'active:scale-95');
+                
+                btnWa.disabled = false;
+                btnWa.classList.remove('bg-gray-400', 'cursor-not-allowed');
+                btnWa.classList.add('bg-green-500', 'hover:bg-green-600', 'active:scale-95');
+            } else {
+                btnTele.disabled = true;
+                btnTele.classList.add('bg-gray-400', 'cursor-not-allowed');
+                btnTele.classList.remove('bg-kenangan-primary', 'hover:bg-kenangan-dark', 'active:scale-95');
+                
+                btnWa.disabled = true;
+                btnWa.classList.add('bg-gray-400', 'cursor-not-allowed');
+                btnWa.classList.remove('bg-green-500', 'hover:bg-green-600', 'active:scale-95');
+            }
+        }
+
+        function submitOrderKopken(method) {
+            const name = document.getElementById('cust-name').value.trim();
+            const city = document.getElementById('cust-city').value;
+            const branch = document.getElementById('cust-branch').value;
+            const notes = document.getElementById('cust-notes').value.trim();
+            
+            let itemsText = '';
+            let subtotal = 0;
+
+            cart.forEach((c, i) => {
+                subtotal += c.item.new;
+                itemsText += `${i+1}. 1x ${c.item.name}\n`;
+                if(c.details) itemsText += `   [Racikan: ${c.details}]\n`;
+                if(c.note) itemsText += `   (Catatan Item: "${c.note}")\n`;
+                itemsText += `   Subtotal Web: ${formatRp(c.item.new)}\n`;
+            });
+
+            const surcharge = checkMallSurcharge();
+            const total = subtotal + surcharge;
+
+            const message = `Nama Pemesan: ${name}
+Kota: ${city}
+Outlet Pengambilan: ${branch}
+Catatan Tambahan: "${notes || '-'}"
+--------------------------------------------------
+Detail Menu PROMO yang dipesan:
+${itemsText}--------------------------------------------------
+Biaya Tambahan Outlet (Mall/Besar): Rp ${surcharge > 0 ? '3.000' : '0'}
+Total Sementara (Web): ${formatRp(total)}
+
+*Harga yang Anda bayar adalah harga total final. Tidak ada biaya tambahan apa pun lagi saat Anda mengambil pesanan di outlet.*
+
+Mohon dibantu proses order ya, terima kasih!`;
+
+            const encodedMessage = encodeURIComponent(message);
+            
+            if (method === 'telegram') {
+                const urlAPI = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodedMessage}`;
+                
+                const btn = document.getElementById('btn-submit-tele-kopken');
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin text-xl"></i> Memproses...';
+                btn.disabled = true;
+                document.getElementById('btn-submit-wa-kopken').disabled = true;
+
+                fetch(urlAPI)
+                    .then(res => {
+                        if(res.ok) {
+                            showFullscreenLoader('kopken', false, '');
+                            // Reset Kopken Form
+                            cart = [];
+                            updateCartUI();
+                            document.getElementById('cust-name').value = '';
+                            document.getElementById('cust-notes').value = '';
+                            document.getElementById('cust-city').selectedIndex = 0;
+                            handleCityChange();
+                        } else {
+                            showToast("Gagal kirim ke bot, silakan gunakan opsi WA.");
+                        }
+                    })
+                    .catch(err => showToast("Koneksi error, gunakan opsi WA."))
+                    .finally(() => {
+                        btn.innerHTML = '<i class="fas fa-bolt text-xl"></i> Pesan Otomatis (Langsung Diproses)';
+                        validateKopkenForm();
+                    });
+                    
+            } else if (method === 'whatsapp') {
+                const waUrl = `https://wa.me/${waNumber}?text=${encodedMessage}`;
+                showFullscreenLoader('kopken', true, waUrl);
+            }
+        }
+
+        function scrollToCart() {
+            document.getElementById('checkout-section').scrollIntoView({ behavior: 'smooth' });
+        }
     </script>
 </body>
 </html>
