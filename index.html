@@ -160,9 +160,10 @@
         </div>
 
         <div class="text-center mb-10">
-            <!-- GANTI BAGIAN GRADASI UNGU LAMA DENGAN KODE BARU INI -->
-            <div class="w-40 h-20 bg-black rounded-2xl mx-auto flex items-center justify-center shadow-[0_0_35px_rgba(56,189,248,0.25)] border border-white/10 mb-6 float-logo transition duration-500 overflow-hidden">
-                <img src="favicon.png" alt="Bintang Store Logo" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='https://placehold.co/100x100/38BDF8/ffffff?text=⭐'">
+            <!-- Wadah Bulat Sempurna (rounded-full) dengan efek bayangan glowing premium -->
+            <div class="w-24 h-24 bg-[#0c1226] rounded-full mx-auto flex items-center justify-center shadow-[0_0_35px_rgba(56,189,248,0.35)] border border-white/15 mb-6 float-logo transition duration-500 overflow-hidden relative">
+                <!-- Trik Super Zoom: Memperbesar gambar 2.8x dan menggeser 4px ke atas agar pas memotong sisa ruang hitam & teks -->
+                <img src="favicon.png" alt="Bintang Store Logo" class="w-full h-full object-cover scale-[2.8] translate-y-[-4px]" onerror="this.onerror=null; this.src='https://placehold.co/100x100/38BDF8/ffffff?text=⭐'">
             </div>
             <h1 class="text-4xl font-bold text-white mb-3 tracking-tight">Bintang Store</h1>
             <p class="text-gray-300 text-sm max-w-xs mx-auto leading-relaxed">Satu portal untuk semua kebutuhan healing-mu. Ngopi jalan, maraton drakor aman!</p>
@@ -223,7 +224,6 @@
             </button>
         </header>
 
-<!-- ... existing code ... -->
         <nav class="glass sticky top-[60px] z-30 px-4 py-2 mb-4 overflow-x-auto no-scrollbar whitespace-nowrap border-b border-white/50">
             <div class="flex gap-2">
                 <button onclick="scrollToCategory('cat-bundling', event)" class="px-4 py-1.5 rounded-full bg-white/80 text-kenangan-dark text-sm font-semibold shadow-sm border border-white cursor-pointer active:scale-95 transition">Bundling</button>
@@ -233,21 +233,12 @@
             </div>
         </nav>
 
-        <!-- STREAMING_CHUNK: Enhancing warning box with a gorgeous Google Drive album button... -->
-        <div class="mx-4 mb-6 p-4 bg-kenangan-accent/15 border border-kenangan-accent/30 rounded-2xl text-center shadow-sm flex flex-col items-center gap-3">
-            <p class="text-xs text-kenangan-dark font-semibold leading-relaxed">
-                <i class="fas fa-info-circle mr-1 text-kenangan-primary text-sm"></i> 
-                Mau lihat penampakan asli produknya? Cek album foto promonya di sini!
-            </p>
-            <a href="https://drive.google.com/drive/folders/1s0LXjW-1rWVE53zg7vLUvy7LKXiu83nR?usp=sharing" target="_blank" onclick="sfx.playTap()" class="inline-flex items-center gap-2 bg-kenangan-primary hover:bg-[#804a2c] text-white text-xs font-bold px-5 py-2.5 rounded-xl shadow-md transition duration-300 active:scale-95 cursor-pointer">
-                <i class="fab fa-google-drive text-sm text-yellow-400"></i> Lihat Galeri Foto Asli (Google Drive)
-            </a>
+        <div class="mx-4 mb-6 p-3 bg-kenangan-accent/20 border border-kenangan-accent/30 rounded-xl text-center shadow-sm">
+            <p class="text-xs text-kenangan-dark font-medium"><i class="fas fa-info-circle mr-1 text-kenangan-primary"></i> Untuk melihat foto asli produk promo, silakan langsung menghubungi admin ya!</p>
         </div>
 
         <main class="px-4 space-y-8" id="menu-container">
             <!-- Menu categories injected via JS -->
-        </main>
-<!-- ... existing code ... -->
         </main>
 
         <section id="checkout-section" class="mx-4 mt-10 p-5 glass rounded-2xl">
