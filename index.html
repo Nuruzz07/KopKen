@@ -487,9 +487,9 @@
         const formatRp = (num) => 'Rp ' + parseInt(num).toLocaleString('id-ID');
 
         // ==========================================
-        // SISTEM VIEW SWITCHER (SPA ROUTER)
+        // SISTEM VIEW SWITCHER (SPA ROUTER + HISTORY)
         // ==========================================
-        function switchView(target) {
+        function switchView(target, pushToHistory = true) {
             // Sembunyikan semua
             document.getElementById('view-portal').classList.add('hidden');
             document.getElementById('view-kopken').classList.add('hidden');
@@ -516,6 +516,11 @@
                 body.style.backgroundColor = '#141414';
                 glow.style.background = 'radial-gradient(circle at 50% 50%, rgba(229, 9, 20, 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(0, 0, 0, 0.1) 0%, transparent 40%)';
                 document.getElementById('particle-container').innerHTML = ''; // Clear particles
+            }
+
+            // --- JIKA PERLU DIAJUKAN KE HISTORY BROWSER ---
+            if (pushToHistory) {
+                history.pushState({ view: target }, '', '#' + target);
             }
         }
 
@@ -825,6 +830,26 @@ Mohon dibantu proses aktivasi akun dan tagihan QRIS/Rekeningnya ya min!`;
         document.addEventListener('DOMContentLoaded', () => {
             initCities();
             renderMenu();
+
+            // --- DETEKSI ALUR HALAMAN UTAMA ATAU LANGSUNG DARI LINK HASH (#) ---
+            const initialHash = window.location.hash.replace('#', '') || 'portal';
+            if (['portal', 'kopken', 'netflix'].includes(initialHash)) {
+                history.replaceState({ view: initialHash }, '', '#' + initialHash);
+                switchView(initialHash, false);
+            } else {
+                history.replaceState({ view: 'portal' }, '', '#portal');
+                switchView('portal', false);
+            }
+
+            // --- INTERSEPT TOMBOL BACK HP / BACK BROWSER ---
+            window.addEventListener('popstate', (e) => {
+                if (e.state && e.state.view) {
+                    // Balikkan halaman sesuai state tanpa menumpuk history baru
+                    switchView(e.state.view, false);
+                } else {
+                    switchView('portal', false);
+                }
+            });
         });
 
         function initKopkenParticles() {
