@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-<link rel="icon" type="image/png" href="favicon.png">
+    <link rel="icon" type="image/png" href="favicon.png">
     <script>
         tailwind.config = {
             theme: {
@@ -106,6 +106,28 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        /* Animasi Melayang Halus Logo Bintang */
+        @keyframes floatLogo {
+            0%, 100% { transform: translateY(0) rotate(12deg); }
+            50% { transform: translateY(-8px) rotate(15deg); }
+        }
+        .float-logo {
+            animation: floatLogo 4s infinite ease-in-out;
+        }
+
+        /* Efek Pancaran Aura Neon Bernapas (Breathing Glow) */
+        @keyframes borderGlowKopken {
+            0%, 100% { border-color: rgba(232, 163, 89, 0.3); box-shadow: 0 0 15px rgba(232, 163, 89, 0.1); }
+            50% { border-color: rgba(160, 92, 58, 0.7); box-shadow: 0 0 25px rgba(160, 92, 58, 0.35); }
+        }
+        .aura-kopken { animation: borderGlowKopken 3s infinite alternate ease-in-out; }
+
+        @keyframes borderGlowNetflix {
+            0%, 100% { border-color: rgba(229, 9, 20, 0.3); box-shadow: 0 0 15px rgba(229, 9, 20, 0.1); }
+            50% { border-color: rgba(229, 9, 20, 0.7); box-shadow: 0 0 25px rgba(229, 9, 20, 0.35); }
+        }
+        .aura-netflix { animation: borderGlowNetflix 3s infinite alternate ease-in-out; }
     </style>
 </head>
 <body class="antialiased">
@@ -122,7 +144,7 @@
     <!-- ========================================== -->
     <div id="view-portal" class="view-section min-h-screen flex flex-col items-center justify-center px-6 py-10">
         <div class="text-center mb-10">
-            <div class="w-24 h-24 bg-gradient-to-tr from-blue-500 to-purple-500 rounded-3xl mx-auto flex items-center justify-center shadow-[0_0_40px_rgba(56,189,248,0.4)] mb-6 transform rotate-12 hover:rotate-0 transition duration-500">
+            <div class="w-24 h-24 bg-gradient-to-tr from-blue-500 to-purple-500 rounded-3xl mx-auto flex items-center justify-center shadow-[0_0_40px_rgba(56,189,248,0.4)] mb-6 float-logo transition duration-500">
                 <i class="fas fa-star text-white text-5xl transform -rotate-12"></i>
             </div>
             <h1 class="text-4xl font-bold text-white mb-3 tracking-tight">Bintang Store</h1>
@@ -131,7 +153,7 @@
 
         <div class="w-full max-w-sm space-y-5">
             <!-- Kopken Button -->
-            <button onclick="switchView('kopken')" class="w-full relative group overflow-hidden rounded-3xl glass-portal p-6 text-left transition duration-300 hover:scale-105 active:scale-95 border-l-4 border-l-kenangan-accent">
+            <button onclick="switchView('kopken')" class="w-full relative group overflow-hidden rounded-3xl glass-portal p-6 text-left transition duration-300 hover:scale-105 active:scale-95 border-l-4 border-l-kenangan-accent aura-kopken">
                 <div class="absolute -right-10 -top-10 w-32 h-32 bg-kenangan-primary/20 rounded-full blur-2xl group-hover:bg-kenangan-primary/40 transition duration-500"></div>
                 <div class="flex items-center gap-4 relative z-10">
                     <div class="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center flex-shrink-0">
@@ -146,7 +168,7 @@
             </button>
 
             <!-- Netflix Button -->
-            <button onclick="switchView('netflix')" class="w-full relative group overflow-hidden rounded-3xl glass-portal p-6 text-left transition duration-300 hover:scale-105 active:scale-95 border-l-4 border-l-netflix-primary">
+            <button onclick="switchView('netflix')" class="w-full relative group overflow-hidden rounded-3xl glass-portal p-6 text-left transition duration-300 hover:scale-105 active:scale-95 border-l-4 border-l-netflix-primary aura-netflix">
                 <div class="absolute -right-10 -top-10 w-32 h-32 bg-netflix-primary/20 rounded-full blur-2xl group-hover:bg-netflix-primary/40 transition duration-500"></div>
                 <div class="flex items-center gap-4 relative z-10">
                     <div class="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center flex-shrink-0">
@@ -685,7 +707,7 @@ Mohon dibantu proses aktivasi akun dan tagihan QRIS/Rekeningnya ya min!`;
         // LOGIKA KOPI KENANGAN MODULE 
         // ==========================================
         const rawOutlets = [
-            "Jakarta|Menara Standart Chartered,Setiabudi One,Kota Kasablanka,Tempo Scan Tower,Menara Karya,Grand Indonesia,Capital Place,Skyline Building,Graha CIMB Niaga,Electronic City,Mayapada Hospital,Lippo Mall Puri,Pejaten Village,Kyai Maja,Lotte Avenue,Plaza Atrium,Kalibata City,Mall Ambasador,Citywalk Sudirman,Sahid Sudirman,Cibubur Junction,Pasaraya Blok M,Summitmas Tower,Plaza Festival,Mall Kelapa Gading 3,Wisma KEIAI,Mall @BASSURA CITY,Sopo Del Tower,Tempo Pavilion 1,Pondok Indah Mall 2,Food Centrum Sunter,Pacific Place,Green Pramuka Square,Baywalk Mall Pluit,Menara Jamsostek,Lotte Mart Fatmawati,City Plaza Jatinegara,Gandaria City,Lippo Plaza Kramat Jati,AEON Mall Jakarta Garden City,Pusat Grosir Cililitan,Central Park,Sudirman Park,Pluit Village,Epicentrum Walk,Transmart Cempaka Putih,Mall Taman Anggrek,Citywalk Gajah Mada,ITC Cempaka Mas,ITC Mangga Dua,Plaza Indonesia,Emporium Pluit,Blok M Plaza,Mall Metro Cipulir,La Codefin Kemang,The Vida Kebon Jeruk,Mall Ciputra Jakarta,Lippo Mall Puri (2),NEO SOHO,Padang Merdeka Kota Tua,Season City,BP Jamsostek,Citra Towers Kemayoran,Cilandak Town Square,Lokasari Square,Plaza Senayan,Gedung Aurum,Tamini Square,Wisma BNI 46,Lippo Mall Kemang,Grand Cakung Mall,Raffles Square Juanda,Transmart Cilandak,Ruko PIK,Artha Graha,RS. Polri,Thamrin City,Bidakara,Shell Pasar Minggu,Shell Gunung Sahari,RS. Saint Carolus,The Crest West Vista,JB Tower,Mangga Dua Square,Teras Benhil,Ratu Plaza,SPBU Jalan Panjang,SPBU Arta Gading,Menara Digitaraya,One Bell Park Cinere,Ruko Rawamangun,SPBU Jalan Supomo,Ruko Jalan Bek. Murad,Ruko Cempaka Putih,Ruko Tanjung Duren,Ruko Cideng,Pasar Pagi Mangga Dua,Shell Ciputat 1,Alamanda Tower,Shell Semper Koja,Ruko Lebak Bulus,Food Hub Cyber Tower 2,Metro Park Residence,Cik Ditiro Menteng,Mall Artha Gading,Ruko MOI,Gedung GKBI,City Plaza Wisma Mulia,SOHO Pancoran,Pancoran China Town,Ruko Taman Mutiara Palem,LA Terrace,Menara Tendean Office,Green Sedayu Mall,FX Mall Sudirman,BP Meruya,Superindo M. Kahfi,SPBU Pertamina (Kapten Tendean),SPBU Pertamina (S. Parman),SPBU Pertamina (Kalimalang Duren Sawit),SPBU Pertamina (Gandaria Pasar Rebo),SPBU Pertamina (Lenteng Agung),Ruko Pulogadung Trade Center,SPBU Pertamina (M. Kahfi II),SPBU Pertamina (Taman Surya),SPBU Pertamina (Kamal Muara),SPBU Pertamina (Jembatan Tiga),SPBU Pertamina (Radjiman Cakung),SPBU Pertamina (Panjang Kelapa Dua),SPBU Pertamina (Palmerah Utara),SPBU Pertamina (Petukangan),Palmerah,SPBU DODO (Raya Condet),SPBU DODO (Raden Inten),SPBU Pertamina (Pasar Minggu),SPBU Pertamina (Gatot Subroto),SPBU Pertamina (Pulo Gebang),SPBU Pertamina (Gedong Panjang),Pusat Mode Tanah Abang,SPBU Pertamina (Tongkol),Rumah Kenangan,Ruko Elang Laut,Ruko Joglo,SPBU Meruya Utara,Ruko Duta Mas Jelambar,Ruko Muara Karang,RS Pelni,SPBU Hayam Wuruk,Ruko Boulevard Kelapa Gading,Ruko Kramat Jaya Koja,RS Husada,Ruko Bendungan Hilir,Stasiun Gambir Selatan,Stasiun Mangga Besar,Stasiun Palmerah,Stasiun Jakarta Kota,Stasiun Duri,Lotte Shopping Avenue (Lower Ground),Central Grand Indonesia 2nd Floor,Taman Ismail Marzuki,Pusat Jantung Nasional Harapan Kita,Food Court PIM 1,Point Square,Cipete Raya,Intiland Tower,RS Yarsi,Mampang,Ruko Kalisari,SPBU Jagakarsa,Ruko Pisangan,Stasiun Senen,Ruko Dewi Sartika,Kemayoran (DT),Ruko Greenville,Thamrine Nine,Blok M Plaza (LG),Epicentrum Walk,Ceger,Stasiun Klender,SPBU Minangkabau,SPBU Pondok Kopi,SPBU Letjen Suprapto,SPBU Kebayoran Lama,SPBU Perintis Kemerdekaan,SPBU Shell Hasyim Ashari,Beltway Office Park,Pasar Jaya Teluk Gong 2,Gama Tower,Rumah Sakit Jakarta,Cilangkap,Ruko Johar Baru,Pusdiklat Depnaker,SPBU Sunter Kemayoran,Menara Imperium,Ruko Sedayu City,Grapari Telkomsel Mall Sarinah,Ruko Bukit Duri Tebet,Ruko Malaka Sari,The Park Pejaten,Ruko Karang Tengah Lebak Bulus,Ruko Sunset Avenue Citra 8,RSCM Gedung Kirana,Ruko Pecenongan",
+            "Jakarta|Menara Standart Chartered,Setiabudi One,Kota Kasablanka,Tempo Scan Tower,Menara Karya,Grand Indonesia,Capital Place,Skyline Building,Graha CIMB Niaga,Electronic City,Mayapada Hospital,Lippo Mall Puri,Pejaten Village,Kyai Maja,Lotte Avenue,Plaza Atrium,Kalibata City,Mall Ambasador,Citywalk Sudirman,Sahid Sudirman,Cibubur Junction,Pasaraya Blok M,Summitmas Tower,Plaza Festival,Mall Kelapa Gading 3,Wisma KEIAI,Mall @BASSURA CITY,Sopo Del Tower,Tempo Pavilion 1,Pondond Indah Mall 2,Food Centrum Sunter,Pacific Place,Green Pramuka Square,Baywalk Mall Pluit,Menara Jamsostek,Lotte Mart Fatmawati,City Plaza Jatinegara,Gandaria City,Lippo Plaza Kramat Jati,AEON Mall Jakarta Garden City,Pusat Grosir Cililitan,Central Park,Sudirman Park,Pluit Village,Epicentrum Walk,Transmart Cempaka Putih,Mall Taman Anggrek,Citywalk Gajah Mada,ITC Cempaka Mas,ITC Mangga Dua,Plaza Indonesia,Emporium Pluit,Blok M Plaza,Mall Metro Cipulir,La Codefin Kemang,The Vida Kebon Jeruk,Mall Ciputra Jakarta,Lippo Mall Puri (2),NEO SOHO,Padang Merdeka Kota Tua,Season City,BP Jamsostek,Citra Towers Kemayoran,Cilandak Town Square,Lokasari Square,Plaza Senayan,Gedung Aurum,Tamini Square,Wisma BNI 46,Lippo Mall Kemang,Grand Cakung Mall,Raffles Square Juanda,Transmart Cilandak,Ruko PIK,Artha Graha,RS. Polri,Thamrin City,Bidakara,Shell Pasar Minggu,Shell Gunung Sahari,RS. Saint Carolus,The Crest West Vista,JB Tower,Mangga Dua Square,Teras Benhil,Ratu Plaza,SPBU Jalan Panjang,SPBU Arta Gading,Menara Digitaraya,One Bell Park Cinere,Ruko Rawamangun,SPBU Jalan Supomo,Ruko Jalan Bek. Murad,Ruko Cempaka Putih,Ruko Tanjung Duren,Ruko Cideng,Pasar Pagi Mangga Dua,Shell Ciputat 1,Alamanda Tower,Shell Semper Koja,Ruko Lebak Bulus,Food Hub Cyber Tower 2,Metro Park Residence,Cik Ditiro Menteng,Mall Artha Gading,Ruko MOI,Gedung GKBI,City Plaza Wisma Mulia,SOHO Pancoran,Pancoran China Town,Ruko Taman Mutiara Palem,LA Terrace,Menara Tendean Office,Green Sedayu Mall,FX Mall Sudirman,BP Meruya,Superindo M. Kahfi,SPBU Pertamina (Kapten Tendean),SPBU Pertamina (S. Parman),SPBU Pertamina (Kalimalang Duren Sawit),SPBU Pertamina (Gandaria Pasar Rebo),SPBU Pertamina (Lenteng Agung),Ruko Pulogadung Trade Center,SPBU Pertamina (M. Kahfi II),SPBU Pertamina (Taman Surya),SPBU Pertamina (Kamal Muara),SPBU Pertamina (Jembatan Tiga),SPBU Pertamina (Radjiman Cakung),SPBU Pertamina (Panjang Kelapa Dua),SPBU Pertamina (Palmerah Utara),SPBU Pertamina (Petukangan),Palmerah,SPBU DODO (Raya Condet),SPBU DODO (Raden Inten),SPBU Pertamina (Pasar Minggu),SPBU Pertamina (Gatot Subroto),SPBU Pertamina (Pulo Gebang),SPBU Pertamina (Gedong Panjang),Pusat Mode Tanah Abang,SPBU Pertamina (Tongkol),Rumah Kenangan,Ruko Elang Laut,Ruko Joglo,SPBU Meruya Utara,Ruko Duta Mas Jelambar,Ruko Muara Karang,RS Pelni,SPBU Hayam Wuruk,Ruko Boulevard Kelapa Gading,Ruko Kramat Jaya Koja,RS Husada,Ruko Bendungan Hilir,Stasiun Gambir Selatan,Stasiun Mangga Besar,Stasiun Palmerah,Stasiun Jakarta Kota,Stasiun Duri,Lotte Shopping Avenue (Lower Ground),Central Grand Indonesia 2nd Floor,Taman Ismail Marzuki,Pusat Jantung Nasional Harapan Kita,Food Court PIM 1,Point Square,Cipete Raya,Intiland Tower,RS Yarsi,Mampang,Ruko Kalisari,SPBU Jagakarsa,Ruko Pisangan,Stasiun Senen,Ruko Dewi Sartika,Kemayoran (DT),Ruko Greenville,Thamrine Nine,Blok M Plaza (LG),Epicentrum Walk,Ceger,Stasiun Klender,SPBU Minangkabau,SPBU Pondok Kopi,SPBU Letjen Suprapto,SPBU Kebayoran Lama,SPBU Perintis Kemerdekaan,SPBU Shell Hasyim Ashari,Beltway Office Park,Pasar Jaya Teluk Gong 2,Gama Tower,Rumah Sakit Jakarta,Cilangkap,Ruko Johar Baru,Pusdiklat Depnaker,SPBU Sunter Kemayoran,Menara Imperium,Ruko Sedayu City,Grapari Telkomsel Mall Sarinah,Ruko Bukit Duri Tebet,Ruko Malaka Sari,The Park Pejaten,Ruko Karang Tengah Lebak Bulus,Ruko Sunset Avenue Citra 8,RSCM Gedung Kirana,Ruko Pecenongan",
             "Bogor|Botani Square Mall,Lippo Plaza Ekalokasari,Transmart Yasmin Bogor,Bogor Trade Mall,Mall Boxies 123,Lotte Grosir Pakansari,Ruko Kota Wisata,SPBU Cibogo,Ruko Gadog Ciawi,Super Indo Pajajaran Bogor,Ruko Pasirkuda Ciomas,Ruko Cisarua Puncak,SPBU Mayor Oking Cibinong,SPBU Cikaret Cibinong,Superindo Limus Pratama,SPBU Pajajaran Bogor,SPBU Kedung Halang,Ruko Pomad,Ruko Pandu Raya Bogor,Cibinong City Mall,Toserba Yogya (Grand Dramaga),Metland Cileungsi,Ruko Cileungsi,Ruko Legenda Wisata,Ruko Sukahati Cibinong,Ruko Pondok Rajeg,SPBU Jampang Parung,Ruko Parung,Rest Area KM 21 Jagorawi,Stasiun Bogor,Stasiun Cilebut,Stasiun Parung Panjang,SPBU BP Alternatif Sentul,Rancamaya Bogor,Cilendek Bogor,Ruko Babakan Madang Bogor,Living World Kota Wisata,Millennium City",
             "Depok|Pesona Square Depok,DMall Depok,Trans Studio Mall Cibubur,Mall Cinere,Lippo Cinere,Giant Supermarket Bojong Sari,Giant Supermarket Cimanggis,SPBU Buperta Cibubur,Ruko Margonda,Ruko Waterpark Grand Depok City,Transmart Depok,Ruko Sawangan Depok,SPBU Margonda Raya,SPBU Gas Alam,Ruko Gandul,SPBU Kartini,SPBU Limo Raya,SPBU Juanda Depok,SPBU Sawangan Baru,Ruko Kelapa Dua Depok,Apotek Roxy Nusantara Depok,The Park Sawangan,Ruko Kejayaan Depok,Ruko Tapos Pekapuran,Ruko Citayam Centre,Alfamidi Abdul Ghani Cilodong,FMIPA UI,Agung Podomoro Golf View Cimanggis,M Kahfi,SPBU Leuwinanggung,Ruko Mekarsari,Ruko Perumahan Jatijajar",
             "Tangerang|Summarecon Mall Serpong,Giant Supermarket Bintaro,The Breeze,Lotte Mart Bintaro,Aeon Mall BSD,Living World Alam Sutera,Garuda HQ,Supermall Karawaci,Bintaro Jaya Exchange,Teras Kota,Transpark Bintaro,Shell Serpong,Living Plaza Bintaro,BP Metland,Ruko Tangerang City,BP BSD Delatinos,Shell Suwarna Cengkareng,City Plaza Kotabumi,Shell Puspitek,Tangerang City Mall,Giant Supermarket Rempoa,BP Ciater Pamulang,SPBU Citra Raya Tangerang,SPBU Pasar Kemis,SPBU MH Thamrin Serpong,SPBU Alam Sutera,SPBU Cikupa,Ruko Menjangan,Alfamidi Stasiun Pondok Ranji,Ruko Graha Raya,Ruko Puri Beta,SPBU Tigaraksa,SPBU Jatake,Ruko Sepatan,Ruko Balaraja,Ruko Harapan Kita Karawaci,Serpong Paradise Walk,Ruko UIN,Mall Balekota Tangerang,CBD Ciledug,Ruko Poris,SPBU Duta Garden,SPBU Modernland,SPBU Puspitek,Ruko Cordoba Green Lake City,Ruko Karang Tengah,Ruko Surya Kencana Pamulang,Padang Merdeka Bez Serpong,Summarecon Digital Center (SDC Serpong),Ruko Curug,SPBU DODO Pertamina (Cirendeu Raya),SPBU Pertamina DODO (Curug),Living Plaza Pamulang,Ruko Daan Mogot,Ruko Cipondoh,Ruko Azores,Ruko Bandara Mas,Marchand Hype Station,Ruko Moh Toha Tangerang,Alfamidi Teluk Naga,Ruko Ceger,Ruko Gading Serpong,Ruko Bandara City Mall Tangerang,Stasiun Tangerang,Tokyo Hub Pantai Indah Kapuk 2,Grand Batavia,Ruko Madison Grande,Ruko Barcelona BSD,Taman Royal Cipondoh,Ruko Jatiuwung Tangerang,Telaga Bestari,EF Gading Serpong,U Town Bintaro,Fakultas Kedokteran UPH,BP Legok",
@@ -1273,6 +1295,44 @@ Mohon dibantu proses order ya, terima kasih!`;
 
         function scrollToCart() {
             document.getElementById('checkout-section').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // --- LOGIKA COSMIC MAGIC TAP DI LAYAR HP ---
+        document.body.addEventListener('pointerdown', (e) => {
+            // Abaikan jika menekan tombol/input agar tidak mengganggu navigasi normal
+            if (e.target.closest('button, input, select, a, .cursor-pointer')) return;
+            createCosmicBurst(e.clientX, e.clientY);
+        });
+
+        function createCosmicBurst(x, y) {
+            const colors = ['#E8A359', '#38BDF8', '#A05C3A', '#ffffff', '#E50914'];
+            for(let i=0; i<10; i++) {
+                const particle = document.createElement('i');
+                const isStar = Math.random() > 0.4;
+                particle.className = `fas ${isStar ? 'fa-star' : 'fa-circle'} fixed pointer-events-none z-[300] text-xs`;
+                particle.style.color = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.left = `${x}px`;
+                particle.style.top = `${y}px`;
+                
+                const angle = Math.random() * Math.PI * 2;
+                const velocity = 2 + Math.random() * 4;
+                const tx = Math.cos(angle) * velocity * 12;
+                const ty = Math.sin(angle) * velocity * 12;
+                
+                document.body.appendChild(particle);
+                
+                if(particle.animate) {
+                    particle.animate([
+                        { transform: 'translate(-50%, -50%) scale(1) rotate(0deg)', opacity: 1 },
+                        { transform: `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) scale(0) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+                    ], {
+                        duration: 600 + Math.random() * 400,
+                        easing: 'cubic-bezier(0.1, 0.8, 0.25, 1)'
+                    }).onfinish = () => particle.remove();
+                } else {
+                    setTimeout(() => particle.remove(), 1000);
+                }
+            }
         }
     </script>
 </body>
