@@ -139,7 +139,6 @@
 </head>
 <body class="antialiased">
 
-    <!-- STREAMING_CHUNK: Setting up cosmic environment... -->
     <!-- Background Glows & Particles -->
     <div class="bg-glow" id="main-glow"></div>
     <div id="particle-container"></div>
@@ -151,7 +150,6 @@
     <!-- VIEW 1: PORTAL BINTANG STORE (HUB UTAMA)   -->
     <!-- ========================================== -->
     <div id="view-portal" class="view-section min-h-screen flex flex-col items-center justify-center px-6 py-10">
-        <!-- STREAMING_CHUNK: Rendering live status and header... -->
         <!-- Live Admin Status Badge -->
         <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold mb-6 shadow-[0_0_15px_rgba(16,185,129,0.1)]">
             <span class="relative flex h-2.5 w-2.5">
@@ -162,8 +160,9 @@
         </div>
 
         <div class="text-center mb-10">
-            <div class="w-24 h-24 bg-gradient-to-tr from-blue-500 to-purple-500 rounded-3xl mx-auto flex items-center justify-center shadow-[0_0_40px_rgba(56,189,248,0.4)] mb-6 float-logo transition duration-500">
-                <i class="fas fa-star text-white text-5xl transform -rotate-12"></i>
+            <div class="w-24 h-24 bg-gradient-to-tr from-blue-500 to-purple-500 rounded-3xl mx-auto flex items-center justify-center shadow-[0_0_40px_rgba(56,189,248,0.4)] mb-6 float-logo transition duration-500 overflow-hidden">
+                <!-- Memuat logo kustom baru dari file favicon.png dengan fallback bintang emas jika gagal -->
+                <img src="favicon.png" alt="Bintang Store Logo" class="w-16 h-16 object-contain transform -rotate-12" onerror="this.onerror=null; this.src='https://placehold.co/100x100/38BDF8/ffffff?text=⭐'">
             </div>
             <h1 class="text-4xl font-bold text-white mb-3 tracking-tight">Bintang Store</h1>
             <p class="text-gray-300 text-sm max-w-xs mx-auto leading-relaxed">Satu portal untuk semua kebutuhan healing-mu. Ngopi jalan, maraton drakor aman!</p>
@@ -226,10 +225,10 @@
 
         <nav class="glass sticky top-[60px] z-30 px-4 py-2 mb-4 overflow-x-auto no-scrollbar whitespace-nowrap border-b border-white/50">
             <div class="flex gap-2">
-                <a href="#cat-bundling" class="px-4 py-1.5 rounded-full bg-white/80 text-kenangan-dark text-sm font-semibold shadow-sm border border-white">Bundling</a>
-                <a href="#cat-coffee" class="px-4 py-1.5 rounded-full bg-white/80 text-kenangan-dark text-sm font-semibold shadow-sm border border-white">Coffee</a>
-                <a href="#cat-noncoffee" class="px-4 py-1.5 rounded-full bg-white/80 text-kenangan-dark text-sm font-semibold shadow-sm border border-white">Non-Coffee</a>
-                <a href="#cat-bakery" class="px-4 py-1.5 rounded-full bg-white/80 text-kenangan-dark text-sm font-semibold shadow-sm border border-white">Bakery</a>
+                <button onclick="scrollToCategory('cat-bundling', event)" class="px-4 py-1.5 rounded-full bg-white/80 text-kenangan-dark text-sm font-semibold shadow-sm border border-white cursor-pointer active:scale-95 transition">Bundling</button>
+                <button onclick="scrollToCategory('cat-coffee', event)" class="px-4 py-1.5 rounded-full bg-white/80 text-kenangan-dark text-sm font-semibold shadow-sm border border-white cursor-pointer active:scale-95 transition">Coffee</button>
+                <button onclick="scrollToCategory('cat-noncoffee', event)" class="px-4 py-1.5 rounded-full bg-white/80 text-kenangan-dark text-sm font-semibold shadow-sm border border-white cursor-pointer active:scale-95 transition">Non-Coffee</button>
+                <button onclick="scrollToCategory('cat-bakery', event)" class="px-4 py-1.5 rounded-full bg-white/80 text-kenangan-dark text-sm font-semibold shadow-sm border border-white cursor-pointer active:scale-95 transition">Bakery</button>
             </div>
         </nav>
 
@@ -311,7 +310,6 @@
     <!-- VIEW 3: NETFLIX PREMIUM                    -->
     <!-- ========================================== -->
     <div id="view-netflix" class="view-section hidden text-white pb-32">
-        <!-- STREAMING_CHUNK: Rendering Netflix view... -->
         <header class="glass-dark sticky top-0 z-40 px-4 py-3 flex items-center gap-3 shadow-md border-b border-red-500/20">
             <button onclick="switchView('portal')" class="w-8 h-8 flex items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition">
                 <i class="fas fa-arrow-left"></i>
@@ -424,7 +422,6 @@
                 </div>
             </section>
 
-            <!-- STREAMING_CHUNK: Rendering Netflix FAQ Accordion... -->
             <!-- FAQ Accordion Section -->
             <section class="space-y-3">
                 <h3 class="text-md font-bold text-gray-300 px-1 mb-4 flex items-center gap-2">
@@ -555,7 +552,6 @@
         </div>
     </div>
 
-    <!-- STREAMING_CHUNK: Setting up JavaScript modules and audio engines... -->
     <script>
         // ==========================================
         // ENGINES: SPEKTAKULER SYNTHESIS SOUND EFFECTS (0 KB GPU-ACCELERATED)
@@ -1006,7 +1002,7 @@ Mohon dibantu proses aktivasi akun dan tagihan QRIS/Rekeningnya ya min!`;
             initCities();
             renderMenu();
 
-            // --- DETEKSI ALUR HALAMAN UTAMA ATAUR LANGSUNG DARI LINK HASH (#) ---
+            // --- DETEKSI ALUR HALAMAN UTAMA ATAU LANGSUNG DARI LINK HASH (#) ---
             const initialHash = window.location.hash.replace('#', '') || 'portal';
             if (['portal', 'kopken', 'netflix'].includes(initialHash)) {
                 history.replaceState({ view: initialHash }, '', '#' + initialHash);
@@ -1492,6 +1488,18 @@ Mohon dibantu proses order ya, terima kasih!`;
             } else if (method === 'whatsapp') {
                 const waUrl = `https://wa.me/${waNumber}?text=${encodedMessage}`;
                 showFullscreenLoader('kopken', true, waUrl);
+            }
+        }
+
+        function scrollToCategory(id, event) {
+            if (event) event.preventDefault();
+            sfx.playTap();
+            const element = document.getElementById(id);
+            if (element) {
+                // Offset setinggi -115px agar judul kategori tidak tertutup oleh header melayang atas
+                const yOffset = -115; 
+                const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                window.scrollTo({ top: y, behavior: 'smooth' });
             }
         }
 
