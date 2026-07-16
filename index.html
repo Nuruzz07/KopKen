@@ -23,7 +23,6 @@
         }
     </script>
 
-    <!-- STREAMING_CHUNK: Injecting custom CSS styles and animation keyframes... -->
     <style>
         body {
             background-color: #0F172A; /* Default Portal Dark */
@@ -140,7 +139,6 @@
 </head>
 <body class="antialiased">
 
-    <!-- STREAMING_CHUNK: Rendering backdrop structures and ambient glow containers... -->
     <!-- Background Glows & Particles -->
     <div class="bg-glow" id="main-glow"></div>
     <div id="particle-container"></div>
@@ -152,8 +150,6 @@
     <!-- VIEW 1: PORTAL BINTANG STORE (HUB UTAMA)   -->
     <!-- ========================================== -->
     <div id="view-portal" class="view-section min-h-screen flex flex-col items-center justify-center px-6 py-10">
-        
-        <!-- STREAMING_CHUNK: Rendering Portal View with live indicators and the custom circle logo... -->
         <!-- Live Admin Status Badge -->
         <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold mb-6 shadow-[0_0_15px_rgba(16,185,129,0.1)]">
             <span class="relative flex h-2.5 w-2.5">
@@ -164,9 +160,9 @@
         </div>
 
         <div class="text-center mb-10">
-            <!-- Tampilan Bulat dengan Trik Zoom-Crop agar logo samping & teks bawah terpotong rapi secara otomatis -->
-            <div class="w-24 h-24 bg-[#070b19] rounded-full mx-auto flex items-center justify-center shadow-[0_0_35px_rgba(56,189,248,0.3)] border border-white/10 mb-6 float-logo transition duration-500 overflow-hidden relative">
-                <img src="favicon.png" alt="Bintang Store Logo" class="w-full h-full object-cover scale-[1.75] translate-y-[-2px]" onerror="this.onerror=null; this.src='https://placehold.co/100x100/38BDF8/ffffff?text=⭐'">
+            <!-- GANTI BAGIAN GRADASI UNGU LAMA DENGAN KODE BARU INI -->
+            <div class="w-40 h-20 bg-black rounded-2xl mx-auto flex items-center justify-center shadow-[0_0_35px_rgba(56,189,248,0.25)] border border-white/10 mb-6 float-logo transition duration-500 overflow-hidden">
+                <img src="favicon.png" alt="Bintang Store Logo" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='https://placehold.co/100x100/38BDF8/ffffff?text=⭐'">
             </div>
             <h1 class="text-4xl font-bold text-white mb-3 tracking-tight">Bintang Store</h1>
             <p class="text-gray-300 text-sm max-w-xs mx-auto leading-relaxed">Satu portal untuk semua kebutuhan healing-mu. Ngopi jalan, maraton drakor aman!</p>
@@ -211,7 +207,6 @@
     <!-- VIEW 2: KOPI KENANGAN                      -->
     <!-- ========================================== -->
     <div id="view-kopken" class="view-section hidden text-kenangan-dark pb-32">
-        <!-- STREAMING_CHUNK: Rendering Kopi Kenangan main header and interactive category filters... -->
         <header class="glass sticky top-0 z-40 px-4 py-3 flex items-center justify-between transition-all duration-300 shadow-sm" id="main-header">
             <div class="flex items-center gap-3">
                 <button onclick="switchView('portal')" class="w-8 h-8 flex items-center justify-center rounded-full bg-white/50 text-kenangan-dark hover:bg-white transition">
@@ -228,7 +223,6 @@
             </button>
         </header>
 
-        <!-- Kategori menggunakan button click, anti mental dan anti lompat ke luar SPA -->
         <nav class="glass sticky top-[60px] z-30 px-4 py-2 mb-4 overflow-x-auto no-scrollbar whitespace-nowrap border-b border-white/50">
             <div class="flex gap-2">
                 <button onclick="scrollToCategory('cat-bundling', event)" class="px-4 py-1.5 rounded-full bg-white/80 text-kenangan-dark text-sm font-semibold shadow-sm border border-white cursor-pointer active:scale-95 transition">Bundling</button>
@@ -246,7 +240,6 @@
             <!-- Menu categories injected via JS -->
         </main>
 
-        <!-- STREAMING_CHUNK: Constructing checkout and basket card UI... -->
         <section id="checkout-section" class="mx-4 mt-10 p-5 glass rounded-2xl">
             <h2 class="text-xl font-bold text-kenangan-dark mb-4 flex items-center gap-2">
                 <i class="fas fa-clipboard-list text-kenangan-primary"></i> Detail Pesanan
@@ -325,7 +318,6 @@
             <h1 class="font-bold text-lg tracking-wide">Netflix Premium</h1>
         </header>
 
-        <!-- STREAMING_CHUNK: Setting up Netflix card designs and pricing forms... -->
         <main class="px-4 mt-6">
             <div class="text-center mb-8">
                 <span class="bg-netflix-primary/20 text-netflix-primary border border-netflix-primary/50 px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase mb-3 inline-block">Termurah & Bergaransi</span>
@@ -430,7 +422,6 @@
                 </div>
             </section>
 
-            <!-- STREAMING_CHUNK: Integrating Netflix FAQ lipat accordion layout... -->
             <!-- FAQ Accordion Section -->
             <section class="space-y-3">
                 <h3 class="text-md font-bold text-gray-300 px-1 mb-4 flex items-center gap-2">
@@ -561,7 +552,6 @@
         </div>
     </div>
 
-    <!-- STREAMING_CHUNK: Initializing Sound Synth Engine and Global Event Handlers... -->
     <script>
         // ==========================================
         // ENGINES: SPEKTAKULER SYNTHESIS SOUND EFFECTS (0 KB GPU-ACCELERATED)
@@ -923,7 +913,7 @@ Mohon dibantu proses aktivasi akun dan tagihan QRIS/Rekeningnya ya min!`;
             "Manado|Manado Town Square,Transmart Kawanua,Ruko Sam Ratulangi,Kawasan Megamas,Ruko Yos Sudarso Paal Dua,Ruko Sudirman,Ruko Bahu,SPBU Sario",
             "Padang|Basko Grand Mall,Ruko Proklamasi,Ruko Arau,Ruko Gajah Mada,Ruko Sutomo,Stasiun Tabing,SPBU Khatib Sulaeman",
             "Jambi|WTC Batanghari,SPBU Samsat Gajah Mada,Ruko Selincah,Ruko Beringin,Sipin Jambi (Drive Thru),Jambi Prima Mall",
-            "Pontianak|Hypermart Ayani Megamal,Ruko Komplek Serdam,Ruko Dr. Wahidin,Ruko Sultan Rahman",
+            "Pontianak|Hypermart Ayani Megamal,Ruko Komplek Serdam,Ruko Dr. Wahidin,Ruko Sultan Abdurrahman",
             "Aceh|Ruko Nyak Makam,SPBU Lamnyong,Ruko Panglima Polem",
             "Tasikmalaya|Plaza Asia,SPBU Rancabango,Ruko Martadinata,Ruko Singaparna",
             "Banyumas & Purwokerto|Rita Supermall Purwokerto,Ruko Bunyamin,Ruko Suharso,SPBU Karanglewas,Alfamidi Wahid Hasyim,Ruko Sokaraja",
@@ -956,7 +946,6 @@ Mohon dibantu proses aktivasi akun dan tagihan QRIS/Rekeningnya ya min!`;
             cityData[city] = branches;
         });
 
-        // STREAMING_CHUNK: Setting up product data catalogs with details...
         const menuData = [
             // BUNDLING (Latar Cokelat Gelap)
             { id: 'b1', cat: 'bundling', name: 'Paket Hemat 40K', old: 60000, new: 40000, type: 'bundling', img: 'https://placehold.co/400x400/2C1A0D/F9F1E7?text=Paket+Hemat&font=Montserrat', opts: [
@@ -1013,7 +1002,7 @@ Mohon dibantu proses aktivasi akun dan tagihan QRIS/Rekeningnya ya min!`;
             initCities();
             renderMenu();
 
-            // --- DETEKSI ALUR HALAMAN UTAMA ATAUR LANGSUNG DARI LINK HASH (#) ---
+            // --- DETEKSI ALUR HALAMAN UTAMA ATAU LANGSUNG DARI LINK HASH (#) ---
             const initialHash = window.location.hash.replace('#', '') || 'portal';
             if (['portal', 'kopken', 'netflix'].includes(initialHash)) {
                 history.replaceState({ view: initialHash }, '', '#' + initialHash);
@@ -1060,7 +1049,6 @@ Mohon dibantu proses aktivasi akun dan tagihan QRIS/Rekeningnya ya min!`;
             });
         }
 
-        // STREAMING_CHUNK: Injecting promo dynamic menu cards to viewport...
         function renderMenu() {
             const container = document.getElementById('menu-container');
             const categories = [
@@ -1115,7 +1103,6 @@ Mohon dibantu proses aktivasi akun dan tagihan QRIS/Rekeningnya ya min!`;
             }
         };
 
-        // STREAMING_CHUNK: Injecting Kopi Kenangan options modal...
         function openModal(itemId) {
             const item = menuData.find(m => m.id === itemId);
             currentModalItem = item;
@@ -1326,7 +1313,6 @@ Mohon dibantu proses aktivasi akun dan tagihan QRIS/Rekeningnya ya min!`;
             }, 900);
         }
 
-        // STREAMING_CHUNK: Defining cart and checkout validation algorithms...
         function removeFromCart(index) {
             cart.splice(index, 1);
             updateCartUI();
@@ -1433,7 +1419,6 @@ Mohon dibantu proses aktivasi akun dan tagihan QRIS/Rekeningnya ya min!`;
             }
         }
 
-        // STREAMING_CHUNK: Processing Kopken order and mapping with Telegram & WA redirect...
         function submitOrderKopken(method) {
             sfx.playSuccess();
             const name = document.getElementById('cust-name').value.trim();
@@ -1506,7 +1491,6 @@ Mohon dibantu proses order ya, terima kasih!`;
             }
         }
 
-        // STREAMING_CHUNK: Integrating category smooth-scrolling algorithm with layout offsets...
         function scrollToCategory(id, event) {
             if (event) event.preventDefault();
             sfx.playTap();
