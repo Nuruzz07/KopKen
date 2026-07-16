@@ -146,6 +146,7 @@
     <!-- Toast Notification Container -->
     <div id="toast-container" class="fixed top-20 left-1/2 transform -translate-x-1/2 z-[110] flex flex-col gap-2 w-[90%] max-w-sm pointer-events-none"></div>
 
+   <!-- ... existing code ... -->
     <!-- ========================================== -->
     <!-- VIEW 1: PORTAL BINTANG STORE (HUB UTAMA)   -->
     <!-- ========================================== -->
@@ -159,16 +160,18 @@
             Admin Online & Proses Cepat (Antrean: Lancar)
         </div>
 
+        <!-- STREAMING_CHUNK: Refining the logo container to fit horizontal rectangle ratio and seamless blending... -->
         <div class="text-center mb-10">
-            <div class="w-24 h-24 bg-gradient-to-tr from-blue-500 to-purple-500 rounded-3xl mx-auto flex items-center justify-center shadow-[0_0_40px_rgba(56,189,248,0.4)] mb-6 float-logo transition duration-500 overflow-hidden">
-                <!-- Memuat logo kustom baru dari file favicon.png dengan fallback bintang emas jika gagal -->
-                <img src="favicon.png" alt="Bintang Store Logo" class="w-16 h-16 object-contain transform -rotate-12" onerror="this.onerror=null; this.src='https://placehold.co/100x100/38BDF8/ffffff?text=⭐'">
+            <div class="w-40 h-20 bg-black rounded-2xl mx-auto flex items-center justify-center shadow-[0_0_35px_rgba(56,189,248,0.25)] border border-white/10 mb-6 float-logo transition duration-500 overflow-hidden">
+                <!-- Menampilkan logo baru tanpa diputar dan menyatu dengan background hitam seamless -->
+                <img src="favicon.png" alt="Bintang Store Logo" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='https://placehold.co/100x100/38BDF8/ffffff?text=⭐'">
             </div>
             <h1 class="text-4xl font-bold text-white mb-3 tracking-tight">Bintang Store</h1>
             <p class="text-gray-300 text-sm max-w-xs mx-auto leading-relaxed">Satu portal untuk semua kebutuhan healing-mu. Ngopi jalan, maraton drakor aman!</p>
         </div>
 
         <div class="w-full max-w-sm space-y-5">
+<!-- ... existing code ... -->
             <!-- Kopken Button -->
             <button onclick="switchView('kopken')" class="w-full relative group overflow-hidden rounded-3xl glass-portal p-6 text-left transition duration-300 hover:scale-105 active:scale-95 border-l-4 border-l-kenangan-accent aura-kopken">
                 <div class="absolute -right-10 -top-10 w-32 h-32 bg-kenangan-primary/20 rounded-full blur-2xl group-hover:bg-kenangan-primary/40 transition duration-500"></div>
