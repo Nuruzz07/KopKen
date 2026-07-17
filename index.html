@@ -534,7 +534,8 @@
             <h3 class="font-bold text-2xl text-gray-800 mb-2">Pesanan Diterima!</h3>
             <p class="text-sm text-gray-600 mb-6 leading-relaxed">Sistem telah meneruskan pesanan otomatis Anda ke layar Admin kami. <br><br><b class="text-red-500 bg-red-50 px-2 py-1 rounded">Namun pesanan ini BELUM DIBAYAR!</b><br><br>Silakan segera konfirmasi admin via WA untuk meminta nomor rekening/QRIS pembayaran. Pesanan baru aktif setelah lunas ya! ✨</p>
             <div class="space-y-3">
-                <a href="https://wa.me/6285959633342?text=Halo%20Admin,%20saya%20sudah%20pesan%20via%20sistem%20web.%20Tolong%20dicek%20dan%20minta%20QRIS/Rekening%20pembayarannya%20ya!" target="_blank" class="w-full flex justify-center items-center gap-2 bg-green-500 hover:bg-green-600 text-white font-bold py-3 rounded-xl shadow-md active:scale-95 transition">
+                <!-- STREAMING_CHUNK: Added id="payment-wa-link" to dynamically construct personalized messages with typed checkout names... -->
+                <a id="payment-wa-link" href="https://wa.me/6285959633342?text=Halo%20Admin,%20saya%20sudah%20pesan%20via%20sistem%20web.%20Tolong%20dicek%20dan%20minta%20QRIS/Rekening%20pembayarannya%20ya!" target="_blank" class="w-full flex justify-center items-center gap-2 bg-green-500 hover:bg-green-600 text-white font-bold py-3 rounded-xl shadow-md active:scale-95 transition">
                     <i class="fab fa-whatsapp text-lg"></i> Konfirmasi Bayar ke WA
                 </a>
                 <button onclick="closePaymentPopup()" class="w-full bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold py-3 rounded-xl shadow-md active:scale-95 transition">Tutup Dulu</button>
@@ -542,7 +543,7 @@
         </div>
     </div>
 
-    <!-- KOPKEN Modal Overlay (Bottom Sheet Fixed) - Bersih Tanpa Atribut Onclick Inline Mengganggu -->
+    <!-- KOPKEN Modal Overlay (Bottom Sheet Fixed) -->
     <div id="modal-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[200] hidden opacity-0 transition-opacity duration-300">
         <div id="modal-content" class="absolute bottom-0 left-0 right-0 mx-auto w-full max-w-md bg-white rounded-t-3xl shadow-[0_-10px_40px_rgba(0,0,0,0.2)] transform translate-y-full transition-transform duration-300 max-h-[85vh] flex flex-col text-kenangan-dark pb-6">
             <!-- Handle Garis Atas -->
@@ -572,6 +573,7 @@
         </div>
     </div>
 
+    <!-- STREAMING_CHUNK: Integrating audio engines and robust programmatic popups... -->
     <script>
         // ==========================================
         // ENGINES: SPEKTAKULER SYNTHESIS SOUND EFFECTS (0 KB GPU-ACCELERATED)
@@ -797,7 +799,31 @@
             }, 5000);
         }
 
+        // STREAMING_CHUNK: Dynamic parsing of the checkout name inside showPaymentPopup()...
         function showPaymentPopup() {
+            let customerName = "Pelanggan";
+            
+            // Cek view mana yang sedang aktif untuk mengambil input nama yang sesuai
+            const isKopkenActive = !document.getElementById('view-kopken').classList.contains('hidden');
+            const isNetflixActive = !document.getElementById('view-netflix').classList.contains('hidden');
+            
+            if (isKopkenActive) {
+                const nameInput = document.getElementById('cust-name').value.trim();
+                if (nameInput) customerName = nameInput;
+            } else if (isNetflixActive) {
+                const nameInput = document.getElementById('nflx-name').value.trim();
+                if (nameInput) customerName = nameInput;
+            }
+            
+            // Masukkan nama pembeli secara dinamis ke link WA
+            const message = `Halo Admin, saya sudah pesan via sistem web atas nama *${customerName}*. Tolong dicek dan minta QRIS/Rekening pembayarannya ya!`;
+            const encodedMessage = encodeURIComponent(message);
+            
+            const waLink = document.getElementById('payment-wa-link');
+            if (waLink) {
+                waLink.href = `https://wa.me/${waNumber}?text=${encodedMessage}`;
+            }
+
             const popup = document.getElementById('payment-popup');
             const popupContent = document.getElementById('payment-popup-content');
             popup.classList.remove('hidden');
@@ -913,7 +939,7 @@ Mohon dibantu proses aktivasi akun dan tagihan QRIS/Rekeningnya ya min!`;
         const rawOutlets = [
             "Jakarta|Menara Standart Chartered,Setiabudi One,Kota Kasablanka,Tempo Scan Tower,Menara Karya,Grand Indonesia,Capital Place,Skyline Building,Graha CIMB Niaga,Electronic City,Mayapada Hospital,Lippo Mall Puri,Pejaten Village,Kyai Maja,Lotte Avenue,Plaza Atrium,Kalibata City,Mall Ambasador,Citywalk Sudirman,Sahid Sudirman,Cibubur Junction,Pasaraya Blok M,Summitmas Tower,Plaza Festival,Mall Kelapa Gading 3,Wisma KEIAI,Mall @BASSURA CITY,Sopo Del Tower,Tempo Pavilion 1,Pondond Indah Mall 2,Food Centrum Sunter,Pacific Place,Green Pramuka Square,Baywalk Mall Pluit,Menara Jamsostek,Lotte Mart Fatmawati,City Plaza Jatinegara,Gandaria City,Lippo Plaza Kramat Jati,AEON Mall Jakarta Garden City,Pusat Grosir Cililitan,Central Park,Sudirman Park,Pluit Village,Epicentrum Walk,Transmart Cempaka Putih,Mall Taman Anggrek,Citywalk Gajah Mada,ITC Cempaka Mas,ITC Mangga Dua,Plaza Indonesia,Emporium Pluit,Blok M Plaza,Mall Metro Cipulir,La Codefin Kemang,The Vida Kebon Jeruk,Mall Ciputra Jakarta,Lippo Mall Puri (2),NEO SOHO,Padang Merdeka Kota Tua,Season City,BP Jamsostek,Citra Towers Kemayoran,Cilandak Town Square,Lokasari Square,Plaza Senayan,Gedung Aurum,Tamini Square,Wisma BNI 46,Lippo Mall Kemang,Grand Cakung Mall,Raffles Square Juanda,Transmart Cilandak,Ruko PIK,Artha Graha,RS. Polri,Thamrin City,Bidakara,Shell Pasar Minggu,Shell Gunung Sahari,RS. Saint Carolus,The Crest West Vista,JB Tower,Mangga Dua Square,Teras Benhil,Ratu Plaza,SPBU Jalan Panjang,SPBU Arta Gading,Menara Digitaraya,One Bell Park Cinere,Ruko Rawamangun,SPBU Jalan Supomo,Ruko Jalan Bek. Murad,Ruko Cempaka Putih,Ruko Tanjung Duren,Ruko Cideng,Pasar Pagi Mangga Dua,Shell Ciputat 1,Alamanda Tower,Shell Semper Koja,Ruko Lebak Bulus,Food Hub Cyber Tower 2,Metro Park Residence,Cik Ditiro Menteng,Mall Artha Gading,Ruko MOI,Gedung GKBI,City Plaza Wisma Mulia,SOHO Pancoran,Pancoran China Town,Ruko Taman Mutiara Palem,LA Terrace,Menara Tendean Office,Green Sedayu Mall,FX Mall Sudirman,BP Meruya,Superindo M. Kahfi,SPBU Pertamina (Kapten Tendean),SPBU Pertamina (S. Parman),SPBU Pertamina (Kalimalang Duren Sawit),SPBU Pertamina (Gandaria Pasar Rebo),SPBU Pertamina (Lenteng Agung),Ruko Pulogadung Trade Center,SPBU Pertamina (M. Kahfi II),SPBU Pertamina (Taman Surya),SPBU Pertamina (Kamal Muara),SPBU Pertamina (Jembatan Tiga),SPBU Pertamina (Radjiman Cakung),SPBU Pertamina (Panjang Kelapa Dua),SPBU Pertamina (Palmerah Utara),SPBU Pertamina (Petukangan),Palmerah,SPBU DODO (Raya Condet),SPBU DODO (Raden Inten),SPBU Pertamina (Pasar Minggu),SPBU Pertamina (Gatot Subroto),SPBU Pertamina (Pulo Gebang),SPBU Pertamina (Gedong Panjang),Pusat Mode Tanah Abang,SPBU Pertamina (Tongkol),Rumah Kenangan,Ruko Elang Laut,Ruko Joglo,SPBU Meruya Utara,Ruko Duta Mas Jelambar,Ruko Muara Karang,RS Pelni,SPBU Hayam Wuruk,Ruko Boulevard Kelapa Gading,Ruko Kramat Jaya Koja,RS Husada,Ruko Bendungan Hilir,Stasiun Gambir Selatan,Stasiun Mangga Besar,Stasiun Palmerah,Stasiun Jakarta Kota,Stasiun Duri,Lotte Shopping Avenue (Lower Ground),Central Grand Indonesia 2nd Floor,Taman Ismail Marzuki,Pusat Jantung Nasional Harapan Kita,Food Court PIM 1,Point Square,Cipete Raya,Intiland Tower,RS Yarsi,Mampang,Ruko Kalisari,SPBU Jagakarsa,Ruko Pisangan,Stasiun Senen,Ruko Dewi Sartika,Kemayoran (DT),Ruko Greenville,Thamrine Nine,Blok M Plaza (LG),Epicentrum Walk,Ceger,Stasiun Klender,SPBU Minangkabau,SPBU Pondok Kopi,SPBU Letjen Suprapto,SPBU Kebayoran Lama,SPBU Perintis Kemerdekaan,SPBU Shell Hasyim Ashari,Beltway Office Park,Pasar Jaya Teluk Gong 2,Gama Tower,Rumah Sakit Jakarta,Cilangkap,Ruko Johar Baru,Pusdiklat Depnaker,SPBU Sunter Kemayoran,Menara Imperium,Ruko Sedayu City,Grapari Telkomsel Mall Sarinah,Ruko Bukit Duri Tebet,Ruko Malaka Sari,The Park Pejaten,Ruko Karang Tengah Lebak Bulus,Ruko Sunset Avenue Citra 8,RSCM Gedung Kirana,Ruko Pecenongan",
             "Bogor|Botani Square Mall,Lippo Plaza Ekalokasari,Transmart Yasmin Bogor,Bogor Trade Mall,Mall Boxies 123,Lotte Grosir Pakansari,Ruko Kota Wisata,SPBU Cibogo,Ruko Gadog Ciawi,Super Indo Pajajaran Bogor,Ruko Pasirkuda Ciomas,Ruko Cisarua Puncak,SPBU Mayor Oking Cibinong,SPBU Cikaret Cibinong,Superindo Limus Pratama,SPBU Pajajaran Bogor,SPBU Kedung Halang,Ruko Pomad,Ruko Pandu Raya Bogor,Cibinong City Mall,Toserba Yogya (Grand Dramaga),Metland Cileungsi,Ruko Cileungsi,Ruko Legenda Wisata,Ruko Sukahati Cibinong,Ruko Pondok Rajeg,SPBU Jampang Parung,Ruko Parung,Rest Area KM 21 Jagorawi,Stasiun Bogor,Stasiun Cilebut,Stasiun Parung Panjang,SPBU BP Alternatif Sentul,Rancamaya Bogor,Cilendek Bogor,Ruko Babakan Madang Bogor,Living World Kota Wisata,Millennium City",
-            "Depok|Pesona Square Depok,DMall Depok,Trans Studio Mall Cibubur,Mall Cinere,Lippo Cinere,Giant Supermarket Bojong Sari,Giant Supermarket Cimanggis,SPBU Buperta Cibubur,Ruko Margonda,Ruko Waterpark Grand Depok City,Transmart Depok,Ruko Sawangan Depok,SPBU Margonda Raya,SPBU Gas Alam,Ruko Gandul,SPBU Kartini,SPBU Limo Raya,SPBU Juanda Depok,SPBU Sawangan Baru,Ruko Kelapa Dua Depok,Apotek Roxy Nusantara Depok,The Park Sawangan,Ruko Kejayaan Depok,Ruko Tapos Pekapuran,Ruko Citayam Centre,Alfamidi Abdul Ghani Cilodong,FMIPA UI,Agung Podomoro Golf View Cimanggis,M Kahfi,SPBU Leuwinanggung,Ruko Mekarsari,Ruko Perumahan Jatijajar",
+            "Depok|Pesona Square Depok,DMall Depok,Trans Studio Mall Cibubur,Mall Cinere,Lippo Cinere,Giant Supermarket Bojong Sari,Giant Supermarket Cimanggis,SPBU Buperta Cibubur,Ruko Margonda,Ruko Waterpark Grand Depok City,Transmart Depok,Ruko Sawangan Depok,SPBU Gas Alam,Ruko Gandul,SPBU Kartini,SPBU Limo Raya,SPBU Juanda Depok,SPBU Sawangan Baru,Ruko Kelapa Dua Depok,Apotek Roxy Nusantara Depok,The Park Sawangan,Ruko Kejayaan Depok,Ruko Tapos Pekapuran,Ruko Citayam Centre,Alfamidi Abdul Ghani Cilodong,FMIPA UI,Agung Podomoro Golf View Cimanggis,M Kahfi,SPBU Leuwinanggung,Ruko Mekarsari,Ruko Perumahan Jatijajar",
             "Tangerang|Summarecon Mall Serpong,Giant Supermarket Bintaro,The Breeze,Lotte Mart Bintaro,Aeon Mall BSD,Living World Alam Sutera,Garuda HQ,Supermall Karawaci,Bintaro Jaya Exchange,Teras Kota,Transpark Bintaro,Shell Serpong,Living Plaza Bintaro,BP Metland,Ruko Tangerang City,BP BSD Delatinos,Shell Suwarna Cengkareng,City Plaza Kotabumi,Shell Puspitek,Tangerang City Mall,Giant Supermarket Rempoa,BP Ciater Pamulang,SPBU Citra Raya Tangerang,SPBU Pasar Kemis,SPBU MH Thamrin Serpong,SPBU Alam Sutera,SPBU Cikupa,Ruko Menjangan,Alfamidi Stasiun Pondok Ranji,Ruko Graha Raya,Ruko Puri Beta,SPBU Tigaraksa,SPBU Jatake,Ruko Sepatan,Ruko Balaraja,Ruko Harapan Kita Karawaci,Serpong Paradise Walk,Ruko UIN,Mall Balekota Tangerang,CBD Ciledug,Ruko Poris,SPBU Duta Garden,SPBU Modernland,SPBU Puspitek,Ruko Cordoba Green Lake City,Ruko Karang Tengah,Ruko Surya Kencana Pamulang,Padang Merdeka Bez Serpong,Summarecon Digital Center (SDC Serpong),Ruko Curug,SPBU DODO Pertamina (Cirendeu Raya),SPBU Pertamina DODO (Curug),Living Plaza Pamulang,Ruko Daan Mogot,Ruko Cipondoh,Ruko Azores,Ruko Bandara Mas,Marchand Hype Station,Ruko Moh Toha Tangerang,Alfamidi Teluk Naga,Ruko Ceger,Ruko Gading Serpong,Ruko Bandara City Mall Tangerang,Stasiun Tangerang,Tokyo Hub Pantai Indah Pik 2,Grand Batavia,Ruko Madison Grande,Ruko Barcelona BSD,Taman Royal Cipondoh,Ruko Jatiuwung Tangerang,Telaga Bestari,EF Gading Serpong,U Town Bintaro,Fakultas Kedokteran UPH,BP Legok",
             "Bekasi|Transmart Juanda Bekasi,Mall Lippo Cikarang,Revo Town,Mega Bekasi Hypermall,Metropolitan Mall Bekasi,Blu Plaza,Mall Ciputra Cibubur,BP KHI Boulevard,Transmart Transyogi Cibubur,BP Jababeka Hollywood,Living World Plaza Jababeka,District 1 Meikarta,Ruko Grand Kota Bintang,Ruko Bintara,Deltamas,Dapur Kitchen Bekasi,Dukuh Zamrud,SPBU Jatiwarna,SPBU Menjangan Jababeka II,Ruko Mangunjaya Tambun,Ruko Grand Wisata Bekasi,Grand Icon Caman,Ruko Kemang Pratama,Ruko Gading Terrace,Naga Swalayan Hankam,Naga Swalayan Pekayon,Citrus Department Store,Plasa Cibubur,Living Plaza Kota Harapan Indah,Plaza Pondok Gede,SPBU Bulak Kapal,SPBU Cibitung Bekasi,Ruko Cikarang Utara,Super Indo Cerewed Bekasi,Ruko Candrabaga Pd. Ungu,Ruko Jatimakmur,Ruko RA Kartini Bekasi,Ruko Boulevard Hijau Bekasi,Ruko Perumnas 3 Bekasi,Naga Swalayan Wisma Asri,SPBU Pengasinan,SPBU Rawalumbu,Ruko Kaliabang,Ruko Topaz Summarecon Bekasi,RS Primaya Bekasi Utara,AEON Mall Deltamas,Pasar Kota Pondok Gede,Ruko Hankam Jatiwarna,Jaticempaka Kota Bekasi,Cibubur (Drive Thru),Ruko Cikarang Festival,Ruko Karangasih Cikarang Utara,Ruko Vasanta Innopark",
             "Bandung & Cimahi|Paris Van Java,Cihampelas Walk,Bandung Indah Plaza,Festival Citylink,Istana Plaza,Ubertos,Limijati Container,Bursa Efek Bandung,Metro Indah Mall,Toserba Yogya (Pahlawan),Toserba Yogya (Ciumbuleuit),Braga City Walk,Toserba Yogya (Sunda),Transmart Buah Batu Square,Bandung Electronic Center,Ruko Paskal,Ruko Setia Budi,Ruko Cibaduyut,Ruko Buah Batu,Ruko Surya Sumantri,Miko Mall,Ruko Margacinta,Yogya Grand Kepatihan,Ruko Padasuka Cimahi,Ruko Taman Kopo Indah 2,Ruko Ketapang Soreang,SPBU 34.40502 Kota Cimahi,RSUP Dr Hasan Sadikin Bandung,Summarecon Mall Bandung Island,Graha POS RE Martadinata,Ruko Gading Tutuka Soreang,Ruko Antapani,Ruko Rancaekek,SPBU 34.40316 Baleendah,SPBU 34.40338 Banjaran,SPBU 34.40310 Cibiru,SPBU 34.40314 Cicalengka,Stasiun KCJB Padalarang,Ruko Batununggal,Djunjunan Pasteur Bandung",
@@ -1760,7 +1786,7 @@ Mohon dibantu proses order ya, terima kasih!`;
             sfx.playTap();
             const element = document.getElementById(id);
             if (element) {
-                // Offset setinggi 180px agar judul kategori tidak tertutup oleh header ganda melayang atas
+                // Offset setinggi 115px agar judul kategori tidak tertutup oleh header melayang atas
                 const yOffset = -180; 
                 const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
                 window.scrollTo({ top: y, behavior: 'smooth' });
