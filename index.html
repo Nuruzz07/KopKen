@@ -23,7 +23,6 @@
         }
     </script>
 
-    <!-- STREAMING_CHUNK: Styling the user interface container heights and animations... -->
     <style>
         body {
             background-color: #0F172A; /* Default Portal Dark */
@@ -161,8 +160,9 @@
         </div>
 
         <div class="text-center mb-10">
-            <!-- Tampilan Bulat dengan Trik Zoom-Crop agar logo samping & teks bawah terpotong rapi secara otomatis -->
+            <!-- Wadah Bulat Sempurna (rounded-full) berukuran w-24 h-24 -->
             <div class="w-24 h-24 bg-[#0c1226] rounded-full mx-auto flex items-center justify-center shadow-[0_0_35px_rgba(56,189,248,0.35)] border border-white/15 mb-6 float-logo transition duration-500 overflow-hidden relative">
+                <!-- Trik Zoom Seimbang: Kita setel scale ke 2.1x dan geser sedikit ke atas agar logo rapi tanpa margin hitam samping -->
                 <img src="favicon.png" alt="Bintang Store Logo" class="w-full h-full object-cover scale-[2.1] translate-y-[-2px]" onerror="this.onerror=null; this.src='https://placehold.co/100x100/38BDF8/ffffff?text=⭐'">
             </div>
             <h1 class="text-4xl font-bold text-white mb-3 tracking-tight">Bintang Store</h1>
@@ -224,7 +224,6 @@
             </button>
         </header>
 
-        <!-- STREAMING_CHUNK: Rendering category tab bars and the live search bar inputs... -->
         <!-- Search bar instan di atas kategori menu -->
         <div class="px-4 pt-4 pb-2 sticky top-[60px] z-30 glass border-b border-white/40">
             <div class="relative w-full max-w-md mx-auto">
@@ -270,7 +269,6 @@
                 <p class="text-sm text-gray-500 italic text-center py-4">Keranjang masih kosong.</p>
             </div>
 
-            <!-- STREAMING_CHUNK: Structuring customer form templates for orders... -->
             <div class="space-y-4 border-t border-gray-300/50 pt-4">
                 <div>
                     <label class="block text-xs font-semibold text-kenangan-dark mb-1">Nama Pemesan <span class="text-red-500">*</span></label>
@@ -340,7 +338,6 @@
             <h1 class="font-bold text-lg tracking-wide">Netflix Premium</h1>
         </header>
 
-        <!-- STREAMING_CHUNK: Displaying Netflix Premium offers and pricing inputs... -->
         <main class="px-4 mt-6">
             <div class="text-center mb-8">
                 <span class="bg-netflix-primary/20 text-netflix-primary border border-netflix-primary/50 px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase mb-3 inline-block">Termurah & Bergaransi</span>
@@ -545,9 +542,9 @@
         </div>
     </div>
 
-    <!-- KOPKEN Modal Overlay (Bottom Sheet Fixed) -->
-    <div id="modal-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[200] hidden opacity-0 transition-opacity duration-300" onclick="closeModal(event)">
-        <div id="modal-content" class="absolute bottom-0 left-0 right-0 mx-auto w-full max-w-md bg-white rounded-t-3xl shadow-[0_-10px_40px_rgba(0,0,0,0.2)] transform translate-y-full transition-transform duration-300 max-h-[85vh] flex flex-col text-kenangan-dark pb-6" onclick="event.stopPropagation()">
+    <!-- KOPKEN Modal Overlay (Bottom Sheet Fixed) - Bersih Tanpa Atribut Onclick Inline Mengganggu -->
+    <div id="modal-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[200] hidden opacity-0 transition-opacity duration-300">
+        <div id="modal-content" class="absolute bottom-0 left-0 right-0 mx-auto w-full max-w-md bg-white rounded-t-3xl shadow-[0_-10px_40px_rgba(0,0,0,0.2)] transform translate-y-full transition-transform duration-300 max-h-[85vh] flex flex-col text-kenangan-dark pb-6">
             <!-- Handle Garis Atas -->
             <div class="w-full flex justify-center pt-4 pb-2 cursor-pointer" onclick="closeModal(event)">
                 <div class="w-12 h-1.5 bg-gray-300 rounded-full"></div>
@@ -575,7 +572,6 @@
         </div>
     </div>
 
-    <!-- STREAMING_CHUNK: Setting up audio synth classes and system configs... -->
     <script>
         // ==========================================
         // ENGINES: SPEKTAKULER SYNTHESIS SOUND EFFECTS (0 KB GPU-ACCELERATED)
@@ -585,62 +581,70 @@
                 this.ctx = null;
             }
             init() {
-                if (!this.ctx) {
-                    this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+                try {
+                    if (!this.ctx) {
+                        this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+                    }
+                } catch(e) {
+                    console.warn("AudioContext block protected", e);
                 }
             }
             playTap() {
-                this.init();
-                if (this.ctx.state === 'suspended') this.ctx.resume();
-                
-                const now = this.ctx.currentTime;
-                const osc = this.ctx.createOscillator();
-                const gain = this.ctx.createGain();
-                
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(1200, now);
-                osc.frequency.exponentialRampToValueAtTime(800, now + 0.04);
-                
-                gain.gain.setValueAtTime(0.04, now);
-                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
-                
-                osc.connect(gain);
-                gain.connect(this.ctx.destination);
-                
-                osc.start(now);
-                osc.stop(now + 0.04);
+                try {
+                    this.init();
+                    if (!this.ctx) return;
+                    if (this.ctx.state === 'suspended') this.ctx.resume();
+                    
+                    const now = this.ctx.currentTime;
+                    const osc = this.ctx.createOscillator();
+                    const gain = this.ctx.createGain();
+                    
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(1200, now);
+                    osc.frequency.exponentialRampToValueAtTime(800, now + 0.04);
+                    
+                    gain.gain.setValueAtTime(0.04, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
+                    
+                    osc.connect(gain);
+                    gain.connect(this.ctx.destination);
+                    
+                    osc.start(now);
+                    osc.stop(now + 0.04);
+                } catch(err) {}
             }
             playSuccess() {
-                this.init();
-                if (this.ctx.state === 'suspended') this.ctx.resume();
-                
-                const now = this.ctx.currentTime;
-                
-                // Dentingan Pertama (Nada C5)
-                const osc1 = this.ctx.createOscillator();
-                const gain1 = this.ctx.createGain();
-                osc1.type = 'triangle';
-                osc1.frequency.setValueAtTime(523.25, now);
-                gain1.gain.setValueAtTime(0.08, now);
-                gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
-                osc1.connect(gain1);
-                gain1.connect(this.ctx.destination);
-                osc1.start(now);
-                osc1.stop(now + 0.15);
-                
-                // Dentingan Kedua (Nada E5 - Berjarak 80ms)
-                setTimeout(() => {
-                    const osc2 = this.ctx.createOscillator();
-                    const gain2 = this.ctx.createGain();
-                    osc2.type = 'triangle';
-                    osc2.frequency.setValueAtTime(659.25, this.ctx.currentTime);
-                    gain2.gain.setValueAtTime(0.08, this.ctx.currentTime);
-                    gain2.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.2);
-                    osc2.connect(gain2);
-                    gain2.connect(this.ctx.destination);
-                    osc2.start();
-                    osc2.stop(this.ctx.currentTime + 0.2);
-                }, 80);
+                try {
+                    this.init();
+                    if (!this.ctx) return;
+                    if (this.ctx.state === 'suspended') this.ctx.resume();
+                    
+                    const now = this.ctx.currentTime;
+                    
+                    const osc1 = this.ctx.createOscillator();
+                    const gain1 = this.ctx.createGain();
+                    osc1.type = 'triangle';
+                    osc1.frequency.setValueAtTime(523.25, now);
+                    gain1.gain.setValueAtTime(0.08, now);
+                    gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+                    osc1.connect(gain1);
+                    gain1.connect(this.ctx.destination);
+                    osc1.start(now);
+                    osc1.stop(now + 0.15);
+                    
+                    setTimeout(() => {
+                        const osc2 = this.ctx.createOscillator();
+                        const gain2 = this.ctx.createGain();
+                        osc2.type = 'triangle';
+                        osc2.frequency.setValueAtTime(659.25, this.ctx.currentTime);
+                        gain2.gain.setValueAtTime(0.08, this.ctx.currentTime);
+                        gain2.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.2);
+                        osc2.connect(gain2);
+                        gain2.connect(this.ctx.destination);
+                        osc2.start();
+                        osc2.stop(this.ctx.currentTime + 0.2);
+                    }, 80);
+                } catch(err) {}
             }
         }
         const sfx = new SoundEffectsEngine();
@@ -839,11 +843,11 @@
                 // Aktifkan Tele
                 btnTele.disabled = false;
                 btnTele.className = "w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl shadow-lg shadow-blue-900/50 transition duration-300 flex justify-center items-center gap-2 active:scale-95 border border-blue-500";
-                // Aktifkan WA
+                
                 btnWa.disabled = false;
                 btnWa.className = "w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-xl shadow-lg shadow-green-900/50 transition duration-300 flex justify-center items-center gap-2 active:scale-95 border border-green-500";
             } else {
-                // Nonaktifkan
+                
                 btnTele.disabled = true;
                 btnTele.className = "w-full bg-white/10 text-gray-500 font-bold py-3 rounded-xl transition duration-300 flex justify-center items-center gap-2 cursor-not-allowed border border-transparent";
                 btnWa.disabled = true;
@@ -917,7 +921,7 @@ Mohon dibantu proses aktivasi akun dan tagihan QRIS/Rekeningnya ya min!`;
             "Semarang|Paragon Mall Semarang,DP Mall,Transmart Majapahit,Stasiun Tawang,SIM Square,Rest Area KM 429,Queen City Semarang,Tentrem Mall Semarang,SPBU Pamularsih,Ruko Kedungmundu,Ruko Ngaliyan,Jl. Majapahit No. 324,Ruko Banyumanik,SPBU Kaliwiru,Gedung KAI Veteran,Ruko Tlogosari,Mall Ciputra Semarang,Ruko A. Yani Ungaran",
             "Yogyakarta|Hartono Mall Jogja,Jogya City Mall,Galeria Mall,Sleman City Hall,Lippo Plaza Jogja,Malioboro Mall,Wisma Hartono,Ramai Malioboro,Ruko Seturan,Super Indo Parangtritis,Ruko Taman Siswa,Ruko Kaliurang,Alfamidi Super Kaliurang KM 9,RSUP Dr. Sardjito,Pakuwon Jogja",
             "Solo & Sekitarnya|Solo Paragon,Hartono Mall Solo,Solo Square,The Park Mall Solo,Super Indo Ronggowarsito,Ruko Harlin Solo,Alfamidi Adi Sucipto Solo,Stasiun Solo Balapan,SPBU Jonggrangan Klaten,Metro Swalayan Klaten,Ruko Pemuda Klaten",
-            "Medan & Sekitarnya|Sun Plaza,Deli Park,Medan Fair,Thamrin Plaza,Binjai Supermall,Manhattan Time Square,Irian Supermarket Marelan,Suzuya Plaza Marelan,Suzuya Plaza Binjai,Suzuya Plaza Tamora,Singapore Station Brig. Katamso,Singapore Station 2 Adam Malik,SPBU H. Anif Cemara Asri,Ruko Iskandar Muda,Ruko Komplek OCBC,SPBU Pertamina (AR Hakim),SPBU Pertamina (Helvetia),SPBU Pertamina (Sisingamangaraja),SPBU Batang Kuis,SPBU Selayang Utama,Cambridge City Store,Ruko JCity Square,Ruko Katamso,Ruko M. Yamin,Ruko Jl. Krakatau,Gatot Subroto Medan (Drive Thru),SPBU Tembung,SPBU Lubuk Pakam,SPBU Semayang,SPBU Sunggal,SPBU Lau Chỉ,Ruko Helvetia,Ruko Brayan,SPBU Amplas,Ruko Setiabudi,Ruko Sultan Hasanuddin Binjai,SPBU Kebun Lada Binjai,Ruko Ahmad Yani Rantau Prapat,Suzuya Rantau Prapat Mall,Ruko MH Thamrin Tebing Tinggi,Ruko Merci,SPBU Tanjung Morawa,SPBU Laut Dendang,RSU Mitra Sejati,Multatuli",
+            "Medan & Sekitarnya|Sun Plaza,Deli Park,Medan Fair,Thamrin Plaza,Binjai Supermall,Manhattan Time Square,Irian Supermarket Marelan,Suzuya Plaza Marelan,Suzuya Plaza Binjai,Suzuya Plaza Tamora,Singapore Station Brig. Katamso,Singapore Station 2 Adam Malik,SPBU H. Anif Cemara Asri,Ruko Iskandar Muda,Ruko Komplek OCBC,SPBU Pertamina (AR Hakim),SPBU Pertamina (Helvetia),SPBU Pertamina (Sisingamangaraja),SPBU Batang Kuis,SPBU Selayang Utama,Cambridge City Store,Ruko JCity Square,Ruko Katamso,Ruko M. Yamin,Ruko Jl. Krakatau,Gatot Subroto Medan (Drive Thru),SPBU Tembung,SPBU Lubuk Pandam,SPBU Semayang,SPBU Sunggal,SPBU Lau Chỉ,Ruko Helvetia,Ruko Brayan,SPBU Amplas,Ruko Setiabudi,Ruko Sultan Hasanuddin Binjai,SPBU Kebun Lada Binjai,Ruko Ahmad Yani Rantau Prapat,Suzuya Rantau Prapat Mall,Ruko MH Thamrin Tebing Tinggi,Ruko Merci,SPBU Tanjung Morawa,SPBU Laut Dendang,RSU Mitra Sejati,Multatuli",
             "Makassar|Trans Studio Mall Makassar,Phinisi Point,Nipah Mall,Panakkukang Mall,Panakkukang Square,Mall Ratu Indah,Makassar Town Square,Ruko A. Yani,Ruko Alauddin,Ruko Perintis,Ruko Citraland Celebes,SPBU Andalas,SPBU Perintis,Ruko Cendrawasih,Ruko Bawakareeng,Ruko Tamangapa,Ruko Landak,SPBU Pangayoman,Ruko Pallangga Gowa",
             "Bali|Sidewalk Jimbaran,Ruko Teuku Umar,Ruko By Pass Ngurah Rai,Ruko Sesetan,Ruko Batubulan,Ruko Dewi Sri,Ruko Gatot Subroto Barat,Ruko Canggu Raya,Ruko Padang Luwih,Level 21 Mall,Discovery Mall Bali",
             "Palembang|Palembang Icon,Opi Mall,Palembang Indah Mall,Dermaga Point,Ruko Palembang Trade Center,Ruko Lemabang,Kenten Food Market,Singapore Station M. Isa,Super Indo Basilica,Ruko Plaju,Social Market Palembang,Ruko Demang",
@@ -970,7 +974,6 @@ Mohon dibantu proses aktivasi akun dan tagihan QRIS/Rekeningnya ya min!`;
             cityData[city] = branches;
         });
 
-        // STREAMING_CHUNK: Instantiating the comprehensive 80+ item menu database structures...
         const menuData = [
             // BUNDLING
             { id: 'b1', cat: 'bundling', name: 'Paket Hemat 40K', singlePrice: 40000, type: 'bundling', img: 'https://placehold.co/400x400/2C1A0D/F9F1E7?text=Paket+Hemat&font=Montserrat', opts: [
@@ -1120,7 +1123,6 @@ Mohon dibantu proses aktivasi akun dan tagihan QRIS/Rekeningnya ya min!`;
             { id: 'm_aglio_olio', cat: 'bakery', name: 'Spaghetti Tuna Aglio Olio', singlePrice: 21000, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Tuna+Aglio+Olio' }
         ];
 
-        // STREAMING_CHUNK: Loading add-on syrup and topping lists...
         // 6. PILIHAN ADD-ON (TAMBAHAN +7.000)
         const addOnToppings = [
             'Espresso Shot (Kenangan Blend)',
@@ -1149,6 +1151,15 @@ Mohon dibantu proses aktivasi akun dan tagihan QRIS/Rekeningnya ya min!`;
         document.addEventListener('DOMContentLoaded', () => {
             initCities();
             renderMenu();
+
+            // Mendaftarkan event listener secara programmatic guna menghindari bug 'event is not defined' lintas-browser
+            document.getElementById('modal-overlay').addEventListener('click', (e) => {
+                closeModal(e);
+            });
+
+            document.getElementById('modal-content').addEventListener('click', (e) => {
+                e.stopPropagation(); // Menghentikan penutupan saat mengklik di dalam area opsi menu
+            });
 
             // --- DETEKSI ALUR HALAMAN UTAMA ATAU LANGSUNG DARI LINK HASH (#) ---
             const initialHash = window.location.hash.replace('#', '') || 'portal';
@@ -1197,7 +1208,6 @@ Mohon dibantu proses aktivasi akun dan tagihan QRIS/Rekeningnya ya min!`;
             });
         }
 
-        // STREAMING_CHUNK: Integrating the live search parser with the DOM renderer...
         function renderMenu(filterKeyword = '') {
             const container = document.getElementById('menu-container');
             container.innerHTML = ''; // Clear prior entries
@@ -1214,14 +1224,12 @@ Mohon dibantu proses aktivasi akun dan tagihan QRIS/Rekeningnya ya min!`;
             const keyword = filterKeyword.toLowerCase().trim();
 
             categories.forEach(c => {
-                // Saring produk berdasarkan kategori dan pencarian keyword
                 const filteredProducts = menuData.filter(m => {
                     const matchesCategory = m.cat === c.filter;
                     const matchesKeyword = keyword === '' || m.name.toLowerCase().includes(keyword);
                     return matchesCategory && matchesKeyword;
                 });
 
-                // Hanya tampilkan kategori jika ada item yang lolos saringan keyword
                 if (filteredProducts.length > 0) {
                     const section = document.createElement('div');
                     section.id = c.id;
@@ -1267,7 +1275,6 @@ Mohon dibantu proses aktivasi akun dan tagihan QRIS/Rekeningnya ya min!`;
                 }
             });
 
-            // Tampilkan pesan kosong jika tidak ada item yang cocok sama sekali
             if (container.innerHTML === '') {
                 container.innerHTML = `
                     <div class="text-center py-12">
@@ -1279,7 +1286,6 @@ Mohon dibantu proses aktivasi akun dan tagihan QRIS/Rekeningnya ya min!`;
             }
         }
 
-        // Live Search Input Trigger
         function searchMenu() {
             const query = document.getElementById('menu-search-input').value;
             renderMenu(query);
@@ -1297,7 +1303,6 @@ Mohon dibantu proses aktivasi akun dan tagihan QRIS/Rekeningnya ya min!`;
             }
         };
 
-        // STREAMING_CHUNK: Managing Segmented Controls and modal pop-ups for R/L pricing...
         let modalPriceCache = 0;
 
         function updateModalPrice() {
@@ -1311,7 +1316,6 @@ Mohon dibantu proses aktivasi akun dan tagihan QRIS/Rekeningnya ya min!`;
                 basePrice = currentModalItem.prices[sizeSel] || 0;
             }
 
-            // Tambahkan harga dari add-on syrup/topping (+7.000 per centang)
             let addOnTotal = 0;
             document.querySelectorAll('.mod-addons-chk:checked').forEach(() => {
                 addOnTotal += 7000;
@@ -1341,7 +1345,6 @@ Mohon dibantu proses aktivasi akun dan tagihan QRIS/Rekeningnya ya min!`;
                 optionsContainer.innerHTML = html;
             } 
             else if (item.type === 'drink') {
-                // Segmented picker untuk ukuran Regular / Large secara dinamis
                 let sizePickerHTML = '';
                 if (item.prices) {
                     const sizes = Object.keys(item.prices);
@@ -1425,7 +1428,6 @@ Mohon dibantu proses aktivasi akun dan tagihan QRIS/Rekeningnya ya min!`;
                             </div>
                         </div>
 
-                        <!-- STREAMING_CHUNK: Building modular checkmarks for premium syrup/topping add-ons... -->
                         <!-- Premium Toppings and Syrups Add-ons (+7.000) -->
                         <div>
                             <label class="block text-sm font-semibold mb-2">Tambah Extra Topping (+Rp 7.000) (Opsional)</label>
@@ -1477,7 +1479,6 @@ Mohon dibantu proses aktivasi akun dan tagihan QRIS/Rekeningnya ya min!`;
             }, 10);
         }
 
-        // STREAMING_CHUNK: Managing shopping carts and size selections...
         function addToCartFromModal() {
             if (!currentModalItem) return;
             const itemName = currentModalItem.name;
@@ -1517,6 +1518,93 @@ Mohon dibantu proses aktivasi akun dan tagihan QRIS/Rekeningnya ya min!`;
 
             playFlyToCartAnimation();
             showToast(`<b>${itemName}</b><br>Berhasil masuk ke keranjang!`);
+        }
+
+        function closeModal(e) {
+            if (e && typeof e.preventDefault === 'function') {
+                e.preventDefault();
+            }
+            const overlay = document.getElementById('modal-overlay');
+            const content = document.getElementById('modal-content');
+            
+            overlay.classList.add('opacity-0');
+            content.classList.remove('translate-y-0');
+            content.classList.add('translate-y-full'); // Geser ke bawah
+            
+            // Buka kunci scroll body/halaman kembali
+            document.body.style.overflow = '';
+            
+            setTimeout(() => {
+                overlay.classList.add('hidden');
+            }, 300);
+            currentModalItem = null;
+        }
+
+        function playFlyToCartAnimation() {
+            sfx.playSuccess();
+            const cartBtn = document.getElementById('cart-icon-btn');
+            const cartIcon = document.getElementById('cart-icon');
+            const badge = document.getElementById('cart-badge');
+            const rect = cartBtn.getBoundingClientRect();
+
+            const flyer = document.createElement('div');
+            flyer.innerHTML = '<i class="fas fa-coffee text-white text-xl"></i>';
+            flyer.className = 'fixed z-[100] flex items-center justify-center w-12 h-12 bg-kenangan-primary rounded-full shadow-lg';
+            flyer.style.left = '50%';
+            flyer.style.top = '70%';
+            flyer.style.transform = 'translate(-50%, -50%) scale(0)';
+            flyer.style.transition = 'all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+            document.body.appendChild(flyer);
+
+            flyer.getBoundingClientRect();
+            flyer.style.transform = 'translate(-50%, -50%) scale(1)';
+
+            setTimeout(() => {
+                flyer.style.left = `${rect.left + rect.width / 2}px`;
+                flyer.style.top = `${rect.top + rect.height / 2}px`;
+                flyer.style.transform = 'translate(-50%, -50%) scale(0.2)';
+                flyer.style.opacity = '0';
+            }, 400);
+
+            setTimeout(() => {
+                flyer.remove();
+                cartIcon.classList.add('scale-150', 'text-kenangan-primary');
+                badge.classList.add('scale-150');
+                setTimeout(() => {
+                    cartIcon.classList.remove('scale-150', 'text-kenangan-primary');
+                    badge.classList.remove('scale-150');
+                }, 300);
+            }, 900);
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+            validateKopkenForm();
+        }
+
+        function handleCityChange() {
+            const city = document.getElementById('cust-city').value;
+            const branchSelect = document.getElementById('cust-branch');
+            branchSelect.innerHTML = '<option value="">Pilih Outlet...</option>';
+            
+            if (!city) {
+                branchSelect.disabled = true;
+            } else {
+                branchSelect.disabled = false;
+                let branches = cityData[city] || [];
+                branches.forEach(b => {
+                    const cleanName = b.replace('Kopi Kenangan ', '').trim();
+                    branchSelect.innerHTML += `<option value="${cleanName}">${cleanName}</option>`;
+                });
+            }
+            validateKopkenForm();
+        }
+
+        function checkMallSurcharge() {
+            const branch = document.getElementById('cust-branch').value;
+            const mallPattern = /mall|plaza|tower|city|junction|avenue|walk|central park|grand indonesia|paris van java/i;
+            return mallPattern.test(branch) ? 3000 : 0;
         }
 
         function updateCartUI() {
@@ -1595,7 +1683,6 @@ Mohon dibantu proses aktivasi akun dan tagihan QRIS/Rekeningnya ya min!`;
             }
         }
 
-        // STREAMING_CHUNK: Packing customer orders for Telegram/Whatsapp payloads...
         function submitOrderKopken(method) {
             sfx.playSuccess();
             const name = document.getElementById('cust-name').value.trim();
@@ -1673,7 +1760,7 @@ Mohon dibantu proses order ya, terima kasih!`;
             sfx.playTap();
             const element = document.getElementById(id);
             if (element) {
-                // Offset setinggi 115px agar judul kategori tidak tertutup oleh header melayang atas
+                // Offset setinggi 180px agar judul kategori tidak tertutup oleh header ganda melayang atas
                 const yOffset = -180; 
                 const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
                 window.scrollTo({ top: y, behavior: 'smooth' });
