@@ -23,7 +23,7 @@
         }
     </script>
 
-    <!-- STREAMING_CHUNK: Defining responsive animations and custom page styling... -->
+    <!-- STREAMING_CHUNK: Styling the user interface container heights and animations... -->
     <style>
         body {
             background-color: #0F172A; /* Default Portal Dark */
@@ -160,11 +160,9 @@
             Admin Online & Proses Cepat (Antrean: Lancar)
         </div>
 
-        <!-- STREAMING_CHUNK: Rendering responsive portal logo with optimal balanced visual crop... -->
         <div class="text-center mb-10">
-            <!-- Wadah Bulat Sempurna (rounded-full) berukuran w-24 h-24 -->
+            <!-- Tampilan Bulat dengan Trik Zoom-Crop agar logo samping & teks bawah terpotong rapi secara otomatis -->
             <div class="w-24 h-24 bg-[#0c1226] rounded-full mx-auto flex items-center justify-center shadow-[0_0_35px_rgba(56,189,248,0.35)] border border-white/15 mb-6 float-logo transition duration-500 overflow-hidden relative">
-                <!-- Trik Zoom Seimbang: Kita setel scale ke 2.1x dan geser sedikit ke atas agar logo rapi tanpa margin hitam samping -->
                 <img src="favicon.png" alt="Bintang Store Logo" class="w-full h-full object-cover scale-[2.1] translate-y-[-2px]" onerror="this.onerror=null; this.src='https://placehold.co/100x100/38BDF8/ffffff?text=⭐'">
             </div>
             <h1 class="text-4xl font-bold text-white mb-3 tracking-tight">Bintang Store</h1>
@@ -226,13 +224,25 @@
             </button>
         </header>
 
-        <!-- STREAMING_CHUNK: Integrating category smooth-scrolling with Drive button... -->
-        <nav class="glass sticky top-[60px] z-30 px-4 py-2 mb-4 overflow-x-auto no-scrollbar whitespace-nowrap border-b border-white/50">
+        <!-- STREAMING_CHUNK: Rendering category tab bars and the live search bar inputs... -->
+        <!-- Search bar instan di atas kategori menu -->
+        <div class="px-4 pt-4 pb-2 sticky top-[60px] z-30 glass border-b border-white/40">
+            <div class="relative w-full max-w-md mx-auto">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <i class="fas fa-search text-gray-400 text-sm"></i>
+                </span>
+                <input type="text" id="menu-search-input" oninput="searchMenu()" placeholder="Cari menu favoritmu di sini..." class="w-full pl-9 pr-4 py-2.5 rounded-xl bg-white/80 border border-white focus:outline-none focus:ring-2 focus:ring-kenangan-primary text-sm transition text-kenangan-dark">
+            </div>
+        </div>
+
+        <nav class="glass sticky top-[120px] z-30 px-4 py-2 mb-4 overflow-x-auto no-scrollbar whitespace-nowrap border-b border-white/50">
             <div class="flex gap-2">
                 <button onclick="scrollToCategory('cat-bundling', event)" class="px-4 py-1.5 rounded-full bg-white/80 text-kenangan-dark text-sm font-semibold shadow-sm border border-white cursor-pointer active:scale-95 transition">Bundling</button>
                 <button onclick="scrollToCategory('cat-coffee', event)" class="px-4 py-1.5 rounded-full bg-white/80 text-kenangan-dark text-sm font-semibold shadow-sm border border-white cursor-pointer active:scale-95 transition">Coffee</button>
                 <button onclick="scrollToCategory('cat-noncoffee', event)" class="px-4 py-1.5 rounded-full bg-white/80 text-kenangan-dark text-sm font-semibold shadow-sm border border-white cursor-pointer active:scale-95 transition">Non-Coffee</button>
-                <button onclick="scrollToCategory('cat-bakery', event)" class="px-4 py-1.5 rounded-full bg-white/80 text-kenangan-dark text-sm font-semibold shadow-sm border border-white cursor-pointer active:scale-95 transition">Bakery</button>
+                <button onclick="scrollToCategory('cat-frappe', event)" class="px-4 py-1.5 rounded-full bg-white/80 text-kenangan-dark text-sm font-semibold shadow-sm border border-white cursor-pointer active:scale-95 transition">Oatside & Frappe</button>
+                <button onclick="scrollToCategory('cat-new', event)" class="px-4 py-1.5 rounded-full bg-white/80 text-kenangan-dark text-sm font-semibold shadow-sm border border-white cursor-pointer active:scale-95 transition">New Variant</button>
+                <button onclick="scrollToCategory('cat-bakery', event)" class="px-4 py-1.5 rounded-full bg-white/80 text-kenangan-dark text-sm font-semibold shadow-sm border border-white cursor-pointer active:scale-95 transition">Makanan</button>
             </div>
         </nav>
 
@@ -248,7 +258,7 @@
         </div>
 
         <main class="px-4 space-y-8" id="menu-container">
-            <!-- Menu categories injected via JS -->
+            <!-- Menu categories injected dynamically via JS -->
         </main>
 
         <section id="checkout-section" class="mx-4 mt-10 p-5 glass rounded-2xl">
@@ -260,7 +270,7 @@
                 <p class="text-sm text-gray-500 italic text-center py-4">Keranjang masih kosong.</p>
             </div>
 
-            <!-- STREAMING_CHUNK: Rendering Kopken customer inputs and options forms... -->
+            <!-- STREAMING_CHUNK: Structuring customer form templates for orders... -->
             <div class="space-y-4 border-t border-gray-300/50 pt-4">
                 <div>
                     <label class="block text-xs font-semibold text-kenangan-dark mb-1">Nama Pemesan <span class="text-red-500">*</span></label>
@@ -330,7 +340,7 @@
             <h1 class="font-bold text-lg tracking-wide">Netflix Premium</h1>
         </header>
 
-        <!-- STREAMING_CHUNK: Formatting Netflix view and accordion blocks... -->
+        <!-- STREAMING_CHUNK: Displaying Netflix Premium offers and pricing inputs... -->
         <main class="px-4 mt-6">
             <div class="text-center mb-8">
                 <span class="bg-netflix-primary/20 text-netflix-primary border border-netflix-primary/50 px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase mb-3 inline-block">Termurah & Bergaransi</span>
@@ -518,7 +528,6 @@
         </div>
     </div>
 
-    <!-- STREAMING_CHUNK: Inserting popup modals and bottom sheets... -->
     <!-- Payment Popup (Telegram Only) -->
     <div id="payment-popup" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[120] hidden opacity-0 transition-opacity duration-300 flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl p-6 max-w-sm w-full text-center shadow-2xl transform scale-95 transition-transform duration-300" id="payment-popup-content">
@@ -566,7 +575,7 @@
         </div>
     </div>
 
-    <!-- STREAMING_CHUNK: Initializing Sound Engine & JS event structures... -->
+    <!-- STREAMING_CHUNK: Setting up audio synth classes and system configs... -->
     <script>
         // ==========================================
         // ENGINES: SPEKTAKULER SYNTHESIS SOUND EFFECTS (0 KB GPU-ACCELERATED)
@@ -842,7 +851,6 @@
             }
         }
 
-        // STREAMING_CHUNK: Setting up data outlets and parsing lists...
         function submitOrderNetflix(method) {
             sfx.playSuccess();
             const pkgValue = document.querySelector('input[name="nflx-pkg"]:checked').value;
@@ -962,10 +970,10 @@ Mohon dibantu proses aktivasi akun dan tagihan QRIS/Rekeningnya ya min!`;
             cityData[city] = branches;
         });
 
-        // STREAMING_CHUNK: Setting up product data elements...
+        // STREAMING_CHUNK: Instantiating the comprehensive 80+ item menu database structures...
         const menuData = [
-            // BUNDLING (Latar Cokelat Gelap)
-            { id: 'b1', cat: 'bundling', name: 'Paket Hemat 40K', old: 60000, new: 40000, type: 'bundling', img: 'https://placehold.co/400x400/2C1A0D/F9F1E7?text=Paket+Hemat&font=Montserrat', opts: [
+            // BUNDLING
+            { id: 'b1', cat: 'bundling', name: 'Paket Hemat 40K', singlePrice: 40000, type: 'bundling', img: 'https://placehold.co/400x400/2C1A0D/F9F1E7?text=Paket+Hemat&font=Montserrat', opts: [
                 'Combo 1 (Kopi Mantan R + Salt Bread Ori)', 
                 'Combo 2 (Latte R + Butter Croissant)', 
                 'Combo 3 (Spanish Latte R + Choco Toast)', 
@@ -976,40 +984,163 @@ Mohon dibantu proses aktivasi akun dan tagihan QRIS/Rekeningnya ya min!`;
                 'Combo 8 (Mocha Caramel R + Salt Bread Ori)', 
                 'Combo 9 (Oatside Latte R + Butter Croissant)', 
                 'Combo 10 (Lemon Tea R + Sapi Toast)'
-            ], placeholderNote: 'Misal: Kak, rotinya dipisah aja, takut disemutin kayak janji manisnya.' },
-            { id: 'b2', cat: 'bundling', name: 'Bundling Bertiga 38K', old: 75000, new: 38000, type: 'bundling', img: 'https://placehold.co/400x400/2C1A0D/F9F1E7?text=Bertiga+38K&font=Montserrat', opts: ['3 Cup Reg Spanish Latte', '3 Cup Reg Tiramisu Latte', '3 Cup Reg Kopi Mantan', '3 Cup Lrg Kopi Mantan'], placeholderNote: 'Misal: Tulisin di cup-nya: Semangat bestie, cowok di bumi masih banyak!' },
-            { id: 'b3', cat: 'bundling', name: 'Puas Banget Mix Large', old: 50000, new: 33000, type: 'bundling', img: 'https://placehold.co/400x400/2C1A0D/F9F1E7?text=Mix+Large&font=Montserrat', opts: ['2 Cup Lrg Mantan', '2 Cup Lrg Spanish Latte', '1 Lrg Mantan + 1 Lrg Thai Tea', '1 Lrg Latte + 1 Lrg Milo', 'Custom Mix Varian Large'], placeholderNote: 'Misal: Puasin ngopinya, biar kuat ngadepin revisian dari dosen.' },
+            ], placeholderNote: 'Misal: Kak, rotinya dipisah aja, takut disemutin.' },
+            { id: 'b2', cat: 'bundling', name: 'Bundling Bertiga 38K', singlePrice: 38000, type: 'bundling', img: 'https://placehold.co/400x400/2C1A0D/F9F1E7?text=Bertiga+38K&font=Montserrat', opts: ['3 Cup Reg Spanish Latte', '3 Cup Reg Tiramisu Latte', '3 Cup Reg Kopi Mantan', '3 Cup Lrg Kopi Mantan'], placeholderNote: 'Bestie tolong dinikmati bareng-bareng.' },
+            { id: 'b3', cat: 'bundling', name: 'Puas Banget Mix Large', singlePrice: 33000, type: 'bundling', img: 'https://placehold.co/400x400/2C1A0D/F9F1E7?text=Mix+Large&font=Montserrat', opts: ['2 Cup Lrg Mantan', '2 Cup Lrg Spanish Latte', '1 Lrg Mantan + 1 Lrg Thai Tea', '1 Lrg Latte + 1 Lrg Milo'], placeholderNote: 'Rasa mantap, es batu pas.' },
+
+            // 1. KATEGORI KOPI (COFFEE SERIES)
+            { id: 'c_thai_tea_coffee', cat: 'coffee', name: 'Thai Tea Coffee', prices: { R: 14500, L: 18500 }, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Thai+Tea+Coffee' },
+            { id: 'c_og_aren_speculoos', cat: 'coffee', name: 'OG Aren Speculoos Latte', prices: { R: 16500, L: 20000 }, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Aren+Speculoos' },
+            { id: 'c_dua_shot_og_aren', cat: 'coffee', name: 'Dua Shot OG Aren', prices: { R: 17500, L: 22000 }, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=2+Shot+OG+Aren' },
+            { id: 'c_mocha_caramel', cat: 'coffee', name: 'Mocha Caramel', prices: { R: 18000, L: 22500 }, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Mocha+Caramel' },
+            { id: 'c_tiramisu_latte', cat: 'coffee', name: 'Tiramisu Latte', prices: { R: 15000, L: 19500 }, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Tiramisu+Latte' },
+            { id: 'c_tiramisu_mocha', cat: 'coffee', name: 'Tiramisu Mocha Latte', prices: { R: 17500, L: 22000 }, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Tiramisu+Mocha' },
+            { id: 'c_toffee_nut', cat: 'coffee', name: 'Toffee Nut Latte', prices: { R: 14500, L: 19000 }, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Toffee+Nut+Latte' },
+            { id: 'c_toffee_nut_aren', cat: 'coffee', name: 'Toffee Nut Aren Latte', prices: { R: 15500, L: 20000 }, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Toffee+Nut+Aren' },
+            { id: 'c_toffee_nut_oat', cat: 'coffee', name: 'Toffee Nut Oat Latte', prices: { R: 16000, L: 20500 }, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Toffee+Nut+Oat' },
+            { id: 'c_pistachio_aren', cat: 'coffee', name: 'Pistachio Aren Latte', prices: { R: 14500, L: 19000 }, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Pistachio+Aren' },
+            { id: 'c_pistachio_latte', cat: 'coffee', name: 'Pistachio Latte', prices: { R: 16500, L: 23000 }, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Pistachio+Latte' },
+            { id: 'c_dubai_pistachio', cat: 'coffee', name: 'Dubai Pistachio Latte', prices: { R: 18500, L: 23000 }, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Dubai+Pistachio' },
+            { id: 'c_cafe_malt', cat: 'coffee', name: 'Cafe Malt Latte', prices: { R: 16500, L: 21000 }, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Cafe+Malt+Latte' },
+            { id: 'c_kenangan_mantan', cat: 'coffee', name: 'Kopi Kenangan Mantan', prices: { R: 15500, L: 18500 }, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Kenangan+Mantan' },
+            { id: 'c_caramel_latte', cat: 'coffee', name: 'Caramel Latte', prices: { R: 18000, L: 23000 }, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Caramel+Latte' },
+            { id: 'c_dua_shot_iced_shaken', cat: 'coffee', name: 'Dua Shot Iced Shaken', prices: { R: 19000, L: 25000 }, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=2+Shot+Iced+Shaken' },
+            { id: 'c_caramel_macchiato', cat: 'coffee', name: 'Caramel Macchiato', prices: { R: 19000, L: 25000 }, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Caramel+Macchiato' },
+            { id: 'c_hazelnut_latte', cat: 'coffee', name: 'Hazelnut Latte', prices: { R: 18000, L: 23000 }, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Hazelnut+Latte' },
+            { id: 'c_susu_black_aren', cat: 'coffee', name: 'Kopi Susu Black Aren', prices: { R: 15500, L: 21000 }, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Black+Aren' },
+            { id: 'c_matcha_espresso', cat: 'coffee', name: 'Matcha Espresso', prices: { R: 18000, L: 23500 }, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Matcha+Espresso' },
+            { id: 'c_mocha_latte', cat: 'coffee', name: 'Mocha Latte', prices: { R: 19000, L: 25000 }, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Mocha+Latte' },
+            { id: 'c_vanilla_latte', cat: 'coffee', name: 'Vanilla Latte', prices: { R: 18000, L: 23000 }, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Vanilla+Latte' },
+            { id: 'c_avocado_coffee', cat: 'coffee', name: 'Avocado Coffee', prices: { R: 19000, L: 25000 }, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Avocado+Coffee' },
+            { id: 'c_spanish_latte', cat: 'coffee', name: 'Spanish Latte', prices: { R: 14500, L: 19500 }, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Spanish+Latte' },
+            { id: 'c_creamy_aren', cat: 'coffee', name: 'Creamy Aren Latte', prices: { R: 16000, L: 21500 }, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Creamy+Aren' },
+            { id: 'c_butterscotch_aren', cat: 'coffee', name: 'Butterscotch Aren Latte', prices: { R: 15000, L: 19500 }, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Butterscotch+Aren' },
+            { id: 'c_butterscotch_salt', cat: 'coffee', name: 'Butterscotch Sea Salt Latte', prices: { R: 17500, L: 22500 }, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Sea+Salt+Latte' },
+            { id: 'c_americano', cat: 'coffee', name: 'Americano', prices: { R: 14500, L: 17000 }, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Americano' },
+            { id: 'c_cappucino', cat: 'coffee', name: 'Cappucino', prices: { R: 16000, L: 20500 }, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Cappucino' },
+            { id: 'c_latte', cat: 'coffee', name: 'Latte', prices: { R: 16000, L: 20500 }, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Latte' },
+
+            // 2. KATEGORI NON-KOPI (NON-COFFEE SERIES)
+            { id: 'nc_og_thai_tea', cat: 'noncoffee', name: 'OG Thai Tea', prices: { R: 14500, L: 16500 }, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=OG+Thai+Tea' },
+            { id: 'nc_thai_tea_loaded', cat: 'noncoffee', name: 'Thai Tea Loaded', prices: { L: 19500 }, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=Thai+Tea+Loaded' },
+            { id: 'nc_thai_tea_aren', cat: 'noncoffee', name: 'Thai Tea Aren', prices: { L: 18000 }, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=Thai+Tea+Aren' },
+            { id: 'nc_og_aren_milky', cat: 'noncoffee', name: 'OG Aren Milky Speculoos', prices: { R: 16500, L: 21000 }, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=Milky+Speculoos' },
+            { id: 'nc_choco_caramel', cat: 'noncoffee', name: 'Choco Caramel', prices: { R: 14500, L: 19000 }, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=Choco+Caramel' },
+            { id: 'nc_toffee_nut_choco', cat: 'noncoffee', name: 'Toffee Nut Choco Macchiato', prices: { R: 15500 }, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=Choco+Macchiato' },
+            { id: 'nc_butterscotch_salt', cat: 'noncoffee', name: 'Butterscotch Sea Salt Crumble', prices: { R: 15500 }, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=Sea+Salt+Crumble' },
+            { id: 'nc_milk_oreo', cat: 'noncoffee', name: 'Milk Oreo Crumble', prices: { R: 18000 }, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=Milk+Oreo+Crumble' },
+            { id: 'nc_babyccino', cat: 'noncoffee', name: 'Babyccino', prices: { R: 14500 }, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=Babyccino' },
+            { id: 'nc_fresh_lemonade', cat: 'noncoffee', name: 'Fresh Lemonade', prices: { R: 14500, L: 19500 }, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=Fresh+Lemonade' },
+            { id: 'nc_hazelnut_choco', cat: 'noncoffee', name: 'Hazelnut Choco Milk Tea', prices: { R: 15500, L: 20500 }, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=Choco+Milk+Tea' },
+            { id: 'nc_avocado_caramel', cat: 'noncoffee', name: 'Avocado Caramel', prices: { R: 19000, L: 24000 }, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=Avocado+Caramel' },
+            { id: 'nc_avocado_milk', cat: 'noncoffee', name: 'Avocado Milk', prices: { R: 17000, L: 23000 }, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=Avocado+Milk' },
+            { id: 'nc_caramel_dutch', cat: 'noncoffee', name: 'Caramel Dutch Choco', prices: { R: 19000, L: 25000 }, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=Caramel+Dutch+Choco' },
+            { id: 'nc_dutch_choco', cat: 'noncoffee', name: 'Dutch Chocolate', prices: { R: 18000, L: 24000 }, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=Dutch+Chocolate' },
+            { id: 'nc_hazelnut_dutch', cat: 'noncoffee', name: 'Hazelnut Dutch Choco', prices: { R: 19000, L: 25000 }, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=Hazelnut+Dutch' },
+            { id: 'nc_lemon_black', cat: 'noncoffee', name: 'Lemon Black Tea', prices: { R: 13500, L: 18000 }, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=Lemon+Black+Tea' },
+            { id: 'nc_kenangan_milk', cat: 'noncoffee', name: 'Kenangan Milk Tea', prices: { R: 15500, L: 19500 }, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=Kenangan+Milk+Tea' },
+            { id: 'nc_milo_dino', cat: 'noncoffee', name: 'Milo Dinosaurus', prices: { R: 17000, L: 21000 }, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=Milo+Dinosaurus' },
+            { id: 'nc_oreo_shake', cat: 'noncoffee', name: 'Oreo Shake', prices: { R: 18000, L: 23000 }, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=Oreo+Shake' },
+            { id: 'nc_raspberry_hibiscus', cat: 'noncoffee', name: 'Raspberry Hibiscus', prices: { R: 15000, L: 19500 }, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=Raspberry+Tea' },
+            { id: 'nc_thai_tea', cat: 'noncoffee', name: 'Thai Tea', prices: { L: 17000 }, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=Thai+Tea+L' },
+            { id: 'nc_matcha_latte', cat: 'noncoffee', name: 'Matcha Latte', prices: { R: 17500, L: 22500 }, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=Matcha+Latte' },
+            { id: 'nc_susu_grass_jelly', cat: 'noncoffee', name: 'Susu Grass Jelly', prices: { R: 17000, L: 22000 }, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=Susu+Grass+Jelly' },
+
+            // 3. OUTSIDE SERIES & FRAPPE (OATSIDE & FRAPPE)
+            { id: 'f_oatside_mantan', cat: 'frappe', name: 'Oatside Kopi Kenangan Mantan', prices: { R: 17000, L: 20000 }, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Oatside+Mantan' },
+            { id: 'f_oatside_latte', cat: 'frappe', name: 'Oatside Latte', prices: { R: 17500, L: 22000 }, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Oatside+Latte' },
+            { id: 'f_oatside_matcha', cat: 'frappe', name: 'Oatside Matcha Latte', prices: { R: 17500, L: 22000 }, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Oatside+Matcha' },
+            { id: 'f_choco_caramel_frappe', cat: 'frappe', name: 'Choco Caramel Frappe', prices: { R: 19000, L: 23500 }, type: 'drink', img: 'https://placehold.co/400x400/2C1A0D/E8A359?text=Choco+Caramel+Frappe' },
+            { id: 'f_tiramisu_frappe', cat: 'frappe', name: 'Tiramisu Frappe', prices: { R: 19000, L: 23500 }, type: 'drink', img: 'https://placehold.co/400x400/2C1A0D/E8A359?text=Tiramisu+Frappe' },
+            { id: 'f_butterscotch_frappe', cat: 'frappe', name: 'Butterscotch Kenangan Frappe', prices: { R: 19500, L: 26000 }, type: 'drink', img: 'https://placehold.co/400x400/2C1A0D/E8A359?text=Butterscotch+Frappe' },
+            { id: 'f_matcha_frappe', cat: 'frappe', name: 'Matcha Kenangan Frappe', prices: { R: 21000, L: 27000 }, type: 'drink', img: 'https://placehold.co/400x400/2C1A0D/E8A359?text=Matcha+Frappe' },
+            { id: 'f_mantan_frappe', cat: 'frappe', name: 'Kopi Kenangan Mantan Frappe', prices: { R: 18500, L: 23000 }, type: 'drink', img: 'https://placehold.co/400x400/2C1A0D/E8A359?text=Mantan+Frappe' },
+            { id: 'f_vanilla_frappe', cat: 'frappe', name: 'Vanilla Kenangan Frappe', prices: { R: 17500, L: 22000 }, type: 'drink', img: 'https://placehold.co/400x400/2C1A0D/E8A359?text=Vanilla+Frappe' },
+            { id: 'f_dutch_choco_frappe', cat: 'frappe', name: 'Dutch Choco Kenangan Frappe', prices: { R: 19500, L: 24000 }, type: 'drink', img: 'https://placehold.co/400x400/2C1A0D/E8A359?text=Dutch+Choco+Frappe' },
+            { id: 'f_pistachio_frappe', cat: 'frappe', name: 'Pistachio Frappe', prices: { R: 22000, L: 27500 }, type: 'drink', img: 'https://placehold.co/400x400/2C1A0D/E8A359?text=Pistachio+Frappe' },
+
+            // 4. NEW VARIANT
+            { id: 'nv_blueberry_americano', cat: 'new', name: 'Blueberry Americano', prices: { R: 15000, L: 18500 }, type: 'drink', img: 'https://placehold.co/400x400/38BDF8/FFFFFF?text=Blueberry+Americano' },
+            { id: 'nv_blueberry_frappe', cat: 'new', name: 'Blueberry Frappe', prices: { R: 17000, L: 20500 }, type: 'drink', img: 'https://placehold.co/400x400/38BDF8/FFFFFF?text=Blueberry+Frappe' },
+            { id: 'nv_chocoberry_frappe', cat: 'new', name: 'Chocoberry Frappe', prices: { R: 19000, L: 22500 }, type: 'drink', img: 'https://placehold.co/400x400/38BDF8/FFFFFF?text=Chocoberry+Frappe' },
+            { id: 'nv_coffeeberry_frappe', cat: 'new', name: 'Coffeberry Frappe', prices: { R: 18000, L: 21500 }, type: 'drink', img: 'https://placehold.co/400x400/38BDF8/FFFFFF?text=Coffeberry+Frappe' },
+
+            // 5. MAKANAN (SIGNATURE BAKE, TOAST, PASTA & RICE)
+            // Roti, Donat, Pastry
+            { id: 'fd_roti_coklat', cat: 'bakery', name: 'Roti Coklat Klasik', singlePrice: 9500, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Roti+Coklat' },
+            { id: 'fd_roti_susu', cat: 'bakery', name: 'Roti Susu Manis', singlePrice: 9500, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Roti+Susu' },
+            { id: 'fd_sugar_donat', cat: 'bakery', name: 'Sugar Donat', singlePrice: 10000, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Sugar+Donat' },
+            { id: 'fd_coffee_butter', cat: 'bakery', name: 'Coffee Butter Bun', singlePrice: 10000, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Coffee+Butter+Bun' },
+            { id: 'fd_salt_choco', cat: 'bakery', name: 'Salt Bread Choco Butter', singlePrice: 10000, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Choco+Butter' },
+            { id: 'fd_roti_sisir', cat: 'bakery', name: 'Roti Sisir Original', singlePrice: 10500, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Roti+Sisir' },
+            { id: 'fd_pink_confetti', cat: 'bakery', name: 'Donat Pink Confetti', singlePrice: 10500, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Pink+Confetti' },
+            { id: 'fd_vanilla_choux', cat: 'bakery', name: 'Vanilla Choux Puff', singlePrice: 11000, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Vanilla+Choux' },
+            { id: 'fd_strawberry_choux', cat: 'bakery', name: 'Strawberry Choux Puff', singlePrice: 11000, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Strawberry+Choux' },
+            { id: 'fd_roti_keju', cat: 'bakery', name: 'Roti Keju Manis', singlePrice: 11000, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Roti+Keju' },
+            { id: 'fd_choco_donut', cat: 'bakery', name: 'Chocolate Donut', singlePrice: 11000, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Chocolate+Donut' },
+            { id: 'fd_choco_choux', cat: 'bakery', name: 'Chocolate Choux', singlePrice: 11500, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Chocolate+Choux' },
+            { id: 'fd_salt_ori', cat: 'bakery', name: 'Salt Bread Ori', singlePrice: 11500, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Salt+Bread+Ori' },
+            { id: 'fd_canele_ori', cat: 'bakery', name: 'Canele Ori', singlePrice: 11500, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Canele+Ori' },
+            { id: 'fd_donat_matcha', cat: 'bakery', name: 'Donat Matcha', singlePrice: 11500, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Donat+Matcha' },
+            { id: 'fd_donat_abon', cat: 'bakery', name: 'Donat Abon', singlePrice: 11500, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Donat+Abon' },
+            { id: 'fd_donat_almond', cat: 'bakery', name: 'Donat Almond', singlePrice: 12000, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Donat+Almond' },
+            { id: 'fd_donat_tiramisu', cat: 'bakery', name: 'Donat Tiramisu', singlePrice: 12000, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Donat+Tiramisu' },
+            { id: 'fd_sisir_keju', cat: 'bakery', name: 'Roti Sisir Keju', singlePrice: 12000, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Sisir+Keju' },
+            { id: 'fd_sisir_coklat', cat: 'bakery', name: 'Roti Sisir Coklat', singlePrice: 12000, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Sisir+Coklat' },
+            { id: 'fd_salt_beef_cheese', cat: 'bakery', name: 'Salt Bread Beef & Cheese', singlePrice: 12000, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Beef+Cheese' },
+            { id: 'fd_choco_cookies', cat: 'bakery', name: 'Choco Chip Cookies', singlePrice: 12000, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Choco+Cookies' },
+            { id: 'fd_salt_sausage', cat: 'bakery', name: 'Salt Bread Sausage', singlePrice: 12000, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Sausage+Salt+Bread' },
+            { id: 'fd_gulung_aren', cat: 'bakery', name: 'Roti Gulung Aren', singlePrice: 12500, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Roti+Gulung+Aren' },
+            { id: 'fd_butter_croissant', cat: 'bakery', name: 'Butter Croissant', singlePrice: 12500, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Butter+Croissant' },
+            { id: 'fd_roti_srikaya', cat: 'bakery', name: 'Roti Srikaya', singlePrice: 12500, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Roti+Srikaya' },
+            { id: 'fd_canele_toffee', cat: 'bakery', name: 'Canele Toffee Nut', singlePrice: 13000, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Canele+Toffee+Nut' },
+            { id: 'fd_choco_muffin', cat: 'bakery', name: 'Choco Muffin', singlePrice: 13000, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Choco+Muffin' },
+            { id: 'fd_blueberry_muffin', cat: 'bakery', name: 'Blueberry Muffin', singlePrice: 13000, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Blueberry+Muffin' },
+            { id: 'fd_croissant_abon', cat: 'bakery', name: 'Croissant Abon', singlePrice: 13500, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Croissant+Abon' },
+            { id: 'fd_roti_abon', cat: 'bakery', name: 'Roti Gulung Abon', singlePrice: 14000, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Roti+Gulung+Abon' },
+            { id: 'fd_choco_swirl', cat: 'bakery', name: 'Choco Mocha Swirl', singlePrice: 14000, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Choco+Mocha+Swirl' },
+            { id: 'fd_dirty_croissant', cat: 'bakery', name: 'Dirty Croissant (Milo/Matcha)', singlePrice: 14000, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Dirty+Croissant' },
+            { id: 'fd_choco_croissant', cat: 'bakery', name: 'Chocolate Croissant', singlePrice: 14500, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Choco+Croissant' },
+            { id: 'fd_danish_tiramisu', cat: 'bakery', name: 'Danish Tiramisu', singlePrice: 15000, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Danish+Tiramisu' },
+            { id: 'fd_dark_side_cookies', cat: 'bakery', name: 'Join The Dark Side Cookies', singlePrice: 15500, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Dark+Side+Cookies' },
             
-            // COFFEE & OATSIDE (Latar Karamel Gelap)
-            { id: 'c1', cat: 'coffee', name: 'Kopi Kenangan Mantan (R)', old: 25000, new: 14500, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Kopi+Mantan&font=Montserrat', placeholderNote: 'Misal: Manisnya tolong dibikin pas, jangan terlalu manis kayak omongan dia di awal.' },
-            { id: 'c2', cat: 'coffee', name: 'Oatside Latte (R)', old: 25000, new: 16500, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Oatside+Latte&font=Montserrat', placeholderNote: 'Misal: Biar dompet tipis, yang penting ngopi oatside tetep eksis.' },
-            { id: 'c3', cat: 'coffee', name: 'Oatside Kopi Mantan (R)', old: 22000, new: 20000, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Oatside+Mantan&font=Montserrat', placeholderNote: 'Misal: Mantan yang ini vegan friendly dan gak bikin sakit hati.' },
-            { id: 'c4', cat: 'coffee', name: 'Latte (R)', old: 29000, new: 15000, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Latte&font=Montserrat', placeholderNote: 'Misal: Latte-in aja perasaanku ke kamu, gapapa...' },
-            { id: 'c5', cat: 'coffee', name: 'Americano (R)', old: 22000, new: 13500, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Americano&font=Montserrat', placeholderNote: 'Misal: Hitam dan pahit aja kak, sekelam masa depanku tanpanya.' },
-            { id: 'c6', cat: 'coffee', name: 'Spanish Latte (R)', old: 19000, new: 13500, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Spanish+Latte&font=Montserrat', placeholderNote: 'Misal: Hola! Tolong di-adjust senikmat senyuman dia ya kak.' },
-            { id: 'c7', cat: 'coffee', name: 'Mocha Caramel (R)', old: 26000, new: 17000, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Mocha+Caramel&font=Montserrat', placeholderNote: 'Misal: Caramelnya dibanyakin dong, hidup ini udah terlalu pahit.' },
+            // Kenangan Toast
+            { id: 't_choco_cheese', cat: 'bakery', name: 'Bambang Choco Cheese', singlePrice: 13500, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Choco+Cheese+Toast' },
+            { id: 't_sapi_toast', cat: 'bakery', name: 'Wahyu Sapi Toast', singlePrice: 14500, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Sapi+Toast' },
+            { id: 't_ayam_toast', cat: 'bakery', name: 'Adam Ayam Toast', singlePrice: 14500, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Ayam+Toast' },
 
-            // NON COFFEE (Latar Karamel Terang)
-            { id: 'n1', cat: 'noncoffee', name: 'OG Thai Tea (R)', old: 19000, new: 13500, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=Thai+Tea&font=Montserrat', placeholderNote: 'Misal: Sawatdee kha! Bikin seger kayak baru gajian dong kak.' },
-            { id: 'n2', cat: 'noncoffee', name: 'Matcha Latte (R)', old: 25000, new: 16500, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=Matcha+Latte&font=Montserrat', placeholderNote: 'Misal: Matcha-nin aja terus sampe dia peka.' },
-            { id: 'n3', cat: 'noncoffee', name: 'Milo Dinosaurus (R)', old: 30000, new: 16000, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=Milo&font=Montserrat', placeholderNote: 'Misal: Biar kuat ngadepin kenyataan yang gedenya sedinosaurus.' },
-            { id: 'n4', cat: 'noncoffee', name: 'Susu Grass Jelly (R)', old: 24000, new: 16000, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=Grass+Jelly&font=Montserrat', placeholderNote: 'Misal: Kenyal-kenyal gemes kayak pipi ayang pas lagi ngambek.' },
-            { id: 'n5', cat: 'noncoffee', name: 'Oreo Shake (R)', old: 26000, new: 17000, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=Oreo+Shake&font=Montserrat', placeholderNote: 'Misal: Diputar, dijilat, dicelupin... terus ditinggalin.' },
-            { id: 'n6', cat: 'noncoffee', name: 'Dutch Chocolate (R)', old: 36000, new: 17000, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=Dutch+Choco&font=Montserrat', placeholderNote: 'Misal: Coklatnya yang premium ya kak, se-premium rinduku padanya.' },
-            { id: 'n7', cat: 'noncoffee', name: 'Raspberry Hibiscus (R)', old: 20000, new: 14000, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=Raspberry&font=Montserrat', placeholderNote: 'Misal: Asam manis seger, kayak drakor percintaan masa SMA.' },
-            { id: 'n8', cat: 'noncoffee', name: 'Fresh Lemonade (R)', old: 17000, new: 13500, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=Lemonade&font=Montserrat', placeholderNote: 'Misal: Extra es dong, biar sedingin sikapnya ke aku sekarang.' },
-            { id: 'n9', cat: 'noncoffee', name: 'Lemon Black Tea (R)', old: 17000, new: 12500, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=Lemon+Tea&font=Montserrat', placeholderNote: 'Misal: Tehnya pekat, lemonnya nendang, persis rasa cemburuku ke dia.' },
+            // Heavy Meals (Pasta & Rice)
+            { id: 'm_sandwich_beef', cat: 'bakery', name: 'Sandwich (Smoked Beef)', singlePrice: 16000, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Smoked+Beef+Sandwich' },
+            { id: 'm_sandwich_tartar', cat: 'bakery', name: 'Sandwich (Chicken Tartar)', singlePrice: 16000, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Chicken+Tartar+Sandwich' },
+            { id: 'm_phat_kra_pao', cat: 'bakery', name: 'Chicken Phat Kra Pao', singlePrice: 16000, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Chicken+Phat+Kra+Pao' },
+            { id: 'm_thai_spaghetti', cat: 'bakery', name: 'Thai Spaghetti', singlePrice: 16000, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Thai+Spaghetti' },
+            { id: 'm_chicken_japanese', cat: 'bakery', name: 'Chicken Japanese', singlePrice: 17000, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Chicken+Japanese' },
+            { id: 'm_indoghetti', cat: 'bakery', name: 'Pasta Indoghetti', singlePrice: 18000, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Pasta+Indoghetti' },
+            { id: 'm_mentai', cat: 'bakery', name: 'Pasta Mentai', singlePrice: 19000, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Pasta+Mentai' },
+            { id: 'm_aglio_olio', cat: 'bakery', name: 'Spaghetti Tuna Aglio Olio', singlePrice: 21000, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Tuna+Aglio+Olio' }
+        ];
 
-            // BAKERY (Latar Krem Terang)
-            { id: 'f1', cat: 'bakery', name: 'Salt Bread Original', old: 12000, new: 10500, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Salt+Bread&font=Montserrat', placeholderNote: 'Misal: Asin gurih... mirip air mataku habis diputusin.' },
-            { id: 'f2', cat: 'bakery', name: 'Salt Bread Beef Cheese', old: 15000, new: 11000, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Salt+Bread+Beef&font=Montserrat', placeholderNote: 'Misal: Kejunya lumerin aja kak, selumer hatiku ditatap dia.' },
-            { id: 'f3', cat: 'bakery', name: 'Butter Croissant', old: 15000, new: 11500, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Croissant&font=Montserrat', placeholderNote: 'Misal: Renyah di luar, lembut di dalam, fix ini cowok tsundere.' },
-            { id: 'f4', cat: 'bakery', name: 'Bambang Choco Toast', old: 17000, new: 12500, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Choco+Toast&font=Montserrat', placeholderNote: 'Misal: Coklatnya penuhin aja, biar lupain mantannya gampang.' },
-            { id: 'f5', cat: 'bakery', name: 'Wahyu Sapi Toast', old: 19000, new: 13500, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Sapi+Toast&font=Montserrat', placeholderNote: 'Misal: Daging sapinya empuk ya, jangan kayak hatinya yang keras.' },
-            { id: 'f6', cat: 'bakery', name: 'Adam Ayam Toast', old: 19000, new: 13500, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Ayam+Toast&font=Montserrat', placeholderNote: 'Misal: Di-toast sampai garing, segaring chatku yang cuma di-read.' },
-            { id: 'f7', cat: 'bakery', name: 'Chocolate Croissant', old: 19000, new: 13500, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Choco+Croissant&font=Montserrat', placeholderNote: 'Misal: Bismillah, semoga coklatnya mengobati rasa di-ghosting.' },
-            { id: 'f8', cat: 'bakery', name: 'Sandwich Smoked Beef', old: 22000, new: 15000, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Smoked+Beef&font=Montserrat', placeholderNote: 'Misal: Daging asapnya kerasa banget, kayak kode dia ngabur.' },
-            { id: 'f9', cat: 'bakery', name: 'Sandwich Chicken Tartar', old: 22000, new: 15000, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Chicken+Tartar&font=Montserrat', placeholderNote: 'Misal: Sausnya agak banyakin, biar kisah kasihku ga kering-kering amat.' }
+        // STREAMING_CHUNK: Loading add-on syrup and topping lists...
+        // 6. PILIHAN ADD-ON (TAMBAHAN +7.000)
+        const addOnToppings = [
+            'Espresso Shot (Kenangan Blend)',
+            'Espresso Shot (Juwara Blend)',
+            'Golden Boba',
+            'Grass Jelly',
+            'Oreo Crumble',
+            'Whipped Cream Chocolate',
+            'Whipped Cream Vanilla',
+            'Caramel Crumble',
+            'Gula Aren'
+        ];
+
+        const addOnSyrups = [
+            'Vanilla Syrup',
+            'Hazelnut Syrup',
+            'Caramel Syrup',
+            'Salted Caramel Sauce',
+            'Choco Sauce',
+            'Butterscotch Sauce'
         ];
 
         let cart = [];
@@ -1066,47 +1197,92 @@ Mohon dibantu proses aktivasi akun dan tagihan QRIS/Rekeningnya ya min!`;
             });
         }
 
-        // STREAMING_CHUNK: Injecting promo menu dynamic structures...
-        function renderMenu() {
+        // STREAMING_CHUNK: Integrating the live search parser with the DOM renderer...
+        function renderMenu(filterKeyword = '') {
             const container = document.getElementById('menu-container');
+            container.innerHTML = ''; // Clear prior entries
+
             const categories = [
                 { id: 'cat-bundling', title: 'Paket Bundling Hemat', filter: 'bundling' },
-                { id: 'cat-coffee', title: 'Coffee & Oatside', filter: 'coffee' },
-                { id: 'cat-noncoffee', title: 'Fresh Non-Coffee', filter: 'noncoffee' },
-                { id: 'cat-bakery', title: 'Kenangan Toast & Bakery', filter: 'bakery' }
+                { id: 'cat-coffee', title: 'Coffee Series (Kopi)', filter: 'coffee' },
+                { id: 'cat-noncoffee', title: 'Non-Coffee Series (Non-Kopi)', filter: 'noncoffee' },
+                { id: 'cat-frappe', title: 'Oatside & Frappe Series', filter: 'frappe' },
+                { id: 'cat-new', title: 'New Variant (Varian Baru)', filter: 'new' },
+                { id: 'cat-bakery', title: 'Signature Bakes, Toast & Food', filter: 'bakery' }
             ];
 
-            categories.forEach(c => {
-                const section = document.createElement('div');
-                section.id = c.id;
-                section.innerHTML = `<h2 class="text-xl font-bold text-kenangan-dark mb-4 drop-shadow-sm">${c.title}</h2>`;
-                
-                const grid = document.createElement('div');
-                grid.className = 'grid grid-cols-2 md:grid-cols-4 gap-4';
+            const keyword = filterKeyword.toLowerCase().trim();
 
-                menuData.filter(m => m.cat === c.filter).forEach(item => {
-                    grid.innerHTML += `
-                        <div class="glass rounded-xl p-3 flex flex-col justify-between h-full relative overflow-hidden group">
-                            <div class="absolute top-0 right-0 bg-red-600 text-white text-[10px] font-bold px-2 py-1 rounded-bl-lg z-10">PROMO</div>
-                            <img src="${item.img}" alt="${item.name}" class="w-full h-32 object-cover rounded-lg mb-3 group-hover:scale-105 transition duration-300 shadow-sm" loading="lazy">
-                            <div class="flex-grow flex flex-col justify-between">
-                                <div>
-                                    <h3 class="font-bold text-kenangan-dark text-sm leading-tight mb-1">${item.name}</h3>
-                                    <p class="text-xs text-gray-500 line-through">${formatRp(item.old)}</p>
-                                </div>
-                                <div class="flex justify-between items-center mt-2">
-                                    <p class="font-bold text-kenangan-primary text-sm">${formatRp(item.new)}</p>
-                                    <button onclick="openModal('${item.id}')" class="w-8 h-8 rounded-full bg-kenangan-dark text-white flex items-center justify-center shadow-md active:scale-90 transition">
-                                        <i class="fas fa-plus"></i>
-                                    </button>
+            categories.forEach(c => {
+                // Saring produk berdasarkan kategori dan pencarian keyword
+                const filteredProducts = menuData.filter(m => {
+                    const matchesCategory = m.cat === c.filter;
+                    const matchesKeyword = keyword === '' || m.name.toLowerCase().includes(keyword);
+                    return matchesCategory && matchesKeyword;
+                });
+
+                // Hanya tampilkan kategori jika ada item yang lolos saringan keyword
+                if (filteredProducts.length > 0) {
+                    const section = document.createElement('div');
+                    section.id = c.id;
+                    section.innerHTML = `<h2 class="text-xl font-bold text-kenangan-dark mb-4 drop-shadow-sm">${c.title}</h2>`;
+                    
+                    const grid = document.createElement('div');
+                    grid.className = 'grid grid-cols-2 md:grid-cols-4 gap-4';
+
+                    filteredProducts.forEach(item => {
+                        let displayedPrice = '';
+                        if (item.singlePrice) {
+                            displayedPrice = formatRp(item.singlePrice);
+                        } else if (item.prices) {
+                            const availableSizes = Object.keys(item.prices);
+                            if (availableSizes.length === 1) {
+                                displayedPrice = `${availableSizes[0]}: ${formatRp(item.prices[availableSizes[0]])}`;
+                            } else {
+                                displayedPrice = `R: ${formatRp(item.prices.R || 0)}`;
+                            }
+                        }
+
+                        grid.innerHTML += `
+                            <div class="glass rounded-xl p-3 flex flex-col justify-between h-full relative overflow-hidden group">
+                                <div class="absolute top-0 right-0 bg-red-600 text-white text-[10px] font-bold px-2 py-1 rounded-bl-lg z-10">PROMO</div>
+                                <img src="${item.img}" alt="${item.name}" class="w-full h-32 object-cover rounded-lg mb-3 group-hover:scale-105 transition duration-300 shadow-sm" loading="lazy">
+                                <div class="flex-grow flex flex-col justify-between">
+                                    <div>
+                                        <h3 class="font-bold text-kenangan-dark text-sm leading-tight mb-1">${item.name}</h3>
+                                        <p class="text-[10px] text-gray-500 line-through">Mulai ${formatRp(item.singlePrice ? item.singlePrice * 1.5 : (item.prices.R || item.prices.L) * 1.5)}</p>
+                                    </div>
+                                    <div class="flex justify-between items-center mt-2">
+                                        <p class="font-bold text-kenangan-primary text-sm">${displayedPrice}</p>
+                                        <button onclick="openModal('${item.id}')" class="w-8 h-8 rounded-full bg-kenangan-dark text-white flex items-center justify-center shadow-md active:scale-90 transition">
+                                            <i class="fas fa-plus text-xs"></i>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    `;
-                });
-                section.appendChild(grid);
-                container.appendChild(section);
+                        `;
+                    });
+                    section.appendChild(grid);
+                    container.appendChild(section);
+                }
             });
+
+            // Tampilkan pesan kosong jika tidak ada item yang cocok sama sekali
+            if (container.innerHTML === '') {
+                container.innerHTML = `
+                    <div class="text-center py-12">
+                        <i class="fas fa-mug-hot text-gray-400 text-5xl mb-3"></i>
+                        <p class="text-gray-500 font-medium">Menu "${filterKeyword}" tidak ditemukan.</p>
+                        <p class="text-xs text-gray-400 mt-1">Coba cari dengan kata kunci lain ya!</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Live Search Input Trigger
+        function searchMenu() {
+            const query = document.getElementById('menu-search-input').value;
+            renderMenu(query);
         }
 
         window.toggleIceOptions = function() {
@@ -1121,13 +1297,36 @@ Mohon dibantu proses aktivasi akun dan tagihan QRIS/Rekeningnya ya min!`;
             }
         };
 
+        // STREAMING_CHUNK: Managing Segmented Controls and modal pop-ups for R/L pricing...
+        let modalPriceCache = 0;
+
+        function updateModalPrice() {
+            if (!currentModalItem) return;
+            let basePrice = 0;
+
+            if (currentModalItem.singlePrice) {
+                basePrice = currentModalItem.singlePrice;
+            } else if (currentModalItem.prices) {
+                const sizeSel = document.querySelector('input[name="mod-size-pick"]:checked')?.value;
+                basePrice = currentModalItem.prices[sizeSel] || 0;
+            }
+
+            // Tambahkan harga dari add-on syrup/topping (+7.000 per centang)
+            let addOnTotal = 0;
+            document.querySelectorAll('.mod-addons-chk:checked').forEach(() => {
+                addOnTotal += 7000;
+            });
+
+            modalPriceCache = basePrice + addOnTotal;
+            document.getElementById('modal-price').textContent = formatRp(modalPriceCache);
+            document.getElementById('modal-btn-price').textContent = formatRp(modalPriceCache);
+        }
+
         function openModal(itemId) {
             const item = menuData.find(m => m.id === itemId);
             currentModalItem = item;
             
             document.getElementById('modal-title').textContent = item.name;
-            document.getElementById('modal-price').textContent = formatRp(item.new);
-            document.getElementById('modal-btn-price').textContent = formatRp(item.new);
 
             const optionsContainer = document.getElementById('modal-options-container');
             optionsContainer.innerHTML = ''; 
@@ -1142,8 +1341,30 @@ Mohon dibantu proses aktivasi akun dan tagihan QRIS/Rekeningnya ya min!`;
                 optionsContainer.innerHTML = html;
             } 
             else if (item.type === 'drink') {
+                // Segmented picker untuk ukuran Regular / Large secara dinamis
+                let sizePickerHTML = '';
+                if (item.prices) {
+                    const sizes = Object.keys(item.prices);
+                    sizePickerHTML = `
+                        <div class="mb-4">
+                            <label class="block text-sm font-semibold mb-2">Ukuran Cup <span class="text-red-500">*</span></label>
+                            <div class="grid grid-cols-${sizes.length} gap-3">
+                                ${sizes.map((size, idx) => `
+                                    <label class="relative cursor-pointer">
+                                        <input type="radio" name="mod-size-pick" value="${size}" class="peer sr-only" ${idx === 0 ? 'checked' : ''} onchange="updateModalPrice()">
+                                        <div class="rounded-xl border-2 border-gray-200 bg-white py-2 px-3 text-center transition-all hover:bg-amber-50 peer-checked:border-amber-600 peer-checked:bg-amber-50 peer-checked:text-amber-800 font-bold shadow-sm text-sm">
+                                            ${size === 'R' ? 'Regular' : 'Large'} (${formatRp(item.prices[size])})
+                                        </div>
+                                    </label>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `;
+                }
+
                 optionsContainer.innerHTML = `
                     <div class="space-y-5">
+                        <!-- Hot/Ice Selection -->
                         <div>
                             <label class="block text-sm font-semibold mb-2">Penyajian <span class="text-red-500">*</span></label>
                             <div class="grid grid-cols-2 gap-3">
@@ -1161,13 +1382,11 @@ Mohon dibantu proses aktivasi akun dan tagihan QRIS/Rekeningnya ya min!`;
                                 </label>
                             </div>
                         </div>
-                        <div>
-                            <label class="block text-sm font-semibold mb-2">Ukuran Cup</label>
-                            <select id="mod-size" class="w-full p-2.5 rounded-lg border border-gray-200 bg-gray-50 text-sm outline-none focus:ring-2 focus:ring-kenangan-primary">
-                                <option value="Regular">Regular</option>
-                                <option value="Large">Large (*)</option>
-                            </select>
-                        </div>
+
+                        <!-- Ukuran Cup -->
+                        ${sizePickerHTML}
+
+                        <!-- Ice & Sugar Levels -->
                         <div class="grid grid-cols-1 gap-4 bg-gray-50 p-3 rounded-xl border border-gray-100">
                             <div>
                                 <label class="block text-xs font-semibold mb-2 text-gray-600">Level Gula</label>
@@ -1205,11 +1424,30 @@ Mohon dibantu proses aktivasi akun dan tagihan QRIS/Rekeningnya ya min!`;
                                 </div>
                             </div>
                         </div>
+
+                        <!-- STREAMING_CHUNK: Building modular checkmarks for premium syrup/topping add-ons... -->
+                        <!-- Premium Toppings and Syrups Add-ons (+7.000) -->
                         <div>
-                            <label class="block text-sm font-semibold mb-2">Kustomisasi Ekstra</label>
-                            <div class="space-y-2 text-sm">
-                                <label class="flex items-center gap-2 p-2 border border-gray-100 rounded-lg bg-white shadow-sm cursor-pointer"><input type="checkbox" value="Oatside Milk (*)" class="mod-extras accent-kenangan-primary w-4 h-4"> Oatside Milk (*)</label>
-                                <label class="flex items-center gap-2 p-2 border border-gray-100 rounded-lg bg-white shadow-sm cursor-pointer"><input type="checkbox" value="Juwara Beans (*)" class="mod-extras accent-kenangan-primary w-4 h-4"> Juwara Beans (*)</label>
+                            <label class="block text-sm font-semibold mb-2">Tambah Extra Topping (+Rp 7.000) (Opsional)</label>
+                            <div class="grid grid-cols-1 gap-2 max-h-40 overflow-y-auto pr-1">
+                                ${addOnToppings.map(topping => `
+                                    <label class="flex items-center gap-2 p-2 border border-gray-100 rounded-lg bg-white shadow-sm cursor-pointer text-xs">
+                                        <input type="checkbox" value="Topping ${topping}" onchange="updateModalPrice()" class="mod-addons-chk accent-kenangan-primary w-4 h-4"> 
+                                        ${topping}
+                                    </label>
+                                `).join('')}
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-semibold mb-2">Tambah Extra Syrup (+Rp 7.000) (Opsional)</label>
+                            <div class="grid grid-cols-1 gap-2 max-h-40 overflow-y-auto pr-1">
+                                ${addOnSyrups.map(syrup => `
+                                    <label class="flex items-center gap-2 p-2 border border-gray-100 rounded-lg bg-white shadow-sm cursor-pointer text-xs">
+                                        <input type="checkbox" value="Syrup ${syrup}" onchange="updateModalPrice()" class="mod-addons-chk accent-kenangan-primary w-4 h-4"> 
+                                        ${syrup}
+                                    </label>
+                                `).join('')}
                             </div>
                         </div>
                     </div>
@@ -1217,65 +1455,50 @@ Mohon dibantu proses aktivasi akun dan tagihan QRIS/Rekeningnya ya min!`;
             }
 
             optionsContainer.innerHTML += `
-                <div class="${item.type === 'drink' ? 'mt-4' : ''}">
+                <div class="mt-4">
                     <label class="block text-sm font-semibold mb-2">Catatan Item (Opsional)</label>
-                    <input type="text" id="mod-note" placeholder="${item.placeholderNote}" class="w-full p-3 rounded-lg border border-gray-200 bg-gray-50 text-sm outline-none focus:border-kenangan-primary focus:ring-1 focus:ring-kenangan-primary transition text-kenangan-dark">
+                    <input type="text" id="mod-note" placeholder="Misal: extra manis, tanpa es batu" class="w-full p-3 rounded-lg border border-gray-200 bg-gray-50 text-sm outline-none focus:border-kenangan-primary focus:ring-1 focus:ring-kenangan-primary transition text-kenangan-dark">
                 </div>
             `;
+
+            updateModalPrice();
 
             // Animasi memunculkan modal bergaya Bottom Sheet
             const overlay = document.getElementById('modal-overlay');
             const content = document.getElementById('modal-content');
             
-            // Kunci scroll body/halaman di belakang agar tidak ikut tergulung
             document.body.style.overflow = 'hidden';
             
             overlay.classList.remove('hidden');
             setTimeout(() => {
                 overlay.classList.remove('opacity-0');
-                content.classList.remove('translate-y-full'); // Geser ke atas
+                content.classList.remove('translate-y-full'); 
                 content.classList.add('translate-y-0');
             }, 10);
         }
 
-        // STREAMING_CHUNK: Setup modal closing transitions and animations...
-        function closeModal(e) {
-            if(e) e.preventDefault();
-            const overlay = document.getElementById('modal-overlay');
-            const content = document.getElementById('modal-content');
-            
-            overlay.classList.add('opacity-0');
-            content.classList.remove('translate-y-0');
-            content.classList.add('translate-y-full'); // Geser ke bawah
-            
-            // Buka kunci scroll body/halaman kembali
-            document.body.style.overflow = '';
-            
-            setTimeout(() => {
-                overlay.classList.add('hidden');
-            }, 300);
-            currentModalItem = null;
-        }
-
+        // STREAMING_CHUNK: Managing shopping carts and size selections...
         function addToCartFromModal() {
             if (!currentModalItem) return;
             const itemName = currentModalItem.name;
             let details = [];
+            let chosenPrice = modalPriceCache;
 
             if (currentModalItem.type === 'bundling') {
                 details.push(document.getElementById('mod-bundle-sel').value);
             } else if (currentModalItem.type === 'drink') {
                 const temp = document.querySelector('input[name="mod-temp"]:checked').value;
-                const size = document.getElementById('mod-size').value;
                 const sugar = document.querySelector('input[name="mod-sugar"]:checked').value;
+                const sizePick = document.querySelector('input[name="mod-size-pick"]:checked')?.value || 'R';
                 
-                details.push(temp, size);
+                details.push(temp);
+                details.push(sizePick === 'R' ? 'Regular' : 'Large');
                 if(sugar !== 'Normal Sugar') details.push(sugar);
                 if (temp === 'Ice') {
                     const ice = document.querySelector('input[name="mod-ice"]:checked').value;
                     if(ice !== 'Normal Ice') details.push(ice);
                 }
-                document.querySelectorAll('.mod-extras:checked').forEach(chk => {
+                document.querySelectorAll('.mod-addons-chk:checked').forEach(chk => {
                     details.push(chk.value);
                 });
             }
@@ -1284,7 +1507,8 @@ Mohon dibantu proses aktivasi akun dan tagihan QRIS/Rekeningnya ya min!`;
             cart.push({
                 item: currentModalItem,
                 details: details.join(', '),
-                note: note
+                note: note,
+                price: chosenPrice
             });
 
             closeModal();
@@ -1293,74 +1517,6 @@ Mohon dibantu proses aktivasi akun dan tagihan QRIS/Rekeningnya ya min!`;
 
             playFlyToCartAnimation();
             showToast(`<b>${itemName}</b><br>Berhasil masuk ke keranjang!`);
-        }
-
-        function playFlyToCartAnimation() {
-            sfx.playSuccess();
-            const cartBtn = document.getElementById('cart-icon-btn');
-            const cartIcon = document.getElementById('cart-icon');
-            const badge = document.getElementById('cart-badge');
-            const rect = cartBtn.getBoundingClientRect();
-
-            const flyer = document.createElement('div');
-            flyer.innerHTML = '<i class="fas fa-coffee text-white text-xl"></i>';
-            flyer.className = 'fixed z-[100] flex items-center justify-center w-12 h-12 bg-kenangan-primary rounded-full shadow-lg';
-            flyer.style.left = '50%';
-            flyer.style.top = '70%';
-            flyer.style.transform = 'translate(-50%, -50%) scale(0)';
-            flyer.style.transition = 'all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
-            document.body.appendChild(flyer);
-
-            flyer.getBoundingClientRect();
-            flyer.style.transform = 'translate(-50%, -50%) scale(1)';
-
-            setTimeout(() => {
-                flyer.style.left = `${rect.left + rect.width / 2}px`;
-                flyer.style.top = `${rect.top + rect.height / 2}px`;
-                flyer.style.transform = 'translate(-50%, -50%) scale(0.2)';
-                flyer.style.opacity = '0';
-            }, 400);
-
-            setTimeout(() => {
-                flyer.remove();
-                cartIcon.classList.add('scale-150', 'text-kenangan-primary');
-                badge.classList.add('scale-150');
-                setTimeout(() => {
-                    cartIcon.classList.remove('scale-150', 'text-kenangan-primary');
-                    badge.classList.remove('scale-150');
-                }, 300);
-            }, 900);
-        }
-
-        function removeFromCart(index) {
-            cart.splice(index, 1);
-            updateCartUI();
-            validateKopkenForm();
-        }
-
-        // STREAMING_CHUNK: Setting up branch loaders and mall surcharges...
-        function handleCityChange() {
-            const city = document.getElementById('cust-city').value;
-            const branchSelect = document.getElementById('cust-branch');
-            branchSelect.innerHTML = '<option value="">Pilih Outlet...</option>';
-            
-            if (!city) {
-                branchSelect.disabled = true;
-            } else {
-                branchSelect.disabled = false;
-                let branches = cityData[city] || [];
-                branches.forEach(b => {
-                    const cleanName = b.replace('Kopi Kenangan ', '').trim();
-                    branchSelect.innerHTML += `<option value="${cleanName}">${cleanName}</option>`;
-                });
-            }
-            validateKopkenForm();
-        }
-
-        function checkMallSurcharge() {
-            const branch = document.getElementById('cust-branch').value;
-            const mallPattern = /mall|plaza|tower|city|junction|avenue|walk|central park|grand indonesia|paris van java/i;
-            return mallPattern.test(branch) ? 3000 : 0;
         }
 
         function updateCartUI() {
@@ -1382,7 +1538,7 @@ Mohon dibantu proses aktivasi akun dan tagihan QRIS/Rekeningnya ya min!`;
                                 <h4 class="font-bold text-sm text-kenangan-dark">${c.item.name}</h4>
                                 ${c.details ? `<p class="text-[10px] text-gray-600 mt-0.5"><i class="fas fa-sliders-h"></i> ${c.details}</p>` : ''}
                                 ${c.note ? `<p class="text-[10px] text-gray-500 italic mt-0.5">Catatan: "${c.note}"</p>` : ''}
-                                <p class="text-xs font-semibold text-kenangan-primary mt-1">${formatRp(c.item.new)}</p>
+                                <p class="text-xs font-semibold text-kenangan-primary mt-1">${formatRp(c.price)}</p>
                             </div>
                             <button onclick="removeFromCart(${idx})" class="text-red-400 hover:text-red-600 p-1">
                                 <i class="fas fa-trash-alt"></i>
@@ -1400,7 +1556,7 @@ Mohon dibantu proses aktivasi akun dan tagihan QRIS/Rekeningnya ya min!`;
             const btnTele = document.getElementById('btn-submit-tele-kopken');
             const btnWa = document.getElementById('btn-submit-wa-kopken');
 
-            let subtotal = cart.reduce((sum, c) => sum + c.item.new, 0);
+            let subtotal = cart.reduce((sum, c) => sum + c.price, 0);
             document.getElementById('summary-subtotal').textContent = formatRp(subtotal);
 
             let surcharge = 0;
@@ -1439,7 +1595,7 @@ Mohon dibantu proses aktivasi akun dan tagihan QRIS/Rekeningnya ya min!`;
             }
         }
 
-        // STREAMING_CHUNK: Processing Telegram APIs and click events...
+        // STREAMING_CHUNK: Packing customer orders for Telegram/Whatsapp payloads...
         function submitOrderKopken(method) {
             sfx.playSuccess();
             const name = document.getElementById('cust-name').value.trim();
@@ -1451,11 +1607,11 @@ Mohon dibantu proses aktivasi akun dan tagihan QRIS/Rekeningnya ya min!`;
             let subtotal = 0;
 
             cart.forEach((c, i) => {
-                subtotal += c.item.new;
+                subtotal += c.price;
                 itemsText += `${i+1}. 1x ${c.item.name}\n`;
                 if(c.details) itemsText += `   [Racikan: ${c.details}]\n`;
                 if(c.note) itemsText += `   (Catatan Item: "${c.note}")\n`;
-                itemsText += `   Subtotal Web: ${formatRp(c.item.new)}\n`;
+                itemsText += `   Subtotal Web: ${formatRp(c.price)}\n`;
             });
 
             const surcharge = checkMallSurcharge();
@@ -1512,14 +1668,13 @@ Mohon dibantu proses order ya, terima kasih!`;
             }
         }
 
-        // STREAMING_CHUNK: Implementing category smooth scroll algorithm...
         function scrollToCategory(id, event) {
             if (event) event.preventDefault();
             sfx.playTap();
             const element = document.getElementById(id);
             if (element) {
                 // Offset setinggi 115px agar judul kategori tidak tertutup oleh header melayang atas
-                const yOffset = -115; 
+                const yOffset = -180; 
                 const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
                 window.scrollTo({ top: y, behavior: 'smooth' });
             }
@@ -1531,7 +1686,6 @@ Mohon dibantu proses order ya, terima kasih!`;
 
         // --- LOGIKA COSMIC MAGIC TAP DI LAYAR HP ---
         document.body.addEventListener('pointerdown', (e) => {
-            // Abaikan jika menekan tombol/input agar tidak mengganggu navigasi normal
             if (e.target.closest('button, input, select, a, .cursor-pointer')) return;
             createCosmicBurst(e.clientX, e.clientY);
         });
