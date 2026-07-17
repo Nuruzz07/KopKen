@@ -418,7 +418,7 @@
                     <div class="bg-red-900/20 border border-red-500/30 p-3 rounded-lg mt-4">
                         <h4 class="text-[10px] font-bold text-red-400 mb-1 uppercase"><i class="fas fa-exclamation-triangle"></i> Syarat & Ketentuan Wajib</h4>
                         <ul class="text-[10px] text-gray-300 space-y-1 list-disc pl-3">
-                            <li>Dilarang mengubah email dan password akun.</li>
+                            <li>Dilarang mengubah email and password akun.</li>
                             <li>Dilarang mengunci/mengubah PIN profil milik orang lain.</li>
                             <li>Maksimal login dan streaming hanya di 1 perangkat bersamaan.</li>
                             <li class="text-red-300 font-semibold">Pelanggaran S&K = Garansi Hangus / Banned.</li>
@@ -534,7 +534,7 @@
             <h3 class="font-bold text-2xl text-gray-800 mb-2">Pesanan Diterima!</h3>
             <p class="text-sm text-gray-600 mb-6 leading-relaxed">Sistem telah meneruskan pesanan otomatis Anda ke layar Admin kami. <br><br><b class="text-red-500 bg-red-50 px-2 py-1 rounded">Namun pesanan ini BELUM DIBAYAR!</b><br><br>Silakan segera konfirmasi admin via WA untuk meminta nomor rekening/QRIS pembayaran. Pesanan baru aktif setelah lunas ya! ✨</p>
             <div class="space-y-3">
-                <!-- STREAMING_CHUNK: Added id="payment-wa-link" to dynamically construct personalized messages with typed checkout names... -->
+                <!-- Kita tambahkan id dynamic pada link wa ini -->
                 <a id="payment-wa-link" href="https://wa.me/6285959633342?text=Halo%20Admin,%20saya%20sudah%20pesan%20via%20sistem%20web.%20Tolong%20dicek%20dan%20minta%20QRIS/Rekening%20pembayarannya%20ya!" target="_blank" class="w-full flex justify-center items-center gap-2 bg-green-500 hover:bg-green-600 text-white font-bold py-3 rounded-xl shadow-md active:scale-95 transition">
                     <i class="fab fa-whatsapp text-lg"></i> Konfirmasi Bayar ke WA
                 </a>
@@ -573,7 +573,6 @@
         </div>
     </div>
 
-    <!-- STREAMING_CHUNK: Integrating audio engines and robust programmatic popups... -->
     <script>
         // ==========================================
         // ENGINES: SPEKTAKULER SYNTHESIS SOUND EFFECTS (0 KB GPU-ACCELERATED)
@@ -799,24 +798,12 @@
             }, 5000);
         }
 
-        // STREAMING_CHUNK: Dynamic parsing of the checkout name inside showPaymentPopup()...
+        // VARIABEL GLOBAL BARU: Kunci nama pembeli sebelum form di-clear
+        let checkoutCustomerName = "Pelanggan";
+
         function showPaymentPopup() {
-            let customerName = "Pelanggan";
-            
-            // Cek view mana yang sedang aktif untuk mengambil input nama yang sesuai
-            const isKopkenActive = !document.getElementById('view-kopken').classList.contains('hidden');
-            const isNetflixActive = !document.getElementById('view-netflix').classList.contains('hidden');
-            
-            if (isKopkenActive) {
-                const nameInput = document.getElementById('cust-name').value.trim();
-                if (nameInput) customerName = nameInput;
-            } else if (isNetflixActive) {
-                const nameInput = document.getElementById('nflx-name').value.trim();
-                if (nameInput) customerName = nameInput;
-            }
-            
-            // Masukkan nama pembeli secara dinamis ke link WA
-            const message = `Halo Admin, saya sudah pesan via sistem web atas nama *${customerName}*. Tolong dicek dan minta QRIS/Rekening pembayarannya ya!`;
+            // Gunakan nama pengaman yang sudah terlock dengan benar saat submit
+            const message = `Halo Admin, saya sudah pesan via sistem web atas nama *${checkoutCustomerName}*. Tolong dicek dan minta QRIS/Rekening pembayarannya ya!`;
             const encodedMessage = encodeURIComponent(message);
             
             const waLink = document.getElementById('payment-wa-link');
@@ -887,6 +874,9 @@
             const name = document.getElementById('nflx-name').value.trim();
             const profile = document.getElementById('nflx-profile').value.trim();
             
+            // Kunci nama pembeli sebelum form direset
+            checkoutCustomerName = name || "Pelanggan";
+
             const message = `🍿 *ORDER NETFLIX PREMIUM* 🍿
 --------------------------------------------------
 Nama Pemesan: ${name}
@@ -895,7 +885,7 @@ Request Nama Profil: "${profile}"
 --------------------------------------------------
 Total Tagihan: ${formatRp(netflixPrice)}
 
-Mohon dibantu proses aktivasi akun dan tagihan QRIS/Rekeningnya ya min!`;
+Mohon dibantu proses aktivasi akun ya min!`;
 
             const encodedMessage = encodeURIComponent(message);
 
@@ -1716,6 +1706,9 @@ Mohon dibantu proses aktivasi akun dan tagihan QRIS/Rekeningnya ya min!`;
             const branch = document.getElementById('cust-branch').value;
             const notes = document.getElementById('cust-notes').value.trim();
             
+            // Kunci nama pembeli ke memori pengaman global sebelum form direset
+            checkoutCustomerName = name || "Pelanggan";
+
             let itemsText = '';
             let subtotal = 0;
 
