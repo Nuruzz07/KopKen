@@ -328,7 +328,7 @@
             </button>
         </div>
 
-        <!-- Main Menu Category Sections Container (Tampilan Asli Web Kamu) -->
+        <!-- Main Menu Category Sections Container -->
         <main class="px-4 space-y-8" id="menu-container">
             <!-- Rendered dynamically by category -->
         </main>
@@ -737,7 +737,7 @@
                     <i class="fas fa-receipt text-amber-700 text-sm"></i>
                     <h3 class="font-extrabold text-base">Riwayat Pesanan</h3>
                 </div>
-                <button onclick="closeHistoryModal()" class="w-7 h-7 bg-gray-100 rounded-full flex justify-center items-center text-gray-500 hover:bg-gray-200 transition">
+                <button onclick="closeHistoryModal()" class="w-7 h-7 bg-gray-100 rounded-full flex justify-center items-center text-gray-500 hover:bg-gray-200 transition cursor-pointer">
                     <i class="fas fa-times text-xs"></i>
                 </button>
             </div>
@@ -747,10 +747,10 @@
             </div>
 
             <div class="pt-3 border-t border-gray-100 flex justify-between items-center mt-2">
-                <button onclick="clearOrderHistory()" class="text-[11px] text-red-500 font-bold hover:underline">
+                <button onclick="clearOrderHistory()" class="text-[11px] text-red-500 font-bold hover:underline cursor-pointer">
                     <i class="fas fa-trash-alt mr-1"></i> Hapus Riwayat
                 </button>
-                <button onclick="closeHistoryModal()" class="px-4 py-1.5 rounded-xl bg-gray-100 hover:bg-gray-200 text-xs font-bold text-gray-700 transition">
+                <button onclick="closeHistoryModal()" class="px-4 py-1.5 rounded-xl bg-gray-100 hover:bg-gray-200 text-xs font-bold text-gray-700 transition cursor-pointer">
                     Tutup
                 </button>
             </div>
@@ -790,10 +790,10 @@
                 <div>
                     <label class="block text-xs font-bold text-kenangan-dark mb-1.5">Jenis Menu <span class="text-red-500">*</span></label>
                     <div class="grid grid-cols-2 gap-2">
-                        <button type="button" id="btn-req-type-drink" onclick="setReqItemType('drink')" class="py-2 px-3 rounded-xl border-2 border-kenangan-primary bg-amber-50 text-kenangan-primary font-bold text-xs flex items-center justify-center gap-1.5 transition">
+                        <button type="button" id="btn-req-type-drink" onclick="setReqItemType('drink')" class="py-2 px-3 rounded-xl border-2 border-kenangan-primary bg-amber-50 text-kenangan-primary font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer">
                             <i class="fas fa-mug-hot text-xs"></i> Minuman
                         </button>
-                        <button type="button" id="btn-req-type-food" onclick="setReqItemType('food')" class="py-2 px-3 rounded-xl border-2 border-gray-200 bg-white text-gray-600 font-bold text-xs flex items-center justify-center gap-1.5 transition">
+                        <button type="button" id="btn-req-type-food" onclick="setReqItemType('food')" class="py-2 px-3 rounded-xl border-2 border-gray-200 bg-white text-gray-600 font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer">
                             <i class="fas fa-bread-slice text-xs"></i> Roti / Makanan
                         </button>
                     </div>
