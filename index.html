@@ -1047,12 +1047,28 @@
 
         function isOutletOpenNow(outlet) {
             if (!outlet) return true;
-            if (outlet.is_open === false) return false;
+            
+            // 1. Cek jika outlet memang permanen tutup / tidak memiliki jam operasional
+            const statusLabel = (outlet.status_label || '').toUpperCase();
+            const openStatus = (outlet.open_status || '').toUpperCase();
+            if (statusLabel === 'CLOSED' || openStatus === 'CLOSED') return false;
+            if (!outlet.open_time && !outlet.hours?.open_time) return false;
+
+            // 2. Hitung jam buka & tutup murni secara dinamis berdasarkan jam real-time WIB saat ini
             const wib = getWIBDate();
             const curMin = wib.getHours() * 60 + wib.getMinutes();
-            const openMin = parseTimeToMinutes(outlet.open_time || "00:01");
-            const closeMin = parseTimeToMinutes(outlet.order_close_time || outlet.real_close_time || "23:59");
-            if (closeMin < openMin) return curMin >= openMin || curMin < closeMin;
+            
+            const openTimeStr = outlet.open_time || outlet.hours?.open_time || "00:01";
+            const closeTimeStr = outlet.order_close_time || outlet.real_close_time || outlet.hours?.order_close_time || "23:59";
+            
+            const openMin = parseTimeToMinutes(openTimeStr);
+            const closeMin = parseTimeToMinutes(closeTimeStr);
+            
+            // Jika jam tutup melewati tengah malam (misal buka 08.00 tutup 01.00 subuh)
+            if (closeMin < openMin) {
+                return curMin >= openMin || curMin < closeMin;
+            }
+            
             return curMin >= openMin && curMin < closeMin;
         }
 
