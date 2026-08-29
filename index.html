@@ -299,18 +299,6 @@
                 <button onclick="scrollToCategory('cat-bakery', event)" class="px-3.5 py-1.5 rounded-full bg-white/90 text-kenangan-dark text-xs font-bold shadow-sm border border-white hover:bg-white active:scale-95 transition cursor-pointer">Makanan</button>
             </div>
         </nav>
-
-        <!-- Google Drive Info Box -->
-        <div class="mx-4 mb-6 p-4 bg-amber-500/10 border border-amber-500/20 rounded-2xl text-center shadow-sm flex flex-col items-center gap-2.5">
-            <p class="text-xs text-kenangan-dark font-semibold leading-relaxed">
-                <i class="fas fa-info-circle mr-1 text-kenangan-primary text-sm"></i> 
-                Mau lihat penampakan asli produknya? Cek galeri album foto promonya di sini!
-            </p>
-            <a href="https://drive.google.com/drive/folders/1s0LXjW-1rWVE53zg7vLUvy7LKXiu83nR?usp=sharing" target="_blank" onclick="sfx.playTap()" class="inline-flex items-center gap-2 bg-kenangan-primary hover:bg-kenangan-hover text-white text-xs font-extrabold px-4 py-2 rounded-xl shadow-md transition duration-300 active:scale-95">
-                <i class="fab fa-google-drive text-sm text-yellow-300"></i> Lihat Galeri Foto Asli (Google Drive)
-            </a>
-        </div>
-
         <!-- Banner Request Menu Kustom (Jika Menu Tidak Ada di List) -->
         <div class="mx-4 mb-6 p-4 bg-gradient-to-r from-amber-900/10 via-amber-800/5 to-amber-700/10 border border-amber-500/30 rounded-2xl shadow-sm flex items-center justify-between gap-3">
             <div class="flex items-center gap-3 min-w-0">
@@ -1045,16 +1033,26 @@
             return (parseInt(parts[0], 10) || 0) * 60 + (parseInt(parts[1], 10) || 0);
         }
 
+        function isSignatureOutlet(outlet) {
+            if (!outlet) return false;
+            const cat = (outlet.category || '').toLowerCase();
+            const name = (outlet.name || '').toLowerCase();
+            return cat.includes('signature') || /signature|heritage/i.test(name);
+        }
+
         function isOutletOpenNow(outlet) {
             if (!outlet) return true;
+
+            // 1. Khusus Outlet Signature / Heritage: Otomatis TUTUP karena menu & harga berbeda
+            if (isSignatureOutlet(outlet)) return false;
             
-            // 1. Cek jika outlet memang permanen tutup / tidak memiliki jam operasional
+            // 2. Cek jika outlet memang permanen tutup / tidak memiliki jam operasional
             const statusLabel = (outlet.status_label || '').toUpperCase();
             const openStatus = (outlet.open_status || '').toUpperCase();
             if (statusLabel === 'CLOSED' || openStatus === 'CLOSED') return false;
             if (!outlet.open_time && !outlet.hours?.open_time) return false;
 
-            // 2. Hitung jam buka & tutup murni secara dinamis berdasarkan jam real-time WIB saat ini
+            // 3. Hitung jam buka & tutup murni secara dinamis berdasarkan jam real-time WIB saat ini
             const wib = getWIBDate();
             const curMin = wib.getHours() * 60 + wib.getMinutes();
             
@@ -1273,6 +1271,7 @@
         // UPDATE OUTLET UI
         function updateOutletUI() {
             if (!selectedOutlet) return;
+            const isSig = isSignatureOutlet(selectedOutlet);
             const isOpen = isOutletOpenNow(selectedOutlet);
             const isMall = isMallOutlet(selectedOutlet);
 
@@ -1298,12 +1297,17 @@
             }
 
             if (outletStatus) {
-                outletStatus.textContent = isOpen ? 'BUKA' : 'TUTUP';
-                outletStatus.className = `text-[10px] font-extrabold px-2 py-0.5 rounded uppercase ${isOpen ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'}`;
+                if (isSig) {
+                    outletStatus.textContent = 'SIGNATURE (TUTUP)';
+                    outletStatus.className = 'text-[10px] font-extrabold px-2 py-0.5 rounded bg-purple-100 text-purple-800 uppercase';
+                } else {
+                    outletStatus.textContent = isOpen ? 'BUKA' : 'TUTUP';
+                    outletStatus.className = `text-[10px] font-extrabold px-2 py-0.5 rounded uppercase ${isOpen ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'}`;
+                }
             }
 
             if (outletName) {
-                outletName.textContent = selectedOutlet.name + (isMall ? ' (Mall)' : '');
+                outletName.textContent = selectedOutlet.name + (isSig ? ' (Signature)' : (isMall ? ' (Mall)' : ''));
             }
         }
 
@@ -1484,20 +1488,29 @@
                 dropdown.innerHTML = '<div class="p-3 text-xs text-gray-400 text-center">Outlet tidak ditemukan</div>';
             } else {
                 filtered.forEach(o => {
+                    const isSig = isSignatureOutlet(o);
                     const isOpen = isOutletOpenNow(o);
                     const isMall = isMallOutlet(o);
+
+                    let statusBadgeHTML = '';
+                    if (isSig) {
+                        statusBadgeHTML = `<span class="text-[9px] font-extrabold px-2 py-0.5 rounded-full bg-purple-100 text-purple-800 flex-shrink-0">SIGNATURE (TUTUP)</span>`;
+                    } else if (isOpen) {
+                        statusBadgeHTML = `<span class="text-[9px] font-extrabold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 flex-shrink-0">BUKA</span>`;
+                    } else {
+                        statusBadgeHTML = `<span class="text-[9px] font-extrabold px-2 py-0.5 rounded-full bg-red-100 text-red-800 flex-shrink-0">TUTUP</span>`;
+                    }
+
                     dropdown.innerHTML += `
-                        <div onclick="selectOutletItem(${o.id})" class="p-3 hover:bg-amber-50/80 cursor-pointer border-b border-gray-100 last:border-none flex items-center justify-between gap-2 transition ${!isOpen ? 'opacity-60 bg-gray-50' : ''}">
+                        <div onclick="selectOutletItem(${o.id})" class="p-3 hover:bg-amber-50/80 cursor-pointer border-b border-gray-100 last:border-none flex items-center justify-between gap-2 transition ${!isOpen ? 'opacity-70 bg-gray-50' : ''}">
                             <div class="min-w-0">
                                 <div class="flex items-center gap-1.5 flex-wrap">
                                     <h5 class="text-xs font-bold text-kenangan-dark truncate">${o.name}</h5>
-                                    ${isMall ? '<span class="text-[9px] bg-amber-100 text-amber-800 font-bold px-1.5 rounded">MALL</span>' : ''}
+                                    ${isSig ? '<span class="text-[9px] bg-purple-100 text-purple-800 font-bold px-1.5 rounded">SIGNATURE</span>' : (isMall ? '<span class="text-[9px] bg-amber-100 text-amber-800 font-bold px-1.5 rounded">MALL</span>' : '')}
                                 </div>
-                                <p class="text-[10px] text-gray-500 line-clamp-1 mt-0.5">${o.address || '-'}</p>
+                                <p class="text-[10px] text-gray-500 line-clamp-1 mt-0.5">${isSig ? '⚠️ Menu & harga signature berbeda (Promo tidak berlaku)' : (o.address || '-')}</p>
                             </div>
-                            <span class="text-[9px] font-extrabold px-2 py-0.5 rounded-full ${isOpen ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'} flex-shrink-0">
-                                ${isOpen ? 'BUKA' : 'TUTUP'}
-                            </span>
+                            ${statusBadgeHTML}
                         </div>
                     `;
                 });
@@ -1515,8 +1528,12 @@
             const outlet = allOutlets.find(o => o.id === outletId);
             if (!outlet) return;
 
+            const isSig = isSignatureOutlet(outlet);
             const isOpen = isOutletOpenNow(outlet);
-            if (!isOpen) {
+
+            if (isSig) {
+                showToast(`<b>Outlet Signature/Heritage</b><br>Cabang ini memiliki menu & harga khusus, promo reguler tidak berlaku.`);
+            } else if (!isOpen) {
                 showToast(`<b>Outlet ${outlet.name} sedang TUTUP.</b><br>Pesanan diproses saat jam operasional.`);
             }
 
@@ -1527,37 +1544,20 @@
 
         function updateGatePreview() {
             if (!selectedOutlet) return;
+            const isSig = isSignatureOutlet(selectedOutlet);
             const isOpen = isOutletOpenNow(selectedOutlet);
             const isMall = isMallOutlet(selectedOutlet);
 
-            document.getElementById('gate-preview-name').textContent = selectedOutlet.name + (isMall ? ' (Mall)' : '');
-            document.getElementById('gate-preview-address').textContent = selectedOutlet.address || 'Alamat outlet';
+            document.getElementById('gate-preview-name').textContent = selectedOutlet.name + (isSig ? ' (Signature)' : (isMall ? ' (Mall)' : ''));
+            document.getElementById('gate-preview-address').textContent = isSig ? '⚠️ Outlet Signature/Heritage memiliki menu dan harga khusus. Promo reguler tidak berlaku.' : (selectedOutlet.address || 'Alamat outlet');
             
             const statusBadge = document.getElementById('gate-preview-status');
-            statusBadge.textContent = isOpen ? 'BUKA' : 'TUTUP';
-            statusBadge.className = `text-[10px] font-bold px-2 py-0.5 rounded-full uppercase flex-shrink-0 ${isOpen ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'}`;
-        }
-
-        function confirmWelcomeGate() {
-            if (!selectedOutlet) {
-                showToast("Harap pilih salah satu outlet terlebih dahulu!");
-                return;
-            }
-
-            closeWelcomeGateModal();
-            updateOutletUI();
-            validateKopkenForm();
-            showToast(`Lokasi: <b>${selectedOutlet.name}</b> (${currentOrderType === 'takeaway' ? 'Take Away' : 'Dine In'})`);
-        }
-
-        // ==========================================
-        // MODAL CUSTOMIZATION (BOTTOM SHEET)
-        // ==========================================
-        function toggleIceOptions() {
-            const temp = document.querySelector('input[name="mod-temp"]:checked')?.value;
-            const iceContainer = document.getElementById('ice-level-container');
-            if (iceContainer) {
-                iceContainer.style.display = (temp === 'Hot') ? 'none' : 'block';
+            if (isSig) {
+                statusBadge.textContent = 'SIGNATURE (TUTUP)';
+                statusBadge.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full uppercase flex-shrink-0 bg-purple-100 text-purple-800';
+            } else {
+                statusBadge.textContent = isOpen ? 'BUKA' : 'TUTUP';
+                statusBadge.className = `text-[10px] font-bold px-2 py-0.5 rounded-full uppercase flex-shrink-0 ${isOpen ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'}`;
             }
         }
 
