@@ -304,8 +304,31 @@
         <div class="mx-4 mb-6 p-4 bg-amber-500/10 border border-amber-500/20 rounded-2xl text-center shadow-sm flex flex-col items-center gap-2.5">
             <p class="text-xs text-kenangan-dark font-semibold leading-relaxed">
                 <i class="fas fa-info-circle mr-1 text-kenangan-primary text-sm"></i> 
+                Mau lihat penampakan asli produknya? Cek galeri album foto promonya di sini!
+            </p>
+            <a href="https://drive.google.com/drive/folders/1s0LXjW-1rWVE53zg7vLUvy7LKXiu83nR?usp=sharing" target="_blank" onclick="sfx.playTap()" class="inline-flex items-center gap-2 bg-kenangan-primary hover:bg-kenangan-hover text-white text-xs font-extrabold px-4 py-2 rounded-xl shadow-md transition duration-300 active:scale-95">
+                <i class="fab fa-google-drive text-sm text-yellow-300"></i> Lihat Galeri Foto Asli (Google Drive)
+            </a>
+        </div>
 
-        <!-- Main Menu Category Sections Container -->
+        <!-- Banner Request Menu Kustom (Jika Menu Tidak Ada di List) -->
+        <div class="mx-4 mb-6 p-4 bg-gradient-to-r from-amber-900/10 via-amber-800/5 to-amber-700/10 border border-amber-500/30 rounded-2xl shadow-sm flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3 min-w-0">
+                <div class="w-10 h-10 rounded-xl bg-kenangan-primary/10 border border-kenangan-primary/20 flex items-center justify-center text-kenangan-primary flex-shrink-0">
+                    <i class="fas fa-pen-nib text-base"></i>
+                </div>
+                <div class="min-w-0">
+                    <h3 class="text-xs font-extrabold text-kenangan-dark">Menu yang dicari tidak ada?</h3>
+                    <p class="text-[10px] text-gray-500 leading-tight mt-0.5">Tulis nama menu & racikan sendiri secara manual</p>
+                </div>
+            </div>
+            <button onclick="openCustomRequestModal()" class="px-3 py-2 rounded-xl bg-kenangan-dark hover:bg-kenangan-hover text-white font-extrabold text-xs transition shadow-sm active:scale-95 flex items-center gap-1.5 flex-shrink-0 cursor-pointer">
+                <i class="fas fa-plus text-[10px]"></i>
+                <span>Tulis Menu</span>
+            </button>
+        </div>
+
+        <!-- Main Menu Category Sections Container (Tampilan Asli Web Kamu) -->
         <main class="px-4 space-y-8" id="menu-container">
             <!-- Rendered dynamically by category -->
         </main>
@@ -705,7 +728,7 @@
                     <i class="fas fa-receipt text-amber-700 text-sm"></i>
                     <h3 class="font-extrabold text-base">Riwayat Pesanan</h3>
                 </div>
-                <button onclick="closeHistoryModal()" class="w-7 h-7 bg-gray-100 rounded-full flex justify-center items-center text-gray-500 hover:bg-gray-200 transition cursor-pointer">
+                <button onclick="closeHistoryModal()" class="w-7 h-7 bg-gray-100 rounded-full flex justify-center items-center text-gray-500 hover:bg-gray-200 transition">
                     <i class="fas fa-times text-xs"></i>
                 </button>
             </div>
@@ -715,11 +738,133 @@
             </div>
 
             <div class="pt-3 border-t border-gray-100 flex justify-between items-center mt-2">
-                <button onclick="clearOrderHistory()" class="text-[11px] text-red-500 font-bold hover:underline cursor-pointer">
+                <button onclick="clearOrderHistory()" class="text-[11px] text-red-500 font-bold hover:underline">
                     <i class="fas fa-trash-alt mr-1"></i> Hapus Riwayat
                 </button>
-                <button onclick="closeHistoryModal()" class="px-4 py-1.5 rounded-xl bg-gray-100 hover:bg-gray-200 text-xs font-bold text-gray-700 transition cursor-pointer">
+                <button onclick="closeHistoryModal()" class="px-4 py-1.5 rounded-xl bg-gray-100 hover:bg-gray-200 text-xs font-bold text-gray-700 transition">
                     Tutup
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================================================= -->
+    <!-- POPUP 5: MODAL REQUEST MENU MANUAL / KUSTOM             -->
+    <!-- ======================================================= -->
+    <div id="modal-custom-req" class="fixed inset-0 bg-black/65 backdrop-blur-sm z-[210] hidden opacity-0 transition-opacity duration-300 flex items-center justify-center p-4">
+        <div id="modal-custom-req-card" class="bg-white rounded-3xl p-5 max-w-md w-full text-kenangan-dark shadow-2xl border border-gray-200 transform scale-95 transition-transform duration-300 flex flex-col max-h-[90vh]">
+            <!-- Header Modal -->
+            <div class="flex justify-between items-start pb-3 border-b border-gray-100">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-9 h-9 rounded-xl bg-amber-100 text-kenangan-primary flex items-center justify-center">
+                        <i class="fas fa-pen text-sm"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-extrabold text-sm text-kenangan-dark">Request Menu Kustom</h3>
+                        <p class="text-[10px] text-gray-500">Pesan varian yang belum tercantum di katalog</p>
+                    </div>
+                </div>
+                <button onclick="closeCustomRequestModal()" class="w-7 h-7 bg-gray-100 hover:bg-gray-200 rounded-full flex justify-center items-center text-gray-500 transition cursor-pointer">
+                    <i class="fas fa-times text-xs"></i>
+                </button>
+            </div>
+
+            <!-- Form Content Scrollable -->
+            <div class="space-y-3.5 py-4 overflow-y-auto flex-grow pr-1">
+                <!-- Nama Menu -->
+                <div>
+                    <label class="block text-xs font-bold text-kenangan-dark mb-1">Nama Menu yang Diminta <span class="text-red-500">*</span></label>
+                    <input type="text" id="req-menu-name" placeholder="Misal: Avocado Coffee / Earl Grey Tea / Choco Croissant" class="w-full px-3.5 py-2.5 rounded-xl bg-gray-50 border border-gray-200 text-xs font-medium text-kenangan-dark focus:bg-white focus:outline-none focus:ring-2 focus:ring-kenangan-primary" oninput="validateCustomReqForm()">
+                </div>
+
+                <!-- Tipe Item: Minuman vs Makanan -->
+                <div>
+                    <label class="block text-xs font-bold text-kenangan-dark mb-1.5">Jenis Menu <span class="text-red-500">*</span></label>
+                    <div class="grid grid-cols-2 gap-2">
+                        <button type="button" id="btn-req-type-drink" onclick="setReqItemType('drink')" class="py-2 px-3 rounded-xl border-2 border-kenangan-primary bg-amber-50 text-kenangan-primary font-bold text-xs flex items-center justify-center gap-1.5 transition">
+                            <i class="fas fa-mug-hot text-xs"></i> Minuman
+                        </button>
+                        <button type="button" id="btn-req-type-food" onclick="setReqItemType('food')" class="py-2 px-3 rounded-xl border-2 border-gray-200 bg-white text-gray-600 font-bold text-xs flex items-center justify-center gap-1.5 transition">
+                            <i class="fas fa-bread-slice text-xs"></i> Roti / Makanan
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Opsi Khusus Minuman -->
+                <div id="req-drink-options-box" class="space-y-3">
+                    <!-- Suhu & Ukuran Cup -->
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <span class="block text-[10px] font-bold text-gray-500 mb-1 uppercase">Suhu</span>
+                            <div class="grid grid-cols-2 gap-1.5">
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="req-temp" value="Ice" class="peer sr-only" checked onchange="toggleReqIce()">
+                                    <div class="rounded-lg border border-gray-200 bg-white py-1.5 text-center text-xs peer-checked:bg-blue-500 peer-checked:text-white font-bold transition">Ice</div>
+                                </label>
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="req-temp" value="Hot" class="peer sr-only" onchange="toggleReqIce()">
+                                    <div class="rounded-lg border border-gray-200 bg-white py-1.5 text-center text-xs peer-checked:bg-orange-500 peer-checked:text-white font-bold transition">Hot</div>
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <span class="block text-[10px] font-bold text-gray-500 mb-1 uppercase">Ukuran Cup</span>
+                            <div class="grid grid-cols-2 gap-1.5">
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="req-size" value="Regular" class="peer sr-only" checked>
+                                    <div class="rounded-lg border border-gray-200 bg-white py-1.5 text-center text-xs peer-checked:bg-kenangan-primary peer-checked:text-white font-bold transition">Reguler</div>
+                                </label>
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="req-size" value="Large" class="peer sr-only">
+                                    <div class="rounded-lg border border-gray-200 bg-white py-1.5 text-center text-xs peer-checked:bg-kenangan-primary peer-checked:text-white font-bold transition">Large</div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Level Gula & Es -->
+                    <div class="grid grid-cols-2 gap-2 bg-gray-50 p-2.5 rounded-xl border border-gray-200">
+                        <div>
+                            <span class="block text-[10px] font-bold text-gray-500 mb-1 uppercase">Level Gula</span>
+                            <select id="req-sugar" class="w-full p-1.5 rounded-lg bg-white border border-gray-200 text-xs font-bold text-kenangan-dark outline-none">
+                                <option value="Normal Sugar">Normal Sugar</option>
+                                <option value="Less Sugar">Less (70%)</option>
+                                <option value="No Sugar">No Sugar (0%)</option>
+                            </select>
+                        </div>
+                        <div id="req-ice-wrapper">
+                            <span class="block text-[10px] font-bold text-gray-500 mb-1 uppercase">Level Es</span>
+                            <select id="req-ice" class="w-full p-1.5 rounded-lg bg-white border border-gray-200 text-xs font-bold text-kenangan-dark outline-none">
+                                <option value="Normal Ice">Normal Ice</option>
+                                <option value="Less Ice">Less Ice</option>
+                                <option value="No Ice">No Ice</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Perkiraan / Patokan Harga (Opsional) -->
+                <div>
+                    <label class="block text-xs font-bold text-kenangan-dark mb-1">Patokan Harga Promo (Opsional / Boleh Dikosongkan)</label>
+                    <div class="relative">
+                        <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-xs font-bold text-gray-400">Rp</span>
+                        <input type="number" id="req-menu-price" placeholder="15000 (Jika tahu harga promonya)" class="w-full pl-10 pr-3.5 py-2.5 rounded-xl bg-gray-50 border border-gray-200 text-xs font-bold text-kenangan-primary focus:bg-white focus:outline-none focus:ring-2 focus:ring-kenangan-primary">
+                    </div>
+                    <p class="text-[10px] text-gray-400 mt-1 leading-tight">*Jika dikosongkan, admin akan menghitungkan harga promo termurahnya saat konfirmasi.</p>
+                </div>
+
+                <!-- Catatan Khusus Item -->
+                <div>
+                    <label class="block text-xs font-bold text-kenangan-dark mb-1">Catatan Khusus Racikan (Opsional)</label>
+                    <input type="text" id="req-menu-note" placeholder="Misal: Ekstra shot / minta dipanaskan" class="w-full px-3.5 py-2.5 rounded-xl bg-gray-50 border border-gray-200 text-xs font-medium text-kenangan-dark focus:bg-white focus:outline-none focus:ring-2 focus:ring-kenangan-primary">
+                </div>
+            </div>
+
+            <!-- Tombol Tambah ke Keranjang -->
+            <div class="pt-3 border-t border-gray-100">
+                <button id="btn-save-custom-req" disabled onclick="addCustomRequestToCart()" class="w-full bg-gray-300 text-gray-500 font-extrabold py-3.5 rounded-2xl transition duration-200 flex justify-center items-center gap-2 cursor-not-allowed text-xs active:scale-98">
+                    <i class="fas fa-cart-plus text-sm"></i>
+                    <span>Simpan Request ke Keranjang</span>
                 </button>
             </div>
         </div>
@@ -1077,161 +1222,7 @@
         }
 
         // ==========================================
-        // GERBANG AWAL (WELCOME GATE MODAL)
-        // ==========================================
-        function openWelcomeGateModal(forceOpen = true) {
-            const modal = document.getElementById('modal-welcome-gate');
-            const card = document.getElementById('welcome-gate-card');
-            setGateOrderType(currentOrderType);
-            updateGatePreview();
-
-            modal.classList.remove('hidden');
-            setTimeout(() => {
-                modal.classList.remove('opacity-0');
-                card.classList.remove('scale-95');
-                card.classList.add('scale-100');
-            }, 10);
-        }
-
-        function closeWelcomeGateModal() {
-            const modal = document.getElementById('modal-welcome-gate');
-            const card = document.getElementById('welcome-gate-card');
-            modal.classList.add('opacity-0');
-            card.classList.remove('scale-100');
-            card.classList.add('scale-95');
-            setTimeout(() => modal.classList.add('hidden'), 250);
-        }
-
-        function setGateOrderType(type) {
-            currentOrderType = type;
-            const btnTakeaway = document.getElementById('gate-type-takeaway');
-            const btnDinein = document.getElementById('gate-type-dinein');
-
-            if (type === 'takeaway') {
-                btnTakeaway.className = "py-2.5 px-3 rounded-2xl border-2 border-kenangan-primary bg-amber-50 text-kenangan-primary font-bold text-xs flex flex-col items-center gap-1 transition shadow-sm cursor-pointer";
-                btnDinein.className = "py-2.5 px-3 rounded-2xl border-2 border-gray-200 bg-white text-gray-600 font-bold text-xs flex flex-col items-center gap-1 transition cursor-pointer";
-            } else {
-                btnDinein.className = "py-2.5 px-3 rounded-2xl border-2 border-kenangan-primary bg-amber-50 text-kenangan-primary font-bold text-xs flex flex-col items-center gap-1 transition shadow-sm cursor-pointer";
-                btnTakeaway.className = "py-2.5 px-3 rounded-2xl border-2 border-gray-200 bg-white text-gray-600 font-bold text-xs flex flex-col items-center gap-1 transition cursor-pointer";
-            }
-        }
-
-        function handleGateOutletSearch() {
-            const query = document.getElementById('gate-outlet-search').value.trim().toLowerCase();
-            const dropdown = document.getElementById('gate-outlet-dropdown');
-            const clearBtn = document.getElementById('gate-clear-search-btn');
-
-            if (!query) {
-                dropdown.classList.add('hidden');
-                clearBtn.classList.add('hidden');
-                return;
-            }
-
-            clearBtn.classList.remove('hidden');
-            const filtered = allOutlets.filter(o => 
-                (o.name && o.name.toLowerCase().includes(query)) ||
-                (o.address && o.address.toLowerCase().includes(query))
-            ).slice(0, 15);
-
-            dropdown.innerHTML = '';
-            if (filtered.length === 0) {
-                dropdown.innerHTML = '<div class="p-3 text-xs text-gray-400 text-center">Outlet tidak ditemukan</div>';
-            } else {
-                filtered.forEach(o => {
-                    const isOpen = isOutletOpenNow(o);
-                    const isMall = isMallOutlet(o);
-                    dropdown.innerHTML += `
-                        <div onclick="selectOutletItem(${o.id})" class="p-3 hover:bg-amber-50/80 cursor-pointer border-b border-gray-100 last:border-none flex items-center justify-between gap-2 transition ${!isOpen ? 'opacity-60 bg-gray-50' : ''}">
-                            <div class="min-w-0">
-                                <div class="flex items-center gap-1.5 flex-wrap">
-                                    <h5 class="text-xs font-bold text-kenangan-dark truncate">${o.name}</h5>
-                                    ${isMall ? '<span class="text-[9px] bg-amber-100 text-amber-800 font-bold px-1.5 rounded">MALL</span>' : ''}
-                                </div>
-                                <p class="text-[10px] text-gray-500 line-clamp-1 mt-0.5">${o.address || '-'}</p>
-                            </div>
-                            <span class="text-[9px] font-extrabold px-2 py-0.5 rounded-full ${isOpen ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'} flex-shrink-0">
-                                ${isOpen ? 'BUKA' : 'TUTUP'}
-                            </span>
-                        </div>
-                    `;
-                });
-            }
-            dropdown.classList.remove('hidden');
-        }
-
-        function clearGateSearch() {
-            document.getElementById('gate-outlet-search').value = '';
-            document.getElementById('gate-outlet-dropdown').classList.add('hidden');
-            document.getElementById('gate-clear-search-btn').classList.add('hidden');
-        }
-
-        function selectOutletItem(outletId) {
-            const outlet = allOutlets.find(o => o.id === outletId);
-            if (!outlet) return;
-
-            const isOpen = isOutletOpenNow(outlet);
-            if (!isOpen) {
-                showToast(`<b>Outlet ${outlet.name} sedang TUTUP.</b><br>Pesanan diproses saat jam operasional.`);
-            }
-
-            selectedOutlet = outlet;
-            clearGateSearch();
-            updateGatePreview();
-        }
-
-        function updateGatePreview() {
-            if (!selectedOutlet) return;
-            const isOpen = isOutletOpenNow(selectedOutlet);
-            const isMall = isMallOutlet(selectedOutlet);
-
-            document.getElementById('gate-preview-name').textContent = selectedOutlet.name + (isMall ? ' (Mall)' : '');
-            document.getElementById('gate-preview-address').textContent = selectedOutlet.address || 'Alamat outlet';
-            
-            const statusBadge = document.getElementById('gate-preview-status');
-            statusBadge.textContent = isOpen ? 'BUKA' : 'TUTUP';
-            statusBadge.className = `text-[10px] font-bold px-2 py-0.5 rounded-full uppercase flex-shrink-0 ${isOpen ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'}`;
-        }
-
-        function confirmWelcomeGate() {
-            if (!selectedOutlet) {
-                showToast("Harap pilih salah satu outlet terlebih dahulu!");
-                return;
-            }
-
-            closeWelcomeGateModal();
-            updateOutletUI();
-            validateKopkenForm();
-            showToast(`Lokasi: <b>${selectedOutlet.name}</b> (${currentOrderType === 'takeaway' ? 'Take Away' : 'Dine In'})`);
-        }
-
-        function updateOutletUI() {
-            if (!selectedOutlet) return;
-            const isOpen = isOutletOpenNow(selectedOutlet);
-            const isMall = isMallOutlet(selectedOutlet);
-
-            const orderIcon = document.getElementById('banner-order-type-icon');
-            const orderLabel = document.getElementById('banner-order-type-label');
-            const outletStatus = document.getElementById('banner-outlet-status');
-            const outletName = document.getElementById('banner-outlet-name');
-
-            if (currentOrderType === 'takeaway') {
-                orderIcon.className = "fas fa-bag-shopping text-base";
-                orderLabel.textContent = "Take Away";
-                document.getElementById('plastic-bag-wrapper').classList.remove('hidden');
-            } else {
-                orderIcon.className = "fas fa-mug-hot text-base";
-                orderLabel.textContent = "Dine In";
-                document.getElementById('plastic-bag-wrapper').classList.add('hidden');
-                document.getElementById('bag-checkbox').checked = false;
-            }
-
-            outletStatus.textContent = isOpen ? 'BUKA' : 'TUTUP';
-            outletStatus.className = `text-[10px] font-extrabold px-2 py-0.5 rounded uppercase ${isOpen ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'}`;
-            outletName.textContent = selectedOutlet.name + (isMall ? ' (Mall / Surcharge)' : '');
-        }
-
-        // ==========================================
-        // RENDER MENU KATALOG (ASPECT-SQUARE FIX)
+        // RENDER MENU KATALOG (TAMPILAN ASLI WEB KAMU)
         // ==========================================
         function renderMenu(filterKeyword = '') {
             const container = document.getElementById('menu-container');
@@ -1281,12 +1272,7 @@
                         grid.innerHTML += `
                             <div class="glass rounded-2xl p-3 flex flex-col justify-between h-full relative overflow-hidden group shadow-sm hover:shadow-md transition">
                                 <div class="absolute top-0 right-0 bg-red-600 text-white text-[9px] font-black px-2 py-0.5 rounded-bl-lg z-10 uppercase">PROMO</div>
-                                
-                                <!-- Frame gambar persegi proporsional agar cup tidak kepotong -->
-                                <div class="w-full aspect-square rounded-xl bg-white/60 mb-2.5 p-2 flex items-center justify-center overflow-hidden shadow-inner group-hover:scale-105 transition duration-300">
-                                    <img src="${item.img}" alt="${item.name}" class="w-full h-full object-contain" loading="lazy" onerror="this.src='https://placehold.co/400x400/9C532B/FBF5EE?text=Kopi+Kenangan';">
-                                </div>
-                                
+                                <img src="${item.img}" alt="${item.name}" class="w-full h-32 object-cover rounded-xl mb-2.5 group-hover:scale-105 transition duration-300 shadow-sm" loading="lazy" onerror="this.src='https://placehold.co/400x400/9C532B/FBF5EE?text=Kopi+Kenangan';">
                                 <div class="flex-grow flex flex-col justify-between">
                                     <div>
                                         <h3 class="font-bold text-kenangan-dark text-xs leading-snug mb-0.5 line-clamp-2">${item.name}</h3>
@@ -1294,7 +1280,7 @@
                                     </div>
                                     <div class="flex justify-between items-center mt-2 pt-1 border-t border-gray-100">
                                         <p class="font-extrabold text-kenangan-primary text-xs">${displayedPrice}</p>
-                                        <button onclick="openModal('${item.id}')" class="w-7 h-7 rounded-xl bg-kenangan-dark text-white flex items-center justify-center shadow-sm hover:bg-kenangan-primary active:scale-90 transition cursor-pointer">
+                                        <button onclick="openModal('${item.id}')" class="w-7 h-7 rounded-xl bg-kenangan-dark text-white flex items-center justify-center shadow-sm hover:bg-kenangan-primary active:scale-90 transition">
                                             <i class="fas fa-plus text-[10px]"></i>
                                         </button>
                                     </div>
@@ -1309,10 +1295,13 @@
 
             if (container.innerHTML === '') {
                 container.innerHTML = `
-                    <div class="text-center py-12">
-                        <i class="fas fa-mug-hot text-gray-400 text-4xl mb-2"></i>
-                        <p class="text-xs text-gray-500 font-medium">Menu "${filterKeyword}" tidak ditemukan.</p>
-                        <p class="text-[10px] text-gray-400 mt-1">Coba cari dengan kata kunci lain ya!</p>
+                    <div class="text-center py-10 px-4 bg-white/60 rounded-3xl border border-white shadow-sm">
+                        <i class="fas fa-mug-hot text-gray-400 text-3xl mb-2"></i>
+                        <p class="text-xs text-gray-600 font-bold">Menu "${filterKeyword}" tidak ditemukan di katalog.</p>
+                        <p class="text-[10px] text-gray-400 mt-1 mb-4">Tapi tenang, kamu tetap bisa memesannya lewat form kustom!</p>
+                        <button onclick="openCustomRequestModal('${filterKeyword}')" class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-kenangan-primary hover:bg-kenangan-hover text-white text-xs font-extrabold shadow-md transition active:scale-95 cursor-pointer">
+                            <i class="fas fa-pen text-[10px]"></i> Request Menu "${filterKeyword}" Sekarang
+                        </button>
                     </div>
                 `;
             }
@@ -1750,6 +1739,120 @@
                 btnWa.disabled = true;
                 btnWa.className = "w-full bg-gray-400 text-white font-extrabold py-3.5 rounded-2xl transition duration-200 flex justify-center items-center gap-2 cursor-not-allowed text-xs";
             }
+        }
+
+        // =======================================================
+        // LOGIKA REQUEST MENU KUSTOM (MANUAL ITEM)
+        // =======================================================
+        let reqCurrentItemType = 'drink';
+
+        function openCustomRequestModal(prefillName = '') {
+            sfx.playTap();
+            const modal = document.getElementById('modal-custom-req');
+            const card = document.getElementById('modal-custom-req-card');
+            
+            const nameInput = document.getElementById('req-menu-name');
+            nameInput.value = prefillName;
+            document.getElementById('req-menu-price').value = '';
+            document.getElementById('req-menu-note').value = '';
+            
+            setReqItemType('drink');
+            validateCustomReqForm();
+
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                card.classList.remove('scale-95');
+                card.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeCustomRequestModal() {
+            const modal = document.getElementById('modal-custom-req');
+            const card = document.getElementById('modal-custom-req-card');
+            modal.classList.add('opacity-0');
+            card.classList.remove('scale-100');
+            card.classList.add('scale-95');
+            setTimeout(() => modal.classList.add('hidden'), 250);
+        }
+
+        function setReqItemType(type) {
+            reqCurrentItemType = type;
+            const btnDrink = document.getElementById('btn-req-type-drink');
+            const btnFood = document.getElementById('btn-req-type-food');
+            const drinkOptionsBox = document.getElementById('req-drink-options-box');
+
+            if (type === 'drink') {
+                btnDrink.className = "py-2 px-3 rounded-xl border-2 border-kenangan-primary bg-amber-50 text-kenangan-primary font-bold text-xs flex items-center justify-center gap-1.5 transition";
+                btnFood.className = "py-2 px-3 rounded-xl border-2 border-gray-200 bg-white text-gray-600 font-bold text-xs flex items-center justify-center gap-1.5 transition";
+                drinkOptionsBox.classList.remove('hidden');
+            } else {
+                btnFood.className = "py-2 px-3 rounded-xl border-2 border-kenangan-primary bg-amber-50 text-kenangan-primary font-bold text-xs flex items-center justify-center gap-1.5 transition";
+                btnDrink.className = "py-2 px-3 rounded-xl border-2 border-gray-200 bg-white text-gray-600 font-bold text-xs flex items-center justify-center gap-1.5 transition";
+                drinkOptionsBox.classList.add('hidden');
+            }
+        }
+
+        function toggleReqIce() {
+            const temp = document.querySelector('input[name="req-temp"]:checked')?.value;
+            const iceWrapper = document.getElementById('req-ice-wrapper');
+            if (iceWrapper) {
+                if (temp === 'Hot') iceWrapper.classList.add('opacity-40', 'pointer-events-none');
+                else iceWrapper.classList.remove('opacity-40', 'pointer-events-none');
+            }
+        }
+
+        function validateCustomReqForm() {
+            const name = document.getElementById('req-menu-name').value.trim();
+            const btn = document.getElementById('btn-save-custom-req');
+            if (name.length >= 2) {
+                btn.disabled = false;
+                btn.className = "w-full bg-kenangan-dark hover:bg-kenangan-hover text-white font-extrabold py-3.5 rounded-2xl shadow-md transition duration-200 flex justify-center items-center gap-2 text-xs active:scale-98 cursor-pointer";
+            } else {
+                btn.disabled = true;
+                btn.className = "w-full bg-gray-300 text-gray-500 font-extrabold py-3.5 rounded-2xl transition duration-200 flex justify-center items-center gap-2 cursor-not-allowed text-xs";
+            }
+        }
+
+        function addCustomRequestToCart() {
+            const name = document.getElementById('req-menu-name').value.trim();
+            if (!name) return;
+
+            let price = parseFloat(document.getElementById('req-menu-price').value) || 15000;
+            const note = document.getElementById('req-menu-note').value.trim();
+            let details = ['[REQUEST KUSTOM]'];
+
+            if (reqCurrentItemType === 'drink') {
+                const temp = document.querySelector('input[name="req-temp"]:checked')?.value || 'Ice';
+                const size = document.querySelector('input[name="req-size"]:checked')?.value || 'Regular';
+                const sugar = document.getElementById('req-sugar').value;
+                const ice = document.getElementById('req-ice').value;
+
+                details.push(temp);
+                details.push(size);
+                if (sugar !== 'Normal Sugar') details.push(sugar);
+                if (temp === 'Ice' && ice !== 'Normal Ice') details.push(ice);
+            } else {
+                details.push('Roti/Makanan');
+            }
+
+            cart.push({
+                item: {
+                    id: 'custom_req_' + Date.now(),
+                    name: `✍️ [Request] ${name}`,
+                    isCustom: true
+                },
+                details: details.join(', '),
+                note: note,
+                price: price,
+                qty: 1
+            });
+
+            closeCustomRequestModal();
+            updateCartUI();
+            validateKopkenForm();
+            playFlyToCartAnimation();
+            showToast(`Request <b>${name}</b> berhasil dimasukkan ke keranjang!`);
         }
 
         // ==========================================
