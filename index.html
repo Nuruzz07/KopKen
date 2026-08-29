@@ -366,6 +366,11 @@
                     <input type="text" id="cust-name" placeholder="Masukkan nama panggilan Anda" class="w-full px-3.5 py-2.5 rounded-xl bg-white/90 border border-gray-200 shadow-inner focus:outline-none focus:ring-2 focus:ring-kenangan-primary text-xs font-medium text-kenangan-dark" oninput="validateKopkenForm()">
                 </div>
 
+                <div>
+                    <label class="block text-xs font-bold text-kenangan-dark mb-1">Nomor WhatsApp Anda <span class="text-gray-400 font-normal">(Opsional / Sangat Disarankan)</span></label>
+                    <input type="tel" id="cust-wa" placeholder="Misal: 081234567890 (Untuk konfirmasi stok)" class="w-full px-3.5 py-2.5 rounded-xl bg-white/90 border border-gray-200 shadow-inner focus:outline-none focus:ring-2 focus:ring-kenangan-primary text-xs font-medium text-kenangan-dark">
+                </div>
+
                 <!-- Pilihan Waktu Pengambilan -->
                 <div>
                     <label class="block text-xs font-bold text-kenangan-dark mb-1.5">Waktu Pengambilan <span class="text-red-500">*</span></label>
@@ -517,6 +522,10 @@
                     <div>
                         <label class="block text-xs font-bold text-gray-300 mb-1">Nama Pemesan <span class="text-netflix-primary">*</span></label>
                         <input type="text" id="nflx-name" placeholder="Masukkan nama Anda" class="w-full px-3.5 py-2.5 rounded-xl bg-white/5 border border-white/10 focus:border-netflix-primary focus:outline-none text-xs text-white" oninput="validateNetflixForm()">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-300 mb-1">Nomor WhatsApp Anda <span class="text-gray-500 font-normal">(Opsional)</span></label>
+                        <input type="tel" id="nflx-wa" placeholder="Misal: 081234567890" class="w-full px-3.5 py-2.5 rounded-xl bg-white/5 border border-white/10 focus:border-netflix-primary focus:outline-none text-xs text-white">
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-gray-300 mb-1">Request Nama Profil <span class="text-netflix-primary">*</span></label>
@@ -888,22 +897,55 @@
         </div>
     </div>
 
-    <div id="payment-popup" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[260] hidden opacity-0 transition-opacity duration-300 flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl p-6 max-w-sm w-full text-center shadow-2xl transform scale-95 transition-transform duration-300" id="payment-popup-content">
-            <div class="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-3">
-                <i class="fas fa-check-circle text-3xl"></i>
+    <!-- POPUP QRIS PEMBAYARAN & INSTRUKSI LENGKAP -->
+    <div id="payment-popup" class="fixed inset-0 bg-black/75 backdrop-blur-md z-[260] hidden opacity-0 transition-opacity duration-300 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-5 max-w-sm w-full text-center shadow-2xl transform scale-95 transition-transform duration-300 max-h-[90vh] overflow-y-auto" id="payment-popup-content">
+            <!-- Header Tagihan -->
+            <div class="flex items-center justify-between pb-3 border-b border-gray-100 mb-3">
+                <div class="text-left">
+                    <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Pembayaran Instan</span>
+                    <h3 class="font-extrabold text-sm text-kenangan-dark">QRIS Bintang Store</h3>
+                </div>
+                <span class="bg-amber-100 text-amber-800 text-[10px] font-extrabold px-2.5 py-1 rounded-full uppercase">Menunggu Bayar</span>
             </div>
-            <h3 class="font-extrabold text-xl text-gray-800 mb-1">Pesanan Diterima!</h3>
-            <p class="text-xs text-gray-600 mb-5 leading-relaxed">
-                Sistem telah meneruskan pesanan otomatis Anda ke Admin.<br><br>
-                <b class="text-red-600 bg-red-50 px-2 py-0.5 rounded">STATUS: MENUNGGU PEMBAYARAN</b><br><br>
-                Silakan konfirmasi ke WhatsApp admin untuk mendapatkan QRIS/Rekening pembayaran. Pesanan segera diproses setelah lunas ya! ✨
-            </p>
-            <div class="space-y-2.5">
-                <a id="payment-wa-link" href="https://wa.me/6285959633342?text=Halo%20Admin,%20saya%20sudah%20pesan%20via%20sistem%20web.%20Tolong%20dicek%20dan%20minta%20QRIS/Rekening%20pembayarannya%20ya!" target="_blank" class="w-full flex justify-center items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold py-3 rounded-xl shadow-md active:scale-95 transition text-xs">
-                    <i class="fab fa-whatsapp text-base"></i> Konfirmasi Bayar ke WhatsApp
+
+            <!-- Kartu QRIS Image Proporsional -->
+            <div class="bg-gray-50 p-3 rounded-2xl border border-gray-200 mb-3.5">
+                <div class="w-full aspect-square max-w-[220px] mx-auto bg-white p-2 rounded-xl border border-gray-200 shadow-sm flex items-center justify-center overflow-hidden">
+                    <img src="Qris Payment.jpg" alt="QRIS Pembayaran Bintang Store" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='https://placehold.co/300x300/2C1A0D/F9F1E7?text=Scan+QRIS';">
+                </div>
+                <p class="text-[10px] text-gray-500 mt-2 font-medium">Support: Semua Bank (BCA, Mandiri, BRI, BNI) & E-Wallet (GoPay, Dana, OVO, ShopeePay)</p>
+            </div>
+
+            <!-- Kotak Nominal Tagihan Pas -->
+            <div class="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-3 mb-3 text-left flex items-center justify-between">
+                <div>
+                    <span class="block text-[10px] font-bold text-gray-500 uppercase">Total Tagihan Pas</span>
+                    <span id="popup-total-tagihan" class="text-base font-black text-kenangan-primary">Rp 0</span>
+                </div>
+                <button onclick="copyPopupNominal()" class="px-3 py-1.5 bg-kenangan-dark hover:bg-kenangan-primary text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 active:scale-95 cursor-pointer">
+                    <i class="fas fa-copy text-[10px]"></i>
+                    <span>Salin</span>
+                </button>
+            </div>
+
+            <!-- Panduan Bayar Cepat -->
+            <div class="text-left bg-gray-50 rounded-xl p-3 mb-4 text-[10px] text-gray-600 space-y-1 border border-gray-100">
+                <p class="font-bold text-gray-800"><i class="fas fa-info-circle text-amber-600 mr-1"></i> Cara Pembayaran:</p>
+                <ol class="list-decimal pl-3.5 space-y-0.5 leading-relaxed">
+                    <li><b>Screenshot</b> tampilan kode QRIS di atas.</li>
+                    <li>Buka aplikasi m-Banking / E-Wallet Anda.</li>
+                    <li>Pilih menu <b>QRIS / Bayar</b> lalu upload foto screenshot tadi.</li>
+                    <li>Kirimkan bukti bayar ke WhatsApp agar pesanan segera diproses.</li>
+                </ol>
+            </div>
+
+            <!-- Tombol Aksi Konfirmasi WhatsApp -->
+            <div class="space-y-2">
+                <a id="payment-wa-link" href="#" target="_blank" onclick="sfx.playSuccess()" class="w-full flex justify-center items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold py-3.5 rounded-2xl shadow-md active:scale-95 transition text-xs cursor-pointer">
+                    <i class="fab fa-whatsapp text-base"></i> Saya Sudah Transfer (Kirim Bukti ke WA)
                 </a>
-                <button onclick="closePaymentPopup()" class="w-full bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold py-2.5 rounded-xl transition text-xs cursor-pointer">Tutup Dulu</button>
+                <button onclick="closePaymentPopup()" class="w-full bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold py-2.5 rounded-xl transition text-xs cursor-pointer">Tutup Jendela Ini</button>
             </div>
         </div>
     </div>
@@ -1029,6 +1071,8 @@
         let editingCartIndex = null;
         let pickupMode = 'now';
         let checkoutCustomerName = "Pelanggan";
+        let checkoutGrandTotal = 0;
+        let checkoutCustomerWa = "";
 
         // TIME & WIB HELPERS
         function getWIBDate() {
@@ -2126,11 +2170,13 @@
         function submitOrderKopken(method) {
             sfx.playSuccess();
             const name = document.getElementById('cust-name').value.trim();
+            const custWaInput = document.getElementById('cust-wa').value.trim();
             const notes = document.getElementById('cust-notes').value.trim();
             const isBagChecked = document.getElementById('bag-checkbox').checked && currentOrderType === 'takeaway';
             const timeSched = pickupMode === 'now' ? 'Sekarang (5-15 Menit)' : `${document.getElementById('pickup-time-select').value} ${document.getElementById('pickup-timezone').value}`;
 
             checkoutCustomerName = name || "Pelanggan";
+            checkoutCustomerWa = custWaInput || "";
 
             let itemsText = '';
             let subtotal = 0;
@@ -2148,6 +2194,7 @@
             const surcharge = isMall ? 3000 : 0;
             const bagFee = isBagChecked ? 1000 : 0;
             const grandTotal = subtotal + surcharge + bagFee;
+            checkoutGrandTotal = grandTotal;
 
             // Simpan ke Riwayat Pesanan
             saveOrderToHistory({
@@ -2162,10 +2209,13 @@
             });
 
             const orderTypeText = currentOrderType === 'takeaway' ? 'Take Away (Bungkus)' : 'Dine In (Minum Ditempat)';
+            const cleanWaNumber = custWaInput ? custWaInput.replace(/[^0-9]/g, '') : '';
+            const waDisplay = custWaInput ? `${custWaInput} (wa.me/${cleanWaNumber.startsWith('0') ? '62' + cleanWaNumber.slice(1) : cleanWaNumber})` : 'Tidak Diisi';
 
             const message = `── .✦ *FORMAT ORDER KOPI KENANGAN* ✦.──
 
 Nama Pemesan : ${name}
+No. WhatsApp Pemesan : ${waDisplay}
 Tipe Pesanan : ${orderTypeText}
 Outlet Pengambilan : ${selectedOutlet.name}
 Alamat Outlet : ${selectedOutlet.address || '-'}
@@ -2176,9 +2226,9 @@ Detail Menu PROMO:
 ${itemsText}--------------------------------------------------
 Biaya Tambahan Outlet (Mall/Besar) : ${formatRp(surcharge)}
 ${isBagChecked ? 'Kantong Belanja : Rp 1.000\n' : ''}*Total Tagihan Final : ${formatRp(grandTotal)}*
+*Status : [MENUNGGU PEMBAYARAN VIA QRIS]*
 
-> Pesanan diproses otomatis oleh Jasdor Bintang Store!
-> Setelah pesan, segera lakukan pembayaran via QRIS/Rekening.`;
+> Segera konfirmasi bukti pembayaran agar pesanan diproses! ✨`;
 
             const encodedMessage = encodeURIComponent(message);
 
@@ -2195,6 +2245,7 @@ ${isBagChecked ? 'Kantong Belanja : Rp 1.000\n' : ''}*Total Tagihan Final : ${fo
                             cart = [];
                             updateCartUI();
                             document.getElementById('cust-name').value = '';
+                            document.getElementById('cust-wa').value = '';
                             document.getElementById('cust-notes').value = '';
                         } else {
                             showToast("Gagal kirim ke bot, silakan gunakan opsi WA.");
@@ -2372,7 +2423,10 @@ ${isBagChecked ? 'Kantong Belanja : Rp 1.000\n' : ''}*Total Tagihan Final : ${fo
         }
 
         function showPaymentPopup() {
-            const message = `Halo Admin, saya sudah pesan via sistem web atas nama *${checkoutCustomerName}*. Tolong dicek dan minta QRIS/Rekening pembayarannya ya!`;
+            const popupTotal = document.getElementById('popup-total-tagihan');
+            if (popupTotal) popupTotal.textContent = formatRp(checkoutGrandTotal);
+
+            const message = `Halo Admin, saya sudah transfer pesanan via QRIS atas nama *${checkoutCustomerName}* dengan total tagihan *${formatRp(checkoutGrandTotal)}*.\n\nBerikut bukti transfer saya, tolong segera diproses ya! ✨`;
             const encoded = encodeURIComponent(message);
             const waLink = document.getElementById('payment-wa-link');
             if (waLink) waLink.href = `https://wa.me/${waNumber}?text=${encoded}`;
@@ -2385,6 +2439,18 @@ ${isBagChecked ? 'Kantong Belanja : Rp 1.000\n' : ''}*Total Tagihan Final : ${fo
                 popupContent.classList.remove('scale-95');
                 popupContent.classList.add('scale-100');
             }, 10);
+        }
+
+        function copyPopupNominal() {
+            if (!checkoutGrandTotal) return;
+            const textToCopy = checkoutGrandTotal.toString();
+            const tempInput = document.createElement('textarea');
+            tempInput.value = textToCopy;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            showToast(`Nominal <b>${formatRp(checkoutGrandTotal)}</b> berhasil disalin!`);
         }
 
         function closePaymentPopup() {
@@ -2432,18 +2498,25 @@ ${isBagChecked ? 'Kantong Belanja : Rp 1.000\n' : ''}*Total Tagihan Final : ${fo
             sfx.playSuccess();
             const pkgValue = document.querySelector('input[name="nflx-pkg"]:checked').value;
             const name = document.getElementById('nflx-name').value.trim();
+            const custWa = document.getElementById('nflx-wa')?.value.trim() || '';
             const profile = document.getElementById('nflx-profile').value.trim();
             checkoutCustomerName = name || "Pelanggan";
+            checkoutGrandTotal = netflixPrice;
+
+            const cleanWa = custWa ? custWa.replace(/[^0-9]/g, '') : '';
+            const waDisplay = custWa ? `${custWa} (wa.me/${cleanWa.startsWith('0') ? '62' + cleanWa.slice(1) : cleanWa})` : 'Tidak Diisi';
 
             const message = `🍿 *ORDER NETFLIX PREMIUM* 🍿
 --------------------------------------------------
 Nama Pemesan: ${name}
+No. WhatsApp: ${waDisplay}
 Paket Sewa: ${pkgValue} (Private 1 User)
 Request Nama Profil: "${profile}"
 --------------------------------------------------
 Total Tagihan: ${formatRp(netflixPrice)}
+*Status : [MENUNGGU PEMBAYARAN]*
 
-Mohon dibantu aktivasi akun Netflix-nya min!`;
+Mohon dibantu aktivasi akun Netflix-nya setelah bukti bayar dikonfirmasi!`;
 
             const encoded = encodeURIComponent(message);
 
@@ -2458,6 +2531,7 @@ Mohon dibantu aktivasi akun Netflix-nya min!`;
                         if (res.ok) {
                             showFullscreenLoader('netflix', false, '');
                             document.getElementById('nflx-name').value = '';
+                            if (document.getElementById('nflx-wa')) document.getElementById('nflx-wa').value = '';
                             document.getElementById('nflx-profile').value = '';
                             document.querySelector('input[name="nflx-pkg"]:checked').checked = false;
                             document.getElementById('nflx-total').textContent = 'Rp 0';
