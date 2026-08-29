@@ -300,6 +300,17 @@
             </div>
         </nav>
 
+        <!-- Google Drive Info Box -->
+        <div class="mx-4 mb-6 p-4 bg-amber-500/10 border border-amber-500/20 rounded-2xl text-center shadow-sm flex flex-col items-center gap-2.5">
+            <p class="text-xs text-kenangan-dark font-semibold leading-relaxed">
+                <i class="fas fa-info-circle mr-1 text-kenangan-primary text-sm"></i> 
+                Mau lihat penampakan asli produknya? Cek galeri album foto promonya di sini!
+            </p>
+            <a href="https://drive.google.com/drive/folders/1s0LXjW-1rWVE53zg7vLUvy7LKXiu83nR?usp=sharing" target="_blank" onclick="sfx.playTap()" class="inline-flex items-center gap-2 bg-kenangan-primary hover:bg-kenangan-hover text-white text-xs font-extrabold px-4 py-2 rounded-xl shadow-md transition duration-300 active:scale-95">
+                <i class="fab fa-google-drive text-sm text-yellow-300"></i> Lihat Galeri Foto Asli (Google Drive)
+            </a>
+        </div>
+
         <!-- Banner Request Menu Kustom (Jika Menu Tidak Ada di List) -->
         <div class="mx-4 mb-6 p-4 bg-gradient-to-r from-amber-900/10 via-amber-800/5 to-amber-700/10 border border-amber-500/30 rounded-2xl shadow-sm flex items-center justify-between gap-3">
             <div class="flex items-center gap-3 min-w-0">
@@ -1050,7 +1061,9 @@
             try {
                 const outletRes = await fetch('./outlet.json');
                 if (outletRes.ok) allOutlets = await outletRes.json();
-            } catch (e) {}
+            } catch (e) {
+                console.warn("outlet.json fallback aktif", e);
+            }
 
             if (!allOutlets || allOutlets.length === 0) {
                 allOutlets = [
@@ -1068,32 +1081,57 @@
                 const menuRes = await fetch('./menu.json');
                 if (menuRes.ok) {
                     const menuData = await menuRes.json();
-                    if (menuData && menuData["Kopi Kenangan"] && menuData["Kopi Kenangan"].satuan) {
-                        const parsedMenu = [];
-                        const satuan = menuData["Kopi Kenangan"].satuan;
+                    const parsedMenu = [];
+
+                    // 1. Parsing jika berbentuk objek Kopi Kenangan
+                    if (menuData && menuData["Kopi Kenangan"]) {
+                        const kk = menuData["Kopi Kenangan"];
                         const catMap = { coffee: 'coffee', nonCoffee: 'noncoffee', oatside: 'frappe', frappe: 'frappe', food: 'bakery', baru: 'new' };
                         
-                        for (const key in satuan) {
-                            if (Array.isArray(satuan[key])) {
-                                satuan[key].forEach(item => {
-                                    parsedMenu.push({
-                                        id: item.id || `kk_${Math.random()}`,
-                                        name: item.name || item.nama,
-                                        singlePrice: parseFloat(item.price) || 15000,
-                                        cat: catMap[key] || 'coffee',
-                                        badge: item.badge || (item.isNew ? 'NEW' : ''),
-                                        img: item.img || item.image || 'https://placehold.co/400x400/9C532B/FBF5EE?text=Kopi+Kenangan',
-                                        type: key === 'food' || item.isFood ? 'food' : 'drink'
+                        // Parse Satuan
+                        if (kk.satuan) {
+                            for (const key in kk.satuan) {
+                                if (Array.isArray(kk.satuan[key])) {
+                                    kk.satuan[key].forEach(item => {
+                                        parsedMenu.push({
+                                            id: item.id || `kk_${Math.random()}`,
+                                            name: item.name || item.nama,
+                                            singlePrice: parseFloat(item.price) || 15000,
+                                            cat: catMap[key] || 'coffee',
+                                            badge: item.badge || (item.isNew ? 'NEW' : ''),
+                                            img: item.img || item.image || 'https://placehold.co/400x400/9C532B/FBF5EE?text=Kopi+Kenangan',
+                                            type: key === 'food' || item.isFood ? 'food' : 'drink'
+                                        });
                                     });
-                                });
+                                }
                             }
                         }
-                        if (parsedMenu.length > 0) allMenu = parsedMenu;
-                    }
-                }
-            } catch (e) {}
 
-            // Fallback Menu
+                        // Parse Bundling
+                        if (kk.bundling && Array.isArray(kk.bundling)) {
+                            kk.bundling.forEach(b => {
+                                parsedMenu.push({
+                                    id: b.id || `bundle_${Math.random()}`,
+                                    cat: 'bundling',
+                                    name: b.name || b.nama,
+                                    singlePrice: parseFloat(b.price) || 35000,
+                                    type: 'bundling',
+                                    img: b.img || b.image || 'https://placehold.co/400x400/2C1A0D/F9F1E7?text=Paket+Hemat',
+                                    opts: b.options || b.opts || ['Varian Default Paket']
+                                });
+                            });
+                        }
+                    } else if (Array.isArray(menuData)) {
+                        menuData.forEach(item => parsedMenu.push(item));
+                    }
+
+                    if (parsedMenu.length > 0) allMenu = parsedMenu;
+                }
+            } catch (e) {
+                console.warn("menu.json fallback aktif", e);
+            }
+
+            // Fallback Menu Super Lengkap (Jika Fetch Belum Selesai / Gagal)
             if (!allMenu || allMenu.length === 0) {
                 allMenu = [
                     // Bundling
@@ -1106,6 +1144,8 @@
                     { id: 'c_creamy_aren', cat: 'coffee', name: 'Creamy Aren Latte', prices: { R: 16500, L: 21500 }, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Creamy+Aren' },
                     { id: 'c_spanish_latte', cat: 'coffee', name: 'Spanish Latte', prices: { R: 14500, L: 19500 }, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Spanish+Latte' },
                     { id: 'c_americano', cat: 'coffee', name: 'Americano', prices: { R: 12000, L: 17000 }, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Americano' },
+                    { id: 'c_cappuccino', cat: 'coffee', name: 'Cappuccino', prices: { R: 16000, L: 20500 }, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Cappuccino' },
+                    { id: 'c_latte', cat: 'coffee', name: 'Latte', prices: { R: 16000, L: 20500 }, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Latte' },
                     // Non Coffee
                     { id: 'nc_og_thai_tea', cat: 'noncoffee', name: 'OG Thai Tea', prices: { R: 13500, L: 16500 }, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=OG+Thai+Tea' },
                     { id: 'nc_dutch_choco', cat: 'noncoffee', name: 'Dutch Chocolate', prices: { R: 16500, L: 24000 }, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=Dutch+Chocolate' },
@@ -1124,97 +1164,49 @@
             }
         }
 
-        // TIME & WIB HELPER
-        function getWIBDate() {
-            const now = new Date();
-            const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
-            return new Date(utc + (3600000 * 7));
-        }
+        // FUNGSI UPDATE TAMPILAN BANNER OUTLET
+        function updateOutletUI() {
+            if (!selectedOutlet) return;
+            const isOpen = isOutletOpenNow(selectedOutlet);
+            const isMall = isMallOutlet(selectedOutlet);
 
-        function parseTimeToMinutes(timeStr) {
-            if (!timeStr) return 0;
-            const clean = timeStr.toString().replace('.', ':').trim();
-            const parts = clean.split(':');
-            if (parts.length < 2) return 0;
-            return (parseInt(parts[0], 10) || 0) * 60 + (parseInt(parts[1], 10) || 0);
-        }
+            const orderIcon = document.getElementById('banner-order-type-icon');
+            const orderLabel = document.getElementById('banner-order-type-label');
+            const outletStatus = document.getElementById('banner-outlet-status');
+            const outletName = document.getElementById('banner-outlet-name');
 
-        function isOutletOpenNow(outlet) {
-            if (!outlet) return true;
-            if (outlet.is_open === false) return false;
-            const wib = getWIBDate();
-            const curMin = wib.getHours() * 60 + wib.getMinutes();
-            const openMin = parseTimeToMinutes(outlet.open_time || "00:01");
-            const closeMin = parseTimeToMinutes(outlet.order_close_time || outlet.real_close_time || "23:59");
-            if (closeMin < openMin) return curMin >= openMin || curMin < closeMin;
-            return curMin >= openMin && curMin < closeMin;
-        }
-
-        function isMallOutlet(outlet) {
-            if (!outlet) return false;
-            const cat = (outlet.category || '').toLowerCase();
-            const name = (outlet.name || '').toLowerCase();
-            const pattern = /mall|plaza|tower|city|junction|avenue|walk|central park|grand indonesia|paskal|residence|hospital/i;
-            return cat.includes('mall') || pattern.test(name);
-        }
-
-        // SPA ROUTING
-        function switchView(target, pushToHistory = true) {
-            sfx.playTap();
-            document.getElementById('view-portal').classList.add('hidden');
-            document.getElementById('view-kopken').classList.add('hidden');
-            document.getElementById('view-netflix').classList.add('hidden');
-
-            document.getElementById(`view-${target}`).classList.remove('hidden');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-
-            const body = document.body;
-            const glow = document.getElementById('main-glow');
-
-            if (target === 'portal') {
-                body.style.backgroundColor = '#0F172A';
-                glow.style.background = 'radial-gradient(circle at 50% 50%, rgba(56, 189, 248, 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 40%)';
-                document.getElementById('particle-container').innerHTML = '';
-            } else if (target === 'kopken') {
-                body.style.backgroundColor = '#F9F1E7';
-                glow.style.background = 'radial-gradient(circle at 50% 50%, rgba(232, 163, 89, 0.15) 0%, rgba(249, 241, 231, 0) 50%), radial-gradient(circle at 80% 20%, rgba(160, 92, 58, 0.1) 0%, rgba(249, 241, 231, 0) 40%)';
-                initKopkenParticles();
-            } else if (target === 'netflix') {
-                body.style.backgroundColor = '#141414';
-                glow.style.background = 'radial-gradient(circle at 50% 50%, rgba(229, 9, 20, 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(0, 0, 0, 0.1) 0%, transparent 40%)';
-                document.getElementById('particle-container').innerHTML = '';
+            if (orderIcon && orderLabel) {
+                if (currentOrderType === 'takeaway') {
+                    orderIcon.className = "fas fa-bag-shopping text-base";
+                    orderLabel.textContent = "Take Away";
+                    const bagWrap = document.getElementById('plastic-bag-wrapper');
+                    if (bagWrap) bagWrap.classList.remove('hidden');
+                } else {
+                    orderIcon.className = "fas fa-mug-hot text-base";
+                    orderLabel.textContent = "Dine In";
+                    const bagWrap = document.getElementById('plastic-bag-wrapper');
+                    if (bagWrap) bagWrap.classList.add('hidden');
+                    const bagChk = document.getElementById('bag-checkbox');
+                    if (bagChk) bagChk.checked = false;
+                }
             }
 
-            if (pushToHistory) {
-                history.pushState({ view: target }, '', '#' + target);
+            if (outletStatus) {
+                outletStatus.textContent = isOpen ? 'BUKA' : 'TUTUP';
+                outletStatus.className = `text-[10px] font-extrabold px-2 py-0.5 rounded uppercase ${isOpen ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'}`;
             }
-        }
 
-        function openKopkenFlow() {
-            switchView('kopken');
-            openWelcomeGateModal(false);
-        }
-
-        function initKopkenParticles() {
-            const container = document.getElementById('particle-container');
-            container.innerHTML = '';
-            const icons = ['fa-coffee', 'fa-leaf', 'fa-mug-hot'];
-            for(let i=0; i<15; i++) {
-                const particle = document.createElement('i');
-                particle.className = `fas ${icons[Math.floor(Math.random() * icons.length)]} particle text-kenangan-primary/20`;
-                particle.style.left = `${Math.random() * 100}vw`;
-                particle.style.animationDuration = `${5 + Math.random() * 10}s, ${3 + Math.random() * 5}s`;
-                particle.style.fontSize = `${10 + Math.random() * 20}px`;
-                particle.style.animationDelay = `-${Math.random() * 10}s`;
-                container.appendChild(particle);
+            if (outletName) {
+                outletName.textContent = selectedOutlet.name + (isMall ? ' (Mall)' : '');
             }
         }
 
         // ==========================================
-        // RENDER MENU KATALOG (TAMPILAN ASLI WEB KAMU)
+        // RENDER MENU KATALOG DENGAN GAMBAR UTUH
         // ==========================================
         function renderMenu(filterKeyword = '') {
             const container = document.getElementById('menu-container');
+            if (!container) return;
             container.innerHTML = '';
 
             const categories = [
@@ -1231,17 +1223,20 @@
             categories.forEach(c => {
                 const filteredProducts = allMenu.filter(m => {
                     const matchesCategory = m.cat === c.filter;
-                    const matchesKeyword = keyword === '' || m.name.toLowerCase().includes(keyword);
+                    const matchesKeyword = keyword === '' || (m.name && m.name.toLowerCase().includes(keyword));
                     return matchesCategory && matchesKeyword;
                 });
 
                 if (filteredProducts.length > 0) {
                     const section = document.createElement('div');
                     section.id = c.id;
-                    section.innerHTML = `<h2 class="text-lg font-bold text-kenangan-dark mb-3 drop-shadow-sm">${c.title}</h2>`;
+                    section.innerHTML = `<h2 class="text-base font-extrabold text-kenangan-dark mb-3 drop-shadow-sm flex items-center gap-2">
+                        <span class="w-2 h-4 bg-kenangan-primary rounded-full"></span>
+                        ${c.title}
+                    </h2>`;
                     
                     const grid = document.createElement('div');
-                    grid.className = 'grid grid-cols-2 md:grid-cols-4 gap-3.5';
+                    grid.className = 'grid grid-cols-2 md:grid-cols-4 gap-3';
 
                     filteredProducts.forEach(item => {
                         let displayedPrice = '';
@@ -1259,17 +1254,22 @@
                         const originalEstimated = item.singlePrice ? (item.singlePrice * 1.5) : ((item.prices?.R || item.prices?.L || 15000) * 1.5);
 
                         grid.innerHTML += `
-                            <div class="glass rounded-2xl p-3 flex flex-col justify-between h-full relative overflow-hidden group shadow-sm hover:shadow-md transition">
+                            <div class="glass rounded-2xl p-2.5 flex flex-col justify-between h-full relative overflow-hidden group shadow-sm hover:shadow-md transition">
                                 <div class="absolute top-0 right-0 bg-red-600 text-white text-[9px] font-black px-2 py-0.5 rounded-bl-lg z-10 uppercase">PROMO</div>
-                                <img src="${item.img}" alt="${item.name}" class="w-full h-32 object-cover rounded-xl mb-2.5 group-hover:scale-105 transition duration-300 shadow-sm" loading="lazy" onerror="this.src='https://placehold.co/400x400/9C532B/FBF5EE?text=Kopi+Kenangan';">
+                                
+                                <!-- Wadah Gambar Proporsional Anti-Potong -->
+                                <div class="w-full aspect-square flex items-center justify-center p-2 mb-2 bg-white/70 rounded-xl overflow-hidden shadow-inner">
+                                    <img src="${item.img}" alt="${item.name}" class="w-full h-full object-contain group-hover:scale-105 transition duration-300" loading="lazy" onerror="this.src='https://placehold.co/400x400/9C532B/FBF5EE?text=Kopi+Kenangan';">
+                                </div>
+
                                 <div class="flex-grow flex flex-col justify-between">
                                     <div>
-                                        <h3 class="font-bold text-kenangan-dark text-xs leading-snug mb-0.5 line-clamp-2">${item.name}</h3>
-                                        <p class="text-[10px] text-gray-400 line-through">Mulai ${formatRp(originalEstimated)}</p>
+                                        <h3 class="font-extrabold text-kenangan-dark text-xs leading-snug line-clamp-2">${item.name}</h3>
+                                        <p class="text-[10px] text-gray-400 line-through mt-0.5">Mulai ${formatRp(originalEstimated)}</p>
                                     </div>
-                                    <div class="flex justify-between items-center mt-2 pt-1 border-t border-gray-100">
-                                        <p class="font-extrabold text-kenangan-primary text-xs">${displayedPrice}</p>
-                                        <button onclick="openModal('${item.id}')" class="w-7 h-7 rounded-xl bg-kenangan-dark text-white flex items-center justify-center shadow-sm hover:bg-kenangan-primary active:scale-90 transition">
+                                    <div class="flex justify-between items-center mt-2 pt-1.5 border-t border-gray-100">
+                                        <p class="font-black text-kenangan-primary text-xs">${displayedPrice}</p>
+                                        <button onclick="openModal('${item.id}')" class="w-7 h-7 rounded-xl bg-kenangan-dark text-white flex items-center justify-center shadow-sm hover:bg-kenangan-primary active:scale-90 transition cursor-pointer">
                                             <i class="fas fa-plus text-[10px]"></i>
                                         </button>
                                     </div>
