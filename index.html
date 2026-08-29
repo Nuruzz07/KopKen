@@ -32,11 +32,25 @@
 
     <style>
         body {
-            background-color: #0F172A; /* Default Portal Dark */
+            background-color: #0F172A;
             color: #ffffff;
             overflow-x: hidden;
             position: relative;
             transition: background-color 0.5s ease;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        img {
+            -webkit-user-drag: none;
+            -khtml-user-drag: none;
+            -moz-user-drag: none;
+            -o-user-drag: none;
+            user-drag: none;
+            user-select: none;
+            pointer-events: auto;
         }
 
         /* Dynamic Glow Background */
@@ -58,7 +72,7 @@
 
         /* Glassmorphism Utilities */
         .glass {
-            background: rgba(255, 255, 255, 0.7);
+            background: rgba(255, 255, 255, 0.75);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.5);
@@ -107,21 +121,18 @@
         input[type="number"]::-webkit-inner-spin-button, 
         input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
 
-        /* View Transitions */
         .view-section { animation: fadeIn 0.4s ease forwards; }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Floating Logo Animation */
         @keyframes floatLogo {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-8px); }
         }
         .float-logo { animation: floatLogo 4s infinite ease-in-out; }
 
-        /* Neon Breathing Aura Effects */
         @keyframes borderGlowKopken {
             0%, 100% { border-color: rgba(232, 163, 89, 0.3); box-shadow: 0 0 15px rgba(232, 163, 89, 0.1); }
             50% { border-color: rgba(160, 92, 58, 0.7); box-shadow: 0 0 25px rgba(160, 92, 58, 0.35); }
@@ -134,7 +145,6 @@
         }
         .aura-netflix { animation: borderGlowNetflix 3s infinite alternate ease-in-out; }
 
-        /* FAQ Transitions */
         .faq-content {
             max-height: 0;
             overflow: hidden;
@@ -142,7 +152,7 @@
         }
     </style>
 </head>
-<body class="antialiased font-sans select-none">
+<body class="antialiased font-sans">
 
     <!-- Latar Belakang Cahaya & Partikel -->
     <div class="bg-glow" id="main-glow"></div>
@@ -176,7 +186,7 @@
         <!-- Tombol Pilihan Toko / Layanan -->
         <div class="w-full space-y-4">
             <!-- Kopken Button -->
-            <button onclick="openKopkenFlow()" class="w-full relative group overflow-hidden rounded-3xl glass-portal p-5 text-left transition duration-300 hover:scale-[1.02] active:scale-95 border-l-4 border-l-kenangan-accent aura-kopken">
+            <button onclick="openKopkenFlow()" class="w-full relative group overflow-hidden rounded-3xl glass-portal p-5 text-left transition duration-300 hover:scale-[1.02] active:scale-95 border-l-4 border-l-kenangan-accent aura-kopken cursor-pointer">
                 <div class="absolute -right-10 -top-10 w-32 h-32 bg-kenangan-primary/20 rounded-full blur-2xl group-hover:bg-kenangan-primary/40 transition duration-500"></div>
                 <div class="flex items-center gap-4 relative z-10">
                     <div class="w-13 h-13 p-2.5 rounded-2xl bg-white/10 flex items-center justify-center flex-shrink-0">
@@ -191,7 +201,7 @@
             </button>
 
             <!-- Netflix Button -->
-            <button onclick="switchView('netflix')" class="w-full relative group overflow-hidden rounded-3xl glass-portal p-5 text-left transition duration-300 hover:scale-[1.02] active:scale-95 border-l-4 border-l-netflix-primary aura-netflix">
+            <button onclick="switchView('netflix')" class="w-full relative group overflow-hidden rounded-3xl glass-portal p-5 text-left transition duration-300 hover:scale-[1.02] active:scale-95 border-l-4 border-l-netflix-primary aura-netflix cursor-pointer">
                 <div class="absolute -right-10 -top-10 w-32 h-32 bg-netflix-primary/20 rounded-full blur-2xl group-hover:bg-netflix-primary/40 transition duration-500"></div>
                 <div class="flex items-center gap-4 relative z-10">
                     <div class="w-13 h-13 p-2.5 rounded-2xl bg-white/10 flex items-center justify-center flex-shrink-0">
@@ -206,7 +216,7 @@
             </button>
 
             <!-- Quick Action Riwayat Pesanan -->
-            <button onclick="openHistoryModal()" class="w-full py-3 px-4 rounded-2xl glass-portal hover:bg-white/10 text-xs font-semibold text-gray-300 transition flex items-center justify-center gap-2 border border-white/10 active:scale-95">
+            <button onclick="openHistoryModal()" class="w-full py-3 px-4 rounded-2xl glass-portal hover:bg-white/10 text-xs font-semibold text-gray-300 transition flex items-center justify-center gap-2 border border-white/10 active:scale-95 cursor-pointer">
                 <i class="fas fa-clock-rotate-left text-amber-400"></i>
                 <span>Lihat Riwayat Pesanan Anda</span>
             </button>
@@ -215,7 +225,6 @@
         <p class="mt-8 text-[10px] text-gray-500 font-medium tracking-widest uppercase">© 2026 Bintang Store • Fast & Trusted</p>
     </div>
 
-
     <!-- ========================================== -->
     <!-- VIEW 2: KOPI KENANGAN STORE                -->
     <!-- ========================================== -->
@@ -223,7 +232,7 @@
         <!-- Sticky Header Kopi Kenangan -->
         <header class="glass sticky top-0 z-40 px-4 py-3 flex items-center justify-between shadow-sm border-b border-white/60" id="main-header">
             <div class="flex items-center gap-3">
-                <button onclick="switchView('portal')" class="w-8 h-8 flex items-center justify-center rounded-full bg-white/60 text-kenangan-dark hover:bg-white transition border border-white">
+                <button onclick="switchView('portal')" class="w-8 h-8 flex items-center justify-center rounded-full bg-white/60 text-kenangan-dark hover:bg-white transition border border-white cursor-pointer">
                     <i class="fas fa-arrow-left text-xs"></i>
                 </button>
                 <img src="https://i.postimg.cc/GpwttdxX/Logo-Kopi-Kenangan-Format-PNG-AI-EPS-CDR-PDF-SVG.png" alt="Logo Kopi Kenangan" class="w-8 h-8 object-contain">
@@ -235,15 +244,15 @@
 
             <!-- Header Quick Actions (WiFi, Riwayat, Cart) -->
             <div class="flex items-center gap-2">
-                <button onclick="toggleWifiModal(true)" class="px-2.5 py-1.5 rounded-full bg-white/80 hover:bg-white text-kenangan-primary text-xs font-bold transition border border-white flex items-center gap-1 shadow-sm" title="Info WiFi Outlet">
+                <button onclick="toggleWifiModal(true)" class="px-2.5 py-1.5 rounded-full bg-white/80 hover:bg-white text-kenangan-primary text-xs font-bold transition border border-white flex items-center gap-1 shadow-sm cursor-pointer" title="Info WiFi Outlet">
                     <i class="fas fa-wifi text-[11px]"></i>
                     <span class="hidden sm:inline text-[11px]">WiFi</span>
                 </button>
-                <button onclick="openHistoryModal()" class="px-2.5 py-1.5 rounded-full bg-white/80 hover:bg-white text-kenangan-dark text-xs font-bold transition border border-white flex items-center gap-1 shadow-sm" title="Riwayat Pesanan">
+                <button onclick="openHistoryModal()" class="px-2.5 py-1.5 rounded-full bg-white/80 hover:bg-white text-kenangan-dark text-xs font-bold transition border border-white flex items-center gap-1 shadow-sm cursor-pointer" title="Riwayat Pesanan">
                     <i class="fas fa-clock-rotate-left text-[11px] text-amber-700"></i>
                     <span class="hidden sm:inline text-[11px]">Riwayat</span>
                 </button>
-                <button id="cart-icon-btn" onclick="scrollToCart()" class="relative p-2 text-kenangan-dark transition">
+                <button id="cart-icon-btn" onclick="scrollToCart()" class="relative p-2 text-kenangan-dark transition cursor-pointer">
                     <i class="fas fa-shopping-bag text-lg" id="cart-icon"></i>
                     <span id="cart-badge" class="absolute top-0 right-0 bg-red-600 text-white text-[10px] font-black h-4 w-4 rounded-full flex items-center justify-center hidden">0</span>
                 </button>
@@ -264,7 +273,7 @@
                     <p id="banner-outlet-name" class="text-xs font-extrabold text-kenangan-dark truncate mt-0.5">Grand Indonesia (Mall)</p>
                 </div>
             </div>
-            <button onclick="openWelcomeGateModal(true)" class="px-3 py-1.5 rounded-xl bg-kenangan-light hover:bg-white text-kenangan-dark font-extrabold text-xs transition border border-gray-200 flex-shrink-0 active:scale-95">
+            <button onclick="openWelcomeGateModal(true)" class="px-3 py-1.5 rounded-xl bg-kenangan-light hover:bg-white text-kenangan-dark font-extrabold text-xs transition border border-gray-200 flex-shrink-0 active:scale-95 cursor-pointer">
                 Ubah Lokasi
             </button>
         </div>
@@ -282,12 +291,12 @@
         <!-- Sticky Categories Bar -->
         <nav class="glass sticky top-[108px] z-30 px-4 py-2 mb-4 overflow-x-auto no-scrollbar whitespace-nowrap border-b border-white/50">
             <div class="flex gap-2">
-                <button onclick="scrollToCategory('cat-bundling', event)" class="px-3.5 py-1.5 rounded-full bg-white/90 text-kenangan-dark text-xs font-bold shadow-sm border border-white hover:bg-white active:scale-95 transition">Bundling</button>
-                <button onclick="scrollToCategory('cat-coffee', event)" class="px-3.5 py-1.5 rounded-full bg-white/90 text-kenangan-dark text-xs font-bold shadow-sm border border-white hover:bg-white active:scale-95 transition">Coffee</button>
-                <button onclick="scrollToCategory('cat-noncoffee', event)" class="px-3.5 py-1.5 rounded-full bg-white/90 text-kenangan-dark text-xs font-bold shadow-sm border border-white hover:bg-white active:scale-95 transition">Non-Coffee</button>
-                <button onclick="scrollToCategory('cat-frappe', event)" class="px-3.5 py-1.5 rounded-full bg-white/90 text-kenangan-dark text-xs font-bold shadow-sm border border-white hover:bg-white active:scale-95 transition">Oatside & Frappe</button>
-                <button onclick="scrollToCategory('cat-new', event)" class="px-3.5 py-1.5 rounded-full bg-white/90 text-kenangan-dark text-xs font-bold shadow-sm border border-white hover:bg-white active:scale-95 transition">New Variant</button>
-                <button onclick="scrollToCategory('cat-bakery', event)" class="px-3.5 py-1.5 rounded-full bg-white/90 text-kenangan-dark text-xs font-bold shadow-sm border border-white hover:bg-white active:scale-95 transition">Makanan</button>
+                <button onclick="scrollToCategory('cat-bundling', event)" class="px-3.5 py-1.5 rounded-full bg-white/90 text-kenangan-dark text-xs font-bold shadow-sm border border-white hover:bg-white active:scale-95 transition cursor-pointer">Bundling</button>
+                <button onclick="scrollToCategory('cat-coffee', event)" class="px-3.5 py-1.5 rounded-full bg-white/90 text-kenangan-dark text-xs font-bold shadow-sm border border-white hover:bg-white active:scale-95 transition cursor-pointer">Coffee</button>
+                <button onclick="scrollToCategory('cat-noncoffee', event)" class="px-3.5 py-1.5 rounded-full bg-white/90 text-kenangan-dark text-xs font-bold shadow-sm border border-white hover:bg-white active:scale-95 transition cursor-pointer">Non-Coffee</button>
+                <button onclick="scrollToCategory('cat-frappe', event)" class="px-3.5 py-1.5 rounded-full bg-white/90 text-kenangan-dark text-xs font-bold shadow-sm border border-white hover:bg-white active:scale-95 transition cursor-pointer">Oatside & Frappe</button>
+                <button onclick="scrollToCategory('cat-new', event)" class="px-3.5 py-1.5 rounded-full bg-white/90 text-kenangan-dark text-xs font-bold shadow-sm border border-white hover:bg-white active:scale-95 transition cursor-pointer">New Variant</button>
+                <button onclick="scrollToCategory('cat-bakery', event)" class="px-3.5 py-1.5 rounded-full bg-white/90 text-kenangan-dark text-xs font-bold shadow-sm border border-white hover:bg-white active:scale-95 transition cursor-pointer">Makanan</button>
             </div>
         </nav>
 
@@ -297,12 +306,12 @@
                 <i class="fas fa-info-circle mr-1 text-kenangan-primary text-sm"></i> 
                 Mau lihat penampakan asli produknya? Cek galeri album foto promonya di sini!
             </p>
-            <a href="https://drive.google.com/drive/folders/1s0LXjW-1rWVE53zg7vLUvy7LKXiu83nR?usp=sharing" target="_blank" onclick="sfx.playTap()" class="inline-flex items-center gap-2 bg-kenangan-primary hover:bg-kenangan-hover text-white text-xs font-extrabold px-4 py-2 rounded-xl shadow-md transition duration-300 active:scale-95">
+            <a href="https://drive.google.com/drive/folders/1s0LXjW-1rWVE53zg7vLUvy7LKXiu83nR?usp=sharing" target="_blank" onclick="sfx.playTap()" class="inline-flex items-center gap-2 bg-kenangan-primary hover:bg-kenangan-hover text-white text-xs font-extrabold px-4 py-2 rounded-xl shadow-md transition duration-300 active:scale-95 cursor-pointer">
                 <i class="fab fa-google-drive text-sm text-yellow-300"></i> Lihat Galeri Foto Asli (Google Drive)
             </a>
         </div>
 
-        <!-- Main Menu Category Sections Container (Tampilan Asli Web Kamu) -->
+        <!-- Main Menu Category Sections Container -->
         <main class="px-4 space-y-8" id="menu-container">
             <!-- Rendered dynamically by category -->
         </main>
@@ -344,10 +353,10 @@
                 <div>
                     <label class="block text-xs font-bold text-kenangan-dark mb-1.5">Waktu Pengambilan <span class="text-red-500">*</span></label>
                     <div class="grid grid-cols-2 gap-2 mb-2">
-                        <button type="button" id="btn-pickup-now" onclick="setPickupMode('now')" class="py-2 px-3 rounded-xl border-2 border-kenangan-primary bg-amber-50 text-kenangan-primary font-bold text-xs flex items-center justify-center gap-1.5 transition">
+                        <button type="button" id="btn-pickup-now" onclick="setPickupMode('now')" class="py-2 px-3 rounded-xl border-2 border-kenangan-primary bg-amber-50 text-kenangan-primary font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer">
                             <i class="fas fa-bolt text-xs"></i> Sekarang (5-15 Mnt)
                         </button>
-                        <button type="button" id="btn-pickup-sched" onclick="setPickupMode('schedule')" class="py-2 px-3 rounded-xl border-2 border-gray-200 bg-white text-gray-600 font-bold text-xs flex items-center justify-center gap-1.5 transition">
+                        <button type="button" id="btn-pickup-sched" onclick="setPickupMode('schedule')" class="py-2 px-3 rounded-xl border-2 border-gray-200 bg-white text-gray-600 font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer">
                             <i class="fas fa-clock text-xs"></i> Jadwalkan Jam
                         </button>
                     </div>
@@ -411,13 +420,12 @@
         </section>
     </div>
 
-
     <!-- ========================================== -->
     <!-- VIEW 3: NETFLIX PREMIUM                    -->
     <!-- ========================================== -->
     <div id="view-netflix" class="view-section hidden text-white pb-32 max-w-xl mx-auto">
         <header class="glass-dark sticky top-0 z-40 px-4 py-3 flex items-center gap-3 shadow-md border-b border-red-500/20">
-            <button onclick="switchView('portal')" class="w-8 h-8 flex items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition">
+            <button onclick="switchView('portal')" class="w-8 h-8 flex items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition cursor-pointer">
                 <i class="fas fa-arrow-left text-xs"></i>
             </button>
             <i class="fas fa-play text-netflix-primary text-xl drop-shadow-[0_0_8px_rgba(229,9,20,0.8)]"></i>
@@ -530,7 +538,7 @@
                 </h3>
                 
                 <div class="glass-dark rounded-xl border border-white/5 overflow-hidden">
-                    <button onclick="toggleFAQ(this)" class="w-full px-4 py-3 flex justify-between items-center text-left text-xs font-bold hover:bg-white/5 transition">
+                    <button onclick="toggleFAQ(this)" class="w-full px-4 py-3 flex justify-between items-center text-left text-xs font-bold hover:bg-white/5 transition cursor-pointer">
                         <span>Apakah akun ini resmi dan bergaransi?</span>
                         <i class="fas fa-chevron-down text-gray-400 transition-transform duration-300 text-[10px]"></i>
                     </button>
@@ -542,7 +550,7 @@
                 </div>
 
                 <div class="glass-dark rounded-xl border border-white/5 overflow-hidden">
-                    <button onclick="toggleFAQ(this)" class="w-full px-4 py-3 flex justify-between items-center text-left text-xs font-bold hover:bg-white/5 transition">
+                    <button onclick="toggleFAQ(this)" class="w-full px-4 py-3 flex justify-between items-center text-left text-xs font-bold hover:bg-white/5 transition cursor-pointer">
                         <span>Bisa nonton di Smart TV atau Laptop?</span>
                         <i class="fas fa-chevron-down text-gray-400 transition-transform duration-300 text-[10px]"></i>
                     </button>
@@ -555,7 +563,6 @@
             </section>
         </main>
     </div>
-
 
     <!-- ========================================== -->
     <!-- POPUP 1: WELCOME GATE MODAL (GERBANG AWAL) -->
@@ -575,11 +582,11 @@
             <div class="mb-4">
                 <label class="block text-xs font-bold text-gray-700 mb-1.5">Tipe Pemesanan <span class="text-red-500">*</span></label>
                 <div class="grid grid-cols-2 gap-2">
-                    <button type="button" id="gate-type-takeaway" onclick="setGateOrderType('takeaway')" class="py-2.5 px-3 rounded-2xl border-2 border-kenangan-primary bg-amber-50 text-kenangan-primary font-bold text-xs flex flex-col items-center gap-1 transition shadow-sm">
+                    <button type="button" id="gate-type-takeaway" onclick="setGateOrderType('takeaway')" class="py-2.5 px-3 rounded-2xl border-2 border-kenangan-primary bg-amber-50 text-kenangan-primary font-bold text-xs flex flex-col items-center gap-1 transition shadow-sm cursor-pointer">
                         <i class="fas fa-bag-shopping text-base"></i>
                         <span>Take Away</span>
                     </button>
-                    <button type="button" id="gate-type-dinein" onclick="setGateOrderType('dinein')" class="py-2.5 px-3 rounded-2xl border-2 border-gray-200 bg-white text-gray-600 font-bold text-xs flex flex-col items-center gap-1 transition">
+                    <button type="button" id="gate-type-dinein" onclick="setGateOrderType('dinein')" class="py-2.5 px-3 rounded-2xl border-2 border-gray-200 bg-white text-gray-600 font-bold text-xs flex flex-col items-center gap-1 transition cursor-pointer">
                         <i class="fas fa-mug-hot text-base"></i>
                         <span>Dine In (Minum Ditempat)</span>
                     </button>
@@ -592,7 +599,7 @@
                 <div class="relative">
                     <i class="fas fa-search absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-xs"></i>
                     <input type="text" id="gate-outlet-search" placeholder="Ketik nama cabang/kota (misal: GI, PIM, Bandung)..." oninput="handleGateOutletSearch()" class="w-full pl-9 pr-8 py-2.5 rounded-xl bg-gray-50 border border-gray-200 text-xs text-kenangan-dark placeholder-gray-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-kenangan-primary">
-                    <button id="gate-clear-search-btn" onclick="clearGateSearch()" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 hidden">
+                    <button id="gate-clear-search-btn" onclick="clearGateSearch()" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 hidden cursor-pointer">
                         <i class="fas fa-times-circle text-xs"></i>
                     </button>
 
@@ -615,13 +622,12 @@
             </div>
 
             <!-- Tombol Konfirmasi Masuk Menu -->
-            <button id="btn-gate-confirm" onclick="confirmWelcomeGate()" class="w-full bg-kenangan-primary hover:bg-kenangan-hover text-white font-extrabold py-3 rounded-2xl shadow-md transition flex items-center justify-center gap-2 text-xs active:scale-98">
+            <button id="btn-gate-confirm" onclick="confirmWelcomeGate()" class="w-full bg-kenangan-primary hover:bg-kenangan-hover text-white font-extrabold py-3 rounded-2xl shadow-md transition flex items-center justify-center gap-2 text-xs active:scale-98 cursor-pointer">
                 <span>Mulai Pilih Menu</span>
                 <i class="fas fa-arrow-right text-xs"></i>
             </button>
         </div>
     </div>
-
 
     <!-- ========================================== -->
     <!-- POPUP 2: MODAL KUSTOMISASI MENU SATUAN     -->
@@ -638,7 +644,7 @@
                     <h3 id="modal-title" class="font-bold text-base leading-tight">Nama Menu</h3>
                     <p id="modal-price" class="text-kenangan-primary font-semibold text-xs mt-0.5">Rp 0</p>
                 </div>
-                <button onclick="closeModal(event)" class="w-7 h-7 bg-gray-100 rounded-full flex justify-center items-center text-gray-500 flex-shrink-0 hover:bg-gray-200 active:scale-90 transition">
+                <button onclick="closeModal(event)" class="w-7 h-7 bg-gray-100 rounded-full flex justify-center items-center text-gray-500 flex-shrink-0 hover:bg-gray-200 active:scale-90 transition cursor-pointer">
                     <i class="fas fa-times text-xs"></i>
                 </button>
             </div>
@@ -647,7 +653,7 @@
             <div id="modal-options-container" class="px-5 py-4 overflow-y-auto flex-grow space-y-4"></div>
 
             <div class="p-4 border-t border-gray-100 bg-gray-50 shrink-0">
-                <button onclick="addToCartFromModal()" class="w-full bg-kenangan-dark hover:bg-[#1a0f07] text-white font-bold py-3.5 rounded-2xl shadow-md active:scale-95 transition flex justify-between px-4 items-center text-xs">
+                <button onclick="addToCartFromModal()" class="w-full bg-kenangan-dark hover:bg-[#1a0f07] text-white font-bold py-3.5 rounded-2xl shadow-md active:scale-95 transition flex justify-between px-4 items-center text-xs cursor-pointer">
                     <span id="modal-btn-label">Simpan ke Keranjang</span>
                     <span id="modal-btn-price" class="bg-white/20 px-2.5 py-1 rounded-lg text-xs font-extrabold text-amber-300">Rp 0</span>
                 </button>
@@ -655,13 +661,12 @@
         </div>
     </div>
 
-
     <!-- ========================================== -->
     <!-- POPUP 3: MODAL INFO WIFI OUTLET            -->
     <!-- ========================================== -->
     <div id="modal-wifi" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[170] hidden opacity-0 transition-opacity duration-300 flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl p-6 max-w-sm w-full text-kenangan-dark shadow-2xl border border-gray-200 relative">
-            <button onclick="toggleWifiModal(false)" class="absolute right-4 top-4 w-7 h-7 bg-gray-100 rounded-full flex justify-center items-center text-gray-500 hover:bg-gray-200 transition">
+            <button onclick="toggleWifiModal(false)" class="absolute right-4 top-4 w-7 h-7 bg-gray-100 rounded-full flex justify-center items-center text-gray-500 hover:bg-gray-200 transition cursor-pointer">
                 <i class="fas fa-times text-xs"></i>
             </button>
             <div class="w-12 h-12 rounded-2xl bg-amber-100 text-kenangan-primary flex items-center justify-center mb-3">
@@ -683,7 +688,7 @@
                     <span class="text-gray-500 font-medium">Password Hari Ini:</span>
                     <div class="flex items-center gap-1.5">
                         <span id="wifi-pass-text" class="font-mono font-bold text-kenangan-primary bg-amber-50 px-2 py-0.5 rounded border border-amber-200">...</span>
-                        <button onclick="copyWifiPass()" class="px-2 py-0.5 rounded bg-kenangan-primary hover:bg-kenangan-hover text-white text-[10px] font-bold transition" title="Salin Password">
+                        <button onclick="copyWifiPass()" class="px-2 py-0.5 rounded bg-kenangan-primary hover:bg-kenangan-hover text-white text-[10px] font-bold transition cursor-pointer" title="Salin Password">
                             <i class="fas fa-copy"></i>
                         </button>
                     </div>
@@ -696,7 +701,6 @@
         </div>
     </div>
 
-
     <!-- ========================================== -->
     <!-- POPUP 4: MODAL RIWAYAT PESANAN (HISTORY)   -->
     <!-- ========================================== -->
@@ -707,7 +711,7 @@
                     <i class="fas fa-receipt text-amber-700 text-sm"></i>
                     <h3 class="font-extrabold text-base">Riwayat Pesanan</h3>
                 </div>
-                <button onclick="closeHistoryModal()" class="w-7 h-7 bg-gray-100 rounded-full flex justify-center items-center text-gray-500 hover:bg-gray-200 transition">
+                <button onclick="closeHistoryModal()" class="w-7 h-7 bg-gray-100 rounded-full flex justify-center items-center text-gray-500 hover:bg-gray-200 transition cursor-pointer">
                     <i class="fas fa-times text-xs"></i>
                 </button>
             </div>
@@ -717,16 +721,15 @@
             </div>
 
             <div class="pt-3 border-t border-gray-100 flex justify-between items-center mt-2">
-                <button onclick="clearOrderHistory()" class="text-[11px] text-red-500 font-bold hover:underline">
+                <button onclick="clearOrderHistory()" class="text-[11px] text-red-500 font-bold hover:underline cursor-pointer">
                     <i class="fas fa-trash-alt mr-1"></i> Hapus Riwayat
                 </button>
-                <button onclick="closeHistoryModal()" class="px-4 py-1.5 rounded-xl bg-gray-100 hover:bg-gray-200 text-xs font-bold text-gray-700 transition">
+                <button onclick="closeHistoryModal()" class="px-4 py-1.5 rounded-xl bg-gray-100 hover:bg-gray-200 text-xs font-bold text-gray-700 transition cursor-pointer">
                     Tutup
                 </button>
             </div>
         </div>
     </div>
-
 
     <!-- ========================================== -->
     <!-- GLOBAL ANIMATIONS & POPUPS (TELEGRAM / WA) -->
@@ -761,11 +764,10 @@
                 <a id="payment-wa-link" href="https://wa.me/6285959633342?text=Halo%20Admin,%20saya%20sudah%20pesan%20via%20sistem%20web.%20Tolong%20dicek%20dan%20minta%20QRIS/Rekening%20pembayarannya%20ya!" target="_blank" class="w-full flex justify-center items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold py-3 rounded-xl shadow-md active:scale-95 transition text-xs">
                     <i class="fab fa-whatsapp text-base"></i> Konfirmasi Bayar ke WhatsApp
                 </a>
-                <button onclick="closePaymentPopup()" class="w-full bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold py-2.5 rounded-xl transition text-xs">Tutup Dulu</button>
+                <button onclick="closePaymentPopup()" class="w-full bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold py-2.5 rounded-xl transition text-xs cursor-pointer">Tutup Dulu</button>
             </div>
         </div>
     </div>
-
 
     <!-- ========================================== -->
     <!-- LOGIKA JAVASCRIPT UTAMA                    -->
@@ -971,15 +973,15 @@
                     { id: 'b2', cat: 'bundling', name: 'Bundling Bertiga 38K', singlePrice: 38000, type: 'bundling', img: 'https://placehold.co/400x400/2C1A0D/F9F1E7?text=Bertiga+38K', opts: ['3 Cup Reg Spanish Latte', '3 Cup Reg Tiramisu Latte', '3 Cup Reg Kopi Mantan', '3 Cup Lrg Kopi Mantan'] },
                     { id: 'b3', cat: 'bundling', name: 'Puas Banget Mix Large', singlePrice: 33000, type: 'bundling', img: 'https://placehold.co/400x400/2C1A0D/F9F1E7?text=Mix+Large', opts: ['2 Cup Lrg Mantan', '2 Cup Lrg Spanish Latte', '1 Lrg Mantan + 1 Lrg Thai Tea', '1 Lrg Latte + 1 Lrg Milo'] },
                     // Coffee
-                    { id: 'c_kenangan_mantan', cat: 'coffee', name: 'Kopi Kenangan Mantan', prices: { R: 15500, L: 18500 }, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Kenangan+Mantan' },
+                    { id: 'c_kenangan_mantan', cat: 'coffee', name: 'Kopi Kenangan Mantan', prices: { R: 14500, L: 18500 }, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Kenangan+Mantan' },
                     { id: 'c_susu_black_aren', cat: 'coffee', name: 'Kopi Susu Black Aren', prices: { R: 15500, L: 21000 }, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Black+Aren' },
-                    { id: 'c_creamy_aren', cat: 'coffee', name: 'Creamy Aren Latte', prices: { R: 16000, L: 21500 }, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Creamy+Aren' },
+                    { id: 'c_creamy_aren', cat: 'coffee', name: 'Creamy Aren Latte', prices: { R: 16500, L: 21500 }, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Creamy+Aren' },
                     { id: 'c_spanish_latte', cat: 'coffee', name: 'Spanish Latte', prices: { R: 14500, L: 19500 }, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Spanish+Latte' },
-                    { id: 'c_americano', cat: 'coffee', name: 'Americano', prices: { R: 14500, L: 17000 }, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Americano' },
+                    { id: 'c_americano', cat: 'coffee', name: 'Americano', prices: { R: 12000, L: 17000 }, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Americano' },
                     // Non Coffee
-                    { id: 'nc_og_thai_tea', cat: 'noncoffee', name: 'OG Thai Tea', prices: { R: 14500, L: 16500 }, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=OG+Thai+Tea' },
-                    { id: 'nc_dutch_choco', cat: 'noncoffee', name: 'Dutch Chocolate', prices: { R: 18000, L: 24000 }, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=Dutch+Chocolate' },
-                    { id: 'nc_matcha_latte', cat: 'noncoffee', name: 'Matcha Latte', prices: { R: 17500, L: 22500 }, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=Matcha+Latte' },
+                    { id: 'nc_og_thai_tea', cat: 'noncoffee', name: 'OG Thai Tea', prices: { R: 13500, L: 16500 }, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=OG+Thai+Tea' },
+                    { id: 'nc_dutch_choco', cat: 'noncoffee', name: 'Dutch Chocolate', prices: { R: 16500, L: 24000 }, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=Dutch+Chocolate' },
+                    { id: 'nc_matcha_latte', cat: 'noncoffee', name: 'Matcha Latte', prices: { R: 17000, L: 22500 }, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=Matcha+Latte' },
                     { id: 'nc_milo_dino', cat: 'noncoffee', name: 'Milo Dinosaurus', prices: { R: 17000, L: 21000 }, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=Milo+Dinosaurus' },
                     // Frappe
                     { id: 'f_mantan_frappe', cat: 'frappe', name: 'Kopi Kenangan Mantan Frappe', prices: { R: 18500, L: 23000 }, type: 'drink', img: 'https://placehold.co/400x400/2C1A0D/E8A359?text=Mantan+Frappe' },
@@ -987,8 +989,8 @@
                     // New
                     { id: 'nv_blueberry_americano', cat: 'new', name: 'Blueberry Americano', prices: { R: 15000, L: 18500 }, type: 'drink', img: 'https://placehold.co/400x400/38BDF8/FFFFFF?text=Blueberry+Americano' },
                     // Bakery / Food
-                    { id: 'fd_salt_ori', cat: 'bakery', name: 'Salt Bread Ori', singlePrice: 11500, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Salt+Bread+Ori' },
-                    { id: 'fd_butter_croissant', cat: 'bakery', name: 'Butter Croissant', singlePrice: 12500, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Butter+Croissant' },
+                    { id: 'fd_salt_ori', cat: 'bakery', name: 'Salt Bread Ori', singlePrice: 10500, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Salt+Bread+Ori' },
+                    { id: 'fd_butter_croissant', cat: 'bakery', name: 'Butter Croissant', singlePrice: 11500, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Butter+Croissant' },
                     { id: 't_sapi_toast', cat: 'bakery', name: 'Wahyu Sapi Toast', singlePrice: 14500, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Sapi+Toast' }
                 ];
             }
@@ -1112,11 +1114,11 @@
             const btnDinein = document.getElementById('gate-type-dinein');
 
             if (type === 'takeaway') {
-                btnTakeaway.className = "py-2.5 px-3 rounded-2xl border-2 border-kenangan-primary bg-amber-50 text-kenangan-primary font-bold text-xs flex flex-col items-center gap-1 transition shadow-sm";
-                btnDinein.className = "py-2.5 px-3 rounded-2xl border-2 border-gray-200 bg-white text-gray-600 font-bold text-xs flex flex-col items-center gap-1 transition";
+                btnTakeaway.className = "py-2.5 px-3 rounded-2xl border-2 border-kenangan-primary bg-amber-50 text-kenangan-primary font-bold text-xs flex flex-col items-center gap-1 transition shadow-sm cursor-pointer";
+                btnDinein.className = "py-2.5 px-3 rounded-2xl border-2 border-gray-200 bg-white text-gray-600 font-bold text-xs flex flex-col items-center gap-1 transition cursor-pointer";
             } else {
-                btnDinein.className = "py-2.5 px-3 rounded-2xl border-2 border-kenangan-primary bg-amber-50 text-kenangan-primary font-bold text-xs flex flex-col items-center gap-1 transition shadow-sm";
-                btnTakeaway.className = "py-2.5 px-3 rounded-2xl border-2 border-gray-200 bg-white text-gray-600 font-bold text-xs flex flex-col items-center gap-1 transition";
+                btnDinein.className = "py-2.5 px-3 rounded-2xl border-2 border-kenangan-primary bg-amber-50 text-kenangan-primary font-bold text-xs flex flex-col items-center gap-1 transition shadow-sm cursor-pointer";
+                btnTakeaway.className = "py-2.5 px-3 rounded-2xl border-2 border-gray-200 bg-white text-gray-600 font-bold text-xs flex flex-col items-center gap-1 transition cursor-pointer";
             }
         }
 
@@ -1235,7 +1237,7 @@
         }
 
         // ==========================================
-        // RENDER MENU KATALOG (TAMPILAN ASLI WEB KAMU)
+        // RENDER MENU KATALOG (ASPECT-SQUARE FIX)
         // ==========================================
         function renderMenu(filterKeyword = '') {
             const container = document.getElementById('menu-container');
@@ -1285,7 +1287,12 @@
                         grid.innerHTML += `
                             <div class="glass rounded-2xl p-3 flex flex-col justify-between h-full relative overflow-hidden group shadow-sm hover:shadow-md transition">
                                 <div class="absolute top-0 right-0 bg-red-600 text-white text-[9px] font-black px-2 py-0.5 rounded-bl-lg z-10 uppercase">PROMO</div>
-                                <img src="${item.img}" alt="${item.name}" class="w-full h-32 object-cover rounded-xl mb-2.5 group-hover:scale-105 transition duration-300 shadow-sm" loading="lazy" onerror="this.src='https://placehold.co/400x400/9C532B/FBF5EE?text=Kopi+Kenangan';">
+                                
+                                <!-- Frame gambar persegi proporsional agar cup tidak kepotong -->
+                                <div class="w-full aspect-square rounded-xl bg-white/60 mb-2.5 p-2 flex items-center justify-center overflow-hidden shadow-inner group-hover:scale-105 transition duration-300">
+                                    <img src="${item.img}" alt="${item.name}" class="w-full h-full object-contain" loading="lazy" onerror="this.src='https://placehold.co/400x400/9C532B/FBF5EE?text=Kopi+Kenangan';">
+                                </div>
+                                
                                 <div class="flex-grow flex flex-col justify-between">
                                     <div>
                                         <h3 class="font-bold text-kenangan-dark text-xs leading-snug mb-0.5 line-clamp-2">${item.name}</h3>
@@ -1293,7 +1300,7 @@
                                     </div>
                                     <div class="flex justify-between items-center mt-2 pt-1 border-t border-gray-100">
                                         <p class="font-extrabold text-kenangan-primary text-xs">${displayedPrice}</p>
-                                        <button onclick="openModal('${item.id}')" class="w-7 h-7 rounded-xl bg-kenangan-dark text-white flex items-center justify-center shadow-sm hover:bg-kenangan-primary active:scale-90 transition">
+                                        <button onclick="openModal('${item.id}')" class="w-7 h-7 rounded-xl bg-kenangan-dark text-white flex items-center justify-center shadow-sm hover:bg-kenangan-primary active:scale-90 transition cursor-pointer">
                                             <i class="fas fa-plus text-[10px]"></i>
                                         </button>
                                     </div>
@@ -1658,10 +1665,10 @@
                                 <p class="text-xs font-bold text-kenangan-primary mt-1">${formatRp(c.price * (c.qty || 1))}</p>
                             </div>
                             <div class="flex flex-col items-end gap-1.5 flex-shrink-0">
-                                <button onclick="openModal('${c.item.id}', ${idx})" class="text-[10px] font-bold text-gray-400 hover:text-kenangan-primary">
+                                <button onclick="openModal('${c.item.id}', ${idx})" class="text-[10px] font-bold text-gray-400 hover:text-kenangan-primary cursor-pointer">
                                     <i class="fas fa-pencil mr-0.5"></i> Edit
                                 </button>
-                                <button onclick="removeFromCart(${idx})" class="text-red-400 hover:text-red-600 text-xs p-1">
+                                <button onclick="removeFromCart(${idx})" class="text-red-400 hover:text-red-600 text-xs p-1 cursor-pointer">
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
                             </div>
@@ -1689,12 +1696,12 @@
             const pickerBox = document.getElementById('schedule-picker-box');
 
             if (mode === 'now') {
-                btnNow.className = "py-2 px-3 rounded-xl border-2 border-kenangan-primary bg-amber-50 text-kenangan-primary font-bold text-xs flex items-center justify-center gap-1.5 transition";
-                btnSched.className = "py-2 px-3 rounded-xl border-2 border-gray-200 bg-white text-gray-600 font-bold text-xs flex items-center justify-center gap-1.5 transition";
+                btnNow.className = "py-2 px-3 rounded-xl border-2 border-kenangan-primary bg-amber-50 text-kenangan-primary font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer";
+                btnSched.className = "py-2 px-3 rounded-xl border-2 border-gray-200 bg-white text-gray-600 font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer";
                 pickerBox.classList.add('hidden');
             } else {
-                btnSched.className = "py-2 px-3 rounded-xl border-2 border-kenangan-primary bg-amber-50 text-kenangan-primary font-bold text-xs flex items-center justify-center gap-1.5 transition";
-                btnNow.className = "py-2 px-3 rounded-xl border-2 border-gray-200 bg-white text-gray-600 font-bold text-xs flex items-center justify-center gap-1.5 transition";
+                btnSched.className = "py-2 px-3 rounded-xl border-2 border-kenangan-primary bg-amber-50 text-kenangan-primary font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer";
+                btnNow.className = "py-2 px-3 rounded-xl border-2 border-gray-200 bg-white text-gray-600 font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer";
                 pickerBox.classList.remove('hidden');
             }
         }
@@ -1884,7 +1891,7 @@ ${isBagChecked ? 'Kantong Belanja : Rp 1.000\n' : ''}*Total Tagihan Final : ${fo
                         <p class="text-[11px] text-gray-600 line-clamp-2 mt-0.5">${h.itemsSummary}</p>
                         <div class="flex justify-between items-center mt-2 pt-2 border-t border-gray-200">
                             <span class="text-xs font-extrabold text-kenangan-primary">${formatRp(h.grandTotal)}</span>
-                            <button onclick="reorderHistoryItem(${idx})" class="px-3 py-1 rounded-xl bg-kenangan-dark hover:bg-kenangan-primary text-white text-[11px] font-bold transition flex items-center gap-1 active:scale-95">
+                            <button onclick="reorderHistoryItem(${idx})" class="px-3 py-1 rounded-xl bg-kenangan-dark hover:bg-kenangan-primary text-white text-[11px] font-bold transition flex items-center gap-1 active:scale-95 cursor-pointer">
                                 <i class="fas fa-arrow-rotate-right text-[10px]"></i> Pesan Lagi
                             </button>
                         </div>
@@ -2165,6 +2172,50 @@ Mohon dibantu aktivasi akun Netflix-nya min!`;
                 }
             }
         }
+    </script>
+
+    <!-- ============================================================== -->
+    <!-- SCRIPT PROTEKSI HALAMAN (ANTI-INSPECT & ANTI-RIP)             -->
+    <!-- ============================================================== -->
+    <script>
+        // 1. Blokir Klik Kanan (Context Menu)
+        document.addEventListener('contextmenu', function (e) {
+            e.preventDefault();
+        });
+
+        // 2. Blokir Pintasan Keyboard Pengembang (F12, DevTools, View Source)
+        document.addEventListener('keydown', function (e) {
+            // Blokir F12
+            if (e.key === "F12" || e.keyCode === 123) {
+                e.preventDefault();
+                return false;
+            }
+
+            // Blokir Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C (Inspect / Console)
+            if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) {
+                e.preventDefault();
+                return false;
+            }
+
+            // Blokir Ctrl+U (View Source) & Ctrl+S (Save Page)
+            if (e.ctrlKey && (e.key === 'U' || e.key === 'u' || e.key === 'S' || e.key === 's')) {
+                e.preventDefault();
+                return false;
+            }
+
+            // Khusus macOS: Cmd+Option+I / Cmd+Option+J / Cmd+Option+U
+            if (e.metaKey && e.altKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'U' || e.key === 'u')) {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        // 3. Blokir Tarik Gambar (Drag & Drop)
+        document.addEventListener('dragstart', function (e) {
+            if (e.target.tagName.toLowerCase() === 'img') {
+                e.preventDefault();
+            }
+        });
     </script>
 </body>
 </html>
