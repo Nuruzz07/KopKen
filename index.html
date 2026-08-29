@@ -1573,6 +1573,36 @@
             }
         }
 
+        function confirmWelcomeGate() {
+            if (!selectedOutlet) {
+                showToast("Harap pilih salah satu outlet terlebih dahulu!");
+                return;
+            }
+
+            const isSig = isSignatureOutlet(selectedOutlet);
+            if (isSig) {
+                showToast("<b>Outlet Signature</b><br>Outlet ini memiliki menu khusus dan promo reguler tidak berlaku.");
+            }
+
+            sfx.playTap();
+            closeWelcomeGateModal();
+            updateOutletUI();
+            validateKopkenForm();
+            showToast(`Lokasi: <b>${selectedOutlet.name}</b> (${currentOrderType === 'takeaway' ? 'Take Away' : 'Dine In'})`);
+        }
+
+        function toggleIceOptions() {
+            const temp = document.querySelector('input[name="mod-temp"]:checked')?.value;
+            const iceContainer = document.getElementById('ice-level-container');
+            if (iceContainer) {
+                if (temp === 'Hot') {
+                    iceContainer.classList.add('opacity-30', 'pointer-events-none');
+                } else {
+                    iceContainer.classList.remove('opacity-30', 'pointer-events-none');
+                }
+            }
+        }
+
         function updateModalPrice() {
             if (!currentModalItem) return;
             let basePrice = 0;
