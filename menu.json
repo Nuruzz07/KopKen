@@ -1,0 +1,767 @@
+{
+  "Kopi Kenangan": {
+    "satuan": {
+      "baru": [
+        {
+          "id": "kk_b_1",
+          "name": "Korean Banana Latte X Haechan NCT",
+          "price": 16500,
+          "real_price": 23000,
+          "badge": "✨ NEW!",
+          "img": "https://img.cimagroup.my.id/korea-banana-latte-1784842142956.webp"
+        },
+        {
+          "id": "kk_b_2",
+          "name": "Banana Americano X Haechan NCT",
+          "price": 14500,
+          "real_price": 19000,
+          "badge": "✨ NEW!",
+          "img": "https://img.cimagroup.my.id/banana-americano-1784842191076.webp"
+        },
+        {
+          "id": "kk_b_3",
+          "name": "Banana Choco X Haechan NCT",
+          "price": 17000,
+          "real_price": 24000,
+          "badge": "✨ NEW!",
+          "img": "https://img.cimagroup.my.id/banana-choco-1784842229822.webp"
+        },
+        {
+          "id": "kk_fd_c1",
+          "name": "Bananachoco Soft Baked Cookie",
+          "price": 13500,
+          "real_price": 17000,
+          "badge": "✨ NEW!",
+          "isFood": true,
+          "img": "https://img.cimagroup.my.id/bananachoco-soft-baked-cookie-1784840414668.webp"
+        },
+        {
+          "id": "kk_fd_c2",
+          "name": "Sweet Honey Soft Baked Cookie",
+          "price": 13000,
+          "real_price": 16000,
+          "badge": "✨ NEW!",
+          "isFood": true,
+          "img": "https://img.cimagroup.my.id/sweet-honey-soft-baked-cookie-1784840495017.webp"
+        },
+        {
+          "id": "kk_fd_c3",
+          "name": "Oatmeal Raisin Soft Baked Cookie",
+          "price": 13500,
+          "real_price": 17000,
+          "badge": "✨ NEW!",
+          "isFood": true,
+          "img": "https://img.cimagroup.my.id/oatmeal-raisin-soft-baked-cookie-1784840523577.webp"
+        }
+      ],
+      "coffee": [
+        {
+          "id": "kk_c1",
+          "name": "Creamy Caramel Latte",
+          "price": 18000,
+          "real_price": 26000,
+          "badge": "🔥 BEST SELLER",
+          "img": "https://img.cimagroup.my.id/creamy-caramel-latte-1784202724920.webp"
+        },
+        {
+          "id": "kk_c2",
+          "name": "OG Aren Speculoos Latte",
+          "price": 15500,
+          "real_price": 21000,
+          "badge": "⭐ BEST AWARDS",
+          "img": "https://img.cimagroup.my.id/og-aren-speculoos-latte-1784203753041.webp"
+        },
+        {
+          "id": "kk_c3",
+          "name": "Dua Shot OG Aren",
+          "price": 17500,
+          "real_price": 25000,
+          "img": "https://img.cimagroup.my.id/dua-shot-og-aren-1784202876715.webp"
+        },
+        {
+          "id": "kk_c4",
+          "name": "Mocha Caramel",
+          "price": 18000,
+          "real_price": 26000,
+          "img": "https://img.cimagroup.my.id/mocha-caramel-1784203688570.webp"
+        },
+        {
+          "id": "kk_c5",
+          "name": "Pistachio Aren Latte",
+          "price": 14500,
+          "real_price": 19000,
+          "img": "https://img.cimagroup.my.id/pistachio-aren-latte-1784203797492.webp"
+        },
+        {
+          "id": "kk_c6",
+          "name": "Cafe Malt Latte",
+          "price": 16500,
+          "real_price": 23000,
+          "img": "https://img.cimagroup.my.id/cafe-malt-latte-1784202359384.webp"
+        },
+        {
+          "id": "kk_c7",
+          "name": "Kopi Kenangan Mantan",
+          "price": 14500,
+          "real_price": 19000,
+          "badge": "🔥 BEST SELLER",
+          "img": "https://img.cimagroup.my.id/kopi-kenangan-mantan-1784203103920.webp"
+        },
+        {
+          "id": "kk_c8",
+          "name": "Caramel Latte",
+          "price": 18000,
+          "real_price": 26000,
+          "img": "https://img.cimagroup.my.id/caramel-latte-1784202441105.webp"
+        },
+        {
+          "id": "kk_c9",
+          "name": "Dua Shot Iced Shaken",
+          "price": 19000,
+          "real_price": 28000,
+          "img": "https://img.cimagroup.my.id/dua-shot-iced-shaken-1784202845066.webp"
+        },
+        {
+          "id": "kk_c10",
+          "name": "Caramel Macchiato",
+          "price": 19000,
+          "real_price": 28000,
+          "img": "https://img.cimagroup.my.id/caramel-macchiato-1784202476436.webp"
+        },
+        {
+          "id": "kk_c11",
+          "name": "Hazelnut Latte",
+          "price": 18000,
+          "real_price": 26000,
+          "img": "https://img.cimagroup.my.id/hazelnut-latte-1784202991384.webp"
+        },
+        {
+          "id": "kk_c12",
+          "name": "Kopi Susu Black Aren",
+          "price": 16500,
+          "real_price": 23000,
+          "img": "https://img.cimagroup.my.id/kopi-susu-black-aren-1784203137040.webp"
+        },
+        {
+          "id": "kk_c13",
+          "name": "Matcha Espresso",
+          "price": 18000,
+          "real_price": 26000,
+          "img": "https://img.cimagroup.my.id/matcha-espresso-1784203595675.webp"
+        },
+        {
+          "id": "kk_c14",
+          "name": "Mocha Latte",
+          "price": 19000,
+          "real_price": 28000,
+          "img": "https://img.cimagroup.my.id/mocha-latte-1784204334847.webp"
+        },
+        {
+          "id": "kk_c15",
+          "name": "Vanilla Latte",
+          "price": 18000,
+          "real_price": 26000,
+          "img": "https://img.cimagroup.my.id/vanilla-latte-1784204292983.webp"
+        },
+        {
+          "id": "kk_c16",
+          "name": "Avocado Coffee",
+          "price": 19000,
+          "real_price": 28000,
+          "img": "https://img.cimagroup.my.id/avocado-coffee-1784201984043.webp"
+        },
+        {
+          "id": "kk_c17",
+          "name": "Spanish Latte",
+          "price": 14500,
+          "real_price": 19000,
+          "badge": "⭐ BEST AWARDS",
+          "img": "https://img.cimagroup.my.id/spanish-latte-1784204073884.webp"
+        },
+        {
+          "id": "kk_c18",
+          "name": "Creamy Aren Latte",
+          "price": 16000,
+          "real_price": 22000,
+          "img": "https://img.cimagroup.my.id/creamy-aren-latte-1784202711452.webp"
+        },
+        {
+          "id": "kk_c19",
+          "name": "Butterscotch Sea Salt Latte",
+          "price": 17500,
+          "real_price": 25000,
+          "img": "https://img.cimagroup.my.id/butterscotch-sea-salt-latte-1784202348680.webp"
+        },
+        {
+          "id": "kk_c20",
+          "name": "Americano",
+          "price": 13000,
+          "real_price": 16000,
+          "img": "https://img.cimagroup.my.id/hazelnut-dutch-choco-1784202978499.webp"
+        },
+        {
+          "id": "kk_c21",
+          "name": "Cappucino",
+          "price": 16000,
+          "real_price": 22000,
+          "img": "https://img.cimagroup.my.id/cappucino-1784202403768.webp"
+        },
+        {
+          "id": "kk_c22",
+          "name": "Latte",
+          "price": 16000,
+          "real_price": 22000,
+          "img": "https://img.cimagroup.my.id/latte-1784203568793.webp"
+        }
+      ],
+      "nonCoffee": [
+        {
+          "id": "kk_nc1",
+          "name": "OG Thai Tea",
+          "price": 14500,
+          "real_price": 19000,
+          "badge": "🔥 BEST SELLER",
+          "img": "https://img.cimagroup.my.id/og-thai-tea-1784203762918.webp"
+        },
+        {
+          "id": "kk_nc2",
+          "name": "Thai Tea Loaded",
+          "price": 18500,
+          "real_price": 27000,
+          "img": "https://img.cimagroup.my.id/thai-tea-loaded-1784204163261.webp"
+        },
+        {
+          "id": "kk_nc3",
+          "name": "OG Aren Milky Speculoos",
+          "price": 16500,
+          "real_price": 23000,
+          "img": "https://img.cimagroup.my.id/og-aren-milky-speculoos-1784203742945.webp"
+        },
+        {
+          "id": "kk_nc4",
+          "name": "Choco Caramel",
+          "price": 14500,
+          "real_price": 19000,
+          "img": "https://img.cimagroup.my.id/choco-caramel-1784202491031.webp"
+        },
+        {
+          "id": "kk_nc5",
+          "name": "Milk Oreo Crumble",
+          "price": 18000,
+          "real_price": 26000,
+          "img": "https://img.cimagroup.my.id/milk-oreo-crumbel-1784203664111.webp"
+        },
+        {
+          "id": "kk_nc6",
+          "name": "Babyccino",
+          "price": 14500,
+          "real_price": 19000,
+          "img": "https://img.cimagroup.my.id/babyccino-1784202000005.webp"
+        },
+        {
+          "id": "kk_nc7",
+          "name": "Hazelnut Choco Milktea",
+          "price": 16000,
+          "real_price": 22000,
+          "img": "https://img.cimagroup.my.id/hazelnut-choco-milk-tea-1784202968958.webp"
+        },
+        {
+          "id": "kk_nc8",
+          "name": "Avocado Caramel",
+          "price": 19000,
+          "real_price": 28000,
+          "img": "https://img.cimagroup.my.id/avocado-caramel-1784201911141.webp"
+        },
+        {
+          "id": "kk_nc9",
+          "name": "Avocado Milk",
+          "price": 17000,
+          "real_price": 24000,
+          "img": "https://img.cimagroup.my.id/avocado-milk-1784201971654.webp"
+        },
+        {
+          "id": "kk_nc10",
+          "name": "Caramel Dutch Choco",
+          "price": 19000,
+          "real_price": 28000,
+          "img": "https://img.cimagroup.my.id/caramel-dutch-choco-1784202416219.webp"
+        },
+        {
+          "id": "kk_nc11",
+          "name": "Dutch Chocolate",
+          "price": 18000,
+          "real_price": 26000,
+          "img": "https://img.cimagroup.my.id/dutch-chocolate-1784202932687.webp"
+        },
+        {
+          "id": "kk_nc12",
+          "name": "Hazelnut Dutch Choco",
+          "price": 15500,
+          "real_price": 21000,
+          "img": "https://img.cimagroup.my.id/hazelnut-choco-milk-tea-1784202968958.webp"
+        },
+        {
+          "id": "kk_nc13",
+          "name": "Lemon Black Tea",
+          "price": 13500,
+          "real_price": 17000,
+          "img": "https://img.cimagroup.my.id/lemon-black-tea-1784203584896.webp"
+        },
+        {
+          "id": "kk_nc14",
+          "name": "Raspberry Hibiscus",
+          "price": 15000,
+          "real_price": 20000,
+          "img": "https://img.cimagroup.my.id/raspberry-hibiscus-1784203807399.webp"
+        },
+        {
+          "id": "kk_nc15",
+          "name": "Matcha Latte",
+          "price": 18000,
+          "real_price": 26000,
+          "img": "https://img.cimagroup.my.id/matcha-latte-1784203628230.webp"
+        },
+        {
+          "id": "kk_nc16",
+          "name": "Milo Dinosaurus",
+          "price": 16500,
+          "real_price": 23000,
+          "img": "https://img.cimagroup.my.id/milo-dinosaurus-1784203674523.webp"
+        },
+        {
+          "id": "kk_nc17",
+          "name": "Susu Grass Jelly",
+          "price": 17000,
+          "real_price": 24000,
+          "img": "https://img.cimagroup.my.id/susu-grass-jelly-1784204119821.webp"
+        },
+        {
+          "id": "kk_nc18",
+          "name": "Kenangan Milk Tea",
+          "price": 15000,
+          "real_price": 20000,
+          "img": "https://img.cimagroup.my.id/kenangan-milk-tea-1784203045181.webp"
+        }
+      ],
+      "oatside": [
+        {
+          "id": "kk_o1",
+          "name": "Oatside Kopi Kenangan",
+          "price": 15000,
+          "real_price": 20000,
+          "badge": "🥤 OATSIDE",
+          "img": "https://img.cimagroup.my.id/oatside-kopi-kenangan-mantan-1784203709599.webp"
+        },
+        {
+          "id": "kk_o2",
+          "name": "Oatside Matcha Latte",
+          "price": 17500,
+          "real_price": 25000,
+          "badge": "🥤 OATSIDE",
+          "img": "https://img.cimagroup.my.id/oatside-matcha-latte-1784203724037.webp"
+        },
+        {
+          "id": "kk_o3",
+          "name": "Oatside Latte",
+          "price": 15000,
+          "real_price": 20000,
+          "badge": "🥤 OATSIDE",
+          "img": "https://img.cimagroup.my.id/oatside-latte-1784203716904.webp"
+        }
+      ],
+      "frappe": [
+        {
+          "id": "kk_f1",
+          "name": "Choco Caramel Frappe",
+          "price": 19000,
+          "real_price": 28000,
+          "img": "https://img.cimagroup.my.id/choco-caramel-frappe-1784202508311.webp"
+        },
+        {
+          "id": "kk_f2",
+          "name": "Butterscotch Kenangan Frappe",
+          "price": 20000,
+          "real_price": 30000,
+          "img": "https://img.cimagroup.my.id/butterscotch-kenangan-frappe-1784202277888.webp"
+        },
+        {
+          "id": "kk_f3",
+          "name": "Matcha Kenangan Frappe",
+          "price": 21000,
+          "real_price": 32000,
+          "img": "https://img.cimagroup.my.id/matcha-kenangan-frappe-1784203606856.webp"
+        },
+        {
+          "id": "kk_f4",
+          "name": "Kopi Kenangan Mantan Frappe",
+          "price": 21500,
+          "real_price": 27000,
+          "img": "https://img.cimagroup.my.id/kopi-kenangan-mantan-frappe-1784203115170.webp"
+        },
+        {
+          "id": "kk_f5",
+          "name": "Vanilla Kenangan Frappe",
+          "price": 17500,
+          "real_price": 25000,
+          "img": "https://img.cimagroup.my.id/vanilla-kenangan-frappe-1784204274017.webp"
+        },
+        {
+          "id": "kk_f6",
+          "name": "Dutch Choco Kenangan Frappe",
+          "price": 19500,
+          "real_price": 29000,
+          "img": "https://img.cimagroup.my.id/dutch-choco-kenangan-frappe-1784202893282.webp"
+        }
+      ],
+      "food": [
+        {
+          "id": "kk_fd_c1",
+          "name": "Bananachoco Soft Baked Cookie",
+          "price": 13500,
+          "real_price": 18000,
+          "badge": "✨ NEW!",
+          "isFood": true,
+          "img": "https://img.cimagroup.my.id/bananachoco-soft-baked-cookie-1784840414668.webp"
+        },
+        {
+          "id": "kk_fd_c2",
+          "name": "Sweet Honey Soft Baked Cookie",
+          "price": 13000,
+          "real_price": 17000,
+          "badge": "✨ NEW!",
+          "isFood": true,
+          "img": "https://img.cimagroup.my.id/sweet-honey-soft-baked-cookie-1784840495017.webp"
+        },
+        {
+          "id": "kk_fd_c3",
+          "name": "Oatmeal Raisin Soft Baked Cookie",
+          "price": 13500,
+          "real_price": 18000,
+          "badge": "✨ NEW!",
+          "isFood": true,
+          "img": "https://img.cimagroup.my.id/oatmeal-raisin-soft-baked-cookie-1784840523577.webp"
+        },
+        {
+          "id": "kk_fd_n1",
+          "name": "Canele Toffee Nut Crumble",
+          "price": 12000,
+          "real_price": 15000,
+          "isFood": true,
+          "img": "https://img.cimagroup.my.id/canele-toffee-nut-crumble-1784202392704.webp"
+        },
+        {
+          "id": "kk_fd_n2",
+          "name": "Coffee Butter Bun",
+          "price": 10000,
+          "real_price": 11000,
+          "isFood": true,
+          "img": "https://img.cimagroup.my.id/coffee-butter-bun-1784202676439.webp"
+        },
+        {
+          "id": "kk_fd_n3",
+          "name": "Choco Muffin",
+          "price": 12000,
+          "real_price": 15000,
+          "isFood": true,
+          "img": "https://img.cimagroup.my.id/choco-muffin-1784202533526.webp"
+        },
+        {
+          "id": "kk_fd_n4",
+          "name": "Bluberry Muffin",
+          "price": 12000,
+          "real_price": 17000,
+          "isFood": true,
+          "img": "https://img.cimagroup.my.id/blueberry-muffin-1784202077986.webp"
+        },
+        {
+          "id": "kk_fd_n5",
+          "name": "Choco Mocha Swirl Toast",
+          "price": 13000,
+          "real_price": 17000,
+          "isFood": true,
+          "img": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/fd65105e-8c60-4421-b40e-0eec2c9ef25e_56976698-59ae-4da7-967e-40b7ceb384c7.png"
+        },
+        {
+          "id": "kk_fd_n6",
+          "name": "Vanilla Choux Puff",
+          "price": 11000,
+          "real_price": 13000,
+          "isFood": true,
+          "img": "https://img.cimagroup.my.id/vanilla-choux-puff-1784204262209.webp"
+        },
+        {
+          "id": "kk_fd_n7",
+          "name": "Strawberry Choux Puff",
+          "price": 11000,
+          "real_price": 13000,
+          "isFood": true,
+          "img": "https://img.cimagroup.my.id/strawberry-choux-puff-1784204085463.webp"
+        },
+        {
+          "id": "kk_fd_n8",
+          "name": "Chocolate Choux Puff",
+          "price": 11000,
+          "real_price": 13000,
+          "isFood": true,
+          "img": "https://img.cimagroup.my.id/chocolate-choux-puff-1784202552305.webp"
+        },
+        {
+          "id": "kk_fd_n9",
+          "name": "Donut Tiramisu",
+          "price": 11000,
+          "real_price": 13000,
+          "isFood": true,
+          "img": "https://img.cimagroup.my.id/donut-tiramisu-1784202782527.webp"
+        },
+        {
+          "id": "kk_fd_n10",
+          "name": "Danish Tiramisu",
+          "price": 14000,
+          "real_price": 19000,
+          "isFood": true,
+          "img": "https://img.cimagroup.my.id/danish-tiramisu-1784202752235.webp"
+        },
+        {
+          "id": "kk_fd_n11",
+          "name": "Salt Bread Beef and Cheese",
+          "price": 11500,
+          "real_price": 14000,
+          "isFood": true,
+          "img": "https://img.cimagroup.my.id/salt-bread-beef-cheese-1784204009848.webp"
+        },
+        {
+          "id": "kk_fd_n12",
+          "name": "Bolu Marble Chocolate",
+          "price": 12000,
+          "real_price": 15000,
+          "isFood": true,
+          "img": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/40c62262-2df8-4f3d-99dc-9976f816d707_55e7b004-9505-4151-8c0d-2cacf70462a4_Bolu-Marble.jpeg?auto=format"
+        },
+        {
+          "id": "kk_fd_n13",
+          "name": "Bolu Marble Ube",
+          "price": 12000,
+          "real_price": 15000,
+          "isFood": true,
+          "img": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/40c62262-2df8-4f3d-99dc-9976f816d707_55e7b004-9505-4151-8c0d-2cacf70462a4_Bolu-Marble.jpeg?auto=format"
+        },
+        {
+          "id": "kk_fd_n14",
+          "name": "Bolu Marble Mocha",
+          "price": 12000,
+          "real_price": 15000,
+          "isFood": true,
+          "img": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/40c62262-2df8-4f3d-99dc-9976f816d707_55e7b004-9505-4151-8c0d-2cacf70462a4_Bolu-Marble.jpeg?auto=format"
+        },
+        {
+          "id": "kk_fd_n15",
+          "name": "Donut Abon",
+          "price": 11500,
+          "real_price": 14000,
+          "isFood": true,
+          "img": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/441c6c79-5da6-43ce-a1e3-1fa54ff15a01_fd20cb3a-baac-45a2-af28-d4584e9b52e6_Donut-Abon.jpeg"
+        },
+        {
+          "id": "kk_fd_n16",
+          "name": "Roti Gulung Abon",
+          "price": 13000,
+          "real_price": 17000,
+          "isFood": true,
+          "img": "https://img.cimagroup.my.id/roti-gulung-abon-1784203845155.webp"
+        },
+        {
+          "id": "kk_fd_n17",
+          "name": "Roti Gulung Aren",
+          "price": 11500,
+          "real_price": 13000,
+          "isFood": true,
+          "img": "https://img.cimagroup.my.id/roti-srikaya-17842039728.webp"
+        },
+        {
+          "id": "kk_fd_n18",
+          "name": "Sandwich Smoked Beef and Cheese",
+          "price": 16000,
+          "real_price": 23000,
+          "isFood": true,
+          "img": "https://img.cimagroup.my.id/sandwich-smoked-beef-cheese-1784204059423.webp"
+        },
+        {
+          "id": "kk_fd_n19",
+          "name": "Sandwich Chicken Tartar",
+          "price": 16000,
+          "real_price": 23000,
+          "isFood": true,
+          "img": "https://img.cimagroup.my.id/sandwich-chicken-tartar-1784204052680.webp"
+        },
+        {
+          "id": "kk_fd_n20",
+          "name": "Roti Sisir Original",
+          "price": 10000,
+          "real_price": 11000,
+          "isFood": true,
+          "img": "https://img.cimagroup.my.id/roti-coklat-klasik-178203834325.webp"
+        },
+        {
+          "id": "kk_fd_n21",
+          "name": "Roti Sisir Keju",
+          "price": 11500,
+          "real_price": 14000,
+          "isFood": true,
+          "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDtVCS-4gHMqPg9zERKkGbxIY7VJjQFWaNkYcAGoIsi5_KhoGkfpjVn3c&s=10"
+        },
+        {
+          "id": "kk_fd_n22",
+          "name": "Roti Sisir Coklat",
+          "price": 11000,
+          "real_price": 13000,
+          "isFood": true,
+          "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTW5GJEcbdeAX-aT1C3C_ErNXak9f6CpUb0VAHZ61yBBV_TpXFk3ym9T4Uh&s=10"
+        },
+        {
+          "id": "kk_fd_n23",
+          "name": "Dirty Croissant Milo",
+          "price": 14000,
+          "real_price": 19000,
+          "isFood": true,
+          "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTU2TwctfH05cTqA4ut8Fw1GmEqpojN3mF2HqZ-V3nKCg&s"
+        },
+        {
+          "id": "kk_fd_n24",
+          "name": "Croissant Abon",
+          "price": 13000,
+          "real_price": 17000,
+          "isFood": true,
+          "img": "https://img.cimagroup.my.id/croissant-abon-1784202739897.webp"
+        },
+        {
+          "id": "kk_fd_n25",
+          "name": "Chocolate Croissant",
+          "price": 13500,
+          "real_price": 18000,
+          "isFood": true,
+          "img": "https://img.cimagroup.my.id/chocolate-croissant-1784202644661.webp"
+        },
+        {
+          "id": "kk_fd_n26",
+          "name": "Friend Chip Cookies",
+          "price": 12500,
+          "real_price": 16000,
+          "isFood": true,
+          "img": "https://img.cimagroup.my.id/friend-chip-1784202953408.webp"
+        },
+        {
+          "id": "kk_fd1",
+          "name": "Canele Original",
+          "price": 11000,
+          "real_price": 13000,
+          "isFood": true,
+          "img": "https://img.cimagroup.my.id/canele-original-1784202386203.webp"
+        },
+        {
+          "id": "kk_fd2",
+          "name": "Canele Aren",
+          "price": 12000,
+          "real_price": 15000,
+          "isFood": true,
+          "img": "https://img.cimagroup.my.id/canele-aren-1784202377007.webp"
+        },
+        {
+          "id": "kk_fd3",
+          "name": "Aren Apple Pie",
+          "price": 13000,
+          "real_price": 16000,
+          "isFood": true,
+          "img": "https://img.cimagroup.my.id/aren-apple-pie-1784201888716.webp"
+        },
+        {
+          "id": "kk_fd4",
+          "name": "Salt Bread Original",
+          "price": 11500,
+          "real_price": 13000,
+          "isFood": true,
+          "img": "https://img.cimagroup.my.id/salt-bread-original-1784204028515.webp"
+        },
+        {
+          "id": "kk_fd5",
+          "name": "Salt Bread Choco Butter",
+          "price": 10000,
+          "real_price": 11000,
+          "isFood": true,
+          "img": "https://img.cimagroup.my.id/salt-bread-choco-butter-1784204020768.webp"
+        },
+        {
+          "id": "kk_fd6",
+          "name": "Salt Bread Sausage",
+          "price": 12500,
+          "real_price": 15000,
+          "isFood": true,
+          "img": "https://img.cimagroup.my.id/salt-bread-sausage-1784204041783.webp"
+        },
+        {
+          "id": "kk_fd7",
+          "name": "Donut Almond",
+          "price": 11000,
+          "real_price": 13000,
+          "isFood": true,
+          "img": "https://img.cimagroup.my.id/donut-almond-1784202764009.webp"
+        },
+        {
+          "id": "kk_fd8",
+          "name": "Chocolate Donut",
+          "price": 10500,
+          "real_price": 13000,
+          "isFood": true,
+          "img": "https://img.cimagroup.my.id/chocolate-donut-1784202664568.webp"
+        },
+        {
+          "id": "kk_fd8_s",
+          "name": "Sugar Donut",
+          "price": 9000,
+          "real_price": 10000,
+          "isFood": true,
+          "img": "https://img.cimagroup.my.id/chocolate-donut-1784202664568.webp"
+        },
+        {
+          "id": "kk_fd9",
+          "name": "Roti Coklat Klasik",
+          "price": 8000,
+          "real_price": 9000,
+          "isFood": true,
+          "img": "https://img.cimagroup.my.id/roti-coklat-klasik-1784203834325.webp"
+        },
+        {
+          "id": "kk_fd10",
+          "name": "Roti Susu Manis",
+          "price": 10000,
+          "real_price": 10000,
+          "isFood": true,
+          "img": "https://img.cimagroup.my.id/roti-susu-manis-1784203983620.webp"
+        },
+        {
+          "id": "kk_fd11",
+          "name": "Roti Keju Manis",
+          "price": 10500,
+          "real_price": 13000,
+          "isFood": true,
+          "img": "https://img.cimagroup.my.id/roti-keju-manis-1784203954073.webp"
+        },
+        {
+          "id": "kk_fd12",
+          "name": "Roti Srikaya",
+          "price": 11500,
+          "real_price": 15000,
+          "isFood": true,
+          "img": "https://img.cimagroup.my.id/roti-srikaya-1784203973128.webp"
+        },
+        {
+          "id": "kk_fd13",
+          "name": "Chocochip Cookies",
+          "price": 11000,
+          "real_price": 14000,
+          "isFood": true,
+          "img": "https://img.cimagroup.my.id/choco-chip-cookies-1784202526295.webp"
+        }
+      ]
+    }
+  }
+}
