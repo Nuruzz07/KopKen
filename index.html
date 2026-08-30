@@ -1665,7 +1665,7 @@
         }
 
         function openModal(itemId, editIndex = null) {
-            const item = allMenu.find(m => m.id === itemId);
+            const item = allMenu.find(m => String(m.id) === String(itemId));
             if (!item) return;
 
             currentModalItem = item;
@@ -1813,8 +1813,8 @@
             overlay.classList.remove('hidden');
             setTimeout(() => {
                 overlay.classList.remove('opacity-0');
-                content.classList.remove('translate-y-0');
-                content.classList.add('translate-y-full');
+                content.classList.remove('translate-y-full');
+                content.classList.add('translate-y-0');
             }, 10);
         }
 
