@@ -1621,7 +1621,7 @@
                 basePrice = currentModalItem.prices[sizeKey] || currentModalItem.prices.R || currentModalItem.singlePrice || 15000;
             } else {
                 const itemBase = currentModalItem.singlePrice || 15000;
-                basePrice = (sizePick === 'Large' && currentModalItem.type === 'drink') ? (itemBase + 4000) : itemBase;
+                basePrice = (sizePick === 'Large' && currentModalItem.type === 'drink') ? (itemBase + 7500) : itemBase;
             }
 
             let addOnTotal = 0;
@@ -1689,7 +1689,7 @@
                                 <label class="relative cursor-pointer">
                                     <input type="radio" name="mod-size-pick" value="Large" class="peer sr-only" onchange="updateModalPrice()">
                                     <div class="rounded-xl border-2 border-gray-200 bg-white py-2 px-3 text-center transition-all hover:bg-amber-50 peer-checked:border-kenangan-primary peer-checked:bg-amber-50 peer-checked:text-kenangan-primary font-bold text-xs">
-                                        Large (+Rp 4.000)
+                                        Large (+Rp 7.500)
                                     </div>
                                 </label>
                             </div>
