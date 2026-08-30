@@ -1257,10 +1257,11 @@
                                             id: item.id || `kk_${Math.random()}`,
                                             name: item.name || item.nama,
                                             singlePrice: parseFloat(item.price) || 15000,
+                                            realPrice: parseFloat(item.real_price) || 0,
                                             cat: catMap[key] || 'coffee',
                                             badge: item.badge || (item.isNew ? 'NEW' : ''),
                                             img: item.img || item.image || 'https://placehold.co/400x400/9C532B/FBF5EE?text=Kopi+Kenangan',
-                                            type: key === 'food' || item.isFood ? 'food' : 'drink'
+                                            type: (key === 'food' || item.isFood) ? 'food' : 'drink'
                                         });
                                     });
                                 }
@@ -1275,6 +1276,7 @@
                                     cat: 'bundling',
                                     name: b.name || b.nama,
                                     singlePrice: parseFloat(b.price) || 35000,
+                                    realPrice: parseFloat(b.real_price) || 0,
                                     type: 'bundling',
                                     img: b.img || b.image || 'https://placehold.co/400x400/2C1A0D/F9F1E7?text=Paket+Hemat',
                                     opts: b.options || b.opts || ['Varian Default Paket']
@@ -1299,27 +1301,26 @@
                     { id: 'b2', cat: 'bundling', name: 'Bundling Bertiga 38K', singlePrice: 38000, type: 'bundling', img: 'https://placehold.co/400x400/2C1A0D/F9F1E7?text=Bertiga+38K', opts: ['3 Cup Reg Spanish Latte', '3 Cup Reg Tiramisu Latte', '3 Cup Reg Kopi Mantan', '3 Cup Lrg Kopi Mantan'] },
                     { id: 'b3', cat: 'bundling', name: 'Puas Banget Mix Large', singlePrice: 33000, type: 'bundling', img: 'https://placehold.co/400x400/2C1A0D/F9F1E7?text=Mix+Large', opts: ['2 Cup Lrg Mantan', '2 Cup Lrg Spanish Latte', '1 Lrg Mantan + 1 Lrg Thai Tea', '1 Lrg Latte + 1 Lrg Milo'] },
                     // Coffee
-                    { id: 'c_kenangan_mantan', cat: 'coffee', name: 'Kopi Kenangan Mantan', prices: { R: 14500, L: 18500 }, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Kenangan+Mantan' },
-                    { id: 'c_susu_black_aren', cat: 'coffee', name: 'Kopi Susu Black Aren', prices: { R: 15500, L: 21000 }, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Black+Aren' },
-                    { id: 'c_creamy_aren', cat: 'coffee', name: 'Creamy Aren Latte', prices: { R: 16500, L: 21500 }, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Creamy+Aren' },
-                    { id: 'c_spanish_latte', cat: 'coffee', name: 'Spanish Latte', prices: { R: 14500, L: 19500 }, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Spanish+Latte' },
-                    { id: 'c_americano', cat: 'coffee', name: 'Americano', prices: { R: 12000, L: 17000 }, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Americano' },
-                    { id: 'c_cappuccino', cat: 'coffee', name: 'Cappuccino', prices: { R: 16000, L: 20500 }, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Cappuccino' },
-                    { id: 'c_latte', cat: 'coffee', name: 'Latte', prices: { R: 16000, L: 20500 }, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Latte' },
+                    { id: 'c_kenangan_mantan', cat: 'coffee', name: 'Kopi Kenangan Mantan', singlePrice: 14500, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Kenangan+Mantan' },
+                    { id: 'c_susu_black_aren', cat: 'coffee', name: 'Kopi Susu Black Aren', singlePrice: 16500, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Black+Aren' },
+                    { id: 'c_creamy_aren', cat: 'coffee', name: 'Creamy Aren Latte', singlePrice: 16000, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Creamy+Aren' },
+                    { id: 'c_spanish_latte', cat: 'coffee', name: 'Spanish Latte', singlePrice: 14500, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Spanish+Latte' },
+                    { id: 'c_americano', cat: 'coffee', name: 'Americano', singlePrice: 13000, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Americano' },
+                    { id: 'c_cappuccino', cat: 'coffee', name: 'Cappuccino', singlePrice: 16000, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Cappuccino' },
+                    { id: 'c_latte', cat: 'coffee', name: 'Latte', singlePrice: 16000, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Latte' },
                     // Non Coffee
-                    { id: 'nc_og_thai_tea', cat: 'noncoffee', name: 'OG Thai Tea', prices: { R: 13500, L: 16500 }, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=OG+Thai+Tea' },
-                    { id: 'nc_dutch_choco', cat: 'noncoffee', name: 'Dutch Chocolate', prices: { R: 16500, L: 24000 }, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=Dutch+Chocolate' },
-                    { id: 'nc_matcha_latte', cat: 'noncoffee', name: 'Matcha Latte', prices: { R: 17000, L: 22500 }, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=Matcha+Latte' },
-                    { id: 'nc_milo_dino', cat: 'noncoffee', name: 'Milo Dinosaurus', prices: { R: 17000, L: 21000 }, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=Milo+Dinosaurus' },
+                    { id: 'nc_og_thai_tea', cat: 'noncoffee', name: 'OG Thai Tea', singlePrice: 14500, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=OG+Thai+Tea' },
+                    { id: 'nc_dutch_choco', cat: 'noncoffee', name: 'Dutch Chocolate', singlePrice: 18000, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=Dutch+Chocolate' },
+                    { id: 'nc_matcha_latte', cat: 'noncoffee', name: 'Matcha Latte', singlePrice: 18000, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=Matcha+Latte' },
+                    { id: 'nc_milo_dino', cat: 'noncoffee', name: 'Milo Dinosaurus', singlePrice: 16500, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=Milo+Dinosaurus' },
                     // Frappe
-                    { id: 'f_mantan_frappe', cat: 'frappe', name: 'Kopi Kenangan Mantan Frappe', prices: { R: 18500, L: 23000 }, type: 'drink', img: 'https://placehold.co/400x400/2C1A0D/E8A359?text=Mantan+Frappe' },
-                    { id: 'f_oatside_mantan', cat: 'frappe', name: 'Oatside Kopi Kenangan Mantan', prices: { R: 17000, L: 20000 }, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Oatside+Mantan' },
+                    { id: 'f_mantan_frappe', cat: 'frappe', name: 'Kopi Kenangan Mantan Frappe', singlePrice: 21500, type: 'drink', img: 'https://placehold.co/400x400/2C1A0D/E8A359?text=Mantan+Frappe' },
+                    { id: 'f_oatside_mantan', cat: 'frappe', name: 'Oatside Kopi Kenangan Mantan', singlePrice: 15000, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Oatside+Mantan' },
                     // New
-                    { id: 'nv_blueberry_americano', cat: 'new', name: 'Blueberry Americano', prices: { R: 15000, L: 18500 }, type: 'drink', img: 'https://placehold.co/400x400/38BDF8/FFFFFF?text=Blueberry+Americano' },
+                    { id: 'nv_banana_latte', cat: 'new', name: 'Korean Banana Latte X Haechan', singlePrice: 16500, type: 'drink', img: 'https://img.cimagroup.my.id/korea-banana-latte-1784842142956.webp' },
                     // Bakery / Food
-                    { id: 'fd_salt_ori', cat: 'bakery', name: 'Salt Bread Ori', singlePrice: 10500, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Salt+Bread+Ori' },
-                    { id: 'fd_butter_croissant', cat: 'bakery', name: 'Butter Croissant', singlePrice: 11500, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Butter+Croissant' },
-                    { id: 't_sapi_toast', cat: 'bakery', name: 'Wahyu Sapi Toast', singlePrice: 14500, type: 'food', img: 'https://placehold.co/400x400/F9F1E7/2C1A0D?text=Sapi+Toast' }
+                    { id: 'fd_salt_ori', cat: 'bakery', name: 'Salt Bread Ori', singlePrice: 11500, type: 'food', img: 'https://img.cimagroup.my.id/salt-bread-original-1784204028515.webp' },
+                    { id: 'fd_choco_croissant', cat: 'bakery', name: 'Chocolate Croissant', singlePrice: 13500, type: 'food', img: 'https://img.cimagroup.my.id/chocolate-croissant-1784202644661.webp' }
                 ];
             }
         }
@@ -1409,19 +1410,14 @@
                         if (item.singlePrice) {
                             displayedPrice = formatRp(item.singlePrice);
                         } else if (item.prices) {
-                            const availableSizes = Object.keys(item.prices);
-                            if (availableSizes.length === 1) {
-                                displayedPrice = `${availableSizes[0]}: ${formatRp(item.prices[availableSizes[0]])}`;
-                            } else {
-                                displayedPrice = `R: ${formatRp(item.prices.R || 0)}`;
-                            }
+                            displayedPrice = `R: ${formatRp(item.prices.R || 0)}`;
                         }
 
-                        const originalEstimated = item.singlePrice ? (item.singlePrice * 1.5) : ((item.prices?.R || item.prices?.L || 15000) * 1.5);
+                        const originalPrice = item.realPrice || (item.singlePrice ? (item.singlePrice * 1.45) : 22000);
 
                         grid.innerHTML += `
                             <div class="glass rounded-2xl p-2.5 flex flex-col justify-between h-full relative overflow-hidden group shadow-sm hover:shadow-md transition">
-                                <div class="absolute top-0 right-0 bg-red-600 text-white text-[9px] font-black px-2 py-0.5 rounded-bl-lg z-10 uppercase">PROMO</div>
+                                <div class="absolute top-0 right-0 bg-red-600 text-white text-[9px] font-black px-2 py-0.5 rounded-bl-lg z-10 uppercase">${item.badge || 'PROMO'}</div>
                                 
                                 <!-- Wadah Gambar Proporsional Anti-Potong -->
                                 <div class="w-full aspect-square flex items-center justify-center p-2 mb-2 bg-white/70 rounded-xl overflow-hidden shadow-inner">
@@ -1431,7 +1427,7 @@
                                 <div class="flex-grow flex flex-col justify-between">
                                     <div>
                                         <h3 class="font-extrabold text-kenangan-dark text-xs leading-snug line-clamp-2">${item.name}</h3>
-                                        <p class="text-[10px] text-gray-400 line-through mt-0.5">Mulai ${formatRp(originalEstimated)}</p>
+                                        <p class="text-[10px] text-gray-400 line-through mt-0.5">${formatRp(originalPrice)}</p>
                                     </div>
                                     <div class="flex justify-between items-center mt-2 pt-1.5 border-t border-gray-100">
                                         <p class="font-black text-kenangan-primary text-xs">${displayedPrice}</p>
@@ -1650,12 +1646,14 @@
         function updateModalPrice() {
             if (!currentModalItem) return;
             let basePrice = 0;
+            const sizePick = document.querySelector('input[name="mod-size-pick"]:checked')?.value || 'Regular';
 
-            if (currentModalItem.singlePrice) {
-                basePrice = currentModalItem.singlePrice;
-            } else if (currentModalItem.prices) {
-                const sizeSel = document.querySelector('input[name="mod-size-pick"]:checked')?.value;
-                basePrice = currentModalItem.prices[sizeSel] || currentModalItem.prices.R || 0;
+            if (currentModalItem.prices) {
+                const sizeKey = (sizePick === 'Large' || sizePick === 'L') ? 'L' : 'R';
+                basePrice = currentModalItem.prices[sizeKey] || currentModalItem.prices.R || currentModalItem.singlePrice || 15000;
+            } else {
+                const itemBase = currentModalItem.singlePrice || 15000;
+                basePrice = (sizePick === 'Large' && currentModalItem.type === 'drink') ? (itemBase + 4000) : itemBase;
             }
 
             let addOnTotal = 0;
@@ -1689,26 +1687,6 @@
                 html += `</select>`;
                 optionsContainer.innerHTML = html;
             } else if (item.type === 'drink') {
-                let sizePickerHTML = '';
-                if (item.prices) {
-                    const sizes = Object.keys(item.prices);
-                    sizePickerHTML = `
-                        <div class="mb-3">
-                            <label class="block text-xs font-bold mb-1.5">Ukuran Cup <span class="text-red-500">*</span></label>
-                            <div class="grid grid-cols-${sizes.length} gap-2">
-                                ${sizes.map((size, idx) => `
-                                    <label class="relative cursor-pointer">
-                                        <input type="radio" name="mod-size-pick" value="${size}" class="peer sr-only" ${idx === 0 ? 'checked' : ''} onchange="updateModalPrice()">
-                                        <div class="rounded-xl border-2 border-gray-200 bg-white py-2 px-3 text-center transition-all hover:bg-amber-50 peer-checked:border-amber-600 peer-checked:bg-amber-50 peer-checked:text-amber-800 font-bold text-xs">
-                                            ${size === 'R' ? 'Regular' : 'Large'} (${formatRp(item.prices[size])})
-                                        </div>
-                                    </label>
-                                `).join('')}
-                            </div>
-                        </div>
-                    `;
-                }
-
                 optionsContainer.innerHTML = `
                     <div class="space-y-4">
                         <!-- Hot/Ice Selection -->
@@ -1730,7 +1708,24 @@
                             </div>
                         </div>
 
-                        ${sizePickerHTML}
+                        <!-- Opsi Ukuran Cup (Regular vs Large) -->
+                        <div>
+                            <label class="block text-xs font-bold mb-1.5">Ukuran Cup <span class="text-red-500">*</span></label>
+                            <div class="grid grid-cols-2 gap-2">
+                                <label class="relative cursor-pointer">
+                                    <input type="radio" name="mod-size-pick" value="Regular" class="peer sr-only" checked onchange="updateModalPrice()">
+                                    <div class="rounded-xl border-2 border-gray-200 bg-white py-2 px-3 text-center transition-all hover:bg-amber-50 peer-checked:border-kenangan-primary peer-checked:bg-amber-50 peer-checked:text-kenangan-primary font-bold text-xs">
+                                        Regular
+                                    </div>
+                                </label>
+                                <label class="relative cursor-pointer">
+                                    <input type="radio" name="mod-size-pick" value="Large" class="peer sr-only" onchange="updateModalPrice()">
+                                    <div class="rounded-xl border-2 border-gray-200 bg-white py-2 px-3 text-center transition-all hover:bg-amber-50 peer-checked:border-kenangan-primary peer-checked:bg-amber-50 peer-checked:text-kenangan-primary font-bold text-xs">
+                                        Large (+Rp 4.000)
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
 
                         <!-- Ice & Sugar Levels -->
                         <div class="grid grid-cols-1 gap-3 bg-gray-50 p-3 rounded-2xl border border-gray-100">
@@ -1835,11 +1830,11 @@
                 details.push(document.getElementById('mod-bundle-sel').value);
             } else if (currentModalItem.type === 'drink') {
                 const temp = document.querySelector('input[name="mod-temp"]:checked').value;
+                const sizePick = document.querySelector('input[name="mod-size-pick"]:checked')?.value || 'Regular';
                 const sugar = document.querySelector('input[name="mod-sugar"]:checked').value;
-                const sizePick = document.querySelector('input[name="mod-size-pick"]:checked')?.value || 'R';
                 
                 details.push(temp);
-                details.push(sizePick === 'R' ? 'Regular' : 'Large');
+                details.push(sizePick);
                 if(sugar !== 'Normal Sugar') details.push(sugar);
                 if (temp === 'Ice') {
                     const ice = document.querySelector('input[name="mod-ice"]:checked').value;
