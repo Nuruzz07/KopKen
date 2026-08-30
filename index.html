@@ -139,12 +139,6 @@
         }
         .aura-kopken { animation: borderGlowKopken 3s infinite alternate ease-in-out; }
 
-        @keyframes borderGlowNetflix {
-            0%, 100% { border-color: rgba(229, 9, 20, 0.3); box-shadow: 0 0 15px rgba(229, 9, 20, 0.1); }
-            50% { border-color: rgba(229, 9, 20, 0.7); box-shadow: 0 0 25px rgba(229, 9, 20, 0.35); }
-        }
-        .aura-netflix { animation: borderGlowNetflix 3s infinite alternate ease-in-out; }
-
         .faq-content {
             max-height: 0;
             overflow: hidden;
@@ -166,12 +160,12 @@
     <!-- ========================================== -->
     <div id="view-portal" class="view-section min-h-screen flex flex-col items-center justify-center px-6 py-10 max-w-md mx-auto">
         <!-- Live Admin Status Badge -->
-        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold mb-6 shadow-[0_0_15px_rgba(16,185,129,0.1)]">
+        <div id="portal-status-badge" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold mb-6 shadow-[0_0_15px_rgba(16,185,129,0.1)]">
             <span class="relative flex h-2.5 w-2.5">
                 <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
             </span>
-            Admin Online & Proses Cepat (Antrean: Lancar)
+            <span>Admin Online & Proses Cepat</span>
         </div>
 
         <!-- Header Hero & Logo Bintang -->
@@ -180,7 +174,7 @@
                 <img src="favicon.png" alt="Bintang Store Logo" class="w-full h-full object-cover scale-[2.1] translate-y-[-2px]" onerror="this.onerror=null; this.src='https://placehold.co/100x100/38BDF8/ffffff?text=⭐'">
             </div>
             <h1 class="text-3xl font-extrabold text-white mb-2 tracking-tight">Bintang Store</h1>
-            <p class="text-gray-300 text-xs max-w-xs mx-auto leading-relaxed">Satu portal untuk semua kebutuhan healing-mu. Ngopi jalan, maraton drakor aman!</p>
+            <p class="text-gray-300 text-xs max-w-xs mx-auto leading-relaxed">Satu portal untuk semua kebutuhan healing-mu. Jajan Kopi Kenangan diskon tanpa ribet!</p>
         </div>
 
         <!-- Tombol Pilihan Toko / Layanan -->
@@ -193,27 +187,32 @@
                         <img src="https://i.postimg.cc/GpwttdxX/Logo-Kopi-Kenangan-Format-PNG-AI-EPS-CDR-PDF-SVG.png" alt="Kopi Kenangan" class="w-8 h-8 object-contain">
                     </div>
                     <div>
-                        <h2 class="text-lg font-bold text-white leading-tight">Kopi Kenangan</h2>
-                        <p class="text-xs text-gray-400 mt-0.5">Pesan minuman & roti promo hemat</p>
+                        <div class="flex items-center gap-2">
+                            <h2 class="text-lg font-bold text-white leading-tight">Kopi Kenangan</h2>
+                            <span class="bg-amber-500/20 text-amber-300 text-[10px] font-extrabold px-2 py-0.5 rounded-full border border-amber-500/30">PROMO</span>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-0.5">Pesan minuman, bundling & roti diskon</p>
                     </div>
                     <i class="fas fa-chevron-right text-gray-500 ml-auto group-hover:text-white transition text-xs"></i>
                 </div>
             </button>
 
-            <!-- Netflix Button -->
-            <button onclick="switchView('netflix')" class="w-full relative group overflow-hidden rounded-3xl glass-portal p-5 text-left transition duration-300 hover:scale-[1.02] active:scale-95 border-l-4 border-l-netflix-primary aura-netflix cursor-pointer">
-                <div class="absolute -right-10 -top-10 w-32 h-32 bg-netflix-primary/20 rounded-full blur-2xl group-hover:bg-netflix-primary/40 transition duration-500"></div>
+            <!-- Netflix Button (Ditutup Sementara) -->
+            <div onclick="showNetflixClosedToast()" class="w-full relative overflow-hidden rounded-3xl glass-portal p-5 text-left border-l-4 border-l-gray-600 opacity-60 cursor-not-allowed transition hover:opacity-70">
                 <div class="flex items-center gap-4 relative z-10">
-                    <div class="w-13 h-13 p-2.5 rounded-2xl bg-white/10 flex items-center justify-center flex-shrink-0">
-                        <i class="fas fa-play text-netflix-primary text-2xl"></i>
+                    <div class="w-13 h-13 p-2.5 rounded-2xl bg-white/5 flex items-center justify-center flex-shrink-0 text-gray-500">
+                        <i class="fas fa-play text-2xl"></i>
                     </div>
                     <div>
-                        <h2 class="text-lg font-bold text-white leading-tight">Netflix Premium</h2>
-                        <p class="text-xs text-gray-400 mt-0.5">Sewa akun private 1 user, garansi full</p>
+                        <div class="flex items-center gap-2">
+                            <h2 class="text-lg font-bold text-gray-300 leading-tight">Netflix Premium</h2>
+                            <span class="bg-red-500/20 text-red-400 text-[9px] font-extrabold px-2 py-0.5 rounded-full border border-red-500/30">TUTUP SEMENTARA</span>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-0.5">Slot akun sedang penuh / istirahat</p>
                     </div>
-                    <i class="fas fa-chevron-right text-gray-500 ml-auto group-hover:text-white transition text-xs"></i>
+                    <span class="text-[11px] font-bold text-red-400 ml-auto uppercase">Closed</span>
                 </div>
-            </button>
+            </div>
 
             <!-- Quick Action Riwayat Pesanan -->
             <button onclick="openHistoryModal()" class="w-full py-3 px-4 rounded-2xl glass-portal hover:bg-white/10 text-xs font-semibold text-gray-300 transition flex items-center justify-center gap-2 border border-white/10 active:scale-95 cursor-pointer">
@@ -259,6 +258,17 @@
             </div>
         </header>
 
+        <!-- Banner Info Jam Malam (Otomatis Muncul 00:00 - 06:00 WIB) -->
+        <div id="night-hours-banner" class="hidden mx-4 mt-3 p-3.5 bg-indigo-950/80 border border-indigo-500/40 rounded-2xl text-white shadow-sm flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl bg-indigo-800/60 flex items-center justify-center text-indigo-300 flex-shrink-0">
+                <i class="fas fa-moon text-base"></i>
+            </div>
+            <div class="min-w-0">
+                <h4 class="text-xs font-bold text-indigo-200">🌙 Layanan Jam Malam (00:00 - 06:00 WIB)</h4>
+                <p class="text-[10px] text-indigo-100/80 leading-relaxed mt-0.5">Pesanan tetap bisa dibuat! Jika admin sedang istirahat, orderan akan diproses segera saat admin bangun / mulai pukul 06:00 WIB ya Kak ☕</p>
+            </div>
+        </div>
+
         <!-- Outlet & Order Type Active Banner -->
         <div class="mx-4 mt-3 p-3.5 bg-white/85 backdrop-blur-md rounded-2xl border border-white shadow-sm flex items-center justify-between gap-2">
             <div class="flex items-center gap-3 min-w-0">
@@ -284,14 +294,14 @@
                 <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                     <i class="fas fa-search text-gray-400 text-xs"></i>
                 </span>
-                <input type="text" id="menu-search-input" oninput="searchMenu()" placeholder="Cari kopi, thai tea, atau toast favoritmu..." class="w-full pl-9 pr-4 py-2 rounded-xl bg-white/90 border border-white focus:outline-none focus:ring-2 focus:ring-kenangan-primary text-xs font-medium text-kenangan-dark shadow-sm">
+                <input type="text" id="menu-search-input" oninput="searchMenu()" placeholder="Cari kopi, bundling, thai tea, atau pastry..." class="w-full pl-9 pr-4 py-2 rounded-xl bg-white/90 border border-white focus:outline-none focus:ring-2 focus:ring-kenangan-primary text-xs font-medium text-kenangan-dark shadow-sm">
             </div>
         </div>
 
         <!-- Sticky Categories Bar -->
         <nav class="glass sticky top-[108px] z-30 px-4 py-2 mb-4 overflow-x-auto no-scrollbar whitespace-nowrap border-b border-white/50">
             <div class="flex gap-2">
-                <button onclick="scrollToCategory('cat-bundling', event)" class="px-3.5 py-1.5 rounded-full bg-white/90 text-kenangan-dark text-xs font-bold shadow-sm border border-white hover:bg-white active:scale-95 transition cursor-pointer">Bundling</button>
+                <button onclick="scrollToCategory('cat-bundling', event)" class="px-3.5 py-1.5 rounded-full bg-white/90 text-kenangan-dark text-xs font-bold shadow-sm border border-white hover:bg-white active:scale-95 transition cursor-pointer">🎁 Paket Bundling</button>
                 <button onclick="scrollToCategory('cat-coffee', event)" class="px-3.5 py-1.5 rounded-full bg-white/90 text-kenangan-dark text-xs font-bold shadow-sm border border-white hover:bg-white active:scale-95 transition cursor-pointer">Coffee</button>
                 <button onclick="scrollToCategory('cat-noncoffee', event)" class="px-3.5 py-1.5 rounded-full bg-white/90 text-kenangan-dark text-xs font-bold shadow-sm border border-white hover:bg-white active:scale-95 transition cursor-pointer">Non-Coffee</button>
                 <button onclick="scrollToCategory('cat-frappe', event)" class="px-3.5 py-1.5 rounded-full bg-white/90 text-kenangan-dark text-xs font-bold shadow-sm border border-white hover:bg-white active:scale-95 transition cursor-pointer">Oatside & Frappe</button>
@@ -299,17 +309,6 @@
                 <button onclick="scrollToCategory('cat-bakery', event)" class="px-3.5 py-1.5 rounded-full bg-white/90 text-kenangan-dark text-xs font-bold shadow-sm border border-white hover:bg-white active:scale-95 transition cursor-pointer">Makanan</button>
             </div>
         </nav>
-
-        <!-- Google Drive Info Box -->
-        <div class="mx-4 mb-6 p-4 bg-amber-500/10 border border-amber-500/20 rounded-2xl text-center shadow-sm flex flex-col items-center gap-2.5">
-            <p class="text-xs text-kenangan-dark font-semibold leading-relaxed">
-                <i class="fas fa-info-circle mr-1 text-kenangan-primary text-sm"></i> 
-                Mau lihat penampakan asli produknya? Cek galeri album foto promonya di sini!
-            </p>
-            <a href="https://drive.google.com/drive/folders/1s0LXjW-1rWVE53zg7vLUvy7LKXiu83nR?usp=sharing" target="_blank" onclick="sfx.playTap()" class="inline-flex items-center gap-2 bg-kenangan-primary hover:bg-kenangan-hover text-white text-xs font-extrabold px-4 py-2 rounded-xl shadow-md transition duration-300 active:scale-95">
-                <i class="fab fa-google-drive text-sm text-yellow-300"></i> Lihat Galeri Foto Asli (Google Drive)
-            </a>
-        </div>
 
         <!-- Banner Request Menu Kustom (Jika Menu Tidak Ada di List) -->
         <div class="mx-4 mb-6 p-4 bg-gradient-to-r from-amber-900/10 via-amber-800/5 to-amber-700/10 border border-amber-500/30 rounded-2xl shadow-sm flex items-center justify-between gap-3">
@@ -363,12 +362,12 @@
             <div class="space-y-4 border-t border-gray-200/70 pt-4">
                 <div>
                     <label class="block text-xs font-bold text-kenangan-dark mb-1">Nama Pemesan <span class="text-red-500">*</span></label>
-                    <input type="text" id="cust-name" placeholder="Masukkan nama panggilan Anda" class="w-full px-3.5 py-2.5 rounded-xl bg-white/90 border border-gray-200 shadow-inner focus:outline-none focus:ring-2 focus:ring-kenangan-primary text-xs font-medium text-kenangan-dark" oninput="validateKopkenForm()">
+                    <input type="text" id="cust-name" placeholder="Masukkan nama panggilan Anda (untuk di cup)" class="w-full px-3.5 py-2.5 rounded-xl bg-white/90 border border-gray-200 shadow-inner focus:outline-none focus:ring-2 focus:ring-kenangan-primary text-xs font-medium text-kenangan-dark" oninput="validateKopkenForm()">
                 </div>
 
                 <div>
-                    <label class="block text-xs font-bold text-kenangan-dark mb-1">Nomor WhatsApp Anda <span class="text-gray-400 font-normal">(Opsional / Sangat Disarankan)</span></label>
-                    <input type="tel" id="cust-wa" placeholder="Misal: 081234567890 (Untuk konfirmasi stok)" class="w-full px-3.5 py-2.5 rounded-xl bg-white/90 border border-gray-200 shadow-inner focus:outline-none focus:ring-2 focus:ring-kenangan-primary text-xs font-medium text-kenangan-dark">
+                    <label class="block text-xs font-bold text-kenangan-dark mb-1">Nomor WhatsApp Anda <span class="text-red-500">*</span></label>
+                    <input type="tel" id="cust-wa" placeholder="Misal: 081234567890 (Wajib untuk kirim invoice)" class="w-full px-3.5 py-2.5 rounded-xl bg-white/90 border border-gray-200 shadow-inner focus:outline-none focus:ring-2 focus:ring-kenangan-primary text-xs font-medium text-kenangan-dark" oninput="validateKopkenForm()">
                 </div>
 
                 <!-- Pilihan Waktu Pengambilan -->
@@ -426,7 +425,7 @@
                     <span id="summary-total" class="text-lg text-kenangan-primary">Rp 0</span>
                 </div>
                 <p class="text-[10px] text-gray-500 text-center pt-1 leading-tight">
-                    *Harga final sudah pas. Tidak ada biaya tambahan apa pun saat pengambilan di outlet.
+                    *Harga final sudah pas. Tinggal sebut nama pemesan saat ambil di outlet tanpa biaya tambahan.
                 </p>
             </div>
 
@@ -443,7 +442,7 @@
     </div>
 
     <!-- ========================================== -->
-    <!-- VIEW 3: NETFLIX PREMIUM                    -->
+    <!-- VIEW 3: NETFLIX PREMIUM (TUTUP SEMENTARA)  -->
     <!-- ========================================== -->
     <div id="view-netflix" class="view-section hidden text-white pb-32 max-w-xl mx-auto">
         <header class="glass-dark sticky top-0 z-40 px-4 py-3 flex items-center gap-3 shadow-md border-b border-red-500/20">
@@ -455,138 +454,19 @@
         </header>
 
         <main class="px-4 mt-6">
-            <div class="text-center mb-6">
-                <span class="bg-netflix-primary/20 text-netflix-primary border border-netflix-primary/50 px-3 py-1 rounded-full text-[10px] font-extrabold tracking-widest uppercase mb-2 inline-block">Termurah & Bergaransi</span>
-                <h2 class="text-xl font-extrabold mb-1">Sewa Akun Private 1 User</h2>
-                <p class="text-xs text-gray-400">Mau nonton film dan serial favorit tanpa batas screen limit dan ramah di kantong?</p>
+            <div class="bg-red-500/10 border border-red-500/30 rounded-3xl p-6 text-center mb-6">
+                <div class="w-14 h-14 rounded-2xl bg-red-500/20 flex items-center justify-center text-red-500 mx-auto mb-3">
+                    <i class="fas fa-box-archive text-2xl"></i>
+                </div>
+                <h3 class="text-base font-extrabold text-red-400">LAYANAN SEDANG TUTUP SEMENTARA</h3>
+                <p class="text-xs text-gray-300 mt-1 leading-relaxed">
+                    Mohon maaf, kuota akun Netflix saat ini sedang penuh / istirahat.<br>
+                    Silakan hubungi WhatsApp kami untuk masuk ke dalam antrean (waiting list).
+                </p>
+                <a href="https://wa.me/6285959633342?text=Halo%20Admin,%20saya%20mau%20antre%20slot%20Netflix%20kalau%20sudah%20ready%20ya!%20%F0%9F%A7%B8" target="_blank" class="inline-flex items-center gap-2 mt-4 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-xl text-xs font-bold transition">
+                    <i class="fab fa-whatsapp"></i> Chat Admin untuk Waiting List
+                </a>
             </div>
-
-            <!-- Features Netflix -->
-            <div class="grid grid-cols-2 gap-2.5 mb-6">
-                <div class="glass-dark p-3 rounded-2xl border border-white/5">
-                    <i class="fas fa-user-shield text-netflix-primary mb-1.5 text-lg"></i>
-                    <h3 class="font-bold text-xs mb-0.5">Private Profile</h3>
-                    <p class="text-[10px] text-gray-400">1 Profil 1 User. Tidak bakal tabrakan screen.</p>
-                </div>
-                <div class="glass-dark p-3 rounded-2xl border border-white/5">
-                    <i class="fas fa-tv text-netflix-primary mb-1.5 text-lg"></i>
-                    <h3 class="font-bold text-xs mb-0.5">4K Ultra HD</h3>
-                    <p class="text-[10px] text-gray-400">Bisa di HP, Laptop, Tablet, Smart TV.</p>
-                </div>
-                <div class="glass-dark p-3 rounded-2xl border border-white/5">
-                    <i class="fas fa-lock text-netflix-primary mb-1.5 text-lg"></i>
-                    <h3 class="font-bold text-xs mb-0.5">Bebas Request PIN</h3>
-                    <p class="text-[10px] text-gray-400">Request nama profil dan PIN rahasia sendiri.</p>
-                </div>
-                <div class="glass-dark p-3 rounded-2xl border border-white/5">
-                    <i class="fas fa-shield-halved text-netflix-primary mb-1.5 text-lg"></i>
-                    <h3 class="font-bold text-xs mb-0.5">Full Garansi</h3>
-                    <p class="text-[10px] text-gray-400">Garansi penuh selama masa durasi sewa.</p>
-                </div>
-            </div>
-
-            <!-- Pricing Form Netflix -->
-            <section class="glass-dark p-5 rounded-3xl border border-white/10 relative overflow-hidden mb-6">
-                <h3 class="text-base font-extrabold mb-4 flex items-center gap-2">
-                    <i class="fas fa-shopping-cart text-netflix-primary"></i> Form Pemesanan
-                </h3>
-
-                <div class="space-y-4">
-                    <div>
-                        <label class="block text-xs font-bold text-gray-300 mb-2">Pilih Paket Durasi <span class="text-netflix-primary">*</span></label>
-                        <div class="grid grid-cols-1 gap-2">
-                            <label class="relative cursor-pointer">
-                                <input type="radio" name="nflx-pkg" value="7 Hari" data-price="8000" class="peer sr-only" onchange="calcNetflixTotal()">
-                                <div class="rounded-2xl border border-white/10 bg-white/5 py-3 px-4 flex justify-between items-center transition-all peer-checked:border-netflix-primary peer-checked:bg-netflix-primary/10">
-                                    <span class="font-bold text-xs">Paket 7 Hari</span>
-                                    <span class="text-netflix-primary font-extrabold text-xs">Rp 8.000</span>
-                                </div>
-                            </label>
-                            <label class="relative cursor-pointer">
-                                <input type="radio" name="nflx-pkg" value="14 Hari" data-price="15000" class="peer sr-only" onchange="calcNetflixTotal()">
-                                <div class="rounded-2xl border border-white/10 bg-white/5 py-3 px-4 flex justify-between items-center transition-all peer-checked:border-netflix-primary peer-checked:bg-netflix-primary/10">
-                                    <span class="font-bold text-xs">Paket 14 Hari</span>
-                                    <span class="text-netflix-primary font-extrabold text-xs">Rp 15.000</span>
-                                </div>
-                            </label>
-                            <label class="relative cursor-pointer">
-                                <input type="radio" name="nflx-pkg" value="1 Bulan" data-price="20000" class="peer sr-only" onchange="calcNetflixTotal()">
-                                <div class="rounded-2xl border border-white/10 bg-white/5 py-3 px-4 flex justify-between items-center transition-all peer-checked:border-netflix-primary peer-checked:bg-netflix-primary/10">
-                                    <span class="font-bold text-xs">Paket 1 Bulan (30 Hari)</span>
-                                    <span class="text-netflix-primary font-extrabold text-xs">Rp 20.000</span>
-                                </div>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-bold text-gray-300 mb-1">Nama Pemesan <span class="text-netflix-primary">*</span></label>
-                        <input type="text" id="nflx-name" placeholder="Masukkan nama Anda" class="w-full px-3.5 py-2.5 rounded-xl bg-white/5 border border-white/10 focus:border-netflix-primary focus:outline-none text-xs text-white" oninput="validateNetflixForm()">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-gray-300 mb-1">Nomor WhatsApp Anda <span class="text-gray-500 font-normal">(Opsional)</span></label>
-                        <input type="tel" id="nflx-wa" placeholder="Misal: 081234567890" class="w-full px-3.5 py-2.5 rounded-xl bg-white/5 border border-white/10 focus:border-netflix-primary focus:outline-none text-xs text-white">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-gray-300 mb-1">Request Nama Profil <span class="text-netflix-primary">*</span></label>
-                        <input type="text" id="nflx-profile" placeholder="Misal: Bintang (Max 12 Karakter)" class="w-full px-3.5 py-2.5 rounded-xl bg-white/5 border border-white/10 focus:border-netflix-primary focus:outline-none text-xs text-white" maxlength="15" oninput="validateNetflixForm()">
-                    </div>
-
-                    <div class="bg-red-950/40 border border-red-500/30 p-3 rounded-xl mt-2">
-                        <h4 class="text-[10px] font-extrabold text-red-400 mb-1 uppercase"><i class="fas fa-triangle-exclamation"></i> Aturan Pemakaian</h4>
-                        <ul class="text-[10px] text-gray-300 space-y-1 list-disc pl-3">
-                            <li>Dilarang mengubah email dan password akun utama.</li>
-                            <li>Dilarang mengunci profil pengguna lain.</li>
-                            <li class="text-red-300 font-semibold">Pelanggaran aturan = Garansi Hangus.</li>
-                        </ul>
-                    </div>
-
-                    <div class="pt-3 border-t border-white/10 flex items-center justify-between font-extrabold text-base">
-                        <span>Total Bayar:</span>
-                        <span id="nflx-total" class="text-netflix-primary text-lg">Rp 0</span>
-                    </div>
-
-                    <div class="space-y-2.5 mt-4">
-                        <button id="btn-submit-tele-nflx" disabled onclick="submitOrderNetflix('telegram')" class="w-full bg-white/10 text-gray-500 font-extrabold py-3.5 rounded-2xl transition duration-200 flex justify-center items-center gap-2 cursor-not-allowed text-xs">
-                            <i class="fas fa-bolt text-sm"></i> Pesan Otomatis via Bot
-                        </button>
-                        <button id="btn-submit-wa-nflx" disabled onclick="submitOrderNetflix('whatsapp')" class="w-full bg-white/10 text-gray-500 font-extrabold py-3.5 rounded-2xl transition duration-200 flex justify-center items-center gap-2 cursor-not-allowed text-xs">
-                            <i class="fab fa-whatsapp text-sm"></i> Pesan via WhatsApp Admin
-                        </button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- FAQ Section -->
-            <section class="space-y-2.5 mb-6">
-                <h3 class="text-xs font-bold text-gray-300 mb-2 flex items-center gap-2">
-                    <i class="fas fa-question-circle text-netflix-primary"></i> Pertanyaan yang Sering Diajukan
-                </h3>
-                
-                <div class="glass-dark rounded-xl border border-white/5 overflow-hidden">
-                    <button onclick="toggleFAQ(this)" class="w-full px-4 py-3 flex justify-between items-center text-left text-xs font-bold hover:bg-white/5 transition cursor-pointer">
-                        <span>Apakah akun ini resmi dan bergaransi?</span>
-                        <i class="fas fa-chevron-down text-gray-400 transition-transform duration-300 text-[10px]"></i>
-                    </button>
-                    <div class="faq-content bg-white/[0.02]">
-                        <p class="text-[11px] text-gray-400 leading-relaxed p-3.5 border-t border-white/5">
-                            Ya, 100% resmi Ultra HD (4K) dan bergaransi penuh selama masa sewa yang Anda pilih.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="glass-dark rounded-xl border border-white/5 overflow-hidden">
-                    <button onclick="toggleFAQ(this)" class="w-full px-4 py-3 flex justify-between items-center text-left text-xs font-bold hover:bg-white/5 transition cursor-pointer">
-                        <span>Bisa nonton di Smart TV atau Laptop?</span>
-                        <i class="fas fa-chevron-down text-gray-400 transition-transform duration-300 text-[10px]"></i>
-                    </button>
-                    <div class="faq-content bg-white/[0.02]">
-                        <p class="text-[11px] text-gray-400 leading-relaxed p-3.5 border-t border-white/5">
-                            Bisa banget! Akun premium mendukung semua perangkat, termasuk HP, Laptop, Tablet, dan Smart TV.
-                        </p>
-                    </div>
-                </div>
-            </section>
         </main>
     </div>
 
@@ -943,7 +823,7 @@
             <!-- Tombol Aksi Konfirmasi WhatsApp -->
             <div class="space-y-2">
                 <a id="payment-wa-link" href="#" target="_blank" onclick="sfx.playSuccess()" class="w-full flex justify-center items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold py-3.5 rounded-2xl shadow-md active:scale-95 transition text-xs cursor-pointer">
-                    <i class="fab fa-whatsapp text-base"></i> Saya Sudah Transfer (Kirim Bukti ke WA)
+                    <i class="fab fa-whatsapp text-base"></i> Saya Sudah Transfer (Kirim Bukti ke WA) 🫶
                 </a>
                 <button onclick="closePaymentPopup()" class="w-full bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold py-2.5 rounded-xl transition text-xs cursor-pointer">Tutup Jendela Ini</button>
             </div>
@@ -1081,6 +961,29 @@
             return new Date(utc + (3600000 * 7));
         }
 
+        function checkNightHours() {
+            const wib = getWIBDate();
+            const hour = wib.getHours();
+            const banner = document.getElementById('night-hours-banner');
+            const portalBadge = document.getElementById('portal-status-badge');
+
+            // Jam malam: 00:00 - 05:59 WIB
+            if (hour >= 0 && hour < 6) {
+                if (banner) banner.classList.remove('hidden');
+                if (portalBadge) {
+                    portalBadge.innerHTML = `
+                        <span class="relative flex h-2.5 w-2.5">
+                            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-amber-400"></span>
+                        </span>
+                        <span>🌙 Layanan Jam Malam (Order Tetap Buka)</span>
+                    `;
+                    portalBadge.className = "inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-semibold mb-6 shadow-sm";
+                }
+            } else {
+                if (banner) banner.classList.add('hidden');
+            }
+        }
+
         function parseTimeToMinutes(timeStr) {
             if (!timeStr) return 0;
             const clean = timeStr.toString().replace('.', ':').trim();
@@ -1098,17 +1001,13 @@
 
         function isOutletOpenNow(outlet) {
             if (!outlet) return true;
-
-            // 1. Khusus Outlet Signature / Heritage: Otomatis TUTUP karena menu & harga berbeda
             if (isSignatureOutlet(outlet)) return false;
             
-            // 2. Cek jika outlet memang permanen tutup / tidak memiliki jam operasional
             const statusLabel = (outlet.status_label || '').toUpperCase();
             const openStatus = (outlet.open_status || '').toUpperCase();
             if (statusLabel === 'CLOSED' || openStatus === 'CLOSED') return false;
             if (!outlet.open_time && !outlet.hours?.open_time) return false;
 
-            // 3. Hitung jam buka & tutup murni secara dinamis berdasarkan jam real-time WIB saat ini
             const wib = getWIBDate();
             const curMin = wib.getHours() * 60 + wib.getMinutes();
             
@@ -1118,11 +1017,9 @@
             const openMin = parseTimeToMinutes(openTimeStr);
             const closeMin = parseTimeToMinutes(closeTimeStr);
             
-            // Jika jam tutup melewati tengah malam (misal buka 08.00 tutup 01.00 subuh)
             if (closeMin < openMin) {
                 return curMin >= openMin || curMin < closeMin;
             }
-            
             return curMin >= openMin && curMin < closeMin;
         }
 
@@ -1132,6 +1029,10 @@
             const name = (outlet.name || '').toLowerCase();
             const pattern = /mall|plaza|tower|city|junction|avenue|walk|central park|grand indonesia|paskal|residence|hospital/i;
             return cat.includes('mall') || pattern.test(name);
+        }
+
+        function showNetflixClosedToast() {
+            showToast("<b>Netflix Tutup Sementara</b><br>Slot akun sedang penuh / istirahat ya Kak 🙏");
         }
 
         // ==========================================
@@ -1193,6 +1094,7 @@
         document.addEventListener('DOMContentLoaded', async () => {
             initWifiDisplay();
             initScheduleDropdown();
+            checkNightHours();
             await loadDataFiles();
             renderMenu();
 
@@ -1238,11 +1140,102 @@
             selectedOutlet = allOutlets[0];
             updateOutletUI();
 
+            // Default Bundling Packages
+            const defaultBundlings = [
+                {
+                    id: 'b_duo_mantan',
+                    cat: 'bundling',
+                    name: 'Duo Mantan (2 Cup)',
+                    singlePrice: 28500,
+                    realPrice: 38000,
+                    badge: '🔥 BEST SELLER',
+                    type: 'bundling',
+                    imgs: [
+                        'https://img.cimagroup.my.id/kopi-kenangan-mantan-1784203103920.webp',
+                        'https://img.cimagroup.my.id/kopi-kenangan-mantan-1784203103920.webp'
+                    ],
+                    opts: ['2 Cup Kopi Kenangan Mantan (Ice)']
+                },
+                {
+                    id: 'b_duo_bestie',
+                    cat: 'bundling',
+                    name: 'Duo Bestie (Kopi + Non-Kopi)',
+                    singlePrice: 28500,
+                    realPrice: 38000,
+                    badge: '⭐ FAVORIT',
+                    type: 'bundling',
+                    imgs: [
+                        'https://img.cimagroup.my.id/kopi-kenangan-mantan-1784203103920.webp',
+                        'https://img.cimagroup.my.id/og-thai-tea-1784203762918.webp'
+                    ],
+                    opts: ['1 Mantan (Ice) + 1 OG Thai Tea (Ice)', '1 Mantan (Ice) + 1 Dutch Choco (Ice)']
+                },
+                {
+                    id: 'b_kombo_roti',
+                    cat: 'bundling',
+                    name: 'Kombo Kopi + Roti Coklat',
+                    singlePrice: 21500,
+                    realPrice: 28000,
+                    badge: '🍞 HEMAT',
+                    type: 'bundling',
+                    imgs: [
+                        'https://img.cimagroup.my.id/kopi-kenangan-mantan-1784203103920.webp',
+                        'https://img.cimagroup.my.id/roti-coklat-klasik-1784203834325.webp'
+                    ],
+                    opts: ['1 Mantan (Ice) + 1 Roti Coklat Klasik', '1 Mantan (Ice) + 1 Roti Susu Manis', '1 Mantan (Ice) + 1 Salt Bread Ori']
+                },
+                {
+                    id: 'b_kombo_sarapan',
+                    cat: 'bundling',
+                    name: 'Kombo Sarapan (Kopi + Bun)',
+                    singlePrice: 20500,
+                    realPrice: 27000,
+                    badge: '✨ COMBO',
+                    type: 'bundling',
+                    imgs: [
+                        'https://img.cimagroup.my.id/hazelnut-dutch-choco-1784202978499.webp',
+                        'https://img.cimagroup.my.id/coffee-butter-bun-1784202676439.webp'
+                    ],
+                    opts: ['1 Americano (Ice/Hot) + 1 Coffee Butter Bun', '1 Americano (Ice/Hot) + 1 Canele Original']
+                },
+                {
+                    id: 'b_trio_nongkrong',
+                    cat: 'bundling',
+                    name: 'Trio Nongkrong (3 Cup)',
+                    singlePrice: 42000,
+                    realPrice: 57000,
+                    badge: '🎉 3 CUP',
+                    type: 'bundling',
+                    imgs: [
+                        'https://img.cimagroup.my.id/kopi-kenangan-mantan-1784203103920.webp',
+                        'https://img.cimagroup.my.id/kopi-kenangan-mantan-1784203103920.webp',
+                        'https://img.cimagroup.my.id/og-thai-tea-1784203762918.webp'
+                    ],
+                    opts: ['2 Mantan (Ice) + 1 OG Thai Tea (Ice)', '3 Mantan (Ice)', '1 Mantan + 1 Spanish Latte + 1 Thai Tea']
+                },
+                {
+                    id: 'b_party_pack',
+                    cat: 'bundling',
+                    name: 'Party Pack Rame-Rame (4 Cup)',
+                    singlePrice: 56000,
+                    realPrice: 76000,
+                    badge: '🔥 CUAN BESAR',
+                    type: 'bundling',
+                    imgs: [
+                        'https://img.cimagroup.my.id/kopi-kenangan-mantan-1784203103920.webp',
+                        'https://img.cimagroup.my.id/og-thai-tea-1784203762918.webp',
+                        'https://img.cimagroup.my.id/kopi-kenangan-mantan-1784203103920.webp',
+                        'https://img.cimagroup.my.id/og-thai-tea-1784203762918.webp'
+                    ],
+                    opts: ['2 Mantan (Ice) + 2 OG Thai Tea (Ice)', '4 Mantan (Ice)', '2 Mantan + 1 Thai Tea + 1 Dutch Chocolate']
+                }
+            ];
+
             try {
                 const menuRes = await fetch('./menu.json');
                 if (menuRes.ok) {
                     const menuData = await menuRes.json();
-                    const parsedMenu = [];
+                    const parsedMenu = [...defaultBundlings];
 
                     if (menuData && menuData["Kopi Kenangan"]) {
                         const kk = menuData["Kopi Kenangan"];
@@ -1268,17 +1261,19 @@
                             }
                         }
 
-                        // Parse Bundling
+                        // Parse Bundling if available in JSON
                         if (kk.bundling && Array.isArray(kk.bundling)) {
                             kk.bundling.forEach(b => {
-                                parsedMenu.push({
+                                parsedMenu.unshift({
                                     id: b.id || `bundle_${Math.random()}`,
                                     cat: 'bundling',
                                     name: b.name || b.nama,
                                     singlePrice: parseFloat(b.price) || 35000,
                                     realPrice: parseFloat(b.real_price) || 0,
                                     type: 'bundling',
-                                    img: b.img || b.image || 'https://placehold.co/400x400/2C1A0D/F9F1E7?text=Paket+Hemat',
+                                    badge: b.badge || '🎁 BUNDLE',
+                                    img: b.img || b.image,
+                                    imgs: b.imgs || (b.img ? [b.img] : null),
                                     opts: b.options || b.opts || ['Varian Default Paket']
                                 });
                             });
@@ -1291,37 +1286,7 @@
                 }
             } catch (e) {
                 console.warn("menu.json fallback aktif", e);
-            }
-
-            // Fallback Menu
-            if (!allMenu || allMenu.length === 0) {
-                allMenu = [
-                    // Bundling
-                    { id: 'b1', cat: 'bundling', name: 'Paket Hemat 40K', singlePrice: 40000, type: 'bundling', img: 'https://placehold.co/400x400/2C1A0D/F9F1E7?text=Paket+Hemat', opts: ['Combo 1 (Kopi Mantan R + Salt Bread Ori)', 'Combo 2 (Latte R + Butter Croissant)', 'Combo 3 (Spanish Latte R + Choco Toast)', 'Combo 4 (Americano R + Sapi Toast)', 'Combo 5 (Thai Tea R + Salt Bread Beef)', 'Combo 6 (Matcha Latte R + Ayam Toast)'] },
-                    { id: 'b2', cat: 'bundling', name: 'Bundling Bertiga 38K', singlePrice: 38000, type: 'bundling', img: 'https://placehold.co/400x400/2C1A0D/F9F1E7?text=Bertiga+38K', opts: ['3 Cup Reg Spanish Latte', '3 Cup Reg Tiramisu Latte', '3 Cup Reg Kopi Mantan', '3 Cup Lrg Kopi Mantan'] },
-                    { id: 'b3', cat: 'bundling', name: 'Puas Banget Mix Large', singlePrice: 33000, type: 'bundling', img: 'https://placehold.co/400x400/2C1A0D/F9F1E7?text=Mix+Large', opts: ['2 Cup Lrg Mantan', '2 Cup Lrg Spanish Latte', '1 Lrg Mantan + 1 Lrg Thai Tea', '1 Lrg Latte + 1 Lrg Milo'] },
-                    // Coffee
-                    { id: 'c_kenangan_mantan', cat: 'coffee', name: 'Kopi Kenangan Mantan', singlePrice: 14500, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Kenangan+Mantan' },
-                    { id: 'c_susu_black_aren', cat: 'coffee', name: 'Kopi Susu Black Aren', singlePrice: 16500, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Black+Aren' },
-                    { id: 'c_creamy_aren', cat: 'coffee', name: 'Creamy Aren Latte', singlePrice: 16000, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Creamy+Aren' },
-                    { id: 'c_spanish_latte', cat: 'coffee', name: 'Spanish Latte', singlePrice: 14500, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Spanish+Latte' },
-                    { id: 'c_americano', cat: 'coffee', name: 'Americano', singlePrice: 13000, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Americano' },
-                    { id: 'c_cappuccino', cat: 'coffee', name: 'Cappuccino', singlePrice: 16000, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Cappuccino' },
-                    { id: 'c_latte', cat: 'coffee', name: 'Latte', singlePrice: 16000, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Latte' },
-                    // Non Coffee
-                    { id: 'nc_og_thai_tea', cat: 'noncoffee', name: 'OG Thai Tea', singlePrice: 14500, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=OG+Thai+Tea' },
-                    { id: 'nc_dutch_choco', cat: 'noncoffee', name: 'Dutch Chocolate', singlePrice: 18000, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=Dutch+Chocolate' },
-                    { id: 'nc_matcha_latte', cat: 'noncoffee', name: 'Matcha Latte', singlePrice: 18000, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=Matcha+Latte' },
-                    { id: 'nc_milo_dino', cat: 'noncoffee', name: 'Milo Dinosaurus', singlePrice: 16500, type: 'drink', img: 'https://placehold.co/400x400/E8A359/2C1A0D?text=Milo+Dinosaurus' },
-                    // Frappe
-                    { id: 'f_mantan_frappe', cat: 'frappe', name: 'Kopi Kenangan Mantan Frappe', singlePrice: 21500, type: 'drink', img: 'https://placehold.co/400x400/2C1A0D/E8A359?text=Mantan+Frappe' },
-                    { id: 'f_oatside_mantan', cat: 'frappe', name: 'Oatside Kopi Kenangan Mantan', singlePrice: 15000, type: 'drink', img: 'https://placehold.co/400x400/A05C3A/F9F1E7?text=Oatside+Mantan' },
-                    // New
-                    { id: 'nv_banana_latte', cat: 'new', name: 'Korean Banana Latte X Haechan', singlePrice: 16500, type: 'drink', img: 'https://img.cimagroup.my.id/korea-banana-latte-1784842142956.webp' },
-                    // Bakery / Food
-                    { id: 'fd_salt_ori', cat: 'bakery', name: 'Salt Bread Ori', singlePrice: 11500, type: 'food', img: 'https://img.cimagroup.my.id/salt-bread-original-1784204028515.webp' },
-                    { id: 'fd_choco_croissant', cat: 'bakery', name: 'Chocolate Croissant', singlePrice: 13500, type: 'food', img: 'https://img.cimagroup.my.id/chocolate-croissant-1784202644661.webp' }
-                ];
+                allMenu = defaultBundlings;
             }
         }
 
@@ -1369,7 +1334,7 @@
         }
 
         // ==========================================
-        // RENDER MENU KATALOG (ASPECT-SQUARE UTUH)
+        // RENDER MENU KATALOG (ASPECT-SQUARE & KOLASE)
         // ==========================================
         function renderMenu(filterKeyword = '') {
             const container = document.getElementById('menu-container');
@@ -1377,7 +1342,7 @@
             container.innerHTML = '';
 
             const categories = [
-                { id: 'cat-bundling', title: 'Paket Bundling Hemat', filter: 'bundling' },
+                { id: 'cat-bundling', title: '🎁 Paket Bundling Hemat', filter: 'bundling' },
                 { id: 'cat-coffee', title: 'Coffee Series (Kopi)', filter: 'coffee' },
                 { id: 'cat-noncoffee', title: 'Non-Coffee Series (Non-Kopi)', filter: 'noncoffee' },
                 { id: 'cat-frappe', title: 'Oatside & Frappe Series', filter: 'frappe' },
@@ -1413,16 +1378,49 @@
                             displayedPrice = `R: ${formatRp(item.prices.R || 0)}`;
                         }
 
-                        const originalPrice = item.realPrice || (item.singlePrice ? (item.singlePrice * 1.45) : 22000);
+                        const originalPrice = item.realPrice || (item.singlePrice ? (item.singlePrice * 1.35) : 22000);
+
+                        // Thumbnail Box (Collage or Single Image)
+                        let imageBoxHtml = '';
+                        if (item.imgs && item.imgs.length > 1) {
+                            if (item.imgs.length === 2) {
+                                imageBoxHtml = `
+                                    <div class="w-full aspect-square p-1.5 mb-2 bg-gradient-to-br from-amber-50 to-orange-50 rounded-xl overflow-hidden shadow-inner grid grid-cols-2 gap-1 items-center">
+                                        <img src="${item.imgs[0]}" alt="${item.name} 1" class="w-full h-full object-contain hover:scale-105 transition" loading="lazy">
+                                        <img src="${item.imgs[1]}" alt="${item.name} 2" class="w-full h-full object-contain hover:scale-105 transition" loading="lazy">
+                                    </div>
+                                `;
+                            } else if (item.imgs.length === 3) {
+                                imageBoxHtml = `
+                                    <div class="w-full aspect-square p-1.5 mb-2 bg-gradient-to-br from-amber-50 to-orange-50 rounded-xl overflow-hidden shadow-inner grid grid-cols-2 grid-rows-2 gap-1 items-center">
+                                        <div class="col-span-2 flex justify-center h-full"><img src="${item.imgs[0]}" alt="${item.name} 1" class="h-full object-contain" loading="lazy"></div>
+                                        <div class="flex justify-center h-full"><img src="${item.imgs[1]}" alt="${item.name} 2" class="h-full object-contain" loading="lazy"></div>
+                                        <div class="flex justify-center h-full"><img src="${item.imgs[2]}" alt="${item.name} 3" class="h-full object-contain" loading="lazy"></div>
+                                    </div>
+                                `;
+                            } else {
+                                imageBoxHtml = `
+                                    <div class="w-full aspect-square p-1.5 mb-2 bg-gradient-to-br from-amber-50 to-orange-50 rounded-xl overflow-hidden shadow-inner grid grid-cols-2 grid-rows-2 gap-1 items-center">
+                                        <img src="${item.imgs[0]}" alt="${item.name} 1" class="w-full h-full object-contain" loading="lazy">
+                                        <img src="${item.imgs[1]}" alt="${item.name} 2" class="w-full h-full object-contain" loading="lazy">
+                                        <img src="${item.imgs[2]}" alt="${item.name} 3" class="w-full h-full object-contain" loading="lazy">
+                                        <img src="${item.imgs[3]}" alt="${item.name} 4" class="w-full h-full object-contain" loading="lazy">
+                                    </div>
+                                `;
+                            }
+                        } else {
+                            imageBoxHtml = `
+                                <div class="w-full aspect-square flex items-center justify-center p-2 mb-2 bg-white/70 rounded-xl overflow-hidden shadow-inner">
+                                    <img src="${item.img || (item.imgs && item.imgs[0])}" alt="${item.name}" class="w-full h-full object-contain group-hover:scale-105 transition duration-300" loading="lazy" onerror="this.src='https://placehold.co/400x400/9C532B/FBF5EE?text=Kopi+Kenangan';">
+                                </div>
+                            `;
+                        }
 
                         grid.innerHTML += `
                             <div class="glass rounded-2xl p-2.5 flex flex-col justify-between h-full relative overflow-hidden group shadow-sm hover:shadow-md transition">
                                 <div class="absolute top-0 right-0 bg-red-600 text-white text-[9px] font-black px-2 py-0.5 rounded-bl-lg z-10 uppercase">${item.badge || 'PROMO'}</div>
                                 
-                                <!-- Wadah Gambar Proporsional Anti-Potong -->
-                                <div class="w-full aspect-square flex items-center justify-center p-2 mb-2 bg-white/70 rounded-xl overflow-hidden shadow-inner">
-                                    <img src="${item.img}" alt="${item.name}" class="w-full h-full object-contain group-hover:scale-105 transition duration-300" loading="lazy" onerror="this.src='https://placehold.co/400x400/9C532B/FBF5EE?text=Kopi+Kenangan';">
-                                </div>
+                                ${imageBoxHtml}
 
                                 <div class="flex-grow flex flex-col justify-between">
                                     <div>
@@ -1815,8 +1813,8 @@
             overlay.classList.remove('hidden');
             setTimeout(() => {
                 overlay.classList.remove('opacity-0');
-                content.classList.remove('translate-y-full');
-                content.classList.add('translate-y-0');
+                content.classList.remove('translate-y-0');
+                content.classList.add('translate-y-full');
             }, 10);
         }
 
@@ -2009,6 +2007,7 @@
 
         function validateKopkenForm() {
             const name = document.getElementById('cust-name').value.trim();
+            const wa = document.getElementById('cust-wa').value.trim();
             const btnTele = document.getElementById('btn-submit-tele-kopken');
             const btnWa = document.getElementById('btn-submit-wa-kopken');
 
@@ -2032,7 +2031,9 @@
             const total = subtotal + surcharge + bagFee;
             document.getElementById('summary-total').textContent = formatRp(total);
 
-            if (cart.length > 0 && name.length >= 2 && selectedOutlet) {
+            const isFormValid = cart.length > 0 && name.length >= 2 && wa.length >= 9 && selectedOutlet;
+
+            if (isFormValid) {
                 btnTele.disabled = false;
                 btnTele.className = "w-full bg-kenangan-dark hover:bg-kenangan-hover text-white font-extrabold py-3.5 rounded-2xl shadow-lg transition duration-200 flex justify-center items-center gap-2 active:scale-98 text-xs cursor-pointer";
                 btnWa.disabled = false;
@@ -2181,7 +2182,7 @@
                 subtotal += itemTotal;
                 itemsText += `${i+1}. 1x ${c.item.name}\n`;
                 if(c.details) itemsText += `   [Racikan: ${c.details}]\n`;
-                if(c.note) itemsText += `   (Catatan Item: "${c.note}")\n`;
+                if(c.note) itemsText += `   (Catatan: "${c.note}")\n`;
                 itemsText += `   Subtotal: ${formatRp(itemTotal)}\n`;
             });
 
@@ -2204,26 +2205,51 @@
             });
 
             const orderTypeText = currentOrderType === 'takeaway' ? 'Take Away (Bungkus)' : 'Dine In (Minum Ditempat)';
-            const cleanWaNumber = custWaInput ? custWaInput.replace(/[^0-9]/g, '') : '';
-            const waDisplay = custWaInput ? `${custWaInput} (wa.me/${cleanWaNumber.startsWith('0') ? '62' + cleanWaNumber.slice(1) : cleanWaNumber})` : 'Tidak Diisi';
+            let cleanWaNumber = custWaInput ? custWaInput.replace(/[^0-9]/g, '') : '';
+            if (cleanWaNumber.startsWith('0')) cleanWaNumber = '62' + cleanWaNumber.slice(1);
+            else if (!cleanWaNumber.startsWith('62') && cleanWaNumber.length > 0) cleanWaNumber = '62' + cleanWaNumber;
 
-            const message = `── .✦ *FORMAT ORDER KOPI KENANGAN* ✦.──
+            const waDirectLink = cleanWaNumber ? `https://wa.me/${cleanWaNumber}` : '-';
 
-Nama Pemesan : ${name}
-No. WhatsApp Pemesan : ${waDisplay}
-Tipe Pesanan : ${orderTypeText}
-Outlet Pengambilan : ${selectedOutlet.name}
-Alamat Outlet : ${selectedOutlet.address || '-'}
-Waktu Ambil : ${timeSched}
-Catatan Tambahan : "${notes || '-'}"
+            const message = `── .✦ *ORDER KOPI KENANGAN BARU* ✦.──
+
+👤 *Nama Pemesan :* ${name}
+📱 *No. WhatsApp :* ${custWaInput}
+🔗 *Chat Customer :* ${waDirectLink}
+🛵 *Tipe Pesanan :* ${orderTypeText}
+📍 *Outlet Pengambilan :* ${selectedOutlet.name}
+🏢 *Alamat Outlet :* ${selectedOutlet.address || '-'}
+⏰ *Waktu Ambil :* ${timeSched}
+📝 *Catatan Tambahan :* "${notes || '-'}"
 --------------------------------------------------
-Detail Menu PROMO:
+📋 *Detail Item:*
 ${itemsText}--------------------------------------------------
-Biaya Tambahan Outlet (Mall/Besar) : ${formatRp(surcharge)}
-${isBagChecked ? 'Kantong Belanja : Rp 1.000\n' : ''}*Total Tagihan Final : ${formatRp(grandTotal)}*
-*Status : [MENUNGGU PEMBAYARAN VIA QRIS]*
+Biaya Outlet (Mall) : ${formatRp(surcharge)}
+${isBagChecked ? 'Kantong Belanja : Rp 1.000\n' : ''}💰 *Total Tagihan Final : ${formatRp(grandTotal)}*
+📌 *Status : [MENUNGGU PEMBAYARAN QRIS]*
 
-> Segera konfirmasi bukti pembayaran agar pesanan diproses! ✨`;
+========================================
+💬 *DRAFT CHAT KE CUSTOMER (SIAP SALIN):*
+========================================
+
+Halo Kak *${name}*! 🫶✨
+Terima kasih sudah order Kopi Kenangan di Bintang Store!
+
+📋 *Rincian Pesanan:*
+${itemsText}📍 *Outlet:* ${selectedOutlet.name}
+💰 *Total Tagihan Pas:* ${formatRp(grandTotal)}
+
+Silakan transfer via QRIS toko kami ya Kak. Setelah bayar, kirim bukti transfer ke sini agar pesanan langsung kami proseskan ke kasir outlet. Ditunggu ya Kak! 🫰💖
+
+========================================
+✅ *DRAFT CHAT SELESAI (SETELAH ORDER DI PROSES):*
+========================================
+
+Pesanan Kak *${name}* sudah berhasil dipesan ke barista ya! ✨
+
+📌 *Cara Pengambilan:* Cukup sebutkan nama *"${name}"* ke barista di outlet *${selectedOutlet.name}*.
+
+Terima kasih banyak sudah jajan hemat di Bintang Store! Ditunggu orderan berikutnya ya Kak! 🫶🫰☕`;
 
             const encodedMessage = encodeURIComponent(message);
 
@@ -2387,11 +2413,7 @@ ${isBagChecked ? 'Kantong Belanja : Rp 1.000\n' : ''}*Total Tagihan Final : ${fo
             if (type === 'kopken') {
                 iconWrap.innerHTML = '<i class="fas fa-coffee text-4xl text-amber-400 animate-bounce"></i>';
                 titleEl.textContent = "Pesanan Dirangkai!";
-                quoteEl.innerHTML = "Beli kopi buat begadang, terima kasih sudah memesan! Pesananmu segera diproses sayang! ☕";
-            } else if (type === 'netflix') {
-                iconWrap.innerHTML = '<i class="fas fa-play text-4xl text-red-500 animate-pulse"></i>';
-                titleEl.textContent = "Menyiapkan Akun...";
-                quoteEl.innerHTML = "Siapin cemilan dan posisi pewe! Admin lagi siapin profil Netflix private kamu 🍿";
+                quoteEl.innerHTML = "Beli kopi buat begadang, terima kasih sudah memesan! Pesananmu segera diproses sayang! ☕ 🫶";
             }
 
             screen.classList.remove('hidden');
@@ -2421,7 +2443,7 @@ ${isBagChecked ? 'Kantong Belanja : Rp 1.000\n' : ''}*Total Tagihan Final : ${fo
             const popupTotal = document.getElementById('popup-total-tagihan');
             if (popupTotal) popupTotal.textContent = formatRp(checkoutGrandTotal);
 
-            const message = `Halo Admin, saya sudah transfer pesanan via QRIS atas nama *${checkoutCustomerName}* dengan total tagihan *${formatRp(checkoutGrandTotal)}*.\n\nBerikut bukti transfer saya, tolong segera diproses ya! ✨`;
+            const message = `Halo Admin, saya sudah transfer pesanan via QRIS atas nama *${checkoutCustomerName}* dengan total tagihan pas *${formatRp(checkoutGrandTotal)}*.\n\nBerikut bukti transfer saya, tolong segera diproses ya Kak! 🫶✨`;
             const encoded = encodeURIComponent(message);
             const waLink = document.getElementById('payment-wa-link');
             if (waLink) waLink.href = `https://wa.me/${waNumber}?text=${encoded}`;
@@ -2456,115 +2478,6 @@ ${isBagChecked ? 'Kantong Belanja : Rp 1.000\n' : ''}*Total Tagihan Final : ${fo
             popupContent.classList.remove('scale-100');
             popupContent.classList.add('scale-95');
             setTimeout(() => popup.classList.add('hidden'), 250);
-        }
-
-        // NETFLIX MODULE FUNCTIONS
-        let netflixPrice = 0;
-        function calcNetflixTotal() {
-            const selected = document.querySelector('input[name="nflx-pkg"]:checked');
-            if (selected) {
-                netflixPrice = parseInt(selected.getAttribute('data-price'));
-                document.getElementById('nflx-total').textContent = formatRp(netflixPrice);
-            }
-            validateNetflixForm();
-        }
-
-        function validateNetflixForm() {
-            const pkg = document.querySelector('input[name="nflx-pkg"]:checked');
-            const name = document.getElementById('nflx-name').value.trim();
-            const profile = document.getElementById('nflx-profile').value.trim();
-            const btnTele = document.getElementById('btn-submit-tele-nflx');
-            const btnWa = document.getElementById('btn-submit-wa-nflx');
-
-            if (pkg && name.length >= 2 && profile.length > 0) {
-                btnTele.disabled = false;
-                btnTele.className = "w-full bg-red-600 hover:bg-red-700 text-white font-extrabold py-3.5 rounded-2xl shadow-lg transition duration-200 flex justify-center items-center gap-2 active:scale-98 text-xs cursor-pointer";
-                btnWa.disabled = false;
-                btnWa.className = "w-full bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold py-3.5 rounded-2xl shadow-lg transition duration-200 flex justify-center items-center gap-2 active:scale-98 text-xs cursor-pointer";
-            } else {
-                btnTele.disabled = true;
-                btnTele.className = "w-full bg-white/10 text-gray-500 font-extrabold py-3.5 rounded-2xl transition duration-200 flex justify-center items-center gap-2 cursor-not-allowed text-xs";
-                btnWa.disabled = true;
-                btnWa.className = "w-full bg-white/10 text-gray-500 font-extrabold py-3.5 rounded-2xl transition duration-200 flex justify-center items-center gap-2 cursor-not-allowed text-xs";
-            }
-        }
-
-        function submitOrderNetflix(method) {
-            sfx.playSuccess();
-            const pkgValue = document.querySelector('input[name="nflx-pkg"]:checked').value;
-            const name = document.getElementById('nflx-name').value.trim();
-            const custWa = document.getElementById('nflx-wa')?.value.trim() || '';
-            const profile = document.getElementById('nflx-profile').value.trim();
-            checkoutCustomerName = name || "Pelanggan";
-            checkoutGrandTotal = netflixPrice;
-
-            const cleanWa = custWa ? custWa.replace(/[^0-9]/g, '') : '';
-            const waDisplay = custWa ? `${custWa} (wa.me/${cleanWa.startsWith('0') ? '62' + cleanWa.slice(1) : cleanWa})` : 'Tidak Diisi';
-
-            const message = `🍿 *ORDER NETFLIX PREMIUM* 🍿
---------------------------------------------------
-Nama Pemesan: ${name}
-No. WhatsApp: ${waDisplay}
-Paket Sewa: ${pkgValue} (Private 1 User)
-Request Nama Profil: "${profile}"
---------------------------------------------------
-Total Tagihan: ${formatRp(netflixPrice)}
-*Status : [MENUNGGU PEMBAYARAN]*
-
-Mohon dibantu aktivasi akun Netflix-nya setelah bukti bayar dikonfirmasi!`;
-
-            const encoded = encodeURIComponent(message);
-
-            if (method === 'telegram') {
-                const url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encoded}`;
-                const btn = document.getElementById('btn-submit-tele-nflx');
-                btn.innerHTML = '<i class="fas fa-spinner fa-spin text-xs"></i> Memproses...';
-                btn.disabled = true;
-
-                fetch(url)
-                    .then(res => {
-                        if (res.ok) {
-                            showFullscreenLoader('netflix', false, '');
-                            document.getElementById('nflx-name').value = '';
-                            if (document.getElementById('nflx-wa')) document.getElementById('nflx-wa').value = '';
-                            document.getElementById('nflx-profile').value = '';
-                            document.querySelector('input[name="nflx-pkg"]:checked').checked = false;
-                            document.getElementById('nflx-total').textContent = 'Rp 0';
-                            netflixPrice = 0;
-                        } else {
-                            showToast("Gagal kirim bot, gunakan opsi WA.");
-                        }
-                    })
-                    .catch(() => showToast("Koneksi bermasalah, gunakan opsi WA."))
-                    .finally(() => {
-                        btn.innerHTML = '<i class="fas fa-bolt text-sm"></i> Pesan Otomatis via Bot';
-                        validateNetflixForm();
-                    });
-            } else if (method === 'whatsapp') {
-                const waUrl = `https://wa.me/${waNumber}?text=${encoded}`;
-                showFullscreenLoader('netflix', true, waUrl);
-            }
-        }
-
-        function toggleFAQ(button) {
-            sfx.playTap();
-            const content = button.nextElementSibling;
-            const icon = button.querySelector('i');
-            
-            document.querySelectorAll('.faq-content').forEach(item => {
-                if (item !== content) {
-                    item.style.maxHeight = null;
-                    item.previousElementSibling.querySelector('i').classList.remove('rotate-180');
-                }
-            });
-
-            if (content.style.maxHeight) {
-                content.style.maxHeight = null;
-                icon.classList.remove('rotate-180');
-            } else {
-                content.style.maxHeight = content.scrollHeight + "px";
-                icon.classList.add('rotate-180');
-            }
         }
 
         // COSMIC MAGIC TAP
