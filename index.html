@@ -341,9 +341,40 @@
                 <span id="cart-item-count-text" class="text-xs font-bold text-gray-500">0 Item</span>
             </div>
 
+            <!-- Promo Progress & Reward Tracker Bar (Min Belanja 70K Free Roti) -->
+            <div id="promo-tracker-box" class="mb-4 p-3 rounded-2xl bg-gradient-to-r from-amber-500/10 via-amber-400/15 to-orange-500/10 border border-amber-500/30">
+                <div class="flex items-center justify-between gap-2 mb-1.5">
+                    <div class="flex items-center gap-1.5">
+                        <span class="text-xs">🍞</span>
+                        <span id="promo-tracker-text" class="text-xs font-extrabold text-kenangan-dark">Belanja min. Rp 70.000 dapat Gratis Roti Coklat Klasik!</span>
+                    </div>
+                    <span id="promo-tracker-badge" class="text-[9px] font-black px-2 py-0.5 rounded-full bg-amber-500 text-white uppercase shadow-xs">PROMO</span>
+                </div>
+                <div class="w-full bg-gray-200/80 rounded-full h-2 overflow-hidden shadow-inner">
+                    <div id="promo-progress-bar" class="bg-gradient-to-r from-amber-500 to-orange-500 h-full rounded-full transition-all duration-500" style="width: 0%"></div>
+                </div>
+            </div>
+
             <!-- Cart Items Container -->
             <div id="cart-items-container" class="space-y-3 mb-5 max-h-64 overflow-y-auto pr-1">
                 <p class="text-xs text-gray-500 italic text-center py-4">Keranjang masih kosong.</p>
+            </div>
+
+            <!-- Free Bonus Item Row (Muncul Otomatis jika Subtotal >= 70K) -->
+            <div id="free-bonus-card" class="hidden p-3 mb-4 rounded-2xl bg-emerald-50 border border-emerald-300 shadow-xs flex items-center justify-between gap-2">
+                <div class="flex items-center gap-2.5 min-w-0">
+                    <div class="w-9 h-9 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-700 text-base flex-shrink-0">
+                        🎁
+                    </div>
+                    <div class="min-w-0">
+                        <div class="flex items-center gap-1">
+                            <span class="text-[9px] font-extrabold px-1.5 py-0.2 rounded bg-emerald-600 text-white uppercase">FREE BONUS</span>
+                            <h4 class="font-extrabold text-xs text-emerald-950 truncate">Roti Coklat Klasik</h4>
+                        </div>
+                        <p class="text-[10px] text-emerald-700 font-semibold">Otomatis didapatkan karena order $\ge$ 70k 🎉</p>
+                    </div>
+                </div>
+                <span class="text-xs font-black text-emerald-700">Rp 0 (GRATIS)</span>
             </div>
 
             <!-- Kantong Belanja Checkbox (Hanya jika Take Away) -->
@@ -414,6 +445,10 @@
                 <div class="flex justify-between text-xs text-gray-600">
                     <span>Subtotal Menu:</span>
                     <span id="summary-subtotal" class="font-bold text-gray-800">Rp 0</span>
+                </div>
+                <div id="free-promo-discount-row" class="flex justify-between text-xs text-emerald-700 font-bold hidden">
+                    <span>Bonus Roti Coklat Klasik:</span>
+                    <span>GRATIS (Rp 0)</span>
                 </div>
                 <div id="mall-surcharge-row" class="flex justify-between text-xs text-amber-800 font-semibold hidden">
                     <span>Biaya Outlet (Mall / Premium):</span>
@@ -1695,6 +1730,25 @@
                             </div>
                         </div>
 
+                        <!-- Opsi Ukuran Cup (Regular vs Large) -->
+                        <div>
+                            <label class="block text-xs font-bold mb-1.5">Ukuran Cup <span class="text-red-500">*</span></label>
+                            <div class="grid grid-cols-2 gap-2">
+                                <label class="relative cursor-pointer">
+                                    <input type="radio" name="mod-size-pick" value="Regular" class="peer sr-only" checked onchange="updateModalPrice()">
+                                    <div class="rounded-xl border-2 border-gray-200 bg-white py-2 px-3 text-center transition-all hover:bg-amber-50 peer-checked:border-kenangan-primary peer-checked:bg-amber-50 peer-checked:text-kenangan-primary font-bold text-xs">
+                                        Regular
+                                    </div>
+                                </label>
+                                <label class="relative cursor-pointer">
+                                    <input type="radio" name="mod-size-pick" value="Large" class="peer sr-only" onchange="updateModalPrice()">
+                                    <div class="rounded-xl border-2 border-gray-200 bg-white py-2 px-3 text-center transition-all hover:bg-amber-50 peer-checked:border-kenangan-primary peer-checked:bg-amber-50 peer-checked:text-kenangan-primary font-bold text-xs">
+                                        Large (+Rp 4.000)
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
                         <!-- Ice & Sugar Levels -->
                         <div class="grid grid-cols-1 gap-3 bg-gray-50 p-3 rounded-2xl border border-gray-100">
                             <div>
@@ -1981,12 +2035,44 @@
             let subtotal = cart.reduce((sum, c) => sum + (c.price * (c.qty || 1)), 0);
             document.getElementById('summary-subtotal').textContent = formatRp(subtotal);
 
+            // PROMO REWARD LOGIC: Subtotal >= 70K Free 1x Roti Coklat Klasik
+            const promoTrackerText = document.getElementById('promo-tracker-text');
+            const promoTrackerBadge = document.getElementById('promo-tracker-badge');
+            const promoProgressBar = document.getElementById('promo-progress-bar');
+            const freeBonusCard = document.getElementById('free-bonus-card');
+            const freePromoDiscountRow = document.getElementById('free-promo-discount-row');
+
+            const targetAmount = 70000;
+            const progressPct = Math.min(100, Math.round((subtotal / targetAmount) * 100));
+            if (promoProgressBar) promoProgressBar.style.width = progressPct + '%';
+
+            if (subtotal >= targetAmount) {
+                if (promoTrackerText) promoTrackerText.innerHTML = '🎉 <b>PROMO TERCAPAI!</b> Kamu berhak dapat <b>1x FREE Roti Coklat Klasik</b>';
+                if (promoTrackerBadge) {
+                    promoTrackerBadge.textContent = 'UNLOCKED ✅';
+                    promoTrackerBadge.className = 'text-[9px] font-black px-2 py-0.5 rounded-full bg-emerald-600 text-white uppercase shadow-xs';
+                }
+                if (freeBonusCard) freeBonusCard.classList.remove('hidden');
+                if (freePromoDiscountRow) freePromoDiscountRow.classList.remove('hidden');
+            } else {
+                const diff = targetAmount - subtotal;
+                if (promoTrackerText) promoTrackerText.textContent = subtotal > 0 ? `Tambah ${formatRp(diff)} lagi untuk dapat GRATIS 1x Roti Coklat Klasik! 🍞` : 'Belanja min. Rp 70.000 dapat Gratis Roti Coklat Klasik!';
+                if (promoTrackerBadge) {
+                    promoTrackerBadge.textContent = 'PROMO';
+                    promoTrackerBadge.className = 'text-[9px] font-black px-2 py-0.5 rounded-full bg-amber-500 text-white uppercase shadow-xs';
+                }
+                if (freeBonusCard) freeBonusCard.classList.add('hidden');
+                if (freePromoDiscountRow) freePromoDiscountRow.classList.add('hidden');
+            }
+
+            // Surcharge Mall
             const isMall = isMallOutlet(selectedOutlet);
             const surcharge = (isMall && cart.length > 0) ? 3000 : 0;
             const surchargeRow = document.getElementById('mall-surcharge-row');
             if (surcharge > 0) surchargeRow.classList.remove('hidden');
             else surchargeRow.classList.add('hidden');
 
+            // Kantong Plastik (+Rp 1.000)
             const isBagChecked = document.getElementById('bag-checkbox').checked && currentOrderType === 'takeaway';
             const bagFee = (isBagChecked && cart.length > 0) ? 1000 : 0;
             const bagRow = document.getElementById('bag-fee-row');
@@ -2170,6 +2256,11 @@
                 itemsText += `   Subtotal: ${formatRp(itemTotal)}\n`;
             });
 
+            const hasFreePromo = subtotal >= 70000;
+            if (hasFreePromo) {
+                itemsText += `🎁 *[BONUS PROMO]*: 1x Roti Coklat Klasik (GRATIS/FREE - Rp 0)\n`;
+            }
+
             const isMall = isMallOutlet(selectedOutlet);
             const surcharge = isMall ? 3000 : 0;
             const bagFee = isBagChecked ? 1000 : 0;
@@ -2181,7 +2272,7 @@
                 date: new Date().toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'short' }),
                 outletName: selectedOutlet.name,
                 orderType: currentOrderType,
-                itemsSummary: cart.map(c => `${c.item.name} (${c.qty || 1}x)`).join(', '),
+                itemsSummary: cart.map(c => `${c.item.name} (${c.qty || 1}x)`).join(', ') + (hasFreePromo ? ' + FREE Roti Coklat' : ''),
                 cartData: JSON.parse(JSON.stringify(cart)),
                 outletObj: { ...selectedOutlet },
                 grandTotal: grandTotal
@@ -2207,7 +2298,7 @@
 --------------------------------------------------
 📋 *Detail Item:*
 ${itemsText}--------------------------------------------------
-Biaya Outlet (Mall) : ${formatRp(surcharge)}
+${hasFreePromo ? '🎁 *Bonus Promo:* 1x Roti Coklat Klasik (FREE)\n' : ''}Biaya Outlet (Mall) : ${formatRp(surcharge)}
 ${isBagChecked ? 'Kantong Belanja : Rp 1.000\n' : ''}💰 *Total Tagihan Final : ${formatRp(grandTotal)}*
 📌 *Status : [MENUNGGU PEMBAYARAN QRIS]*
 
@@ -2220,7 +2311,7 @@ Terima kasih sudah order Kopi Kenangan di Bintang Store!
 
 📋 *Rincian Pesanan:*
 ${itemsText}📍 *Outlet:* ${selectedOutlet.name}
-💰 *Total Tagihan Pas:* ${formatRp(grandTotal)}
+${hasFreePromo ? '🎁 *Bonus Promo:* 1x Roti Coklat Klasik (FREE)\n' : ''}💰 *Total Tagihan Pas:* ${formatRp(grandTotal)}
 
 Silakan transfer via QRIS toko kami ya Kak. Setelah bayar, kirim bukti transfer ke sini agar pesanan langsung kami proseskan ke kasir outlet. Ditunggu ya Kak! 🫰💖
 
@@ -2230,7 +2321,7 @@ Silakan transfer via QRIS toko kami ya Kak. Setelah bayar, kirim bukti transfer 
 
 Pesanan Kak *${name}* sudah berhasil dipesan ke barista ya! ✨
 
-📌 *Cara Pengambilan:* Cukup sebutkan nama *"${name}"* ke barista di outlet *${selectedOutlet.name}*.
+📌 *Cara Pengambilan:* Cukup sebutkan nama *"${name}"* ke barista di outlet *${selectedOutlet.name}* (termasuk bonus Roti Coklat Klasik-nya 🍞).
 
 Terima kasih banyak sudah jajan hemat di Bintang Store! Ditunggu orderan berikutnya ya Kak! 🫶🫰☕`;
 
