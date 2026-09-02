@@ -460,6 +460,11 @@
                 <span id="cart-item-count-text" class="text-xs font-bold text-gray-500">0 Item</span>
             </div>
 
+            <!-- Daftar Item Keranjang -->
+            <div id="cart-items-container" class="space-y-2 mb-4">
+                <p class="text-xs text-gray-500 italic text-center py-4">Keranjang masih kosong.</p>
+            </div>
+
             <!-- Promo Progress & Reward Tracker Bar (Min Belanja 70K Free Roti) -->
             <div id="promo-tracker-box" class="mb-4 p-3 rounded-2xl bg-gradient-to-r from-amber-500/10 via-amber-400/15 to-orange-500/10 border border-amber-500/30">
                 <div class="flex items-center justify-between gap-2 mb-1.5">
@@ -481,6 +486,79 @@
                     </button>
                 </div>
             </div>
+
+            <!-- Kartu Reward Bonus Gratis (Muncul otomatis saat syarat promo tercapai) -->
+            <div id="free-bonus-card" class="mb-4 p-3 rounded-2xl bg-emerald-50 border border-emerald-300 text-emerald-900 hidden flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-700 flex items-center justify-center text-lg flex-shrink-0">
+                    🍞
+                </div>
+                <div class="min-w-0 flex-1">
+                    <div class="flex items-center gap-1.5">
+                        <h4 class="text-xs font-black text-emerald-900">FREE Roti Coklat Klasik</h4>
+                        <span class="text-[9px] font-black px-2 py-0.5 rounded bg-emerald-600 text-white uppercase">GRATIS</span>
+                    </div>
+                    <p class="text-[10px] text-emerald-700 mt-0.5">Otomatis ditambahkan ke pesanan kamu tanpa biaya tambahan!</p>
+                </div>
+            </div>
+
+            <!-- Form Data Pemesan -->
+            <div class="space-y-3.5">
+                <div>
+                    <label class="block text-xs font-bold text-kenangan-dark mb-1">Nama Pemesan <span class="text-red-500">*</span></label>
+                    <input type="text" id="cust-name" placeholder="Nama untuk dipanggil barista saat ambil pesanan" oninput="validateKopkenForm()" class="w-full px-3.5 py-2.5 rounded-xl bg-white border border-gray-200 text-xs font-semibold text-kenangan-dark focus:outline-none focus:ring-2 focus:ring-kenangan-primary shadow-inner">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-kenangan-dark mb-1">Nomor WhatsApp Aktif <span class="text-red-500">*</span></label>
+                    <input type="tel" id="cust-wa" placeholder="Contoh: 081234567890 (Untuk konfirmasi & struk)" oninput="validateKopkenForm()" class="w-full px-3.5 py-2.5 rounded-xl bg-white border border-gray-200 text-xs font-semibold text-kenangan-dark focus:outline-none focus:ring-2 focus:ring-kenangan-primary shadow-inner">
+                    <p class="text-[10px] text-gray-500 mt-1">Admin akan mengirim update pesanan & bukti ke nomor ini.</p>
+                </div>
+
+                <!-- Waktu Pengambilan -->
+                <div>
+                    <label class="block text-xs font-bold text-kenangan-dark mb-1.5">Waktu Pengambilan di Outlet</label>
+                    <div class="grid grid-cols-2 gap-2 mb-2">
+                        <button type="button" id="btn-pickup-now" onclick="setPickupMode('now')" class="py-2 px-3 rounded-xl border-2 border-kenangan-primary bg-amber-50 text-kenangan-primary font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer">
+                            <i class="fas fa-bolt text-xs"></i> Sekarang (5-15 mnt)
+                        </button>
+                        <button type="button" id="btn-pickup-sched" onclick="setPickupMode('sched')" class="py-2 px-3 rounded-xl border-2 border-gray-200 bg-white text-gray-600 font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer">
+                            <i class="fas fa-clock text-xs"></i> Atur Jam Nanti
+                        </button>
+                    </div>
+
+                    <div id="schedule-picker-box" class="hidden grid grid-cols-2 gap-2 bg-gray-50 p-2.5 rounded-xl border border-gray-200">
+                        <div>
+                            <span class="block text-[10px] font-bold text-gray-500 mb-1 uppercase">Pilih Jam</span>
+                            <select id="pickup-time-select" class="w-full p-1.5 rounded-lg bg-white border border-gray-200 text-xs font-bold text-kenangan-dark outline-none"></select>
+                        </div>
+                        <div>
+                            <span class="block text-[10px] font-bold text-gray-500 mb-1 uppercase">Zona Waktu</span>
+                            <select id="pickup-timezone" class="w-full p-1.5 rounded-lg bg-white border border-gray-200 text-xs font-bold text-kenangan-dark outline-none">
+                                <option value="WIB">WIB (Barat)</option>
+                                <option value="WITA">WITA (Tengah)</option>
+                                <option value="WIT">WIT (Timur)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kantong Belanja Checkbox (Khusus Take Away) -->
+                <div id="plastic-bag-wrapper" class="pt-1">
+                    <label class="flex items-center gap-2 p-2.5 rounded-xl bg-white border border-gray-200 cursor-pointer shadow-sm hover:bg-gray-50 transition">
+                        <input type="checkbox" id="bag-checkbox" onchange="handleBagCheckboxChange()" class="w-4 h-4 accent-kenangan-primary rounded">
+                        <div class="min-w-0 flex-1 flex items-center justify-between">
+                            <span class="text-xs font-bold text-kenangan-dark">Butuh Kantong Belanja Plastik?</span>
+                            <span class="text-xs font-extrabold text-kenangan-primary">+ Rp 1.000</span>
+                        </div>
+                    </label>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-kenangan-dark mb-1">Catatan Tambahan untuk Admin (Opsional)</label>
+                    <input type="text" id="cust-notes" placeholder="Contoh: Tolong pisahkan kantong / minta sedotan kertas" class="w-full px-3.5 py-2 rounded-xl bg-white border border-gray-200 text-xs text-kenangan-dark focus:outline-none focus:ring-2 focus:ring-kenangan-primary shadow-inner">
+                </div>
+            </div>
+
             <!-- Rincian Pembayaran -->
             <div class="mt-5 bg-white/80 p-4 rounded-2xl border border-white shadow-sm space-y-2">
                 <!-- Badge Hemat Cuan -->
@@ -514,6 +592,63 @@
                     *Harga final sudah pas. Tinggal sebut nama pemesan saat ambil di outlet tanpa biaya tambahan.
                 </p>
             </div>
+
+            <!-- Tombol Pesan (Telegram & WhatsApp) -->
+            <div class="mt-4 space-y-2.5">
+                <button id="btn-submit-tele-kopken" disabled onclick="handleKopkenCheckoutInitiation('telegram')" class="w-full bg-gray-400 text-white font-extrabold py-3.5 rounded-2xl transition duration-200 flex justify-center items-center gap-2 cursor-not-allowed text-xs active:scale-98">
+                    <i class="fas fa-bolt text-sm"></i>
+                    <span>Pesan Otomatis (Proses Cepat via Bot)</span>
+                </button>
+                <button id="btn-submit-wa-kopken" disabled onclick="handleKopkenCheckoutInitiation('whatsapp')" class="w-full bg-gray-400 text-white font-extrabold py-3.5 rounded-2xl transition duration-200 flex justify-center items-center gap-2 cursor-not-allowed text-xs active:scale-98">
+                    <i class="fab fa-whatsapp text-base"></i>
+                    <span>Pesan Manual via Chat WhatsApp Admin</span>
+                </button>
+            </div>
+        </section>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- POPUP 1: MODAL WELCOME GATE (PILIH LOKASI) -->
+    <!-- ========================================== -->
+    <div id="modal-welcome-gate" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-[180] hidden opacity-0 transition-opacity duration-300 flex items-center justify-center p-4">
+        <div id="welcome-gate-card" class="bg-white rounded-3xl p-5 max-w-sm w-full text-kenangan-dark shadow-2xl border border-gray-200 transform scale-95 transition-transform duration-300">
+            <!-- Header Modal -->
+            <div class="flex items-center justify-between pb-3 border-b border-gray-100 mb-3.5">
+                <div class="flex items-center gap-2">
+                    <img src="https://i.postimg.cc/GpwttdxX/Logo-Kopi-Kenangan-Format-PNG-AI-EPS-CDR-PDF-SVG.png" alt="Logo" class="w-6 h-6 object-contain">
+                    <h3 class="font-extrabold text-sm text-kenangan-dark">Pilih Lokasi & Ambil</h3>
+                </div>
+                <button onclick="closeWelcomeGateModal()" class="w-7 h-7 bg-gray-100 hover:bg-gray-200 rounded-full flex justify-center items-center text-gray-500 transition cursor-pointer">
+                    <i class="fas fa-times text-xs"></i>
+                </button>
+            </div>
+            
+            <!-- Tipe Pesanan: Take Away vs Dine In -->
+            <div class="grid grid-cols-2 gap-2 mb-3.5">
+                <button type="button" id="gate-type-takeaway" onclick="setGateOrderType('takeaway')" class="py-2.5 px-3 rounded-2xl border-2 border-kenangan-primary bg-amber-50 text-kenangan-primary font-bold text-xs flex flex-col items-center gap-1 transition shadow-sm cursor-pointer">
+                    <i class="fas fa-bag-shopping text-base"></i>
+                    <span>Take Away</span>
+                </button>
+                <button type="button" id="gate-type-dinein" onclick="setGateOrderType('dinein')" class="py-2.5 px-3 rounded-2xl border-2 border-gray-200 bg-white text-gray-600 font-bold text-xs flex flex-col items-center gap-1 transition cursor-pointer">
+                    <i class="fas fa-mug-hot text-base"></i>
+                    <span>Dine In</span>
+                </button>
+            </div>
+
+            <!-- Cari Outlet Kopi Kenangan -->
+            <div class="relative mb-3.5">
+                <label class="block text-[10px] font-bold text-gray-500 uppercase mb-1">Cari Cabang / Outlet</label>
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
+                        <i class="fas fa-search text-xs"></i>
+                    </span>
+                    <input type="text" id="gate-outlet-search" oninput="handleGateOutletSearch()" placeholder="Ketik nama outlet / mall / kota..." class="w-full pl-8 pr-8 py-2 rounded-xl bg-gray-50 border border-gray-200 text-xs font-semibold text-kenangan-dark focus:bg-white focus:outline-none focus:ring-2 focus:ring-kenangan-primary">
+                    <button id="gate-clear-search-btn" onclick="clearGateSearch()" class="absolute inset-y-0 right-0 flex items-center pr-2.5 text-gray-400 hover:text-gray-600 hidden">
+                        <i class="fas fa-times-circle text-xs"></i>
+                    </button>
+                </div>
+                <!-- Dropdown Hasil Pencarian Outlet -->
+                <div id="gate-outlet-dropdown" class="absolute left-0 right-0 top-full mt-1 bg-white rounded-2xl shadow-2xl border border-gray-200 max-h-48 overflow-y-auto z-50 hidden"></div>
             </div>
 
             <!-- Box Outlet Terpilih Saat Ini -->
@@ -1150,9 +1285,13 @@
 
         function switchView(target, pushToHistory = true) {
             sfx.playTap();
-            document.getElementById('view-portal').classList.add('hidden');
-            document.getElementById('view-kopken').classList.add('hidden');
-            document.getElementById('view-netflix').classList.add('hidden');
+            const viewPortal = document.getElementById('view-portal');
+            const viewKopken = document.getElementById('view-kopken');
+            const viewNetflix = document.getElementById('view-netflix');
+
+            if (viewPortal) viewPortal.classList.add('hidden');
+            if (viewKopken) viewKopken.classList.add('hidden');
+            if (viewNetflix) viewNetflix.classList.add('hidden');
 
             const targetEl = document.getElementById(`view-${target}`);
             if (targetEl) targetEl.classList.remove('hidden');
@@ -2260,6 +2399,196 @@
             document.body.removeChild(temp);
             showToast(`Nomor ${name} (<b>${number}</b>) berhasil disalin!`);
         }
+
+        function closeCustomRequestModal() {
+            const modal = document.getElementById('modal-custom-req');
+            const card = document.getElementById('modal-custom-req-card');
+            modal.classList.add('opacity-0');
+            card.classList.remove('scale-100');
+            card.classList.add('scale-95');
+            setTimeout(() => modal.classList.add('hidden'), 250);
+        }
+
+        let reqCurrentItemType = 'drink';
+
+        function setReqItemType(type) {
+            reqCurrentItemType = type;
+            const btnDrink = document.getElementById('btn-req-type-drink');
+            const btnFood = document.getElementById('btn-req-type-food');
+            const drinkOptionsBox = document.getElementById('req-drink-options-box');
+
+            if (type === 'drink') {
+                btnDrink.className = "py-2 px-3 rounded-xl border-2 border-kenangan-primary bg-amber-50 text-kenangan-primary font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer";
+                btnFood.className = "py-2 px-3 rounded-xl border-2 border-gray-200 bg-white text-gray-600 font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer";
+                drinkOptionsBox.classList.remove('hidden');
+            } else {
+                btnFood.className = "py-2 px-3 rounded-xl border-2 border-kenangan-primary bg-amber-50 text-kenangan-primary font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer";
+                btnDrink.className = "py-2 px-3 rounded-xl border-2 border-gray-200 bg-white text-gray-600 font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer";
+                drinkOptionsBox.classList.add('hidden');
+            }
+        }
+
+        function toggleReqIce() {
+            const temp = document.querySelector('input[name="req-temp"]:checked')?.value;
+            const iceWrapper = document.getElementById('req-ice-wrapper');
+            if (iceWrapper) {
+                if (temp === 'Hot') iceWrapper.classList.add('opacity-40', 'pointer-events-none');
+                else iceWrapper.classList.remove('opacity-40', 'pointer-events-none');
+            }
+        }
+
+        function validateCustomReqForm() {
+            const name = document.getElementById('req-menu-name').value.trim();
+            const btn = document.getElementById('btn-save-custom-req');
+            if (name.length >= 2) {
+                btn.disabled = false;
+                btn.className = "w-full bg-kenangan-dark hover:bg-kenangan-hover text-white font-extrabold py-3.5 rounded-2xl shadow-md transition duration-200 flex justify-center items-center gap-2 text-xs active:scale-98 cursor-pointer";
+            } else {
+                btn.disabled = true;
+                btn.className = "w-full bg-gray-300 text-gray-500 font-extrabold py-3.5 rounded-2xl transition duration-200 flex justify-center items-center gap-2 cursor-not-allowed text-xs";
+            }
+        }
+
+        function addCustomRequestToCart() {
+            const name = document.getElementById('req-menu-name').value.trim();
+            if (!name) return;
+
+            let price = parseFloat(document.getElementById('req-menu-price').value) || 15000;
+            const note = document.getElementById('req-menu-note').value.trim();
+            let details = ['[REQUEST KUSTOM]'];
+
+            if (reqCurrentItemType === 'drink') {
+                const temp = document.querySelector('input[name="req-temp"]:checked')?.value || 'Ice';
+                const size = document.querySelector('input[name="req-size"]:checked')?.value || 'Regular';
+                const sugar = document.getElementById('req-sugar').value;
+                const ice = document.getElementById('req-ice').value;
+
+                details.push(temp);
+                details.push(size);
+                if (sugar !== 'Normal Sugar') details.push(sugar);
+                if (temp === 'Ice' && ice !== 'Normal Ice') details.push(ice);
+            } else {
+                details.push('Roti/Makanan');
+            }
+
+            cart.push({
+                item: {
+                    id: 'custom_req_' + Date.now(),
+                    name: `✍️ [Request] ${name}`,
+                    isCustom: true
+                },
+                details: details.join(', '),
+                note: note,
+                price: price,
+                qty: 1
+            });
+
+            closeCustomRequestModal();
+            updateCartUI();
+            validateKopkenForm();
+            playFlyToCartAnimation();
+            showToast(`Request <b>${name}</b> berhasil dimasukkan ke keranjang!`);
+        }
+
+        function openCustomRequestModal(keyword = '') {
+            const modal = document.getElementById('modal-custom-req');
+            const card = document.getElementById('modal-custom-req-card');
+            const nameInput = document.getElementById('req-menu-name');
+            nameInput.value = keyword || '';
+            document.getElementById('req-menu-price').value = '';
+            document.getElementById('req-menu-note').value = '';
+            setReqItemType('drink');
+            validateCustomReqForm();
+
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                card.classList.remove('scale-95');
+                card.classList.add('scale-100');
+                nameInput.focus();
+            }, 10);
+        }
+
+        // ====================================================
+        // MIDNIGHT OPERATION CHECKOUT HOOK
+        // ====================================================
+        function handleKopkenCheckoutInitiation(method) {
+            const name = document.getElementById('cust-name').value.trim();
+            const custWaInput = document.getElementById('cust-wa').value.trim();
+
+            if (cart.length === 0) {
+                showToast("Keranjang masih kosong, pilih menu dulu ya!");
+                return;
+            }
+
+            if (!name || name.length < 2) {
+                showToast("Mohon isi Nama Pemesan terlebih dahulu!");
+                document.getElementById('cust-name').focus();
+                return;
+            }
+
+            if (method === 'telegram' && (!custWaInput || custWaInput.length < 9)) {
+                showToast("⚠️ <b>Wajib Isi Nomor WhatsApp</b><br>Isi nomor WhatsApp Anda agar admin bisa kirim konfirmasi & struk pesanan!");
+                const waInput = document.getElementById('cust-wa');
+                waInput.focus();
+                waInput.classList.add('ring-2', 'ring-amber-500');
+                setTimeout(() => waInput.classList.remove('ring-2', 'ring-amber-500'), 3000);
+                return;
+            }
+
+            // Jika sedang jam malam (00:00 - 06:00) dan belum di-confirm oleh user
+            if (isMidnightHour() && !isMidnightForced) {
+                pendingCheckoutMethod = method;
+                openMidnightModal(name);
+                return;
+            }
+
+            // Lanjut ke eksekusi normal
+            submitOrderKopken(method);
+        }
+
+        function openMidnightModal(customerName) {
+            sfx.playTap();
+            const modal = document.getElementById('modal-midnight-confirm');
+            const card = document.getElementById('modal-midnight-card');
+            const askBtn = document.getElementById('midnight-wa-ask-btn');
+
+            const askText = encodeURIComponent(`Halo Min, masih melek nggak? Mau order Kopi Kenangan di Bintang Store nih atas nama ${customerName || 'Saya'} ☕`);
+            askBtn.href = `https://wa.me/${waNumber}?text=${askText}`;
+
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                card.classList.remove('scale-95');
+                card.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeMidnightModal() {
+            const modal = document.getElementById('modal-midnight-confirm');
+            const card = document.getElementById('modal-midnight-card');
+            modal.classList.add('opacity-0');
+            card.classList.remove('scale-100');
+            card.classList.add('scale-95');
+            setTimeout(() => modal.classList.add('hidden'), 250);
+            pendingCheckoutMethod = null;
+        }
+
+        function confirmMidnightOrder() {
+            sfx.playTap();
+            isMidnightForced = true;
+            closeMidnightModal();
+            if (pendingCheckoutMethod) {
+                submitOrderKopken(pendingCheckoutMethod);
+            }
+        }
+
+        function getDailyWifiPassword() {
+            const now = getWIBDate();
+            const dayNum = now.getDate();
+            return wifiPasswords[dayNum] || "TemanKenangan#01";
+        }
+
         async function submitOrderKopken(method) {
             const name = document.getElementById('cust-name').value.trim();
             const custWaInput = document.getElementById('cust-wa').value.trim();
