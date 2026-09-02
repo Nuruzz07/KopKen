@@ -2345,10 +2345,13 @@
             }
 
             if (hasBaseInfo && hasWaNumber) {
+                btnTele.disabled = false;
                 btnTele.className = "w-full bg-kenangan-dark hover:bg-kenangan-hover text-white font-extrabold py-3.5 rounded-2xl shadow-lg transition duration-200 flex justify-center items-center gap-2 active:scale-98 text-xs cursor-pointer";
             } else if (hasBaseInfo && !hasWaNumber) {
+                btnTele.disabled = false;
                 btnTele.className = "w-full bg-amber-800 hover:bg-amber-900 text-amber-200 font-extrabold py-3.5 rounded-2xl shadow transition duration-200 flex justify-center items-center gap-2 text-xs cursor-pointer";
             } else {
+                btnTele.disabled = true;
                 btnTele.className = "w-full bg-gray-400 text-white font-extrabold py-3.5 rounded-2xl transition duration-200 flex justify-center items-center gap-2 cursor-not-allowed text-xs";
             }
         }
