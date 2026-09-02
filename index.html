@@ -962,33 +962,6 @@
                 </div>
             </div>
 
-            <!-- Kotak Pilihan Transfer Manual (BCA & DANA) -->
-            <div class="mb-3.5 bg-gray-50 p-3 rounded-2xl border border-gray-200 text-left space-y-2">
-                <span class="text-[10px] font-bold text-gray-500 uppercase tracking-wider block">Atau Transfer Manual Bank / E-Wallet:</span>
-                
-                <div class="flex items-center justify-between bg-white p-2 rounded-xl border border-gray-200">
-                    <div class="min-w-0">
-                        <span class="text-[10px] font-black text-blue-700 uppercase">Bank BCA</span>
-                        <p class="text-xs font-mono font-extrabold text-kenangan-dark">8415523910</p>
-                        <p class="text-[9px] text-gray-400">a.n Bintang Store</p>
-                    </div>
-                    <button onclick="copyAccountNo('8415523910', 'BCA')" class="px-2.5 py-1 bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-bold rounded-lg transition active:scale-95 cursor-pointer">
-                        <i class="fas fa-copy text-[10px]"></i> Salin
-                    </button>
-                </div>
-
-                <div class="flex items-center justify-between bg-white p-2 rounded-xl border border-gray-200">
-                    <div class="min-w-0">
-                        <span class="text-[10px] font-black text-sky-600 uppercase">DANA / GoPay</span>
-                        <p class="text-xs font-mono font-extrabold text-kenangan-dark">085959633342</p>
-                        <p class="text-[9px] text-gray-400">a.n Bintang</p>
-                    </div>
-                    <button onclick="copyAccountNo('085959633342', 'DANA / GoPay')" class="px-2.5 py-1 bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-bold rounded-lg transition active:scale-95 cursor-pointer">
-                        <i class="fas fa-copy text-[10px]"></i> Salin
-                    </button>
-                </div>
-            </div>
-
             <!-- Kotak Nominal Tagihan Pas -->
             <div class="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-3 mb-3 text-left flex items-center justify-between">
                 <div>
@@ -2650,7 +2623,7 @@
 
             const waDirectLink = cleanWaNumber ? `https://wa.me/${cleanWaNumber}` : '-';
 
-            // DRAFT 1 (TERPISAH): Minta Bukti Transfer
+            // DRAFT 1: Murni teks balasan customer (TIDAK ADA EMBEL-EMBEL HEADER)
             const draftChat1 = `Halo Kak ${name}! 🫶✨
 Terima kasih sudah order Kopi Kenangan di Bintang Store!
 
@@ -2658,9 +2631,9 @@ Terima kasih sudah order Kopi Kenangan di Bintang Store!
 ${itemsText}📍 Outlet: ${selectedOutlet.name}
 ${hasFreePromo ? '🎁 Bonus Promo: 1x Roti Coklat Klasik (FREE)\n' : ''}💰 Total Tagihan Pas: ${formatRp(grandTotal)}
 
-Silakan transfer via QRIS / Rekening kami ya Kak. Setelah berhasil, kirim bukti transfer ke sini agar langsung kami proseskan ke kasir! Ditunggu ya Kak! 🫰💖`;
+Silakan scan / transfer via QRIS kami ya Kak. Setelah berhasil, kirim bukti transfer ke sini agar langsung kami proseskan ke kasir! Ditunggu ya Kak! 🫰💖`;
 
-            // BALON 1: Laporan Rincian Pesanan
+            // BALON 1: Laporan Rincian Pesanan untuk Admin
             const telegramSummaryBubble = `── .✦ <b>ORDER KOPI KENANGAN BARU</b> ✦.──
 ${isMidnightHour() ? '🌙 <b>[PERINGATAN: ORDER JAM MALAM / ANTREAN PAGI]</b>\n' : ''}
 👤 <b>Nama Pemesan :</b> ${name}
@@ -2677,9 +2650,6 @@ ${itemsText}--------------------------------------------------
 ${hasFreePromo ? '🎁 <b>Bonus Promo:</b> 1x Roti Coklat Klasik (FREE)\n' : ''}Biaya Outlet (Mall) : ${formatRp(surcharge)}
 ${isBagChecked ? 'Kantong Belanja : Rp 1.000\n' : ''}💰 <b>TOTAL TAGIHAN FINAL : ${formatRp(grandTotal)}</b>
 📌 <b>Status : [MENUNGGU PEMBAYARAN QRIS]</b>`;
-
-            // BALON 2: Khusus Draf Chat 1 (Tinggal Tap/Salin Balon Ini di Telegram)
-            const telegramDraft1Bubble = `📋 <b>DRAFT 1: SALIN & KIRIM KE CUSTOMER</b>\n(Tekan lama/tap untuk salin balon ini):\n\n<code>${draftChat1}</code>`;
 
             // Payload biasa untuk WhatsApp jika user memilih kirim via WA
             const waRawMessage = `── .✦ *ORDER KOPI KENANGAN BARU* ✦.──
@@ -2705,9 +2675,9 @@ ${isBagChecked ? 'Kantong Belanja : Rp 1.000\n' : ''}💰 *Total Tagihan Final :
 
                 // Kirim Balon 1: Rincian Pesanan
                 const ok1 = await sendSingleTelegramMsg(telegramSummaryBubble);
-                await delay(300); // Jeda agar urutan balon konsisten
-                // Kirim Balon 2: Draf 1 (Terpisah Murni)
-                const ok2 = await sendSingleTelegramMsg(telegramDraft1Bubble);
+                await delay(400); // Jeda agar urutan balon konsisten
+                // Kirim Balon 2: Murni isi Draft 1 tanpa potongan judul
+                const ok2 = await sendSingleTelegramMsg(draftChat1);
 
                 if (ok1 || ok2) {
                     showFullscreenLoader('kopken', false, '');
@@ -2743,7 +2713,7 @@ ${isBagChecked ? 'Kantong Belanja : Rp 1.000\n' : ''}💰 *Total Tagihan Final :
 
             const dailyWifi = getDailyWifiPassword();
 
-            // DRAFT 2: Proses & WiFi Hari Ini (Otomatis dari Tanggal)
+            // DRAFT 2: Murni teks proses & wifi (TIDAK ADA EMBEL-EMBEL HEADER)
             const draftProsesWifi = `Terima kasih banyak Kak ${checkoutCustomerName}! Pembayaran sebesar ${formatRp(checkoutGrandTotal)} sudah kami terima ☕✨
 
 Orderan sedang kami proseskan ke kasir yaa!
@@ -2755,7 +2725,7 @@ Orderan sedang kami proseskan ke kasir yaa!
 
 Mohon ditunggu sebentar ya Kak! 🫶`;
 
-            // DRAFT 3: Selesai / Siap Ambil
+            // DRAFT 3: Murni teks selesai / siap ambil (TIDAK ADA EMBEL-EMBEL HEADER)
             const draftSelesai = `Pesanan Kak ${checkoutCustomerName} sudah selesai diproses ke kasir ya! ✨
 
 📌 Cara Pengambilan:
@@ -2763,7 +2733,7 @@ Cukup sebutkan nama "${checkoutCustomerName}" ke barista di outlet.
 
 Selamat menikmati dan terima kasih sudah jajan di Bintang Store! Ditunggu orderan berikutnya ya Kak! 🫰☕`;
 
-            // BALON 1: Notifikasi Transfer Masuk
+            // BALON 1: Laporan Transfer Masuk ke Admin
             const notifyBubble1 = `🔔 <b>KONFIRMASI: CUSTOMER SUDAH TRANSFER!</b> 🔔
 --------------------------------------------------
 👤 <b>Nama :</b> ${checkoutCustomerName}
@@ -2772,19 +2742,16 @@ Selamat menikmati dan terima kasih sudah jajan di Bintang Store! Ditunggu ordera
 💰 <b>Total Tagihan :</b> ${formatRp(checkoutGrandTotal)}
 --------------------------------------------------
 Customer telah menekan tombol <b>SUDAH TRANSFER</b>.
-Mohon cek mutasi QRIS/Bank lalu kirimkan balasan di bawah ini! ⚡`;
+Balon di bawah ini bisa langsung disalin / diteruskan ke customer! ⚡`;
 
-            // BALON 2: Khusus Draf 2 (Proses + WiFi)
-            const notifyBubble2 = `📋 <b>DRAFT 2: PROSES & INFO WIFI HARI INI</b>\n(Tekan lama/tap untuk salin balon ini):\n\n<code>${draftProsesWifi}</code>`;
-
-            // BALON 3: Khusus Draf 3 (Pesanan Selesai)
-            const notifyBubble3 = `📋 <b>DRAFT 3: PESANAN SELESAI / SIAP AMBIL</b>\n(Tekan lama/tap untuk salin balon ini):\n\n<code>${draftSelesai}</code>`;
-
+            // Kirim berurutan 3 balon terpisah
             const ok1 = await sendSingleTelegramMsg(notifyBubble1);
-            await delay(300);
-            const ok2 = await sendSingleTelegramMsg(notifyBubble2);
-            await delay(300);
-            const ok3 = await sendSingleTelegramMsg(notifyBubble3);
+            await delay(400);
+            // Kirim Balon 2: Murni Draf 2
+            const ok2 = await sendSingleTelegramMsg(draftProsesWifi);
+            await delay(400);
+            // Kirim Balon 3: Murni Draf 3
+            const ok3 = await sendSingleTelegramMsg(draftSelesai);
 
             if (ok1 || ok2 || ok3) {
                 btn.className = "w-full bg-emerald-700 text-white font-bold py-2.5 rounded-xl text-xs flex items-center justify-center gap-1.5";
