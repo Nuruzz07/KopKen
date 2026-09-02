@@ -23,6 +23,12 @@
                                 accent: '#E8A359', 
                                 light: '#F9F1E7' 
                             },
+                            tomoro: {
+                                primary: '#EA580C',
+                                accent: '#F97316',
+                                light: '#FFF7ED',
+                                dark: '#9A3412'
+                            },
                             netflix: { dark: '#141414', primary: '#E50914', light: '#F5F5F1' },
                             portal: { dark: '#0F172A', accent: '#38BDF8' }
                         }
@@ -144,6 +150,12 @@
             50% { border-color: rgba(160, 92, 58, 0.7); box-shadow: 0 0 25px rgba(160, 92, 58, 0.35); }
         }
         .aura-kopken { animation: borderGlowKopken 3s infinite alternate ease-in-out; }
+
+        @keyframes borderGlowTomoro {
+            0%, 100% { border-color: rgba(249, 115, 22, 0.3); box-shadow: 0 0 15px rgba(249, 115, 22, 0.1); }
+            50% { border-color: rgba(234, 88, 12, 0.7); box-shadow: 0 0 25px rgba(234, 88, 12, 0.35); }
+        }
+        .aura-tomoro { animation: borderGlowTomoro 3s infinite alternate ease-in-out; }
     </style>
 </head>
 <body class="antialiased font-sans">
@@ -225,22 +237,23 @@
                 </div>
             </button>
 
-            <!-- Tomoro Coffee (Coming Soon) -->
-            <div onclick="showComingSoonToast('Tomoro Coffee')" class="w-full relative overflow-hidden rounded-3xl glass-portal p-4 sm:p-5 text-left border-l-4 border-l-orange-500/40 opacity-75 hover:opacity-90 transition cursor-pointer">
+            <!-- Tomoro Coffee (Katalog Menu / Showcase Mode Aktif) -->
+            <button onclick="openTomoroFlow()" class="w-full relative group overflow-hidden rounded-3xl glass-portal p-4 sm:p-5 text-left transition duration-300 hover:scale-[1.02] active:scale-95 border-l-4 border-l-orange-500 aura-tomoro cursor-pointer">
+                <div class="absolute -right-10 -top-10 w-32 h-32 bg-orange-500/20 rounded-full blur-2xl group-hover:bg-orange-500/35 transition duration-500"></div>
                 <div class="flex items-center gap-3.5 relative z-10">
-                    <div class="w-12 h-12 rounded-2xl bg-orange-500/15 border border-orange-500/20 flex items-center justify-center flex-shrink-0 text-orange-400">
-                        <i class="fas fa-coffee text-xl"></i>
+                    <div class="w-12 h-12 p-2 rounded-2xl bg-orange-500/15 border border-orange-500/20 flex items-center justify-center flex-shrink-0">
+                        <img src="https://images.seeklogo.com/logo-png/65/1/tomoro-coffee-logo-png_seeklogo-657315.png" alt="Tomoro Coffee" class="w-8 h-8 object-contain">
                     </div>
                     <div class="min-w-0 flex-1">
                         <div class="flex items-center gap-2">
                             <h2 class="text-base font-bold text-white leading-tight">Tomoro Coffee</h2>
-                            <span class="bg-orange-500/20 text-orange-300 text-[9px] font-extrabold px-2 py-0.5 rounded-full border border-orange-500/30">COMING SOON</span>
+                            <span class="bg-orange-500/20 text-orange-300 text-[9px] font-extrabold px-2 py-0.5 rounded-full border border-orange-500/30">KATALOG MENU</span>
                         </div>
-                        <p class="text-xs text-gray-400 mt-0.5">Segera hadir voucher diskon Tomoro Coffee</p>
+                        <p class="text-xs text-gray-300 mt-0.5 truncate">Lihat 37 varian menu & cek outlet terdekat</p>
                     </div>
-                    <span class="text-[10px] font-bold text-orange-400 uppercase tracking-wider">SOON</span>
+                    <span class="text-[10px] font-bold text-orange-400 bg-orange-500/10 border border-orange-500/30 px-2.5 py-1 rounded-xl">PREVIEW</span>
                 </div>
-            </div>
+            </button>
 
             <!-- Fore Coffee (Coming Soon) -->
             <div onclick="showComingSoonToast('Fore Coffee')" class="w-full relative overflow-hidden rounded-3xl glass-portal p-4 sm:p-5 text-left border-l-4 border-l-emerald-500/40 opacity-75 hover:opacity-90 transition cursor-pointer">
@@ -605,6 +618,101 @@
                 </button>
             </div>
         </section>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- VIEW 3: TOMORO COFFEE SHOWCASE / PREVIEW   -->
+    <!-- ========================================== -->
+    <div id="view-tomoro" class="view-section hidden text-slate-800 pb-32 max-w-4xl mx-auto">
+        <!-- Header Tomoro Coffee -->
+        <header class="glass sticky top-0 z-40 px-4 py-3 flex items-center justify-between shadow-sm border-b border-white/60">
+            <div class="flex items-center gap-3">
+                <button onclick="switchView('portal')" class="w-8 h-8 flex items-center justify-center rounded-full bg-white/70 text-slate-800 hover:bg-white transition border border-white cursor-pointer">
+                    <i class="fas fa-arrow-left text-xs"></i>
+                </button>
+                <img src="https://images.seeklogo.com/logo-png/65/1/tomoro-coffee-logo-png_seeklogo-657315.png" alt="Tomoro Logo" class="w-8 h-8 object-contain">
+                <div>
+                    <div class="flex items-center gap-1.5">
+                        <h1 class="font-extrabold text-slate-900 leading-tight text-sm">Tomoro Coffee</h1>
+                        <span class="bg-orange-100 text-orange-800 font-extrabold text-[9px] px-2 py-0.5 rounded-full border border-orange-200">SHOWCASE</span>
+                    </div>
+                    <p class="text-[10px] text-orange-600 font-semibold">Jasdor by Bintang Store</p>
+                </div>
+            </div>
+            <button onclick="switchView('portal')" class="px-3 py-1.5 rounded-full bg-white/80 hover:bg-white text-slate-700 text-xs font-bold border border-white flex items-center gap-1 shadow-sm cursor-pointer">
+                <i class="fas fa-arrow-left text-[11px]"></i>
+                <span>Kembali</span>
+            </button>
+        </header>
+
+        <!-- Banner Info Preview Mode Tomoro -->
+        <div class="mx-4 mt-3 p-3.5 bg-gradient-to-r from-orange-50 via-amber-50 to-orange-100/70 rounded-2xl border border-orange-300 text-orange-950 shadow-sm flex items-start gap-3">
+            <div class="w-9 h-9 rounded-xl bg-orange-500/20 text-orange-600 flex items-center justify-center text-lg flex-shrink-0 mt-0.5">
+                ☕
+            </div>
+            <div class="min-w-0 flex-1">
+                <h4 class="text-xs font-black text-orange-900">Katalog Eksklusif Tomoro Coffee (Segera Dibuka)</h4>
+                <p class="text-[10px] text-orange-800/90 leading-relaxed mt-0.5">
+                    Kamu bisa melihat 37 pilihan menu lengkap & mencari outlet Tomoro terdekat. Saat ini kami sedang meracik kupon diskon termurah agar segera bisa dipesan langsung ya Kak! ✨
+                </p>
+            </div>
+        </div>
+
+        <!-- Live Search Outlet Tomoro (Powered by Supabase API) -->
+        <div class="mx-4 mt-3 p-3.5 bg-white/90 backdrop-blur-md rounded-2xl border border-white shadow-sm">
+            <label class="block text-[10px] font-bold text-gray-500 uppercase mb-1.5 flex items-center gap-1">
+                <i class="fas fa-location-dot text-orange-500"></i> Cek Lokasi Outlet Tomoro Terdekat
+            </label>
+            <div class="relative">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
+                    <i class="fas fa-search text-xs"></i>
+                </span>
+                <input type="text" id="tomoro-outlet-search" oninput="handleTomoroOutletSearchInput()" placeholder="Ketik nama cabang Tomoro (misal: Dipatiukur, Dago, Sudirman)..." class="w-full pl-9 pr-8 py-2.5 rounded-xl bg-gray-50 border border-gray-200 text-xs font-semibold text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500">
+                <button id="tomoro-clear-outlet-btn" onclick="clearTomoroOutletSearch()" class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600 hidden">
+                    <i class="fas fa-times-circle text-xs"></i>
+                </button>
+            </div>
+            <!-- Dropdown Hasil Pencarian Outlet Tomoro -->
+            <div id="tomoro-outlet-dropdown" class="mt-2 bg-white rounded-2xl shadow-xl border border-gray-100 max-h-52 overflow-y-auto hidden divide-y divide-gray-100"></div>
+
+            <!-- Outlet Tomoro Terpilih Preview -->
+            <div id="tomoro-selected-preview" class="mt-2.5 p-2.5 rounded-xl bg-orange-50/70 border border-orange-200 flex items-center justify-between gap-2 hidden">
+                <div class="min-w-0">
+                    <span class="text-[9px] font-bold text-orange-800 uppercase">Outlet Dipilih:</span>
+                    <h5 id="tomoro-preview-outlet-name" class="text-xs font-black text-slate-900 truncate">Tomoro Coffee</h5>
+                    <p id="tomoro-preview-outlet-addr" class="text-[10px] text-gray-500 truncate">Alamat</p>
+                </div>
+                <span id="tomoro-preview-outlet-status" class="text-[9px] font-black px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 uppercase flex-shrink-0">BUKA</span>
+            </div>
+        </div>
+
+        <!-- Search Bar Menu Tomoro -->
+        <div class="px-4 pt-3 pb-2 sticky top-[57px] z-30 glass border-b border-white/50">
+            <div class="relative w-full max-w-md mx-auto">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <i class="fas fa-search text-gray-400 text-xs"></i>
+                </span>
+                <input type="text" id="tomoro-menu-search" oninput="renderTomoroMenu()" placeholder="Cari Spanish Aren, Frappe, Pistachio, Latte..." class="w-full pl-9 pr-4 py-2 rounded-xl bg-white/90 border border-white focus:outline-none focus:ring-2 focus:ring-orange-500 text-xs font-medium text-slate-800 shadow-sm">
+            </div>
+        </div>
+
+        <!-- Sticky Categories Bar Tomoro -->
+        <nav class="glass sticky top-[108px] z-30 px-4 py-2 mb-4 overflow-x-auto no-scrollbar whitespace-nowrap border-b border-white/50">
+            <div class="flex gap-2" id="tomoro-category-tabs">
+                <button onclick="filterTomoroCategory('Semua', event)" class="tomoro-cat-btn px-3.5 py-1.5 rounded-full bg-orange-500 text-white text-xs font-bold shadow-sm border border-orange-500 active:scale-95 transition cursor-pointer">Semua (37)</button>
+                <button onclick="filterTomoroCategory('Classic Coffee', event)" class="tomoro-cat-btn px-3.5 py-1.5 rounded-full bg-white/90 text-slate-700 text-xs font-bold shadow-sm border border-white hover:bg-white active:scale-95 transition cursor-pointer">Classic Coffee</button>
+                <button onclick="filterTomoroCategory('Fruity Series', event)" class="tomoro-cat-btn px-3.5 py-1.5 rounded-full bg-white/90 text-slate-700 text-xs font-bold shadow-sm border border-white hover:bg-white active:scale-95 transition cursor-pointer">Fruity Series</button>
+                <button onclick="filterTomoroCategory('Americano Party Series', event)" class="tomoro-cat-btn px-3.5 py-1.5 rounded-full bg-white/90 text-slate-700 text-xs font-bold shadow-sm border border-white hover:bg-white active:scale-95 transition cursor-pointer">Americano Party</button>
+                <button onclick="filterTomoroCategory('Frappe', event)" class="tomoro-cat-btn px-3.5 py-1.5 rounded-full bg-white/90 text-slate-700 text-xs font-bold shadow-sm border border-white hover:bg-white active:scale-95 transition cursor-pointer">Frappe</button>
+                <button onclick="filterTomoroCategory('Pistachio Series', event)" class="tomoro-cat-btn px-3.5 py-1.5 rounded-full bg-white/90 text-slate-700 text-xs font-bold shadow-sm border border-white hover:bg-white active:scale-95 transition cursor-pointer">Pistachio Series</button>
+                <button onclick="filterTomoroCategory('Non Coffee', event)" class="tomoro-cat-btn px-3.5 py-1.5 rounded-full bg-white/90 text-slate-700 text-xs font-bold shadow-sm border border-white hover:bg-white active:scale-95 transition cursor-pointer">Non Coffee</button>
+            </div>
+        </nav>
+
+        <!-- Menu Container Tomoro -->
+        <main class="px-4">
+            <div id="tomoro-menu-grid" class="grid grid-cols-2 md:grid-cols-4 gap-3"></div>
+        </main>
     </div>
 
     <!-- ========================================== -->
@@ -978,7 +1086,7 @@
             <div class="text-left bg-gray-50 rounded-xl p-3 mb-4 text-[10px] text-gray-600 space-y-1 border border-gray-100">
                 <p class="font-bold text-gray-800"><i class="fas fa-info-circle text-amber-600 mr-1"></i> Cara Pembayaran:</p>
                 <ol class="list-decimal pl-3.5 space-y-0.5 leading-relaxed">
-                    <li><b>Screenshot</b> kode QRIS di atas lalu bayar di m-Banking / E-Wallet.</li>
+                    <li><b>Screenshot / Simpan</b> kode QRIS di atas lalu bayar di m-Banking / E-Wallet.</li>
                     <li>Pilih salah satu cara konfirmasi di bawah setelah berhasil transfer:</li>
                 </ol>
             </div>
@@ -1148,6 +1256,246 @@
         let pendingCheckoutMethod = null;
         let isMidnightForced = false;
 
+        // SUPABASE TOMORO DATABASE CREDENTIALS
+        const SUPABASE_TOMORO_URL = "https://xckpxsrkpqktmdiulhsy.supabase.co";
+        const SUPABASE_TOMORO_KEY = "sb_publishable_bbqKvEd6ew_vM9wBpoIHZw_hANNhLNF";
+        let tomoroSearchDebounce = null;
+        let tomoroActiveCategory = 'Semua';
+        let selectedTomoroOutlet = null;
+
+        // TOMORO COFFEE DATABASE (37 MENU LENGKAP)
+        const tomoroMenuDatabase = [
+            // --- CLASSIC COFFEE ---
+            { id: 'tm_c1', name: 'Spanish Aren Latte', category: 'Classic Coffee', price: 20000, realPrice: 32000, badge: '🔥 BEST', img: 'https://img.cimagroup.my.id/tomoro-spanish-aren-latte-1784206477919.webp' },
+            { id: 'tm_c2', name: 'Manuka Oat Latte', category: 'Classic Coffee', price: 22000, realPrice: 34000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-manuka-oat-latte-1784206955327.webp' },
+            { id: 'tm_c6', name: 'Coconut Aren Latte', category: 'Classic Coffee', price: 20000, realPrice: 30000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-coconut-aren-latte-1784206496113.webp' },
+            { id: 'tm_c7', name: 'Caramel Macchiato', category: 'Classic Coffee', price: 20000, realPrice: 32000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-caramel-macchiato-1784206391083.webp' },
+            { id: 'tm_c8', name: 'Cheese Cloud Chocolate', category: 'Classic Coffee', price: 20000, realPrice: 30000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-cheese-cloud-chocolate-1784205905057.webp' },
+            { id: 'tm_c9', name: 'Sea Salt Cloud Caramel Macchiato', category: 'Classic Coffee', price: 21000, realPrice: 33000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-sea-salt-cloud-caramel-macchiato-1784205854612.webp' },
+            { id: 'tm_c10', name: 'Caramel Cheese Latte', category: 'Classic Coffee', price: 20000, realPrice: 32000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-caramel-cheese-latte-1784206443651.webp' },
+            { id: 'tm_c11', name: 'Cheese Cloud Latte', category: 'Classic Coffee', price: 20000, realPrice: 30000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-cheese-cloud-latte-1784206354009.webp' },
+            { id: 'tm_c12', name: 'Caffe Americano', category: 'Classic Coffee', price: 15000, realPrice: 20000, badge: 'FAVORIT', img: 'https://img.cimagroup.my.id/tomoro-caffe-americano-1784205916193.webp' },
+            { id: 'tm_c13', name: 'Kopi Susu Aren', category: 'Classic Coffee', price: 17000, realPrice: 24000, badge: '🔥 BEST', img: 'https://img.cimagroup.my.id/tomoro-kopi-susu-aren-1784205971117.webp' },
+            { id: 'tm_c14', name: 'TOMORO Coconut Latte', category: 'Classic Coffee', price: 20000, realPrice: 30000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-tomoro-coconut-latte-1784206633800.webp' },
+            { id: 'tm_c15', name: 'Caffe Latte', category: 'Classic Coffee', price: 18000, realPrice: 26000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-caffe-latte-1784205946441.webp' },
+            { id: 'tm_c16', name: 'Cappuccino', category: 'Classic Coffee', price: 18000, realPrice: 26000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-cappuccino-1784206159848.webp' },
+            { id: 'tm_c17', name: 'Spanish Latte', category: 'Classic Coffee', price: 19000, realPrice: 28000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-spanish-latte-1784206468364.webp' },
+            { id: 'tm_c18', name: 'Caffe Mocha', category: 'Classic Coffee', price: 20000, realPrice: 29000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-caffe-mocha-1784205985921.webp' },
+            { id: 'tm_c19', name: 'Sea Salt Cloud Chocolate', category: 'Classic Coffee', price: 20000, realPrice: 30000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-sea-salt-cloud-chocolate-1784206747477.webp' },
+            { id: 'tm_c20', name: 'Sea Salt Cloud Matcha Latte', category: 'Classic Coffee', price: 21000, realPrice: 32000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-sea-salt-cloud-matcha-latte-1784205828616.webp' },
+            { id: 'tm_c21', name: 'TOMORO Aren Latte', category: 'Classic Coffee', price: 17000, realPrice: 24000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-tomoro-aren-latte-1784205841380.webp' },
+
+            // --- FRUITY SERIES ---
+            { id: 'tm_fr1', name: 'Peach Americano', category: 'Fruity Series', price: 18000, realPrice: 26000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-peach-americano-1784206558221.webp' },
+            { id: 'tm_fr2', name: 'Peach Coconut Frappe', category: 'Fruity Series', price: 22000, realPrice: 32000, badge: '', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCo4iqcCjVnKKGlihxw4V4LhYjDpNI9iiV0QG7zx96Lg&s=10' },
+            { id: 'tm_fr3', name: 'Peach Jasmine Tea', category: 'Fruity Series', price: 15000, realPrice: 22000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-peach-jasmine-tea-1784206571953.webp' },
+
+            // --- AMERICANO PARTY SERIES ---
+            { id: 'tm_ap1', name: 'Grapefruit Americano', category: 'Americano Party Series', price: 18000, realPrice: 26000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-grapefruit-americano-1784206918080.webp' },
+            { id: 'tm_ap2', name: 'Lemonade Americano', category: 'Americano Party Series', price: 18000, realPrice: 26000, badge: 'FAVORIT', img: 'https://img.cimagroup.my.id/tomoro-lemonade-americano-1784206858343.webp' },
+            { id: 'tm_ap3', name: 'Jasmine Americano', category: 'Americano Party Series', price: 17000, realPrice: 24000, badge: '', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgbqPIlQTVVBjPgMrIrGRPC61LwL0lmRvBIc5l6aJaLyOyjVVxGXA4aVE&s=10' },
+
+            // --- FRAPPE ---
+            { id: 'tm_fp1', name: 'Caffe Mocha Frappe', category: 'Frappe', price: 21000, realPrice: 30000, badge: '', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYG2-owZu3RShejVqVbrlgE2XJw6qse0278WS7UaK0hmO5sGJnxFCo1e97&s=10' },
+            { id: 'tm_fp2', name: 'Aren Latte Frappe', category: 'Frappe', price: 21000, realPrice: 30000, badge: '', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmFA0Eg0Zrv1M9AlEtZdNpdasMHN1QONAucTC5Mm6avcPLkVz1Fix1WWue&s=10' },
+            { id: 'tm_fp3', name: 'Oat Aren Frappe', category: 'Frappe', price: 22000, realPrice: 32000, badge: '', img: 'https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/f301b1ee-ecff-476a-a0b9-ae7793071e46_Gg4SDAoDCPQDEgMI9AMYAShV.jpeg?w=250' },
+            { id: 'tm_fp4', name: 'Coconut Aren Frappe', category: 'Frappe', price: 22000, realPrice: 32000, badge: '', img: 'https://i0.wp.com/i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/aea7c1cb-6d8e-4084-abf6-697b5f958fe6_Gg4SDAoDCPQDEgMI9AMYAShV.jpeg' },
+            { id: 'tm_fp5', name: 'Matcha Frappe', category: 'Frappe', price: 21000, realPrice: 30000, badge: '', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToZrYIBc6ITj-YQ7T3TO9MkJ130VWE7BsWbhp1veq3UfFAS0tQBUZx4Nw5&s=10' },
+            { id: 'tm_fp6', name: 'Coffee Frappe', category: 'Frappe', price: 20000, realPrice: 28000, badge: '', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxaWu6-5iz1g6ChF9R0o52sTQRAQEgqhYnDobqfoYkeA&s=10' },
+            { id: 'tm_fp7', name: 'Chocolate Frappe', category: 'Frappe', price: 20000, realPrice: 28000, badge: '', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRYS73RxkOJunfg01mgaSVDJD1flUqP9dNDM5b-sCy-xx9mEb2pyRAv-k&s=10' },
+
+            // --- PISTACHIO SERIES ---
+            { id: 'tm_ps1', name: 'Pistachio Latte', category: 'Pistachio Series', price: 23000, realPrice: 34000, badge: '✨ NEW', img: 'https://img.cimagroup.my.id/tomoro-pistachio-matcha-latte-1784205817997.webp' },
+            { id: 'tm_ps2', name: 'Pistachio Chocolate', category: 'Pistachio Series', price: 23000, realPrice: 34000, badge: '✨ NEW', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7g8MzcX_0KJIfacaKIylGEk47gPEfqNH_tPWQoumWNBgUypmkVwBB6dtw&s=10' },
+            { id: 'tm_ps3', name: 'Pistachio Matcha Latte', category: 'Pistachio Series', price: 24000, realPrice: 35000, badge: '✨ NEW', img: 'https://img.cimagroup.my.id/tomoro-pistachio-matcha-latte-1784205817997.webp' },
+
+            // --- NON COFFEE ---
+            { id: 'tm_nc1', name: 'Pink Pop Lemonade', category: 'Non Coffee', price: 14000, realPrice: 20000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-pink-pop-lemonade-1784206894500.webp' },
+            { id: 'tm_nc2', name: 'Pink Pop Lemon Tea', category: 'Non Coffee', price: 14000, realPrice: 20000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-pink-pop-lemon-tea-1784206905841.webp' },
+            { id: 'tm_nc3', name: 'Chocolate', category: 'Non Coffee', price: 16000, realPrice: 22000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-chocolate-1784206769565.webp' },
+            { id: 'tm_nc8', name: 'TOMORO Oat Latte', category: 'Non Coffee', price: 20000, realPrice: 28000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-tomoro-oat-latte-1784205867826.webp' },
+            { id: 'tm_nc9', name: 'Breve Latte', category: 'Non Coffee', price: 19000, realPrice: 26000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-breve-latte-1784205927541.webp' },
+            { id: 'tm_nc16', name: 'Choco Oat Latte', category: 'Non Coffee', price: 21000, realPrice: 30000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-choco-oat-latte-1784206785487.webp' },
+            { id: 'tm_nc18', name: 'Hojicha Oat Latte', category: 'Non Coffee', price: 21000, realPrice: 30000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-hojicha-oat-latte-1784206818915.webp' }
+        ];
+
+        function openTomoroFlow() {
+            switchView('tomoro');
+            renderTomoroMenu();
+            showToast("☕ Selamat datang di Showcase <b>Tomoro Coffee</b>! Eksplorasi 37 menu & cek outlet terdekat.");
+        }
+
+        function renderTomoroMenu() {
+            const container = document.getElementById('tomoro-menu-grid');
+            if (!container) return;
+            container.innerHTML = '';
+
+            const searchInput = document.getElementById('tomoro-menu-search');
+            const keyword = searchInput ? searchInput.value.toLowerCase().trim() : '';
+
+            const filtered = tomoroMenuDatabase.filter(m => {
+                const matchCat = tomoroActiveCategory === 'Semua' || m.category === tomoroActiveCategory;
+                const matchKeyword = !keyword || (m.name && m.name.toLowerCase().includes(keyword));
+                return matchCat && matchKeyword;
+            });
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-2 md:col-span-4 text-center py-10 px-4 bg-white/70 rounded-3xl border border-white shadow-sm">
+                        <i class="fas fa-coffee text-orange-400 text-3xl mb-2"></i>
+                        <p class="text-xs text-slate-700 font-bold">Menu Tomoro "${keyword}" tidak ditemukan.</p>
+                        <p class="text-[10px] text-gray-500 mt-1">Coba cari varian lain seperti Aren, Frappe, atau Latte.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            filtered.forEach(item => {
+                container.innerHTML += `
+                    <div class="glass rounded-2xl p-2.5 flex flex-col justify-between h-full relative overflow-hidden group shadow-sm hover:shadow-md transition">
+                        ${item.badge ? `<div class="absolute top-0 right-0 bg-orange-600 text-white text-[9px] font-black px-2 py-0.5 rounded-bl-lg z-10 uppercase">${item.badge}</div>` : ''}
+                        
+                        <div class="w-full aspect-square flex items-center justify-center p-2 mb-2 bg-white/80 rounded-xl overflow-hidden shadow-inner">
+                            <img src="${item.img}" alt="${item.name}" class="w-full h-full object-contain group-hover:scale-105 transition duration-300" loading="lazy" onerror="this.src='https://placehold.co/400x400/EA580C/FFFFFF?text=Tomoro+Coffee';">
+                        </div>
+
+                        <div class="flex-grow flex flex-col justify-between">
+                            <div>
+                                <span class="text-[9px] font-bold text-orange-600 uppercase tracking-wider block">${item.category}</span>
+                                <h3 class="font-extrabold text-slate-800 text-xs leading-snug line-clamp-2">${item.name}</h3>
+                                <p class="text-[10px] text-gray-400 line-through mt-0.5">${formatRp(item.realPrice)}</p>
+                            </div>
+                            <div class="flex justify-between items-center mt-2 pt-1.5 border-t border-gray-100">
+                                <div>
+                                    <span class="text-[9px] text-gray-400 block font-semibold">Promo Jasdor:</span>
+                                    <p class="font-black text-orange-600 text-xs">${formatRp(item.price)}</p>
+                                </div>
+                                <button onclick="showTomoroPreviewToast('${item.name.replace(/'/g, "\\'")}')" class="px-2.5 py-1.5 rounded-xl bg-orange-500/15 hover:bg-orange-500 text-orange-700 hover:text-white text-[10px] font-extrabold transition cursor-pointer flex items-center gap-1 active:scale-95 border border-orange-500/20">
+                                    <i class="fas fa-eye text-[9px]"></i> Preview
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function filterTomoroCategory(cat, event) {
+            if (event) event.preventDefault();
+            sfx.playTap();
+            tomoroActiveCategory = cat;
+
+            document.querySelectorAll('.tomoro-cat-btn').forEach(btn => {
+                const isCurrent = btn.textContent.includes(cat);
+                if (isCurrent) {
+                    btn.className = "tomoro-cat-btn px-3.5 py-1.5 rounded-full bg-orange-500 text-white text-xs font-bold shadow-sm border border-orange-500 active:scale-95 transition cursor-pointer";
+                } else {
+                    btn.className = "tomoro-cat-btn px-3.5 py-1.5 rounded-full bg-white/90 text-slate-700 text-xs font-bold shadow-sm border border-white hover:bg-white active:scale-95 transition cursor-pointer";
+                }
+            });
+
+            renderTomoroMenu();
+        }
+
+        function showTomoroPreviewToast(menuName) {
+            sfx.playTap();
+            showToast(`☕ <b>${menuName}</b><br>Katalog Tomoro saat ini mode preview. Diskon spesial segera aktif untuk dipesan!`);
+        }
+
+        function handleTomoroOutletSearchInput() {
+            clearTimeout(tomoroSearchDebounce);
+            const query = document.getElementById('tomoro-outlet-search').value.trim();
+            const dropdown = document.getElementById('tomoro-outlet-dropdown');
+            const clearBtn = document.getElementById('tomoro-clear-outlet-btn');
+
+            if (!query) {
+                dropdown.classList.add('hidden');
+                clearBtn.classList.add('hidden');
+                return;
+            }
+
+            clearBtn.classList.remove('hidden');
+            tomoroSearchDebounce = setTimeout(() => {
+                fetchTomoroOutlets(query);
+            }, 300);
+        }
+
+        function clearTomoroOutletSearch() {
+            document.getElementById('tomoro-outlet-search').value = '';
+            document.getElementById('tomoro-outlet-dropdown').classList.add('hidden');
+            document.getElementById('tomoro-clear-outlet-btn').classList.add('hidden');
+        }
+
+        async function fetchTomoroOutlets(keyword) {
+            const dropdown = document.getElementById('tomoro-outlet-dropdown');
+            dropdown.classList.remove('hidden');
+            dropdown.innerHTML = '<div class="p-3 text-xs text-gray-500 text-center"><i class="fas fa-spinner fa-spin mr-1"></i> Mencari outlet Tomoro...</div>';
+
+            try {
+                const endpoint = `${SUPABASE_TOMORO_URL}/rest/v1/tomoro_outlets?select=*&or=(nama.ilike.*${encodeURIComponent(keyword)}*,area.ilike.*${encodeURIComponent(keyword)}*,alamat.ilike.*${encodeURIComponent(keyword)}*)&limit=12`;
+                const resp = await fetch(endpoint, {
+                    method: 'GET',
+                    headers: {
+                        'apikey': SUPABASE_TOMORO_KEY,
+                        'Authorization': `Bearer ${SUPABASE_TOMORO_KEY}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (!resp.ok) throw new Error("Gagal mengambil data outlet");
+
+                const outlets = await resp.json();
+                if (!outlets || outlets.length === 0) {
+                    dropdown.innerHTML = '<div class="p-3 text-xs text-gray-400 text-center">Outlet Tomoro tidak ditemukan</div>';
+                    return;
+                }
+
+                dropdown.innerHTML = '';
+                outlets.forEach(o => {
+                    const name = o.nama || 'Tomoro Coffee';
+                    const area = o.area ? `(${o.area})` : '';
+                    const addr = o.alamat || 'Alamat tidak tersedia';
+                    const isOpen = o.status ? (o.status.toLowerCase() === 'buka') : true;
+
+                    const safeName = `${name} ${area}`.trim();
+
+                    dropdown.innerHTML += `
+                        <div onclick="selectTomoroOutlet('${safeName.replace(/'/g, "\\'")}', '${addr.replace(/'/g, "\\'")}', ${isOpen})" class="p-3 hover:bg-orange-50/80 cursor-pointer flex items-center justify-between gap-2 transition">
+                            <div class="min-w-0">
+                                <h5 class="text-xs font-bold text-slate-800 truncate">${safeName}</h5>
+                                <p class="text-[10px] text-gray-500 line-clamp-1 mt-0.5">${addr}</p>
+                            </div>
+                            <span class="text-[9px] font-extrabold px-2 py-0.5 rounded-full uppercase flex-shrink-0 ${isOpen ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'}">
+                                ${isOpen ? 'BUKA' : 'TUTUP'}
+                            </span>
+                        </div>
+                    `;
+                });
+            } catch (err) {
+                dropdown.innerHTML = '<div class="p-3 text-xs text-red-500 text-center">Gagal memuat outlet Tomoro Coffee</div>';
+            }
+        }
+
+        function selectTomoroOutlet(name, addr, isOpen) {
+            selectedTomoroOutlet = { name, addr, isOpen };
+            clearTomoroOutletSearch();
+
+            const preview = document.getElementById('tomoro-selected-preview');
+            const nameEl = document.getElementById('tomoro-preview-outlet-name');
+            const addrEl = document.getElementById('tomoro-preview-outlet-addr');
+            const statusEl = document.getElementById('tomoro-preview-outlet-status');
+
+            if (preview && nameEl && addrEl && statusEl) {
+                preview.classList.remove('hidden');
+                nameEl.textContent = name;
+                addrEl.textContent = addr;
+                statusEl.textContent = isOpen ? 'BUKA' : 'TUTUP';
+                statusEl.className = `text-[9px] font-black px-2 py-0.5 rounded-full uppercase flex-shrink-0 ${isOpen ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'}`;
+            }
+
+            showToast(`Outlet Tomoro terpilih: <b>${name}</b>`);
+        }
+
         function getWIBDate() {
             const now = new Date();
             const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
@@ -1260,10 +1608,12 @@
             sfx.playTap();
             const viewPortal = document.getElementById('view-portal');
             const viewKopken = document.getElementById('view-kopken');
+            const viewTomoro = document.getElementById('view-tomoro');
             const viewNetflix = document.getElementById('view-netflix');
 
             if (viewPortal) viewPortal.classList.add('hidden');
             if (viewKopken) viewKopken.classList.add('hidden');
+            if (viewTomoro) viewTomoro.classList.add('hidden');
             if (viewNetflix) viewNetflix.classList.add('hidden');
 
             const targetEl = document.getElementById(`view-${target}`);
@@ -1281,6 +1631,10 @@
                 body.style.backgroundColor = '#F9F1E7';
                 glow.style.background = 'radial-gradient(circle at 50% 50%, rgba(232, 163, 89, 0.15) 0%, rgba(249, 241, 231, 0) 50%), radial-gradient(circle at 80% 20%, rgba(160, 92, 58, 0.1) 0%, rgba(249, 241, 231, 0) 40%)';
                 initKopkenParticles();
+            } else if (target === 'tomoro') {
+                body.style.backgroundColor = '#FFF7ED';
+                glow.style.background = 'radial-gradient(circle at 50% 50%, rgba(249, 115, 22, 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(234, 88, 12, 0.1) 0%, transparent 40%)';
+                document.getElementById('particle-container').innerHTML = '';
             } else if (target === 'netflix') {
                 body.style.backgroundColor = '#141414';
                 glow.style.background = 'radial-gradient(circle at 50% 50%, rgba(229, 9, 20, 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(0, 0, 0, 0.1) 0%, transparent 40%)';
@@ -1316,11 +1670,12 @@
             initWifiDisplay();
             initScheduleDropdown();
             checkNightHours();
+            initSocialProofTicker();
             await loadDataFiles();
             renderMenu();
 
             const initialHash = window.location.hash.replace('#', '') || 'portal';
-            if (['portal', 'kopken', 'netflix'].includes(initialHash)) {
+            if (['portal', 'kopken', 'tomoro', 'netflix'].includes(initialHash)) {
                 history.replaceState({ view: initialHash }, '', '#' + initialHash);
                 switchView(initialHash, false);
             } else {
@@ -1336,6 +1691,39 @@
                 }
             });
         });
+
+        // Social Proof / Ticker Transaksi Berjalan Otomatis
+        function initSocialProofTicker() {
+            const fakeOrders = [
+                { name: "Dimas", menu: "Duo Mantan (2 Cup)", outlet: "Grand Indonesia" },
+                { name: "Siti Nur", menu: "Kombo Roti + Mantan", outlet: "PIM 2 South" },
+                { name: "Rian F.", menu: "Americano + Bun", outlet: "23Paskal Bandung" },
+                { name: "Jessica", menu: "Trio Nongkrong (3 Cup)", outlet: "Margonda Raya Depok" },
+                { name: "Bagus", menu: "Party Pack Rame-Rame", outlet: "SMS Serpong" }
+            ];
+
+            const spToast = document.getElementById('social-proof-toast');
+            const spUser = document.getElementById('sp-user-text');
+            const spTime = document.getElementById('sp-time-text');
+
+            if (!spToast || !spUser || !spTime) return;
+
+            setInterval(() => {
+                const randomOrder = fakeOrders[Math.floor(Math.random() * fakeOrders.length)];
+                const randomMinutes = Math.floor(Math.random() * 8) + 1;
+
+                spUser.textContent = `${randomOrder.name} baru saja order ${randomOrder.menu}`;
+                spTime.textContent = `${randomMinutes} menit lalu • ${randomOrder.outlet}`;
+
+                spToast.classList.remove('-translate-x-[120%]');
+                spToast.classList.add('translate-x-0');
+
+                setTimeout(() => {
+                    spToast.classList.remove('translate-x-0');
+                    spToast.classList.add('-translate-x-[120%]');
+                }, 4500);
+            }, 24000);
+        }
 
         async function loadDataFiles() {
             try {
@@ -2485,9 +2873,6 @@
             }, 10);
         }
 
-        // ====================================================
-        // MIDNIGHT OPERATION CHECKOUT HOOK
-        // ====================================================
         function handleKopkenCheckoutInitiation(method) {
             const name = document.getElementById('cust-name').value.trim();
             const custWaInput = document.getElementById('cust-wa').value.trim();
@@ -2512,14 +2897,12 @@
                 return;
             }
 
-            // Jika sedang jam malam (00:00 - 06:00) dan belum di-confirm oleh user
             if (isMidnightHour() && !isMidnightForced) {
                 pendingCheckoutMethod = method;
                 openMidnightModal(name);
                 return;
             }
 
-            // Lanjut ke eksekusi normal
             submitOrderKopken(method);
         }
 
@@ -2623,7 +3006,7 @@
 
             const waDirectLink = cleanWaNumber ? `https://wa.me/${cleanWaNumber}` : '-';
 
-            // DRAFT 1: Murni teks balasan customer (TIDAK ADA EMBEL-EMBEL HEADER)
+            // DRAFT 1: Murni teks balasan customer
             const draftChat1 = `Halo Kak ${name}! 🫶✨
 Terima kasih sudah order Kopi Kenangan di Bintang Store!
 
@@ -2651,7 +3034,6 @@ ${hasFreePromo ? '🎁 <b>Bonus Promo:</b> 1x Roti Coklat Klasik (FREE)\n' : ''}
 ${isBagChecked ? 'Kantong Belanja : Rp 1.000\n' : ''}💰 <b>TOTAL TAGIHAN FINAL : ${formatRp(grandTotal)}</b>
 📌 <b>Status : [MENUNGGU PEMBAYARAN QRIS]</b>`;
 
-            // Payload biasa untuk WhatsApp jika user memilih kirim via WA
             const waRawMessage = `── .✦ *ORDER KOPI KENANGAN BARU* ✦.──
 ${isMidnightHour() ? '🌙 *[ORDER JAM MALAM / ANTREAN PAGI]*\n' : ''}
 👤 *Nama Pemesan :* ${name}
@@ -2673,10 +3055,8 @@ ${isBagChecked ? 'Kantong Belanja : Rp 1.000\n' : ''}💰 *Total Tagihan Final :
                 btn.innerHTML = '<i class="fas fa-spinner fa-spin text-sm"></i> Memproses...';
                 btn.disabled = true;
 
-                // Kirim Balon 1: Rincian Pesanan
                 const ok1 = await sendSingleTelegramMsg(telegramSummaryBubble);
-                await delay(400); // Jeda agar urutan balon konsisten
-                // Kirim Balon 2: Murni isi Draft 1 tanpa potongan judul
+                await delay(400);
                 const ok2 = await sendSingleTelegramMsg(draftChat1);
 
                 if (ok1 || ok2) {
@@ -2713,7 +3093,7 @@ ${isBagChecked ? 'Kantong Belanja : Rp 1.000\n' : ''}💰 *Total Tagihan Final :
 
             const dailyWifi = getDailyWifiPassword();
 
-            // DRAFT 2: Murni teks proses & wifi (TIDAK ADA EMBEL-EMBEL HEADER)
+            // DRAFT 2: Murni teks proses & wifi
             const draftProsesWifi = `Terima kasih banyak Kak ${checkoutCustomerName}! Pembayaran sebesar ${formatRp(checkoutGrandTotal)} sudah kami terima ☕✨
 
 Orderan sedang kami proseskan ke kasir yaa!
@@ -2725,7 +3105,7 @@ Orderan sedang kami proseskan ke kasir yaa!
 
 Mohon ditunggu sebentar ya Kak! 🫶`;
 
-            // DRAFT 3: Murni teks selesai / siap ambil (TIDAK ADA EMBEL-EMBEL HEADER)
+            // DRAFT 3: Murni teks selesai / siap ambil
             const draftSelesai = `Pesanan Kak ${checkoutCustomerName} sudah selesai diproses ke kasir ya! ✨
 
 📌 Cara Pengambilan:
@@ -2744,13 +3124,10 @@ Selamat menikmati dan terima kasih sudah jajan di Bintang Store! Ditunggu ordera
 Customer telah menekan tombol <b>SUDAH TRANSFER</b>.
 Balon di bawah ini bisa langsung disalin / diteruskan ke customer! ⚡`;
 
-            // Kirim berurutan 3 balon terpisah
             const ok1 = await sendSingleTelegramMsg(notifyBubble1);
             await delay(400);
-            // Kirim Balon 2: Murni Draf 2
             const ok2 = await sendSingleTelegramMsg(draftProsesWifi);
             await delay(400);
-            // Kirim Balon 3: Murni Draf 3
             const ok3 = await sendSingleTelegramMsg(draftSelesai);
 
             if (ok1 || ok2 || ok3) {
@@ -2762,476 +3139,6 @@ Balon di bawah ini bisa langsung disalin / diteruskan ke customer! ⚡`;
                 btn.innerHTML = '<i class="fas fa-circle-check text-emerald-400 text-sm"></i> ✅ Sudah Transfer (Beri Tahu Admin)';
                 btn.disabled = false;
             }
-        }
-        document.addEventListener('DOMContentLoaded', async () => {
-            initWifiDisplay();
-            initScheduleDropdown();
-            checkNightHours();
-            initSocialProofTicker();
-            await loadDataFiles();
-            renderMenu();
-
-            const initialHash = window.location.hash.replace('#', '') || 'portal';
-            if (['portal', 'kopken', 'netflix'].includes(initialHash)) {
-                history.replaceState({ view: initialHash }, '', '#' + initialHash);
-                switchView(initialHash, false);
-            } else {
-                history.replaceState({ view: 'portal' }, '', '#portal');
-                switchView('portal', false);
-            }
-
-            window.addEventListener('popstate', (e) => {
-                if (e.state && e.state.view) {
-                    switchView(e.state.view, false);
-                } else {
-                    switchView('portal', false);
-                }
-            });
-        });
-
-        // Social Proof / Ticker Transaksi Berjalan Otomatis
-        function initSocialProofTicker() {
-            const fakeOrders = [
-                { name: "Dimas", menu: "Duo Mantan (2 Cup)", outlet: "Grand Indonesia" },
-                { name: "Siti Nur", menu: "Kombo Roti + Mantan", outlet: "PIM 2 South" },
-                { name: "Rian F.", menu: "Americano + Bun", outlet: "23Paskal Bandung" },
-                { name: "Jessica", menu: "Trio Nongkrong (3 Cup)", outlet: "Margonda Raya Depok" },
-                { name: "Bagus", menu: "Party Pack Rame-Rame", outlet: "SMS Serpong" }
-            ];
-
-            const spToast = document.getElementById('social-proof-toast');
-            const spUser = document.getElementById('sp-user-text');
-            const spTime = document.getElementById('sp-time-text');
-
-            if (!spToast || !spUser || !spTime) return;
-
-            setInterval(() => {
-                const randomOrder = fakeOrders[Math.floor(Math.random() * fakeOrders.length)];
-                const randomMinutes = Math.floor(Math.random() * 8) + 1;
-
-                spUser.textContent = `${randomOrder.name} baru saja order ${randomOrder.menu}`;
-                spTime.textContent = `${randomMinutes} menit lalu • ${randomOrder.outlet}`;
-
-                spToast.classList.remove('-translate-x-[120%]');
-                spToast.classList.add('translate-x-0');
-
-                setTimeout(() => {
-                    spToast.classList.remove('translate-x-0');
-                    spToast.classList.add('-translate-x-[120%]');
-                }, 4500);
-            }, 24000);
-        }
-
-        function closeCustomRequestModal() {
-            const modal = document.getElementById('modal-custom-req');
-            const card = document.getElementById('modal-custom-req-card');
-            modal.classList.add('opacity-0');
-            card.classList.remove('scale-100');
-            card.classList.add('scale-95');
-            setTimeout(() => modal.classList.add('hidden'), 250);
-        }
-
-        function setReqItemType(type) {
-            reqCurrentItemType = type;
-            const btnDrink = document.getElementById('btn-req-type-drink');
-            const btnFood = document.getElementById('btn-req-type-food');
-            const drinkOptionsBox = document.getElementById('req-drink-options-box');
-
-            if (type === 'drink') {
-                btnDrink.className = "py-2 px-3 rounded-xl border-2 border-kenangan-primary bg-amber-50 text-kenangan-primary font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer";
-                btnFood.className = "py-2 px-3 rounded-xl border-2 border-gray-200 bg-white text-gray-600 font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer";
-                drinkOptionsBox.classList.remove('hidden');
-            } else {
-                btnFood.className = "py-2 px-3 rounded-xl border-2 border-kenangan-primary bg-amber-50 text-kenangan-primary font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer";
-                btnDrink.className = "py-2 px-3 rounded-xl border-2 border-gray-200 bg-white text-gray-600 font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer";
-                drinkOptionsBox.classList.add('hidden');
-            }
-        }
-
-        function toggleReqIce() {
-            const temp = document.querySelector('input[name="req-temp"]:checked')?.value;
-            const iceWrapper = document.getElementById('req-ice-wrapper');
-            if (iceWrapper) {
-                if (temp === 'Hot') iceWrapper.classList.add('opacity-40', 'pointer-events-none');
-                else iceWrapper.classList.remove('opacity-40', 'pointer-events-none');
-            }
-        }
-
-        function validateCustomReqForm() {
-            const name = document.getElementById('req-menu-name').value.trim();
-            const btn = document.getElementById('btn-save-custom-req');
-            if (name.length >= 2) {
-                btn.disabled = false;
-                btn.className = "w-full bg-kenangan-dark hover:bg-kenangan-hover text-white font-extrabold py-3.5 rounded-2xl shadow-md transition duration-200 flex justify-center items-center gap-2 text-xs active:scale-98 cursor-pointer";
-            } else {
-                btn.disabled = true;
-                btn.className = "w-full bg-gray-300 text-gray-500 font-extrabold py-3.5 rounded-2xl transition duration-200 flex justify-center items-center gap-2 cursor-not-allowed text-xs";
-            }
-        }
-
-        function addCustomRequestToCart() {
-            const name = document.getElementById('req-menu-name').value.trim();
-            if (!name) return;
-
-            let price = parseFloat(document.getElementById('req-menu-price').value) || 15000;
-            const note = document.getElementById('req-menu-note').value.trim();
-            let details = ['[REQUEST KUSTOM]'];
-
-            if (reqCurrentItemType === 'drink') {
-                const temp = document.querySelector('input[name="req-temp"]:checked')?.value || 'Ice';
-                const size = document.querySelector('input[name="req-size"]:checked')?.value || 'Regular';
-                const sugar = document.getElementById('req-sugar').value;
-                const ice = document.getElementById('req-ice').value;
-
-                details.push(temp);
-                details.push(size);
-                if (sugar !== 'Normal Sugar') details.push(sugar);
-                if (temp === 'Ice' && ice !== 'Normal Ice') details.push(ice);
-            } else {
-                details.push('Roti/Makanan');
-            }
-
-            cart.push({
-                item: {
-                    id: 'custom_req_' + Date.now(),
-                    name: `✍️ [Request] ${name}`,
-                    isCustom: true
-                },
-                details: details.join(', '),
-                note: note,
-                price: price,
-                qty: 1
-            });
-
-            closeCustomRequestModal();
-            updateCartUI();
-            validateKopkenForm();
-            playFlyToCartAnimation();
-            showToast(`Request <b>${name}</b> berhasil dimasukkan ke keranjang!`);
-        }
-
-        // ====================================================
-        // MIDNIGHT OPERATION CHECKOUT HOOK
-        // ====================================================
-        function handleKopkenCheckoutInitiation(method) {
-            const name = document.getElementById('cust-name').value.trim();
-            const custWaInput = document.getElementById('cust-wa').value.trim();
-
-            if (cart.length === 0) {
-                showToast("Keranjang masih kosong, pilih menu dulu ya!");
-                return;
-            }
-
-            if (!name || name.length < 2) {
-                showToast("Mohon isi Nama Pemesan terlebih dahulu!");
-                document.getElementById('cust-name').focus();
-                return;
-            }
-
-            if (method === 'telegram' && (!custWaInput || custWaInput.length < 9)) {
-                showToast("⚠️ <b>Wajib Isi Nomor WhatsApp</b><br>Isi nomor WhatsApp Anda agar admin bisa kirim konfirmasi & struk pesanan!");
-                const waInput = document.getElementById('cust-wa');
-                waInput.focus();
-                waInput.classList.add('ring-2', 'ring-amber-500');
-                setTimeout(() => waInput.classList.remove('ring-2', 'ring-amber-500'), 3000);
-                return;
-            }
-
-            // Jika sedang jam malam (00:00 - 06:00) dan belum di-confirm oleh user
-            if (isMidnightHour() && !isMidnightForced) {
-                pendingCheckoutMethod = method;
-                openMidnightModal(name);
-                return;
-            }
-
-            // Lanjut ke eksekusi normal
-            submitOrderKopken(method);
-        }
-
-        function openMidnightModal(customerName) {
-            sfx.playTap();
-            const modal = document.getElementById('modal-midnight-confirm');
-            const card = document.getElementById('modal-midnight-card');
-            const askBtn = document.getElementById('midnight-wa-ask-btn');
-
-            const askText = encodeURIComponent(`Halo Min, masih melek nggak? Mau order Kopi Kenangan di Bintang Store nih atas nama ${customerName || 'Saya'} ☕`);
-            askBtn.href = `https://wa.me/${waNumber}?text=${askText}`;
-
-            modal.classList.remove('hidden');
-            setTimeout(() => {
-                modal.classList.remove('opacity-0');
-                card.classList.remove('scale-95');
-                card.classList.add('scale-100');
-            }, 10);
-        }
-
-        function closeMidnightModal() {
-            const modal = document.getElementById('modal-midnight-confirm');
-            const card = document.getElementById('modal-midnight-card');
-            modal.classList.add('opacity-0');
-            card.classList.remove('scale-100');
-            card.classList.add('scale-95');
-            setTimeout(() => modal.classList.add('hidden'), 250);
-            pendingCheckoutMethod = null;
-        }
-
-        function confirmMidnightOrder() {
-            sfx.playTap();
-            isMidnightForced = true;
-            closeMidnightModal();
-            if (pendingCheckoutMethod) {
-                submitOrderKopken(pendingCheckoutMethod);
-            }
-        }
-
-        function getDailyWifiPassword() {
-            const now = getWIBDate();
-            const dayNum = now.getDate();
-            return wifiPasswords[dayNum] || "TemanKenangan#01";
-        }
-
-        function submitOrderKopken(method) {
-            const name = document.getElementById('cust-name').value.trim();
-            const custWaInput = document.getElementById('cust-wa').value.trim();
-            const notes = document.getElementById('cust-notes').value.trim();
-            const isBagChecked = document.getElementById('bag-checkbox').checked && currentOrderType === 'takeaway';
-            
-            let timeSched = '';
-            if (isMidnightHour()) {
-                timeSched = pickupMode === 'now' ? '🌙 Jam Malam (Antrean Pagi 06:00 WIB)' : `${document.getElementById('pickup-time-select').value} ${document.getElementById('pickup-timezone').value} (Jadwal Pagi)`;
-            } else {
-                timeSched = pickupMode === 'now' ? 'Sekarang (5-15 Menit)' : `${document.getElementById('pickup-time-select').value} ${document.getElementById('pickup-timezone').value}`;
-            }
-
-            sfx.playSuccess();
-            checkoutCustomerName = name || "Pelanggan";
-            checkoutCustomerWa = custWaInput || "";
-
-            let itemsText = '';
-            let subtotal = 0;
-
-            cart.forEach((c, i) => {
-                const itemTotal = c.price * (c.qty || 1);
-                subtotal += itemTotal;
-                itemsText += `${i+1}. 1x ${c.item.name}\n`;
-                if(c.details) itemsText += `   [Racikan: ${c.details}]\n`;
-                if(c.note) itemsText += `   (Catatan: "${c.note}")\n`;
-                itemsText += `   Subtotal: ${formatRp(itemTotal)}\n`;
-            });
-
-            const hasFreePromo = subtotal >= 70000;
-            if (hasFreePromo) {
-                itemsText += `🎁 *[BONUS PROMO]*: 1x Roti Coklat Klasik (GRATIS/FREE - Rp 0)\n`;
-            }
-
-            const isMall = isMallOutlet(selectedOutlet);
-            const surcharge = isMall ? 3000 : 0;
-            const bagFee = isBagChecked ? 1000 : 0;
-            const grandTotal = subtotal + surcharge + bagFee;
-            checkoutGrandTotal = grandTotal;
-
-            saveOrderToHistory({
-                id: 'ord_' + Date.now(),
-                date: new Date().toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'short' }),
-                outletName: selectedOutlet.name,
-                orderType: currentOrderType,
-                itemsSummary: cart.map(c => `${c.item.name} (${c.qty || 1}x)`).join(', ') + (hasFreePromo ? ' + FREE Roti Coklat' : ''),
-                cartData: JSON.parse(JSON.stringify(cart)),
-                outletObj: { ...selectedOutlet },
-                grandTotal: grandTotal
-            });
-
-            const orderTypeText = currentOrderType === 'takeaway' ? 'Take Away (Bungkus)' : 'Dine In (Minum Ditempat)';
-            let cleanWaNumber = custWaInput ? custWaInput.replace(/[^0-9]/g, '') : '';
-            if (cleanWaNumber.startsWith('0')) cleanWaNumber = '62' + cleanWaNumber.slice(1);
-            else if (!cleanWaNumber.startsWith('62') && cleanWaNumber.length > 0) cleanWaNumber = '62' + cleanWaNumber;
-
-            const waDirectLink = cleanWaNumber ? `https://wa.me/${cleanWaNumber}` : '-';
-            const dailyWifiPass = getDailyWifiPassword();
-
-            // Draft 1: Konfirmasi Order & Menunggu TF (Bisa 1x tap copy di Telegram)
-            const draftChat1 = `Halo Kak ${name}! 🫶✨
-Terima kasih sudah order Kopi Kenangan di Bintang Store!
-
-📋 Rincian Pesanan:
-${itemsText}📍 Outlet: ${selectedOutlet.name}
-${hasFreePromo ? '🎁 Bonus Promo: 1x Roti Coklat Klasik (FREE)\n' : ''}💰 Total Tagihan Pas: ${formatRp(grandTotal)}
-
-Silakan transfer via QRIS toko kami ya Kak. Setelah transfer berhasil, kirim bukti ke sini agar langsung kami proseskan ke kasir! Ditunggu ya Kak! 🫰💖`;
-
-            // Draft 2: Pembayaran Diterima & Sedang Diproses + Password WiFi Harian Otomatis
-            const draftChat2 = `Terima kasih banyak Kak ${name}! Pembayaran sebesar ${formatRp(grandTotal)} sudah kami terima ☕✨
-
-Orderan sedang kami proseskan ke kasir yaa!
-
-📶 INFO WIFI OUTLET HARI INI:
-• SSID : Teman Kenangan
-• User : kopikenangan
-• Pass : ${dailyWifiPass}
-
-Mohon ditunggu sebentar ya Kak! 🫶`;
-
-            // Draft 3: Pesanan Selesai / Siap Ambil
-            const draftChat3 = `Pesanan Kak ${name} sudah selesai diproses ke kasir ya! ✨
-
-📌 Cara Pengambilan:
-Cukup sebutkan nama "${name}" ke barista di outlet ${selectedOutlet.name}${hasFreePromo ? ' (sekalian ambil bonus Roti Coklat Klasik-nya 🍞)' : ''}.
-
-Selamat menikmati dan terima kasih sudah jajan di Bintang Store! Ditunggu orderan berikutnya ya Kak! 🫰☕`;
-
-            // PESAN UTAMA KE TELEGRAM DENGAN FORMAT HTML TAG <code> AGAR BISA SEKALI TAP SALIN
-            const telegramHtmlMessage = `── .✦ <b>ORDER KOPI KENANGAN BARU</b> ✦.──
-${isMidnightHour() ? '🌙 <b>[PERINGATAN: ORDER JAM MALAM / ANTREAN PAGI]</b>\n' : ''}
-👤 <b>Nama Pemesan :</b> ${name}
-📱 <b>No. WhatsApp :</b> ${custWaInput || 'Via WhatsApp Chat'}
-🔗 <b>Chat Customer :</b> <a href="${waDirectLink}">${waDirectLink}</a>
-🛵 <b>Tipe Pesanan :</b> ${orderTypeText}
-📍 <b>Outlet :</b> ${selectedOutlet.name}
-🏢 <b>Alamat :</b> ${selectedOutlet.address || '-'}
-⏰ <b>Waktu Ambil :</b> ${timeSched}
-📝 <b>Catatan :</b> "${notes || '-'}"
---------------------------------------------------
-📋 <b>Detail Item :</b>
-${itemsText}--------------------------------------------------
-${hasFreePromo ? '🎁 <b>Bonus Promo:</b> 1x Roti Coklat Klasik (FREE)\n' : ''}Biaya Outlet (Mall) : ${formatRp(surcharge)}
-${isBagChecked ? 'Kantong Belanja : Rp 1.000\n' : ''}💰 <b>TOTAL TAGIHAN FINAL : ${formatRp(grandTotal)}</b>
-📌 <b>Status : [MENUNGGU PEMBAYARAN QRIS]</b>
-
-========================================
-📋 <b>DRAFT 1: ORDER DITERIMA (TAP UNTUK COPY):</b>
-========================================
-<code>${draftChat1}</code>
-
-========================================
-📋 <b>DRAFT 2: PROSES & WIFI HARI INI (TAP UNTUK COPY):</b>
-========================================
-<code>${draftChat2}</code>
-
-========================================
-📋 <b>DRAFT 3: ORDER SELESAI (TAP UNTUK COPY):</b>
-========================================
-<code>${draftChat3}</code>`;
-
-            // Payload biasa untuk WhatsApp jika user memilih kirim via WA
-            const waRawMessage = `── .✦ *ORDER KOPI KENANGAN BARU* ✦.──
-${isMidnightHour() ? '🌙 *[ORDER JAM MALAM / ANTREAN PAGI]*\n' : ''}
-👤 *Nama Pemesan :* ${name}
-📱 *No. WhatsApp :* ${custWaInput || '-'}
-🛵 *Tipe Pesanan :* ${orderTypeText}
-📍 *Outlet Pengambilan :* ${selectedOutlet.name}
-🏢 *Alamat Outlet :* ${selectedOutlet.address || '-'}
-⏰ *Waktu Ambil :* ${timeSched}
-📝 *Catatan Tambahan :* "${notes || '-'}"
---------------------------------------------------
-📋 *Detail Item:*
-${itemsText}--------------------------------------------------
-${hasFreePromo ? '🎁 *Bonus Promo:* 1x Roti Coklat Klasik (FREE)\n' : ''}Biaya Outlet (Mall) : ${formatRp(surcharge)}
-${isBagChecked ? 'Kantong Belanja : Rp 1.000\n' : ''}💰 *Total Tagihan Final : ${formatRp(grandTotal)}*
-📌 *Status : [MENUNGGU PEMBAYARAN QRIS]*`;
-
-            if (method === 'telegram') {
-                const urlAPI = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(telegramHtmlMessage)}&parse_mode=HTML`;
-                const btn = document.getElementById('btn-submit-tele-kopken');
-                btn.innerHTML = '<i class="fas fa-spinner fa-spin text-sm"></i> Memproses...';
-                btn.disabled = true;
-
-                fetch(urlAPI)
-                    .then(res => {
-                        if(res.ok) {
-                            showFullscreenLoader('kopken', false, '');
-                            cart = [];
-                            updateCartUI();
-                            document.getElementById('cust-name').value = '';
-                            document.getElementById('cust-wa').value = '';
-                            document.getElementById('cust-notes').value = '';
-                            isMidnightForced = false;
-                        } else {
-                            showToast("Gagal kirim ke bot, silakan gunakan opsi WA.");
-                        }
-                    })
-                    .catch(() => showToast("Koneksi error, gunakan opsi WA."))
-                    .finally(() => {
-                        btn.innerHTML = '<i class="fas fa-bolt text-sm"></i> Pesan Otomatis (Proses Cepat via Bot)';
-                        validateKopkenForm();
-                    });
-            } else if (method === 'whatsapp') {
-                const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(waRawMessage)}`;
-                showFullscreenLoader('kopken', true, waUrl);
-                isMidnightForced = false;
-            }
-        }
-
-        function notifyAdminPaymentDone() {
-            sfx.playSuccess();
-            const btn = document.getElementById('btn-confirm-notify-admin');
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin text-xs"></i> Mengirim Notifikasi...';
-            btn.disabled = true;
-
-            let cleanWa = checkoutCustomerWa ? checkoutCustomerWa.replace(/[^0-9]/g, '') : '';
-            if (cleanWa.startsWith('0')) cleanWa = '62' + cleanWa.slice(1);
-            else if (!cleanWa.startsWith('62') && cleanWa.length > 0) cleanWa = '62' + cleanWa;
-            const waLink = cleanWa ? `https://wa.me/${cleanWa}` : '-';
-
-            const dailyWifi = getDailyWifiPassword();
-
-            // Draft siap copy setelah konfirmasi bayar
-            const draftProsesWifi = `Terima kasih banyak Kak ${checkoutCustomerName}! Pembayaran sebesar ${formatRp(checkoutGrandTotal)} sudah kami terima ☕✨
-
-Orderan sedang kami proseskan ke kasir yaa!
-
-📶 INFO WIFI OUTLET HARI INI:
-• SSID : Teman Kenangan
-• User : kopikenangan
-• Pass : ${dailyWifi}
-
-Mohon ditunggu sebentar ya Kak! 🫶`;
-
-            const draftSelesai = `Pesanan Kak ${checkoutCustomerName} sudah selesai diproses ke kasir ya! ✨
-
-📌 Cara Pengambilan:
-Cukup sebutkan nama "${checkoutCustomerName}" ke barista di outlet.
-
-Selamat menikmati dan terima kasih sudah jajan di Bintang Store! Ditunggu orderan berikutnya ya Kak! 🫰☕`;
-
-            const notifyMsg = `🔔 <b>KONFIRMASI: CUSTOMER SUDAH TRANSFER!</b> 🔔
---------------------------------------------------
-👤 <b>Nama :</b> ${checkoutCustomerName}
-📱 <b>No. WhatsApp :</b> ${checkoutCustomerWa || '-'}
-🔗 <b>Hubungi Customer :</b> <a href="${waLink}">${waLink}</a>
-💰 <b>Total Tagihan :</b> ${formatRp(checkoutGrandTotal)}
---------------------------------------------------
-Customer telah menekan tombol <b>SUDAH TRANSFER VIA QRIS</b>.
-Mohon segera cek mutasi rekening/QRIS dan proses orderan ke kasir! ⚡
-
-========================================
-📋 <b>DRAFT 2: PROSES & WIFI (TAP UNTUK COPY):</b>
-========================================
-<code>${draftProsesWifi}</code>
-
-========================================
-📋 <b>DRAFT 3: ORDER SELESAI (TAP UNTUK COPY):</b>
-========================================
-<code>${draftSelesai}</code>`;
-
-            const urlAPI = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(notifyMsg)}&parse_mode=HTML`;
-
-            fetch(urlAPI)
-                .then(res => {
-                    if (res.ok) {
-                        btn.className = "w-full bg-emerald-700 text-white font-bold py-2.5 rounded-xl text-xs flex items-center justify-center gap-1.5";
-                        btn.innerHTML = '<i class="fas fa-check-double text-xs"></i> Notifikasi Terkirim ke Admin!';
-                        showToast(`<b>Pembayaran Dikonfirmasi!</b><br>Admin sedang mengecek mutasi dan akan menghubungi WhatsApp kamu jika pesanan sudah diproses 🫶`);
-                    } else {
-                        showToast("Koneksi gagal, silakan konfirmasi lewat tombol WhatsApp di atas.");
-                        btn.innerHTML = '<i class="fas fa-circle-check text-emerald-400 text-sm"></i> ✅ Sudah Transfer (Beri Tahu Admin)';
-                        btn.disabled = false;
-                    }
-                })
-                .catch(() => {
-                    showToast("Koneksi bermasalah, silakan konfirmasi lewat tombol WhatsApp.");
-                    btn.innerHTML = '<i class="fas fa-circle-check text-emerald-400 text-sm"></i> ✅ Sudah Transfer (Beri Tahu Admin)';
-                    btn.disabled = false;
-                });
         }
 
         function saveOrderToHistory(orderObj) {
