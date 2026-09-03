@@ -259,6 +259,27 @@
 
         <!-- SECTION TAB 2: DIGITAL & STREAMING -->
         <div id="portal-tab-digital" class="w-full space-y-3.5 hidden">
+            <!-- Prime Video (Ready Stock) -->
+            <a href="https://wa.me/6285959633342?text=Halo%20Admin%20Bintang%20Store%2C%20mau%20order%20Prime%20Video%201%20Bulan%20(Rp%2015.000)%20dong%20%F0%9F%8E%AC" target="_blank" onclick="sfx.playTap()" class="block w-full relative group overflow-hidden rounded-3xl glass-portal p-4 sm:p-5 text-left transition duration-300 hover:scale-[1.02] active:scale-95 border-l-4 border-l-sky-500 cursor-pointer">
+                <div class="absolute -right-10 -top-10 w-32 h-32 bg-sky-500/20 rounded-full blur-2xl group-hover:bg-sky-500/40 transition duration-500"></div>
+                <div class="flex items-center gap-3.5 relative z-10">
+                    <div class="w-12 h-12 rounded-2xl bg-sky-500/15 border border-sky-500/25 flex items-center justify-center flex-shrink-0 text-sky-400">
+                        <i class="fas fa-video text-xl"></i>
+                    </div>
+                    <div class="min-w-0 flex-1">
+                        <div class="flex items-center gap-2">
+                            <h2 class="text-base font-bold text-white leading-tight">Prime Video 1 Bulan</h2>
+                            <span class="bg-sky-500/20 text-sky-300 text-[10px] font-extrabold px-2 py-0.5 rounded-full border border-sky-500/30">READY STOCK</span>
+                        </div>
+                        <p class="text-xs text-gray-300 mt-0.5">Streaming film & series eksklusif bebas iklan</p>
+                    </div>
+                    <div class="text-right flex-shrink-0">
+                        <span class="text-xs font-black text-sky-300 block">Rp 15.000</span>
+                        <span class="text-[9px] text-gray-400">/ bulan</span>
+                    </div>
+                </div>
+            </a>
+
             <!-- Netflix Button -->
             <div onclick="showNetflixClosedToast()" class="w-full relative overflow-hidden rounded-3xl glass-portal p-4 sm:p-5 text-left border-l-4 border-l-red-600 opacity-80 cursor-pointer transition hover:opacity-100">
                 <div class="flex items-center gap-3.5 relative z-10">
@@ -386,7 +407,7 @@
                 <i class="fas fa-business-time"></i>
             </div>
             <div class="min-w-0">
-                <h4 class="text-xs font-black text-amber-900">Admin Sedang Sibuk (Slow Response)</h4>
+                <h4 class="text-xs font-black text-amber-900">Admin Sedang Kuliah / Ada Kegiatan (Slow Response)</h4>
                 <p class="text-[10px] text-amber-800 leading-relaxed mt-0.5">Pesanan tetap kami terima dan diproses berurutan dalam rentang 15–30 menit ya Kak. Terima kasih atas pengertiannya! 🫶</p>
             </div>
         </div>
@@ -1047,8 +1068,8 @@
                         <div class="flex items-center gap-2">
                             <span class="text-base">🟡</span>
                             <div class="text-left">
-                                <span class="block font-black">Set Sibuk </span>
-                                <span class="text-[10px] text-amber-400/80 font-normal">Badge kuning, info slow response (30-45 mnt)</span>
+                                <span class="block font-black">Set Sibuk / Kuliah</span>
+                                <span class="text-[10px] text-amber-400/80 font-normal">Badge kuning, info slow response (15-30 mnt)</span>
                             </div>
                         </div>
                         <i class="fas fa-clock text-xs"></i>
@@ -1210,6 +1231,118 @@
         let currentAdminStoreStatus = "online";
         let secretLogoTapCount = 0;
         let secretLogoTapTimer = null;
+
+        // Peta Harga Asli Resmi Aplikasi Kopi Kenangan (In-App Regular Price)
+        const officialOriginalPriceMap = {
+            // Coffee Series
+            'kopi kenangan mantan': 19000,
+            'kopi kenangan mantan (aren)': 19000,
+            'americano': 17000,
+            'latte': 22000,
+            'cappuccino': 22000,
+            'vanilla latte': 26000,
+            'hazelnut latte': 26000,
+            'caramel latte': 26000,
+            'caramel macchiato': 28000,
+            'mocha latte': 28000,
+            'kopi susu black aren': 21000,
+            'creamy aren latte': 22000,
+            'spanish latte': 19000,
+            'butterscotch aren latte': 20000,
+            'dua shot iced shaken': 28000,
+            'dua shot og aren': 25000,
+            'matcha espresso': 26000,
+            'mocha caramel': 26000,
+            'pistachio aren latte': 19000,
+            'cafe malt latte': 23000,
+            'butterscotch sea salt latte': 25000,
+            'blueberry americano': 19000,
+
+            // Non Coffee Series
+            'kenangan milk tea': 21000,
+            'og thai tea': 19000,
+            'thai tea loaded': 27000,
+            'dutch chocolate': 26000,
+            'hazelnut dutch choco': 28000,
+            'caramel dutch choco': 28000,
+            'hazelnut choco milk tea': 22000,
+            'choco caramel': 19000,
+            'milo dinosaurus': 23000,
+            'oreo shake': 26000,
+            'milk oreo crumble': 26000,
+            'matcha latte': 25000,
+            'raspberry hibiscus': 20000,
+            'lemon black tea': 17000,
+            'susu grass jelly': 24000,
+            'babyccino': 19000,
+            'air mineral': 9000,
+            'butterscotch sea salt (non coffee)': 22000,
+
+            // Oatside Series
+            'oatside kopi kenangan mantan': 22000,
+            'oatside latte': 25000,
+            'oatside matcha latte': 25000,
+
+            // Frappe Series
+            'kopi kenangan mantan frappe': 27000,
+            'choco caramel frappe': 28000,
+            'blueberry frappe': 23000,
+            'chocoberry frappe': 27000,
+            'coffeeberry frappe': 25000,
+            'butterscotch kenangan frappe': 30000,
+            'matcha kenangan frappe': 32000,
+            'vanilla kenangan frappe': 25000,
+            'dutch choco kenangan frappe': 29000,
+
+            // Seliter Kenangan
+            'seliter kenangan - americano': 75000,
+            'seliter kenangan - kopi kenangan mantan': 90000,
+            'seliter kenangan - latte': 90000,
+            'seliter kenangan - caramel latte': 100000,
+            'seliter kenangan - thai tea': 85000,
+            'seliter kenangan - kopi susu black aren': 95000,
+
+            // Food & Bakery
+            'roti coklat klasik': 9000,
+            'bambang choco cheese toast': 17000,
+            'adam ayam toast': 19000,
+            'wahyu sapi toast': 19000,
+            'butter croissant': 15000,
+            'chocolate croissant': 19000,
+            'chocolate donut': 13000,
+            'sugar donut': 10000,
+            'choco chip cookies': 14000,
+            'bananachoco soft baked cookie': 19000,
+            'sweet honey soft baked cookie': 18000,
+            'oatmeal raisin soft baked cookie': 19000,
+            'join the dark side cookie': 21000,
+            'friend chip cookie': 17000,
+            'canele aren': 16000,
+            'sandwich smoked beef': 22000,
+            'salt bread sausage': 15000,
+
+            // Bundling Nilai Asli
+            'duo mantan (2 cup)': 38000,
+            'duo bestie (kopi + non-kopi)': 38000,
+            'kombo kopi + roti coklat': 28000,
+            'kombo sarapan (kopi + bun)': 27000,
+            'trio nongkrong (3 cup)': 57000,
+            'party pack rame-rame (4 cup)': 76000
+        };
+
+        function getOfficialOriginalPrice(itemName, fallbackPrice = 0) {
+            if (!itemName) return fallbackPrice * 1.35;
+            const cleanKey = itemName.toLowerCase().replace(/✍️\s*\[request\]\s*/i, '').trim();
+            if (officialOriginalPriceMap[cleanKey]) {
+                return officialOriginalPriceMap[cleanKey];
+            }
+            for (const key in officialOriginalPriceMap) {
+                if (cleanKey.includes(key) || key.includes(cleanKey)) {
+                    return officialOriginalPriceMap[key];
+                }
+            }
+            return fallbackPrice > 0 ? Math.round(fallbackPrice * 1.35) : 22000;
+        }
 
         // Pengiriman Balon Pesan Mandiri ke Telegram Bot
         async function sendSingleTelegramMsg(msgHtml) {
@@ -1403,7 +1536,7 @@
 
             if (currentAdminStoreStatus === 'busy') {
                 display.className = "mt-1 font-black text-xs text-amber-400 flex items-center justify-center gap-1.5";
-                display.innerHTML = '<span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span><span>SIBUK (Slow Response)</span>';
+                display.innerHTML = '<span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span><span>SIBUK / KULIAH (Slow Response)</span>';
             } else {
                 display.className = "mt-1 font-black text-xs text-emerald-400 flex items-center justify-center gap-1.5";
                 display.innerHTML = '<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span><span>ONLINE (Gercep)</span>';
@@ -1478,7 +1611,7 @@
                             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
                             <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-amber-500"></span>
                         </span>
-                        <span>🟡 Admin Sedang Sibuk (Proses ±30-45 Mnt)</span>
+                        <span>🟡 Admin Sedang Kuliah/Sibuk (Proses ±15-30 Mnt)</span>
                     `;
                 }
                 if (busyBanner) busyBanner.classList.remove('hidden');
@@ -2916,11 +3049,18 @@
 
             let itemsText = '';
             let subtotal = 0;
+            let totalAppOriginalPrice = 0;
 
             cart.forEach((c, i) => {
-                const itemTotal = c.price * (c.qty || 1);
+                const qty = c.qty || 1;
+                const itemTotal = c.price * qty;
                 subtotal += itemTotal;
-                itemsText += `${i+1}. 1x ${c.item.name}\n`;
+
+                // Hitung estimasi harga asli resmi aplikasi
+                const unitOriginalPrice = c.item.realPrice || getOfficialOriginalPrice(c.item.name, c.price);
+                totalAppOriginalPrice += (unitOriginalPrice * qty);
+
+                itemsText += `${i+1}. ${qty}x ${c.item.name}\n`;
                 if(c.details) itemsText += `   [Racikan: ${c.details}]\n`;
                 if(c.note) itemsText += `   (Catatan: "${c.note}")\n`;
                 itemsText += `   Subtotal: ${formatRp(itemTotal)}\n`;
@@ -2929,6 +3069,7 @@
             const hasFreePromo = subtotal >= 70000;
             if (hasFreePromo) {
                 itemsText += `🎁 *[BONUS PROMO]*: 1x Roti Coklat Klasik (GRATIS/FREE - Rp 0)\n`;
+                totalAppOriginalPrice += 9000; // Harga asli roti coklat
             }
 
             const isMall = isMallOutlet(selectedOutlet);
@@ -2936,6 +3077,20 @@
             const bagFee = isBagChecked ? 1000 : 0;
             const grandTotal = subtotal + surcharge + bagFee;
             checkoutGrandTotal = grandTotal;
+
+            // Logika Rekomendasi Voucher Kasir Berdasarkan Total Nilai Asli Aplikasi
+            let voucherRecommendationText = '';
+            let voucherIcon = '🏷️';
+            if (totalAppOriginalPrice >= 70000) {
+                voucherIcon = '🔥';
+                voucherRecommendationText = `<b>👉 PAKE VOUCHER MIN. 70K</b> (Total asli ${formatRp(totalAppOriginalPrice)} memenuhi syarat kupon 70k. Cuan maksimal!)`;
+            } else if (totalAppOriginalPrice >= 50000) {
+                voucherIcon = '⚡';
+                voucherRecommendationText = `<b>👉 PAKE VOUCHER MIN. 50K</b> (Total asli ${formatRp(totalAppOriginalPrice)} memenuhi syarat kupon 50k)`;
+            } else {
+                voucherIcon = '💡';
+                voucherRecommendationText = `<b>👉 PAKE VOUCHER TANPA MIN. BELANJA</b> (Total asli ${formatRp(totalAppOriginalPrice)}. Pakai kupon diskon persen/flat)`;
+            }
 
             saveOrderToHistory({
                 id: 'ord_' + Date.now(),
@@ -2960,17 +3115,7 @@
                 ? '🟡 <b>[STATUS TOKO: ADMIN SEDANG SIBUK / SLOW RESPONSE (15-30 MNT)]</b>\n' 
                 : '';
 
-            // DRAFT 1: Murni teks balasan customer
-            const draftChat1 = `Halo Kak ${name}! 🫶✨
-Terima kasih sudah order Kopi Kenangan di Bintang Store!
-
-📋 Rincian Pesanan:
-${itemsText}📍 Outlet: ${selectedOutlet.name}
-${hasFreePromo ? '🎁 Bonus Promo: 1x Roti Coklat Klasik (FREE)\n' : ''}💰 Total Tagihan Pas: ${formatRp(grandTotal)}
-
-Silakan scan / transfer via QRIS kami ya Kak. Setelah berhasil, kirim bukti transfer ke sini agar langsung kami proseskan ke kasir! Ditunggu ya Kak! 🫰💖`;
-
-            // BALON 1: Laporan Rincian Pesanan untuk Admin
+            // BALON 1: Laporan Rincian Pesanan & Contekan Rekomendasi Voucher Kasir
             const telegramSummaryBubble = `── .✦ <b>ORDER KOPI KENANGAN BARU</b> ✦.──
 ${adminStatusHeader}${isMidnightHour() ? '🌙 <b>[PERINGATAN: ORDER JAM MALAM / ANTREAN PAGI]</b>\n' : ''}
 👤 <b>Nama Pemesan :</b> ${name}
@@ -2985,8 +3130,28 @@ ${adminStatusHeader}${isMidnightHour() ? '🌙 <b>[PERINGATAN: ORDER JAM MALAM /
 📋 <b>Detail Item :</b>
 ${itemsText}--------------------------------------------------
 ${hasFreePromo ? '🎁 <b>Bonus Promo:</b> 1x Roti Coklat Klasik (FREE)\n' : ''}Biaya Outlet (Mall) : ${formatRp(surcharge)}
-${isBagChecked ? 'Kantong Belanja : Rp 1.000\n' : ''}💰 <b>TOTAL TAGIHAN FINAL : ${formatRp(grandTotal)}</b>
+${isBagChecked ? 'Kantong Belanja : Rp 1.000\n' : ''}💰 <b>TOTAL TAGIHAN CUSTOMER : ${formatRp(grandTotal)}</b>
+🏷️ <b>Total Nilai Asli Aplikasi : ${formatRp(totalAppOriginalPrice)}</b>
+
+${voucherIcon} <b>REKOMENDASI VOUCHER KASIR:</b>
+${voucherRecommendationText}
+
 📌 <b>Status : [MENUNGGU PEMBAYARAN QRIS]</b>`;
+
+            // DRAFT 1: Siap Salin ke WhatsApp (Format Monospace <code> agar di Telegram bisa langsung di-tap untuk copy)
+            const draftChat1 = `<code>Halo Kak ${name}! 🫶✨
+Terima kasih sudah order Kopi Kenangan di Bintang Store!
+
+📋 Rincian Pesanan:
+${itemsText}📍 Outlet: ${selectedOutlet.name}
+${hasFreePromo ? '🎁 Bonus Promo: 1x Roti Coklat Klasik (FREE)\n' : ''}💰 Total Tagihan Pas: ${formatRp(grandTotal)}
+
+Silakan scan / transfer via QRIS kami ya Kak. Setelah berhasil, kirim bukti transfer ke sini agar langsung kami proseskan ke kasir! Ditunggu ya Kak! 🫰💖</code>`;
+
+            // BALON CHAT PROSES (Jika customer transfer manual tanpa klik konfirmasi di web)
+            const draftChatAutoProses = `<code>Terima kasih banyak Kak ${name}! Pembayaran sebesar ${formatRp(grandTotal)} sudah kami terima ☕✨
+
+Pesananmu sedang langsung kami proseskan ke kasir outlet ${selectedOutlet.name} yaa! Mohon ditunggu sebentar ya Kak 🫶</code>`;
 
             const waRawMessage = `── .✦ *ORDER KOPI KENANGAN BARU* ✦.──
 ${currentAdminStoreStatus === 'busy' ? '🟡 *[STATUS: ADMIN SEDANG SIBUK (15-30 MNT)]*\n' : ''}${isMidnightHour() ? '🌙 *[ORDER JAM MALAM / ANTREAN PAGI]*\n' : ''}
@@ -3002,6 +3167,7 @@ ${currentAdminStoreStatus === 'busy' ? '🟡 *[STATUS: ADMIN SEDANG SIBUK (15-30
 ${itemsText}--------------------------------------------------
 ${hasFreePromo ? '🎁 *Bonus Promo:* 1x Roti Coklat Klasik (FREE)\n' : ''}Biaya Outlet (Mall) : ${formatRp(surcharge)}
 ${isBagChecked ? 'Kantong Belanja : Rp 1.000\n' : ''}💰 *Total Tagihan Final : ${formatRp(grandTotal)}*
+🏷️ *Nilai Asli Aplikasi : ${formatRp(totalAppOriginalPrice)}*
 📌 *Status : [MENUNGGU PEMBAYARAN QRIS]*`;
 
             if (method === 'telegram') {
@@ -3012,8 +3178,10 @@ ${isBagChecked ? 'Kantong Belanja : Rp 1.000\n' : ''}💰 *Total Tagihan Final :
                 const ok1 = await sendSingleTelegramMsg(telegramSummaryBubble);
                 await delay(400);
                 const ok2 = await sendSingleTelegramMsg(draftChat1);
+                await delay(400);
+                const ok3 = await sendSingleTelegramMsg(`👇 <b>[TEMPLATE BALASAN JIKA CUSTOMER SUDAH TRANSFER]</b>\n(Cukup tap teks di bawah untuk salin otomatis):\n\n${draftChatAutoProses}`);
 
-                if (ok1 || ok2) {
+                if (ok1 || ok2 || ok3) {
                     showFullscreenLoader('kopken', false, '');
                     cart = [];
                     updateCartUI();
@@ -3028,6 +3196,11 @@ ${isBagChecked ? 'Kantong Belanja : Rp 1.000\n' : ''}💰 *Total Tagihan Final :
                 btn.innerHTML = '<i class="fas fa-bolt text-sm"></i> Pesan Otomatis (Proses Cepat via Bot)';
                 validateKopkenForm();
             } else if (method === 'whatsapp') {
+                // Untuk WhatsApp, kita juga kirim ringkasan ke Telegram agar admin tetap punya contekan voucher & template
+                sendSingleTelegramMsg(telegramSummaryBubble);
+                await delay(300);
+                sendSingleTelegramMsg(`👇 <b>[TEMPLATE BALASAN JIKA SUDAH TRANSFER]</b>:\n\n${draftChatAutoProses}`);
+
                 const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(waRawMessage)}`;
                 showFullscreenLoader('kopken', true, waUrl);
                 isMidnightForced = false;
