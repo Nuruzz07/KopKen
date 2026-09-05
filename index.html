@@ -3149,12 +3149,17 @@ window.addEventListener("DOMContentLoaded", () => {
             const isBagChecked = document.getElementById('bag-checkbox').checked && currentOrderType === 'takeaway';
             
             let timeSched = '';
-            if (isMidnightHour()) {
-                timeSched = pickupMode === 'now' ? '🌙 Jam Malam (Antrean Pagi 06:00 WIB)' : `${document.getElementById('pickup-time-select').value} ${document.getElementById('pickup-timezone').value} (Jadwal Pagi)`;
+            if (typeof selectedOrderType !== 'undefined' && selectedOrderType === 'schedule') {
+                const dayEl = document.getElementById('schedule-day');
+                const timeEl = document.getElementById('schedule-time');
+                const dayVal = dayEl ? dayEl.value : 'Hari Ini';
+                const timeVal = timeEl ? timeEl.value : '12:00 WIB';
+                timeSched = `📅 TERJADWAL [${dayVal.toUpperCase()}, ${timeVal}]`;
+            } else if (isMidnightHour()) {
+                timeSched = '🌙 Jam Malam (Antrean Pagi 06:00 WIB)';
             } else {
-                timeSched = pickupMode === 'now' ? 'Sekarang (5-15 Menit)' : `${document.getElementById('pickup-time-select').value} ${document.getElementById('pickup-timezone').value}`;
+                timeSched = '⚡ Segera (5-15 Menit)';
             }
-
             sfx.playSuccess();
             checkoutCustomerName = name || "Pelanggan";
             checkoutCustomerWa = custWaInput || "";
