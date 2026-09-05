@@ -1,977 +1,916 @@
 {
   "Kopi Kenangan": {
     "satuan": {
-      "coffee": [
+      "baru": [
         {
-          "id": "kk_kopi_kenangan_mantan",
-          "name": "Kopi Kenangan Mantan",
-          "price": 14500,
-          "real_price": 19000,
-          "badge": "Best Seller",
-          "desc": "Kopi susu dengan gula aren asli Indonesia",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/kopi-kenangan-mantan-1784203103920.webp"
+          "id": "kk_b_1",
+          "name": "Korean Banana Latte X Haechan NCT",
+          "price": 16500,
+          "real_price": 23000,
+          "badge": "✨ NEW!",
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/korea-banana-latte-1784840248356.webp"
         },
         {
-          "id": "kk_creamy_caramel_latte",
+          "id": "kk_b_2",
+          "name": "Banana Americano X Haechan NCT",
+          "price": 14500,
+          "real_price": 19000,
+          "badge": "✨ NEW!",
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/banana-americano-1784840260865.webp"
+        },
+        {
+          "id": "kk_b_3",
+          "name": "Banana Choco X Haechan NCT",
+          "price": 17000,
+          "real_price": 24000,
+          "badge": "✨ NEW!",
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/banana-choco-1784840332868.webp"
+        },
+        {
+          "id": "kk_fd_c1",
+          "name": "Bananachoco Soft Baked Cookie",
+          "price": 13500,
+          "real_price": 17000,
+          "badge": "✨ NEW!",
+          "isFood": true,
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/bananachoco-soft-baked-cookie-1784840414668.webp"
+        },
+        {
+          "id": "kk_fd_c2",
+          "name": "Sweet Honey Soft Baked Cookie",
+          "price": 13000,
+          "real_price": 16000,
+          "badge": "✨ NEW!",
+          "isFood": true,
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/sweet-honey-soft-baked-cookie-1784840495017.webp"
+        },
+        {
+          "id": "kk_fd_c3",
+          "name": "Oatmeal Raisin Soft Baked Cookie",
+          "price": 13500,
+          "real_price": 17000,
+          "badge": "✨ NEW!",
+          "isFood": true,
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/oatmeal-raisin-soft-baked-cookie-1784840523577.webp"
+        }
+      ],
+      "coffee": [
+        {
+          "id": "kk_c1",
           "name": "Creamy Caramel Latte",
           "price": 18000,
           "real_price": 26000,
-          "desc": "Paduan espresso, susu lembut, dan sirup karamel gurih manis",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/creamy-caramel-latte-1784203036496.webp"
+          "badge": "🔥 BEST SELLER",
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/creamy-caramel-latte-1784202724920.webp"
         },
         {
-          "id": "kk_og_aren_speculoos_latte",
+          "id": "kk_c2",
           "name": "OG Aren Speculoos Latte",
           "price": 15500,
           "real_price": 21000,
-          "desc": "Kopi susu gula aren berpadu biskuit speculoos renyah",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/og-aren-speculoos-latte-1784203079949.webp"
+          "badge": "⭐ BEST AWARDS",
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/og-aren-speculoos-latte-1784203753041.webp"
         },
         {
-          "id": "kk_dua_shot_og_aren",
+          "id": "kk_c3",
           "name": "Dua Shot OG Aren",
           "price": 17500,
           "real_price": 25000,
-          "desc": "Double shot espresso berpadu gula aren untuk rasa kopi lebih mantap",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/dua-shot-og-aren-1784203044030.webp"
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/dua-shot-og-aren-1784202876715.webp"
         },
         {
-          "id": "kk_mocha_caramel",
+          "id": "kk_c4",
           "name": "Mocha Caramel",
           "price": 18000,
           "real_price": 26000,
-          "desc": "Kombinasi espresso, cokelat pekat, dan sentuhan saus karamel manis",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/mocha-caramel-1784203075252.webp"
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/mocha-caramel-1784203688570.webp"
         },
         {
-          "id": "kk_pistachio_aren_latte",
+          "id": "kk_c5",
           "name": "Pistachio Aren Latte",
           "price": 14500,
           "real_price": 19000,
-          "desc": "Kopi susu gula aren berpadu aroma kacang pistachio yang khas",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/pistachio-aren-latte-1784203082989.webp"
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/pistachio-aren-latte-1784203797492.webp"
         },
         {
-          "id": "kk_cafe_malt_latte",
+          "id": "kk_c6",
           "name": "Cafe Malt Latte",
           "price": 16500,
           "real_price": 23000,
-          "desc": "Espresso dan susu segar dengan cita rasa gandum malt gurih",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/cafe-malt-latte-1784203022204.webp"
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/cafe-malt-latte-1786006183215.webp"
         },
         {
-          "id": "kk_caramel_latte",
+          "id": "kk_c7",
+          "name": "Kopi Kenangan Mantan",
+          "price": 14500,
+          "real_price": 19000,
+          "badge": "🔥 BEST SELLER",
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/kopi-kenangan-mantan-1784203103920.webp"
+        },
+        {
+          "id": "kk_c8",
           "name": "Caramel Latte",
           "price": 18000,
           "real_price": 26000,
-          "desc": "Espresso berpadu susu segar dan manisnya sirup karamel",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/caramel-latte-1784203025219.webp"
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/caramel-latte-1784202441105.webp"
         },
         {
-          "id": "kk_dua_shot_iced_shaken",
+          "id": "kk_c9",
           "name": "Dua Shot Iced Shaken",
           "price": 19000,
           "real_price": 28000,
-          "desc": "Double shot espresso yang dikocok dingin untuk aroma dan crema maksimal",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/dua-shot-iced-shaken-1784203043224.webp"
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/dua-shot-iced-shaken-1784202845066.webp"
         },
         {
-          "id": "kk_caramel_macchiato",
+          "id": "kk_c10",
           "name": "Caramel Macchiato",
           "price": 19000,
           "real_price": 28000,
-          "desc": "Layering susu vanilla, espresso kaya rasa, serta topping saus karamel",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/caramel-macchiato-1784203026042.webp"
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/caramel-macchiato-1786006171141.webp"
         },
         {
-          "id": "kk_hazelnut_latte",
+          "id": "kk_c11",
           "name": "Hazelnut Latte",
           "price": 18000,
           "real_price": 26000,
-          "desc": "Espresso dan susu segar dengan sensasi wangi kacang hazelnut",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/hazelnut-latte-1784203052825.webp"
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/hazelnut-latte-1786006153904.webp"
         },
         {
-          "id": "kk_kopi_susu_black_aren",
+          "id": "kk_c12",
           "name": "Kopi Susu Black Aren",
           "price": 16500,
           "real_price": 23000,
-          "desc": "Kopi susu dengan racikan sirup black aren yang lebih pekat dan legit",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/kopi-susu-black-aren-1784203104618.webp"
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/kopi-susu-black-aren-1786006140135.webp"
         },
         {
-          "id": "kk_matcha_espresso",
+          "id": "kk_c13",
           "name": "Matcha Espresso",
           "price": 18000,
           "real_price": 26000,
-          "desc": "Perpaduan unik matcha aromatik dengan seduhan espresso mantap",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/matcha-espresso-1784203072225.webp"
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/matcha-espresso-1786006095096.webp"
         },
         {
-          "id": "kk_mocha_latte",
+          "id": "kk_c14",
           "name": "Mocha Latte",
           "price": 19000,
           "real_price": 28000,
-          "desc": "Espresso berpadu cokelat manis dan susu segar seimbang",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/mocha-latte-1784203076115.webp"
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/mocha-latte-1786006049195.webp"
         },
         {
-          "id": "kk_vanilla_latte",
+          "id": "kk_c15",
           "name": "Vanilla Latte",
           "price": 18000,
           "real_price": 26000,
-          "desc": "Espresso klasik dipadu susu lembut dan aroma vanilla harum",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/vanilla-latte-1784203117466.webp"
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/vanilla-latte-1784204292983.webp"
         },
         {
-          "id": "kk_avocado_coffee",
+          "id": "kk_c16",
           "name": "Avocado Coffee",
           "price": 19000,
           "real_price": 28000,
-          "desc": "Rasa alpukat creamy yang legit berpadu seduhan espresso mantap",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/avocado-coffee-1784203013898.webp"
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/avocado-coffee-1784201984043.webp"
         },
         {
-          "id": "kk_spanish_latte",
+          "id": "kk_c17",
           "name": "Spanish Latte",
           "price": 14500,
           "real_price": 19000,
-          "desc": "Kopi susu bergaya Spanyol dengan rasa manis creamy khas susu kental manis",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/spanish-latte-1784203114979.webp"
+          "badge": "⭐ BEST AWARDS",
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/spanish-latte-1786006198342.webp"
         },
         {
-          "id": "kk_creamy_aren_latte",
+          "id": "kk_c18",
           "name": "Creamy Aren Latte",
           "price": 16000,
           "real_price": 22000,
-          "desc": "Varian kopi susu aren dengan tekstur ekstra creamy dan lembut",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/creamy-aren-latte-1784203035787.webp"
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/creamy-aren-latte-1784202711452.webp"
         },
         {
-          "id": "kk_butterscotch_sea_salt_latte",
+          "id": "kk_c19",
           "name": "Butterscotch Sea Salt Latte",
           "price": 17500,
           "real_price": 25000,
-          "desc": "Paduan butterscotch manis gurih dan sea salt foam di atas espresso latte",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/butterscotch-sea-salt-latte-1784203020610.webp"
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/butterscotch-sea-salt-latte-1784202348680.webp"
         },
         {
-          "id": "kk_americano",
+          "id": "kk_c20",
           "name": "Americano",
           "price": 13000,
           "real_price": 16000,
-          "desc": "Espresso murni berkualitas dengan air mineral, mantap dan tegas",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/americano-1784203010777.webp"
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/americano-1784201864501.webp"
         },
         {
-          "id": "kk_cappucino",
+          "id": "kk_c21",
           "name": "Cappucino",
           "price": 16000,
           "real_price": 22000,
-          "desc": "Komposisi seimbang espresso pekat dan buih susu tebal",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/cappucino-1784203023028.webp"
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/cappucino-1784202403768.webp"
         },
         {
-          "id": "kk_latte",
+          "id": "kk_c22",
           "name": "Latte",
           "price": 16000,
           "real_price": 22000,
-          "desc": "Espresso klasik dengan porsi susu segar melimpah",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/latte-1784203067850.webp"
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/latte-1786006072281.webp"
         },
         {
-          "id": "kk_korean_banana_latte",
-          "name": "Korean Banana Latte X Haechan",
-          "price": 16500,
-          "real_price": 23000,
-          "badge": "Edisi Haechan",
-          "desc": "Racikan latte lembut beraroma pisang khas Korea",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/korean-banana-latte-x-haechan-nct-1784203105315.webp"
-        },
-        {
-          "id": "kk_banana_americano",
-          "name": "Banana Americano X Haechan",
-          "price": 14500,
-          "real_price": 19000,
-          "badge": "Edisi Haechan",
-          "desc": "Kopi hitam americano segar dengan hint rasa buah pisang",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/banana-americano-x-haechan-nct-1784203014761.webp"
-        },
-        {
-          "id": "kk_butterscotch_aren_latte",
+          "id": "kk_c23",
           "name": "Butterscotch Aren Latte",
           "price": 18000,
           "real_price": 25000,
-          "badge": "Baru",
-          "desc": "Kombinasi gula aren lokal dengan saus butterscotch legit",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/butterscotch-aren-latte-1784203019808.webp"
+          "badge": "✨ BARU",
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/butterscotch-sea-salt-latte-1784202348680.webp"
         },
         {
-          "id": "kk_butterscotch_sea_salt_crumble",
-          "name": "Butterscotch Sea Salt Crumble",
-          "price": 19500,
-          "real_price": 27000,
-          "badge": "Baru",
-          "desc": "Butterscotch latte gurih dengan topping taburan crumble renyah",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/butterscotch-sea-salt-crumble-1784203021408.webp"
-        },
-        {
-          "id": "kk_blueberry_americano",
-          "name": "Blueberry Americano",
-          "price": 14500,
-          "real_price": 19000,
-          "badge": "Baru",
-          "desc": "Americano segar dengan sensasi asam manis buah blueberry",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/blueberry-americano-1784203017260.webp"
-        },
-        {
-          "id": "kk_toffee_nut_aren_latte",
+          "id": "kk_c24",
           "name": "Toffee Nut Aren Latte",
           "price": 17500,
           "real_price": 24000,
-          "badge": "Baru",
-          "desc": "Espresso aren dengan keharuman karamel kacang toffee nut",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/toffee-nut-aren-latte-1784203115792.webp"
+          "badge": "✨ BARU",
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/dua-shot-og-aren-1784202876715.webp"
         },
         {
-          "id": "kk_toffee_nut_latte",
+          "id": "kk_c25",
           "name": "Toffee Nut Latte",
           "price": 18500,
           "real_price": 26000,
-          "badge": "Baru",
-          "desc": "Latte gurih manis dengan sirup toffee nut yang khas",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/toffee-nut-latte-1784203116560.webp"
+          "badge": "✨ BARU",
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/hazelnut-latte-1786006153904.webp"
+        },
+        {
+          "id": "kk_c26",
+          "name": "Blueberry Americano",
+          "price": 14500,
+          "real_price": 19000,
+          "badge": "✨ BARU",
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/americano-1784201864501.webp"
         }
       ],
       "nonCoffee": [
         {
-          "id": "kk_banana_choco",
-          "name": "Banana Choco X Haechan",
-          "price": 17000,
-          "real_price": 24000,
-          "badge": "Edisi Haechan",
-          "desc": "Cokelat pekat lezat dipadukan dengan manis aroma pisang",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/banana-choco-x-haechan-nct-1784203015573.webp"
-        },
-        {
-          "id": "kk_og_thai_tea",
+          "id": "kk_nc1",
           "name": "OG Thai Tea",
           "price": 14500,
           "real_price": 19000,
-          "badge": "Favorit",
-          "desc": "Seduhan teh Thailand autentik berpadu susu kental manis",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/og-thai-tea-1784203080753.webp"
+          "badge": "🔥 BEST SELLER",
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/og-thai-tea-1784203762918.webp"
         },
         {
-          "id": "kk_thai_tea_loaded",
+          "id": "kk_nc2",
           "name": "Thai Tea Loaded",
           "price": 18500,
           "real_price": 27000,
-          "desc": "Thai tea creamy dengan tambahan ekstra topping melimpah",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/thai-tea-loaded-1784203114175.webp"
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/thai-tea-loaded-1784204163261.webp"
         },
         {
-          "id": "kk_og_aren_milky_speculoos",
+          "id": "kk_nc3",
           "name": "OG Aren Milky Speculoos",
           "price": 16500,
           "real_price": 23000,
-          "desc": "Susu segar gula aren non-kopi dengan remahan biskuit speculoos",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/og-aren-milky-speculoos-1784203078971.webp"
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/og-aren-milky-speculoos-1784203742945.webp"
         },
         {
-          "id": "kk_choco_caramel",
+          "id": "kk_nc4",
           "name": "Choco Caramel",
           "price": 14500,
           "real_price": 19000,
-          "desc": "Susu cokelat legit dengan siraman saus karamel lezat",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/choco-caramel-1784203029288.webp"
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/choco-caramel-1784202491031.webp"
         },
         {
-          "id": "kk_milk_oreo_crumble",
+          "id": "kk_nc5",
           "name": "Milk Oreo Crumble",
           "price": 18000,
           "real_price": 26000,
-          "desc": "Susu segar creamy dengan limpahan biskuit Oreo renyah",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/milk-oreo-crumble-1784203073796.webp"
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/milk-oreo-crumbel-1784203664111.webp"
         },
         {
-          "id": "kk_babyccino",
+          "id": "kk_nc6",
           "name": "Babyccino",
           "price": 14500,
           "real_price": 19000,
-          "desc": "Susu lembut hangat dengan buih tebal bertabur bubuk cokelat",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/babyccino-1784203014022.webp"
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/babyccino-1784202000005.webp"
         },
         {
-          "id": "kk_hazelnut_choco_milktea",
+          "id": "kk_nc7",
           "name": "Hazelnut Choco Milktea",
           "price": 16000,
           "real_price": 22000,
-          "desc": "Milk tea aromatik dipadu cokelat pekat dan wangi hazelnut",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/hazelnut-choco-milktea-1784203051062.webp"
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/hazelnut-choco-milk-tea-1784202968958.webp"
         },
         {
-          "id": "kk_avocado_caramel",
+          "id": "kk_nc8",
           "name": "Avocado Caramel",
           "price": 19000,
           "real_price": 28000,
-          "desc": "Krim alpukat manis berpadu saus karamel lezat tanpa kopi",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/avocado-caramel-1784203013054.webp"
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/avocado-caramel-1784201911141.webp"
         },
         {
-          "id": "kk_avocado_milk",
+          "id": "kk_nc9",
           "name": "Avocado Milk",
           "price": 17000,
           "real_price": 24000,
-          "desc": "Perpaduan susu segar lembut dengan cita rasa buah alpukat",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/avocado-milk-1784203013898.webp"
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/avocado-milk-1784201971654.webp"
         },
         {
-          "id": "kk_caramel_dutch_choco",
+          "id": "kk_nc10",
           "name": "Caramel Dutch Choco",
           "price": 19000,
           "real_price": 28000,
-          "desc": "Cokelat belanda pekat premium dengan sirup karamel gurih",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/caramel-dutch-choco-1784203024250.webp"
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/caramel-dutch-choco-1784202416219.webp"
         },
         {
-          "id": "kk_dutch_chocolate",
+          "id": "kk_nc11",
           "name": "Dutch Chocolate",
           "price": 18000,
           "real_price": 26000,
-          "desc": "Minuman cokelat belanda autentik dengan tekstur kaya rasa",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/dutch-chocolate-1784203045663.webp"
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/dutch-chocolate-1786006597203.webp"
         },
         {
-          "id": "kk_hazelnut_dutch_choco",
+          "id": "kk_nc12",
           "name": "Hazelnut Dutch Choco",
           "price": 15500,
           "real_price": 21000,
-          "desc": "Cokelat khas belanda dengan keharuman kacang hazelnut",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/hazelnut-dutch-choco-1784203051939.webp"
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/hazelnut-dutch-choco-1784202978499.webp"
         },
         {
-          "id": "kk_lemon_black_tea",
+          "id": "kk_nc13",
           "name": "Lemon Black Tea",
           "price": 13500,
           "real_price": 17000,
-          "desc": "Teh hitam segar dipadukan perasan jeruk lemon alami",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/lemon-black-tea-1784203068641.webp"
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/lemon-black-tea-1786006262212.webp"
         },
         {
-          "id": "kk_raspberry_hibiscus",
+          "id": "kk_nc14",
           "name": "Raspberry Hibiscus",
           "price": 15000,
           "real_price": 20000,
-          "desc": "Teh bunga hibiscus merah beraroma buah raspberry menyegarkan",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/raspberry-hibiscus-1784203084661.webp"
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/raspberry-hibiscus-1784203807399.webp"
         },
         {
-          "id": "kk_matcha_latte",
+          "id": "kk_nc15",
           "name": "Matcha Latte",
           "price": 18000,
           "real_price": 26000,
-          "desc": "Bubuk matcha jepang asli berpadu lembutnya susu segar",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/matcha-latte-1784203072986.webp"
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/matcha-latte-1784203628230.webp"
         },
         {
-          "id": "kk_milo_dinosaurus",
+          "id": "kk_nc16",
           "name": "Milo Dinosaurus",
           "price": 16500,
           "real_price": 23000,
-          "desc": "Es cokelat Milo lezat dengan taburan bubuk Milo ekstra melimpah",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/milo-dinosaurus-1784203074558.webp"
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/milo-dinosaurus-1784203674523.webp"
         },
         {
-          "id": "kk_susu_grass_jelly",
+          "id": "kk_nc17",
           "name": "Susu Grass Jelly",
           "price": 17000,
           "real_price": 24000,
-          "desc": "Susu gula aren segar dengan isian cincau kenyal lembut",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/susu-grass-jelly-1784203112613.webp"
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/susu-grass-jelly-1786006272278.webp"
         },
         {
-          "id": "kk_kenangan_milk_tea",
+          "id": "kk_nc18",
           "name": "Kenangan Milk Tea",
           "price": 15000,
           "real_price": 20000,
-          "desc": "Racikan teh susu klasik khas Kenangan dengan rasa manis pas",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/kenangan-milk-tea-1784203056461.webp"
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/kenangan-milk-tea-1784203045181.webp"
         },
         {
-          "id": "kk_fresh_lemonade",
+          "id": "kk_nc19",
           "name": "Fresh Lemonade",
           "price": 12000,
           "real_price": 15000,
-          "badge": "Segar",
-          "desc": "Minuman perasan sari lemon dingin yang segar dan melepas dahaga",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/fresh-lemonade-1784203049514.webp"
+          "badge": "🍋 SEGAR",
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/lemon-black-tea-1786006262212.webp"
         },
         {
-          "id": "kk_thai_tea_aren",
+          "id": "kk_nc20",
           "name": "Thai Tea Aren",
           "price": 14500,
           "real_price": 19000,
-          "badge": "Baru",
-          "desc": "Thai tea autentik dengan manis alami gula aren pilihan",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/thai-tea-aren-1784203112702.webp"
+          "badge": "✨ BARU",
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/og-thai-tea-1784203762918.webp"
         },
         {
-          "id": "kk_thai_tea_coffee",
+          "id": "kk_nc21",
           "name": "Thai Tea Coffee",
           "price": 16000,
           "real_price": 21000,
-          "badge": "Baru",
-          "desc": "Perpaduan rasa unik antara thai tea pekat dan aroma espresso",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/thai-tea-coffee-1784203113459.webp"
+          "badge": "✨ BARU",
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/thai-tea-loaded-1784204163261.webp"
         },
         {
-          "id": "kk_toffee_nut_choco_macchiato",
+          "id": "kk_nc22",
           "name": "Toffee Nut Choco Macchiato",
           "price": 18500,
           "real_price": 26000,
-          "badge": "Baru",
-          "desc": "Cokelat macchiato lembut dengan aroma wangi sirup toffee nut",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/toffee-nut-choco-macchiato-1784203116560.webp"
+          "badge": "✨ BARU",
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/caramel-dutch-choco-1784202416219.webp"
         }
       ],
       "oatside": [
         {
-          "id": "kk_oatside_kopi_kenangan",
-          "name": "Oatside Kopi Kenangan Mantan",
+          "id": "kk_o1",
+          "name": "Oatside Kopi Kenangan",
           "price": 15000,
           "real_price": 20000,
-          "desc": "Kopi susu gula aren menggunakan susu oat nabati Oatside",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/oatside-kopi-kenangan-1784203077395.webp"
+          "badge": "🥤 OATSIDE",
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/oatside-kopi-kenangan-mantan-1786006017509.webp"
         },
         {
-          "id": "kk_oatside_matcha_latte",
+          "id": "kk_o2",
           "name": "Oatside Matcha Latte",
           "price": 17500,
           "real_price": 25000,
-          "desc": "Matcha premium berpadu lembut dan gurihnya susu oat plant-based",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/oatside-matcha-latte-1784203078174.webp"
+          "badge": "🥤 OATSIDE",
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/oatside-matcha-latte-1786006121377.webp"
         },
         {
-          "id": "kk_oatside_latte",
+          "id": "kk_o3",
           "name": "Oatside Latte",
           "price": 15000,
           "real_price": 20000,
-          "desc": "Espresso mantap dengan campuran susu gandum ramah laktosa",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/oatside-latte-1784203077395.webp"
+          "badge": "🥤 OATSIDE",
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/oatside-latte-1786006033701.webp"
         },
         {
-          "id": "kk_toffee_nut_oat_latte",
+          "id": "kk_o4",
           "name": "Toffee Nut Oat Latte",
           "price": 20000,
           "real_price": 28000,
-          "badge": "Baru",
-          "desc": "Latte toffee nut istimewa dengan gurihnya susu oat Oatside",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/toffee-nut-oat-latte-1784203117326.webp"
+          "badge": "✨ BARU",
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/oatside-latte-1786006033701.webp"
         }
       ],
       "frappe": [
         {
-          "id": "kk_choco_caramel_frappe",
+          "id": "kk_f1",
           "name": "Choco Caramel Frappe",
           "price": 19000,
           "real_price": 28000,
-          "desc": "Cokelat karamel blender dingin segar dengan topping saus manis",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/choco-caramel-frappe-1784203030064.webp"
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/choco-caramel-frappe-1784202508311.webp"
         },
         {
-          "id": "kk_butterscotch_kenangan_frappe",
+          "id": "kk_f2",
           "name": "Butterscotch Kenangan Frappe",
           "price": 20000,
           "real_price": 30000,
-          "desc": "Frappe rasa karamel mentega butterscotch yang manis dan lembut",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/butterscotch-kenangan-frappe-1784203020087.webp"
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/butterscotch-kenangan-frappe-1786006234529.webp"
         },
         {
-          "id": "kk_matcha_kenangan_frappe",
+          "id": "kk_f3",
           "name": "Matcha Kenangan Frappe",
           "price": 21000,
           "real_price": 32000,
-          "desc": "Blended matcha dingin khas Kenangan yang harum dan creamy",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/matcha-kenangan-frappe-1784203072225.webp"
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/matcha-kenangan-frappe-1784203606856.webp"
         },
         {
-          "id": "kk_kopi_kenangan_mantan_frappe",
+          "id": "kk_f4",
           "name": "Kopi Kenangan Mantan Frappe",
           "price": 21500,
           "real_price": 27000,
-          "desc": "Kopi Mantan gula aren yang diblender halus menjadi minuman es frappe",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/kopi-kenangan-mantan-frappe-1784203104618.webp"
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/kopi-kenangan-mantan-frappe-1786006580297.webp"
         },
         {
-          "id": "kk_vanilla_kenangan_frappe",
+          "id": "kk_f5",
           "name": "Vanilla Kenangan Frappe",
           "price": 17500,
           "real_price": 25000,
-          "desc": "Frappe es susu vanilla lembut yang cocok dinikmati kapan saja",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/vanilla-kenangan-frappe-1784203117466.webp"
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/vanilla-kenangan-frappe-1786006224315.webp"
         },
         {
-          "id": "kk_dutch_choco_kenangan_frappe",
+          "id": "kk_f6",
           "name": "Dutch Choco Kenangan Frappe",
           "price": 19500,
           "real_price": 29000,
-          "desc": "Blended ice cokelat belanda pekat nan menyegarkan",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/dutch-choco-kenangan-frappe-1784203044917.webp"
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/dutch-choco-kenangan-frappe-1786006211197.webp"
         },
         {
-          "id": "kk_blueberry_frappe",
+          "id": "kk_f7",
           "name": "Blueberry Frappe",
           "price": 21000,
           "real_price": 29000,
-          "badge": "Baru",
-          "desc": "Blended es buah blueberry segar yang asam manis di lidah",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/blueberry-frappe-1784203018042.webp"
+          "badge": "✨ BARU",
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/vanilla-kenangan-frappe-1786006224315.webp"
         },
         {
-          "id": "kk_chocoberry_frappe",
-          "name": "Chocoberry Frappe",
-          "price": 21500,
-          "real_price": 30000,
-          "badge": "Baru",
-          "desc": "Kombinasi frappe cokelat lezat berpadu asam segar berry",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/chocoberry-frappe-1784203031023.webp"
-        },
-        {
-          "id": "kk_coffeeberry_frappe",
-          "name": "Coffeeberry Frappe",
-          "price": 22000,
-          "real_price": 31000,
-          "badge": "Baru",
-          "desc": "Frappe espresso unik dipadukan dengan sentuhan aroma buah berry",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/coffeeberry-frappe-1784203034988.webp"
-        },
-        {
-          "id": "kk_oreo_shake",
+          "id": "kk_f8",
           "name": "Oreo Shake",
           "price": 20000,
           "real_price": 28000,
-          "badge": "Baru",
-          "desc": "Milkshake kental manis bertabur remukan biskuit Oreo lezat",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/oreo-shake-1784203082218.webp"
+          "badge": "✨ BARU",
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/milk-oreo-crumbel-1784203664111.webp"
         }
       ],
       "food": [
         {
-          "id": "kk_gochu_macaroni_chicken",
+          "id": "kk_fd_h1",
           "name": "Gochu Macaroni Chicken",
           "price": 22500,
           "real_price": 32000,
-          "badge": "Makanan Berat",
-          "desc": "Pasta makaroni panggang dengan potongan ayam saus pedas manis gochujang",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/gochu-macaroni-chicken-1784203049514.webp"
+          "badge": "🍛 MAKANAN BERAT",
+          "isFood": true,
+          "img": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/fd65105e-8c60-4421-b40e-0eec2c9ef25e_56976698-59ae-4da7-967e-40b7ceb384c7.png"
         },
         {
-          "id": "kk_rose_spaghetti_sausage",
+          "id": "kk_fd_h2",
           "name": "Rose Spaghetti Sausage",
           "price": 24000,
           "real_price": 34000,
-          "badge": "Makanan Berat",
-          "desc": "Spageti saus rose creamy bergaya Korea dengan irisan sosis lezat",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/rose-spaghetti-sausage-1784203085521.webp"
+          "badge": "🍛 MAKANAN BERAT",
+          "isFood": true,
+          "img": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/fd65105e-8c60-4421-b40e-0eec2c9ef25e_56976698-59ae-4da7-967e-40b7ceb384c7.png"
         },
         {
-          "id": "kk_thai_chicken_spaghetti",
+          "id": "kk_fd_h3",
           "name": "Thai Chicken Spaghetti",
           "price": 24000,
           "real_price": 34000,
-          "badge": "Makanan Berat",
-          "desc": "Spageti tumis ayam bumbu khas Thailand dengan aroma rempah istimewa",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/thai-chicken-spaghetti-1784203112702.webp"
+          "badge": "🍛 MAKANAN BERAT",
+          "isFood": true,
+          "img": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/fd65105e-8c60-4421-b40e-0eec2c9ef25e_56976698-59ae-4da7-967e-40b7ceb384c7.png"
         },
         {
-          "id": "kk_kenangan_toast_adam_ayam",
+          "id": "kk_fd_t1",
           "name": "Kenangan Toast Adam (Ayam)",
           "price": 18000,
           "real_price": 25000,
-          "badge": "Toast",
-          "desc": "Roti panggang tebal isi daging ayam suwir gurih dan saus spesial",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/kenangan-toast-adam-ayam-1784203058021.webp"
+          "badge": "🥪 TOAST",
+          "isFood": true,
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/sandwich-chicken-tartar-1784204052680.webp"
         },
         {
-          "id": "kk_kenangan_toast_bambang_choco_cheese",
+          "id": "kk_fd_t2",
           "name": "Kenangan Toast Bambang (Choco Cheese)",
           "price": 17000,
           "real_price": 24000,
-          "badge": "Toast",
-          "desc": "Roti panggang renyah berpadu lumeran cokelat manis dan keju gurih",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/kenangan-toast-bambang-choco-cheese-1784203058863.webp"
+          "badge": "🥪 TOAST",
+          "isFood": true,
+          "img": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/fd65105e-8c60-4421-b40e-0eec2c9ef25e_56976698-59ae-4da7-967e-40b7ceb384c7.png"
         },
         {
-          "id": "kk_kenangan_toast_wahyu_sapi",
+          "id": "kk_fd_t3",
           "name": "Kenangan Toast Wahyu (Sapi)",
           "price": 19000,
           "real_price": 27000,
-          "badge": "Toast",
-          "desc": "Roti panggang hangat isi daging sapi gurih lembut bersaus nikmat",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/kenangan-toast-wahyu-sapi-1784203059632.webp"
+          "badge": "🥪 TOAST",
+          "isFood": true,
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/sandwich-smoked-beef-cheese-1784204059423.webp"
         },
         {
-          "id": "kk_butter_croissant",
-          "name": "Butter Croissant",
-          "price": 12500,
-          "real_price": 15000,
-          "badge": "Pastry",
-          "desc": "Croissant klasik berlapis mentega harum dengan tekstur renyah lembut",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/butter-croissant-1784203019034.webp"
-        },
-        {
-          "id": "kk_salt_bread_abon",
+          "id": "kk_fd_sb_abon",
           "name": "Salt Bread Abon",
           "price": 12000,
           "real_price": 14000,
-          "badge": "Salt Bread",
-          "desc": "Roti garam kenyal gurih bertabur abon sapi berlimpah",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/salt-bread-abon-1784203086438.webp"
+          "badge": "⭐ BEST SELLER",
+          "isFood": true,
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/salt-bread-original-1784204028515.webp"
         },
         {
-          "id": "kk_choco_mocha_swirl_toast",
-          "name": "Choco Mocha Swirl Toast",
-          "price": 13000,
-          "real_price": 17000,
-          "desc": "Roti panggang swirl aroma kopi moka bertabur cokelat",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/choco-mocha-swirl-toast-1784203031853.webp"
-        },
-        {
-          "id": "kk_sandwich_smoked_beef_cheese",
-          "name": "Sandwich Smoked Beef & Cheese",
-          "price": 16000,
-          "real_price": 23000,
-          "desc": "Sandwich lembut isi daging sapi asap dan keju cheddar gurih",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/sandwich-smoked-beef-and-cheese-1784203111059.webp"
-        },
-        {
-          "id": "kk_sandwich_chicken_tartar",
-          "name": "Sandwich Chicken Tartar",
-          "price": 16000,
-          "real_price": 23000,
-          "desc": "Sandwich lembut berisi potongan ayam renyah bersaus tartar segar",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/sandwich-chicken-tartar-1784203110271.webp"
-        },
-        {
-          "id": "kk_salt_bread_beef_cheese",
-          "name": "Salt Bread Beef and Cheese",
-          "price": 11500,
-          "real_price": 14000,
-          "desc": "Roti mentega garam berisi daging sapi gurih dan lelehan keju",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/salt-bread-beef-and-cheese-1784203087229.webp"
-        },
-        {
-          "id": "kk_salt_bread_original",
-          "name": "Salt Bread Original",
-          "price": 11500,
-          "real_price": 13000,
-          "desc": "Roti klasik bermentega mentok dengan sentuhan gurih garam laut",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/salt-bread-original-1784203088764.webp"
-        },
-        {
-          "id": "kk_salt_bread_choco_butter",
-          "name": "Salt Bread Choco Butter",
-          "price": 10000,
-          "real_price": 11000,
-          "desc": "Roti garam dengan paduan mentega gurih dan cokelat manis lumer",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/salt-bread-choco-butter-1784203087964.webp"
-        },
-        {
-          "id": "kk_salt_bread_sausage",
-          "name": "Salt Bread Sausage",
-          "price": 12500,
-          "real_price": 15000,
-          "desc": "Roti garam gurih dengan isian sosis lezat bertekstur empuk",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/salt-bread-sausage-1784203089552.webp"
-        },
-        {
-          "id": "kk_canele_original",
-          "name": "Canele Original",
-          "price": 11000,
-          "real_price": 13000,
-          "desc": "Kue tradisional Prancis berkulit karamel renyah dengan bagian dalam lembut",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/canele-original-1784203024250.webp"
-        },
-        {
-          "id": "kk_canele_aren",
-          "name": "Canele Aren",
-          "price": 12000,
-          "real_price": 15000,
-          "desc": "Kue canele dengan sentuhan cita rasa gula aren manis legit",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/canele-aren-1784203023028.webp"
-        },
-        {
-          "id": "kk_canele_toffee_nut_crumble",
-          "name": "Canele Toffee Nut Crumble",
-          "price": 12000,
-          "real_price": 15000,
-          "desc": "Canele istimewa dengan aroma toffee nut dan crumble renyah gurih",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/canele-toffee-nut-crumble-1784203023812.webp"
-        },
-        {
-          "id": "kk_coffee_butter_bun",
-          "name": "Coffee Butter Bun",
-          "price": 10000,
-          "real_price": 11000,
-          "desc": "Roti empuk beraroma kopi wangi dengan isian lelehan butter gurih",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/coffee-butter-bun-1784203033320.webp"
-        },
-        {
-          "id": "kk_croissant_abon",
-          "name": "Croissant Abon",
-          "price": 13000,
-          "real_price": 17000,
-          "desc": "Croissant mentega renyah dengan isian abon gurih nikmat",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/croissant-abon-1784203037265.webp"
-        },
-        {
-          "id": "kk_chocolate_croissant",
-          "name": "Chocolate Croissant",
-          "price": 13500,
-          "real_price": 18000,
-          "desc": "Pastry renyah berlapis dengan isian cokelat batangan manis lumer",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/chocolate-croissant-1784203032588.webp"
-        },
-        {
-          "id": "kk_dirty_croissant_milo",
-          "name": "Dirty Croissant Milo",
-          "price": 14000,
-          "real_price": 19000,
-          "desc": "Croissant berlapis krim cokelat dan taburan melimpah bubuk Milo",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/dirty-croissant-milo-1784203038841.webp"
-        },
-        {
-          "id": "kk_danish_tiramisu",
-          "name": "Danish Tiramisu",
-          "price": 14000,
-          "real_price": 19000,
-          "desc": "Pastry danish renyah berpadu krim tiramisu manis beraroma kopi",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/danish-tiramisu-1784203038085.webp"
-        },
-        {
-          "id": "kk_aren_apple_pie",
-          "name": "Aren Apple Pie",
-          "price": 13000,
-          "real_price": 16000,
-          "desc": "Pastry pai apel kayu manis yang dipadu manis legitnya gula aren",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/aren-apple-pie-1784203011547.webp"
-        },
-        {
-          "id": "kk_roti_coklat_klasik",
-          "name": "Roti Coklat Klasik",
-          "price": 8000,
-          "real_price": 9000,
-          "desc": "Roti lembut tradisional dengan isian pasta cokelat manis",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/roti-coklat-klasik-1784203086118.webp"
-        },
-        {
-          "id": "kk_roti_susu_manis",
-          "name": "Roti Susu Manis",
-          "price": 10000,
-          "real_price": 10000,
-          "desc": "Roti empuk berpadu isian krim susu manis gurih",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/roti-susu-manis-1784203086438.webp"
-        },
-        {
-          "id": "kk_roti_keju_manis",
-          "name": "Roti Keju Manis",
-          "price": 10500,
-          "real_price": 13000,
-          "desc": "Roti empuk dengan parutan keju gurih dan rasa manis seimbang",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/roti-keju-manis-1784203086118.webp"
-        },
-        {
-          "id": "kk_roti_srikaya",
-          "name": "Roti Srikaya",
-          "price": 11500,
-          "real_price": 15000,
-          "desc": "Roti lembut dengan selai srikaya pandan manis legit harum",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/roti-srikaya-1784203086438.webp"
-        },
-        {
-          "id": "kk_roti_gulung_abon",
-          "name": "Roti Gulung Abon",
-          "price": 13000,
-          "real_price": 17000,
-          "desc": "Roti gulung lembut dengan isian abon gurih dan mayones lezat",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/roti-gulung-abon-1784203086118.webp"
-        },
-        {
-          "id": "kk_roti_gulung_aren",
-          "name": "Roti Gulung Aren",
-          "price": 11500,
-          "real_price": 13000,
-          "desc": "Roti gulung lembut berpadu olesan gula aren wangi legit",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/roti-gulung-aren-1784203086438.webp"
-        },
-        {
-          "id": "kk_roti_sisir_original",
-          "name": "Roti Sisir Original",
-          "price": 10000,
-          "real_price": 11000,
-          "desc": "Roti sisir mentega jadul empuk dengan cita rasa manis klasik",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/roti-sisir-original-1784203086118.webp"
-        },
-        {
-          "id": "kk_roti_sisir_keju",
-          "name": "Roti Sisir Keju",
-          "price": 11500,
-          "real_price": 14000,
-          "desc": "Roti sisir mentega empuk bertabur serpihan keju gurih",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/roti-sisir-keju-1784203086438.webp"
-        },
-        {
-          "id": "kk_roti_sisir_coklat",
-          "name": "Roti Sisir Coklat",
-          "price": 11000,
-          "real_price": 13000,
-          "desc": "Roti sisir mentega empuk dengan polesan cokelat lezat",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/roti-sisir-coklat-1784203086118.webp"
-        },
-        {
-          "id": "kk_donut_tiramisu",
-          "name": "Donut Tiramisu",
-          "price": 11000,
-          "real_price": 13000,
-          "desc": "Donat empuk dengan glazing tiramisu dan taburan cokelat",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/donut-tiramisu-1784203042456.webp"
-        },
-        {
-          "id": "kk_donut_almond",
-          "name": "Donut Almond",
-          "price": 11000,
-          "real_price": 13000,
-          "desc": "Donat empuk bertabur irisan kacang almond renyah gurih",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/donut-almond-1784203040854.webp"
-        },
-        {
-          "id": "kk_chocolate_donut",
-          "name": "Chocolate Donut",
-          "price": 10500,
-          "real_price": 13000,
-          "desc": "Donat klasik dengan balutan cokelat pekat lumer",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/chocolate-donut-1784203033320.webp"
-        },
-        {
-          "id": "kk_sugar_donut",
-          "name": "Sugar Donut",
-          "price": 9000,
-          "real_price": 10000,
-          "desc": "Donat kampung empuk dengan taburan gula halus lembut",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/sugar-donut-1784203111833.webp"
-        },
-        {
-          "id": "kk_donut_abon",
-          "name": "Donut Abon",
-          "price": 11500,
-          "real_price": 14000,
-          "desc": "Donat lembut dengan lapisan mayones dan taburan abon gurih",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/donut-abon-1784203040062.webp"
-        },
-        {
-          "id": "kk_bananachoco_soft_baked_cookie",
+          "id": "kk_fd_c1",
           "name": "Bananachoco Soft Baked Cookie",
           "price": 13500,
           "real_price": 18000,
-          "desc": "Kue kukis lembut hangat dengan paduan pisang dan cokelat manis",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/bananachoco-soft-baked-cookie-1784203016462.webp"
+          "badge": "✨ NEW!",
+          "isFood": true,
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/bananachoco-soft-baked-cookie-1784840414668.webp"
         },
         {
-          "id": "kk_sweet_honey_soft_baked_cookie",
+          "id": "kk_fd_c2",
           "name": "Sweet Honey Soft Baked Cookie",
           "price": 13000,
           "real_price": 17000,
-          "desc": "Soft cookie dengan wangi manis madu alami yang renyah di tepi",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/sweet-honey-soft-baked-cookie-1784203113459.webp"
+          "badge": "✨ NEW!",
+          "isFood": true,
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/sweet-honey-soft-baked-cookie-1784840495017.webp"
         },
         {
-          "id": "kk_oatmeal_raisin_soft_baked_cookie",
+          "id": "kk_fd_c3",
           "name": "Oatmeal Raisin Soft Baked Cookie",
           "price": 13500,
           "real_price": 18000,
-          "desc": "Kukis oatmeal berserat dipadukan dengan kismis manis kenyal",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/oatmeal-raisin-soft-baked-cookie-1784203076596.webp"
+          "badge": "✨ NEW!",
+          "isFood": true,
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/oatmeal-raisin-soft-baked-cookie-1784840523577.webp"
         },
         {
-          "id": "kk_chocochip_cookies",
-          "name": "Chocochip Cookies",
-          "price": 11000,
-          "real_price": 14000,
-          "desc": "Kue kering renyah bertabur keping cokelat chocochip manis",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/chocochip-cookies-1784203034204.webp"
+          "id": "kk_fd_n1",
+          "name": "Canele Toffee Nut Crumble",
+          "price": 12000,
+          "real_price": 15000,
+          "isFood": true,
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/canele-toffee-nut-crumble-1784202392704.webp"
         },
         {
-          "id": "kk_friend_chip_cookies",
-          "name": "Friend Chip Cookies",
-          "price": 12500,
-          "real_price": 16000,
-          "desc": "Kukis renyah manis cocok dinikmati bersama secangkir kopi",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/friend-chip-cookies-1784203048733.webp"
+          "id": "kk_fd_n2",
+          "name": "Coffee Butter Bun",
+          "price": 10000,
+          "real_price": 11000,
+          "isFood": true,
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/coffee-butter-bun-1784202676439.webp"
         },
         {
-          "id": "kk_choco_muffin",
+          "id": "kk_fd_n3",
           "name": "Choco Muffin",
           "price": 12000,
           "real_price": 15000,
-          "desc": "Kue muffin cokelat empuk dengan kelezatan cokelat pekat di tiap gigitan",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/choco-muffin-1784203031023.webp"
+          "isFood": true,
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/choco-muffin-1784202533526.webp"
         },
         {
-          "id": "kk_blueberry_muffin",
-          "name": "Blueberry Muffin",
+          "id": "kk_fd_n4",
+          "name": "Bluberry Muffin",
           "price": 12000,
           "real_price": 17000,
-          "desc": "Kue muffin lembut dengan selai buah blueberry manis segar",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/bluberry-muffin-1784203018042.webp"
+          "isFood": true,
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/blueberry-muffin-1784202077986.webp"
         },
         {
-          "id": "kk_vanilla_choux_puff",
+          "id": "kk_fd_n5",
+          "name": "Choco Mocha Swirl Toast",
+          "price": 13000,
+          "real_price": 17000,
+          "isFood": true,
+          "img": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/fd65105e-8c60-4421-b40e-0eec2c9ef25e_56976698-59ae-4da7-967e-40b7ceb384c7.png"
+        },
+        {
+          "id": "kk_fd_n6",
           "name": "Vanilla Choux Puff",
           "price": 11000,
           "real_price": 13000,
-          "desc": "Kue sus renyah berisi vla vanilla dingin yang lumer lembut",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/vanilla-choux-puff-1784203117466.webp"
+          "isFood": true,
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/vanilla-choux-puff-1784204262209.webp"
         },
         {
-          "id": "kk_strawberry_choux_puff",
+          "id": "kk_fd_n7",
           "name": "Strawberry Choux Puff",
           "price": 11000,
           "real_price": 13000,
-          "desc": "Kue sus renyah berisi krim rasa strawberry manis dan segar",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/strawberry-choux-puff-1784203111833.webp"
+          "isFood": true,
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/strawberry-choux-puff-1784204085463.webp"
         },
         {
-          "id": "kk_chocolate_choux_puff",
+          "id": "kk_fd_n8",
           "name": "Chocolate Choux Puff",
           "price": 11000,
           "real_price": 13000,
-          "desc": "Kue sus renyah dengan isian krim cokelat legit melimpah",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/chocolate-choux-puff-1784203032588.webp"
+          "isFood": true,
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/chocolate-choux-puff-1784202552305.webp"
         },
         {
-          "id": "kk_bolu_marble_chocolate",
+          "id": "kk_fd_n9",
+          "name": "Donut Tiramisu",
+          "price": 11000,
+          "real_price": 13000,
+          "isFood": true,
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/donut-tiramisu-1784202782527.webp"
+        },
+        {
+          "id": "kk_fd_n10",
+          "name": "Danish Tiramisu",
+          "price": 14000,
+          "real_price": 19000,
+          "isFood": true,
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/danish-tiramisu-1784202752235.webp"
+        },
+        {
+          "id": "kk_fd_n11",
+          "name": "Salt Bread Beef and Cheese",
+          "price": 11500,
+          "real_price": 14000,
+          "isFood": true,
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/salt-bread-beef-cheese-1784204009848.webp"
+        },
+        {
+          "id": "kk_fd_n12",
           "name": "Bolu Marble Chocolate",
           "price": 12000,
           "real_price": 15000,
-          "desc": "Bolu marmer klasik lembut beraroma mentega dan cokelat",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/bolu-marble-chocolate-1784203018042.webp"
+          "isFood": true,
+          "img": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/40c62262-2df8-4f3d-99dc-9976f816d707_55e7b004-9505-4151-8c0d-2cacf70462a4_Bolu-Marble.jpeg?auto=format"
         },
         {
-          "id": "kk_bolu_marble_ube",
+          "id": "kk_fd_n13",
           "name": "Bolu Marble Ube",
           "price": 12000,
           "real_price": 15000,
-          "desc": "Bolu marmer empuk dengan sentuhan ubi ungu harum legit",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/bolu-marble-ube-1784203019034.webp"
+          "isFood": true,
+          "img": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/40c62262-2df8-4f3d-99dc-9976f816d707_55e7b004-9505-4151-8c0d-2cacf70462a4_Bolu-Marble.jpeg?auto=format"
         },
         {
-          "id": "kk_bolu_marble_mocha",
+          "id": "kk_fd_n14",
           "name": "Bolu Marble Mocha",
           "price": 12000,
           "real_price": 15000,
-          "desc": "Bolu marmer beraroma moka khas yang pas sebagai teman kopi",
-          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/bolu-marble-mocha-1784203018042.webp"
+          "isFood": true,
+          "img": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/40c62262-2df8-4f3d-99dc-9976f816d707_55e7b004-9505-4151-8c0d-2cacf70462a4_Bolu-Marble.jpeg?auto=format"
+        },
+        {
+          "id": "kk_fd_n15",
+          "name": "Donut Abon",
+          "price": 11500,
+          "real_price": 14000,
+          "isFood": true,
+          "img": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/441c6c79-5da6-43ce-a1e3-1fa54ff15a01_fd20cb3a-baac-45a2-af28-d4584e9b52e6_Donut-Abon.jpeg"
+        },
+        {
+          "id": "kk_fd_n16",
+          "name": "Roti Gulung Abon",
+          "price": 13000,
+          "real_price": 17000,
+          "isFood": true,
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/roti-gulung-abon-1784203845155.webp"
+        },
+        {
+          "id": "kk_fd_n17",
+          "name": "Roti Gulung Aren",
+          "price": 11500,
+          "real_price": 13000,
+          "isFood": true,
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/roti-srikaya-1784203973128.webp"
+        },
+        {
+          "id": "kk_fd_n18",
+          "name": "Sandwich Smoked Beef and Cheese",
+          "price": 16000,
+          "real_price": 23000,
+          "isFood": true,
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/sandwich-smoked-beef-cheese-1784204059423.webp"
+        },
+        {
+          "id": "kk_fd_n19",
+          "name": "Sandwich Chicken Tartar",
+          "price": 16000,
+          "real_price": 23000,
+          "isFood": true,
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/sandwich-chicken-tartar-1784204052680.webp"
+        },
+        {
+          "id": "kk_fd_n20",
+          "name": "Roti Sisir Original",
+          "price": 10000,
+          "real_price": 11000,
+          "isFood": true,
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/roti-coklat-klasik-1784203834325.webp"
+        },
+        {
+          "id": "kk_fd_n21",
+          "name": "Roti Sisir Keju",
+          "price": 11500,
+          "real_price": 14000,
+          "isFood": true,
+          "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDtVCS-4gHMqPg9zERKkGbxIY7VJjQFWaNkYcAGoIsi5_KhoGkfpjVn3c&s=10"
+        },
+        {
+          "id": "kk_fd_n22",
+          "name": "Roti Sisir Coklat",
+          "price": 11000,
+          "real_price": 13000,
+          "isFood": true,
+          "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTW5GJEcbdeAX-aT1C3C_ErNXak9f6CpUb0VAHZ61yBBV_TpXFk3ym9T4Uh&s=10"
+        },
+        {
+          "id": "kk_fd_n23",
+          "name": "Dirty Croissant Milo",
+          "price": 14000,
+          "real_price": 19000,
+          "isFood": true,
+          "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTU2TwctfH05cTqA4ut8Fw1GmEqpojN3mF2HqZ-V3nKCg&s"
+        },
+        {
+          "id": "kk_fd_n24",
+          "name": "Croissant Abon",
+          "price": 13000,
+          "real_price": 17000,
+          "isFood": true,
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/croissant-abon-1784202739897.webp"
+        },
+        {
+          "id": "kk_fd_n25",
+          "name": "Chocolate Croissant",
+          "price": 13500,
+          "real_price": 18000,
+          "isFood": true,
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/chocolate-croissant-1784202644661.webp"
+        },
+        {
+          "id": "kk_fd_n26",
+          "name": "Friend Chip Cookies",
+          "price": 12500,
+          "real_price": 16000,
+          "isFood": true,
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/friend-chip-1784202953408.webp"
+        },
+        {
+          "id": "kk_fd1",
+          "name": "Canele Original",
+          "price": 11000,
+          "real_price": 13000,
+          "isFood": true,
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/canele-original-1784202386203.webp"
+        },
+        {
+          "id": "kk_fd2",
+          "name": "Canele Aren",
+          "price": 12000,
+          "real_price": 15000,
+          "isFood": true,
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/canele-aren-1784202377007.webp"
+        },
+        {
+          "id": "kk_fd3",
+          "name": "Aren Apple Pie",
+          "price": 13000,
+          "real_price": 16000,
+          "isFood": true,
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/aren-apple-pie-1784201888716.webp"
+        },
+        {
+          "id": "kk_fd4",
+          "name": "Salt Bread Original",
+          "price": 11500,
+          "real_price": 13000,
+          "isFood": true,
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/salt-bread-original-1784204028515.webp"
+        },
+        {
+          "id": "kk_fd5",
+          "name": "Salt Bread Choco Butter",
+          "price": 10000,
+          "real_price": 11000,
+          "isFood": true,
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/salt-bread-choco-butter-1784204020768.webp"
+        },
+        {
+          "id": "kk_fd6",
+          "name": "Salt Bread Sausage",
+          "price": 12500,
+          "real_price": 15000,
+          "isFood": true,
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/salt-bread-sausage-1784204041783.webp"
+        },
+        {
+          "id": "kk_fd7",
+          "name": "Donut Almond",
+          "price": 11000,
+          "real_price": 13000,
+          "isFood": true,
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/donut-almond-1784202764009.webp"
+        },
+        {
+          "id": "kk_fd8",
+          "name": "Chocolate Donut",
+          "price": 10500,
+          "real_price": 13000,
+          "isFood": true,
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/chocolate-donut-1784202664568.webp"
+        },
+        {
+          "id": "kk_fd8_s",
+          "name": "Sugar Donut",
+          "price": 9000,
+          "real_price": 10000,
+          "isFood": true,
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/sugar-donut-1784204102361.webp"
+        },
+        {
+          "id": "kk_fd9",
+          "name": "Roti Coklat Klasik",
+          "price": 8000,
+          "real_price": 9000,
+          "isFood": true,
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/roti-coklat-klasik-1784203834325.webp"
+        },
+        {
+          "id": "kk_fd10",
+          "name": "Roti Susu Manis",
+          "price": 10000,
+          "real_price": 10000,
+          "isFood": true,
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/roti-susu-manis-1784203983620.webp"
+        },
+        {
+          "id": "kk_fd11",
+          "name": "Roti Keju Manis",
+          "price": 10500,
+          "real_price": 13000,
+          "isFood": true,
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/roti-keju-manis-1784203954073.webp"
+        },
+        {
+          "id": "kk_fd12",
+          "name": "Roti Srikaya",
+          "price": 11500,
+          "real_price": 15000,
+          "isFood": true,
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/roti-srikaya-1784203973128.webp"
+        },
+        {
+          "id": "kk_fd13",
+          "name": "Chocochip Cookies",
+          "price": 11000,
+          "real_price": 14000,
+          "isFood": true,
+          "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/choco-chip-cookies-1784202526295.webp"
         }
       ]
     }
