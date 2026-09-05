@@ -401,16 +401,18 @@
             </div>
         </div>
 
-        <!-- Banner Info Admin Sedang Sibuk (Muncul jika status admin = busy) -->
-        <div id="admin-busy-banner" class="hidden mx-4 mt-3 p-3.5 bg-amber-50 border border-amber-300 rounded-2xl text-amber-900 shadow-sm flex items-center gap-3">
-            <div class="w-9 h-9 rounded-xl bg-amber-200 text-amber-800 flex items-center justify-center text-base flex-shrink-0">
-                <i class="fas fa-business-time"></i>
-            </div>
-            <div class="min-w-0">
-                <h4 class="text-xs font-black text-amber-900">Admin Sedang Kuliah / Ada Kegiatan (Slow Response)</h4>
-                <p class="text-[10px] text-amber-800 leading-relaxed mt-0.5">Pesanan tetap kami terima dan diproses berurutan dalam rentang 15–30 menit ya Kak. Terima kasih atas pengertiannya! 🫶</p>
-            </div>
-        </div>
+       <!-- Banner Info Admin Sedang Sibuk (Otomatis Jadwal & Klik Logo 5x) -->
+<div id="admin-busy-banner" class="hidden mx-4 mt-3 p-3.5 bg-amber-50 border border-amber-300 rounded-2xl text-amber-900 shadow-sm flex items-center gap-3">
+    <div class="w-9 h-9 rounded-xl bg-amber-200 text-amber-800 flex items-center justify-center text-base flex-shrink-0">
+        <i class="fas fa-business-time"></i>
+    </div>
+    <div class="min-w-0">
+        <h4 id="admin-busy-title" class="text-xs font-black text-amber-900">Admin Sedang Offline / Agenda Luar (Slow Response)</h4>
+        <p id="admin-busy-text" class="text-[10px] text-amber-800 leading-relaxed mt-0.5">Pesanan tetap diterima dan akan diproses berurutan ya Kak. Terima kasih atas pengertiannya! 🫶</p>
+    </div>
+</div>
+
+<script>
 // Konfigurasi Jam Agenda Terjadwal
 // 0: Minggu, 1: Senin, 2: Selasa, 3: Rabu, 4: Kamis, 5: Jumat, 6: Sabtu
 const SCHEDULE_BUSY = [
@@ -444,12 +446,21 @@ function checkAdminSchedule() {
 
 function updateBusyStatusUI() {
   const status = checkAdminSchedule();
+  // Cek juga apakah tombol rahasia logo 5x sedang diaktifkan manual
+  const manualBusy = localStorage.getItem("adminManualBusy") === "true";
+  
   const banner = document.getElementById("admin-busy-banner");
+  const bannerTitle = document.getElementById("admin-busy-title");
   const bannerText = document.getElementById("admin-busy-text");
 
   if (banner && bannerText) {
-    if (status.isBusy) {
-      bannerText.innerText = `⏳ Admin sedang agenda luar. Pesanan tetap diterima dan diproses mulai pukul ${status.availableAt} WIB.`;
+    if (manualBusy) {
+      if (bannerTitle) bannerTitle.innerText = "Admin Sedang Ada Agenda Khusus (Slow Response)";
+      bannerText.innerText = "Admin sedang offline sementara. Pesanan tetap diterima dan akan diproses begitu admin online kembali. Terima kasih atas pengertiannya! 🫶";
+      banner.classList.remove("hidden");
+    } else if (status.isBusy) {
+      if (bannerTitle) bannerTitle.innerText = "Admin Sedang Agenda Luar (Slow Response)";
+      bannerText.innerText = `Pesanan tetap kami terima dan akan langsung diproses mulai pukul ${status.availableAt} WIB ya Kak. Terima kasih! 🫶`;
       banner.classList.remove("hidden");
     } else {
       banner.classList.add("hidden");
@@ -462,6 +473,7 @@ window.addEventListener("DOMContentLoaded", () => {
   updateBusyStatusUI();
   setInterval(updateBusyStatusUI, 60000);
 });
+</script>
         <!-- Outlet & Order Type Active Banner -->
         <div class="mx-4 mt-3 p-3.5 bg-white/85 backdrop-blur-md rounded-2xl border border-white shadow-sm flex items-center justify-between gap-2">
             <div class="flex items-center gap-3 min-w-0">
