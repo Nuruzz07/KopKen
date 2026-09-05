@@ -212,12 +212,11 @@ const officialOriginalPriceMap = {
     'canele aren': 16000,
     'sandwich smoked beef': 22000,
     'salt bread sausage': 15000,
-    'duo mantan (2 cup)': 38000,
-    'duo bestie (kopi + non-kopi)': 38000,
-    'kombo kopi + roti coklat': 28000,
-    'kombo sarapan (kopi + bun)': 27000,
-    'trio nongkrong (3 cup)': 57000,
-    'party pack rame-rame (4 cup)': 76000
+    'combo single ngopi & toast': 44000,
+    'paket kencan berdua (2 cup large)': 60000,
+    'duo mantan reguler + toast kenyang': 60000,
+    'paket nongkrong bertiga (3 cup reguler)': 57000,
+    'paket mabar sultan (3 cup + 1 roti/pastry)': 70000
 };
 
 function getOfficialOriginalPrice(itemName, fallbackPrice = 0) {
@@ -829,91 +828,92 @@ async function loadDataFiles() {
 
     const defaultBundlings = [
         {
-            id: 'b_duo_mantan',
+            id: 'b_combo_single_toast',
             cat: 'bundling',
-            name: 'Duo Mantan (2 Cup)',
-            singlePrice: 28500,
-            realPrice: 38000,
-            badge: '🔥 BEST SELLER',
+            name: 'Combo Single Ngopi & Toast',
+            singlePrice: 32000,
+            realPrice: 44000,
+            badge: '🍞 COMBO KENYANG',
             type: 'bundling',
+            img: 'https://img.cimagroup.my.id/kenangan-toast-adam-ayam-1784203058021.webp',
+            imgs: ['https://img.cimagroup.my.id/kenangan-toast-adam-ayam-1784203058021.webp'],
+            opts: [
+                '1 Mantan Reguler (Ice) + 1 Toast Adam Ayam',
+                '1 Mantan Reguler (Ice) + 1 Toast Wahyu Sapi',
+                '1 Mantan Reguler (Ice) + 1 Toast Bambang Choco Cheese',
+                '1 Americano (Hot/Ice) + 1 Toast Adam Ayam'
+            ]
+        },
+        {
+            id: 'b_kencan_berdua',
+            cat: 'bundling',
+            name: 'Paket Kencan Berdua (2 Cup Large)',
+            singlePrice: 44000,
+            realPrice: 60000,
+            badge: '🔥 BEST 50K',
+            type: 'bundling',
+            img: 'https://img.cimagroup.my.id/custom-2-large-1786019918224.webp',
+            imgs: ['https://img.cimagroup.my.id/custom-2-large-1786019918224.webp'],
+            opts: [
+                '2 Mantan Large (Ice)',
+                '1 Mantan Large + 1 Thai Tea Large (Ice)',
+                '1 Mantan Large + 1 Dutch Choco Large (Ice)',
+                '2 Thai Tea Large (Ice)'
+            ]
+        },
+        {
+            id: 'b_duo_mantan_toast',
+            cat: 'bundling',
+            name: 'Duo Mantan Reguler + Toast Kenyang',
+            singlePrice: 44000,
+            realPrice: 60000,
+            badge: '🥪 NGOPI + KENYANG',
+            type: 'bundling',
+            img: 'https://img.cimagroup.my.id/kopi-kenangan-mantan-1784203103920.webp',
             imgs: [
                 'https://img.cimagroup.my.id/kopi-kenangan-mantan-1784203103920.webp',
-                'https://img.cimagroup.my.id/kopi-kenangan-mantan-1784203103920.webp'
+                'https://img.cimagroup.my.id/kenangan-toast-adam-ayam-1784203058021.webp'
             ],
-            opts: ['2 Cup Kopi Kenangan Mantan (Ice)']
+            opts: [
+                '2 Mantan Reguler (Ice) + 1 Toast Adam Ayam',
+                '2 Mantan Reguler (Ice) + 1 Toast Wahyu Sapi',
+                '2 Mantan Reguler (Ice) + 1 Sandwich Smoked Beef',
+                '2 Mantan Reguler (Ice) + 1 Toast Bambang Choco Cheese'
+            ]
         },
         {
-            id: 'b_duo_bestie',
+            id: 'b_nongkrong_bertiga',
             cat: 'bundling',
-            name: 'Duo Bestie (Kopi + Non-Kopi)',
-            singlePrice: 28500,
-            realPrice: 38000,
-            badge: '⭐ FAVORIT',
-            type: 'bundling',
-            imgs: [
-                'https://img.cimagroup.my.id/kopi-kenangan-mantan-1784203103920.webp',
-                'https://img.cimagroup.my.id/og-thai-tea-1784203762918.webp'
-            ],
-            opts: ['1 Mantan (Ice) + 1 OG Thai Tea (Ice)', '1 Mantan (Ice) + 1 Dutch Choco (Ice)']
-        },
-        {
-            id: 'b_kombo_roti',
-            cat: 'bundling',
-            name: 'Kombo Kopi + Roti Coklat',
-            singlePrice: 21500,
-            realPrice: 28000,
-            badge: '🍞 HEMAT',
-            type: 'bundling',
-            imgs: [
-                'https://img.cimagroup.my.id/kopi-kenangan-mantan-1784203103920.webp',
-                'https://img.cimagroup.my.id/roti-coklat-klasik-1784203834325.webp'
-            ],
-            opts: ['1 Mantan (Ice) + 1 Roti Coklat Klasik', '1 Mantan (Ice) + 1 Roti Susu Manis', '1 Mantan (Ice) + 1 Salt Bread Ori']
-        },
-        {
-            id: 'b_kombo_sarapan',
-            cat: 'bundling',
-            name: 'Kombo Sarapan (Kopi + Bun)',
-            singlePrice: 20500,
-            realPrice: 27000,
-            badge: '✨ COMBO',
-            type: 'bundling',
-            imgs: [
-                'https://img.cimagroup.my.id/hazelnut-dutch-choco-1784202978499.webp',
-                'https://img.cimagroup.my.id/coffee-butter-bun-1784202676439.webp'
-            ],
-            opts: ['1 Americano (Ice/Hot) + 1 Coffee Butter Bun', '1 Americano (Ice/Hot) + 1 Canele Original']
-        },
-        {
-            id: 'b_trio_nongkrong',
-            cat: 'bundling',
-            name: 'Trio Nongkrong (3 Cup)',
+            name: 'Paket Nongkrong Bertiga (3 Cup Reguler)',
             singlePrice: 42000,
             realPrice: 57000,
-            badge: '🎉 3 CUP',
+            badge: '⚡ HEMAT BERTIGA',
             type: 'bundling',
-            imgs: [
-                'https://img.cimagroup.my.id/kopi-kenangan-mantan-1784203103920.webp',
-                'https://img.cimagroup.my.id/kopi-kenangan-mantan-1784203103920.webp',
-                'https://img.cimagroup.my.id/og-thai-tea-1784203762918.webp'
-            ],
-            opts: ['2 Mantan (Ice) + 1 OG Thai Tea (Ice)', '3 Mantan (Ice)', '1 Mantan + 1 Spanish Latte + 1 Thai Tea']
+            img: 'https://img.cimagroup.my.id/bundling-3-reguler-1784202095179.webp',
+            imgs: ['https://img.cimagroup.my.id/bundling-3-reguler-1784202095179.webp'],
+            opts: [
+                '3 Mantan Reguler (Ice)',
+                '2 Mantan + 1 Thai Tea Reguler (Ice)',
+                '1 Mantan + 1 Spanish Latte + 1 Thai Tea (Ice)',
+                '1 Mantan + 1 Americano + 1 Dutch Choco (Ice)'
+            ]
         },
         {
-            id: 'b_party_pack',
+            id: 'b_mabar_sultan',
             cat: 'bundling',
-            name: 'Party Pack Rame-Rame (4 Cup)',
-            singlePrice: 56000,
-            realPrice: 76000,
-            badge: '🔥 CUAN BESAR',
+            name: 'Paket Mabar Sultan (3 Cup + 1 Roti/Pastry)',
+            singlePrice: 55000,
+            realPrice: 70000,
+            badge: '👑 SUPER COMBO 70K',
             type: 'bundling',
-            imgs: [
-                'https://img.cimagroup.my.id/kopi-kenangan-mantan-1784203103920.webp',
-                'https://img.cimagroup.my.id/og-thai-tea-1784203762918.webp',
-                'https://img.cimagroup.my.id/kopi-kenangan-mantan-1784203103920.webp',
-                'https://img.cimagroup.my.id/og-thai-tea-1784203762918.webp'
-            ],
-            opts: ['2 Mantan (Ice) + 2 OG Thai Tea (Ice)', '4 Mantan (Ice)', '2 Mantan + 1 Thai Tea + 1 Dutch Chocolate']
+            img: 'https://img.cimagroup.my.id/join-the-dark-side-1784203009682.webp',
+            imgs: ['https://img.cimagroup.my.id/join-the-dark-side-1784203009682.webp'],
+            opts: [
+                '3 Mantan (Ice) + 1 Roti Coklat Klasik',
+                '2 Mantan + 1 Thai Tea (Ice) + 1 Roti Coklat Klasik',
+                '2 Mantan + 1 Thai Tea (Ice) + 1 Salt Bread Original',
+                '1 Mantan + 1 Thai Tea + 1 Dutch Choco (Ice) + 1 Toast Bambang'
+            ]
         }
     ];
 
