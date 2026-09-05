@@ -3813,6 +3813,40 @@ Balon di bawah ini bisa langsung disalin / diteruskan ke customer! ⚡`;
                 e.preventDefault();
             }
         });
+        // Pengaturan Pilihan Waktu Pemesanan (Sekarang vs Jadwal)
+let selectedOrderType = 'now';
+
+function setOrderTimeType(type) {
+  selectedOrderType = type;
+  const btnNow = document.getElementById('btn-order-now');
+  const btnSchedule = document.getElementById('btn-order-schedule');
+  const picker = document.getElementById('schedule-picker');
+
+  if (!btnNow || !btnSchedule || !picker) return;
+
+  if (type === 'schedule') {
+    // Tombol Jadwalkan Aktif
+    btnSchedule.className = "py-2 px-3 text-xs font-semibold rounded-xl border border-amber-600 bg-amber-50 text-amber-900 transition-all flex items-center justify-center gap-1.5 shadow-sm";
+    btnNow.className = "py-2 px-3 text-xs font-semibold rounded-xl border border-stone-200 bg-stone-50 text-stone-600 transition-all flex items-center justify-center gap-1.5";
+    picker.classList.remove('hidden');
+  } else {
+    // Tombol Sekarang Aktif
+    btnNow.className = "py-2 px-3 text-xs font-semibold rounded-xl border border-amber-600 bg-amber-50 text-amber-900 transition-all flex items-center justify-center gap-1.5 shadow-sm";
+    btnSchedule.className = "py-2 px-3 text-xs font-semibold rounded-xl border border-stone-200 bg-stone-50 text-stone-600 transition-all flex items-center justify-center gap-1.5";
+    picker.classList.add('hidden');
+  }
+}
+
+function getScheduleNote() {
+  if (selectedOrderType === 'schedule') {
+    const dayEl = document.getElementById('schedule-day');
+    const timeEl = document.getElementById('schedule-time');
+    const day = dayEl ? dayEl.value : 'Hari Ini';
+    const time = timeEl ? timeEl.value : '12:00 WIB';
+    return `📅 *WAKTU PESANAN:* [TERJADWAL: ${day.toUpperCase()}, PUKUL ${time}]\n`;
+  }
+  return `⚡ *WAKTU PESANAN:* [SEGERA / SAMEDAY]\n`;
+}
     </script>
 </body>
 </html>
