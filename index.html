@@ -153,7 +153,7 @@
     <!-- Toast Notification Melayang Global -->
     <div id="toast-container" class="fixed top-5 left-1/2 transform -translate-x-1/2 z-[300] flex flex-col gap-2 w-[90%] max-w-sm pointer-events-none"></div>
 
-    <!-- Floating Social Proof Ticker -->
+    <!-- Floating Social Proof Ticker (Notifikasi Pembelian Berjalan) -->
     <div id="social-proof-toast" class="fixed bottom-20 left-4 z-[160] max-w-xs bg-slate-900/90 backdrop-blur-md text-white px-3.5 py-2.5 rounded-2xl border border-white/10 shadow-2xl flex items-center gap-2.5 transform -translate-x-[120%] transition-transform duration-500 pointer-events-none">
         <div class="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center flex-shrink-0 text-sm">
             ☕
@@ -171,7 +171,7 @@
 
     <!-- VIEW 1: PORTAL UTAMA BINTANG STORE -->
     <div id="view-portal" class="view-section min-h-screen flex flex-col items-center justify-center px-5 py-8 max-w-lg mx-auto">
-        <!-- Live Admin Status Badge -->
+        <!-- Live Admin Status Badge (Syncs with Supabase) -->
         <div id="portal-status-badge" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold mb-5 shadow-[0_0_15px_rgba(16,185,129,0.1)] transition-all duration-300">
             <span class="relative flex h-2.5 w-2.5">
                 <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -401,13 +401,13 @@
             </div>
         </div>
 
-        <!-- Banner Info Admin Sedang Sibuk (Muncul jika status admin = busy atau sedang kuliah) -->
+        <!-- Banner Info Admin Sedang Sibuk (Muncul jika status admin = busy) -->
         <div id="admin-busy-banner" class="hidden mx-4 mt-3 p-3.5 bg-amber-50 border border-amber-300 rounded-2xl text-amber-900 shadow-sm flex items-center gap-3">
             <div class="w-9 h-9 rounded-xl bg-amber-200 text-amber-800 flex items-center justify-center text-base flex-shrink-0">
                 <i class="fas fa-business-time"></i>
             </div>
             <div class="min-w-0">
-                <h4 class="text-xs font-black text-amber-900">Admin Sedang Kuliah / Sibuk (Slow Response)</h4>
+                <h4 class="text-xs font-black text-amber-900">Admin Sedang Kuliah / Ada Kegiatan (Slow Response)</h4>
                 <p class="text-[10px] text-amber-800 leading-relaxed mt-0.5">Pesanan tetap kami terima dan diproses berurutan dalam rentang 15–30 menit ya Kak. Terima kasih atas pengertiannya! 🫶</p>
             </div>
         </div>
@@ -456,7 +456,7 @@
             </div>
         </nav>
 
-        <!-- Banner Request Menu Kustom -->
+        <!-- Banner Request Menu Kustom (Jika Menu Tidak Ada di List) -->
         <div class="mx-4 mb-6 p-4 bg-gradient-to-r from-amber-900/10 via-amber-800/5 to-amber-700/10 border border-amber-500/30 rounded-2xl shadow-sm flex items-center justify-between gap-3">
             <div class="flex items-center gap-3 min-w-0">
                 <div class="w-10 h-10 rounded-xl bg-kenangan-primary/10 border border-kenangan-primary/20 flex items-center justify-center text-kenangan-primary flex-shrink-0">
@@ -512,7 +512,7 @@
                 </div>
             </div>
 
-            <!-- Kartu Reward Bonus Gratis -->
+            <!-- Kartu Reward Bonus Gratis (Muncul otomatis saat syarat promo tercapai) -->
             <div id="free-bonus-card" class="mb-4 p-3 rounded-2xl bg-emerald-50 border border-emerald-300 text-emerald-900 hidden flex items-center gap-3">
                 <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-700 flex items-center justify-center text-lg flex-shrink-0">
                     🍞
@@ -539,7 +539,7 @@
                     <p class="text-[10px] text-gray-500 mt-1">Admin akan mengirim update pesanan & bukti ke nomor ini.</p>
                 </div>
 
-                <!-- Waktu Pengambilan (Free Time Picker) -->
+                <!-- Waktu Pengambilan -->
                 <div>
                     <label class="block text-xs font-bold text-kenangan-dark mb-1.5">Waktu Pengambilan di Outlet</label>
                     <div class="grid grid-cols-2 gap-2 mb-2">
@@ -547,30 +547,22 @@
                             <i class="fas fa-bolt text-xs"></i> Sekarang (5-15 mnt)
                         </button>
                         <button type="button" id="btn-pickup-sched" onclick="setPickupMode('sched')" class="py-2 px-3 rounded-xl border-2 border-gray-200 bg-white text-gray-600 font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer">
-                            <i class="fas fa-clock text-xs"></i> Atur Jam Bebas
+                            <i class="fas fa-clock text-xs"></i> Atur Jam Nanti
                         </button>
                     </div>
 
-                    <div id="schedule-picker-box" class="hidden space-y-2.5 bg-gray-50 p-3 rounded-2xl border border-gray-200">
-                        <div class="grid grid-cols-2 gap-2">
-                            <div>
-                                <span class="block text-[10px] font-bold text-gray-500 mb-1 uppercase">Pilih Jam (Bebas)</span>
-                                <input type="time" id="pickup-time-input" class="w-full p-2 rounded-xl bg-white border border-gray-200 text-xs font-bold text-kenangan-dark outline-none focus:ring-2 focus:ring-kenangan-primary shadow-sm">
-                            </div>
-                            <div>
-                                <span class="block text-[10px] font-bold text-gray-500 mb-1 uppercase">Zona Waktu</span>
-                                <select id="pickup-timezone" class="w-full p-2 rounded-xl bg-white border border-gray-200 text-xs font-bold text-kenangan-dark outline-none">
-                                    <option value="WIB">WIB (Barat)</option>
-                                    <option value="WITA">WITA (Tengah)</option>
-                                    <option value="WIT">WIT (Timur)</option>
-                                </select>
-                            </div>
+                    <div id="schedule-picker-box" class="hidden grid grid-cols-2 gap-2 bg-gray-50 p-2.5 rounded-xl border border-gray-200">
+                        <div>
+                            <span class="block text-[10px] font-bold text-gray-500 mb-1 uppercase">Pilih Jam</span>
+                            <select id="pickup-time-select" class="w-full p-1.5 rounded-lg bg-white border border-gray-200 text-xs font-bold text-kenangan-dark outline-none"></select>
                         </div>
-                        <div class="flex items-center gap-1.5 pt-1 overflow-x-auto no-scrollbar">
-                            <span class="text-[10px] text-gray-400 font-bold flex-shrink-0">Pilih Cepat:</span>
-                            <button type="button" onclick="setQuickTimeOffset(30)" class="px-2 py-1 bg-white hover:bg-amber-50 text-kenangan-dark border border-gray-200 rounded-lg text-[10px] font-bold flex-shrink-0 active:scale-95 transition">+30 Mnt</button>
-                            <button type="button" onclick="setQuickTimeOffset(60)" class="px-2 py-1 bg-white hover:bg-amber-50 text-kenangan-dark border border-gray-200 rounded-lg text-[10px] font-bold flex-shrink-0 active:scale-95 transition">+1 Jam</button>
-                            <button type="button" onclick="setQuickTimeOffset(120)" class="px-2 py-1 bg-white hover:bg-amber-50 text-kenangan-dark border border-gray-200 rounded-lg text-[10px] font-bold flex-shrink-0 active:scale-95 transition">+2 Jam</button>
+                        <div>
+                            <span class="block text-[10px] font-bold text-gray-500 mb-1 uppercase">Zona Waktu</span>
+                            <select id="pickup-timezone" class="w-full p-1.5 rounded-lg bg-white border border-gray-200 text-xs font-bold text-kenangan-dark outline-none">
+                                <option value="WIB">WIB (Barat)</option>
+                                <option value="WITA">WITA (Tengah)</option>
+                                <option value="WIT">WIT (Timur)</option>
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -626,7 +618,7 @@
                 </p>
             </div>
 
-            <!-- Peringatan Kunci Outlet Tutup -->
+            <!-- Peringatan Kunci Outlet Tutup (Lock Indicator) -->
             <div id="outlet-closed-warning-box" class="hidden mt-4 p-3.5 rounded-2xl bg-red-50 border border-red-200 text-red-700 text-xs flex items-start gap-2.5">
                 <i class="fas fa-lock text-red-500 mt-0.5"></i>
                 <div>
@@ -786,54 +778,6 @@
                 <span>Mulai Pilih Menu</span>
                 <i class="fas fa-arrow-right text-xs"></i>
             </button>
-        </div>
-    </div>
-
-    <!-- MODAL CONFIRMATION: VALIDASI KUNCI LOKASI & MENU -->
-    <div id="modal-confirm-order-lock" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[230] hidden opacity-0 transition-opacity duration-300 flex items-center justify-center p-4">
-        <div id="modal-confirm-lock-card" class="bg-white rounded-3xl p-5 max-w-sm w-full text-kenangan-dark shadow-2xl border border-gray-200 transform scale-95 transition-transform duration-300 flex flex-col">
-            <div class="flex items-center gap-2 pb-3 border-b border-gray-100 mb-3 text-amber-600">
-                <div class="w-8 h-8 rounded-xl bg-amber-100 flex items-center justify-center text-sm">⚠️</div>
-                <div>
-                    <h3 class="font-extrabold text-xs text-kenangan-dark">Periksa Ulang Pesanan</h3>
-                    <p class="text-[10px] text-gray-400">Pesanan tidak dapat diubah setelah dikirim!</p>
-                </div>
-            </div>
-
-            <div class="space-y-2.5 text-xs mb-4">
-                <div class="p-3 bg-amber-50/70 border border-amber-200 rounded-2xl">
-                    <span class="block text-[9px] font-bold text-gray-400 uppercase">Outlet Pengambilan</span>
-                    <h4 id="lock-modal-outlet" class="font-black text-xs text-kenangan-dark truncate">Grand Indonesia</h4>
-                    <span id="lock-modal-time" class="text-[10px] font-bold text-kenangan-primary block mt-0.5">Waktu: Sekarang</span>
-                </div>
-
-                <div class="p-3 bg-gray-50 border border-gray-200 rounded-2xl max-h-36 overflow-y-auto">
-                    <span class="block text-[9px] font-bold text-gray-400 uppercase mb-1">Rincian Menu</span>
-                    <div id="lock-modal-items" class="space-y-1 text-[11px] font-semibold text-gray-700"></div>
-                </div>
-
-                <div class="flex justify-between items-center px-1">
-                    <span class="font-bold text-gray-500">Total Pembayaran:</span>
-                    <span id="lock-modal-total" class="font-black text-sm text-kenangan-primary">Rp 0</span>
-                </div>
-
-                <label class="flex items-start gap-2.5 p-2.5 rounded-xl bg-red-50 border border-red-200 cursor-pointer">
-                    <input type="checkbox" id="lock-agree-checkbox" onchange="toggleLockOrderSubmitBtn()" class="mt-0.5 w-4 h-4 accent-red-600 rounded">
-                    <span class="text-[10px] font-bold text-red-900 leading-tight">
-                        Saya menyatakan lokasi outlet, waktu ambil, dan pilihan menu sudah benar. Saya paham bahwa pesanan yang masuk ke kasir TIDAK BISA DIUBAH / DIBATALKAN.
-                    </span>
-                </label>
-            </div>
-
-            <div class="space-y-2">
-                <button id="btn-lock-submit-final" disabled onclick="executeConfirmedOrderCheckout()" class="w-full bg-gray-300 text-gray-500 font-extrabold py-3 rounded-xl transition text-xs flex items-center justify-center gap-1.5 cursor-not-allowed">
-                    <i class="fas fa-check-circle"></i>
-                    <span>Ya, Lanjutkan Pesanan</span>
-                </button>
-                <button onclick="closeOrderLockModal()" class="w-full py-2 text-xs font-bold text-gray-400 hover:text-gray-600 transition">
-                    Kembali Periksa
-                </button>
-            </div>
         </div>
     </div>
 
@@ -1133,7 +1077,7 @@
                 </div>
 
                 <p id="admin-sync-indicator" class="text-[10px] text-center text-gray-400">
-                    *Perubahan langsung disinkronkan ke seluruh pengunjung website & tersimpan permanen.
+                    *Perubahan langsung disinkronkan ke seluruh pengunjung website.
                 </p>
             </div>
         </div>
@@ -1288,36 +1232,7 @@
         let secretLogoTapCount = 0;
         let secretLogoTapTimer = null;
 
-        // Otomasi Pengecekan Jam Sibuk Kuliah Semester 7
-        function isCollegeBusyHour() {
-            const wib = getWIBDate();
-            const day = wib.getDay(); // 0: Min, 1: Sen, 2: Sel, 3: Rab, 4: Kam, 5: Jum, 6: Sab
-            const curMin = wib.getHours() * 60 + wib.getMinutes();
-
-            // Selasa: 07.00 - 08.40 (420 - 520) & 14.20 - 16.00 (860 - 960)
-            if (day === 2) {
-                if ((curMin >= 420 && curMin <= 520) || (curMin >= 860 && curMin <= 960)) return true;
-            }
-            // Kamis: 08.40 - 10.20 (520 - 620) & 14.20 - 16.00 (860 - 960)
-            if (day === 4) {
-                if ((curMin >= 520 && curMin <= 620) || (curMin >= 860 && curMin <= 960)) return true;
-            }
-            // Sabtu: 08.40 - 10.20 (520 - 620)
-            if (day === 6) {
-                if (curMin >= 520 && curMin <= 620) return true;
-            }
-
-            return false;
-        }
-
-        function getEffectiveStoreStatus() {
-            const localStored = localStorage.getItem('bintang_admin_status');
-            if (localStored === 'busy' || localStored === 'online') return localStored;
-            if (isCollegeBusyHour()) return 'busy';
-            return currentAdminStoreStatus || 'online';
-        }
-
-        // Peta Harga Asli Resmi Aplikasi Kopi Kenangan
+        // Peta Harga Asli Resmi Aplikasi Kopi Kenangan (In-App Regular Price)
         const officialOriginalPriceMap = {
             // Coffee Series
             'kopi kenangan mantan': 19000,
@@ -1429,6 +1344,7 @@
             return fallbackPrice > 0 ? Math.round(fallbackPrice * 1.35) : 22000;
         }
 
+        // Pengiriman Balon Pesan Mandiri ke Telegram Bot
         async function sendSingleTelegramMsg(msgHtml) {
             try {
                 const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
@@ -1484,6 +1400,7 @@
         ];
 
         const tomoroMenuDatabase = [
+            // Classic Coffee
             { id: 'tm_c1', name: 'Spanish Aren Latte', category: 'Classic Coffee', price: 20000, realPrice: 32000, badge: '🔥 BEST', img: 'https://img.cimagroup.my.id/tomoro-spanish-aren-latte-1784206477919.webp' },
             { id: 'tm_c2', name: 'Manuka Oat Latte', category: 'Classic Coffee', price: 22000, realPrice: 34000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-manuka-oat-latte-1784206955327.webp' },
             { id: 'tm_c6', name: 'Coconut Aren Latte', category: 'Classic Coffee', price: 20000, realPrice: 30000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-coconut-aren-latte-1784206496113.webp' },
@@ -1502,12 +1419,18 @@
             { id: 'tm_c19', name: 'Sea Salt Cloud Chocolate', category: 'Classic Coffee', price: 21000, realPrice: 32000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-sea-salt-cloud-chocolate-1784206747477.webp' },
             { id: 'tm_c20', name: 'Sea Salt Cloud Matcha Latte', category: 'Classic Coffee', price: 22000, realPrice: 34000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-sea-salt-cloud-matcha-latte-1784205828616.webp' },
             { id: 'tm_c21', name: 'TOMORO Aren Latte', category: 'Classic Coffee', price: 18000, realPrice: 26000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-tomoro-aren-latte-1784205841380.webp' },
+
+            // Fruity Series
             { id: 'tm_fr1', name: 'Peach Americano', category: 'Fruity Series', price: 18000, realPrice: 25000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-peach-americano-1784206558221.webp' },
             { id: 'tm_fr2', name: 'Peach Coconut Frappe', category: 'Fruity Series', price: 21000, realPrice: 30000, badge: '', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCo4iqcCjVnKKGlihxw4V4LhYjDpNI9iiV0QG7zx96Lg&s=10' },
             { id: 'tm_fr3', name: 'Peach Jasmine Tea', category: 'Fruity Series', price: 16000, realPrice: 22000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-peach-jasmine-tea-1784206571953.webp' },
+
+            // Americano Party Series
             { id: 'tm_ap1', name: 'Grapefruit Americano', category: 'Americano Party Series', price: 18000, realPrice: 25000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-grapefruit-americano-1784206918080.webp' },
             { id: 'tm_ap2', name: 'Lemonade Americano', category: 'Americano Party Series', price: 18000, realPrice: 25000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-lemonade-americano-1784206858343.webp' },
             { id: 'tm_ap3', name: 'Jasmine Americano', category: 'Americano Party Series', price: 18000, realPrice: 25000, badge: '', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgbqPIlQTVVBjPgMrIrGRPC61LwL0lmRvBIc5l6aJaLyOyjVVxGXA4aVE&s=10' },
+
+            // Frappe Series
             { id: 'tm_fp1', name: 'Caffe Mocha Frappe', category: 'Frappe', price: 22000, realPrice: 32000, badge: '', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYG2-owZu3RShejVqVbrlgE2XJw6qse0278WS7UaK0hmO5sGJnxFCo1e97&s=10' },
             { id: 'tm_fp2', name: 'Aren Latte Frappe', category: 'Frappe', price: 21000, realPrice: 30000, badge: '', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmFA0Eg0Zrv1M9AlEtZdNpdasMHN1QONAucTC5Mm6avcPLkVz1Fix1WWue&s=10' },
             { id: 'tm_fp3', name: 'Oat Aren Frappe', category: 'Frappe', price: 23000, realPrice: 34000, badge: '', img: 'https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/f301b1ee-ecff-476a-a0b9-ae7793071e46_Gg4SDAoDCPQDEgMI9AMYAShV.jpeg?w=250' },
@@ -1515,9 +1438,13 @@
             { id: 'tm_fp5', name: 'Matcha Frappe', category: 'Frappe', price: 22000, realPrice: 32000, badge: '', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToZrYIBc6ITj-YQ7T3TO9MkJ130VWE7BsWbhp1veq3UfFAS0tQBUZx4Nw5&s=10' },
             { id: 'tm_fp6', name: 'Coffee Frappe', category: 'Frappe', price: 21000, realPrice: 30000, badge: '', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxaWu6-5iz1g6ChF9R0o52sTQRAQEgqhYnDobqfoYkeA&s=10' },
             { id: 'tm_fp7', name: 'Chocolate Frappe', category: 'Frappe', price: 21000, realPrice: 30000, badge: '', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRYS73RxkOJunfg01mgaSVDJD1flUqP9dNDM5b-sCy-xx9mEb2pyRAv-k&s=10' },
+
+            // Pistachio Series
             { id: 'tm_ps1', name: 'Pistachio Latte', category: 'Pistachio Series', price: 23000, realPrice: 34000, badge: '✨ NEW', img: 'https://img.cimagroup.my.id/tomoro-pistachio-matcha-latte-1784205817997.webp' },
             { id: 'tm_ps2', name: 'Pistachio Chocolate', category: 'Pistachio Series', price: 24000, realPrice: 35000, badge: '✨ NEW', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7g8MzcX_0KJIfacaKIylGEk47gPEfqNH_tPWQoumWNBgUypmkVwBB6dtw&s=10' },
             { id: 'tm_ps3', name: 'Pistachio Matcha Latte', category: 'Pistachio Series', price: 24000, realPrice: 35000, badge: '✨ NEW', img: 'https://img.cimagroup.my.id/tomoro-pistachio-matcha-latte-1784205817997.webp' },
+
+            // Non Coffee
             { id: 'tm_nc1', name: 'Pink Pop Lemonade', category: 'Non Coffee', price: 16000, realPrice: 22000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-pink-pop-lemonade-1784206894500.webp' },
             { id: 'tm_nc2', name: 'Pink Pop Lemon Tea', category: 'Non Coffee', price: 16000, realPrice: 22000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-pink-pop-lemon-tea-1784206905841.webp' },
             { id: 'tm_nc3', name: 'Chocolate', category: 'Non Coffee', price: 18000, realPrice: 25000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-chocolate-1784206769565.webp' },
@@ -1607,9 +1534,7 @@
             const display = document.getElementById('admin-current-status-display');
             if (!display) return;
 
-            const effective = getEffectiveStoreStatus();
-
-            if (effective === 'busy') {
+            if (currentAdminStoreStatus === 'busy') {
                 display.className = "mt-1 font-black text-xs text-amber-400 flex items-center justify-center gap-1.5";
                 display.innerHTML = '<span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span><span>SIBUK / KULIAH (Slow Response)</span>';
             } else {
@@ -1623,13 +1548,9 @@
             const syncText = document.getElementById('admin-sync-indicator');
             if (syncText) syncText.textContent = "⏳ Menyimpan status ke database cloud...";
 
-            // Simpan ke localStorage perangkat agar tidak kembali reset saat direfresh!
-            localStorage.setItem('bintang_admin_status', newStatus);
-            currentAdminStoreStatus = newStatus;
-
             try {
                 const endpoint = `${SUPABASE_TOMORO_URL}/rest/v1/store_settings?key=eq.admin_status`;
-                await fetch(endpoint, {
+                const res = await fetch(endpoint, {
                     method: 'PATCH',
                     headers: {
                         'apikey': SUPABASE_TOMORO_KEY,
@@ -1640,26 +1561,24 @@
                     body: JSON.stringify({ value: newStatus })
                 });
 
+                if (!res.ok) throw new Error("Gagal update Supabase");
+
+                currentAdminStoreStatus = newStatus;
                 applyAdminStatusToUI(newStatus);
                 refreshAdminControlUI();
-                if (syncText) syncText.textContent = "✅ Status diperbarui & tersimpan permanen!";
+                if (syncText) syncText.textContent = "✅ Status berhasil diperbarui di cloud!";
                 showToast(`Status toko diubah ke: <b>${newStatus.toUpperCase()}</b>`);
             } catch (err) {
+                console.warn("Gagal update ke cloud, simpan ke lokal", err);
+                currentAdminStoreStatus = newStatus;
                 applyAdminStatusToUI(newStatus);
                 refreshAdminControlUI();
-                if (syncText) syncText.textContent = "✅ Status tersimpan permanen di perangkat!";
-                showToast(`Status tersimpan: <b>${newStatus.toUpperCase()}</b>`);
+                if (syncText) syncText.textContent = "⚠️ Tersimpan lokal (Cek tabel store_settings di Supabase)";
+                showToast(`Status tersimpan lokal: <b>${newStatus.toUpperCase()}</b>`);
             }
         }
 
         async function fetchStoreAdminStatus() {
-            const localStored = localStorage.getItem('bintang_admin_status');
-            if (localStored) {
-                currentAdminStoreStatus = localStored;
-                applyAdminStatusToUI(localStored);
-                return;
-            }
-
             try {
                 const endpoint = `${SUPABASE_TOMORO_URL}/rest/v1/store_settings?key=eq.admin_status&select=*`;
                 const res = await fetch(endpoint, {
@@ -1672,10 +1591,12 @@
                 const data = await res.json();
                 if (data && data.length > 0) {
                     currentAdminStoreStatus = data[0].value || 'online';
+                    applyAdminStatusToUI(currentAdminStoreStatus);
                 }
-            } catch (e) {}
-
-            applyAdminStatusToUI(getEffectiveStoreStatus());
+            } catch (e) {
+                // Default online
+                applyAdminStatusToUI('online');
+            }
         }
 
         function applyAdminStatusToUI(status) {
@@ -1738,7 +1659,7 @@
                 }
             } else {
                 if (banner) banner.classList.add('hidden');
-                applyAdminStatusToUI(getEffectiveStoreStatus());
+                applyAdminStatusToUI(currentAdminStoreStatus);
             }
         }
 
@@ -2203,6 +2124,7 @@
                 mapsBtn.href = `https://www.google.com/maps/search/?api=1&query=${queryMaps}`;
             }
 
+            // Sync Checkout Form Validation with Outlet Status
             validateKopkenForm();
         }
 
@@ -2866,19 +2788,21 @@
                 btnSched.className = "py-2 px-3 rounded-xl border-2 border-kenangan-primary bg-amber-50 text-kenangan-primary font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer";
                 btnNow.className = "py-2 px-3 rounded-xl border-2 border-gray-200 bg-white text-gray-600 font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer";
                 pickerBox.classList.remove('hidden');
-
-                const timeInput = document.getElementById('pickup-time-input');
-                if (!timeInput.value) setQuickTimeOffset(30);
             }
         }
 
-        function setQuickTimeOffset(minutesToAdd) {
-            const wib = getWIBDate();
-            wib.setMinutes(wib.getMinutes() + minutesToAdd);
-            const hh = String(wib.getHours()).padStart(2, '0');
-            const mm = String(wib.getMinutes()).padStart(2, '0');
-            const input = document.getElementById('pickup-time-input');
-            if (input) input.value = `${hh}:${mm}`;
+        function initScheduleDropdown() {
+            const select = document.getElementById('pickup-time-select');
+            select.innerHTML = '';
+            const now = getWIBDate();
+            let curMin = now.getHours() * 60 + now.getMinutes();
+            let startMin = Math.ceil(curMin / 15) * 15 + 15;
+
+            for (let m = startMin; m <= 23 * 60 + 45; m += 15) {
+                const hStr = String(Math.floor(m / 60)).padStart(2, '0');
+                const mStr = String(m % 60).padStart(2, '0');
+                select.innerHTML += `<option value="${hStr}.${mStr}">Pukul ${hStr}.${mStr}</option>`;
+            }
         }
 
         function validateKopkenForm() {
@@ -3061,79 +2985,7 @@
                 return;
             }
 
-            // Buka Modal Konfirmasi Kunci Lokasi & Menu
-            openOrderLockConfirmationModal(method);
-        }
-
-        function openOrderLockConfirmationModal(method) {
-            pendingCheckoutMethod = method;
-            const modal = document.getElementById('modal-confirm-order-lock');
-            const card = document.getElementById('modal-confirm-lock-card');
-            const chk = document.getElementById('lock-agree-checkbox');
-            const btn = document.getElementById('btn-lock-submit-final');
-            
-            chk.checked = false;
-            btn.disabled = true;
-            btn.className = "w-full bg-gray-300 text-gray-500 font-extrabold py-3 rounded-xl transition text-xs flex items-center justify-center gap-1.5 cursor-not-allowed";
-
-            document.getElementById('lock-modal-outlet').textContent = selectedOutlet ? selectedOutlet.name : '-';
-            
-            let timePicked = '';
-            if (pickupMode === 'now') timePicked = 'Sekarang (5-15 Menit)';
-            else {
-                const tVal = document.getElementById('pickup-time-input').value || 'Sesuai Pilihan';
-                const tz = document.getElementById('pickup-timezone').value;
-                timePicked = `${tVal} ${tz}`;
-            }
-            document.getElementById('lock-modal-time').textContent = `Waktu Ambil: ${timePicked}`;
-
-            const itemsContainer = document.getElementById('lock-modal-items');
-            itemsContainer.innerHTML = '';
-            cart.forEach(c => {
-                itemsContainer.innerHTML += `
-                    <div class="flex justify-between border-b border-gray-100 pb-1">
-                        <span class="truncate">${c.qty || 1}x ${c.item.name}</span>
-                        <span class="font-bold flex-shrink-0">${formatRp(c.price * (c.qty || 1))}</span>
-                    </div>
-                `;
-            });
-
-            document.getElementById('lock-modal-total').textContent = document.getElementById('summary-total').textContent;
-
-            modal.classList.remove('hidden');
-            setTimeout(() => {
-                modal.classList.remove('opacity-0');
-                card.classList.remove('scale-95');
-                card.classList.add('scale-100');
-            }, 10);
-        }
-
-        function closeOrderLockModal() {
-            const modal = document.getElementById('modal-confirm-order-lock');
-            const card = document.getElementById('modal-confirm-lock-card');
-            modal.classList.add('opacity-0');
-            card.classList.remove('scale-100');
-            card.classList.add('scale-95');
-            setTimeout(() => modal.classList.add('hidden'), 250);
-        }
-
-        function toggleLockOrderSubmitBtn() {
-            const chk = document.getElementById('lock-agree-checkbox');
-            const btn = document.getElementById('btn-lock-submit-final');
-            if (chk.checked) {
-                btn.disabled = false;
-                btn.className = "w-full bg-kenangan-primary hover:bg-kenangan-hover text-white font-extrabold py-3 rounded-xl transition text-xs flex items-center justify-center gap-1.5 active:scale-95 cursor-pointer shadow-md";
-            } else {
-                btn.disabled = true;
-                btn.className = "w-full bg-gray-300 text-gray-500 font-extrabold py-3 rounded-xl transition text-xs flex items-center justify-center gap-1.5 cursor-not-allowed";
-            }
-        }
-
-        function executeConfirmedOrderCheckout() {
-            closeOrderLockModal();
-            if (pendingCheckoutMethod) {
-                submitOrderKopken(pendingCheckoutMethod);
-            }
+            submitOrderKopken(method);
         }
 
         function openMidnightModal(customerName) {
@@ -3168,7 +3020,7 @@
             isMidnightForced = true;
             closeMidnightModal();
             if (pendingCheckoutMethod) {
-                openOrderLockConfirmationModal(pendingCheckoutMethod);
+                submitOrderKopken(pendingCheckoutMethod);
             }
         }
 
@@ -3186,9 +3038,9 @@
             
             let timeSched = '';
             if (isMidnightHour()) {
-                timeSched = pickupMode === 'now' ? '🌙 Jam Malam (Antrean Pagi 06:00 WIB)' : `${document.getElementById('pickup-time-input').value} ${document.getElementById('pickup-timezone').value} (Jadwal Pagi)`;
+                timeSched = pickupMode === 'now' ? '🌙 Jam Malam (Antrean Pagi 06:00 WIB)' : `${document.getElementById('pickup-time-select').value} ${document.getElementById('pickup-timezone').value} (Jadwal Pagi)`;
             } else {
-                timeSched = pickupMode === 'now' ? 'Sekarang (5-15 Menit)' : `${document.getElementById('pickup-time-input').value} ${document.getElementById('pickup-timezone').value}`;
+                timeSched = pickupMode === 'now' ? 'Sekarang (5-15 Menit)' : `${document.getElementById('pickup-time-select').value} ${document.getElementById('pickup-timezone').value}`;
             }
 
             sfx.playSuccess();
@@ -3259,9 +3111,8 @@
             const waDirectLink = cleanWaNumber ? `https://wa.me/${cleanWaNumber}` : '-';
 
             // Tag status admin sibuk / normal
-            const effectiveStatus = getEffectiveStoreStatus();
-            const adminStatusHeader = effectiveStatus === 'busy' 
-                ? '🟡 <b>[STATUS TOKO: ADMIN SEDANG SIBUK / KULIAH (SLOW RESPONSE 15-30 MNT)]</b>\n' 
+            const adminStatusHeader = currentAdminStoreStatus === 'busy' 
+                ? '🟡 <b>[STATUS TOKO: ADMIN SEDANG SIBUK / SLOW RESPONSE (15-30 MNT)]</b>\n' 
                 : '';
 
             // BALON 1: Laporan Rincian Pesanan & Contekan Rekomendasi Voucher Kasir
@@ -3303,7 +3154,7 @@ Silakan scan / transfer via QRIS kami ya Kak. Setelah berhasil, kirim bukti tran
 Pesananmu sedang langsung kami proseskan ke kasir outlet ${selectedOutlet.name} yaa! Mohon ditunggu sebentar ya Kak 🫶</code>`;
 
             const waRawMessage = `── .✦ *ORDER KOPI KENANGAN BARU* ✦.──
-${effectiveStatus === 'busy' ? '🟡 *[STATUS: ADMIN SEDANG SIBUK / KULIAH (15-30 MNT)]*\n' : ''}${isMidnightHour() ? '🌙 *[ORDER JAM MALAM / ANTREAN PAGI]*\n' : ''}
+${currentAdminStoreStatus === 'busy' ? '🟡 *[STATUS: ADMIN SEDANG SIBUK (15-30 MNT)]*\n' : ''}${isMidnightHour() ? '🌙 *[ORDER JAM MALAM / ANTREAN PAGI]*\n' : ''}
 👤 *Nama Pemesan :* ${name}
 📱 *No. WhatsApp :* ${custWaInput || '-'}
 🛵 *Tipe Pesanan :* ${orderTypeText}
@@ -3345,6 +3196,7 @@ ${isBagChecked ? 'Kantong Belanja : Rp 1.000\n' : ''}💰 *Total Tagihan Final :
                 btn.innerHTML = '<i class="fas fa-bolt text-sm"></i> Pesan Otomatis (Proses Cepat via Bot)';
                 validateKopkenForm();
             } else if (method === 'whatsapp') {
+                // Untuk WhatsApp, kita juga kirim ringkasan ke Telegram agar admin tetap punya contekan voucher & template
                 sendSingleTelegramMsg(telegramSummaryBubble);
                 await delay(300);
                 sendSingleTelegramMsg(`👇 <b>[TEMPLATE BALASAN JIKA SUDAH TRANSFER]</b>:\n\n${draftChatAutoProses}`);
@@ -3719,6 +3571,7 @@ Balon di bawah ini bisa langsung disalin / diteruskan ke customer! ⚡`;
 
         document.addEventListener('DOMContentLoaded', async () => {
             initWifiDisplay();
+            initScheduleDropdown();
             checkNightHours();
             initSocialProofTicker();
             await fetchStoreAdminStatus();
@@ -3791,4 +3644,63 @@ Balon di bawah ini bisa langsung disalin / diteruskan ke customer! ⚡`;
                 particle.style.left = `${x}px`;
                 particle.style.top = `${y}px`;
                 
-                const angle = Math.random()
+                const angle = Math.random() * Math.PI * 2;
+                const velocity = 2 + Math.random() * 4;
+                const tx = Math.cos(angle) * velocity * 12;
+                const ty = Math.sin(angle) * velocity * 12;
+                
+                document.body.appendChild(particle);
+                
+                if(particle.animate) {
+                    particle.animate([
+                        { transform: 'translate(-50%, -50%) scale(1) rotate(0deg)', opacity: 1 },
+                        { transform: `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) scale(0) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+                    ], {
+                        duration: 500 + Math.random() * 300,
+                        easing: 'cubic-bezier(0.1, 0.8, 0.25, 1)'
+                    }).onfinish = () => particle.remove();
+                } else {
+                    setTimeout(() => particle.remove(), 800);
+                }
+            }
+        }
+    </script>
+
+    <script>
+        // 1. Blokir Klik Kanan
+        document.addEventListener('contextmenu', function (e) {
+            e.preventDefault();
+        });
+
+        // 2. Blokir Pintasan Keyboard Pengembang
+        document.addEventListener('keydown', function (e) {
+            if (e.key === "F12" || e.keyCode === 123) {
+                e.preventDefault();
+                return false;
+            }
+
+            if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) {
+                e.preventDefault();
+                return false;
+            }
+
+            if (e.ctrlKey && (e.key === 'U' || e.key === 'u' || e.key === 'S' || e.key === 's')) {
+                e.preventDefault();
+                return false;
+            }
+
+            if (e.metaKey && e.altKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'U' || e.key === 'u')) {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        // 3. Blokir Tarik Gambar (Drag & Drop)
+        document.addEventListener('dragstart', function (e) {
+            if (e.target.tagName.toLowerCase() === 'img') {
+                e.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>
