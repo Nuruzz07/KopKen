@@ -835,8 +835,11 @@ async function loadDataFiles() {
             realPrice: 44000,
             badge: '🍞 COMBO KENYANG',
             type: 'bundling',
-            img: 'https://img.cimagroup.my.id/kenangan-toast-adam-ayam-1784203058021.webp',
-            imgs: ['https://img.cimagroup.my.id/kenangan-toast-adam-ayam-1784203058021.webp'],
+            img: 'https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/sandwich-chicken-tartar-1784204052680.webp',
+            imgs: [
+                'https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/kopi-kenangan-mantan-1784203103920.webp',
+                'https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/sandwich-chicken-tartar-1784204052680.webp'
+            ],
             opts: [
                 '1 Mantan Reguler (Ice) + 1 Toast Adam Ayam',
                 '1 Mantan Reguler (Ice) + 1 Toast Wahyu Sapi',
@@ -852,8 +855,11 @@ async function loadDataFiles() {
             realPrice: 60000,
             badge: '🔥 BEST 50K',
             type: 'bundling',
-            img: 'https://img.cimagroup.my.id/custom-2-large-1786019918224.webp',
-            imgs: ['https://img.cimagroup.my.id/custom-2-large-1786019918224.webp'],
+            img: 'https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/kopi-kenangan-mantan-1784203103920.webp',
+            imgs: [
+                'https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/kopi-kenangan-mantan-1784203103920.webp',
+                'https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/og-thai-tea-1784203762918.webp'
+            ],
             opts: [
                 '2 Mantan Large (Ice)',
                 '1 Mantan Large + 1 Thai Tea Large (Ice)',
@@ -869,10 +875,10 @@ async function loadDataFiles() {
             realPrice: 60000,
             badge: '🥪 NGOPI + KENYANG',
             type: 'bundling',
-            img: 'https://img.cimagroup.my.id/kopi-kenangan-mantan-1784203103920.webp',
+            img: 'https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/sandwich-smoked-beef-cheese-1784204059423.webp',
             imgs: [
-                'https://img.cimagroup.my.id/kopi-kenangan-mantan-1784203103920.webp',
-                'https://img.cimagroup.my.id/kenangan-toast-adam-ayam-1784203058021.webp'
+                'https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/kopi-kenangan-mantan-1784203103920.webp',
+                'https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/sandwich-smoked-beef-cheese-1784204059423.webp'
             ],
             opts: [
                 '2 Mantan Reguler (Ice) + 1 Toast Adam Ayam',
@@ -889,8 +895,12 @@ async function loadDataFiles() {
             realPrice: 57000,
             badge: '⚡ HEMAT BERTIGA',
             type: 'bundling',
-            img: 'https://img.cimagroup.my.id/bundling-3-reguler-1784202095179.webp',
-            imgs: ['https://img.cimagroup.my.id/bundling-3-reguler-1784202095179.webp'],
+            img: 'https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/kopi-kenangan-mantan-1784203103920.webp',
+            imgs: [
+                'https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/kopi-kenangan-mantan-1784203103920.webp',
+                'https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/og-thai-tea-1784203762918.webp',
+                'https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/dutch-chocolate-1786006597203.webp'
+            ],
             opts: [
                 '3 Mantan Reguler (Ice)',
                 '2 Mantan + 1 Thai Tea Reguler (Ice)',
@@ -906,8 +916,13 @@ async function loadDataFiles() {
             realPrice: 70000,
             badge: '👑 SUPER COMBO 70K',
             type: 'bundling',
-            img: 'https://img.cimagroup.my.id/join-the-dark-side-1784203009682.webp',
-            imgs: ['https://img.cimagroup.my.id/join-the-dark-side-1784203009682.webp'],
+            img: 'https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/roti-coklat-klasik-1784203834325.webp',
+            imgs: [
+                'https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/kopi-kenangan-mantan-1784203103920.webp',
+                'https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/og-thai-tea-1784203762918.webp',
+                'https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/dutch-chocolate-1786006597203.webp',
+                'https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/roti-coklat-klasik-1784203834325.webp'
+            ],
             opts: [
                 '3 Mantan (Ice) + 1 Roti Coklat Klasik',
                 '2 Mantan + 1 Thai Tea (Ice) + 1 Roti Coklat Klasik',
