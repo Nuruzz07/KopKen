@@ -651,24 +651,6 @@ window.addEventListener("DOMContentLoaded", () => {
                     <p class="text-[10px] text-gray-500 mt-1">Admin akan mengirim update pesanan & bukti ke nomor ini.</p>
                 </div>
 
-                <!-- Waktu Pengambilan -->
-                <div>
-                    <label class="block text-xs font-bold text-kenangan-dark mb-1.5">Waktu Pengambilan di Outlet</label>
-                    <div class="grid grid-cols-2 gap-2 mb-2">
-                        <button type="button" id="btn-pickup-now" onclick="setPickupMode('now')" class="py-2 px-3 rounded-xl border-2 border-kenangan-primary bg-amber-50 text-kenangan-primary font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer">
-                            <i class="fas fa-bolt text-xs"></i> Sekarang (5-15 mnt)
-                        </button>
-                        <button type="button" id="btn-pickup-sched" onclick="setPickupMode('sched')" class="py-2 px-3 rounded-xl border-2 border-gray-200 bg-white text-gray-600 font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer">
-                            <i class="fas fa-clock text-xs"></i> Atur Jam Nanti
-                        </button>
-                    </div>
-
-                    <div id="schedule-picker-box" class="hidden grid grid-cols-2 gap-2 bg-gray-50 p-2.5 rounded-xl border border-gray-200">
-                        <div>
-                            <span class="block text-[10px] font-bold text-gray-500 mb-1 uppercase">Pilih Jam</span>
-                            <select id="pickup-time-select" class="w-full p-1.5 rounded-lg bg-white border border-gray-200 text-xs font-bold text-kenangan-dark outline-none"></select>
-                        </div>
-                        <div>
                             <span class="block text-[10px] font-bold text-gray-500 mb-1 uppercase">Zona Waktu</span>
                             <select id="pickup-timezone" class="w-full p-1.5 rounded-lg bg-white border border-gray-200 text-xs font-bold text-kenangan-dark outline-none">
                                 <option value="WIB">WIB (Barat)</option>
@@ -3147,14 +3129,14 @@ window.addEventListener("DOMContentLoaded", () => {
             const custWaInput = document.getElementById('cust-wa').value.trim();
             const notes = document.getElementById('cust-notes').value.trim();
             const isBagChecked = document.getElementById('bag-checkbox').checked && currentOrderType === 'takeaway';
-            
             let timeSched = '';
-            if (isMidnightHour()) {
-                timeSched = pickupMode === 'now' ? '🌙 Jam Malam (Antrean Pagi 06:00 WIB)' : `${document.getElementById('pickup-time-select').value} ${document.getElementById('pickup-timezone').value} (Jadwal Pagi)`;
-            } else {
-                timeSched = pickupMode === 'now' ? 'Sekarang (5-15 Menit)' : `${document.getElementById('pickup-time-select').value} ${document.getElementById('pickup-timezone').value}`;
-            }
-
+if (selectedOrderType === 'schedule') {
+    const day = document.getElementById('schedule-day')?.value || 'Hari Ini';
+    const time = document.getElementById('schedule-time')?.value || '12:00 WIB';
+    timeSched = `📅 TERJADWAL [${day.toUpperCase()}, ${time}]`;
+} else {
+    timeSched = isMidnightHour() ? '🌙 Jam Malam (Antrean Pagi 06:00 WIB)' : '⚡ Segera (5-15 Menit)';
+}
             sfx.playSuccess();
             checkoutCustomerName = name || "Pelanggan";
             checkoutCustomerWa = custWaInput || "";
@@ -3222,10 +3204,15 @@ window.addEventListener("DOMContentLoaded", () => {
 
             const waDirectLink = cleanWaNumber ? `https://wa.me/${cleanWaNumber}` : '-';
 
-            // Tag status admin sibuk / normal
-            const adminStatusHeader = currentAdminStoreStatus === 'busy' 
-                ? '🟡 <b>[STATUS TOKO: ADMIN SEDANG SIBUK / SLOW RESPONSE (15-30 MNT)]</b>\n' 
-                : '';
+          // Tag status admin (otomatis cek jam agenda kuliah atau switch manual)
+const autoSched = typeof checkAdminSchedule === 'function' ? checkAdminSchedule() : { isBusy: false };
+let adminStatusHeader = '';
+
+if (autoSched.isBusy) {
+    adminStatusHeader = `⏳ <b>[ADMIN SEDANG AGENDA LUAR - PROSES MULAI ${autoSched.availableAt} WIB]</b>\n`;
+} else if (currentAdminStoreStatus === 'busy' || localStorage.getItem('adminManualBusy') === 'true') {
+    adminStatusHeader = '🟡 <b>[STATUS TOKO: ADMIN SEDANG SIBUK / SLOW RESPONSE (15-30 MNT)]</b>\n';
+}
 
             // BALON 1: Laporan Rincian Pesanan & Contekan Rekomendasi Voucher Kasir
             const telegramSummaryBubble = `── .✦ <b>ORDER KOPI KENANGAN BARU</b> ✦.──
