@@ -651,34 +651,6 @@ window.addEventListener("DOMContentLoaded", () => {
                     <p class="text-[10px] text-gray-500 mt-1">Admin akan mengirim update pesanan & bukti ke nomor ini.</p>
                 </div>
 
-                <!-- Waktu Pengambilan -->
-                <div>
-                    <label class="block text-xs font-bold text-kenangan-dark mb-1.5">Waktu Pengambilan di Outlet</label>
-                    <div class="grid grid-cols-2 gap-2 mb-2">
-                        <button type="button" id="btn-pickup-now" onclick="setPickupMode('now')" class="py-2 px-3 rounded-xl border-2 border-kenangan-primary bg-amber-50 text-kenangan-primary font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer">
-                            <i class="fas fa-bolt text-xs"></i> Sekarang (5-15 mnt)
-                        </button>
-                        <button type="button" id="btn-pickup-sched" onclick="setPickupMode('sched')" class="py-2 px-3 rounded-xl border-2 border-gray-200 bg-white text-gray-600 font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer">
-                            <i class="fas fa-clock text-xs"></i> Atur Jam Nanti
-                        </button>
-                    </div>
-
-                    <div id="schedule-picker-box" class="hidden grid grid-cols-2 gap-2 bg-gray-50 p-2.5 rounded-xl border border-gray-200">
-                        <div>
-                            <span class="block text-[10px] font-bold text-gray-500 mb-1 uppercase">Pilih Jam</span>
-                            <select id="pickup-time-select" class="w-full p-1.5 rounded-lg bg-white border border-gray-200 text-xs font-bold text-kenangan-dark outline-none"></select>
-                        </div>
-                        <div>
-                            <span class="block text-[10px] font-bold text-gray-500 mb-1 uppercase">Zona Waktu</span>
-                            <select id="pickup-timezone" class="w-full p-1.5 rounded-lg bg-white border border-gray-200 text-xs font-bold text-kenangan-dark outline-none">
-                                <option value="WIB">WIB (Barat)</option>
-                                <option value="WITA">WITA (Tengah)</option>
-                                <option value="WIT">WIT (Timur)</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
                 <!-- Kantong Belanja Checkbox (Khusus Take Away) -->
                 <div id="plastic-bag-wrapper" class="pt-1">
                     <label class="flex items-center gap-2 p-2.5 rounded-xl bg-white border border-gray-200 cursor-pointer shadow-sm hover:bg-gray-50 transition">
