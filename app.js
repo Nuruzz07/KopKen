@@ -2692,7 +2692,7 @@ async function checkAndRegisterMember(orderName, orderPhone, outletName) {
     }
 }
 // ========================================================
-// LEADERBOARD SULTAN (REALTIME DARI SUPABASE)
+// LEADERBOARD SULTAN (REALTIME DARI SUPABASE + SENSOR NAMA)
 // ========================================================
 
 function toggleLeaderboardModal(show) {
@@ -2707,6 +2707,15 @@ function toggleLeaderboardModal(show) {
         modal.classList.add('opacity-0');
         setTimeout(() => modal.classList.add('hidden'), 200);
     }
+}
+
+// Helper sensor nama otomatis (contoh: "Ariyanto" -> "Ary***", "Jay" -> "J***")
+function maskCustomerName(str) {
+    if (!str) return "Pelanggan";
+    const clean = str.trim();
+    if (clean.includes("***")) return clean;
+    if (clean.length <= 2) return clean[0] + "***";
+    return clean.slice(0, 3) + "***";
 }
 
 async function renderLeaderboard() {
@@ -2725,7 +2734,6 @@ async function renderLeaderboard() {
             throw new Error("Supabase client belum siap");
         }
 
-        // Ambil Top 10 Member teratas berdasarkan total cups
         const { data, error } = await supabaseClient
             .from('members')
             .select('*')
@@ -2761,6 +2769,8 @@ async function renderLeaderboard() {
                 tagTitle = "⭐ Setia Ngopi";
             }
 
+            const displayName = maskCustomerName(item.customer_name);
+            const maskedCode = item.member_code ? item.member_code.slice(0, 3) + "***" : "user***";
             const formattedTotal = typeof formatRp === 'function' 
                 ? formatRp(item.total_spent || 0) 
                 : `Rp ${(item.total_spent || 0).toLocaleString('id-ID')}`;
@@ -2771,8 +2781,8 @@ async function renderLeaderboard() {
                         <div class="w-6 text-center text-sm">${rankIcon}</div>
                         <div>
                             <div class="flex items-center gap-1.5">
-                                <span class="font-bold text-xs text-kenangan-dark">${item.customer_name}</span>
-                                <span class="text-[10px] text-amber-700 font-semibold">@${item.member_code}</span>
+                                <span class="font-bold text-xs text-kenangan-dark">${displayName}</span>
+                                <span class="text-[10px] text-amber-700 font-semibold">@${maskedCode}</span>
                             </div>
                             <span class="text-[9px] font-semibold text-kenangan-primary">${tagTitle}</span>
                         </div>
