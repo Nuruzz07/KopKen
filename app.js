@@ -2734,10 +2734,11 @@ async function renderLeaderboard() {
             throw new Error("Supabase client belum siap");
         }
 
+        // Urutkan murni berdasarkan total belanja (nominal rupiah) terbesar
         const { data, error } = await supabaseClient
             .from('members')
             .select('*')
-            .order('total_cups', { ascending: false })
+            .order('total_spent', { ascending: false })
             .limit(10);
 
         if (error || !data || data.length === 0) {
@@ -2749,7 +2750,7 @@ async function renderLeaderboard() {
             const rank = idx + 1;
             let badgeColor = "bg-stone-50 text-stone-700 border-stone-200";
             let rankIcon = `<span class="font-extrabold text-stone-400 text-xs">#${rank}</span>`;
-            let tagTitle = "☕ Teman Kenangan";
+            let tagTitle = "⭐ Jajan Hemat";
 
             if (rank === 1) {
                 badgeColor = "bg-amber-100/70 text-amber-950 border-amber-300";
@@ -2758,15 +2759,15 @@ async function renderLeaderboard() {
             } else if (rank === 2) {
                 badgeColor = "bg-slate-100 text-slate-900 border-slate-300";
                 rankIcon = "🥈";
-                tagTitle = "🏆 Coffee Addict";
+                tagTitle = "🏆 Loyal Spender";
             } else if (rank === 3) {
                 badgeColor = "bg-orange-50 text-orange-950 border-orange-300";
                 rankIcon = "🥉";
                 tagTitle = "🥈 Elite Spender";
-            } else if (item.total_cups >= 10) {
+            } else if (item.total_spent >= 100000) {
                 tagTitle = "🥉 Borong Rame-Rame";
-            } else if (item.total_cups >= 5) {
-                tagTitle = "⭐ Setia Ngopi";
+            } else if (item.total_spent >= 50000) {
+                tagTitle = "✨ Langganan Setia";
             }
 
             const displayName = maskCustomerName(item.customer_name);
@@ -2788,8 +2789,8 @@ async function renderLeaderboard() {
                         </div>
                     </div>
                     <div class="text-right">
-                        <div class="text-xs font-black text-kenangan-dark">${item.total_cups || 0} Cup</div>
-                        <div class="text-[9px] text-gray-500 font-medium">${formattedTotal}</div>
+                        <div class="text-xs font-black text-kenangan-dark">${formattedTotal}</div>
+                        <div class="text-[9px] text-gray-400 font-medium">Total Belanja</div>
                     </div>
                 </div>
             `;
