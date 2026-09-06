@@ -939,8 +939,8 @@ function updateOutletUI() {
             outletStatus.textContent = 'SIGNATURE (TUTUP)';
             outletStatus.className = 'text-[10px] font-extrabold px-2 py-0.5 rounded bg-purple-100 text-purple-800 uppercase';
         } else {
-            outletStatus.textContent = isOpen ? 'BUKA' : 'TUTUP';
-            outletStatus.className = `text-[10px] font-extrabold px-2 py-0.5 rounded uppercase ${isOpen ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'}`;
+            outletStatus.textContent = isOpen ? 'BUKA' : '⚠️ JADWAL TUTUP (BISA CEK)';
+            outletStatus.className = `text-[10px] font-extrabold px-2 py-0.5 rounded uppercase ${isOpen ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}`;
         }
     }
 
@@ -1163,7 +1163,7 @@ function handleGateOutletSearch() {
             } else if (isOpen) {
                 statusBadgeHTML = `<span class="text-[9px] font-extrabold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 flex-shrink-0">BUKA</span>`;
             } else {
-                statusBadgeHTML = `<span class="text-[9px] font-extrabold px-2 py-0.5 rounded-full bg-red-100 text-red-800 flex-shrink-0">TUTUP</span>`;
+                statusBadgeHTML = `<span class="text-[9px] font-extrabold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 flex-shrink-0">JADWAL TUTUP</span>`;
             }
 
             dropdown.innerHTML += `
@@ -1199,7 +1199,7 @@ function selectOutletItem(outletId) {
     if (isSig) {
         showToast(`<b>Outlet Signature/Heritage</b><br>Cabang ini memiliki menu & harga khusus, promo reguler tidak berlaku.`);
     } else if (!isOpen) {
-        showToast(`<b>Outlet ${outlet.name} sedang TUTUP.</b><br>Pesanan hanya bisa diproses saat jam operasional.`);
+        showToast(`<b>Cabang ${outlet.name}</b><br>Melewati jam operasional standar, namun tetap bisa dicoba pesan.`);
     }
 
     selectedOutlet = outlet;
@@ -1223,8 +1223,8 @@ function updateGatePreview() {
         statusBadge.textContent = 'SIGNATURE (TUTUP)';
         statusBadge.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full uppercase flex-shrink-0 bg-purple-100 text-purple-800';
     } else {
-        statusBadge.textContent = isOpen ? 'BUKA' : 'TUTUP';
-        statusBadge.className = `text-[10px] font-bold px-2 py-0.5 rounded-full uppercase flex-shrink-0 ${isOpen ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'}`;
+        statusBadge.textContent = isOpen ? 'BUKA' : 'JADWAL TUTUP (BISA CEK)';
+        statusBadge.className = `text-[10px] font-bold px-2 py-0.5 rounded-full uppercase flex-shrink-0 ${isOpen ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}`;
     }
 }
 
@@ -1706,12 +1706,19 @@ function validateKopkenForm() {
 
     const isOpenNow = isOutletOpenNow(selectedOutlet);
     const isSig = isSignatureOutlet(selectedOutlet);
-    const isOutletValid = isOpenNow && !isSig;
+    // Gerai non-signature tetap diizinkan order meski jam tutup telah lewat
+    const isOutletValid = !isSig;
 
-    if (!isOutletValid) {
-        if (closedWarning) closedWarning.classList.remove('hidden');
-    } else {
-        if (closedWarning) closedWarning.classList.add('hidden');
+    if (closedWarning) {
+        if (isSig) {
+            closedWarning.innerHTML = '⚠️ Outlet Signature/Heritage tutup untuk promo reguler.';
+            closedWarning.classList.remove('hidden');
+        } else if (!isOpenNow) {
+            closedWarning.innerHTML = '⚠️ <b>Outlet tercatat melewati jam operasional standar.</b> Jika di aplikasi resmi gerai ini masih buka, kamu tetap bisa lanjut checkout!';
+            closedWarning.classList.remove('hidden');
+        } else {
+            closedWarning.classList.add('hidden');
+        }
     }
 
     const hasBaseInfo = cart.length > 0 && name.length >= 2 && selectedOutlet && isOutletValid;
@@ -1779,9 +1786,17 @@ function handleKopkenCheckoutInitiation(method) {
         return;
     }
 
-    if (!isOutletOpenNow(selectedOutlet) || isSignatureOutlet(selectedOutlet)) {
-        showToast("⚠️ <b>Outlet Sedang Tutup</b><br>Pemesanan hanya dapat dilakukan saat jam operasional outlet ya Kak!");
+    if (isSignatureOutlet(selectedOutlet)) {
+        showToast("⚠️ <b>Outlet Signature Tutup</b><br>Promo reguler tidak berlaku untuk cabang ini.");
         return;
+    }
+
+    // Peringatan konfirmasi jika melewati jam tutup standar
+    if (!isOutletOpenNow(selectedOutlet)) {
+        const confirmLateOrder = confirm(
+            `⚠️ Konfirmasi Jam Operasional:\nCabang ${selectedOutlet.name} tercatat sudah melewati jam operasional standar.\n\nJika di aplikasi resmi gerai ini masih melayani pesanan, kamu tetap bisa lanjut checkout.\n\nTetap lanjutkan pemesanan?`
+        );
+        if (!confirmLateOrder) return;
     }
 
     if (!name || name.length < 2) {
@@ -2045,8 +2060,10 @@ async function submitOrderKopken(method) {
         adminStatusHeader = '🟡 <b>[STATUS TOKO: ADMIN SEDANG SIBUK / SLOW RESPONSE (15-30 MNT)]</b>\n';
     }
 
+    const lateOrderNotice = !isOutletOpenNow(selectedOutlet) ? '⚠️ <b>[PESANAN DI LUAR JAM TUTUP STANDAR - CEK STATUS CASHER]</b>\n' : '';
+
     const telegramSummaryBubble = `── .✦ <b>ORDER KOPI KENANGAN BARU</b> ✦.──
-${adminStatusHeader}${isMidnightHour() ? '🌙 <b>[PERINGATAN: ORDER JAM MALAM / ANTREAN PAGI]</b>\n' : ''}
+${adminStatusHeader}${lateOrderNotice}${isMidnightHour() ? '🌙 <b>[PERINGATAN: ORDER JAM MALAM / ANTREAN PAGI]</b>\n' : ''}
 👤 <b>Nama Pemesan :</b> ${name}
 📱 <b>No. WhatsApp :</b> ${custWaInput || 'Via WhatsApp Chat'}
 🔗 <b>Chat Customer :</b> <a href="${waDirectLink}">${waDirectLink}</a>
@@ -2087,7 +2104,7 @@ Pesanan Kakak sudah selesai diproses. Selamat menikmati kopinya dan semoga harin
 Kalau suka sama promonya, jangan lupa share info hemat ini ke teman kantor atau bestie nongkrong kamu ya. Ditunggu orderan berikutnya! 🙌</code>`;
 
     const waRawMessage = `── .✦ *ORDER KOPI KENANGAN BARU* ✦.──
-${autoSched.isBusy ? `⏳ *[ADMIN AGENDA LUAR - PROSES MULAI ${autoSched.availableAt} WIB]*\n` : (currentAdminStoreStatus === 'busy' ? '🟡 *[STATUS: ADMIN SEDANG SIBUK (15-30 MNT)]*\n' : '')}${isMidnightHour() ? '🌙 *[ORDER JAM MALAM / ANTREAN PAGI]*\n' : ''}
+${autoSched.isBusy ? `⏳ *[ADMIN AGENDA LUAR - PROSES MULAI ${autoSched.availableAt} WIB]*\n` : (currentAdminStoreStatus === 'busy' ? '🟡 *[STATUS: ADMIN SEDANG SIBUK (15-30 MNT)]*\n' : '')}${!isOutletOpenNow(selectedOutlet) ? '⚠️ *[ORDER DI LUAR JAM TUTUP STANDAR]*\n' : ''}${isMidnightHour() ? '🌙 *[ORDER JAM MALAM / ANTREAN PAGI]*\n' : ''}
 👤 *Nama Pemesan :* ${name}
 📱 *No. WhatsApp :* ${custWaInput || '-'}
 🛵 *Tipe Pesanan :* ${orderTypeText}
