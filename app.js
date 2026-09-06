@@ -1744,6 +1744,11 @@ function handleKopkenCheckoutInitiation(method) {
         return;
     }
 
+    // Picu notifikasi live order seketika setelah semua validasi beres
+    if (typeof pushNewRealOrderToTicker === 'function') {
+        pushNewRealOrderToTicker(name, cart, selectedOutlet ? selectedOutlet.name : 'Outlet Kenangan');
+    }
+
     submitOrderKopken(method);
 }
 
@@ -1779,6 +1784,10 @@ function confirmMidnightOrder() {
     isMidnightForced = true;
     closeMidnightModal();
     if (pendingCheckoutMethod) {
+        const currentName = document.getElementById('cust-name').value.trim();
+        if (typeof pushNewRealOrderToTicker === 'function') {
+            pushNewRealOrderToTicker(currentName, cart, selectedOutlet ? selectedOutlet.name : 'Outlet Kenangan');
+        }
         submitOrderKopken(pendingCheckoutMethod);
     }
 }
@@ -2800,4 +2809,97 @@ async function renderLeaderboard() {
         console.error("Gagal load leaderboard:", err);
         container.innerHTML = '<p class="text-xs text-rose-500 text-center py-4">Gagal memuat peringkat. Silakan coba lagi.</p>';
     }
+}
+// ========================================================
+// SMART SOCIAL PROOF: SYNC SUPABASE + OUTLET.JSON + MENU ASLI
+// ========================================================
+
+function showSocialProofPopup(activity) {
+    const toast = document.getElementById('social-proof-toast');
+    const userText = document.getElementById('sp-user-text');
+    const timeText = document.getElementById('sp-time-text');
+    
+    if (!toast || !userText || !timeText) return;
+
+    userText.textContent = `${activity.name} • ${activity.item}`;
+    timeText.textContent = `⚡ Baru saja order • ${activity.outlet}`;
+
+    toast.classList.remove('-translate-x-[120%]');
+
+    setTimeout(() => {
+        toast.classList.add('-translate-x-[120%]');
+    }, 4500);
+}
+
+async function triggerSocialProofTicker() {
+    const currentHour = new Date().getHours();
+    
+    // Istirahat jam 00:00 - 06:00 WIB
+    if (currentHour >= 0 && currentHour < 6) return;
+
+    if (typeof supabaseClient === 'undefined' || !supabaseClient) return;
+
+    try {
+        // 1. Ambil member acak dari tabel Supabase
+        const { data: members, error } = await supabaseClient
+            .from('members')
+            .select('customer_name, favorite_outlet_name')
+            .limit(20);
+
+        if (error || !members || members.length === 0) return;
+        const randomMember = members[Math.floor(Math.random() * members.length)];
+
+        // Sensor nama pelanggan
+        const displayName = typeof maskCustomerName === 'function' 
+            ? maskCustomerName(randomMember.customer_name) 
+            : (randomMember.customer_name.slice(0, 3) + "***");
+
+        // 2. Ambil Outlet: Pakai outlet favorit member ATAU acak dari database outlet.json kamu
+        let chosenOutlet = randomMember.favorite_outlet_name;
+        if (!chosenOutlet && typeof outletsData !== 'undefined' && outletsData.length > 0) {
+            const randomObj = outletsData[Math.floor(Math.random() * outletsData.length)];
+            chosenOutlet = randomObj.name || randomObj.nama || "Outlet Kenangan";
+        }
+        if (!chosenOutlet) chosenOutlet = "Outlet Kenangan";
+
+        // 3. Ambil Menu: Acak langsung dari list produk aktif yang ada di web kamu
+        let chosenMenu = "Kopi Kenangan Mantan";
+        if (typeof products !== 'undefined' && products.length > 0) {
+            const randomProd = products[Math.floor(Math.random() * products.length)];
+            chosenMenu = randomProd.name || "Menu Favorit";
+        }
+
+        // Tampilkan Popup
+        showSocialProofPopup({
+            name: displayName,
+            item: chosenMenu,
+            outlet: chosenOutlet
+        });
+
+    } catch (err) {
+        console.error("Gagal load ticker:", err);
+    }
+}
+
+// Rotasi otomatis tiap 35 detik
+setInterval(triggerSocialProofTicker, 35000);
+
+// Hook instan ketika ada yang beneran checkout sekarang
+function pushNewRealOrderToTicker(rawName, cartItems, outletName) {
+    const safeName = typeof maskCustomerName === 'function' ? maskCustomerName(rawName) : (rawName.slice(0, 3) + "***");
+    
+    let itemSummary = "Menu Favorit";
+    if (cartItems && cartItems.length > 0) {
+        if (cartItems.length === 1) {
+            itemSummary = `${cartItems[0].qty || 1}x ${cartItems[0].name}`;
+        } else {
+            itemSummary = `${cartItems[0].name} + ${cartItems.length - 1} lainnya`;
+        }
+    }
+
+    showSocialProofPopup({
+        name: safeName,
+        item: itemSummary,
+        outlet: outletName || "Outlet Kenangan"
+    });
 }
