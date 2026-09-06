@@ -1868,6 +1868,15 @@ function getDailyWifiPassword() {
 // Rekam Pesanan & Perbarui Loyalitas Pelanggan ke Supabase Database
 async function recordOrderToSupabase(orderData) {
     if (!supabaseClient) return;
+    // Filter testing: Abaikan jika nomor WA admin atau nama diawali 'tes'/'admin'
+    const adminNumbers = ['6285959633342', '085959633342'];
+    const cleanWa = (orderData.customerWa || '').replace(/[^0-9]/g, '');
+    const nameLower = (orderData.customerName || '').toLowerCase().trim();
+
+    if (adminNumbers.includes(cleanWa) || nameLower.startsWith('tes') || nameLower.startsWith('admin')) {
+        console.log("Order uji coba/admin terdeteksi: Tidak dicatat ke database.");
+        return;
+    }
     try {
         await supabaseClient.from('orders').insert([{
             customer_name: orderData.customerName,
