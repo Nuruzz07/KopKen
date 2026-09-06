@@ -1981,6 +1981,9 @@ async function submitOrderKopken(method) {
         totalPrice: grandTotal
     });
 
+    // Otomatis daftar member jika checkbox dicentang
+    checkAndRegisterMember(name, cleanWaNumber || custWaInput, selectedOutlet.name);
+
     const orderTypeText = currentOrderType === 'takeaway' ? 'Take Away (Bungkus)' : 'Dine In (Minum Ditempat)';
     const waDirectLink = cleanWaNumber ? `https://wa.me/${cleanWaNumber}` : '-';
 
@@ -2073,6 +2076,8 @@ ${isBagChecked ? 'Kantong Belanja : Rp 1.000\n' : ''}💰 *Total Tagihan Final :
             document.getElementById('cust-name').value = '';
             document.getElementById('cust-wa').value = '';
             document.getElementById('cust-notes').value = '';
+            const memberInput = document.getElementById('memberCodeInput');
+            if (memberInput) memberInput.value = '';
             isMidnightForced = false;
         } else {
             showToast("Gagal kirim ke bot, silakan gunakan opsi WA.");
@@ -2579,6 +2584,110 @@ function createCosmicBurst(x, y) {
             }).onfinish = () => particle.remove();
         } else {
             setTimeout(() => particle.remove(), 800);
+        }
+    }
+}
+
+// ==========================================
+// FITUR MEMBER & AUTOFILL BINTANG STORE (FIXED)
+// ==========================================
+
+let memberSearchTimeout = null;
+
+// 1. Live Suggestion saat user ketik kode member
+async function onInputMemberCode(val) {
+    const query = val.trim().toLowerCase();
+    const suggestBox = document.getElementById('memberSuggestBox');
+    if (!suggestBox) return;
+
+    if (query.length < 2) {
+        suggestBox.style.display = 'none';
+        suggestBox.innerHTML = '';
+        return;
+    }
+
+    clearTimeout(memberSearchTimeout);
+    memberSearchTimeout = setTimeout(async () => {
+        try {
+            if (typeof supabaseClient === 'undefined' || !supabaseClient) return;
+            const { data, error } = await supabaseClient
+                .from('members')
+                .select('*')
+                .ilike('member_code', `${query}%`)
+                .limit(4);
+
+            if (!error && data && data.length > 0) {
+                suggestBox.innerHTML = data.map(m => `
+                    <div onclick="applyMemberProfile('${m.member_code}', '${encodeURIComponent(m.customer_name)}', '${m.customer_phone}', '${m.favorite_outlet_name || ''}')" 
+                         style="padding: 10px 12px; cursor: pointer; border-bottom: 1px solid #f1f1f1; display: flex; justify-content: space-between; align-items: center; text-align: left;"
+                         onmouseover="this.style.background='#faf5f0'" 
+                         onmouseout="this.style.background='white'">
+                        <div>
+                            <strong style="color: #9C532B; font-size: 13px;">@${m.member_code}</strong>
+                            <div style="font-size: 11px; color: #777;">Outlet: ${m.favorite_outlet_name || 'Bebas'}</div>
+                        </div>
+                        <span style="font-size: 11px; background: #E8D8C8; color: #5c2d16; padding: 2px 8px; border-radius: 12px; font-weight: 600;">Pakai</span>
+                    </div>
+                `).join('');
+                suggestBox.style.display = 'block';
+            } else {
+                suggestBox.style.display = 'none';
+            }
+        } catch(e) {
+            suggestBox.style.display = 'none';
+        }
+    }, 250);
+}
+
+// 2. Terapkan data member ke form pemesanan (Sudah sinkron dengan ID cust-name & cust-wa)
+function applyMemberProfile(code, encodedName, phone, outletName) {
+    const name = decodeURIComponent(encodedName);
+    
+    const nameInput = document.getElementById('cust-name');
+    const phoneInput = document.getElementById('cust-wa');
+    const memberInput = document.getElementById('memberCodeInput');
+
+    if (nameInput) nameInput.value = name;
+    if (phoneInput) phoneInput.value = phone;
+    if (memberInput) memberInput.value = code;
+
+    const suggestBox = document.getElementById('memberSuggestBox');
+    if (suggestBox) suggestBox.style.display = 'none';
+
+    // Set outlet favorit jika ada
+    if (outletName && typeof allOutlets !== 'undefined' && Array.isArray(allOutlets)) {
+        const found = allOutlets.find(o => o.name.toLowerCase() === outletName.toLowerCase());
+        if (found) {
+            selectedOutlet = found;
+            if (typeof updateOutletUI === 'function') updateOutletUI();
+        }
+    }
+
+    if (typeof validateKopkenForm === 'function') validateKopkenForm();
+
+    showToast(`✨ Profil <b>@${code}</b> terpasang!<br>Data & outlet langganan Kak ${name} berhasil dimuat.`);
+}
+
+// 3. Simpan Member Baru (dijalankan pas checkout)
+async function checkAndRegisterMember(orderName, orderPhone, outletName) {
+    const chk = document.getElementById('registerMemberChk');
+    const customCodeInput = document.getElementById('newMemberCodeInput');
+    
+    if (chk && chk.checked && customCodeInput) {
+        let code = customCodeInput.value.trim().toLowerCase().replace(/[^a-z0-9_]/g, '');
+        if (!code) {
+            code = orderName.trim().toLowerCase().replace(/\s+/g, '_') + Math.floor(10 + Math.random() * 90);
+        }
+
+        try {
+            await supabaseClient.from('members').upsert({
+                member_code: code,
+                customer_name: orderName,
+                customer_phone: orderPhone,
+                favorite_outlet_name: outletName || ''
+            }, { onConflict: 'member_code' });
+        } catch(e) {
+            console.error("Gagal simpan member:", e);
         }
     }
 }
