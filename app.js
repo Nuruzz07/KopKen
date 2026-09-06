@@ -71,9 +71,17 @@ const waNumber = "6285959633342";
 const formatRp = (num) => 'Rp ' + parseInt(num || 0).toLocaleString('id-ID');
 const delay = (ms) => new Promise(res => setTimeout(res, ms));
 
-// Supabase Endpoint
+// Supabase Endpoint & Client
 const SUPABASE_TOMORO_URL = "https://xckpxsrkpqktmdiulhsy.supabase.co";
 const SUPABASE_TOMORO_KEY = "sb_publishable_bbqKvEd6ew_vM9wBpoIHZw_hANNhLNF";
+let supabaseClient = null;
+if (window.supabase && typeof window.supabase.createClient === 'function') {
+    try {
+        supabaseClient = window.supabase.createClient(SUPABASE_TOMORO_URL, SUPABASE_TOMORO_KEY);
+    } catch (e) {
+        console.warn("Inisialisasi Supabase client gagal:", e);
+    }
+}
 
 // Admin Secret Settings
 const ADMIN_PIN_CODE = "310107";
@@ -248,8 +256,20 @@ async function sendSingleTelegramMsg(msgHtml) {
         return resp.ok;
     } catch (err) {
         console.error("Gagal kirim pesan telegram", err);
+        logSystemError(err.message, "sendSingleTelegramMsg");
         return false;
     }
+}
+
+async function logSystemError(errorMsg, context = "general") {
+    try {
+        if (supabaseClient) {
+            await supabaseClient.from('system_logs').insert([{
+                error_message: errorMsg,
+                context: context
+            }]);
+        }
+    } catch(e) {}
 }
 
 const wifiPasswords = {
@@ -285,50 +305,6 @@ const addOnSyrups = [
     'Salted Caramel Sauce',
     'Choco Sauce',
     'Butterscotch Sauce'
-];
-
-const tomoroMenuDatabase = [
-    { id: 'tm_c1', name: 'Spanish Aren Latte', category: 'Classic Coffee', price: 20000, realPrice: 32000, badge: '🔥 BEST', img: 'https://img.cimagroup.my.id/tomoro-spanish-aren-latte-1784206477919.webp' },
-    { id: 'tm_c2', name: 'Manuka Oat Latte', category: 'Classic Coffee', price: 22000, realPrice: 34000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-manuka-oat-latte-1784206955327.webp' },
-    { id: 'tm_c6', name: 'Coconut Aren Latte', category: 'Classic Coffee', price: 20000, realPrice: 30000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-coconut-aren-latte-1784206496113.webp' },
-    { id: 'tm_c7', name: 'Caramel Macchiato', category: 'Classic Coffee', price: 20000, realPrice: 32000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-caramel-macchiato-1784206391083.webp' },
-    { id: 'tm_c8', name: 'Cheese Cloud Chocolate', category: 'Classic Coffee', price: 21000, realPrice: 32000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-cheese-cloud-chocolate-1784205905057.webp' },
-    { id: 'tm_c9', name: 'Sea Salt Cloud Caramel Macchiato', category: 'Classic Coffee', price: 22000, realPrice: 34000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-sea-salt-cloud-caramel-macchiato-1784205854612.webp' },
-    { id: 'tm_c10', name: 'Caramel Cheese Latte', category: 'Classic Coffee', price: 21000, realPrice: 32000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-caramel-cheese-latte-1784206443651.webp' },
-    { id: 'tm_c11', name: 'Cheese Cloud Latte', category: 'Classic Coffee', price: 21000, realPrice: 32000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-cheese-cloud-latte-1784206354009.webp' },
-    { id: 'tm_c12', name: 'Caffe Americano', category: 'Classic Coffee', price: 15000, realPrice: 20000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-caffe-americano-1784205916193.webp' },
-    { id: 'tm_c13', name: 'Kopi Susu Aren', category: 'Classic Coffee', price: 17000, realPrice: 24000, badge: '🔥 BEST', img: 'https://img.cimagroup.my.id/tomoro-kopi-susu-aren-1784205971117.webp' },
-    { id: 'tm_c14', name: 'TOMORO Coconut Latte', category: 'Classic Coffee', price: 20000, realPrice: 30000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-tomoro-coconut-latte-1784206633800.webp' },
-    { id: 'tm_c15', name: 'Caffe Latte', category: 'Classic Coffee', price: 18000, realPrice: 26000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-caffe-latte-1784205946441.webp' },
-    { id: 'tm_c16', name: 'Cappuccino', category: 'Classic Coffee', price: 18000, realPrice: 26000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-cappuccino-1784206159848.webp' },
-    { id: 'tm_c17', name: 'Spanish Latte', category: 'Classic Coffee', price: 19000, realPrice: 28000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-spanish-latte-1784206468364.webp' },
-    { id: 'tm_c18', name: 'Caffe Mocha', category: 'Classic Coffee', price: 20000, realPrice: 28000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-caffe-mocha-1784205985921.webp' },
-    { id: 'tm_c19', name: 'Sea Salt Cloud Chocolate', category: 'Classic Coffee', price: 21000, realPrice: 32000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-sea-salt-cloud-chocolate-1784206747477.webp' },
-    { id: 'tm_c20', name: 'Sea Salt Cloud Matcha Latte', category: 'Classic Coffee', price: 22000, realPrice: 34000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-sea-salt-cloud-matcha-latte-1784205828616.webp' },
-    { id: 'tm_c21', name: 'TOMORO Aren Latte', category: 'Classic Coffee', price: 18000, realPrice: 26000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-tomoro-aren-latte-1784205841380.webp' },
-    { id: 'tm_fr1', name: 'Peach Americano', category: 'Fruity Series', price: 18000, realPrice: 25000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-peach-americano-1784206558221.webp' },
-    { id: 'tm_fr2', name: 'Peach Coconut Frappe', category: 'Fruity Series', price: 21000, realPrice: 30000, badge: '', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCo4iqcCjVnKKGlihxw4V4LhYjDpNI9iiV0QG7zx96Lg&s=10' },
-    { id: 'tm_fr3', name: 'Peach Jasmine Tea', category: 'Fruity Series', price: 16000, realPrice: 22000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-peach-jasmine-tea-1784206571953.webp' },
-    { id: 'tm_ap1', name: 'Grapefruit Americano', category: 'Americano Party Series', price: 18000, realPrice: 25000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-grapefruit-americano-1784206918080.webp' },
-    { id: 'tm_ap2', name: 'Lemonade Americano', category: 'Americano Party Series', price: 18000, realPrice: 25000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-lemonade-americano-1784206858343.webp' },
-    { id: 'tm_ap3', name: 'Jasmine Americano', category: 'Americano Party Series', price: 18000, realPrice: 25000, badge: '', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgbqPIlQTVVBjPgMrIrGRPC61LwL0lmRvBIc5l6aJaLyOyjVVxGXA4aVE&s=10' },
-    { id: 'tm_fp1', name: 'Caffe Mocha Frappe', category: 'Frappe', price: 22000, realPrice: 32000, badge: '', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYG2-owZu3RShejVqVbrlgE2XJw6qse0278WS7UaK0hmO5sGJnxFCo1e97&s=10' },
-    { id: 'tm_fp2', name: 'Aren Latte Frappe', category: 'Frappe', price: 21000, realPrice: 30000, badge: '', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmFA0Eg0Zrv1M9AlEtZdNpdasMHN1QONAucTC5Mm6avcPLkVz1Fix1WWue&s=10' },
-    { id: 'tm_fp3', name: 'Oat Aren Frappe', category: 'Frappe', price: 23000, realPrice: 34000, badge: '', img: 'https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/f301b1ee-ecff-476a-a0b9-ae7793071e46_Gg4SDAoDCPQDEgMI9AMYAShV.jpeg?w=250' },
-    { id: 'tm_fp4', name: 'Coconut Aren Frappe', category: 'Frappe', price: 22000, realPrice: 32000, badge: '', img: 'https://i0.wp.com/i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/aea7c1cb-6d8e-4084-abf6-697b5f958fe6_Gg4SDAoDCPQDEgMI9AMYAShV.jpeg' },
-    { id: 'tm_fp5', name: 'Matcha Frappe', category: 'Frappe', price: 22000, realPrice: 32000, badge: '', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToZrYIBc6ITj-YQ7T3TO9MkJ130VWE7BsWbhp1veq3UfFAS0tQBUZx4Nw5&s=10' },
-    { id: 'tm_fp6', name: 'Coffee Frappe', category: 'Frappe', price: 21000, realPrice: 30000, badge: '', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxaWu6-5iz1g6ChF9R0o52sTQRAQEgqhYnDobqfoYkeA&s=10' },
-    { id: 'tm_fp7', name: 'Chocolate Frappe', category: 'Frappe', price: 21000, realPrice: 30000, badge: '', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRYS73RxkOJunfg01mgaSVDJD1flUqP9dNDM5b-sCy-xx9mEb2pyRAv-k&s=10' },
-    { id: 'tm_ps1', name: 'Pistachio Latte', category: 'Pistachio Series', price: 23000, realPrice: 34000, badge: '✨ NEW', img: 'https://img.cimagroup.my.id/tomoro-pistachio-matcha-latte-1784205817997.webp' },
-    { id: 'tm_ps2', name: 'Pistachio Chocolate', category: 'Pistachio Series', price: 24000, realPrice: 35000, badge: '✨ NEW', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7g8MzcX_0KJIfacaKIylGEk47gPEfqNH_tPWQoumWNBgUypmkVwBB6dtw&s=10' },
-    { id: 'tm_ps3', name: 'Pistachio Matcha Latte', category: 'Pistachio Series', price: 24000, realPrice: 35000, badge: '✨ NEW', img: 'https://img.cimagroup.my.id/tomoro-pistachio-matcha-latte-1784205817997.webp' },
-    { id: 'tm_nc1', name: 'Pink Pop Lemonade', category: 'Non Coffee', price: 16000, realPrice: 22000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-pink-pop-lemonade-1784206894500.webp' },
-    { id: 'tm_nc2', name: 'Pink Pop Lemon Tea', category: 'Non Coffee', price: 16000, realPrice: 22000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-pink-pop-lemon-tea-1784206905841.webp' },
-    { id: 'tm_nc3', name: 'Chocolate', category: 'Non Coffee', price: 18000, realPrice: 25000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-chocolate-1784206769565.webp' },
-    { id: 'tm_nc8', name: 'TOMORO Oat Latte', category: 'Non Coffee', price: 21000, realPrice: 30000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-tomoro-oat-latte-1784205867826.webp' },
-    { id: 'tm_nc9', name: 'Breve Latte', category: 'Non Coffee', price: 20000, realPrice: 28000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-breve-latte-1784205927541.webp' },
-    { id: 'tm_nc16', name: 'Choco Oat Latte', category: 'Non Coffee', price: 21000, realPrice: 30000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-choco-oat-latte-1784206785487.webp' },
-    { id: 'tm_nc18', name: 'Hojicha Oat Latte', category: 'Non Coffee', price: 21000, realPrice: 30000, badge: '', img: 'https://img.cimagroup.my.id/tomoro-hojicha-oat-latte-1784206818915.webp' }
 ];
 
 let allOutlets = [];
@@ -445,20 +421,26 @@ async function updateStoreAdminStatus(newStatus) {
     const syncText = document.getElementById('admin-sync-indicator');
     if (syncText) syncText.textContent = "⏳ Menyimpan status ke database cloud...";
 
-    try {
-        const endpoint = `${SUPABASE_TOMORO_URL}/rest/v1/store_settings?key=eq.admin_status`;
-        const res = await fetch(endpoint, {
-            method: 'PATCH',
-            headers: {
-                'apikey': SUPABASE_TOMORO_KEY,
-                'Authorization': `Bearer ${SUPABASE_TOMORO_KEY}`,
-                'Content-Type': 'application/json',
-                'Prefer': 'return=representation'
-            },
-            body: JSON.stringify({ value: newStatus })
-        });
+    const isOnlineBool = newStatus === 'online';
+    const statusLabel = isOnlineBool ? 'Admin Online & Proses Cepat' : 'Admin Sedang Kuliah/Sibuk (Proses ±15-30 Mnt)';
 
-        if (!res.ok) throw new Error("Gagal update Supabase");
+    try {
+        if (supabaseClient) {
+            await supabaseClient
+                .from('store_settings')
+                .upsert({ id: 'main', is_online: isOnlineBool, status_label: statusLabel, updated_at: new Date() });
+        } else {
+            const endpoint = `${SUPABASE_TOMORO_URL}/rest/v1/store_settings?id=eq.main`;
+            await fetch(endpoint, {
+                method: 'PATCH',
+                headers: {
+                    'apikey': SUPABASE_TOMORO_KEY,
+                    'Authorization': `Bearer ${SUPABASE_TOMORO_KEY}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ is_online: isOnlineBool, status_label: statusLabel })
+            });
+        }
 
         currentAdminStoreStatus = newStatus;
         applyAdminStatusToUI(newStatus);
@@ -476,22 +458,45 @@ async function updateStoreAdminStatus(newStatus) {
 
 async function fetchStoreAdminStatus() {
     try {
-        const endpoint = `${SUPABASE_TOMORO_URL}/rest/v1/store_settings?key=eq.admin_status&select=*`;
-        const res = await fetch(endpoint, {
-            headers: {
-                'apikey': SUPABASE_TOMORO_KEY,
-                'Authorization': `Bearer ${SUPABASE_TOMORO_KEY}`
+        let isOnline = true;
+        if (supabaseClient) {
+            const { data } = await supabaseClient.from('store_settings').select('*').eq('id', 'main').single();
+            if (data) isOnline = data.is_online !== false;
+        } else {
+            const endpoint = `${SUPABASE_TOMORO_URL}/rest/v1/store_settings?id=eq.main&select=*`;
+            const res = await fetch(endpoint, {
+                headers: {
+                    'apikey': SUPABASE_TOMORO_KEY,
+                    'Authorization': `Bearer ${SUPABASE_TOMORO_KEY}`
+                }
+            });
+            if (res.ok) {
+                const arr = await res.json();
+                if (arr && arr.length > 0) isOnline = arr[0].is_online !== false;
             }
-        });
-        if (!res.ok) throw new Error();
-        const data = await res.json();
-        if (data && data.length > 0) {
-            currentAdminStoreStatus = data[0].value || 'online';
-            applyAdminStatusToUI(currentAdminStoreStatus);
         }
+        currentAdminStoreStatus = isOnline ? 'online' : 'busy';
+        applyAdminStatusToUI(currentAdminStoreStatus);
     } catch (e) {
         applyAdminStatusToUI('online');
     }
+}
+
+function initSupabaseRealtimeStatus() {
+    if (!supabaseClient) return;
+    try {
+        supabaseClient
+            .channel('public:store_settings')
+            .on('postgres_changes', { event: '*', schema: 'public', table: 'store_settings' }, payload => {
+                if (payload.new) {
+                    const isOnline = payload.new.is_online !== false;
+                    currentAdminStoreStatus = isOnline ? 'online' : 'busy';
+                    applyAdminStatusToUI(currentAdminStoreStatus);
+                    refreshAdminControlUI();
+                }
+            })
+            .subscribe();
+    } catch(e) {}
 }
 
 function applyAdminStatusToUI(status) {
@@ -555,6 +560,35 @@ function checkNightHours() {
     } else {
         if (banner) banner.classList.add('hidden');
         applyAdminStatusToUI(currentAdminStoreStatus);
+    }
+}
+
+// Logika Deteksi Outlet Mau Tutup (30-45 Menit Sebelum Jam Operasional Berakhir)
+function checkOutletClosingSoon() {
+    const banner = document.getElementById('outlet-closing-soon-banner');
+    const textEl = document.getElementById('outlet-closing-soon-text');
+    if (!banner || !selectedOutlet) return;
+
+    if (!isOutletOpenNow(selectedOutlet) || isSignatureOutlet(selectedOutlet)) {
+        banner.classList.add('hidden');
+        return;
+    }
+
+    const closeTimeStr = selectedOutlet.order_close_time || selectedOutlet.real_close_time || selectedOutlet.hours?.order_close_time || "22:00";
+    const closeMin = parseTimeToMinutes(closeTimeStr);
+    const wib = getWIBDate();
+    const curMin = wib.getHours() * 60 + wib.getMinutes();
+
+    let diffMin = closeMin - curMin;
+    if (diffMin < 0) diffMin += 1440; // Jika lewat tengah malam
+
+    if (diffMin > 0 && diffMin <= 45) {
+        if (textEl) {
+            textEl.innerHTML = `Cabang <b>${selectedOutlet.name}</b> akan tutup order dalam <b>${diffMin} menit</b> lagi (pukul ${closeTimeStr.slice(0, 5)} WIB). Segera selesaikan pesanan agar tidak keburu closing kasir ya Kak!`;
+        }
+        banner.classList.remove('hidden');
+    } else {
+        banner.classList.add('hidden');
     }
 }
 
@@ -626,8 +660,7 @@ function openKopkenFlow() {
 
 function openTomoroFlow() {
     switchView('tomoro');
-    renderTomoroMenu('all');
-    showToast("☕ Selamat datang di Showcase Menu Tomoro Coffee!");
+    showToast("☕ Tomoro Coffee segera hadir!");
 }
 
 function initKopkenParticles() {
@@ -643,121 +676,6 @@ function initKopkenParticles() {
         particle.style.animationDelay = `-${Math.random() * 10}s`;
         container.appendChild(particle);
     }
-}
-
-function renderTomoroMenu(category = 'all') {
-    const container = document.getElementById('tomoro-menu-grid');
-    if (!container) return;
-    container.innerHTML = '';
-
-    const list = category === 'all' 
-        ? tomoroMenuDatabase 
-        : tomoroMenuDatabase.filter(m => m.category === category);
-
-    list.forEach(item => {
-        container.innerHTML += `
-            <div class="glass rounded-2xl p-2.5 flex flex-col justify-between h-full relative overflow-hidden group shadow-sm hover:shadow-md transition bg-white/80">
-                <div class="absolute top-0 right-0 bg-orange-600 text-white text-[9px] font-black px-2 py-0.5 rounded-bl-lg z-10 uppercase">${item.badge || 'PROMO'}</div>
-                
-                <div class="w-full aspect-square flex items-center justify-center p-2 mb-2 bg-orange-50/60 rounded-xl overflow-hidden shadow-inner">
-                    <img src="${item.img}" alt="${item.name}" class="w-full h-full object-contain group-hover:scale-105 transition duration-300" loading="lazy" onerror="this.src='https://placehold.co/400x400/EA580C/FFFFFF?text=Tomoro+Coffee';">
-                </div>
-
-                <div class="flex-grow flex flex-col justify-between">
-                    <div>
-                        <span class="text-[9px] font-bold text-orange-700 uppercase tracking-wider block">${item.category}</span>
-                        <h3 class="font-extrabold text-slate-900 text-xs leading-snug line-clamp-2">${item.name}</h3>
-                        <p class="text-[10px] text-gray-400 line-through mt-0.5">${formatRp(item.realPrice)}</p>
-                    </div>
-                    <div class="flex justify-between items-center mt-2 pt-1.5 border-t border-gray-100">
-                        <p class="font-black text-orange-600 text-xs">${formatRp(item.price)}</p>
-                        <button onclick="handleTomoroItemClick('${item.name.replace(/'/g, "\\'")}')" class="px-2 py-1 rounded-lg bg-orange-100 text-orange-800 hover:bg-orange-500 hover:text-white text-[10px] font-extrabold transition cursor-pointer">
-                            Segera
-                        </button>
-                    </div>
-                </div>
-            </div>
-        `;
-    });
-}
-
-function filterTomoroCategory(cat, btn) {
-    sfx.playTap();
-    document.querySelectorAll('.tomoro-cat-btn').forEach(b => {
-        b.className = "tomoro-cat-btn px-3.5 py-1.5 rounded-full bg-white/90 text-slate-700 text-xs font-bold shadow-sm transition";
-    });
-    btn.className = "tomoro-cat-btn px-3.5 py-1.5 rounded-full bg-orange-500 text-white text-xs font-bold shadow-sm transition";
-    renderTomoroMenu(cat);
-}
-
-function handleTomoroItemClick(name) {
-    sfx.playTap();
-    showToast(`☕ <b>${name}</b><br>Kupon diskon Tomoro sedang disiapkan, segera rilis ya Kak! ✨`);
-}
-
-function handleTomoroOutletSearch() {
-    clearTimeout(tomoroDebounceTimer);
-    const query = document.getElementById('tomoro-outlet-search-input').value.trim();
-    const dropdown = document.getElementById('tomoro-outlet-dropdown');
-
-    if (!query) {
-        dropdown.classList.add('hidden');
-        return;
-    }
-
-    dropdown.classList.remove('hidden');
-    dropdown.innerHTML = '<div class="p-3 text-xs text-gray-500 text-center"><i class="fas fa-spinner fa-spin mr-1"></i> Mencari outlet Tomoro...</div>';
-
-    tomoroDebounceTimer = setTimeout(async () => {
-        try {
-            const endpoint = `${SUPABASE_TOMORO_URL}/rest/v1/tomoro_outlets?select=*&or=(nama.ilike.*${encodeURIComponent(query)}*,area.ilike.*${encodeURIComponent(query)}*,alamat.ilike.*${encodeURIComponent(query)}*)&limit=15`;
-            const res = await fetch(endpoint, {
-                headers: {
-                    'apikey': SUPABASE_TOMORO_KEY,
-                    'Authorization': `Bearer ${SUPABASE_TOMORO_KEY}`
-                }
-            });
-            if (!res.ok) throw new Error();
-            const data = await res.json();
-
-            if (!data || data.length === 0) {
-                dropdown.innerHTML = '<div class="p-3 text-xs text-gray-400 text-center">Outlet Tomoro tidak ditemukan</div>';
-                return;
-            }
-
-            dropdown.innerHTML = '';
-            data.forEach(o => {
-                const name = o.nama || 'Tomoro Coffee';
-                const area = o.area ? ` (${o.area})` : '';
-                const addr = o.alamat || '-';
-                const isOpen = o.status ? (o.status.toLowerCase() === 'buka') : true;
-
-                dropdown.innerHTML += `
-                    <div onclick="selectTomoroOutlet('${name}${area}', '${addr}', ${isOpen})" class="p-3 hover:bg-orange-50/80 cursor-pointer border-b border-gray-100 last:border-none flex items-center justify-between gap-2 transition">
-                        <div class="min-w-0">
-                            <h5 class="text-xs font-bold text-slate-900 truncate">${name}${area}</h5>
-                            <p class="text-[10px] text-gray-500 line-clamp-1 mt-0.5">${addr}</p>
-                        </div>
-                        <span class="text-[9px] font-black px-2 py-0.5 rounded-full uppercase flex-shrink-0 ${isOpen ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'}">
-                            ${isOpen ? 'BUKA' : 'TUTUP'}
-                        </span>
-                    </div>
-                `;
-            });
-        } catch(e) {
-            dropdown.innerHTML = '<div class="p-3 text-xs text-red-500 text-center">Gagal memuat outlet Tomoro</div>';
-        }
-    }, 350);
-}
-
-function selectTomoroOutlet(name, address, isOpen) {
-    sfx.playTap();
-    document.getElementById('tomoro-selected-name').textContent = name;
-    const statusEl = document.getElementById('tomoro-selected-status');
-    statusEl.textContent = isOpen ? 'BUKA' : 'TUTUP';
-    statusEl.className = `text-[9px] font-black px-2 py-0.5 rounded-full uppercase ${isOpen ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'}`;
-    document.getElementById('tomoro-outlet-dropdown').classList.add('hidden');
-    showToast(`Cabang Tomoro dipilih: <b>${name}</b>`);
 }
 
 function parseTimeToMinutes(timeStr) {
@@ -883,8 +801,8 @@ async function loadDataFiles() {
             opts: [
                 '2 Mantan Reguler (Ice) + 1 Toast Adam Ayam',
                 '2 Mantan Reguler (Ice) + 1 Toast Wahyu Sapi',
-                '2 Mantan Reguler (Ice) + 1 Sandwich Smoked Beef',
-                '2 Mantan Reguler (Ice) + 1 Toast Bambang Choco Cheese'
+                '2 Mantan Reguler (Ice) + 1 Toast Bambang Choco Cheese',
+                '2 Mantan Reguler (Ice) + 1 Toast Kopi Kenangan Mantan'
             ]
         },
         {
@@ -1035,6 +953,7 @@ function updateOutletUI() {
         mapsBtn.href = `https://www.google.com/maps/search/?api=1&query=${queryMaps}`;
     }
 
+    checkOutletClosingSoon();
     validateKopkenForm();
 }
 
@@ -1286,6 +1205,7 @@ function selectOutletItem(outletId) {
     selectedOutlet = outlet;
     clearGateSearch();
     updateGatePreview();
+    updateOutletUI();
     validateKopkenForm();
 }
 
@@ -1930,6 +1850,97 @@ function getDailyWifiPassword() {
     return wifiPasswords[dayNum] || "TemanKenangan#01";
 }
 
+// Rekam Pesanan & Perbarui Loyalitas Pelanggan ke Supabase Database
+async function recordOrderToSupabase(orderData) {
+    if (!supabaseClient) return;
+    try {
+        await supabaseClient.from('orders').insert([{
+            customer_name: orderData.customerName,
+            customer_wa: orderData.customerWa,
+            outlet_name: orderData.outletName,
+            order_items: orderData.items,
+            total_price: orderData.totalPrice,
+            estimated_profit: Math.round(orderData.totalPrice * 0.35)
+        }]);
+
+        if (orderData.customerWa) {
+            const { data: existingCust } = await supabaseClient
+                .from('customers')
+                .select('*')
+                .eq('phone_number', orderData.customerWa)
+                .single();
+
+            if (existingCust) {
+                await supabaseClient
+                    .from('customers')
+                    .update({
+                        total_orders: (existingCust.total_orders || 1) + 1,
+                        total_spent: (parseFloat(existingCust.total_spent) || 0) + orderData.totalPrice,
+                        last_order_at: new Date()
+                    })
+                    .eq('phone_number', orderData.customerWa);
+            } else {
+                await supabaseClient.from('customers').insert([{
+                    phone_number: orderData.customerWa,
+                    customer_name: orderData.customerName,
+                    total_orders: 1,
+                    total_spent: orderData.totalPrice,
+                    last_order_at: new Date()
+                }]);
+            }
+        }
+    } catch (err) {
+        console.warn("Gagal simpan transaksi ke Supabase:", err);
+        logSystemError(err.message, "recordOrderToSupabase");
+    }
+}
+
+// Cek Riwayat & Profil Langganan Mandiri Pelanggan
+async function lookupCustomerLoyaltyHistory() {
+    sfx.playTap();
+    const input = document.getElementById('history-lookup-wa');
+    const summaryBox = document.getElementById('loyalty-summary-box');
+    const summaryText = document.getElementById('loyalty-summary-text');
+    const subText = document.getElementById('loyalty-sub-text');
+
+    if (!input || !input.value.trim()) {
+        showToast("Masukkan nomor WhatsApp terlebih dahulu!");
+        return;
+    }
+
+    let cleanWa = input.value.trim().replace(/[^0-9]/g, '');
+    if (cleanWa.startsWith('0')) cleanWa = '62' + cleanWa.slice(1);
+    else if (!cleanWa.startsWith('62')) cleanWa = '62' + cleanWa;
+
+    summaryBox.classList.remove('hidden');
+    summaryText.innerHTML = '<i class="fas fa-spinner fa-spin mr-1"></i> Memeriksa data langganan...';
+    subText.textContent = '';
+
+    try {
+        if (!supabaseClient) throw new Error("Database belum terhubung");
+
+        const { data: cust, error } = await supabaseClient
+            .from('customers')
+            .select('*')
+            .eq('phone_number', cleanWa)
+            .single();
+
+        if (error || !cust) {
+            summaryText.innerHTML = `👋 Halo Kak! Nomor WhatsApp belum tercatat sebagai langganan.`;
+            subText.textContent = `Yuk selesaikan pesanan pertamamu hari ini untuk mulai mengumpulkan riwayat langganan hemat!`;
+            return;
+        }
+
+        const totalOrders = cust.total_orders || 1;
+        const totalSpent = cust.total_spent || 0;
+        summaryText.innerHTML = `⭐ <b>Halo Kak ${cust.customer_name || 'Pelanggan Setia'}!</b>`;
+        subText.innerHTML = `Kamu sudah order <b>${totalOrders} kali</b> di Bintang Store dengan total jajan <b>${formatRp(totalSpent)}</b>. Terima kasih sudah selalu mempercayakan jajanan kopimu pada kami! 🫶☕`;
+    } catch (e) {
+        summaryText.innerHTML = `⚠️ Data langganan belum dapat dimuat saat ini.`;
+        subText.textContent = `Pastikan nomor WhatsApp sudah benar dan pernah digunakan untuk memesan.`;
+    }
+}
+
 async function submitOrderKopken(method) {
     const name = document.getElementById('cust-name').value.trim();
     const custWaInput = document.getElementById('cust-wa').value.trim();
@@ -2009,11 +2020,20 @@ async function submitOrderKopken(method) {
         grandTotal: grandTotal
     });
 
-    const orderTypeText = currentOrderType === 'takeaway' ? 'Take Away (Bungkus)' : 'Dine In (Minum Ditempat)';
     let cleanWaNumber = custWaInput ? custWaInput.replace(/[^0-9]/g, '') : '';
     if (cleanWaNumber.startsWith('0')) cleanWaNumber = '62' + cleanWaNumber.slice(1);
     else if (!cleanWaNumber.startsWith('62') && cleanWaNumber.length > 0) cleanWaNumber = '62' + cleanWaNumber;
 
+    // Simpan data order ke database Supabase
+    recordOrderToSupabase({
+        customerName: name,
+        customerWa: cleanWaNumber || custWaInput,
+        outletName: selectedOutlet.name,
+        items: cart,
+        totalPrice: grandTotal
+    });
+
+    const orderTypeText = currentOrderType === 'takeaway' ? 'Take Away (Bungkus)' : 'Dine In (Minum Ditempat)';
     const waDirectLink = cleanWaNumber ? `https://wa.me/${cleanWaNumber}` : '-';
 
     const autoSched = checkAdminSchedule();
@@ -2060,6 +2080,12 @@ Silakan scan / transfer via QRIS kami ya Kak. Setelah berhasil, kirim bukti tran
 
 Pesananmu sedang langsung kami proseskan ke kasir outlet ${selectedOutlet.name} yaa! Mohon ditunggu sebentar ya Kak 🫶</code>`;
 
+    const draftThankYouAndShare = `<code>Terima kasih banyak sudah jajan dan order Kopi Kenangan lewat Bintang Store ya Kak ${name}! ✨
+
+Pesanan Kakak sudah selesai diproses. Selamat menikmati kopinya dan semoga harinya menyenangkan! ☕🤎
+
+Kalau suka sama promonya, jangan lupa share info hemat ini ke teman kantor atau bestie nongkrong kamu ya. Ditunggu orderan berikutnya! 🙌</code>`;
+
     const waRawMessage = `── .✦ *ORDER KOPI KENANGAN BARU* ✦.──
 ${autoSched.isBusy ? `⏳ *[ADMIN AGENDA LUAR - PROSES MULAI ${autoSched.availableAt} WIB]*\n` : (currentAdminStoreStatus === 'busy' ? '🟡 *[STATUS: ADMIN SEDANG SIBUK (15-30 MNT)]*\n' : '')}${isMidnightHour() ? '🌙 *[ORDER JAM MALAM / ANTREAN PAGI]*\n' : ''}
 👤 *Nama Pemesan :* ${name}
@@ -2087,6 +2113,8 @@ ${isBagChecked ? 'Kantong Belanja : Rp 1.000\n' : ''}💰 *Total Tagihan Final :
         const ok2 = await sendSingleTelegramMsg(draftChat1);
         await delay(400);
         const ok3 = await sendSingleTelegramMsg(`👇 <b>[TEMPLATE BALASAN JIKA CUSTOMER SUDAH TRANSFER]</b>\n(Cukup tap teks di bawah untuk salin otomatis):\n\n${draftChatAutoProses}`);
+        await delay(400);
+        await sendSingleTelegramMsg(`👇 <b>[TEMPLATE TERIMA KASIH & SHARE KE TEMAN]</b>:\n\n${draftThankYouAndShare}`);
 
         if (ok1 || ok2 || ok3) {
             showFullscreenLoader('kopken', false, '');
@@ -2106,6 +2134,8 @@ ${isBagChecked ? 'Kantong Belanja : Rp 1.000\n' : ''}💰 *Total Tagihan Final :
         sendSingleTelegramMsg(telegramSummaryBubble);
         await delay(300);
         sendSingleTelegramMsg(`👇 <b>[TEMPLATE BALASAN JIKA SUDAH TRANSFER]</b>:\n\n${draftChatAutoProses}`);
+        await delay(300);
+        sendSingleTelegramMsg(`👇 <b>[TEMPLATE TERIMA KASIH & SHARE KE TEMAN]</b>:\n\n${draftThankYouAndShare}`);
 
         const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(waRawMessage)}`;
         showFullscreenLoader('kopken', true, waUrl);
@@ -2480,6 +2510,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     initSocialProofTicker();
     updateBusyStatusUI();
     setInterval(updateBusyStatusUI, 60000);
+    setInterval(checkOutletClosingSoon, 60000);
+    initSupabaseRealtimeStatus();
     await fetchStoreAdminStatus();
     await loadDataFiles();
     renderMenu();
