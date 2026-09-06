@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Story Promo Menu Lengkap - Bintang Store</title>
+    <title>Promo Eksklusif Kopi Kenangan - Bintang Store</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
@@ -11,131 +11,180 @@
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
     </style>
 </head>
-<body class="bg-stone-950 min-h-screen flex flex-col items-center justify-center p-2 sm:p-4 select-none">
+<body class="bg-neutral-950 min-h-screen flex flex-col items-center justify-center p-2 sm:p-4 select-none">
 
-    <!-- CONTROLLER -->
+    <!-- BAR KONTROL ATAS -->
     <div id="controls" class="w-full max-w-[390px] mb-2 flex items-center justify-between gap-2 px-1">
-        <span class="text-[11px] font-bold text-stone-400">
-            <i class="fas fa-camera text-amber-500 mr-1"></i>7 Menu Siap Screenshot
-        </span>
-        <button onclick="toggleHideControls()" class="text-[11px] font-extrabold px-3.5 py-1 rounded-full bg-amber-500 text-stone-950 shadow-lg hover:bg-amber-400 transition">
-            <i class="fas fa-expand mr-1"></i>Aktifkan SS Mode
+        <a href="index.html" class="text-[11px] font-bold text-stone-300 hover:text-white flex items-center gap-1 bg-stone-900 px-3 py-1.5 rounded-full border border-stone-800">
+            <i class="fas fa-arrow-left text-amber-500"></i> Ke Toko
+        </a>
+        <button onclick="toggleHideControls()" class="text-[11px] font-extrabold px-4 py-1.5 rounded-full bg-gradient-to-r from-amber-500 to-amber-400 text-stone-950 shadow-lg shadow-amber-500/20 hover:brightness-110 transition">
+            <i class="fas fa-camera mr-1"></i> Aktifkan SS Mode
         </button>
     </div>
 
-    <!-- CANVAS POSTER 9:16 -->
-    <div id="poster-card" class="w-full max-w-[390px] aspect-[9/16] rounded-[2rem] overflow-hidden shadow-2xl relative flex flex-col justify-between p-4 bg-gradient-to-b from-[#2d0707] via-[#140303] to-black text-white border border-rose-950/60">
+    <!-- CANVAS POSTER 9:16 (PAS RATIO STORY WA / HP) -->
+    <div id="poster-card" class="w-full max-w-[390px] aspect-[9/16] rounded-[2.2rem] overflow-hidden shadow-2xl relative flex flex-col justify-between p-4 bg-gradient-to-b from-[#3b0909] via-[#1a0404] to-black text-white border-2 border-rose-900/40">
         
-        <!-- Background Glow -->
-        <div class="absolute -top-10 -right-10 w-44 h-44 bg-rose-600/25 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute bottom-12 -left-10 w-44 h-44 bg-amber-600/20 rounded-full blur-3xl pointer-events-none"></div>
+        <!-- Ornamen Visual Background -->
+        <div class="absolute -top-12 -right-12 w-52 h-52 bg-rose-600/30 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute top-1/2 -left-16 w-48 h-48 bg-amber-600/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-10 right-0 w-40 h-40 bg-rose-900/20 rounded-full blur-2xl pointer-events-none"></div>
 
-        <!-- HEADER -->
-        <div class="relative z-10 mb-1">
-            <div class="flex items-center justify-between">
-                <span class="text-[8.5px] uppercase tracking-wider font-black text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded-full border border-amber-500/30 flex items-center gap-1">
-                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
-                    PROMO AMBIL DI OUTLET RESMI
-                </span>
-                <span class="text-[10px] font-black tracking-wider text-rose-300">KOPI KENANGAN</span>
+        <!-- HEADER BANNER -->
+        <div class="relative z-10">
+            <div class="flex items-center justify-between mb-1.5">
+                <div class="flex items-center gap-1.5">
+                    <span class="px-2 py-0.5 rounded-md bg-rose-600 text-[9px] font-black tracking-wider uppercase shadow-md">
+                        FLASH PROMO
+                    </span>
+                    <span class="text-[9px] text-amber-300 font-bold bg-amber-500/10 border border-amber-500/30 px-2 py-0.5 rounded-md">
+                        ⚡ AMBIL DI OUTLET
+                    </span>
+                </div>
+                <div class="text-right">
+                    <div class="text-xs font-black tracking-wider text-rose-200">KOPI KENANGAN</div>
+                    <div class="text-[8px] text-stone-400 font-medium">Bintang Store Exclusive</div>
+                </div>
             </div>
-            <h1 class="text-[19px] font-black tracking-tight text-white mt-1">
-                Katalog Menu Favorit <span class="text-amber-400">Hemat 50%!</span>
-            </h1>
+
+            <div class="flex items-baseline justify-between mt-1">
+                <div>
+                    <h1 class="text-[20px] font-black leading-none tracking-tight text-white">
+                        Menu Favorit <span class="text-amber-400">Setengah Harga</span>
+                    </h1>
+                    <p class="text-[10px] text-stone-300 mt-1">
+                        Pesan lewat kami, ambil pesanan langsung di kasir resmi!
+                    </p>
+                </div>
+                <div class="bg-amber-400 text-stone-950 font-black text-[10px] px-2 py-1 rounded-lg rotate-3 shadow-md border border-amber-300 flex-shrink-0">
+                    HEMAT 50%
+                </div>
+            </div>
         </div>
 
-        <!-- 7 MENU SHOWCASE GRID -->
-        <div class="relative z-10 grid grid-cols-2 gap-1.5 my-auto">
+        <!-- LIST 7 MENU (TIDAK KEPOTONG & RAPI) -->
+        <div class="relative z-10 flex flex-col gap-1.5 my-auto">
 
             <!-- 1. Kopi Kenangan Mantan -->
-            <div class="bg-white/5 backdrop-blur-sm rounded-xl p-1.5 border border-white/10 flex items-center gap-2">
-                <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?w=120&q=80" class="w-11 h-11 rounded-lg object-cover border border-amber-500/30 shrink-0">
-                <div class="min-w-0 flex-1">
-                    <div class="text-[10px] font-bold truncate">Kenangan Mantan</div>
+            <div class="bg-white/[0.07] backdrop-blur-md rounded-xl p-1.5 border border-white/10 flex items-center justify-between gap-2 shadow-sm">
+                <div class="flex items-center gap-2 min-w-0">
+                    <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?w=120&q=80" class="w-10 h-10 rounded-lg object-cover border border-amber-500/30 shrink-0">
+                    <div class="min-w-0">
+                        <div class="text-[11px] font-bold text-white truncate leading-tight">Kenangan Mantan</div>
+                        <div class="text-[9px] text-stone-400 leading-tight">Espresso + Gula Aren</div>
+                    </div>
+                </div>
+                <div class="text-right shrink-0">
                     <div class="text-[9px] text-stone-400 line-through">Rp 19.000</div>
-                    <div class="text-[11px] font-black text-amber-400 leading-none">Rp 10.500</div>
+                    <div class="text-xs font-black text-amber-400 leading-none">Rp 10.500</div>
                 </div>
             </div>
 
             <!-- 2. Butterscotch Latte -->
-            <div class="bg-white/5 backdrop-blur-sm rounded-xl p-1.5 border border-white/10 flex items-center gap-2">
-                <img src="https://images.unsplash.com/photo-1517256064527-09c73fc73e38?w=120&q=80" class="w-11 h-11 rounded-lg object-cover border border-amber-500/30 shrink-0">
-                <div class="min-w-0 flex-1">
-                    <div class="text-[10px] font-bold truncate">Butterscotch Latte</div>
+            <div class="bg-white/[0.07] backdrop-blur-md rounded-xl p-1.5 border border-white/10 flex items-center justify-between gap-2 shadow-sm">
+                <div class="flex items-center gap-2 min-w-0">
+                    <img src="https://images.unsplash.com/photo-1517256064527-09c73fc73e38?w=120&q=80" class="w-10 h-10 rounded-lg object-cover border border-amber-500/30 shrink-0">
+                    <div class="min-w-0">
+                        <div class="text-[11px] font-bold text-white truncate leading-tight">Butterscotch Latte</div>
+                        <div class="text-[9px] text-stone-400 leading-tight">Creamy Butter Caramel</div>
+                    </div>
+                </div>
+                <div class="text-right shrink-0">
                     <div class="text-[9px] text-stone-400 line-through">Rp 26.000</div>
-                    <div class="text-[11px] font-black text-amber-400 leading-none">Rp 14.500</div>
+                    <div class="text-xs font-black text-amber-400 leading-none">Rp 14.500</div>
                 </div>
             </div>
 
             <!-- 3. Choco Banana x Haechan -->
-            <div class="bg-white/5 backdrop-blur-sm rounded-xl p-1.5 border border-rose-500/30 bg-rose-950/20 flex items-center gap-2">
-                <img src="https://images.unsplash.com/photo-1578314675249-a6910f80cc4e?w=120&q=80" class="w-11 h-11 rounded-lg object-cover border border-amber-500/30 shrink-0">
-                <div class="min-w-0 flex-1">
-                    <div class="text-[10px] font-bold text-amber-300 truncate">Choco Banana Haechan</div>
-                    <div class="text-[9px] text-stone-400 line-through">Rp 28.000</div>
-                    <div class="text-[11px] font-black text-emerald-400 leading-none">Rp 16.000</div>
-                </div>
-            </div>
-
-            <!-- 4. Matcha Latte -->
-            <div class="bg-white/5 backdrop-blur-sm rounded-xl p-1.5 border border-white/10 flex items-center gap-2">
-                <img src="https://images.unsplash.com/photo-1536256263959-770b48d82b0a?w=120&q=80" class="w-11 h-11 rounded-lg object-cover border border-amber-500/30 shrink-0">
-                <div class="min-w-0 flex-1">
-                    <div class="text-[10px] font-bold truncate">Matcha Latte</div>
-                    <div class="text-[9px] text-stone-400 line-through">Rp 24.000</div>
-                    <div class="text-[11px] font-black text-amber-400 leading-none">Rp 13.500</div>
-                </div>
-            </div>
-
-            <!-- 5. Americano -->
-            <div class="bg-white/5 backdrop-blur-sm rounded-xl p-1.5 border border-white/10 flex items-center gap-2">
-                <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=120&q=80" class="w-11 h-11 rounded-lg object-cover border border-amber-500/30 shrink-0">
-                <div class="min-w-0 flex-1">
-                    <div class="text-[10px] font-bold truncate">Americano Ice</div>
-                    <div class="text-[9px] text-stone-400 line-through">Rp 15.000</div>
-                    <div class="text-[11px] font-black text-amber-400 leading-none">Rp 9.000</div>
-                </div>
-            </div>
-
-            <!-- 6. Dirty Croissant -->
-            <div class="bg-white/5 backdrop-blur-sm rounded-xl p-1.5 border border-amber-500/20 flex items-center gap-2">
-                <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=120&q=80" class="w-11 h-11 rounded-lg object-cover border border-amber-500/30 shrink-0">
-                <div class="min-w-0 flex-1">
-                    <div class="text-[10px] font-bold truncate">Dirty Croissant</div>
-                    <div class="text-[9px] text-stone-400 line-through">Rp 22.000</div>
-                    <div class="text-[11px] font-black text-amber-400 leading-none">Rp 12.500</div>
-                </div>
-            </div>
-
-            <!-- 7. Coffee Butter Bun (Lebar Penuh) -->
-            <div class="col-span-2 bg-gradient-to-r from-white/10 to-white/5 backdrop-blur-sm rounded-xl p-1.5 border border-white/10 flex items-center justify-between px-3">
-                <div class="flex items-center gap-2.5">
-                    <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=120&q=80" class="w-11 h-11 rounded-lg object-cover border border-amber-500/30 shrink-0">
-                    <div>
-                        <div class="text-[11px] font-bold">Coffee Butter Bun</div>
-                        <span class="text-[9px] text-emerald-400 font-semibold">Camilan Roti Lembut Wangi</span>
+            <div class="bg-rose-950/40 backdrop-blur-md rounded-xl p-1.5 border border-rose-500/40 flex items-center justify-between gap-2 shadow-sm">
+                <div class="flex items-center gap-2 min-w-0">
+                    <img src="https://images.unsplash.com/photo-1578314675249-a6910f80cc4e?w=120&q=80" class="w-10 h-10 rounded-lg object-cover border border-rose-400/40 shrink-0">
+                    <div class="min-w-0">
+                        <div class="text-[11px] font-bold text-rose-200 truncate leading-tight">Choco Banana Haechan</div>
+                        <div class="text-[9px] text-rose-300/80 leading-tight">Cokelat Pisang Spesial</div>
                     </div>
                 </div>
-                <div class="text-right">
+                <div class="text-right shrink-0">
+                    <div class="text-[9px] text-stone-400 line-through">Rp 28.000</div>
+                    <div class="text-xs font-black text-emerald-400 leading-none">Rp 16.000</div>
+                </div>
+            </div>
+
+            <!-- 4. Dirty Croissant -->
+            <div class="bg-white/[0.07] backdrop-blur-md rounded-xl p-1.5 border border-white/10 flex items-center justify-between gap-2 shadow-sm">
+                <div class="flex items-center gap-2 min-w-0">
+                    <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=120&q=80" class="w-10 h-10 rounded-lg object-cover border border-amber-500/30 shrink-0">
+                    <div class="min-w-0">
+                        <div class="text-[11px] font-bold text-white truncate leading-tight">Dirty Croissant</div>
+                        <div class="text-[9px] text-stone-400 leading-tight">Pastry Renyah Cokelat Lumer</div>
+                    </div>
+                </div>
+                <div class="text-right shrink-0">
+                    <div class="text-[9px] text-stone-400 line-through">Rp 22.000</div>
+                    <div class="text-xs font-black text-amber-400 leading-none">Rp 12.500</div>
+                </div>
+            </div>
+
+            <!-- 5. Matcha Latte -->
+            <div class="bg-white/[0.07] backdrop-blur-md rounded-xl p-1.5 border border-white/10 flex items-center justify-between gap-2 shadow-sm">
+                <div class="flex items-center gap-2 min-w-0">
+                    <img src="https://images.unsplash.com/photo-1536256263959-770b48d82b0a?w=120&q=80" class="w-10 h-10 rounded-lg object-cover border border-amber-500/30 shrink-0">
+                    <div class="min-w-0">
+                        <div class="text-[11px] font-bold text-white truncate leading-tight">Matcha Latte</div>
+                        <div class="text-[9px] text-stone-400 leading-tight">Authentic Green Tea Milk</div>
+                    </div>
+                </div>
+                <div class="text-right shrink-0">
+                    <div class="text-[9px] text-stone-400 line-through">Rp 24.000</div>
+                    <div class="text-xs font-black text-amber-400 leading-none">Rp 13.500</div>
+                </div>
+            </div>
+
+            <!-- 6. Americano Ice -->
+            <div class="bg-white/[0.07] backdrop-blur-md rounded-xl p-1.5 border border-white/10 flex items-center justify-between gap-2 shadow-sm">
+                <div class="flex items-center gap-2 min-w-0">
+                    <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=120&q=80" class="w-10 h-10 rounded-lg object-cover border border-amber-500/30 shrink-0">
+                    <div class="min-w-0">
+                        <div class="text-[11px] font-bold text-white truncate leading-tight">Americano Ice</div>
+                        <div class="text-[9px] text-stone-400 leading-tight">Double Espresso Segar</div>
+                    </div>
+                </div>
+                <div class="text-right shrink-0">
+                    <div class="text-[9px] text-stone-400 line-through">Rp 15.000</div>
+                    <div class="text-xs font-black text-amber-400 leading-none">Rp 9.000</div>
+                </div>
+            </div>
+
+            <!-- 7. Coffee Butter Bun -->
+            <div class="bg-white/[0.07] backdrop-blur-md rounded-xl p-1.5 border border-white/10 flex items-center justify-between gap-2 shadow-sm">
+                <div class="flex items-center gap-2 min-w-0">
+                    <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=120&q=80" class="w-10 h-10 rounded-lg object-cover border border-amber-500/30 shrink-0">
+                    <div class="min-w-0">
+                        <div class="text-[11px] font-bold text-white truncate leading-tight">Coffee Butter Bun</div>
+                        <div class="text-[9px] text-stone-400 leading-tight">Roti Butter Aroma Kopi</div>
+                    </div>
+                </div>
+                <div class="text-right shrink-0">
                     <div class="text-[9px] text-stone-400 line-through">Rp 16.000</div>
-                    <div class="text-xs font-black text-amber-400">Rp 9.500</div>
+                    <div class="text-xs font-black text-amber-400 leading-none">Rp 9.500</div>
                 </div>
             </div>
 
         </div>
 
-        <!-- FOOTER & CTA -->
+        <!-- FOOTER & CTA KE LINK WEB -->
         <div class="relative z-10 pt-1">
-            <div class="bg-gradient-to-r from-amber-400 to-amber-500 text-stone-950 font-black text-center py-2 rounded-xl shadow-lg text-xs tracking-wide flex items-center justify-center gap-2">
-                <span>ORDER SEKARANG VIA WEB / WA</span>
-                <i class="fas fa-arrow-right text-[10px]"></i>
-            </div>
-            
-            <div class="mt-2 flex items-center justify-between text-[9px] text-stone-400 px-1">
-                <span class="flex items-center gap-1 text-stone-300 font-medium">
-                    <i class="fab fa-whatsapp text-emerald-400"></i> Admin Fast Respon
+            <a href="index.html" class="block bg-gradient-to-r from-amber-400 via-amber-500 to-amber-400 text-stone-950 font-black text-center py-2.5 rounded-xl shadow-lg shadow-amber-500/20 text-xs tracking-wider border border-amber-300 flex items-center justify-center gap-2">
+                <span>KLIK LINK DI BIO / SWIPE UP UNTUK ORDER</span>
+                <i class="fas fa-chevron-right text-[10px]"></i>
+            </a>
+
+            <div class="mt-2 flex items-center justify-between text-[9px] text-stone-400 px-1 font-semibold">
+                <span class="flex items-center gap-1 text-emerald-400">
+                    <i class="fab fa-whatsapp"></i> Chat Admin Langsung Aktif
                 </span>
-                <span class="font-bold text-amber-300">bintangstore.web.id</span>
+                <span class="text-amber-300">Buka: index.html</span>
             </div>
         </div>
 
