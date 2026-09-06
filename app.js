@@ -727,6 +727,7 @@ function showNetflixClosedToast() {
 }
 
 async function loadDataFiles() {
+    // 1. Muat data outlet
     try {
         const outletRes = await fetch('./outlet.json');
         if (outletRes.ok) allOutlets = await outletRes.json();
@@ -744,165 +745,88 @@ async function loadDataFiles() {
     selectedOutlet = allOutlets[0];
     updateOutletUI();
 
-    const defaultBundlings = [
-        {
-            id: 'b_combo_single_toast',
-            cat: 'bundling',
-            name: 'Combo Single Ngopi & Toast',
-            singlePrice: 32000,
-            realPrice: 44000,
-            badge: '🍞 COMBO KENYANG',
-            type: 'bundling',
-            img: 'https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/sandwich-chicken-tartar-1784204052680.webp',
-            imgs: [
-                'https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/kopi-kenangan-mantan-1784203103920.webp',
-                'https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/sandwich-chicken-tartar-1784204052680.webp'
-            ],
-            opts: [
-                '1 Mantan Reguler (Ice) + 1 Toast Adam Ayam',
-                '1 Mantan Reguler (Ice) + 1 Toast Wahyu Sapi',
-                '1 Mantan Reguler (Ice) + 1 Toast Bambang Choco Cheese',
-                '1 Americano (Hot/Ice) + 1 Toast Adam Ayam'
-            ]
-        },
-        {
-            id: 'b_kencan_berdua',
-            cat: 'bundling',
-            name: 'Paket Kencan Berdua (2 Cup Large)',
-            singlePrice: 44000,
-            realPrice: 60000,
-            badge: '🔥 BEST 50K',
-            type: 'bundling',
-            img: 'https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/kopi-kenangan-mantan-1784203103920.webp',
-            imgs: [
-                'https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/kopi-kenangan-mantan-1784203103920.webp',
-                'https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/og-thai-tea-1784203762918.webp'
-            ],
-            opts: [
-                '2 Mantan Large (Ice)',
-                '1 Mantan Large + 1 Thai Tea Large (Ice)',
-                '1 Mantan Large + 1 Dutch Choco Large (Ice)',
-                '2 Thai Tea Large (Ice)'
-            ]
-        },
-        {
-            id: 'b_duo_mantan_toast',
-            cat: 'bundling',
-            name: 'Duo Mantan Reguler + Toast Kenyang',
-            singlePrice: 44000,
-            realPrice: 60000,
-            badge: '🥪 NGOPI + KENYANG',
-            type: 'bundling',
-            img: 'https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/sandwich-smoked-beef-cheese-1784204059423.webp',
-            imgs: [
-                'https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/kopi-kenangan-mantan-1784203103920.webp',
-                'https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/sandwich-smoked-beef-cheese-1784204059423.webp'
-            ],
-            opts: [
-                '2 Mantan Reguler (Ice) + 1 Toast Adam Ayam',
-                '2 Mantan Reguler (Ice) + 1 Toast Wahyu Sapi',
-                '2 Mantan Reguler (Ice) + 1 Toast Bambang Choco Cheese',
-                '2 Mantan Reguler (Ice) + 1 Toast Kopi Kenangan Mantan'
-            ]
-        },
-        {
-            id: 'b_nongkrong_bertiga',
-            cat: 'bundling',
-            name: 'Paket Nongkrong Bertiga (3 Cup Reguler)',
-            singlePrice: 42000,
-            realPrice: 57000,
-            badge: '⚡ HEMAT BERTIGA',
-            type: 'bundling',
-            img: 'https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/kopi-kenangan-mantan-1784203103920.webp',
-            imgs: [
-                'https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/kopi-kenangan-mantan-1784203103920.webp',
-                'https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/og-thai-tea-1784203762918.webp',
-                'https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/dutch-chocolate-1786006597203.webp'
-            ],
-            opts: [
-                '3 Mantan Reguler (Ice)',
-                '2 Mantan + 1 Thai Tea Reguler (Ice)',
-                '1 Mantan + 1 Spanish Latte + 1 Thai Tea (Ice)',
-                '1 Mantan + 1 Americano + 1 Dutch Choco (Ice)'
-            ]
-        },
-        {
-            id: 'b_mabar_sultan',
-            cat: 'bundling',
-            name: 'Paket Mabar Sultan (3 Cup + 1 Roti/Pastry)',
-            singlePrice: 55000,
-            realPrice: 70000,
-            badge: '👑 SUPER COMBO 70K',
-            type: 'bundling',
-            img: 'https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/roti-coklat-klasik-1784203834325.webp',
-            imgs: [
-                'https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/kopi-kenangan-mantan-1784203103920.webp',
-                'https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/og-thai-tea-1784203762918.webp',
-                'https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/dutch-chocolate-1786006597203.webp',
-                'https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/roti-coklat-klasik-1784203834325.webp'
-            ],
-            opts: [
-                '3 Mantan (Ice) + 1 Roti Coklat Klasik',
-                '2 Mantan + 1 Thai Tea (Ice) + 1 Roti Coklat Klasik',
-                '2 Mantan + 1 Thai Tea (Ice) + 1 Salt Bread Original',
-                '1 Mantan + 1 Thai Tea + 1 Dutch Choco (Ice) + 1 Toast Bambang'
-            ]
-        }
-    ];
-
+    // 2. Muat Menu Utama Langsung dari Supabase Database (Dinamis)
+    let parsedMenu = [];
     try {
-        const menuRes = await fetch('./menu.json');
-        if (menuRes.ok) {
-            const menuData = await menuRes.json();
-            const parsedMenu = [...defaultBundlings];
+        if (supabaseClient) {
+            const { data, error } = await supabaseClient
+                .from('menus')
+                .select('*')
+                .eq('is_active', true);
 
-            if (menuData && menuData["Kopi Kenangan"]) {
-                const kk = menuData["Kopi Kenangan"];
-                const catMap = { coffee: 'coffee', nonCoffee: 'noncoffee', oatside: 'frappe', frappe: 'frappe', food: 'bakery', baru: 'new' };
-                
-                if (kk.satuan) {
-                    for (const key in kk.satuan) {
-                        if (Array.isArray(kk.satuan[key])) {
-                            kk.satuan[key].forEach(item => {
-                                parsedMenu.push({
-                                    id: item.id || `kk_${Math.random()}`,
-                                    name: item.name || item.nama,
-                                    singlePrice: parseFloat(item.price) || 15000,
-                                    realPrice: parseFloat(item.real_price) || 0,
-                                    cat: catMap[key] || 'coffee',
-                                    badge: item.badge || (item.isNew ? 'NEW' : ''),
-                                    img: item.img || item.image || 'https://placehold.co/400x400/9C532B/FBF5EE?text=Kopi+Kenangan',
-                                    type: (key === 'food' || item.isFood) ? 'food' : 'drink'
-                                });
-                            });
-                        }
-                    }
-                }
-
-                if (kk.bundling && Array.isArray(kk.bundling)) {
-                    kk.bundling.forEach(b => {
-                        parsedMenu.unshift({
-                            id: b.id || `bundle_${Math.random()}`,
-                            cat: 'bundling',
-                            name: b.name || b.nama,
-                            singlePrice: parseFloat(b.price) || 35000,
-                            realPrice: parseFloat(b.real_price) || 0,
-                            type: 'bundling',
-                            badge: b.badge || '🎁 BUNDLE',
-                            img: b.img || b.image,
-                            imgs: b.imgs || (b.img ? [b.img] : null),
-                            opts: b.options || b.opts || ['Varian Default Paket']
-                        });
+            if (!error && data && data.length > 0) {
+                data.forEach(item => {
+                    parsedMenu.push({
+                        id: item.id,
+                        name: item.name,
+                        cat: item.category,
+                        type: item.type,
+                        singlePrice: parseFloat(item.single_price) || 15000,
+                        realPrice: parseFloat(item.real_price) || 0,
+                        badge: item.badge || '',
+                        img: item.img || '',
+                        imgs: (item.imgs && Array.isArray(item.imgs) && item.imgs.length > 0) ? item.imgs : null,
+                        opts: (item.options && Array.isArray(item.options) && item.options.length > 0) ? item.options : ['Varian Default Paket']
                     });
-                }
-            } else if (Array.isArray(menuData)) {
-                menuData.forEach(item => parsedMenu.push(item));
+                });
             }
-
-            if (parsedMenu.length > 0) allMenu = parsedMenu;
         }
     } catch (e) {
-        allMenu = defaultBundlings;
+        console.warn("Gagal mengambil menu dari Supabase, mencoba muat dari menu.json...", e);
+    }
+
+    // 3. Cadangan (Fallback): Jika Supabase kosong/offline, baca dari menu.json lokal
+    if (parsedMenu.length === 0) {
+        try {
+            const menuRes = await fetch('./menu.json');
+            if (menuRes.ok) {
+                const menuData = await menuRes.json();
+                if (menuData && menuData["Kopi Kenangan"]) {
+                    const kk = menuData["Kopi Kenangan"];
+                    const catMap = { coffee: 'coffee', nonCoffee: 'noncoffee', oatside: 'frappe', frappe: 'frappe', food: 'bakery', baru: 'new' };
+
+                    if (kk.satuan) {
+                        for (const key in kk.satuan) {
+                            if (Array.isArray(kk.satuan[key])) {
+                                kk.satuan[key].forEach(item => {
+                                    parsedMenu.push({
+                                        id: item.id || `kk_${Math.random()}`,
+                                        name: item.name || item.nama,
+                                        singlePrice: parseFloat(item.price) || 15000,
+                                        realPrice: parseFloat(item.real_price) || 0,
+                                        cat: catMap[key] || 'coffee',
+                                        badge: item.badge || (item.isNew ? 'NEW' : ''),
+                                        img: item.img || item.image || 'https://placehold.co/400x400/9C532B/FBF5EE?text=Kopi+Kenangan',
+                                        type: (key === 'food' || item.isFood) ? 'food' : 'drink'
+                                    });
+                                });
+                            }
+                        }
+                    }
+
+                    if (kk.bundling && Array.isArray(kk.bundling)) {
+                        kk.bundling.forEach(b => {
+                            parsedMenu.unshift({
+                                id: b.id || `bundle_${Math.random()}`,
+                                cat: 'bundling',
+                                name: b.name || b.nama,
+                                singlePrice: parseFloat(b.price) || 35000,
+                                realPrice: parseFloat(b.real_price) || 0,
+                                type: 'bundling',
+                                badge: b.badge || '🎁 BUNDLE',
+                                img: b.img || b.image,
+                                imgs: b.imgs || (b.img ? [b.img] : null),
+                                opts: b.options || b.opts || ['Varian Default Paket']
+                            });
+                        });
+                    }
+                }
+            }
+        } catch (e) {}
+    }
+
+    if (parsedMenu.length > 0) {
+        allMenu = parsedMenu;
     }
 }
 
