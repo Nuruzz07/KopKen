@@ -591,6 +591,21 @@
 
             <!-- Form Data Pemesan -->
             <div class="space-y-3.5">
+                <!-- Input Pencarian Member Quick-Fill -->
+                    <div class="relative">
+                        <label class="block text-xs font-bold text-kenangan-dark mb-1">
+                            ⚡ Punya Kode Member Bintang Store? <span class="text-[10px] text-gray-400 font-normal">(Opsional)</span>
+                        </label>
+                        <div class="relative">
+                            <input type="text" id="memberCodeInput" placeholder="Ketik kodemu (misal: alfi)..." 
+                                   oninput="onInputMemberCode(this.value)" autocomplete="off"
+                                   class="w-full p-2.5 pl-8 rounded-xl border border-amber-300 bg-amber-50/50 text-xs outline-none focus:ring-2 focus:ring-kenangan-primary text-kenangan-dark font-medium transition">
+                            <i class="fas fa-id-card absolute left-2.5 top-3 text-amber-600/70 text-xs"></i>
+                        </div>
+                        <div id="memberSuggestBox" 
+                             class="hidden absolute left-0 right-0 top-full mt-1 bg-white border border-stone-200 rounded-xl shadow-xl z-50 max-h-48 overflow-y-auto divide-y divide-stone-100">
+                        </div>
+                    </div>
                 <div>
                     <label class="block text-xs font-bold text-kenangan-dark mb-1">Nama Pemesan <span class="text-red-500">*</span></label>
                     <input type="text" id="cust-name" placeholder="Nama untuk dipanggil barista saat ambil pesanan" oninput="validateKopkenForm()" class="w-full px-3.5 py-2.5 rounded-xl bg-white border border-gray-200 text-xs font-semibold text-kenangan-dark focus:outline-none focus:ring-2 focus:ring-kenangan-primary shadow-inner">
@@ -703,6 +718,23 @@
 
             <!-- Tombol Pesan (Telegram & WhatsApp) -->
             <div class="mt-4 space-y-2.5">
+                <!-- Box Daftar Member Baru -->
+                    <div class="p-3 rounded-xl bg-amber-50/70 border border-amber-200/80">
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" id="registerMemberChk" class="accent-kenangan-primary w-4 h-4 rounded"
+                                   onchange="document.getElementById('memberCodeCreateWrap').classList.toggle('hidden', !this.checked)">
+                            <span class="text-xs font-bold text-amber-950">Daftar Member & Simpan Data Pemesan ✨</span>
+                        </label>
+                        
+                        <div id="memberCodeCreateWrap" class="hidden mt-2.5 pt-2 border-t border-amber-200/60">
+                            <label class="block text-[11px] font-semibold text-amber-900 mb-1">Buat Username / Kode Unik Kamu:</label>
+                            <input type="text" id="newMemberCodeInput" placeholder="Contoh: alfi_bdg atau 081234..." 
+                                   class="w-full p-2 rounded-lg border border-amber-300 bg-white text-xs outline-none focus:ring-1 focus:ring-kenangan-primary">
+                            <p class="text-[10px] text-amber-700/80 mt-1">
+                                💡 Orderan berikutnya cukup ketik username ini, data langsung terisi otomatis!
+                            </p>
+                        </div>
+                    </div>
                 <button id="btn-submit-tele-kopken" disabled onclick="handleKopkenCheckoutInitiation('telegram')" class="w-full bg-gray-400 text-white font-extrabold py-3.5 rounded-2xl transition duration-200 flex justify-center items-center gap-2 cursor-not-allowed text-xs active:scale-98">
                     <i class="fas fa-bolt text-sm"></i>
                     <span>Pesan Otomatis (Proses Cepat via Bot)</span>
