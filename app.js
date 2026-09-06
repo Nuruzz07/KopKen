@@ -2691,3 +2691,102 @@ async function checkAndRegisterMember(orderName, orderPhone, outletName) {
         }
     }
 }
+// ========================================================
+// LEADERBOARD SULTAN (REALTIME DARI SUPABASE)
+// ========================================================
+
+function toggleLeaderboardModal(show) {
+    const modal = document.getElementById('modal-leaderboard');
+    if (!modal) return;
+
+    if (show) {
+        renderLeaderboard();
+        modal.classList.remove('hidden');
+        setTimeout(() => modal.classList.remove('opacity-0'), 10);
+    } else {
+        modal.classList.add('opacity-0');
+        setTimeout(() => modal.classList.add('hidden'), 200);
+    }
+}
+
+async function renderLeaderboard() {
+    const container = document.getElementById('leaderboard-list');
+    if (!container) return;
+
+    container.innerHTML = `
+        <div class="text-center py-6 text-gray-400 text-xs">
+            <i class="fas fa-spinner fa-spin text-amber-600 text-sm mb-1.5 block"></i>
+            Memuat klasemen sultan...
+        </div>
+    `;
+
+    try {
+        if (typeof supabaseClient === 'undefined' || !supabaseClient) {
+            throw new Error("Supabase client belum siap");
+        }
+
+        // Ambil Top 10 Member teratas berdasarkan total cups
+        const { data, error } = await supabaseClient
+            .from('members')
+            .select('*')
+            .order('total_cups', { ascending: false })
+            .limit(10);
+
+        if (error || !data || data.length === 0) {
+            container.innerHTML = '<p class="text-xs text-gray-500 italic text-center py-4">Belum ada data peringkat.</p>';
+            return;
+        }
+
+        container.innerHTML = data.map((item, idx) => {
+            const rank = idx + 1;
+            let badgeColor = "bg-stone-50 text-stone-700 border-stone-200";
+            let rankIcon = `<span class="font-extrabold text-stone-400 text-xs">#${rank}</span>`;
+            let tagTitle = "☕ Teman Kenangan";
+
+            if (rank === 1) {
+                badgeColor = "bg-amber-100/70 text-amber-950 border-amber-300";
+                rankIcon = "🥇";
+                tagTitle = "👑 Sultan Kantor";
+            } else if (rank === 2) {
+                badgeColor = "bg-slate-100 text-slate-900 border-slate-300";
+                rankIcon = "🥈";
+                tagTitle = "🏆 Coffee Addict";
+            } else if (rank === 3) {
+                badgeColor = "bg-orange-50 text-orange-950 border-orange-300";
+                rankIcon = "🥉";
+                tagTitle = "🥈 Elite Spender";
+            } else if (item.total_cups >= 10) {
+                tagTitle = "🥉 Borong Rame-Rame";
+            } else if (item.total_cups >= 5) {
+                tagTitle = "⭐ Setia Ngopi";
+            }
+
+            const formattedTotal = typeof formatRp === 'function' 
+                ? formatRp(item.total_spent || 0) 
+                : `Rp ${(item.total_spent || 0).toLocaleString('id-ID')}`;
+
+            return `
+                <div class="flex items-center justify-between p-2.5 rounded-2xl border ${badgeColor} transition">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-6 text-center text-sm">${rankIcon}</div>
+                        <div>
+                            <div class="flex items-center gap-1.5">
+                                <span class="font-bold text-xs text-kenangan-dark">${item.customer_name}</span>
+                                <span class="text-[10px] text-amber-700 font-semibold">@${item.member_code}</span>
+                            </div>
+                            <span class="text-[9px] font-semibold text-kenangan-primary">${tagTitle}</span>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-xs font-black text-kenangan-dark">${item.total_cups || 0} Cup</div>
+                        <div class="text-[9px] text-gray-500 font-medium">${formattedTotal}</div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+
+    } catch (err) {
+        console.error("Gagal load leaderboard:", err);
+        container.innerHTML = '<p class="text-xs text-rose-500 text-center py-4">Gagal memuat peringkat. Silakan coba lagi.</p>';
+    }
+}
