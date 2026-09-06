@@ -373,17 +373,22 @@
                 </div>
             </div>
 
-            <!-- Header Quick Actions (WiFi, Riwayat, Cart) -->
-            <div class="flex items-center gap-2">
-                <button onclick="toggleWifiModal(true)" class="px-2.5 py-1.5 rounded-full bg-white/80 hover:bg-white text-kenangan-primary text-xs font-bold transition border border-white flex items-center gap-1 shadow-sm cursor-pointer" title="Info WiFi Outlet">
+            <!-- Header Quick Actions (Top Sultan, WiFi, Riwayat, Cart) -->
+            <div class="flex items-center gap-1.5 sm:gap-2">
+                <!-- Tombol Mini Top Sultan -->
+                <button onclick="toggleLeaderboardModal(true)" class="px-2 sm:px-2.5 py-1.5 rounded-full bg-amber-100/90 hover:bg-amber-200 text-amber-950 text-xs font-extrabold transition border border-amber-300/80 flex items-center gap-1 shadow-xs active:scale-95 cursor-pointer" title="Leaderboard Top Sultan">
+                    <i class="fas fa-trophy text-[11px] text-amber-600"></i>
+                    <span class="text-[10px] sm:text-[11px]">Top</span>
+                </button>
+                <button onclick="toggleWifiModal(true)" class="px-2 sm:px-2.5 py-1.5 rounded-full bg-white/80 hover:bg-white text-kenangan-primary text-xs font-bold transition border border-white flex items-center gap-1 shadow-sm cursor-pointer" title="Info WiFi Outlet">
                     <i class="fas fa-wifi text-[11px]"></i>
                     <span class="hidden sm:inline text-[11px]">WiFi</span>
                 </button>
-                <button onclick="openHistoryModal()" class="px-2.5 py-1.5 rounded-full bg-white/80 hover:bg-white text-kenangan-dark text-xs font-bold transition border border-white flex items-center gap-1 shadow-sm cursor-pointer" title="Riwayat Pesanan">
+                <button onclick="openHistoryModal()" class="px-2 sm:px-2.5 py-1.5 rounded-full bg-white/80 hover:bg-white text-kenangan-dark text-xs font-bold transition border border-white flex items-center gap-1 shadow-sm cursor-pointer" title="Riwayat Pesanan">
                     <i class="fas fa-clock-rotate-left text-[11px] text-amber-700"></i>
                     <span class="hidden sm:inline text-[11px]">Riwayat</span>
                 </button>
-                <button id="cart-icon-btn" onclick="scrollToCart()" class="relative p-2 text-kenangan-dark transition cursor-pointer">
+                <button id="cart-icon-btn" onclick="scrollToCart()" class="relative p-1.5 sm:p-2 text-kenangan-dark transition cursor-pointer">
                     <i class="fas fa-shopping-bag text-lg" id="cart-icon"></i>
                     <span id="cart-badge" class="absolute top-0 right-0 bg-red-600 text-white text-[10px] font-black h-4 w-4 rounded-full flex items-center justify-center hidden">0</span>
                 </button>
@@ -592,20 +597,21 @@
             <!-- Form Data Pemesan -->
             <div class="space-y-3.5">
                 <!-- Input Pencarian Member Quick-Fill -->
+                <div class="relative">
+                    <label class="block text-xs font-bold text-kenangan-dark mb-1">
+                        ⚡ Punya Kode Member Bintang Store? <span class="text-[10px] text-gray-400 font-normal">(Opsional)</span>
+                    </label>
                     <div class="relative">
-                        <label class="block text-xs font-bold text-kenangan-dark mb-1">
-                            ⚡ Punya Kode Member Bintang Store? <span class="text-[10px] text-gray-400 font-normal">(Opsional)</span>
-                        </label>
-                        <div class="relative">
-                            <input type="text" id="memberCodeInput" placeholder="Ketik kodemu (misal: barr)..." 
-                                   oninput="onInputMemberCode(this.value)" autocomplete="off"
-                                   class="w-full p-2.5 pl-8 rounded-xl border border-amber-300 bg-amber-50/50 text-xs outline-none focus:ring-2 focus:ring-kenangan-primary text-kenangan-dark font-medium transition">
-                            <i class="fas fa-id-card absolute left-2.5 top-3 text-amber-600/70 text-xs"></i>
-                        </div>
-                        <div id="memberSuggestBox" 
-                             class="hidden absolute left-0 right-0 top-full mt-1 bg-white border border-stone-200 rounded-xl shadow-xl z-50 max-h-48 overflow-y-auto divide-y divide-stone-100">
-                        </div>
+                        <input type="text" id="memberCodeInput" placeholder="Ketik kodemu (misal: barr)..." 
+                               oninput="onInputMemberCode(this.value)" autocomplete="off"
+                               class="w-full p-2.5 pl-8 rounded-xl border border-amber-300 bg-amber-50/50 text-xs outline-none focus:ring-2 focus:ring-kenangan-primary text-kenangan-dark font-medium transition">
+                        <i class="fas fa-id-card absolute left-2.5 top-3 text-amber-600/70 text-xs"></i>
                     </div>
+                    <div id="memberSuggestBox" 
+                         class="hidden absolute left-0 right-0 top-full mt-1 bg-white border border-stone-200 rounded-xl shadow-xl z-50 max-h-48 overflow-y-auto divide-y divide-stone-100">
+                    </div>
+                </div>
+
                 <div>
                     <label class="block text-xs font-bold text-kenangan-dark mb-1">Nama Pemesan <span class="text-red-500">*</span></label>
                     <input type="text" id="cust-name" placeholder="Nama untuk dipanggil barista saat ambil pesanan" oninput="validateKopkenForm()" class="w-full px-3.5 py-2.5 rounded-xl bg-white border border-gray-200 text-xs font-semibold text-kenangan-dark focus:outline-none focus:ring-2 focus:ring-kenangan-primary shadow-inner">
@@ -719,22 +725,23 @@
             <!-- Tombol Pesan (Telegram & WhatsApp) -->
             <div class="mt-4 space-y-2.5">
                 <!-- Box Daftar Member Baru -->
-                    <div class="p-3 rounded-xl bg-amber-50/70 border border-amber-200/80">
-                        <label class="flex items-center gap-2 cursor-pointer">
-                            <input type="checkbox" id="registerMemberChk" class="accent-kenangan-primary w-4 h-4 rounded"
-                                   onchange="document.getElementById('memberCodeCreateWrap').classList.toggle('hidden', !this.checked)">
-                            <span class="text-xs font-bold text-amber-950">Daftar Member & Simpan Data Pemesan ✨</span>
-                        </label>
-                        
-                        <div id="memberCodeCreateWrap" class="hidden mt-2.5 pt-2 border-t border-amber-200/60">
-                            <label class="block text-[11px] font-semibold text-amber-900 mb-1">Buat Username / Kode Unik Kamu:</label>
-                            <input type="text" id="newMemberCodeInput" placeholder="Contoh: barr atau 081234..." 
-                                   class="w-full p-2 rounded-lg border border-amber-300 bg-white text-xs outline-none focus:ring-1 focus:ring-kenangan-primary">
-                            <p class="text-[10px] text-amber-700/80 mt-1">
-                                💡 Orderan berikutnya cukup ketik username ini, data langsung terisi otomatis!
-                            </p>
-                        </div>
+                <div class="p-3 rounded-xl bg-amber-50/70 border border-amber-200/80">
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="checkbox" id="registerMemberChk" class="accent-kenangan-primary w-4 h-4 rounded"
+                               onchange="document.getElementById('memberCodeCreateWrap').classList.toggle('hidden', !this.checked)">
+                        <span class="text-xs font-bold text-amber-950">Daftar Member & Simpan Data Pemesan ✨</span>
+                    </label>
+                    
+                    <div id="memberCodeCreateWrap" class="hidden mt-2.5 pt-2 border-t border-amber-200/60">
+                        <label class="block text-[11px] font-semibold text-amber-900 mb-1">Buat Username / Kode Unik Kamu:</label>
+                        <input type="text" id="newMemberCodeInput" placeholder="Contoh: barr atau 081234..." 
+                               class="w-full p-2 rounded-lg border border-amber-300 bg-white text-xs outline-none focus:ring-1 focus:ring-kenangan-primary">
+                        <p class="text-[10px] text-amber-700/80 mt-1">
+                            💡 Orderan berikutnya cukup ketik username ini, data langsung terisi otomatis!
+                        </p>
                     </div>
+                </div>
+
                 <button id="btn-submit-tele-kopken" disabled onclick="handleKopkenCheckoutInitiation('telegram')" class="w-full bg-gray-400 text-white font-extrabold py-3.5 rounded-2xl transition duration-200 flex justify-center items-center gap-2 cursor-not-allowed text-xs active:scale-98">
                     <i class="fas fa-bolt text-sm"></i>
                     <span>Pesan Otomatis (Proses Cepat via Bot)</span>
@@ -951,6 +958,33 @@
         </div>
     </div>
 
+    <!-- MODAL LEADERBOARD SULTAN (TOP SPENDER) -->
+    <div id="modal-leaderboard" class="hidden fixed inset-0 z-[250] flex items-end sm:items-center justify-center bg-black/60 backdrop-blur-xs p-0 sm:p-4 transition-opacity duration-200 opacity-0">
+        <div class="bg-white w-full max-w-sm rounded-t-3xl sm:rounded-3xl p-4 shadow-2xl border border-amber-100 flex flex-col gap-3 max-h-[85vh]">
+            <div class="flex items-center justify-between border-b border-gray-100 pb-2.5">
+                <div class="flex items-center gap-2">
+                    <span class="text-lg">🏆</span>
+                    <div>
+                        <h3 class="font-black text-xs text-kenangan-dark">Leaderboard Sultan</h3>
+                        <p class="text-[10px] text-gray-500">Paling Rajin Ngopi Bulan Ini</p>
+                    </div>
+                </div>
+                <button onclick="toggleLeaderboardModal(false)" class="w-6 h-6 rounded-full bg-gray-100 text-gray-500 flex items-center justify-center text-xs hover:bg-gray-200 cursor-pointer">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div id="leaderboard-list" class="space-y-1.5 overflow-y-auto pr-0.5 max-h-60">
+                <!-- Diisi otomatis oleh JavaScript renderLeaderboard() -->
+            </div>
+
+            <div class="p-2 rounded-xl bg-amber-50 border border-amber-200 text-center">
+                <p class="text-[10px] font-bold text-amber-950">Mau namamu masuk daftar sultan? ✨</p>
+                <p class="text-[9px] text-amber-800">Pakai username member tiap checkout biar cup-mu terhitung!</p>
+            </div>
+        </div>
+    </div>
+
     <!-- MODAL RIWAYAT PESANAN (HISTORY & CEK FREKUENSI PELANGGAN) -->
     <div id="modal-history" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[170] hidden opacity-0 transition-opacity duration-300 flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl p-5 max-w-md w-full text-kenangan-dark shadow-2xl border border-gray-200 flex flex-col max-h-[85vh]">
@@ -1135,7 +1169,6 @@
     <!-- MODAL PANEL RAHASIA ADMIN (PIN: 310107) -->
     <div id="modal-admin-panel" class="fixed inset-0 bg-black/80 backdrop-blur-md z-[350] hidden opacity-0 transition-opacity duration-300 flex items-center justify-center p-4">
         <div id="modal-admin-card" class="bg-slate-900 border border-white/20 rounded-3xl p-6 max-w-sm w-full text-white shadow-2xl transform scale-95 transition-transform duration-300">
-            <!-- Header Modal Admin -->
             <div class="flex items-center justify-between pb-3 border-b border-white/10 mb-4">
                 <div class="flex items-center gap-2">
                     <div class="w-7 h-7 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center text-xs">
@@ -1148,7 +1181,6 @@
                 </button>
             </div>
 
-            <!-- STEP 1: Input PIN Rahasia -->
             <div id="admin-step-pin" class="space-y-3.5">
                 <p class="text-xs text-gray-300 leading-relaxed">
                     Masukkan PIN Admin 6-digit untuk mengubah status respon toko secara langsung ke database cloud:
@@ -1162,7 +1194,6 @@
                 </button>
             </div>
 
-            <!-- STEP 2: Kontrol Switch Status Admin -->
             <div id="admin-step-controls" class="hidden space-y-4">
                 <div class="p-3 rounded-2xl bg-white/5 border border-white/10 text-center">
                     <span class="text-[10px] uppercase font-bold text-gray-400 tracking-wider">Status Aktif Saat Ini:</span>
