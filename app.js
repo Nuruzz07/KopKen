@@ -362,6 +362,41 @@ let pendingCheckoutMethod = null;
 let isMidnightForced = false;
 let tomoroDebounceTimer = null;
 let selectedOrderType = 'now';
+let activeVoucherDiscount = 0;
+let appliedVoucherId = null;
+
+// Cek otomatis voucher hak member di Supabase
+async function checkMemberEligibleVoucher(phone) {
+    activeVoucherDiscount = 0;
+    appliedVoucherId = null;
+    if (!supabaseClient || !phone || phone.length < 9) {
+        validateKopkenForm();
+        return;
+    }
+
+    let cleanWa = phone.replace(/[^0-9]/g, '');
+    if (cleanWa.startsWith('0')) cleanWa = '62' + cleanWa.slice(1);
+    else if (!cleanWa.startsWith('62')) cleanWa = '62' + cleanWa;
+
+    try {
+        const { data: vouchers } = await supabaseClient
+            .from('member_vouchers')
+            .select('*')
+            .eq('customer_wa', cleanWa)
+            .eq('is_used', false)
+            .limit(1);
+
+        if (vouchers && vouchers.length > 0) {
+            appliedVoucherId = vouchers[0].id;
+            const totalCup = cart.reduce((sum, c) => sum + (c.qty || 1), 0);
+            if (totalCup >= 2) {
+                activeVoucherDiscount = 1000;
+                showToast("✨ <b>Voucher Rp1.000 Aktif!</b><br>Potongan reward belanja 50k kamu berhasil dipasang.");
+            }
+        }
+    } catch(e) {}
+    validateKopkenForm();
+}
 
 function setOrderTimeType(type) {
   selectedOrderType = type;
@@ -1664,7 +1699,15 @@ function validateKopkenForm() {
     if (bagFee > 0) bagRow.classList.remove('hidden');
     else bagRow.classList.add('hidden');
 
-    const total = subtotal + surcharge + bagFee;
+    // Hitung apakah syarat minimal 2 cup terpenuhi jika punya voucher
+    const totalCup = cart.reduce((sum, c) => sum + (c.qty || 1), 0);
+    if (appliedVoucherId && totalCup >= 2) {
+        activeVoucherDiscount = 1000;
+    } else {
+        activeVoucherDiscount = 0;
+    }
+
+    const total = Math.max(0, subtotal + surcharge + bagFee - activeVoucherDiscount);
     document.getElementById('summary-total').textContent = formatRp(total);
 
     const isOpenNow = isOutletOpenNow(selectedOutlet);
@@ -2039,6 +2082,28 @@ async function submitOrderKopken(method) {
     if (newCreatedOrderId) {
         initRealtimeOrderTracker(newCreatedOrderId);
     }
+    // 1. Jika belanja saat ini >= 50.000, berikan 1 tiket voucher untuk pesanan berikutnya
+ if (grandTotal >= 50000 && cleanWaNumber) {
+     try {
+         await supabaseClient.from('member_vouchers').insert([{
+             customer_name: name,
+             customer_wa: cleanWaNumber,
+             nominal: 1000,
+             min_items: 2,
+             is_used: false
+         }]);
+     } catch(err) {}
+ }
+
+ // 2. Jika transaksi saat ini memakai voucher, tandai sudah terpakai
+ if (appliedVoucherId && activeVoucherDiscount > 0) {
+     try {
+         await supabaseClient
+             .from('member_vouchers')
+             .update({ is_used: true, used_at: new Date() })
+             .eq('id', appliedVoucherId);
+     } catch(err) {}
+ }
 
     // Otomatis daftar member jika checkbox dicentang
     checkAndRegisterMember(name, cleanWaNumber || custWaInput, selectedOutlet.name);
@@ -2743,6 +2808,7 @@ function applyMemberProfile(code, encodedName, phone, outletName) {
     if (typeof validateKopkenForm === 'function') validateKopkenForm();
 
     showToast(`✨ Profil <b>@${code}</b> terpasang!<br>Data & outlet langganan Kak ${name} berhasil dimuat.`);
+    checkMemberEligibleVoucher(phone);
 }
 
 // Simpan Member Baru saat checkout
