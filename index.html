@@ -395,6 +395,26 @@
             </div>
         </header>
 
+        <!-- Realtime Live Order Tracker Bar -->
+        <div id="order-tracker-banner" class="mx-4 mt-3 p-3.5 bg-white/90 backdrop-blur-md rounded-2xl border border-amber-200/80 shadow-sm flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3 min-w-0">
+                <div class="w-10 h-10 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-700 flex-shrink-0">
+                    <i class="fas fa-satellite-dish text-sm animate-pulse"></i>
+                </div>
+                <div class="min-w-0">
+                    <div class="flex items-center gap-1.5 flex-wrap mb-0.5">
+                        <span class="text-[10px] font-black text-gray-400 uppercase tracking-wider">Status Pesanan:</span>
+                        <span id="tracking-status-badge" class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 uppercase">
+                            Belum Ada Pesanan Aktif
+                        </span>
+                    </div>
+                    <p id="tracking-status-desc" class="text-[11px] text-gray-600 font-medium truncate">
+                        Selesaikan pesanan untuk memantau status secara live.
+                    </p>
+                </div>
+            </div>
+        </div>
+
         <!-- Banner Info Jam Malam (Otomatis Muncul 00:00 - 06:00 WIB) -->
         <div id="night-hours-banner" class="hidden mx-4 mt-3 p-3.5 bg-indigo-950/80 border border-indigo-500/40 rounded-2xl text-white shadow-sm flex items-center gap-3">
             <div class="w-9 h-9 rounded-xl bg-indigo-800/60 flex items-center justify-center text-indigo-300 flex-shrink-0">
@@ -974,9 +994,7 @@
                 </button>
             </div>
 
-            <div id="leaderboard-list" class="space-y-1.5 overflow-y-auto pr-0.5 max-h-60">
-                <!-- Diisi otomatis oleh JavaScript renderLeaderboard() -->
-            </div>
+            <div id="leaderboard-list" class="space-y-1.5 overflow-y-auto pr-0.5 max-h-60"></div>
 
             <div class="p-2 rounded-xl bg-amber-50 border border-amber-200 text-center">
                 <p class="text-[10px] font-bold text-amber-950">Mau namamu masuk daftar sultan? ✨</p>
@@ -1311,6 +1329,43 @@
         </div>
     </div>
 
-  <script src="app.js"></script>
+    <!-- MODAL REVIEW & KLAIM VOUCHER DISKON RP 1.000 -->
+    <div id="modal-review-prompt" class="fixed inset-0 bg-black/75 backdrop-blur-sm z-[280] hidden opacity-0 transition-opacity duration-300 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-5 max-w-sm w-full text-center shadow-2xl border border-amber-200 text-kenangan-dark">
+            <div class="w-14 h-14 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center mx-auto mb-3 text-2xl shadow-inner">
+                🎁
+            </div>
+            
+            <h3 class="font-extrabold text-base mb-1">Pesanan Selesai! 🎉</h3>
+            <p class="text-xs text-gray-500 mb-4 leading-relaxed">
+                Kopinya sudah siap dinikmati! Mau voucher <b>potongan Rp1.000</b> untuk orderan berikutnya (min. beli 2 cup)?
+            </p>
+
+            <div class="bg-amber-50/80 p-3 rounded-2xl border border-amber-200/80 mb-4 text-left text-xs space-y-1">
+                <span class="font-bold text-amber-950 block mb-0.5">Cara Klaim Mudah:</span>
+                <p class="text-gray-600 text-[11px]">1. Foto cup kopi pesananmu.</p>
+                <p class="text-gray-600 text-[11px]">2. Kirim fotonya langsung ke WhatsApp Admin.</p>
+                <p class="text-gray-600 text-[11px]">3. Voucher Rp1.000 otomatis aktif di nomor WA kamu!</p>
+            </div>
+
+            <div class="space-y-2">
+                <a href="https://wa.me/6285959633342?text=Halo%20Admin%20Bintang%20Store%2C%20ini%20foto%20ulasan%20kopi%20pesanan%20saya%20ya!%20Mau%20klaim%20voucher%20potongan%20Rp1.000%20buat%20next%20order%20%E2%98%95%E2%9C%A8" 
+                   target="_blank" 
+                   onclick="document.getElementById('modal-review-prompt').classList.add('hidden')"
+                   class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold py-3 rounded-2xl text-xs transition flex justify-center items-center gap-2 shadow-md active:scale-95 cursor-pointer">
+                    <i class="fab fa-whatsapp text-sm"></i>
+                    <span>Kirim Foto & Klaim Voucher</span>
+                </a>
+
+                <button type="button" 
+                        onclick="document.getElementById('modal-review-prompt').classList.add('hidden')"
+                        class="w-full py-2 text-xs font-bold text-gray-400 hover:text-gray-600 transition cursor-pointer">
+                    Nanti Saja
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
 </body>
 </html>
