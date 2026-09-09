@@ -2069,43 +2069,52 @@ async function submitOrderKopken(method) {
     if (cleanWaNumber.startsWith('0')) cleanWaNumber = '62' + cleanWaNumber.slice(1);
     else if (!cleanWaNumber.startsWith('62') && cleanWaNumber.length > 0) cleanWaNumber = '62' + cleanWaNumber;
 
-    // Simpan data order ke Supabase dan ambil ID pesanannya
-    const newCreatedOrderId = await recordOrderToSupabase({
-        customerName: name,
-        customerWa: cleanWaNumber || custWaInput,
-        outletName: selectedOutlet.name,
-        items: cart,
-        totalPrice: grandTotal
-    });
+    // SATU ID TUNGGAL UNTUK DATABASE, TELEGRAM, DAN TRACKING WEB
+    const rawClean = (name || 'pelanggan').trim().replace(/[^a-zA-Z0-9]/g, '').toLowerCase() || 'order';
+    const singleOrderId = `${rawClean}-${Date.now().toString().slice(-4)}`;
 
-    // Nyalakan tracker realtime di browser pembeli
-    if (newCreatedOrderId) {
-        initRealtimeOrderTracker(newCreatedOrderId);
+    localStorage.setItem('active_tracking_order_id', singleOrderId);
+    localStorage.setItem('last_order_id', singleOrderId);
+
+    try {
+        if (supabaseClient) {
+            await supabaseClient.from('orders').upsert([{
+                id: singleOrderId,
+                customer_name: name,
+                customer_wa: cleanWaNumber || custWaInput,
+                outlet_name: selectedOutlet.name,
+                order_items: cart,
+                total_price: grandTotal,
+                estimated_profit: Math.round(grandTotal * 0.35),
+                status: 'menunggu_konfirmasi'
+            }], { onConflict: 'id' });
+        }
+    } catch(err) {
+        console.warn("Gagal catat order:", err);
     }
-    // 1. Jika belanja saat ini >= 50.000, berikan 1 tiket voucher untuk pesanan berikutnya
- if (grandTotal >= 50000 && cleanWaNumber) {
-     try {
-         await supabaseClient.from('member_vouchers').insert([{
-             customer_name: name,
-             customer_wa: cleanWaNumber,
-             nominal: 1000,
-             min_items: 2,
-             is_used: false
-         }]);
-     } catch(err) {}
- }
 
- // 2. Jika transaksi saat ini memakai voucher, tandai sudah terpakai
- if (appliedVoucherId && activeVoucherDiscount > 0) {
-     try {
-         await supabaseClient
-             .from('member_vouchers')
-             .update({ is_used: true, used_at: new Date() })
-             .eq('id', appliedVoucherId);
-     } catch(err) {}
- }
+    // Aktifkan realtime tracker di bar atas
+    initRealtimeOrderTracker(singleOrderId);
 
-    // Otomatis daftar member jika checkbox dicentang
+    // Voucher reward belanja
+    if (grandTotal >= 50000 && cleanWaNumber && supabaseClient) {
+        try {
+            await supabaseClient.from('member_vouchers').insert([{
+                customer_name: name,
+                customer_wa: cleanWaNumber,
+                nominal: 1000,
+                min_items: 2,
+                is_used: false
+            }]);
+        } catch(err) {}
+    }
+
+    if (appliedVoucherId && activeVoucherDiscount > 0 && supabaseClient) {
+        try {
+            await supabaseClient.from('member_vouchers').update({ is_used: true, used_at: new Date() }).eq('id', appliedVoucherId);
+        } catch(err) {}
+    }
+
     checkAndRegisterMember(name, cleanWaNumber || custWaInput, selectedOutlet.name);
 
     const orderTypeText = currentOrderType === 'takeaway' ? 'Take Away (Bungkus)' : 'Dine In (Minum Ditempat)';
@@ -2113,7 +2122,6 @@ async function submitOrderKopken(method) {
 
     const autoSched = checkAdminSchedule();
     let adminStatusHeader = '';
-
     if (autoSched.isBusy) {
         adminStatusHeader = `⏳ <b>[ADMIN SEDANG AGENDA LUAR - PROSES MULAI ${autoSched.availableAt} WIB]</b>\n`;
     } else if (currentAdminStoreStatus === 'busy' || localStorage.getItem('adminManualBusy') === 'true') {
@@ -2124,6 +2132,7 @@ async function submitOrderKopken(method) {
 
     const telegramSummaryBubble = `── .✦ <b>ORDER KOPI KENANGAN BARU</b> ✦.──
 ${adminStatusHeader}${lateOrderNotice}${isMidnightHour() ? '🌙 <b>[PERINGATAN: ORDER JAM MALAM / ANTREAN PAGI]</b>\n' : ''}
+🆔 <b>Order ID :</b> <code>${singleOrderId}</code>
 👤 <b>Nama Pemesan :</b> ${name}
 📱 <b>No. WhatsApp :</b> ${custWaInput || 'Via WhatsApp Chat'}
 🔗 <b>Chat Customer :</b> <a href="${waDirectLink}">${waDirectLink}</a>
@@ -2165,6 +2174,7 @@ Kalau suka sama promonya, jangan lupa share info hemat ini ke teman kantor atau 
 
     const waRawMessage = `── .✦ *ORDER KOPI KENANGAN BARU* ✦.──
 ${autoSched.isBusy ? `⏳ *[ADMIN AGENDA LUAR - PROSES MULAI ${autoSched.availableAt} WIB]*\n` : (currentAdminStoreStatus === 'busy' ? '🟡 *[STATUS: ADMIN SEDANG SIBUK (15-30 MNT)]*\n' : '')}${!isOutletOpenNow(selectedOutlet) ? '⚠️ *[ORDER DI LUAR JAM TUTUP STANDAR]*\n' : ''}${isMidnightHour() ? '🌙 *[ORDER JAM MALAM / ANTREAN PAGI]*\n' : ''}
+🆔 *Order ID :* ${singleOrderId}
 👤 *Nama Pemesan :* ${name}
 📱 *No. WhatsApp :* ${custWaInput || '-'}
 🛵 *Tipe Pesanan :* ${orderTypeText}
@@ -2188,11 +2198,9 @@ ${isBagChecked ? 'Kantong Belanja : Rp 1.000\n' : ''}💰 *Total Tagihan Final :
         const ok1 = await sendSingleTelegramMsg(telegramSummaryBubble);
         await delay(400);
 
-        // Kirim tombol interaktif langsung ke admin
-        if (newCreatedOrderId) {
-            await sendTelegramOrderWithButtons(newCreatedOrderId, name, grandTotal, selectedOutlet.name);
-            await delay(400);
-        }
+        // Tombol interaktif langsung memakai singleOrderId yang sama persis
+        await sendTelegramOrderWithButtons(singleOrderId, name, grandTotal, selectedOutlet.name);
+        await delay(400);
 
         const ok2 = await sendSingleTelegramMsg(draftChat1);
         await delay(400);
@@ -2220,10 +2228,8 @@ ${isBagChecked ? 'Kantong Belanja : Rp 1.000\n' : ''}💰 *Total Tagihan Final :
         sendSingleTelegramMsg(telegramSummaryBubble);
         await delay(300);
 
-        if (newCreatedOrderId) {
-            sendTelegramOrderWithButtons(newCreatedOrderId, name, grandTotal, selectedOutlet.name);
-            await delay(300);
-        }
+        sendTelegramOrderWithButtons(singleOrderId, name, grandTotal, selectedOutlet.name);
+        await delay(300);
 
         sendSingleTelegramMsg(`👇 <b>[TEMPLATE BALASAN JIKA SUDAH TRANSFER]</b>:\n\n${draftChatAutoProses}`);
         await delay(300);
@@ -2236,6 +2242,51 @@ ${isBagChecked ? 'Kantong Belanja : Rp 1.000\n' : ''}💰 *Total Tagihan Final :
 }
 
 async function notifyAdminPaymentDone() {
+    sfx.playSuccess();
+    const btn = document.getElementById('btn-confirm-notify-admin');
+    if (btn) {
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin text-xs"></i> Mengirim Notifikasi...';
+        btn.disabled = true;
+    }
+
+    // Ambil ID yang tadi sudah dibuat saat pesan, bukan membuat ID baru lagi
+    const targetId = localStorage.getItem("last_order_id") || "order-" + Date.now().toString().slice(-4);
+    const rawName = (typeof checkoutCustomerName !== 'undefined' && checkoutCustomerName) ? checkoutCustomerName : 'Pelanggan';
+
+    let cleanWa = checkoutCustomerWa ? checkoutCustomerWa.replace(/[^0-9]/g, '') : '';
+    if (cleanWa.startsWith('0')) cleanWa = '62' + cleanWa.slice(1);
+    else if (!cleanWa.startsWith('62') && cleanWa.length > 0) cleanWa = '62' + cleanWa;
+    const waLink = cleanWa ? `https://wa.me/${cleanWa}` : '-';
+
+    const dailyWifi = getDailyWifiPassword();
+
+    const draftProsesWifi = `Terima kasih banyak Kak ${rawName}! Pembayaran sebesar ${formatRp(checkoutGrandTotal)} sudah kami terima ☕✨\n\nOrderan sedang kami proseskan ke kasir yaa!\n\n📶 INFO WIFI OUTLET HARI INI:\n• SSID : Teman Kenangan\n• User : kopikenangan\n• Pass : ${dailyWifi}\n\nMohon ditunggu sebentar ya Kak! 🫶`;
+
+    const draftSelesai = `Pesanan Kak ${rawName} sudah selesai diproses ke kasir ya! ✨\n\n📌 Cara Pengambilan:\nCukup sebutkan nama "${rawName}" ke barista di outlet.\n\nSelamat menikmati dan terima kasih sudah jajan di Bintang Store! Ditunggu orderan berikutnya ya Kak! 🫰☕`;
+
+    const notifyBubble1 = `🔔 <b>KONFIRMASI: CUSTOMER SUDAH TRANSFER!</b> 🔔\n--------------------------------------------------\n🆔 <b>Order ID :</b> <code>${targetId}</code>\n👤 <b>Nama :</b> ${rawName}\n📱 <b>No. WhatsApp :</b> ${checkoutCustomerWa || '-'}\n🔗 <b>Hubungi Customer :</b> <a href="${waLink}">${waLink}</a>\n💰 <b>Total Tagihan :</b> ${formatRp(checkoutGrandTotal)}\n--------------------------------------------------\nCustomer telah menekan tombol <b>SUDAH TRANSFER</b>. Balon di bawah ini bisa langsung diteruskan ke customer! ⚡`;
+
+    try {
+        await sendSingleTelegramMsg(notifyBubble1);
+        await delay(400);
+        await sendSingleTelegramMsg(draftProsesWifi);
+        await delay(400);
+        await sendSingleTelegramMsg(draftSelesai);
+    } catch (e) {
+        console.warn("Notifikasi telegram gagal dikirim:", e);
+    }
+
+    if (btn) {
+        btn.className = "w-full bg-emerald-700 text-white font-bold py-2.5 rounded-xl text-xs flex items-center justify-center gap-1.5";
+        btn.innerHTML = '<i class="fas fa-check-double text-xs"></i> Notifikasi Terkirim ke Admin!';
+    }
+    showToast(`<b>Pembayaran Dikonfirmasi!</b><br>Membuka halaman pemantauan antrean...`);
+
+    // Arahkan ke halaman tracking dengan ID yang sama persis
+    setTimeout(() => {
+        window.location.href = `tracking.html?order_id=${targetId}`;
+    }, 1200);
+}
     sfx.playSuccess();
     const btn = document.getElementById('btn-confirm-notify-admin');
     if (btn) {
