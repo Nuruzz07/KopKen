@@ -1,1 +1,251 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Status Pesanan - Jastip Kopi Kenangan</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Supabase JS Client -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-gray-100 min-h-screen text-gray-800 antialiased p-4 sm:p-6 flex flex-col items-center">
 
+  <main class="w-full max-w-md space-y-4">
+    
+    <!-- Kartu Status & Info Antrean -->
+    <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 space-y-4 text-center">
+      <div class="space-y-1">
+        <p class="text-xs font-semibold uppercase tracking-wider text-gray-400">Order ID</p>
+        <p id="order-id" class="text-sm font-mono font-bold text-gray-700">Memuat...</p>
+      </div>
+
+      <!-- Badge Status -->
+      <div id="status-badge" class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold bg-gray-100 text-gray-600">
+        <span class="w-2 h-2 rounded-full bg-gray-400 animate-pulse"></span>
+        <span id="status-text">Mengecek pesanan...</span>
+      </div>
+
+      <!-- Blok Tiket Pengambilan (Muncul saat status 'selesai') -->
+      <div id="pickup-card" class="hidden pt-4 border-t border-dashed border-gray-200 space-y-4 text-left">
+        <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 text-center">
+          <p class="text-xs text-amber-800 font-medium">Nomor Antrean / Pesanan Kasir</p>
+          <p id="queue-number" class="text-4xl font-black text-amber-900 tracking-tight my-1">-</p>
+          <p class="text-xs text-amber-700 font-semibold">Atas Nama: <span id="customer-name" class="underline">-</span></p>
+        </div>
+
+        <!-- Preview Struk Resmi -->
+        <div id="receipt-container" class="hidden space-y-2">
+          <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Struk Resmi Aplikasi:</p>
+          <div class="relative overflow-hidden rounded-xl border border-gray-200 bg-gray-50 group">
+            <img id="receipt-img" src="" alt="Struk Kopi Kenangan" class="w-full max-h-72 object-contain mx-auto transition-transform duration-200 cursor-pointer" onclick="toggleZoom(this)" />
+            <span class="block text-center py-1 text-[11px] text-gray-400 bg-gray-50 border-t border-gray-100">Klik gambar untuk perbesar</span>
+          </div>
+        </div>
+
+        <!-- Instruksi Aman -->
+        <div class="bg-gray-50 rounded-lg p-3 text-xs text-gray-600 leading-relaxed border border-gray-200">
+          💡 <strong>Panduan Ambil:</strong> Sebutkan nama pemesan dan nomor antrean di atas ke barista, atau tunjukkan gambar struk resmi jika kasir meminta verifikasi.
+        </div>
+      </div>
+    </div>
+
+    <!-- Rincian Menu Pesanan -->
+    <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 space-y-3">
+      <h2 class="text-xs font-semibold uppercase tracking-wider text-gray-400">Rincian Menu</h2>
+      <div id="order-items" class="text-sm divide-y divide-gray-100">
+        <p class="text-xs text-gray-400 italic py-2">Memuat rincian...</p>
+      </div>
+    </div>
+
+    <!-- Form Ulasan (Tampil setelah pesanan selesai) -->
+    <div id="review-card" class="hidden bg-white rounded-2xl p-5 shadow-sm border border-gray-100 space-y-3">
+      <h2 class="text-sm font-bold text-gray-800">Beri Ulasan Layanan</h2>
+      <p class="text-xs text-gray-500">Masukanmu sangat membantu kelancaran operasional jastip berikutnya.</p>
+
+      <form id="review-form" class="space-y-3 pt-1">
+        <div class="flex gap-2 justify-center py-1 text-2xl" id="star-container">
+          <button type="button" class="star text-gray-300 transition-colors" data-star="1">★</button>
+          <button type="button" class="star text-gray-300 transition-colors" data-star="2">★</button>
+          <button type="button" class="star text-gray-300 transition-colors" data-star="3">★</button>
+          <button type="button" class="star text-gray-300 transition-colors" data-star="4">★</button>
+          <button type="button" class="star text-gray-300 transition-colors" data-star="5">★</button>
+        </div>
+
+        <textarea id="review-comment" rows="2" placeholder="Tulis catatan atau ulasanmu di sini..." class="w-full text-xs p-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-1 focus:ring-amber-500 focus:border-amber-500 resize-none"></textarea>
+
+        <button type="submit" id="submit-review-btn" class="w-full py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-lg text-xs font-semibold transition">
+          Kirim Ulasan
+        </button>
+      </form>
+    </div>
+
+  </main>
+
+  <script>
+    // Konfigurasi Supabase Client
+    const SUPABASE_URL = "https://axaoagzveujcgoxybdmp.supabase.co";
+    const SUPABASE_ANON_KEY = "sb_publishable_GQ19XRT7yWIBido0iXJvCQ_ybZ_I7ju"; // Ganti dengan Supabase Anon Key milikmu
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    // Ambil order_id dari parameter URL (?order_id=...)
+    const urlParams = new URLSearchParams(window.location.search);
+    const orderId = urlParams.get("order_id");
+
+    let selectedRating = 5;
+
+    // Inisialisasi Elemen Halaman
+    const elOrderId = document.getElementById("order-id");
+    const elStatusBadge = document.getElementById("status-badge");
+    const elStatusText = document.getElementById("status-text");
+    const elPickupCard = document.getElementById("pickup-card");
+    const elQueueNumber = document.getElementById("queue-number");
+    const elCustomerName = document.getElementById("customer-name");
+    const elReceiptContainer = document.getElementById("receipt-container");
+    const elReceiptImg = document.getElementById("receipt-img");
+    const elOrderItems = document.getElementById("order-items");
+    const elReviewCard = document.getElementById("review-card");
+
+    async function loadOrderData() {
+      if (!orderId) {
+        elOrderId.textContent = "ID Pesanan Tidak Ditemukan";
+        elStatusText.textContent = "Parameter ?order_id= kosong";
+        return;
+      }
+
+      elOrderId.textContent = orderId;
+
+      const { data, error } = await supabaseClient
+        .from("orders")
+        .select("*")
+        .eq("id", orderId)
+        .single();
+
+      if (error || !data) {
+        elStatusText.textContent = "Pesanan tidak ditemukan";
+        return;
+      }
+
+      renderOrder(data);
+      listenRealtime();
+    }
+
+    function renderOrder(order) {
+      elCustomerName.textContent = order.customer_name || "-";
+
+      // Render Status Badge
+      const statusMap = {
+        menunggu_pembayaran: { text: "Menunggu Pembayaran", class: "bg-orange-100 text-orange-700" },
+        diproses: { text: "Pesanan Sedang Dipesan", class: "bg-blue-100 text-blue-700" },
+        selesai: { text: "Pesanan Siap Diambil", class: "bg-green-100 text-green-700" }
+      };
+
+      const current = statusMap[order.status] || { text: order.status || "Status tidak dikenal", class: "bg-gray-100 text-gray-700" };
+      elStatusBadge.className = `inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold ${current.class}`;
+      elStatusText.textContent = current.text;
+
+      // Render Rincian Menu
+      if (order.items && Array.isArray(order.items)) {
+        elOrderItems.innerHTML = order.items.map(item => `
+          <div class="flex justify-between items-center py-2">
+            <div>
+              <p class="font-medium text-gray-800">${item.name || item.title || "Menu"}</p>
+              <p class="text-xs text-gray-400">${item.note || item.size || ""}</p>
+            </div>
+            <span class="text-xs font-semibold text-gray-600">x${item.qty || 1}</span>
+          </div>
+        `).join("");
+      } else {
+        elOrderItems.innerHTML = `<p class="text-xs text-gray-400 py-2">Rincian menu tidak tersedia.</p>`;
+      }
+
+      // Jika Pesanan Selesai: Tampilkan Tiket Antrean & Struk
+      if (order.status === "selesai") {
+        elPickupCard.classList.remove("hidden");
+        elQueueNumber.textContent = order.queue_number || "-";
+
+        if (order.receipt_image_url) {
+          elReceiptContainer.classList.remove("hidden");
+          elReceiptImg.src = order.receipt_image_url;
+        }
+
+        elReviewCard.classList.remove("hidden");
+      }
+    }
+
+    // Mendengarkan Perubahan Data secara Real-Time
+    function listenRealtime() {
+      supabaseClient
+        .channel(`order_tracking_${orderId}`)
+        .on(
+          "postgres_changes",
+          { event: "UPDATE", schema: "public", table: "orders", filter: `id=eq.${orderId}` },
+          (payload) => {
+            renderOrder(payload.new);
+          }
+        )
+        .subscribe();
+    }
+
+    // Penanganan Zoom Foto Struk
+    function toggleZoom(img) {
+      if (img.classList.contains("max-h-72")) {
+        img.classList.remove("max-h-72");
+      } else {
+        img.classList.add("max-h-72");
+      }
+    }
+
+    // Interaksi Bintang Ulasan
+    const stars = document.querySelectorAll(".star");
+    function updateStarUI(rating) {
+      stars.forEach(s => {
+        const val = parseInt(s.dataset.star);
+        s.classList.toggle("text-amber-400", val <= rating);
+        s.classList.toggle("text-gray-300", val > rating);
+      });
+    }
+
+    stars.forEach(s => {
+      s.addEventListener("click", () => {
+        selectedRating = parseInt(s.dataset.star);
+        updateStarUI(selectedRating);
+      });
+    });
+    updateStarUI(selectedRating);
+
+    // Pengiriman Form Ulasan
+    document.getElementById("review-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const comment = document.getElementById("review-comment").value.trim();
+      const btn = document.getElementById("submit-review-btn");
+
+      btn.disabled = true;
+      btn.textContent = "Mengirim...";
+
+      const { error } = await supabaseClient
+        .from("orders")
+        .update({
+          rating: selectedRating,
+          review: comment
+        })
+        .eq("id", orderId);
+
+      if (!error) {
+        elReviewCard.innerHTML = `
+          <div class="py-4 text-center space-y-1">
+            <p class="text-xl">🎉</p>
+            <p class="text-xs font-bold text-gray-800">Terima kasih atas ulasanmu!</p>
+            <p class="text-[11px] text-gray-500">Semoga harimu menyenangkan.</p>
+          </div>
+        `;
+      } else {
+        btn.disabled = false;
+        btn.textContent = "Coba Lagi";
+      }
+    });
+
+    loadOrderData();
+  </script>
+</body>
+</html>
