@@ -90,12 +90,9 @@ let secretLogoTapCount = 0;
 let secretLogoTapTimer = null;
 
 // Konfigurasi Jam Agenda Terjadwal
-// 0: Minggu, 1: Senin, 2: Selasa, 3: Rabu, 4: Kamis, 5: Jumat, 6: Sabtu
 const SCHEDULE_BUSY = [
-  // SELASA (2)
   { day: 2, start: "07:00", end: "08:40" },
   { day: 2, start: "14:20", end: "16:00" },
-  // KAMIS (4)
   { day: 4, start: "08:40", end: "10:20" },
   { day: 4, start: "16:10", end: "17:50" }
 ];
@@ -264,6 +261,7 @@ async function sendSingleTelegramMsg(msgHtml) {
 // KIRIM NOTIFIKASI KE BOT TELEGRAM ADMIN BESERTA TOMBOL AKSI CEPAT
 async function sendTelegramOrderWithButtons(orderId, customerName, grandTotal, outletName) {
     const text = `🔔 <b>ORDERAN MASUK ATAS NAMA ${customerName.toUpperCase()}!</b>\n\n` +
+      `🆔 <b>Order ID:</b> <code>${orderId}</code>\n` +
       `👤 <b>Nama:</b> ${customerName}\n` +
       `📍 <b>Outlet:</b> ${outletName}\n` +
       `💰 <b>Total:</b> ${formatRp(grandTotal)}\n` +
@@ -637,7 +635,6 @@ function checkNightHours() {
     }
 }
 
-// Logika Deteksi Outlet Mau Tutup (30-45 Menit Sebelum Jam Operasional Berakhir)
 function checkOutletClosingSoon() {
     const banner = document.getElementById('outlet-closing-soon-banner');
     const textEl = document.getElementById('outlet-closing-soon-text');
@@ -654,7 +651,7 @@ function checkOutletClosingSoon() {
     const curMin = wib.getHours() * 60 + wib.getMinutes();
 
     let diffMin = closeMin - curMin;
-    if (diffMin < 0) diffMin += 1440; // Jika lewat tengah malam
+    if (diffMin < 0) diffMin += 1440;
 
     if (diffMin > 0 && diffMin <= 45) {
         if (textEl) {
@@ -801,7 +798,6 @@ function showNetflixClosedToast() {
 }
 
 async function loadDataFiles() {
-    // 1. Muat data outlet
     try {
         const outletRes = await fetch('./outlet.json');
         if (outletRes.ok) allOutlets = await outletRes.json();
@@ -819,7 +815,6 @@ async function loadDataFiles() {
     selectedOutlet = allOutlets[0];
     updateOutletUI();
 
-    // 2. Muat Menu Utama Langsung dari Supabase Database (Dinamis)
     let parsedMenu = [];
     try {
         if (supabaseClient) {
@@ -849,7 +844,6 @@ async function loadDataFiles() {
         console.warn("Gagal mengambil menu dari Supabase, mencoba muat dari menu.json...", e);
     }
 
-    // 3. Cadangan (Fallback): Jika Supabase kosong/offline, baca dari menu.json lokal
     if (parsedMenu.length === 0) {
         try {
             const menuRes = await fetch('./menu.json');
@@ -1699,7 +1693,6 @@ function validateKopkenForm() {
     if (bagFee > 0) bagRow.classList.remove('hidden');
     else bagRow.classList.add('hidden');
 
-    // Hitung apakah syarat minimal 2 cup terpenuhi jika punya voucher
     const totalCup = cart.reduce((sum, c) => sum + (c.qty || 1), 0);
     if (appliedVoucherId && totalCup >= 2) {
         activeVoucherDiscount = 1000;
@@ -1877,70 +1870,6 @@ function getDailyWifiPassword() {
     return wifiPasswords[dayNum] || "TemanKenangan#01";
 }
 
-// Rekam Pesanan ke Database Supabase & Mengembalikan ID Pesanan
-async function recordOrderToSupabase(orderData) {
-    if (!supabaseClient) return null;
-    const adminNumbers = ['6285959633342', '085959633342'];
-    const cleanWa = (orderData.customerWa || '').replace(/[^0-9]/g, '');
-    const nameLower = (orderData.customerName || '').toLowerCase().trim();
-
-    if (adminNumbers.includes(cleanWa) || nameLower.startsWith('tes') || nameLower.startsWith('admin')) {
-        console.log("Order uji coba/admin terdeteksi: Tidak dicatat ke database.");
-        return null;
-    }
-    try {
-        const { data: insertedOrder, error: orderError } = await supabaseClient
-            .from('orders')
-            .insert([{
-                customer_name: orderData.customerName,
-                customer_wa: orderData.customerWa,
-                outlet_name: orderData.outletName,
-                order_items: orderData.items,
-                total_price: orderData.totalPrice,
-                estimated_profit: Math.round(orderData.totalPrice * 0.35),
-                status: 'menunggu_konfirmasi'
-            }])
-            .select('id')
-            .single();
-
-        if (orderError) throw orderError;
-
-        if (orderData.customerWa) {
-            const { data: existingCust } = await supabaseClient
-                .from('customers')
-                .select('*')
-                .eq('phone_number', orderData.customerWa)
-                .single();
-
-            if (existingCust) {
-                await supabaseClient
-                    .from('customers')
-                    .update({
-                        total_orders: (existingCust.total_orders || 1) + 1,
-                        total_spent: (parseFloat(existingCust.total_spent) || 0) + orderData.totalPrice,
-                        last_order_at: new Date()
-                    })
-                    .eq('phone_number', orderData.customerWa);
-            } else {
-                await supabaseClient.from('customers').insert([{
-                    phone_number: orderData.customerWa,
-                    customer_name: orderData.customerName,
-                    total_orders: 1,
-                    total_spent: orderData.totalPrice,
-                    last_order_at: new Date()
-                }]);
-            }
-        }
-
-        return insertedOrder ? insertedOrder.id : null;
-    } catch (err) {
-        console.warn("Gagal simpan transaksi ke Supabase:", err);
-        logSystemError(err.message, "recordOrderToSupabase");
-        return null;
-    }
-}
-
-// Cek Riwayat & Profil Langganan Mandiri Pelanggan
 async function lookupCustomerLoyaltyHistory() {
     sfx.playTap();
     const input = document.getElementById('history-lookup-wa');
@@ -2069,43 +1998,83 @@ async function submitOrderKopken(method) {
     if (cleanWaNumber.startsWith('0')) cleanWaNumber = '62' + cleanWaNumber.slice(1);
     else if (!cleanWaNumber.startsWith('62') && cleanWaNumber.length > 0) cleanWaNumber = '62' + cleanWaNumber;
 
-    // Simpan data order ke Supabase dan ambil ID pesanannya
-    const newCreatedOrderId = await recordOrderToSupabase({
-        customerName: name,
-        customerWa: cleanWaNumber || custWaInput,
-        outletName: selectedOutlet.name,
-        items: cart,
-        totalPrice: grandTotal
-    });
+    // SATU ID TUNGGAL UNTUK DATABASE, TELEGRAM, DAN TRACKING WEB
+    const rawClean = (name || 'pelanggan').trim().replace(/[^a-zA-Z0-9]/g, '').toLowerCase() || 'order';
+    const singleOrderId = `${rawClean}-${Date.now().toString().slice(-4)}`;
 
-    // Nyalakan tracker realtime di browser pembeli
-    if (newCreatedOrderId) {
-        initRealtimeOrderTracker(newCreatedOrderId);
+    localStorage.setItem('active_tracking_order_id', singleOrderId);
+    localStorage.setItem('last_order_id', singleOrderId);
+
+    // Simpan data order ke Supabase
+    try {
+        if (supabaseClient) {
+            await supabaseClient.from('orders').upsert([{
+                id: singleOrderId,
+                customer_name: name,
+                customer_wa: cleanWaNumber || custWaInput,
+                outlet_name: selectedOutlet.name,
+                order_items: cart,
+                total_price: grandTotal,
+                estimated_profit: Math.round(grandTotal * 0.35),
+                status: 'menunggu_konfirmasi'
+            }], { onConflict: 'id' });
+
+            if (cleanWaNumber) {
+                const { data: existingCust } = await supabaseClient
+                    .from('customers')
+                    .select('*')
+                    .eq('phone_number', cleanWaNumber)
+                    .single();
+
+                if (existingCust) {
+                    await supabaseClient
+                        .from('customers')
+                        .update({
+                            total_orders: (existingCust.total_orders || 1) + 1,
+                            total_spent: (parseFloat(existingCust.total_spent) || 0) + grandTotal,
+                            last_order_at: new Date()
+                        })
+                        .eq('phone_number', cleanWaNumber);
+                } else {
+                    await supabaseClient.from('customers').insert([{
+                        phone_number: cleanWaNumber,
+                        customer_name: name,
+                        total_orders: 1,
+                        total_spent: grandTotal,
+                        last_order_at: new Date()
+                    }]);
+                }
+            }
+        }
+    } catch(err) {
+        console.warn("Gagal simpan order:", err);
     }
-    // 1. Jika belanja saat ini >= 50.000, berikan 1 tiket voucher untuk pesanan berikutnya
- if (grandTotal >= 50000 && cleanWaNumber) {
-     try {
-         await supabaseClient.from('member_vouchers').insert([{
-             customer_name: name,
-             customer_wa: cleanWaNumber,
-             nominal: 1000,
-             min_items: 2,
-             is_used: false
-         }]);
-     } catch(err) {}
- }
 
- // 2. Jika transaksi saat ini memakai voucher, tandai sudah terpakai
- if (appliedVoucherId && activeVoucherDiscount > 0) {
-     try {
-         await supabaseClient
-             .from('member_vouchers')
-             .update({ is_used: true, used_at: new Date() })
-             .eq('id', appliedVoucherId);
-     } catch(err) {}
- }
+    // Aktifkan realtime tracker bar atas
+    initRealtimeOrderTracker(singleOrderId);
 
-    // Otomatis daftar member jika checkbox dicentang
+    // Reward voucher belanja >= 50k
+    if (grandTotal >= 50000 && cleanWaNumber && supabaseClient) {
+        try {
+            await supabaseClient.from('member_vouchers').insert([{
+                customer_name: name,
+                customer_wa: cleanWaNumber,
+                nominal: 1000,
+                min_items: 2,
+                is_used: false
+            }]);
+        } catch(err) {}
+    }
+
+    if (appliedVoucherId && activeVoucherDiscount > 0 && supabaseClient) {
+        try {
+            await supabaseClient
+                .from('member_vouchers')
+                .update({ is_used: true, used_at: new Date() })
+                .eq('id', appliedVoucherId);
+        } catch(err) {}
+    }
+
     checkAndRegisterMember(name, cleanWaNumber || custWaInput, selectedOutlet.name);
 
     const orderTypeText = currentOrderType === 'takeaway' ? 'Take Away (Bungkus)' : 'Dine In (Minum Ditempat)';
@@ -2124,6 +2093,7 @@ async function submitOrderKopken(method) {
 
     const telegramSummaryBubble = `── .✦ <b>ORDER KOPI KENANGAN BARU</b> ✦.──
 ${adminStatusHeader}${lateOrderNotice}${isMidnightHour() ? '🌙 <b>[PERINGATAN: ORDER JAM MALAM / ANTREAN PAGI]</b>\n' : ''}
+🆔 <b>Order ID :</b> <code>${singleOrderId}</code>
 👤 <b>Nama Pemesan :</b> ${name}
 📱 <b>No. WhatsApp :</b> ${custWaInput || 'Via WhatsApp Chat'}
 🔗 <b>Chat Customer :</b> <a href="${waDirectLink}">${waDirectLink}</a>
@@ -2165,6 +2135,7 @@ Kalau suka sama promonya, jangan lupa share info hemat ini ke teman kantor atau 
 
     const waRawMessage = `── .✦ *ORDER KOPI KENANGAN BARU* ✦.──
 ${autoSched.isBusy ? `⏳ *[ADMIN AGENDA LUAR - PROSES MULAI ${autoSched.availableAt} WIB]*\n` : (currentAdminStoreStatus === 'busy' ? '🟡 *[STATUS: ADMIN SEDANG SIBUK (15-30 MNT)]*\n' : '')}${!isOutletOpenNow(selectedOutlet) ? '⚠️ *[ORDER DI LUAR JAM TUTUP STANDAR]*\n' : ''}${isMidnightHour() ? '🌙 *[ORDER JAM MALAM / ANTREAN PAGI]*\n' : ''}
+🆔 *Order ID :* ${singleOrderId}
 👤 *Nama Pemesan :* ${name}
 📱 *No. WhatsApp :* ${custWaInput || '-'}
 🛵 *Tipe Pesanan :* ${orderTypeText}
@@ -2188,11 +2159,9 @@ ${isBagChecked ? 'Kantong Belanja : Rp 1.000\n' : ''}💰 *Total Tagihan Final :
         const ok1 = await sendSingleTelegramMsg(telegramSummaryBubble);
         await delay(400);
 
-        // Kirim tombol interaktif langsung ke admin
-        if (newCreatedOrderId) {
-            await sendTelegramOrderWithButtons(newCreatedOrderId, name, grandTotal, selectedOutlet.name);
-            await delay(400);
-        }
+        // Tombol interaktif langsung memakai singleOrderId
+        await sendTelegramOrderWithButtons(singleOrderId, name, grandTotal, selectedOutlet.name);
+        await delay(400);
 
         const ok2 = await sendSingleTelegramMsg(draftChat1);
         await delay(400);
@@ -2220,10 +2189,8 @@ ${isBagChecked ? 'Kantong Belanja : Rp 1.000\n' : ''}💰 *Total Tagihan Final :
         sendSingleTelegramMsg(telegramSummaryBubble);
         await delay(300);
 
-        if (newCreatedOrderId) {
-            sendTelegramOrderWithButtons(newCreatedOrderId, name, grandTotal, selectedOutlet.name);
-            await delay(300);
-        }
+        sendTelegramOrderWithButtons(singleOrderId, name, grandTotal, selectedOutlet.name);
+        await delay(300);
 
         sendSingleTelegramMsg(`👇 <b>[TEMPLATE BALASAN JIKA SUDAH TRANSFER]</b>:\n\n${draftChatAutoProses}`);
         await delay(300);
@@ -2243,10 +2210,9 @@ async function notifyAdminPaymentDone() {
         btn.disabled = true;
     }
 
+    // Ambil ID yang dibuat di submitOrderKopken
+    const targetId = localStorage.getItem("last_order_id") || "order-" + Date.now().toString().slice(-4);
     const rawName = (typeof checkoutCustomerName !== 'undefined' && checkoutCustomerName) ? checkoutCustomerName : 'Pelanggan';
-    const parsedName = rawName.trim().replace(/[^a-zA-Z0-9]/g, '').toLowerCase() || 'order';
-    const targetId = `${parsedName}-${Date.now().toString().slice(-4)}`;
-    localStorage.setItem("last_order_id", targetId);
 
     let cleanWa = checkoutCustomerWa ? checkoutCustomerWa.replace(/[^0-9]/g, '') : '';
     if (cleanWa.startsWith('0')) cleanWa = '62' + cleanWa.slice(1);
@@ -2259,7 +2225,7 @@ async function notifyAdminPaymentDone() {
 
     const draftSelesai = `Pesanan Kak ${rawName} sudah selesai diproses ke kasir ya! ✨\n\n📌 Cara Pengambilan:\nCukup sebutkan nama "${rawName}" ke barista di outlet.\n\nSelamat menikmati dan terima kasih sudah jajan di Bintang Store! Ditunggu orderan berikutnya ya Kak! 🫰☕`;
 
-    const notifyBubble1 = `🔔 <b>KONFIRMASI: CUSTOMER SUDAH TRANSFER!</b> 🔔\n--------------------------------------------------\n👤 <b>Nama :</b> ${rawName}\n📱 <b>No. WhatsApp :</b> ${checkoutCustomerWa || '-'}\n🔗 <b>Hubungi Customer :</b> <a href="${waLink}">${waLink}</a>\n💰 <b>Total Tagihan :</b> ${formatRp(checkoutGrandTotal)}\n--------------------------------------------------\nCustomer telah menekan tombol <b>SUDAH TRANSFER</b>.\nBalon di bawah ini bisa langsung disalin / diteruskan ke customer! ⚡`;
+    const notifyBubble1 = `🔔 <b>KONFIRMASI: CUSTOMER SUDAH TRANSFER!</b> 🔔\n--------------------------------------------------\n🆔 <b>Order ID :</b> <code>${targetId}</code>\n👤 <b>Nama :</b> ${rawName}\n📱 <b>No. WhatsApp :</b> ${checkoutCustomerWa || '-'}\n🔗 <b>Hubungi Customer :</b> <a href="${waLink}">${waLink}</a>\n💰 <b>Total Tagihan :</b> ${formatRp(checkoutGrandTotal)}\n--------------------------------------------------\nCustomer telah menekan tombol <b>SUDAH TRANSFER</b>. Balon di bawah ini bisa langsung disalin / diteruskan ke customer! ⚡`;
 
     try {
         await sendSingleTelegramMsg(notifyBubble1);
@@ -2275,24 +2241,9 @@ async function notifyAdminPaymentDone() {
         btn.className = "w-full bg-emerald-700 text-white font-bold py-2.5 rounded-xl text-xs flex items-center justify-center gap-1.5";
         btn.innerHTML = '<i class="fas fa-check-double text-xs"></i> Notifikasi Terkirim ke Admin!';
     }
-    showToast(`<b>Pembayaran Dikonfirmasi!</b><br>Membuka halaman pemantauan antrean...`);
+    showToast(`<b>Pembayaran Dikonfirmasi!</b><br>Membuka ruang tunggu pesanan...`);
 
-    try {
-        if (typeof supabaseClient !== 'undefined' && supabaseClient) {
-           await supabaseClient.from("orders").upsert([
-                {
-                    id: targetId,
-                    customer_name: rawName,
-                    customer_wa: cleanWa || '-',
-                    total_price: checkoutGrandTotal || 0,
-                    outlet_name: (selectedOutlet && selectedOutlet.name) ? selectedOutlet.name : 'Outlet Kenangan'
-                }
-            ], { onConflict: 'id', ignoreDuplicates: false });
-        }
-    } catch (err) {
-        console.warn("Gagal simpan orders ke Supabase:", err);
-    }
-
+    // Arahkan ke ruang tunggu dengan ID yang sama persis
     setTimeout(() => {
         window.location.href = `tracking.html?order_id=${targetId}`;
     }, 1200);
@@ -2613,7 +2564,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     await loadDataFiles();
     renderMenu();
 
-    // Pulihkan listener pelacakan jika ada pesanan aktif sebelumnya
     const savedOrderId = localStorage.getItem('active_tracking_order_id');
     if (savedOrderId) {
         initRealtimeOrderTracker(savedOrderId);
@@ -2742,7 +2692,6 @@ function createCosmicBurst(x, y) {
 
 let memberSearchTimeout = null;
 
-// Live Suggestion saat user ketik kode member
 async function onInputMemberCode(val) {
     const query = val.trim().toLowerCase();
     const suggestBox = document.getElementById('memberSuggestBox');
@@ -2787,7 +2736,6 @@ async function onInputMemberCode(val) {
     }, 250);
 }
 
-// Terapkan data member ke form pemesanan
 function applyMemberProfile(code, encodedName, phone, outletName) {
     const name = decodeURIComponent(encodedName);
     
@@ -2816,7 +2764,6 @@ function applyMemberProfile(code, encodedName, phone, outletName) {
     checkMemberEligibleVoucher(phone);
 }
 
-// Simpan Member Baru saat checkout
 async function checkAndRegisterMember(orderName, orderPhone, outletName) {
     const chk = document.getElementById('registerMemberChk');
     const customCodeInput = document.getElementById('newMemberCodeInput');
@@ -3044,7 +2991,6 @@ function initRealtimeOrderTracker(orderId) {
     activeTrackingOrderId = orderId;
     localStorage.setItem('active_tracking_order_id', orderId);
 
-    // Buka subscription ke orders
     supabaseClient
         .channel(`order_tracking_channel_${orderId}`)
         .on(
@@ -3105,7 +3051,6 @@ function onOrderStatusUpdated(newStatus, orderObj = {}) {
         showToast(`Status Pesanan: <b>${current.title}</b> ✨`);
     }
 
-    // Jika pesanan selesai, picu modal ulasan foto
     if (newStatus === 'selesai') {
         setTimeout(() => {
             triggerPostOrderReviewPrompt(orderObj.id || activeTrackingOrderId, orderObj.customer_name || checkoutCustomerName, orderObj.customer_wa || checkoutCustomerWa);
@@ -3113,7 +3058,6 @@ function onOrderStatusUpdated(newStatus, orderObj = {}) {
     }
 }
 
-// Buka dialog ajakan review berhadiah voucher seribu
 function triggerPostOrderReviewPrompt(orderId, name, wa) {
     const modalReview = document.getElementById('modal-review-prompt');
     if (modalReview) {
@@ -3122,6 +3066,5 @@ function triggerPostOrderReviewPrompt(orderId, name, wa) {
         return;
     }
 
-    // Fallback notifikasi toast & ucapan terima kasih
     showToast(`🎉 <b>Pesanan Selesai!</b><br>Kirim foto ulasan kopi kamu ke WA admin untuk klaim voucher potongan Rp1.000 (min order 2 cup)! ☕`);
 }
