@@ -128,9 +128,11 @@
     }
 
     function renderOrder(order) {
+      if (!order) return;
       elCustomerName.textContent = order.customer_name || "-";
 
       const statusMap = {
+        menunggu: { text: "Menunggu Konfirmasi Admin", class: "bg-amber-100 text-amber-800" },
         menunggu_konfirmasi: { text: "Menunggu Konfirmasi Admin", class: "bg-amber-100 text-amber-800" },
         menunggu_pembayaran: { text: "Menunggu Pembayaran (QRIS)", class: "bg-orange-100 text-orange-700" },
         sedang_diproses: { text: "Sedang Diproses ke Kasir", class: "bg-blue-100 text-blue-700" },
@@ -138,7 +140,7 @@
         selesai: { text: "Pesanan Siap Diambil", class: "bg-emerald-100 text-emerald-800" }
       };
 
-      const current = statusMap[order.status] || { text: order.status || "Memproses", class: "bg-gray-100 text-gray-700" };
+      const current = statusMap[order.status] || { text: order.status || "Memproses...", class: "bg-gray-100 text-gray-700" };
       elStatusBadge.className = `inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold ${current.class}`;
       elStatusText.textContent = current.text;
 
@@ -176,16 +178,36 @@
     }
 
     function listenRealtime() {
+      // 1. Supabase Event Stream
       supabaseClient
-        .channel(`order_tracking_${orderId}`)
+        .channel(`public:orders:${orderId}`)
         .on(
           "postgres_changes",
-          { event: "UPDATE", schema: "public", table: "orders", filter: `id=eq.${orderId}` },
+          {
+            event: "*",
+            schema: "public",
+            table: "orders"
+          },
           (payload) => {
-            renderOrder(payload.new);
+            if (payload.new && payload.new.id === orderId) {
+              renderOrder(payload.new);
+            }
           }
         )
         .subscribe();
+
+      // 2. Polling Sinkronisasi Otomatis Setiap 3 Detik
+      setInterval(async () => {
+        const { data } = await supabaseClient
+          .from("orders")
+          .select("*")
+          .eq("id", orderId)
+          .single();
+
+        if (data) {
+          renderOrder(data);
+        }
+      }, 3000);
     }
 
     function toggleZoom(img) {
