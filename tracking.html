@@ -25,7 +25,7 @@
           <p class="text-[10px] text-amber-800 font-semibold">Ruang Tunggu Pesanan</p>
         </div>
       </div>
-      <button onclick="copyTrackingLink()" class="px-2.5 py-1.5 rounded-xl bg-white/80 hover:bg-white text-stone-700 text-[11px] font-bold shadow-xs border border-stone-200 transition flex items-center gap-1 active:scale-95">
+      <button onclick="copyTrackingLink()" class="px-2.5 py-1.5 rounded-xl bg-white/80 hover:bg-white text-stone-700 text-[11px] font-bold shadow-xs border border-stone-200 transition flex items-center gap-1 active:scale-95 cursor-pointer">
         <i class="fas fa-link text-[10px] text-amber-700"></i>
         <span>Salin Link</span>
       </button>
@@ -71,7 +71,7 @@
           </div>
         </div>
 
-        <!-- Panduan Aman Pengambilan -->
+        <!-- Panduan Pengambilan di Kasir -->
         <div class="bg-stone-50 rounded-2xl p-3.5 text-xs text-stone-700 leading-relaxed border border-stone-200 flex items-start gap-2.5">
           <i class="fas fa-lightbulb text-amber-600 text-sm mt-0.5 flex-shrink-0"></i>
           <div>
@@ -98,24 +98,32 @@
       <div class="flex items-center gap-2">
         <span class="text-base">⭐</span>
         <div>
-          <h2 class="text-xs font-black text-stone-900">Beri Ulasan Layanan</h2>
-          <p class="text-[10px] text-stone-500">Masukanmu langsung tersimpan ke rekapan harian kami.</p>
+          <h2 class="text-xs font-black text-stone-900">Beri Ulasan & Dapatkan Voucher Rp 1.000!</h2>
+          <p class="text-[10px] text-stone-500">Upload foto kopimu untuk klaim voucher potongan orderan berikutnya.</p>
         </div>
       </div>
 
       <form id="review-form" class="space-y-3 pt-1">
         <div class="flex gap-2 justify-center py-1 text-2xl" id="star-container">
-          <button type="button" class="star text-amber-400 transition-transform active:scale-125" data-star="1">★</button>
-          <button type="button" class="star text-amber-400 transition-transform active:scale-125" data-star="2">★</button>
-          <button type="button" class="star text-amber-400 transition-transform active:scale-125" data-star="3">★</button>
-          <button type="button" class="star text-amber-400 transition-transform active:scale-125" data-star="4">★</button>
-          <button type="button" class="star text-amber-400 transition-transform active:scale-125" data-star="5">★</button>
+          <button type="button" class="star text-amber-400 transition-transform active:scale-125 cursor-pointer" data-star="1">★</button>
+          <button type="button" class="star text-amber-400 transition-transform active:scale-125 cursor-pointer" data-star="2">★</button>
+          <button type="button" class="star text-amber-400 transition-transform active:scale-125 cursor-pointer" data-star="3">★</button>
+          <button type="button" class="star text-amber-400 transition-transform active:scale-125 cursor-pointer" data-star="4">★</button>
+          <button type="button" class="star text-amber-400 transition-transform active:scale-125 cursor-pointer" data-star="5">★</button>
+        </div>
+
+        <!-- Input Foto Cup Kopi -->
+        <div class="p-3 bg-amber-500/10 border border-amber-500/30 rounded-2xl">
+          <label class="block text-[11px] font-bold text-amber-950 mb-1">
+            📸 Lampirkan Foto Kopi (Klaim Diskon Rp 1.000):
+          </label>
+          <input type="file" id="review-photo-input" accept="image/*" class="w-full text-xs text-stone-600 file:mr-2 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-amber-600 file:text-white hover:file:bg-amber-700 cursor-pointer" />
         </div>
 
         <textarea id="review-comment" rows="2" placeholder="Bagikan kesanmu belanja jastip kopi di sini..." class="w-full text-xs p-3 rounded-xl border border-stone-200 bg-stone-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-600 resize-none font-medium text-stone-800"></textarea>
 
-        <button type="submit" id="submit-review-btn" class="w-full py-2.5 bg-stone-900 hover:bg-stone-800 text-white rounded-xl text-xs font-extrabold transition shadow-sm active:scale-95">
-          Kirim Ulasan & Rating
+        <button type="submit" id="submit-review-btn" class="w-full py-2.5 bg-stone-900 hover:bg-stone-800 text-white rounded-xl text-xs font-extrabold transition shadow-sm active:scale-95 cursor-pointer">
+          Kirim Ulasan & Klaim Voucher
         </button>
       </form>
     </div>
@@ -128,17 +136,17 @@
         </div>
         <div class="min-w-0">
           <h3 class="text-xs font-black text-amber-950 truncate">Belum Jadi Member?</h3>
-          <p class="text-[10px] text-amber-800 mt-0.5">Daftar sekarang untuk kumpulkan riwayat belanja & reward hemat!</p>
+          <p class="text-[10px] text-amber-800 mt-0.5">Daftar sekarang untuk simpan profil belanja hemat!</p>
         </div>
       </div>
-      <button onclick="openMemberModal()" class="px-3 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-[11px] font-extrabold transition active:scale-95 flex-shrink-0 shadow-xs">
+      <button onclick="openMemberModal()" class="px-3 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-[11px] font-extrabold transition active:scale-95 flex-shrink-0 shadow-xs cursor-pointer">
         Daftar
       </button>
     </div>
 
     <!-- Navigasi Kembali ke Toko -->
     <div class="text-center pt-2">
-      <a href="index.html#kopken" class="text-xs font-bold text-stone-500 hover:text-stone-800 transition inline-flex items-center gap-1.5">
+      <a href="index.html#kopken" class="text-xs font-bold text-stone-500 hover:text-stone-800 transition inline-flex items-center gap-1.5 cursor-pointer">
         <i class="fas fa-arrow-left text-[10px]"></i>
         <span>Pesan Menu Lainnya di Toko</span>
       </a>
@@ -154,7 +162,7 @@
           <span class="text-base">💳</span>
           <h3 class="text-xs font-black text-stone-900">Daftar Member Bintang Store</h3>
         </div>
-        <button onclick="closeMemberModal()" class="w-6 h-6 rounded-full bg-stone-100 text-stone-400 hover:text-stone-700 text-xs flex items-center justify-center">
+        <button onclick="closeMemberModal()" class="w-6 h-6 rounded-full bg-stone-100 text-stone-400 hover:text-stone-700 text-xs flex items-center justify-center cursor-pointer">
           <i class="fas fa-times"></i>
         </button>
       </div>
@@ -163,7 +171,7 @@
         <input type="text" id="new-member-code" placeholder="Contoh: arabb, dimas, sari" class="w-full p-2.5 text-xs rounded-xl border border-stone-200 bg-stone-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-600 font-bold" />
         <p class="text-[10px] text-stone-500">Gunakan username ini di form belanja berikutnya agar data langsung otomatis terisi!</p>
       </div>
-      <button onclick="submitNewMember()" id="btn-save-member" class="w-full py-2.5 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-black transition active:scale-95">
+      <button onclick="submitNewMember()" id="btn-save-member" class="w-full py-2.5 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-black transition active:scale-95 cursor-pointer">
         Aktifkan Member
       </button>
     </div>
@@ -287,7 +295,6 @@
         elOrderItems.innerHTML = `<p class="text-xs text-stone-400 py-2 italic">Rincian menu sedang disiapkan...</p>`;
       }
 
-      // Jika pesanan selesai, buka tiket antrean + foto struk + kotak ulasan
       if (order.status === "selesai") {
         elPickupCard.classList.remove("hidden");
         elQueueNumber.textContent = order.queue_number || "-";
@@ -297,14 +304,13 @@
           elReceiptImg.src = order.receipt_image_url;
         }
 
-        // Tampilkan kartu ulasan jika belum pernah diisi
         if (!order.rating) {
           elReviewCard.classList.remove("hidden");
         } else {
           elReviewCard.innerHTML = `
             <div class="py-3 text-center space-y-1 bg-stone-50 rounded-2xl border border-stone-100">
               <p class="text-xs font-black text-stone-800">Ulasanmu Sudah Tersimpan: ${'★'.repeat(order.rating)}</p>
-              <p class="text-[10px] text-stone-500 italic">"${order.review || 'Terima kasih atas bintangnya!'}"</p>
+              <p class="text-[10px] text-stone-500 italic">"${order.review || 'Terima kasih atas ulasanmu!'}"</p>
             </div>
           `;
           elReviewCard.classList.remove("hidden");
@@ -313,7 +319,6 @@
     }
 
     function listenRealtime() {
-      // 1. Supabase Event Stream
       supabaseClient
         .channel(`order_tracking_room_${orderId}`)
         .on(
@@ -332,7 +337,6 @@
         )
         .subscribe();
 
-      // 2. Polling Cadangan Otomatis Tiap 3 Detik (Memastikan sinkronisasi anti-macet)
       setInterval(async () => {
         const { data } = await supabaseClient
           .from("orders")
@@ -355,7 +359,6 @@
       alert("Tautan ruang tunggu berhasil disalin!");
     }
 
-    // Logika Pemilihan Bintang Rating
     const stars = document.querySelectorAll(".star");
     function updateStarUI(val) {
       stars.forEach(s => {
@@ -373,26 +376,75 @@
     });
     updateStarUI(selectedRating);
 
-    // Kirim Ulasan ke Database
     document.getElementById("review-form").addEventListener("submit", async (e) => {
       e.preventDefault();
       const comment = document.getElementById("review-comment").value.trim();
+      const photoInput = document.getElementById("review-photo-input");
       const btn = document.getElementById("submit-review-btn");
 
       btn.disabled = true;
-      btn.textContent = "Menyimpan Ulasan...";
+      btn.textContent = "Mengunggah Ulasan & Foto...";
+
+      let uploadedPhotoUrl = null;
+
+      if (photoInput.files && photoInput.files[0]) {
+        const file = photoInput.files[0];
+        const filePath = `review_${orderId}_${Date.now()}.jpg`;
+        const { error: upErr } = await supabaseClient.storage
+          .from("receipts")
+          .upload(filePath, file, { contentType: file.type || "image/jpeg", upsert: true });
+
+        if (!upErr) {
+          const { data: pubData } = supabaseClient.storage.from("receipts").getPublicUrl(filePath);
+          uploadedPhotoUrl = pubData.publicUrl;
+        }
+      }
 
       const { error } = await supabaseClient
         .from("orders")
-        .update({ rating: selectedRating, review: comment })
+        .update({ 
+          rating: selectedRating, 
+          review: comment 
+        })
         .eq("id", orderId);
+
+      if (uploadedPhotoUrl) {
+        const adminChatId = "6731058601";
+        const botToken = "8765196047:AAGSnN7VoGnXxQK5rl5459ifGqBVE3EKsWo";
+        const caption = `⭐ <b>ULASAN FOTO BARU MASUK!</b>\n🆔 <b>Order:</b> <code>${orderId}</code>\n👤 <b>Nama:</b> ${currentOrder?.customer_name || '-'}\n📱 <b>WA:</b> ${currentOrder?.customer_wa || '-'}\n🌟 <b>Bintang:</b> ${selectedRating}/5\n💬 <b>Komentar:</b> "${comment || '-'}"\n\n<i>Validasi keaslian foto ulasan untuk voucher Rp 1.000:</i>`;
+
+        const inlineKeyboard = {
+          inline_keyboard: [
+            [
+              { text: "✅ Setujui Voucher 1k", callback_data: `voc_ok:${orderId}` },
+              { text: "❌ Tolak", callback_data: `voc_no:${orderId}` }
+            ]
+          ]
+        };
+
+        fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            chat_id: adminChatId,
+            photo: uploadedPhotoUrl,
+            caption: caption,
+            parse_mode: "HTML",
+            reply_markup: inlineKeyboard
+          })
+        }).catch(() => {});
+      }
 
       if (!error) {
         elReviewCard.innerHTML = `
           <div class="py-4 text-center space-y-1">
             <p class="text-2xl">🎉</p>
-            <p class="text-xs font-black text-stone-900">Terima kasih atas ulasanmu!</p>
-            <p class="text-[11px] text-stone-500">Masukanmu sangat membantu kelancaran jastip berikutnya.</p>
+            <p class="text-xs font-black text-stone-900">Ulasan Berhasil Dikirim!</p>
+            <p class="text-[11px] text-stone-500">
+              ${uploadedPhotoUrl 
+                ? "Foto kopimu sedang diverifikasi admin. Voucher Rp 1.000 akan otomatis aktif untuk nomor WhatsApp kamu begitu disetujui!" 
+                : "Terima kasih banyak atas penilaian dan bintangmu!"}
+            </p>
           </div>
         `;
       } else {
@@ -401,7 +453,6 @@
       }
     });
 
-    // Pendaftaran Member dari Ruang Tunggu
     function openMemberModal() {
       const modal = document.getElementById('member-modal');
       modal.classList.remove('hidden');
