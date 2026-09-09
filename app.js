@@ -2240,7 +2240,12 @@ async function notifyAdminPaymentDone() {
     const btn = document.getElementById('btn-confirm-notify-admin');
     btn.innerHTML = '<i class="fas fa-spinner fa-spin text-xs"></i> Mengirim Notifikasi...';
     btn.disabled = true;
-
+// Buat Order ID dari Nama Pemesan
+    const cleanName = (typeof checkoutCustomerName !== 'undefined' && checkoutCustomerName)
+      ? checkoutCustomerName.trim().replace(/[^a-zA-Z0-9]/g, '').toLowerCase()
+      : 'order';
+    const customOrderId = `${cleanName}-${Date.now().toString().slice(-4)}`;
+    localStorage.setItem("last_order_id", customOrderId);
     let cleanWa = checkoutCustomerWa ? checkoutCustomerWa.replace(/[^0-9]/g, '') : '';
     if (cleanWa.startsWith('0')) cleanWa = '62' + cleanWa.slice(1);
     else if (!cleanWa.startsWith('62') && cleanWa.length > 0) cleanWa = '62' + cleanWa;
@@ -2287,12 +2292,29 @@ Balon di bawah ini bisa langsung disalin / diteruskan ke customer! ⚡`;
     btn.innerHTML = '<i class="fas fa-check-double text-xs"></i> Notifikasi Terkirim ke Admin!';
     showToast(`<b>Pembayaran Dikonfirmasi!</b><br>Membuka halaman pemantauan antrean...`);
 
-    // Pastikan order_id tersimpan agar banner web & tracking tahu ordernya
-    const targetId = (typeof currentOrderId !== 'undefined' && currentOrderId) 
-                     ? currentOrderId 
-                     : (localStorage.getItem("last_order_id") || "ORD-" + Date.now());
-    
+// Buat ID berbasis nama pembeli
+    const rawName = (typeof checkoutCustomerName !== 'undefined' && checkoutCustomerName) ? checkoutCustomerName : 'tamu';
+    const cleanName = rawName.trim().replace(/[^a-zA-Z0-9]/g, '').toLowerCase() || 'order';
+    const targetId = `${cleanName}-${Date.now().toString().slice(-4)}`;
+
     localStorage.setItem("last_order_id", targetId);
+
+    // Simpan order ke Supabase agar tracking.html bisa membacanya
+    try {
+      if (typeof supabaseClient !== 'undefined' || typeof supabase !== 'undefined') {
+        const sb = typeof supabaseClient !== 'undefined' ? supabaseClient : supabase;
+        await sb.from("orders").insert([
+          {
+            id: targetId,
+            customer_name: rawName,
+            status: "menunggu",
+            items: typeof cart !== 'undefined' ? cart : []
+          }
+        ]);
+      }
+    } catch (err) {
+      console.warn("Gagal simpan orders:", err);
+    }
 
     // Langsung arahkan pembeli ke tracking.html
     setTimeout(() => {
