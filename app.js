@@ -2279,16 +2279,15 @@ async function notifyAdminPaymentDone() {
 
     try {
         if (typeof supabaseClient !== 'undefined' && supabaseClient) {
-            await supabaseClient.from("orders").insert([
+           await supabaseClient.from("orders").upsert([
                 {
                     id: targetId,
                     customer_name: rawName,
                     customer_wa: cleanWa || '-',
-                    status: "menunggu_konfirmasi",
                     total_price: checkoutGrandTotal || 0,
                     outlet_name: (selectedOutlet && selectedOutlet.name) ? selectedOutlet.name : 'Outlet Kenangan'
                 }
-            ]);
+            ], { onConflict: 'id', ignoreDuplicates: false });
         }
     } catch (err) {
         console.warn("Gagal simpan orders ke Supabase:", err);
