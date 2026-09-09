@@ -2282,21 +2282,22 @@ Balon di bawah ini bisa langsung disalin / diteruskan ke customer! ⚡`;
     await delay(400);
     const ok3 = await sendSingleTelegramMsg(draftSelesai);
 
-    if (ok1 || ok2 || ok3) {
-        btn.className = "w-full bg-emerald-700 text-white font-bold py-2.5 rounded-xl text-xs flex items-center justify-center gap-1.5";
-        btn.innerHTML = '<i class="fas fa-check-double text-xs"></i> Notifikasi Terkirim ke Admin!';
-        showToast(`<b>Pembayaran Dikonfirmasi!</b><br>Admin sedang mengecek mutasi dan akan menghubungi WhatsApp kamu jika pesanan sudah diproses 🫶`);
-        setTimeout(() => {
-            const targetOrderId = currentOrderId || localStorage.getItem("last_order_id");
-            if (targetOrderId) {
-                window.location.href = `tracking.html?order_id=${targetOrderId}`;
-            }
-        }, 1500);   
-    } else {
-        showToast("Koneksi gagal, silakan konfirmasi lewat tombol WhatsApp di atas.");
-        btn.innerHTML = '<i class="fas fa-circle-check text-emerald-400 text-sm"></i> ✅ Sudah Transfer (Beri Tahu Admin)';
-        btn.disabled = false;
-    }
+// Update tampilan tombol & toast
+    btn.className = "w-full bg-emerald-700 text-white font-bold py-2.5 rounded-xl text-xs flex items-center justify-center gap-1.5";
+    btn.innerHTML = '<i class="fas fa-check-double text-xs"></i> Notifikasi Terkirim ke Admin!';
+    showToast(`<b>Pembayaran Dikonfirmasi!</b><br>Membuka halaman pemantauan antrean...`);
+
+    // Pastikan order_id tersimpan agar banner web & tracking tahu ordernya
+    const targetId = (typeof currentOrderId !== 'undefined' && currentOrderId) 
+                     ? currentOrderId 
+                     : (localStorage.getItem("last_order_id") || "ORD-" + Date.now());
+    
+    localStorage.setItem("last_order_id", targetId);
+
+    // Langsung arahkan pembeli ke tracking.html
+    setTimeout(() => {
+        window.location.href = `tracking.html?order_id=${targetId}`;
+    }, 1200);
 }
 
 function saveOrderToHistory(orderObj) {
