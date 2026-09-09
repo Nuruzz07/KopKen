@@ -83,18 +83,15 @@
   </main>
 
   <script>
-    // Konfigurasi Supabase Client
     const SUPABASE_URL = "https://axaoagzveujcgoxybdmp.supabase.co";
-    const SUPABASE_ANON_KEY = "sb_publishable_GQ19XRT7yWIBido0iXJvCQ_ybZ_I7ju"; // Ganti dengan Supabase Anon Key milikmu
+    const SUPABASE_ANON_KEY = "sb_publishable_GQ19XRT7yWIBido0iXJvCQ_ybZ_I7ju";
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    // Ambil order_id dari parameter URL (?order_id=...)
     const urlParams = new URLSearchParams(window.location.search);
     const orderId = urlParams.get("order_id");
 
     let selectedRating = 5;
 
-    // Inisialisasi Elemen Halaman
     const elOrderId = document.getElementById("order-id");
     const elStatusBadge = document.getElementById("status-badge");
     const elStatusText = document.getElementById("status-text");
@@ -108,7 +105,7 @@
 
     async function loadOrderData() {
       if (!orderId) {
-        elOrderId.textContent = "ID Pesanan Tidak Ditemukan";
+        elOrderId.textContent = "ID Tidak Ditemukan";
         elStatusText.textContent = "Parameter ?order_id= kosong";
         return;
       }
@@ -133,33 +130,38 @@
     function renderOrder(order) {
       elCustomerName.textContent = order.customer_name || "-";
 
-      // Render Status Badge
       const statusMap = {
-        menunggu_pembayaran: { text: "Menunggu Pembayaran", class: "bg-orange-100 text-orange-700" },
-        diproses: { text: "Pesanan Sedang Dipesan", class: "bg-blue-100 text-blue-700" },
-        selesai: { text: "Pesanan Siap Diambil", class: "bg-green-100 text-green-700" }
+        menunggu_konfirmasi: { text: "Menunggu Konfirmasi Admin", class: "bg-amber-100 text-amber-800" },
+        menunggu_pembayaran: { text: "Menunggu Pembayaran (QRIS)", class: "bg-orange-100 text-orange-700" },
+        sedang_diproses: { text: "Sedang Diproses ke Kasir", class: "bg-blue-100 text-blue-700" },
+        diproses: { text: "Sedang Diproses ke Kasir", class: "bg-blue-100 text-blue-700" },
+        selesai: { text: "Pesanan Siap Diambil", class: "bg-emerald-100 text-emerald-800" }
       };
 
-      const current = statusMap[order.status] || { text: order.status || "Status tidak dikenal", class: "bg-gray-100 text-gray-700" };
+      const current = statusMap[order.status] || { text: order.status || "Memproses", class: "bg-gray-100 text-gray-700" };
       elStatusBadge.className = `inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold ${current.class}`;
       elStatusText.textContent = current.text;
 
-      // Render Rincian Menu
-      if (order.items && Array.isArray(order.items)) {
-        elOrderItems.innerHTML = order.items.map(item => `
-          <div class="flex justify-between items-center py-2">
-            <div>
-              <p class="font-medium text-gray-800">${item.name || item.title || "Menu"}</p>
-              <p class="text-xs text-gray-400">${item.note || item.size || ""}</p>
+      const rawItems = order.items || order.order_items || [];
+      if (Array.isArray(rawItems) && rawItems.length > 0) {
+        elOrderItems.innerHTML = rawItems.map(i => {
+          const name = i.name || (i.item && i.item.name) || "Menu";
+          const desc = i.details || i.note || "";
+          const qty = i.qty || 1;
+          return `
+            <div class="flex justify-between items-center py-2">
+              <div>
+                <p class="font-bold text-gray-800 text-xs">${name}</p>
+                ${desc ? `<p class="text-[10px] text-gray-400">${desc}</p>` : ''}
+              </div>
+              <span class="text-xs font-extrabold text-gray-600">x${qty}</span>
             </div>
-            <span class="text-xs font-semibold text-gray-600">x${item.qty || 1}</span>
-          </div>
-        `).join("");
+          `;
+        }).join("");
       } else {
-        elOrderItems.innerHTML = `<p class="text-xs text-gray-400 py-2">Rincian menu tidak tersedia.</p>`;
+        elOrderItems.innerHTML = `<p class="text-xs text-gray-400 py-2 italic">Rincian menu sedang disiapkan...</p>`;
       }
 
-      // Jika Pesanan Selesai: Tampilkan Tiket Antrean & Struk
       if (order.status === "selesai") {
         elPickupCard.classList.remove("hidden");
         elQueueNumber.textContent = order.queue_number || "-";
@@ -173,7 +175,6 @@
       }
     }
 
-    // Mendengarkan Perubahan Data secara Real-Time
     function listenRealtime() {
       supabaseClient
         .channel(`order_tracking_${orderId}`)
@@ -187,16 +188,10 @@
         .subscribe();
     }
 
-    // Penanganan Zoom Foto Struk
     function toggleZoom(img) {
-      if (img.classList.contains("max-h-72")) {
-        img.classList.remove("max-h-72");
-      } else {
-        img.classList.add("max-h-72");
-      }
+      img.classList.toggle("max-h-72");
     }
 
-    // Interaksi Bintang Ulasan
     const stars = document.querySelectorAll(".star");
     function updateStarUI(rating) {
       stars.forEach(s => {
@@ -214,7 +209,6 @@
     });
     updateStarUI(selectedRating);
 
-    // Pengiriman Form Ulasan
     document.getElementById("review-form").addEventListener("submit", async (e) => {
       e.preventDefault();
       const comment = document.getElementById("review-comment").value.trim();
@@ -225,10 +219,7 @@
 
       const { error } = await supabaseClient
         .from("orders")
-        .update({
-          rating: selectedRating,
-          review: comment
-        })
+        .update({ rating: selectedRating, review: comment })
         .eq("id", orderId);
 
       if (!error) {
