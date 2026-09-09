@@ -2238,14 +2238,16 @@ ${isBagChecked ? 'Kantong Belanja : Rp 1.000\n' : ''}💰 *Total Tagihan Final :
 async function notifyAdminPaymentDone() {
     sfx.playSuccess();
     const btn = document.getElementById('btn-confirm-notify-admin');
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin text-xs"></i> Mengirim Notifikasi...';
-    btn.disabled = true;
-// Buat Order ID dari Nama Pemesan
-    const cleanName = (typeof checkoutCustomerName !== 'undefined' && checkoutCustomerName)
-      ? checkoutCustomerName.trim().replace(/[^a-zA-Z0-9]/g, '').toLowerCase()
-      : 'order';
-    const customOrderId = `${cleanName}-${Date.now().toString().slice(-4)}`;
-    localStorage.setItem("last_order_id", customOrderId);
+    if (btn) {
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin text-xs"></i> Mengirim Notifikasi...';
+        btn.disabled = true;
+    }
+
+    const rawName = (typeof checkoutCustomerName !== 'undefined' && checkoutCustomerName) ? checkoutCustomerName : 'Pelanggan';
+    const parsedName = rawName.trim().replace(/[^a-zA-Z0-9]/g, '').toLowerCase() || 'order';
+    const targetId = `${parsedName}-${Date.now().toString().slice(-4)}`;
+    localStorage.setItem("last_order_id", targetId);
+
     let cleanWa = checkoutCustomerWa ? checkoutCustomerWa.replace(/[^0-9]/g, '') : '';
     if (cleanWa.startsWith('0')) cleanWa = '62' + cleanWa.slice(1);
     else if (!cleanWa.startsWith('62') && cleanWa.length > 0) cleanWa = '62' + cleanWa;
@@ -2253,70 +2255,45 @@ async function notifyAdminPaymentDone() {
 
     const dailyWifi = getDailyWifiPassword();
 
-    const draftProsesWifi = `Terima kasih banyak Kak ${checkoutCustomerName}! Pembayaran sebesar ${formatRp(checkoutGrandTotal)} sudah kami terima ☕✨
+    const draftProsesWifi = `Terima kasih banyak Kak ${rawName}! Pembayaran sebesar ${formatRp(checkoutGrandTotal)} sudah kami terima ☕✨\n\nOrderan sedang kami proseskan ke kasir yaa!\n\n📶 INFO WIFI OUTLET HARI INI:\n• SSID : Teman Kenangan\n• User : kopikenangan\n• Pass : ${dailyWifi}\n\nMohon ditunggu sebentar ya Kak! 🫶`;
 
-Orderan sedang kami proseskan ke kasir yaa!
+    const draftSelesai = `Pesanan Kak ${rawName} sudah selesai diproses ke kasir ya! ✨\n\n📌 Cara Pengambilan:\nCukup sebutkan nama "${rawName}" ke barista di outlet.\n\nSelamat menikmati dan terima kasih sudah jajan di Bintang Store! Ditunggu orderan berikutnya ya Kak! 🫰☕`;
 
-📶 INFO WIFI OUTLET HARI INI:
-• SSID : Teman Kenangan
-• User : kopikenangan
-• Pass : ${dailyWifi}
+    const notifyBubble1 = `🔔 <b>KONFIRMASI: CUSTOMER SUDAH TRANSFER!</b> 🔔\n--------------------------------------------------\n👤 <b>Nama :</b> ${rawName}\n📱 <b>No. WhatsApp :</b> ${checkoutCustomerWa || '-'}\n🔗 <b>Hubungi Customer :</b> <a href="${waLink}">${waLink}</a>\n💰 <b>Total Tagihan :</b> ${formatRp(checkoutGrandTotal)}\n--------------------------------------------------\nCustomer telah menekan tombol <b>SUDAH TRANSFER</b>.\nBalon di bawah ini bisa langsung disalin / diteruskan ke customer! ⚡`;
 
-Mohon ditunggu sebentar ya Kak! 🫶`;
-
-    const draftSelesai = `Pesanan Kak ${checkoutCustomerName} sudah selesai diproses ke kasir ya! ✨
-
-📌 Cara Pengambilan:
-Cukup sebutkan nama "${checkoutCustomerName}" ke barista di outlet.
-
-Selamat menikmati dan terima kasih sudah jajan di Bintang Store! Ditunggu orderan berikutnya ya Kak! 🫰☕`;
-
-    const notifyBubble1 = `🔔 <b>KONFIRMASI: CUSTOMER SUDAH TRANSFER!</b> 🔔
---------------------------------------------------
-👤 <b>Nama :</b> ${checkoutCustomerName}
-📱 <b>No. WhatsApp :</b> ${checkoutCustomerWa || '-'}
-🔗 <b>Hubungi Customer :</b> <a href="${waLink}">${waLink}</a>
-💰 <b>Total Tagihan :</b> ${formatRp(checkoutGrandTotal)}
---------------------------------------------------
-Customer telah menekan tombol <b>SUDAH TRANSFER</b>.
-Balon di bawah ini bisa langsung disalin / diteruskan ke customer! ⚡`;
-
-    const ok1 = await sendSingleTelegramMsg(notifyBubble1);
-    await delay(400);
-    const ok2 = await sendSingleTelegramMsg(draftProsesWifi);
-    await delay(400);
-    const ok3 = await sendSingleTelegramMsg(draftSelesai);
-
-// Update tampilan tombol & toast
-    btn.className = "w-full bg-emerald-700 text-white font-bold py-2.5 rounded-xl text-xs flex items-center justify-center gap-1.5";
-    btn.innerHTML = '<i class="fas fa-check-double text-xs"></i> Notifikasi Terkirim ke Admin!';
-    showToast(`<b>Pembayaran Dikonfirmasi!</b><br>Membuka halaman pemantauan antrean...`);
-
-// Buat ID berbasis nama pembeli
-    const rawName = (typeof checkoutCustomerName !== 'undefined' && checkoutCustomerName) ? checkoutCustomerName : 'tamu';
-    const cleanName = rawName.trim().replace(/[^a-zA-Z0-9]/g, '').toLowerCase() || 'order';
-    const targetId = `${cleanName}-${Date.now().toString().slice(-4)}`;
-
-    localStorage.setItem("last_order_id", targetId);
-
-    // Simpan order ke Supabase agar tracking.html bisa membacanya
     try {
-      if (typeof supabaseClient !== 'undefined' || typeof supabase !== 'undefined') {
-        const sb = typeof supabaseClient !== 'undefined' ? supabaseClient : supabase;
-        await sb.from("orders").insert([
-          {
-            id: targetId,
-            customer_name: rawName,
-            status: "menunggu",
-            items: typeof cart !== 'undefined' ? cart : []
-          }
-        ]);
-      }
-    } catch (err) {
-      console.warn("Gagal simpan orders:", err);
+        await sendSingleTelegramMsg(notifyBubble1);
+        await delay(400);
+        await sendSingleTelegramMsg(draftProsesWifi);
+        await delay(400);
+        await sendSingleTelegramMsg(draftSelesai);
+    } catch (e) {
+        console.warn("Notifikasi telegram gagal dikirim:", e);
     }
 
-    // Langsung arahkan pembeli ke tracking.html
+    if (btn) {
+        btn.className = "w-full bg-emerald-700 text-white font-bold py-2.5 rounded-xl text-xs flex items-center justify-center gap-1.5";
+        btn.innerHTML = '<i class="fas fa-check-double text-xs"></i> Notifikasi Terkirim ke Admin!';
+    }
+    showToast(`<b>Pembayaran Dikonfirmasi!</b><br>Membuka halaman pemantauan antrean...`);
+
+    try {
+        if (typeof supabaseClient !== 'undefined' && supabaseClient) {
+            await supabaseClient.from("orders").insert([
+                {
+                    id: targetId,
+                    customer_name: rawName,
+                    customer_wa: cleanWa || '-',
+                    status: "menunggu_konfirmasi",
+                    total_price: checkoutGrandTotal || 0,
+                    outlet_name: (selectedOutlet && selectedOutlet.name) ? selectedOutlet.name : 'Outlet Kenangan'
+                }
+            ]);
+        }
+    } catch (err) {
+        console.warn("Gagal simpan orders ke Supabase:", err);
+    }
+
     setTimeout(() => {
         window.location.href = `tracking.html?order_id=${targetId}`;
     }, 1200);
