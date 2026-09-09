@@ -389,7 +389,7 @@ async function checkMemberEligibleVoucher(phone) {
             const totalCup = cart.reduce((sum, c) => sum + (c.qty || 1), 0);
             if (totalCup >= 2) {
                 activeVoucherDiscount = 1000;
-                showToast("✨ <b>Voucher Rp1.000 Aktif!</b><br>Potongan reward belanja 50k kamu berhasil dipasang.");
+                showToast("✨ <b>Voucher Rp1.000 Aktif!</b><br>Potongan ulasan foto kamu berhasil dipasang.");
             }
         }
     } catch(e) {}
@@ -2053,19 +2053,7 @@ async function submitOrderKopken(method) {
     // Aktifkan realtime tracker bar atas
     initRealtimeOrderTracker(singleOrderId);
 
-    // Reward voucher belanja >= 50k
-    if (grandTotal >= 50000 && cleanWaNumber && supabaseClient) {
-        try {
-            await supabaseClient.from('member_vouchers').insert([{
-                customer_name: name,
-                customer_wa: cleanWaNumber,
-                nominal: 1000,
-                min_items: 2,
-                is_used: false
-            }]);
-        } catch(err) {}
-    }
-
+    // Tandai voucher yang dipakai belanja saat ini sebagai terpakai
     if (appliedVoucherId && activeVoucherDiscount > 0 && supabaseClient) {
         try {
             await supabaseClient
@@ -2091,9 +2079,12 @@ async function submitOrderKopken(method) {
 
     const lateOrderNotice = !isOutletOpenNow(selectedOutlet) ? '⚠️ <b>[PESANAN DI LUAR JAM TUTUP STANDAR - CEK STATUS CASHER]</b>\n' : '';
 
+    const trackingUrl = `https://www.bintangstore.web.id/tracking.html?order_id=${singleOrderId}`;
+
     const telegramSummaryBubble = `── .✦ <b>ORDER KOPI KENANGAN BARU</b> ✦.──
 ${adminStatusHeader}${lateOrderNotice}${isMidnightHour() ? '🌙 <b>[PERINGATAN: ORDER JAM MALAM / ANTREAN PAGI]</b>\n' : ''}
 🆔 <b>Order ID :</b> <code>${singleOrderId}</code>
+🔗 <b>Link Tracking CS :</b> <a href="${trackingUrl}">${trackingUrl}</a>
 👤 <b>Nama Pemesan :</b> ${name}
 📱 <b>No. WhatsApp :</b> ${custWaInput || 'Via WhatsApp Chat'}
 🔗 <b>Chat Customer :</b> <a href="${waDirectLink}">${waDirectLink}</a>
@@ -2121,11 +2112,14 @@ Terima kasih sudah order Kopi Kenangan di Bintang Store!
 ${itemsText}📍 Outlet: ${selectedOutlet.name}
 ${hasFreePromo ? '🎁 Bonus Promo: 1x Roti Coklat Klasik (FREE)\n' : ''}💰 Total Tagihan Pas: ${formatRp(grandTotal)}
 
+🔗 Link Ruang Tunggu / Live Tracking:
+${trackingUrl}
+
 Silakan scan / transfer via QRIS kami ya Kak. Setelah berhasil, kirim bukti transfer ke sini agar langsung kami proseskan ke kasir! Ditunggu ya Kak! 🫰💖</code>`;
 
     const draftChatAutoProses = `<code>Terima kasih banyak Kak ${name}! Pembayaran sebesar ${formatRp(grandTotal)} sudah kami terima ☕✨
 
-Pesananmu sedang langsung kami proseskan ke kasir outlet ${selectedOutlet.name} yaa! Mohon ditunggu sebentar ya Kak 🫶</code>`;
+Pesananmu sedang langsung kami proseskan ke kasir outlet ${selectedOutlet.name} yaa! Pantau nomor antreanmu secara live di: ${trackingUrl} 🫶</code>`;
 
     const draftThankYouAndShare = `<code>Terima kasih banyak sudah jajan dan order Kopi Kenangan lewat Bintang Store ya Kak ${name}! ✨
 
@@ -2136,6 +2130,7 @@ Kalau suka sama promonya, jangan lupa share info hemat ini ke teman kantor atau 
     const waRawMessage = `── .✦ *ORDER KOPI KENANGAN BARU* ✦.──
 ${autoSched.isBusy ? `⏳ *[ADMIN AGENDA LUAR - PROSES MULAI ${autoSched.availableAt} WIB]*\n` : (currentAdminStoreStatus === 'busy' ? '🟡 *[STATUS: ADMIN SEDANG SIBUK (15-30 MNT)]*\n' : '')}${!isOutletOpenNow(selectedOutlet) ? '⚠️ *[ORDER DI LUAR JAM TUTUP STANDAR]*\n' : ''}${isMidnightHour() ? '🌙 *[ORDER JAM MALAM / ANTREAN PAGI]*\n' : ''}
 🆔 *Order ID :* ${singleOrderId}
+🔗 *Pantau Pesanan Live :* ${trackingUrl}
 👤 *Nama Pemesan :* ${name}
 📱 *No. WhatsApp :* ${custWaInput || '-'}
 🛵 *Tipe Pesanan :* ${orderTypeText}
@@ -2159,7 +2154,6 @@ ${isBagChecked ? 'Kantong Belanja : Rp 1.000\n' : ''}💰 *Total Tagihan Final :
         const ok1 = await sendSingleTelegramMsg(telegramSummaryBubble);
         await delay(400);
 
-        // Tombol interaktif langsung memakai singleOrderId
         await sendTelegramOrderWithButtons(singleOrderId, name, grandTotal, selectedOutlet.name);
         await delay(400);
 
@@ -2192,13 +2186,17 @@ ${isBagChecked ? 'Kantong Belanja : Rp 1.000\n' : ''}💰 *Total Tagihan Final :
         sendTelegramOrderWithButtons(singleOrderId, name, grandTotal, selectedOutlet.name);
         await delay(300);
 
-        sendSingleTelegramMsg(`👇 <b>[TEMPLATE BALASAN JIKA SUDAH TRANSFER]</b>:\n\n${draftChatAutoProses}`);
+        sendSingleTelegramMsg(`👇 <b>[TEMPLATE BALASAN JIKA SUDAH TRANSFER]</b>\n\n${draftChatAutoProses}`);
         await delay(300);
         sendSingleTelegramMsg(`👇 <b>[TEMPLATE TERIMA KASIH & SHARE KE TEMAN]</b>:\n\n${draftThankYouAndShare}`);
 
         const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(waRawMessage)}`;
         showFullscreenLoader('kopken', true, waUrl);
         isMidnightForced = false;
+
+        setTimeout(() => {
+            window.location.href = `tracking.html?order_id=${singleOrderId}`;
+        }, 1500);
     }
 }
 
@@ -2210,7 +2208,6 @@ async function notifyAdminPaymentDone() {
         btn.disabled = true;
     }
 
-    // Ambil ID yang dibuat di submitOrderKopken
     const targetId = localStorage.getItem("last_order_id") || "order-" + Date.now().toString().slice(-4);
     const rawName = (typeof checkoutCustomerName !== 'undefined' && checkoutCustomerName) ? checkoutCustomerName : 'Pelanggan';
 
@@ -2243,7 +2240,6 @@ async function notifyAdminPaymentDone() {
     }
     showToast(`<b>Pembayaran Dikonfirmasi!</b><br>Membuka ruang tunggu pesanan...`);
 
-    // Arahkan ke ruang tunggu dengan ID yang sama persis
     setTimeout(() => {
         window.location.href = `tracking.html?order_id=${targetId}`;
     }, 1200);
@@ -3066,5 +3062,5 @@ function triggerPostOrderReviewPrompt(orderId, name, wa) {
         return;
     }
 
-    showToast(`🎉 <b>Pesanan Selesai!</b><br>Kirim foto ulasan kopi kamu ke WA admin untuk klaim voucher potongan Rp1.000 (min order 2 cup)! ☕`);
+    showToast(`🎉 <b>Pesanan Selesai!</b><br>Kirim foto ulasan kopi kamu untuk klaim voucher potongan Rp1.000 (min order 2 cup)! ☕`);
 }
