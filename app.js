@@ -1622,14 +1622,17 @@ function initScheduleDropdown() {
 }
 
 function validateKopkenForm() {
-    const name = document.getElementById('cust-name').value.trim();
-    const wa = document.getElementById('cust-wa').value.trim();
+    const nameEl = document.getElementById('cust-name');
+    const waEl = document.getElementById('cust-wa');
+    const name = nameEl ? nameEl.value.trim() : '';
+    const wa = waEl ? waEl.value.trim() : '';
     const btnTele = document.getElementById('btn-submit-tele-kopken');
     const btnWa = document.getElementById('btn-submit-wa-kopken');
     const closedWarning = document.getElementById('outlet-closed-warning-box');
 
     let subtotal = cart.reduce((sum, c) => sum + (c.price * (c.qty || 1)), 0);
-    document.getElementById('summary-subtotal').textContent = formatRp(subtotal);
+    const subtotalEl = document.getElementById('summary-subtotal');
+    if (subtotalEl) subtotalEl.textContent = formatRp(subtotal);
 
     let totalEstimatedReal = 0;
     cart.forEach(c => {
@@ -1684,14 +1687,19 @@ function validateKopkenForm() {
     const isMall = isMallOutlet(selectedOutlet);
     const surcharge = (isMall && cart.length > 0) ? 3000 : 0;
     const surchargeRow = document.getElementById('mall-surcharge-row');
-    if (surcharge > 0) surchargeRow.classList.remove('hidden');
-    else surchargeRow.classList.add('hidden');
+    if (surchargeRow) {
+        if (surcharge > 0) surchargeRow.classList.remove('hidden');
+        else surchargeRow.classList.add('hidden');
+    }
 
-    const isBagChecked = document.getElementById('bag-checkbox').checked && currentOrderType === 'takeaway';
+    const bagChk = document.getElementById('bag-checkbox');
+    const isBagChecked = bagChk ? (bagChk.checked && currentOrderType === 'takeaway') : false;
     const bagFee = (isBagChecked && cart.length > 0) ? 1000 : 0;
     const bagRow = document.getElementById('bag-fee-row');
-    if (bagFee > 0) bagRow.classList.remove('hidden');
-    else bagRow.classList.add('hidden');
+    if (bagRow) {
+        if (bagFee > 0) bagRow.classList.remove('hidden');
+        else bagRow.classList.add('hidden');
+    }
 
     const totalCup = cart.reduce((sum, c) => sum + (c.qty || 1), 0);
     if (appliedVoucherId && totalCup >= 2) {
@@ -1701,7 +1709,8 @@ function validateKopkenForm() {
     }
 
     const total = Math.max(0, subtotal + surcharge + bagFee - activeVoucherDiscount);
-    document.getElementById('summary-total').textContent = formatRp(total);
+    const totalEl = document.getElementById('summary-total');
+    if (totalEl) totalEl.textContent = formatRp(total);
 
     const isOpenNow = isOutletOpenNow(selectedOutlet);
     const isSig = isSignatureOutlet(selectedOutlet);
@@ -1712,7 +1721,7 @@ function validateKopkenForm() {
             closedWarning.innerHTML = '⚠️ Outlet Signature/Heritage tutup untuk promo reguler.';
             closedWarning.classList.remove('hidden');
         } else if (!isOpenNow) {
-            closedWarning.innerHTML = '⚠️ <b>Outlet tercatat melewati jam operasional standar.</b> Jika di aplikasi resmi gerai ini masih buka, kamu tetap bisa lanjut checkout!';
+            closedWarning.innerHTML = '⚠️ <b>Outlet tercatat melewati jam operasional standar.</b>';
             closedWarning.classList.remove('hidden');
         } else {
             closedWarning.classList.add('hidden');
@@ -1722,23 +1731,24 @@ function validateKopkenForm() {
     const hasBaseInfo = cart.length > 0 && name.length >= 2 && selectedOutlet && isOutletValid;
     const hasWaNumber = wa.length >= 9;
 
-    if (hasBaseInfo) {
-        btnWa.disabled = false;
-        btnWa.className = "w-full bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold py-3.5 rounded-2xl shadow-lg transition duration-200 flex justify-center items-center gap-2 active:scale-98 text-xs cursor-pointer";
-    } else {
-        btnWa.disabled = true;
-        btnWa.className = "w-full bg-gray-400 text-white font-extrabold py-3.5 rounded-2xl transition duration-200 flex justify-center items-center gap-2 cursor-not-allowed text-xs";
+    if (btnWa) {
+        if (hasBaseInfo) {
+            btnWa.disabled = false;
+            btnWa.className = "w-full bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold py-3.5 rounded-2xl shadow-lg transition duration-200 flex justify-center items-center gap-2 active:scale-98 text-xs cursor-pointer";
+        } else {
+            btnWa.disabled = true;
+            btnWa.className = "w-full bg-gray-400 text-white font-extrabold py-3.5 rounded-2xl transition duration-200 flex justify-center items-center gap-2 cursor-not-allowed text-xs";
+        }
     }
 
-    if (hasBaseInfo && hasWaNumber) {
-        btnTele.disabled = false;
-        btnTele.className = "w-full bg-kenangan-dark hover:bg-kenangan-hover text-white font-extrabold py-3.5 rounded-2xl shadow-lg transition duration-200 flex justify-center items-center gap-2 active:scale-98 text-xs cursor-pointer";
-    } else if (hasBaseInfo && !hasWaNumber) {
-        btnTele.disabled = false;
-        btnTele.className = "w-full bg-amber-800 hover:bg-amber-900 text-amber-200 font-extrabold py-3.5 rounded-2xl shadow transition duration-200 flex justify-center items-center gap-2 text-xs cursor-pointer";
-    } else {
-        btnTele.disabled = true;
-        btnTele.className = "w-full bg-gray-400 text-white font-extrabold py-3.5 rounded-2xl transition duration-200 flex justify-center items-center gap-2 cursor-not-allowed text-xs";
+    if (btnTele) {
+        if (hasBaseInfo && hasWaNumber) {
+            btnTele.disabled = false;
+            btnTele.className = "w-full bg-kenangan-dark hover:bg-kenangan-hover text-white font-extrabold py-3.5 rounded-2xl shadow-lg transition duration-200 flex justify-center items-center gap-2 active:scale-98 text-xs cursor-pointer";
+        } else {
+            btnTele.disabled = true;
+            btnTele.className = "w-full bg-gray-400 text-white font-extrabold py-3.5 rounded-2xl transition duration-200 flex justify-center items-center gap-2 cursor-not-allowed text-xs";
+        }
     }
 }
 
