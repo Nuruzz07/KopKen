@@ -1089,10 +1089,8 @@ function scrollToCart() {
 function openWelcomeGateModal(forceOpen = true) {
     const modal = document.getElementById('modal-welcome-gate');
     const card = document.getElementById('welcome-gate-card');
-    if (!modal || !card) return;
-
-    if (typeof setGateOrderType === 'function') setGateOrderType(currentOrderType);
-    if (typeof updateGatePreview === 'function') updateGatePreview();
+    setGateOrderType(currentOrderType);
+    updateGatePreview();
 
     modal.classList.remove('hidden');
     setTimeout(() => {
@@ -1209,21 +1207,16 @@ function updateGatePreview() {
     const isOpen = isOutletOpenNow(selectedOutlet);
     const isMall = isMallOutlet(selectedOutlet);
 
-    const nameEl = document.getElementById('gate-preview-name');
-    const addrEl = document.getElementById('gate-preview-address');
-    const statusBadge = document.getElementById('gate-preview-status');
-
-    if (nameEl) nameEl.textContent = selectedOutlet.name + (isSig ? ' (Signature)' : (isMall ? ' (Mall)' : ''));
-    if (addrEl) addrEl.textContent = isSig ? '⚠️ Outlet Signature memiliki menu khusus.' : (selectedOutlet.address || 'Alamat outlet');
+    document.getElementById('gate-preview-name').textContent = selectedOutlet.name + (isSig ? ' (Signature)' : (isMall ? ' (Mall)' : ''));
+    document.getElementById('gate-preview-address').textContent = isSig ? '⚠️ Outlet Signature/Heritage memiliki menu dan harga khusus. Promo reguler tidak berlaku.' : (selectedOutlet.address || 'Alamat outlet');
     
-    if (statusBadge) {
-        if (isSig) {
-            statusBadge.textContent = 'SIGNATURE (TUTUP)';
-            statusBadge.className = 'text-[9px] font-black px-1.5 py-0.5 rounded-full uppercase flex-shrink-0 bg-purple-100 text-purple-800';
-        } else {
-            statusBadge.textContent = isOpen ? 'BUKA' : 'JADWAL TUTUP (BISA CEK)';
-            statusBadge.className = `text-[9px] font-black px-1.5 py-0.5 rounded-full uppercase flex-shrink-0 ${isOpen ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}`;
-        }
+    const statusBadge = document.getElementById('gate-preview-status');
+    if (isSig) {
+        statusBadge.textContent = 'SIGNATURE (TUTUP)';
+        statusBadge.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full uppercase flex-shrink-0 bg-purple-100 text-purple-800';
+    } else {
+        statusBadge.textContent = isOpen ? 'BUKA' : 'JADWAL TUTUP (BISA CEK)';
+        statusBadge.className = `text-[10px] font-bold px-2 py-0.5 rounded-full uppercase flex-shrink-0 ${isOpen ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}`;
     }
 }
 
