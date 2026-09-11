@@ -726,7 +726,7 @@ function switchView(target, pushToHistory = true) {
 
 function openKopkenFlow() {
     switchView('kopken');
-    openWelcomeGateModal(false);
+    openWelcomeGateModal(true);
 }
 
 function openTomoroFlow() {
