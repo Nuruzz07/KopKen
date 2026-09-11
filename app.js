@@ -2735,6 +2735,14 @@ async function onInputMemberCode(val) {
 function applyMemberProfile(code, encodedName, phone, outletName) {
     const name = decodeURIComponent(encodedName);
     
+    // Simpan ke sesi browser agar checkout.html langsung terisi otomatis
+    localStorage.setItem("bintang_member_session", JSON.stringify({
+        code: code,
+        name: name,
+        phone: phone,
+        outlet: outletName
+    }));
+
     const nameInput = document.getElementById('cust-name');
     const phoneInput = document.getElementById('cust-wa');
     const memberInput = document.getElementById('memberCodeInput');
@@ -2751,13 +2759,14 @@ function applyMemberProfile(code, encodedName, phone, outletName) {
         if (found) {
             selectedOutlet = found;
             if (typeof updateOutletUI === 'function') updateOutletUI();
+            if (typeof updateGatePreview === 'function') updateGatePreview();
         }
     }
 
     if (typeof validateKopkenForm === 'function') validateKopkenForm();
 
-    showToast(`✨ Profil <b>@${code}</b> terpasang!<br>Data & outlet langganan Kak ${name} berhasil dimuat.`);
-    checkMemberEligibleVoucher(phone);
+    showToast(`✨ Profil <b>@${code}</b> terpasang!<br>Cabang dan datamu langsung beres Kak ${name}.`);
+    if (typeof checkMemberEligibleVoucher === 'function') checkMemberEligibleVoucher(phone);
 }
 
 async function checkAndRegisterMember(orderName, orderPhone, outletName) {
