@@ -363,6 +363,43 @@ let selectedOrderType = 'now';
 let activeVoucherDiscount = 0;
 let appliedVoucherId = null;
 
+// PENGUNCI GANDA ANTI-DOUBLE SUBMIT & TIMER HITUNG MUNDUR 10 MENIT
+let isSubmittingKopkenOrder = false;
+let orderConfirmationCountdownInterval = null;
+
+const RANDOM_CHECKOUT_QUOTES = [
+    "Beli kopi buat begadang, terima kasih sudah memesan! Pesananmu sedang dirangkai, santai dulu ya sayang! ☕🫶",
+    "Mantan boleh bikin trauma, kopi Bintang bikin bahagia. Pesananmu sedang meluncur cepat ke barista! 🚀✨",
+    "Siang-siang makan bakwan, paling pas ditemani kenangan. Duduk manis ya kawan, pesananmu sedang disiapkan! 🥖☕",
+    "Beli melati di Pasar Minggu, kopi sejati setia menunggu. Sabar sebentar ya, barista lagi meracik pesananmu! ⏳🤎",
+    "Pagi-pagi minum jamu, siangnya beli es kopi susu. Duduk santai ya bosku, pesanan segera meluncur untukmu! 🛵✨"
+];
+
+function startOrderConfirmationTimer(targetMinutes = 10) {
+    clearInterval(orderConfirmationCountdownInterval);
+    const descEl = document.getElementById('tracking-status-desc');
+    let remainingSeconds = targetMinutes * 60;
+
+    orderConfirmationCountdownInterval = setInterval(async () => {
+        if (!descEl) return;
+        remainingSeconds--;
+
+        const m = Math.floor(remainingSeconds / 60);
+        const s = remainingSeconds % 60;
+        const timeFormatted = `${m}:${s < 10 ? '0' : ''}${s}`;
+
+        if (remainingSeconds > 0) {
+            descEl.innerHTML = `⏳ <b>Estimasi Konfirmasi CS: ${timeFormatted}</b><br>Admin sedang memproses pesanan ke kasir. Harap tunggu sebentar ya Kak ☕`;
+        } else {
+            clearInterval(orderConfirmationCountdownInterval);
+            descEl.innerHTML = `⚠️ <b>Konfirmasi Melewati 10 Menit:</b><br>Admin mungkin sedang antre di kasir. Silakan <a href="https://wa.me/${waNumber}?text=Halo%20Admin%20Bintang%20Store%2C%20orderan%20saya%20sudah%2010%20menit%20belum%20ada%20update%20nih" target="_blank" class="text-amber-800 underline font-black">Chat / Telepon WhatsApp Admin Di Sini</a> 📞`;
+            
+            const activeId = localStorage.getItem('active_tracking_order_id') || 'Order';
+            await sendSingleTelegramMsg(`🚨 <b>PERINGATAN ORDER MELEWATI 10 MENIT!</b>\nOrder ID: <code>${activeId}</code> belum dikonfirmasi oleh CS. Pelanggan diperbolehkan menghubungi/misscall WhatsApp!`);
+        }
+    }, 1000);
+}
+
 // Cek otomatis voucher hak member di Supabase
 async function checkMemberEligibleVoucher(phone) {
     activeVoucherDiscount = 0;
@@ -724,6 +761,7 @@ function switchView(target, pushToHistory = true) {
     }
 }
 
+// 1. POP-UP PEMILIHAN LOKASI & MEMBER OTOMATIS MUNCUL KE DEPAN LAYAR
 function openKopkenFlow() {
     switchView('kopken');
     openWelcomeGateModal(true);
@@ -1089,8 +1127,10 @@ function scrollToCart() {
 function openWelcomeGateModal(forceOpen = true) {
     const modal = document.getElementById('modal-welcome-gate');
     const card = document.getElementById('welcome-gate-card');
-    setGateOrderType(currentOrderType);
-    updateGatePreview();
+    if (!modal || !card) return;
+
+    if (typeof setGateOrderType === 'function') setGateOrderType(currentOrderType);
+    if (typeof updateGatePreview === 'function') updateGatePreview();
 
     modal.classList.remove('hidden');
     setTimeout(() => {
@@ -1103,6 +1143,7 @@ function openWelcomeGateModal(forceOpen = true) {
 function closeWelcomeGateModal() {
     const modal = document.getElementById('modal-welcome-gate');
     const card = document.getElementById('welcome-gate-card');
+    if (!modal || !card) return;
     modal.classList.add('opacity-0');
     card.classList.remove('scale-100');
     card.classList.add('scale-95');
@@ -1115,11 +1156,11 @@ function setGateOrderType(type) {
     const btnDinein = document.getElementById('gate-type-dinein');
 
     if (type === 'takeaway') {
-        btnTakeaway.className = "py-2.5 px-3 rounded-2xl border-2 border-kenangan-primary bg-amber-50 text-kenangan-primary font-bold text-xs flex flex-col items-center gap-1 transition shadow-sm cursor-pointer";
-        btnDinein.className = "py-2.5 px-3 rounded-2xl border-2 border-gray-200 bg-white text-gray-600 font-bold text-xs flex flex-col items-center gap-1 transition cursor-pointer";
+        if (btnTakeaway) btnTakeaway.className = "py-2.5 px-3 rounded-2xl border-2 border-kenangan-primary bg-amber-50 text-kenangan-primary font-bold text-xs flex flex-col items-center gap-1 transition shadow-sm cursor-pointer";
+        if (btnDinein) btnDinein.className = "py-2.5 px-3 rounded-2xl border-2 border-gray-200 bg-white text-gray-600 font-bold text-xs flex flex-col items-center gap-1 transition cursor-pointer";
     } else {
-        btnDinein.className = "py-2.5 px-3 rounded-2xl border-2 border-kenangan-primary bg-amber-50 text-kenangan-primary font-bold text-xs flex flex-col items-center gap-1 transition shadow-sm cursor-pointer";
-        btnTakeaway.className = "py-2.5 px-3 rounded-2xl border-2 border-gray-200 bg-white text-gray-600 font-bold text-xs flex flex-col items-center gap-1 transition cursor-pointer";
+        if (btnDinein) btnDinein.className = "py-2.5 px-3 rounded-2xl border-2 border-kenangan-primary bg-amber-50 text-kenangan-primary font-bold text-xs flex flex-col items-center gap-1 transition shadow-sm cursor-pointer";
+        if (btnTakeaway) btnTakeaway.className = "py-2.5 px-3 rounded-2xl border-2 border-gray-200 bg-white text-gray-600 font-bold text-xs flex flex-col items-center gap-1 transition cursor-pointer";
     }
 }
 
@@ -1176,9 +1217,12 @@ function handleGateOutletSearch() {
 }
 
 function clearGateSearch() {
-    document.getElementById('gate-outlet-search').value = '';
-    document.getElementById('gate-outlet-dropdown').classList.add('hidden');
-    document.getElementById('gate-clear-search-btn').classList.add('hidden');
+    const input = document.getElementById('gate-outlet-search');
+    const dropdown = document.getElementById('gate-outlet-dropdown');
+    const clearBtn = document.getElementById('gate-clear-search-btn');
+    if (input) input.value = '';
+    if (dropdown) dropdown.classList.add('hidden');
+    if (clearBtn) clearBtn.classList.add('hidden');
 }
 
 function selectOutletItem(outletId) {
@@ -1207,16 +1251,21 @@ function updateGatePreview() {
     const isOpen = isOutletOpenNow(selectedOutlet);
     const isMall = isMallOutlet(selectedOutlet);
 
-    document.getElementById('gate-preview-name').textContent = selectedOutlet.name + (isSig ? ' (Signature)' : (isMall ? ' (Mall)' : ''));
-    document.getElementById('gate-preview-address').textContent = isSig ? '⚠️ Outlet Signature/Heritage memiliki menu dan harga khusus. Promo reguler tidak berlaku.' : (selectedOutlet.address || 'Alamat outlet');
-    
+    const nameEl = document.getElementById('gate-preview-name');
+    const addrEl = document.getElementById('gate-preview-address');
     const statusBadge = document.getElementById('gate-preview-status');
-    if (isSig) {
-        statusBadge.textContent = 'SIGNATURE (TUTUP)';
-        statusBadge.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full uppercase flex-shrink-0 bg-purple-100 text-purple-800';
-    } else {
-        statusBadge.textContent = isOpen ? 'BUKA' : 'JADWAL TUTUP (BISA CEK)';
-        statusBadge.className = `text-[10px] font-bold px-2 py-0.5 rounded-full uppercase flex-shrink-0 ${isOpen ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}`;
+
+    if (nameEl) nameEl.textContent = selectedOutlet.name + (isSig ? ' (Signature)' : (isMall ? ' (Mall)' : ''));
+    if (addrEl) addrEl.textContent = isSig ? '⚠️ Outlet Signature/Heritage memiliki menu dan harga khusus. Promo reguler tidak berlaku.' : (selectedOutlet.address || 'Alamat outlet');
+    
+    if (statusBadge) {
+        if (isSig) {
+            statusBadge.textContent = 'SIGNATURE (TUTUP)';
+            statusBadge.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full uppercase flex-shrink-0 bg-purple-100 text-purple-800';
+        } else {
+            statusBadge.textContent = isOpen ? 'BUKA' : 'JADWAL TUTUP (BISA CEK)';
+            statusBadge.className = `text-[10px] font-bold px-2 py-0.5 rounded-full uppercase flex-shrink-0 ${isOpen ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}`;
+        }
     }
 }
 
@@ -1269,8 +1318,10 @@ function updateModalPrice() {
     });
 
     modalPriceCache = basePrice + addOnTotal;
-    document.getElementById('modal-price').textContent = formatRp(modalPriceCache);
-    document.getElementById('modal-btn-price').textContent = formatRp(modalPriceCache);
+    const priceEl = document.getElementById('modal-price');
+    const btnPriceEl = document.getElementById('modal-btn-price');
+    if (priceEl) priceEl.textContent = formatRp(modalPriceCache);
+    if (btnPriceEl) btnPriceEl.textContent = formatRp(modalPriceCache);
 }
 
 function openModal(itemId, editIndex = null) {
@@ -1279,10 +1330,13 @@ function openModal(itemId, editIndex = null) {
 
     currentModalItem = item;
     editingCartIndex = editIndex;
-    document.getElementById('modal-title').textContent = item.name;
-    document.getElementById('modal-btn-label').textContent = editIndex !== null ? 'Perbarui Pesanan' : 'Simpan ke Keranjang';
+    const titleEl = document.getElementById('modal-title');
+    const labelEl = document.getElementById('modal-btn-label');
+    if (titleEl) titleEl.textContent = item.name;
+    if (labelEl) labelEl.textContent = editIndex !== null ? 'Perbarui Pesanan' : 'Simpan ke Keranjang';
 
     const optionsContainer = document.getElementById('modal-options-container');
+    if (!optionsContainer) return;
     optionsContainer.innerHTML = '';
 
     if (item.type === 'bundling') {
@@ -1493,6 +1547,7 @@ function closeModal(e) {
     if (e && typeof e.preventDefault === 'function') e.preventDefault();
     const overlay = document.getElementById('modal-overlay');
     const content = document.getElementById('modal-content');
+    if (!overlay || !content) return;
     overlay.classList.add('opacity-0');
     content.classList.remove('translate-y-0');
     content.classList.add('translate-y-full');
@@ -1507,6 +1562,7 @@ function playFlyToCartAnimation() {
     const cartBtn = document.getElementById('cart-icon-btn');
     const cartIcon = document.getElementById('cart-icon');
     const badge = document.getElementById('cart-badge');
+    if (!cartBtn || !cartIcon || !badge) return;
     const rect = cartBtn.getBoundingClientRect();
 
     const flyer = document.createElement('div');
@@ -1545,14 +1601,18 @@ function updateCartUI() {
     const countText = document.getElementById('cart-item-count-text');
 
     let totalQty = cart.reduce((sum, c) => sum + (c.qty || 1), 0);
-    countText.textContent = `${totalQty} Item`;
+    if (countText) countText.textContent = `${totalQty} Item`;
+
+    if (!container) return;
 
     if (cart.length === 0) {
         container.innerHTML = '<p class="text-xs text-gray-500 italic text-center py-4">Keranjang masih kosong.</p>';
-        badge.classList.add('hidden');
+        if (badge) badge.classList.add('hidden');
     } else {
-        badge.classList.remove('hidden');
-        badge.textContent = totalQty;
+        if (badge) {
+            badge.classList.remove('hidden');
+            badge.textContent = totalQty;
+        }
         container.innerHTML = '';
         
         cart.forEach((c, idx) => {
@@ -1596,13 +1656,13 @@ function setPickupMode(mode) {
     const pickerBox = document.getElementById('schedule-picker-box');
 
     if (mode === 'now') {
-        btnNow.className = "py-2 px-3 rounded-xl border-2 border-kenangan-primary bg-amber-50 text-kenangan-primary font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer";
-        btnSched.className = "py-2 px-3 rounded-xl border-2 border-gray-200 bg-white text-gray-600 font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer";
-        pickerBox.classList.add('hidden');
+        if (btnNow) btnNow.className = "py-2 px-3 rounded-xl border-2 border-kenangan-primary bg-amber-50 text-kenangan-primary font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer";
+        if (btnSched) btnSched.className = "py-2 px-3 rounded-xl border-2 border-gray-200 bg-white text-gray-600 font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer";
+        if (pickerBox) pickerBox.classList.add('hidden');
     } else {
-        btnSched.className = "py-2 px-3 rounded-xl border-2 border-kenangan-primary bg-amber-50 text-kenangan-primary font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer";
-        btnNow.className = "py-2 px-3 rounded-xl border-2 border-gray-200 bg-white text-gray-600 font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer";
-        pickerBox.classList.remove('hidden');
+        if (btnSched) btnSched.className = "py-2 px-3 rounded-xl border-2 border-kenangan-primary bg-amber-50 text-kenangan-primary font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer";
+        if (btnNow) btnNow.className = "py-2 px-3 rounded-xl border-2 border-gray-200 bg-white text-gray-600 font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer";
+        if (pickerBox) pickerBox.classList.remove('hidden');
     }
 }
 
@@ -1925,12 +1985,29 @@ async function lookupCustomerLoyaltyHistory() {
     }
 }
 
+// 2. CHECKOUT DENGAN ANTI-DOUBLE SUBMIT & PENGIRIMAN 4 BUBBLE LENGKAP BOT TELEGRAM
 async function submitOrderKopken(method) {
-    const name = document.getElementById('cust-name').value.trim();
-    const custWaInput = document.getElementById('cust-wa').value.trim();
-    const notes = document.getElementById('cust-notes').value.trim();
-    const isBagChecked = document.getElementById('bag-checkbox').checked && currentOrderType === 'takeaway';
-    
+    if (isSubmittingKopkenOrder) {
+        showToast("⚠️ Pesanan sedang dikirim ke admin, harap tunggu sebentar...");
+        return;
+    }
+
+    const nameEl = document.getElementById('cust-name');
+    const custWaInputEl = document.getElementById('cust-wa');
+    const notesEl = document.getElementById('cust-notes');
+    const bagChk = document.getElementById('bag-checkbox');
+
+    const name = nameEl ? nameEl.value.trim() : 'Pelanggan';
+    const custWaInput = custWaInputEl ? custWaInputEl.value.trim() : '';
+    const notes = notesEl ? notesEl.value.trim() : '';
+    const isBagChecked = bagChk ? (bagChk.checked && currentOrderType === 'takeaway') : false;
+
+    isSubmittingKopkenOrder = true;
+    sfx.playSuccess();
+
+    checkoutCustomerName = name || "Pelanggan";
+    checkoutCustomerWa = custWaInput || "";
+
     let timeSched = '';
     if (typeof selectedOrderType !== 'undefined' && selectedOrderType === 'schedule') {
         const dayVal = document.getElementById('schedule-day')?.value || 'Hari Ini';
@@ -1945,10 +2022,6 @@ async function submitOrderKopken(method) {
     } else {
         timeSched = '⚡ Segera (5-15 Menit)';
     }
-
-    sfx.playSuccess();
-    checkoutCustomerName = name || "Pelanggan";
-    checkoutCustomerWa = custWaInput || "";
 
     let itemsText = '';
     let subtotal = 0;
@@ -2008,7 +2081,6 @@ async function submitOrderKopken(method) {
     if (cleanWaNumber.startsWith('0')) cleanWaNumber = '62' + cleanWaNumber.slice(1);
     else if (!cleanWaNumber.startsWith('62') && cleanWaNumber.length > 0) cleanWaNumber = '62' + cleanWaNumber;
 
-    // SATU ID TUNGGAL UNTUK DATABASE, TELEGRAM, DAN TRACKING WEB
     const rawClean = (name || 'pelanggan').trim().replace(/[^a-zA-Z0-9]/g, '').toLowerCase() || 'order';
     const singleOrderId = `${rawClean}-${Date.now().toString().slice(-4)}`;
 
@@ -2060,10 +2132,9 @@ async function submitOrderKopken(method) {
         console.warn("Gagal simpan order:", err);
     }
 
-    // Aktifkan realtime tracker bar atas
+    // Aktifkan realtime tracker
     initRealtimeOrderTracker(singleOrderId);
 
-    // Tandai voucher yang dipakai belanja saat ini sebagai terpakai
     if (appliedVoucherId && activeVoucherDiscount > 0 && supabaseClient) {
         try {
             await supabaseClient
@@ -2088,9 +2159,9 @@ async function submitOrderKopken(method) {
     }
 
     const lateOrderNotice = !isOutletOpenNow(selectedOutlet) ? '⚠️ <b>[PESANAN DI LUAR JAM TUTUP STANDAR - CEK STATUS CASHER]</b>\n' : '';
-
     const trackingUrl = `https://www.bintangstore.web.id/tracking.html?order_id=${singleOrderId}`;
 
+    // 4 Balon Pesan ke Bot Telegram
     const telegramSummaryBubble = `── .✦ <b>ORDER KOPI KENANGAN BARU</b> ✦.──
 ${adminStatusHeader}${lateOrderNotice}${isMidnightHour() ? '🌙 <b>[PERINGATAN: ORDER JAM MALAM / ANTREAN PAGI]</b>\n' : ''}
 🆔 <b>Order ID :</b> <code>${singleOrderId}</code>
@@ -2158,8 +2229,10 @@ ${isBagChecked ? 'Kantong Belanja : Rp 1.000\n' : ''}💰 *Total Tagihan Final :
 
     if (method === 'telegram') {
         const btn = document.getElementById('btn-submit-tele-kopken');
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin text-sm"></i> Memproses...';
-        btn.disabled = true;
+        if (btn) {
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin text-sm"></i> Memproses...';
+            btn.disabled = true;
+        }
 
         const ok1 = await sendSingleTelegramMsg(telegramSummaryBubble);
         await delay(400);
@@ -2177,9 +2250,9 @@ ${isBagChecked ? 'Kantong Belanja : Rp 1.000\n' : ''}💰 *Total Tagihan Final :
             showFullscreenLoader('kopken', false, '');
             cart = [];
             updateCartUI();
-            document.getElementById('cust-name').value = '';
-            document.getElementById('cust-wa').value = '';
-            document.getElementById('cust-notes').value = '';
+            if (nameEl) nameEl.value = '';
+            if (custWaInputEl) custWaInputEl.value = '';
+            if (notesEl) notesEl.value = '';
             const memberInput = document.getElementById('memberCodeInput');
             if (memberInput) memberInput.value = '';
             isMidnightForced = false;
@@ -2187,7 +2260,10 @@ ${isBagChecked ? 'Kantong Belanja : Rp 1.000\n' : ''}💰 *Total Tagihan Final :
             showToast("Gagal kirim ke bot, silakan gunakan opsi WA.");
         }
 
-        btn.innerHTML = '<i class="fas fa-bolt text-sm"></i> Pesan Otomatis (Proses Cepat via Bot)';
+        if (btn) {
+            btn.innerHTML = '<i class="fas fa-bolt text-sm"></i> Pesan Otomatis (Proses Cepat via Bot)';
+        }
+        isSubmittingKopkenOrder = false;
         validateKopkenForm();
     } else if (method === 'whatsapp') {
         sendSingleTelegramMsg(telegramSummaryBubble);
@@ -2203,6 +2279,7 @@ ${isBagChecked ? 'Kantong Belanja : Rp 1.000\n' : ''}💰 *Total Tagihan Final :
         const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(waRawMessage)}`;
         showFullscreenLoader('kopken', true, waUrl);
         isMidnightForced = false;
+        isSubmittingKopkenOrder = false;
 
         setTimeout(() => {
             window.location.href = `tracking.html?order_id=${singleOrderId}`;
@@ -2265,12 +2342,14 @@ function saveOrderToHistory(orderObj) {
 function openHistoryModal() {
     renderOrderHistory();
     const modal = document.getElementById('modal-history');
+    if (!modal) return;
     modal.classList.remove('hidden');
     setTimeout(() => modal.classList.remove('opacity-0'), 10);
 }
 
 function closeHistoryModal() {
     const modal = document.getElementById('modal-history');
+    if (!modal) return;
     modal.classList.add('opacity-0');
     setTimeout(() => modal.classList.add('hidden'), 250);
 }
@@ -2278,6 +2357,8 @@ function closeHistoryModal() {
 function renderOrderHistory() {
     const container = document.getElementById('history-items-list');
     const history = JSON.parse(localStorage.getItem('bintang_order_history') || '[]');
+
+    if (!container) return;
 
     if (history.length === 0) {
         container.innerHTML = '<p class="text-xs text-gray-500 italic text-center py-6">Belum ada riwayat pesanan.</p>';
@@ -2337,6 +2418,7 @@ function initWifiDisplay() {
 
 function toggleWifiModal(show) {
     const modal = document.getElementById('modal-wifi');
+    if (!modal) return;
     if (show) {
         modal.classList.remove('hidden');
         setTimeout(() => modal.classList.remove('opacity-0'), 10);
@@ -2354,6 +2436,7 @@ function copyWifiPass() {
 
 function showToast(message) {
     const container = document.getElementById('toast-container');
+    if (!container) return;
     const toast = document.createElement('div');
     toast.className = 'bg-gray-900/95 backdrop-blur-md text-white px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-3 transform transition-all duration-300 translate-y-[-20px] opacity-0 border border-white/10 z-[300] text-xs font-semibold';
     toast.innerHTML = `<i class="fas fa-circle-check text-amber-400 text-sm flex-shrink-0"></i> <div>${message}</div>`;
@@ -2370,6 +2453,7 @@ function showToast(message) {
     }, 3200);
 }
 
+// 5. ANIMASI PROSES CHECKOUT DENGAN PANTUN ACAK / VARIATIF
 function showFullscreenLoader(type, isWaRedirect, waUrl) {
     const screen = document.getElementById('thankyou-screen');
     const content = document.getElementById('thankyou-content');
@@ -2377,10 +2461,15 @@ function showFullscreenLoader(type, isWaRedirect, waUrl) {
     const titleEl = document.getElementById('thankyou-title');
     const iconWrap = document.getElementById('thankyou-icon-wrapper');
 
-    if (type === 'kopken') {
+    if (!screen || !content) return;
+
+    if (type === 'kopken' && iconWrap) {
         iconWrap.innerHTML = '<i class="fas fa-coffee text-4xl text-amber-400 animate-bounce"></i>';
-        titleEl.textContent = "Pesanan Dirangkai!";
-        quoteEl.innerHTML = "Beli kopi buat begadang, terima kasih sudah memesan! Pesananmu segera diproses sayang! ☕ 🫶";
+        if (titleEl) titleEl.textContent = "Pesanan Dirangkai!";
+        if (quoteEl) {
+            const randomQuote = RANDOM_CHECKOUT_QUOTES[Math.floor(Math.random() * RANDOM_CHECKOUT_QUOTES.length)];
+            quoteEl.innerHTML = randomQuote;
+        }
     }
 
     screen.classList.remove('hidden');
@@ -2417,6 +2506,7 @@ function showPaymentPopup() {
 
     const popup = document.getElementById('payment-popup');
     const popupContent = document.getElementById('payment-popup-content');
+    if (!popup || !popupContent) return;
     popup.classList.remove('hidden');
     setTimeout(() => {
         popup.classList.remove('opacity-0');
@@ -2441,6 +2531,7 @@ function closePaymentPopup() {
     sfx.playTap();
     const popup = document.getElementById('payment-popup');
     const popupContent = document.getElementById('payment-popup-content');
+    if (!popup || !popupContent) return;
     popup.classList.add('opacity-0');
     popupContent.classList.remove('scale-100');
     popupContent.classList.add('scale-95');
@@ -2450,6 +2541,7 @@ function closePaymentPopup() {
 function closeCustomRequestModal() {
     const modal = document.getElementById('modal-custom-req');
     const card = document.getElementById('modal-custom-req-card');
+    if (!modal || !card) return;
     modal.classList.add('opacity-0');
     card.classList.remove('scale-100');
     card.classList.add('scale-95');
@@ -2465,13 +2557,13 @@ function setReqItemType(type) {
     const drinkOptionsBox = document.getElementById('req-drink-options-box');
 
     if (type === 'drink') {
-        btnDrink.className = "py-2 px-3 rounded-xl border-2 border-kenangan-primary bg-amber-50 text-kenangan-primary font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer";
-        btnFood.className = "py-2 px-3 rounded-xl border-2 border-gray-200 bg-white text-gray-600 font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer";
-        drinkOptionsBox.classList.remove('hidden');
+        if (btnDrink) btnDrink.className = "py-2 px-3 rounded-xl border-2 border-kenangan-primary bg-amber-50 text-kenangan-primary font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer";
+        if (btnFood) btnFood.className = "py-2 px-3 rounded-xl border-2 border-gray-200 bg-white text-gray-600 font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer";
+        if (drinkOptionsBox) drinkOptionsBox.classList.remove('hidden');
     } else {
-        btnFood.className = "py-2 px-3 rounded-xl border-2 border-kenangan-primary bg-amber-50 text-kenangan-primary font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer";
-        btnDrink.className = "py-2 px-3 rounded-xl border-2 border-gray-200 bg-white text-gray-600 font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer";
-        drinkOptionsBox.classList.add('hidden');
+        if (btnFood) btnFood.className = "py-2 px-3 rounded-xl border-2 border-kenangan-primary bg-amber-50 text-kenangan-primary font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer";
+        if (btnDrink) btnDrink.className = "py-2 px-3 rounded-xl border-2 border-gray-200 bg-white text-gray-600 font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer";
+        if (drinkOptionsBox) drinkOptionsBox.classList.add('hidden');
     }
 }
 
@@ -2487,6 +2579,7 @@ function toggleReqIce() {
 function validateCustomReqForm() {
     const name = document.getElementById('req-menu-name').value.trim();
     const btn = document.getElementById('btn-save-custom-req');
+    if (!btn) return;
     if (name.length >= 2) {
         btn.disabled = false;
         btn.className = "w-full bg-kenangan-dark hover:bg-kenangan-hover text-white font-extrabold py-3.5 rounded-2xl shadow-md transition duration-200 flex justify-center items-center gap-2 text-xs active:scale-98 cursor-pointer";
@@ -2541,6 +2634,7 @@ function openCustomRequestModal(keyword = '') {
     const modal = document.getElementById('modal-custom-req');
     const card = document.getElementById('modal-custom-req-card');
     const nameInput = document.getElementById('req-menu-name');
+    if (!modal || !card || !nameInput) return;
     nameInput.value = keyword || '';
     document.getElementById('req-menu-price').value = '';
     document.getElementById('req-menu-note').value = '';
@@ -2745,7 +2839,6 @@ async function onInputMemberCode(val) {
 function applyMemberProfile(code, encodedName, phone, outletName) {
     const name = decodeURIComponent(encodedName);
     
-    // Simpan ke sesi browser agar checkout.html langsung terisi otomatis
     localStorage.setItem("bintang_member_session", JSON.stringify({
         code: code,
         name: name,
@@ -3025,6 +3118,7 @@ function initRealtimeOrderTracker(orderId) {
         .subscribe();
 }
 
+// 3 & 4. TIMER 10 MENIT + BEBASKAN AKSES NOMOR ORDERAN (TIDAK TERKUNCI LAGI)
 function onOrderStatusUpdated(newStatus, orderObj = {}) {
     sfx.playSuccess();
 
@@ -3064,6 +3158,12 @@ function onOrderStatusUpdated(newStatus, orderObj = {}) {
             statusText.textContent = current.desc;
         }
         showToast(`Status Pesanan: <b>${current.title}</b> ✨`);
+    }
+
+    if (newStatus === 'menunggu_konfirmasi') {
+        startOrderConfirmationTimer(10);
+    } else {
+        clearInterval(orderConfirmationCountdownInterval);
     }
 
     if (newStatus === 'selesai') {
