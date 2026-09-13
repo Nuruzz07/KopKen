@@ -472,7 +472,7 @@
     </div>
 
     <!-- MODAL WELCOME GATE (DILENGKAPI FITUR MEMBER KILAT OPSI 3) -->
-    <div id="modal-welcome-gate" class="fixed inset-0 bg-black/70 backdrop-blur-xs z-[180] hidden opacity-0 transition-opacity duration-200 flex items-center justify-center p-4">
+    <div id="modal-welcome-gate" class="fixed inset-0 bg-black/70 backdrop-blur-xs z-[300] hidden opacity-0 transition-opacity duration-200 flex items-center justify-center p-4">
         <div id="welcome-gate-card" class="bg-white rounded-3xl p-5 max-w-sm w-full text-kenangan-dark shadow-2xl border border-stone-200">
             <div class="flex items-center justify-between pb-3 border-b border-stone-100 mb-3">
                 <div class="flex items-center gap-2">
@@ -776,10 +776,10 @@
         </div>
     </div>
 
-    <!-- SINKRONISASI APP.JS -->
-    <script src="app.js"></script>
+    <!-- SINKRONISASI APP.JS (DIPASANG CACHE-BUSTER) -->
+    <script src="app.js?v=2.5"></script>
 
-    <!-- SINKRONISASI BAR SHOPEE & REDIRECT KE CHECKOUT.HTML -->
+    <!-- SINKRONISASI BAR SHOPEE, MODAL OUTLET OTOMATIS, & REDIRECT KE CHECKOUT.HTML -->
     <script>
       function syncShopeeBottomBar() {
         const bottomBar = document.getElementById("shopee-bottom-bar");
@@ -814,14 +814,36 @@
 
       function goToCheckoutPage() {
         if (!cart || cart.length === 0) {
-            showToast("Keranjang masih kosong, pilih menu dulu ya!");
+            if (typeof showToast === 'function') {
+                showToast("Keranjang masih kosong, pilih menu dulu ya!");
+            } else {
+                alert("Keranjang masih kosong, pilih menu dulu ya!");
+            }
             return;
         }
-        localStorage.setItem("bintang_cart", JSON.stringify(cart));
-        localStorage.setItem("bintang_selected_outlet", JSON.stringify(selectedOutlet));
-        localStorage.setItem("bintang_order_type", currentOrderType);
+        
+        // PENGUNCI KEBERLANJUTAN KERANJANG KE CHECKOUT.HTML
+        try {
+            localStorage.setItem("bintang_cart", JSON.stringify(cart));
+            localStorage.setItem("bintang_selected_outlet", JSON.stringify(selectedOutlet));
+            localStorage.setItem("bintang_order_type", currentOrderType || 'takeaway');
+        } catch(e) {
+            console.error("Gagal simpan data keranjang:", e);
+        }
+
         window.location.href = "checkout.html";
       }
+
+      // OTOMATIS MUNCULKAN POP-UP OUTLET DI AWAL JIKA USER BERADA DI TAMPILAN KOPI KENANGAN
+      window.addEventListener('load', () => {
+          if (window.location.hash === '#kopken') {
+              setTimeout(() => {
+                  if (typeof openWelcomeGateModal === 'function') {
+                      openWelcomeGateModal(true);
+                  }
+              }, 400);
+          }
+      });
 
       setInterval(syncShopeeBottomBar, 400);
     </script>
