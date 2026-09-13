@@ -1,500 +1,851 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Checkout Pesanan - Bintang Store</title>
+    <title>Bintang Store - Jastip Kopi & Produk Digital</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="favicon.png">
+    
+    <script>
+        if (typeof tailwind !== 'undefined') {
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        fontFamily: { sans: ['Inter', 'sans-serif'] },
+                        colors: {
+                            kenangan: { 
+                                dark: '#2C1A0D', 
+                                primary: '#A05C3A', 
+                                hover: '#804a2c',
+                                accent: '#E8A359', 
+                                light: '#F9F1E7' 
+                            },
+                            tomoro: {
+                                dark: '#111827',
+                                primary: '#EA580C',
+                                hover: '#C2410C',
+                                light: '#FFF7ED',
+                                cyan: '#009EB2'
+                            },
+                            netflix: { dark: '#141414', primary: '#E50914', light: '#F5F5F1' },
+                            portal: { dark: '#0F172A', accent: '#38BDF8' }
+                        }
+                    }
+                }
+            };
+        }
+    </script>
+
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #F9F1E7; color: #292524; }
+        .text-kenangan-dark { color: #2C1A0D; }
+        .text-kenangan-primary { color: #A05C3A; }
+        .bg-kenangan-dark { background-color: #2C1A0D; }
+        .bg-kenangan-primary { background-color: #A05C3A; }
+        .bg-kenangan-light { background-color: #F9F1E7; }
+        .border-kenangan-primary { border-color: #A05C3A; }
+
+        body {
+            background-color: #0F172A;
+            color: #ffffff;
+            overflow-x: hidden;
+            position: relative;
+            transition: background-color 0.4s ease;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        img {
+            -webkit-user-drag: none;
+            user-select: none;
+            pointer-events: auto;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        }
+        .glass-portal {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.25);
+        }
+
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #A05C3A; border-radius: 10px; }
+
+        input[type="number"]::-webkit-inner-spin-button, 
+        input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+
+        .view-section { animation: fadeIn 0.3s ease forwards; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes floatLogo {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        .float-logo { animation: floatLogo 3.5s infinite ease-in-out; }
     </style>
 </head>
-<body class="min-h-screen text-stone-800 p-4 sm:p-6 flex flex-col items-center justify-start antialiased pb-32">
+<body class="antialiased font-sans">
 
-    <main class="w-full max-w-md space-y-3.5">
+    <!-- Toast Notification Melayang Global -->
+    <div id="toast-container" class="fixed top-5 left-1/2 transform -translate-x-1/2 z-[300] flex flex-col gap-2 w-[90%] max-w-sm pointer-events-none"></div>
 
-        <!-- HEADER KEMBALI & INFORMASI CABANG -->
-        <div class="flex items-center justify-between px-1">
-            <a href="index.html#kopken" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white text-stone-700 text-xs font-bold border border-stone-200 shadow-xs hover:bg-stone-50 active:scale-95 transition">
-                <i class="fas fa-arrow-left text-[10px]"></i>
-                <span>Tambah Menu Lain</span>
-            </a>
-            <span class="text-xs font-black text-stone-900 tracking-tight">Checkout Pesanan</span>
+    <!-- Floating Social Proof Ticker -->
+    <div id="social-proof-toast" class="fixed bottom-24 left-4 z-[160] max-w-xs bg-slate-900/95 backdrop-blur-md text-white px-3.5 py-2.5 rounded-2xl border border-white/10 shadow-xl flex items-center gap-2.5 transform -translate-x-[120%] transition-transform duration-500 pointer-events-none">
+        <div class="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center flex-shrink-0 text-sm">
+            ☕
+        </div>
+        <div class="min-w-0">
+            <p id="sp-user-text" class="text-[11px] font-bold text-gray-200 truncate">Dimas baru saja order Duo Mantan</p>
+            <p id="sp-time-text" class="text-[9px] text-gray-400">2 menit lalu • Grand Indonesia</p>
+        </div>
+    </div>
+
+    <!-- VIEW 1: PORTAL UTAMA BINTANG STORE -->
+    <div id="view-portal" class="view-section min-h-screen flex flex-col items-center justify-center px-5 py-8 max-w-lg mx-auto">
+        <div id="portal-status-badge" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold mb-5 shadow-xs transition-all duration-300">
+            <span class="relative flex h-2 w-2">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            </span>
+            <span id="portal-status-text">Admin Online & Proses Cepat</span>
         </div>
 
-        <!-- KARTU 1: OUTLET & METODE -->
-        <div class="bg-white rounded-3xl p-4 shadow-xs border border-stone-200/80 flex items-center justify-between gap-2">
+        <div class="text-center mb-6 w-full">
+            <div onclick="handleSecretLogoTap()" title="Bintang Store" class="w-20 h-20 bg-[#0c1226] rounded-full mx-auto flex items-center justify-center shadow-lg border border-white/15 mb-4 float-logo transition duration-300 overflow-hidden relative cursor-pointer active:scale-95">
+                <img src="favicon.png" alt="Bintang Store Logo" class="w-full h-full object-cover scale-[2.1] translate-y-[-2px] pointer-events-none" onerror="this.onerror=null; this.src='https://placehold.co/100x100/38BDF8/ffffff?text=⭐'">
+            </div>
+            <h1 class="text-2xl sm:text-3xl font-extrabold text-white mb-1.5 tracking-tight">Bintang Store</h1>
+            <p class="text-gray-300 text-xs max-w-xs mx-auto leading-relaxed">Satu portal jastip kopi diskon & akun hiburan digital terpercaya!</p>
+        </div>
+
+        <div class="w-full grid grid-cols-2 p-1.5 bg-white/10 backdrop-blur-md rounded-2xl mb-5 border border-white/10">
+            <button id="portal-tab-btn-fnb" onclick="switchPortalTab('fnb')" class="py-2 px-3 rounded-xl font-extrabold text-xs transition-all flex items-center justify-center gap-1.5 bg-amber-500 text-kenangan-dark shadow-sm cursor-pointer">
+                <i class="fas fa-mug-hot text-xs"></i>
+                <span>F&B / Kopi</span>
+            </button>
+            <button id="portal-tab-btn-digital" onclick="switchPortalTab('digital')" class="py-2 px-3 rounded-xl font-bold text-xs transition-all flex items-center justify-center gap-1.5 text-gray-400 hover:text-white cursor-pointer">
+                <i class="fas fa-tv text-xs"></i>
+                <span>Digital & Stream</span>
+            </button>
+        </div>
+
+        <!-- SECTION TAB 1: FOOD & BEVERAGES -->
+        <div id="portal-tab-fnb" class="w-full space-y-3">
+            <button onclick="openKopkenFlow()" class="w-full relative group overflow-hidden rounded-3xl glass-portal p-4 sm:p-5 text-left transition duration-200 hover:scale-[1.01] active:scale-95 border-l-4 border-l-amber-500 cursor-pointer">
+                <div class="flex items-center gap-3.5 relative z-10">
+                    <div class="w-12 h-12 p-2 rounded-2xl bg-white/10 flex items-center justify-center flex-shrink-0">
+                        <img src="https://i.postimg.cc/GpwttdxX/Logo-Kopi-Kenangan-Format-PNG-AI-EPS-CDR-PDF-SVG.png" alt="Kopi Kenangan" class="w-7 h-7 object-contain">
+                    </div>
+                    <div class="min-w-0 flex-1">
+                        <div class="flex items-center gap-2">
+                            <h2 class="text-base font-bold text-white leading-tight">Kopi Kenangan</h2>
+                            <span class="bg-amber-500/20 text-amber-300 text-[10px] font-extrabold px-2 py-0.5 rounded-full border border-amber-500/30">PROMO AKTIF</span>
+                        </div>
+                        <p class="text-xs text-gray-300 mt-0.5 truncate">Minuman, bundling hemat, & roti diskon</p>
+                    </div>
+                    <i class="fas fa-chevron-right text-gray-400 ml-auto group-hover:text-white transition text-xs"></i>
+                </div>
+            </button>
+
+            <div onclick="showComingSoonToast('Tomoro Coffee')" class="w-full relative overflow-hidden rounded-3xl glass-portal p-4 sm:p-5 text-left border-l-4 border-l-orange-500/40 opacity-75 hover:opacity-90 transition cursor-pointer">
+                <div class="flex items-center gap-3.5 relative z-10">
+                    <div class="w-12 h-12 rounded-2xl bg-orange-500/15 border border-orange-500/20 flex items-center justify-center flex-shrink-0 text-orange-400">
+                        <i class="fas fa-coffee text-xl"></i>
+                    </div>
+                    <div class="min-w-0 flex-1">
+                        <div class="flex items-center gap-2">
+                            <h2 class="text-base font-bold text-white leading-tight">Tomoro Coffee</h2>
+                            <span class="bg-orange-500/20 text-orange-300 text-[9px] font-extrabold px-2 py-0.5 rounded-full border border-orange-500/30">COMING SOON</span>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-0.5">Segera hadir racikan favorit Tomoro diskon</p>
+                    </div>
+                    <span class="text-[10px] font-bold text-orange-400 uppercase">SOON</span>
+                </div>
+            </div>
+
+            <div onclick="showComingSoonToast('Fore Coffee')" class="w-full relative overflow-hidden rounded-3xl glass-portal p-4 sm:p-5 text-left border-l-4 border-l-emerald-500/40 opacity-75 hover:opacity-90 transition cursor-pointer">
+                <div class="flex items-center gap-3.5 relative z-10">
+                    <div class="w-12 h-12 rounded-2xl bg-emerald-500/15 border border-emerald-500/20 flex items-center justify-center flex-shrink-0 text-emerald-400">
+                        <i class="fas fa-leaf text-xl"></i>
+                    </div>
+                    <div class="min-w-0 flex-1">
+                        <div class="flex items-center gap-2">
+                            <h2 class="text-base font-bold text-white leading-tight">Fore Coffee</h2>
+                            <span class="bg-emerald-500/20 text-emerald-300 text-[9px] font-extrabold px-2 py-0.5 rounded-full border border-emerald-500/30">COMING SOON</span>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-0.5">Segera hadir menu Fore Coffee diskon</p>
+                    </div>
+                    <span class="text-[10px] font-bold text-emerald-400 uppercase">SOON</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION TAB 2: DIGITAL & STREAMING -->
+        <div id="portal-tab-digital" class="w-full space-y-3 hidden">
+            <a href="https://wa.me/6285959633342?text=Halo%20Admin%20Bintang%20Store%2C%20mau%20order%20Prime%20Video%201%20Bulan%20(Rp%2015.000)%20dong%20%F0%9F%8E%AC" target="_blank" onclick="sfx.playTap()" class="block w-full relative group overflow-hidden rounded-3xl glass-portal p-4 sm:p-5 text-left transition duration-200 hover:scale-[1.01] active:scale-95 border-l-4 border-l-sky-500 cursor-pointer">
+                <div class="flex items-center gap-3.5 relative z-10">
+                    <div class="w-12 h-12 rounded-2xl bg-sky-500/15 border border-sky-500/25 flex items-center justify-center flex-shrink-0 text-sky-400">
+                        <i class="fas fa-video text-xl"></i>
+                    </div>
+                    <div class="min-w-0 flex-1">
+                        <div class="flex items-center gap-2">
+                            <h2 class="text-base font-bold text-white leading-tight">Prime Video 1 Bulan</h2>
+                            <span class="bg-sky-500/20 text-sky-300 text-[10px] font-extrabold px-2 py-0.5 rounded-full border border-sky-500/30">READY</span>
+                        </div>
+                        <p class="text-xs text-gray-300 mt-0.5">Streaming film eksklusif bebas iklan</p>
+                    </div>
+                    <div class="text-right flex-shrink-0">
+                        <span class="text-xs font-black text-sky-300 block">Rp 15.000</span>
+                        <span class="text-[9px] text-gray-400">/ bulan</span>
+                    </div>
+                </div>
+            </a>
+
+            <div onclick="showNetflixClosedToast()" class="w-full relative overflow-hidden rounded-3xl glass-portal p-4 sm:p-5 text-left border-l-4 border-l-red-600 opacity-80 cursor-pointer transition hover:opacity-100">
+                <div class="flex items-center gap-3.5 relative z-10">
+                    <div class="w-12 h-12 rounded-2xl bg-red-500/15 border border-red-500/25 flex items-center justify-center flex-shrink-0 text-red-500">
+                        <i class="fas fa-play text-xl"></i>
+                    </div>
+                    <div class="min-w-0 flex-1">
+                        <div class="flex items-center gap-2">
+                            <h2 class="text-base font-bold text-white leading-tight">Netflix Premium</h2>
+                            <span class="bg-red-500/20 text-red-400 text-[9px] font-extrabold px-2 py-0.5 rounded-full border border-red-500/30">WAITING LIST</span>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-0.5">Slot akun sedang penuh / istirahat sementara</p>
+                    </div>
+                    <span class="text-[10px] font-bold text-red-400 uppercase">CLOSED</span>
+                </div>
+            </div>
+
+            <div onclick="showComingSoonToast('YouTube Premium')" class="w-full relative overflow-hidden rounded-3xl glass-portal p-4 sm:p-5 text-left border-l-4 border-l-rose-500/40 opacity-75 hover:opacity-90 transition cursor-pointer">
+                <div class="flex items-center gap-3.5 relative z-10">
+                    <div class="w-12 h-12 rounded-2xl bg-rose-500/15 border border-rose-500/20 flex items-center justify-center flex-shrink-0 text-rose-400">
+                        <i class="fab fa-youtube text-2xl"></i>
+                    </div>
+                    <div class="min-w-0 flex-1">
+                        <div class="flex items-center gap-2">
+                            <h2 class="text-base font-bold text-white leading-tight">YouTube Premium</h2>
+                            <span class="bg-rose-500/20 text-rose-300 text-[9px] font-extrabold px-2 py-0.5 rounded-full border border-rose-500/30">SOON</span>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-0.5">Nonton tanpa iklan + YouTube Music</p>
+                    </div>
+                    <span class="text-[10px] font-bold text-rose-400 uppercase">SOON</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Banner Saluran WhatsApp VIP -->
+        <a href="https://whatsapp.com/channel/0029Vb91UWjInlqTkOqqUT06" target="_blank" class="w-full mt-4 p-3.5 rounded-2xl bg-gradient-to-r from-emerald-500/20 to-teal-500/10 border border-emerald-500/30 hover:border-emerald-500/50 flex items-center justify-between gap-3 transition active:scale-98">
             <div class="flex items-center gap-2.5 min-w-0">
-                <div class="w-9 h-9 rounded-xl bg-amber-50 border border-amber-200/70 flex items-center justify-center text-amber-800 flex-shrink-0">
-                    <i class="fas fa-store text-sm"></i>
+                <div class="w-9 h-9 rounded-xl bg-emerald-600 text-white flex items-center justify-center text-base flex-shrink-0 shadow-xs">
+                    <i class="fab fa-whatsapp"></i>
                 </div>
                 <div class="min-w-0">
-                    <div class="flex items-center gap-1.5">
-                        <span id="outlet-type-badge" class="text-[9px] font-black px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 uppercase">Take Away</span>
-                        <span id="outlet-status-badge" class="text-[9px] font-black px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 uppercase">BUKA</span>
-                    </div>
-                    <h2 id="checkout-outlet-name" class="text-xs font-black text-stone-900 truncate mt-0.5">Memuat Outlet...</h2>
+                    <h3 class="text-xs font-black text-emerald-300 truncate">Saluran VIP Info Diskon 🤫</h3>
+                    <p class="text-[10px] text-gray-300 truncate">Bocoran promo kopi, Netflix, & akun murah!</p>
                 </div>
             </div>
-            <a href="index.html#kopken" class="px-2.5 py-1.5 rounded-xl bg-stone-50 hover:bg-stone-100 text-stone-700 font-extrabold text-[10px] transition border border-stone-200 flex-shrink-0">
-                Ganti
-            </a>
-        </div>
+            <span class="px-2.5 py-1 rounded-lg bg-emerald-600 text-white text-[10px] font-black flex-shrink-0">
+                Join ➔
+            </span>
+        </a>
 
-        <!-- KARTU 2: RINCIAN MENU KERANJANG -->
-        <div class="bg-white rounded-3xl p-4 shadow-xs border border-stone-200/80 space-y-3">
-            <div class="flex items-center justify-between border-b border-stone-100 pb-2">
-                <h3 class="text-xs font-black uppercase tracking-wider text-stone-400">Rincian Menu</h3>
-                <span id="cart-total-badge" class="text-xs font-extrabold text-amber-900">0 Item</span>
-            </div>
-            <div id="checkout-items-list" class="divide-y divide-stone-100 text-xs">
-                <p class="text-xs text-stone-400 italic py-3 text-center">Keranjang kosong...</p>
-            </div>
-        </div>
-
-        <!-- KARTU 3: WAKTU & DATA PEMESAN -->
-        <div class="bg-white rounded-3xl p-4 shadow-xs border border-stone-200/80 space-y-3">
-            <h3 class="text-xs font-black uppercase tracking-wider text-stone-400 border-b border-stone-100 pb-2">
-                Waktu Ambil & Data Pemesan
-            </h3>
-
-            <!-- Pilihan Waktu -->
-            <div>
-                <label class="block text-[11px] font-bold text-stone-700 mb-1.5">Waktu Pengambilan</label>
-                <div class="grid grid-cols-2 gap-2 mb-2">
-                    <button type="button" id="btn-co-now" onclick="setCheckoutOrderTime('now')" class="py-2 px-3 text-xs font-bold rounded-xl border border-amber-600 bg-amber-50 text-amber-900 flex items-center justify-center gap-1.5">
-                        ⚡ Sekarang (5-15 mnt)
-                    </button>
-                    <button type="button" id="btn-co-schedule" onclick="setCheckoutOrderTime('schedule')" class="py-2 px-3 text-xs font-bold rounded-xl border border-stone-200 bg-white text-stone-600 flex items-center justify-center gap-1.5">
-                        📅 Jadwalkan Jam
-                    </button>
-                </div>
-
-                <div id="co-schedule-box" class="hidden space-y-2 pt-2 border-t border-stone-100">
-                    <div class="grid grid-cols-2 gap-2">
-                        <select id="co-schedule-day" class="p-2 text-xs border border-stone-200 rounded-xl bg-stone-50 font-semibold outline-none">
-                            <option value="Hari Ini">Hari Ini</option>
-                            <option value="Besok">Besok</option>
-                        </select>
-                        <select id="co-schedule-time" class="p-2 text-xs border border-stone-200 rounded-xl bg-stone-50 font-semibold outline-none">
-                            <option value="09:00 WIB">09:00 WIB</option>
-                            <option value="10:00 WIB">10:00 WIB</option>
-                            <option value="11:00 WIB">11:00 WIB</option>
-                            <option value="12:00 WIB">12:00 WIB</option>
-                            <option value="13:00 WIB">13:00 WIB</option>
-                            <option value="14:00 WIB">14:00 WIB</option>
-                            <option value="15:00 WIB">15:00 WIB</option>
-                            <option value="16:00 WIB">16:00 WIB</option>
-                            <option value="17:00 WIB">17:00 WIB</option>
-                            <option value="18:00 WIB">18:00 WIB</option>
-                            <option value="19:00 WIB">19:00 WIB</option>
-                            <option value="20:00 WIB">20:00 WIB</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Input Nama & WA -->
-            <div class="space-y-2.5 pt-1">
-                <div>
-                    <label class="block text-[11px] font-bold text-stone-700 mb-1">Nama Pemesan Kasir <span class="text-red-500">*</span></label>
-                    <input type="text" id="co-name" placeholder="Nama untuk dipanggil barista saat ambil" class="w-full px-3 py-2 rounded-xl bg-stone-50 border border-stone-200 text-xs font-semibold focus:bg-white focus:ring-2 focus:ring-amber-600 outline-none">
-                </div>
-                <div>
-                    <label class="block text-[11px] font-bold text-stone-700 mb-1">Nomor WhatsApp Aktif <span class="text-red-500">*</span></label>
-                    <input type="tel" id="co-wa" placeholder="081234567890 (Untuk struk & nomor antrean)" class="w-full px-3 py-2 rounded-xl bg-stone-50 border border-stone-200 text-xs font-semibold focus:bg-white focus:ring-2 focus:ring-amber-600 outline-none">
-                </div>
-                <div id="co-bag-wrap">
-                    <label class="flex items-center gap-2 p-2 rounded-xl bg-stone-50 border border-stone-200 cursor-pointer">
-                        <input type="checkbox" id="co-bag" onchange="recalcTotals()" class="w-4 h-4 accent-amber-700 rounded">
-                        <div class="min-w-0 flex-1 flex items-center justify-between text-xs font-bold">
-                            <span>Kantong Belanja Plastik</span>
-                            <span class="text-amber-800">+ Rp 1.000</span>
-                        </div>
-                    </label>
-                </div>
-                <div>
-                    <input type="text" id="co-notes" placeholder="Catatan tambahan (misal: pisahkan sedotan)" class="w-full px-3 py-2 rounded-xl bg-stone-50 border border-stone-200 text-xs outline-none">
-                </div>
-            </div>
-        </div>
-
-        <!-- KARTU 4: RINCIAN BIAYA FINAL -->
-        <div class="bg-white rounded-3xl p-4 shadow-xs border border-stone-200/80 space-y-2 text-xs">
-            <h3 class="text-xs font-black uppercase tracking-wider text-stone-400 border-b border-stone-100 pb-2">
-                Rincian Tagihan
-            </h3>
-            <div class="flex justify-between text-stone-600">
-                <span>Subtotal Menu:</span>
-                <span id="co-subtotal" class="font-bold text-stone-900">Rp 0</span>
-            </div>
-            <div id="co-mall-fee-row" class="flex justify-between text-amber-800 font-semibold hidden">
-                <span>Biaya Outlet Mall:</span>
-                <span>+ Rp 3.000</span>
-            </div>
-            <div id="co-bag-fee-row" class="flex justify-between text-stone-600 hidden">
-                <span>Kantong Belanja:</span>
-                <span>+ Rp 1.000</span>
-            </div>
-            <hr class="border-stone-100 my-1">
-            <div class="flex justify-between items-baseline font-black text-stone-900">
-                <span class="text-xs uppercase">Total Tagihan Final:</span>
-                <span id="co-grand-total" class="text-base text-amber-900">Rp 0</span>
-            </div>
-        </div>
-
-        <!-- PERINGATAN TEGAS CABANG & VARIAN PAS -->
-        <div class="p-3 bg-amber-500/10 border border-amber-500/30 rounded-2xl flex items-start gap-2">
-            <i class="fas fa-info-circle text-amber-700 text-xs mt-0.5 flex-shrink-0"></i>
-            <p class="text-[10px] text-stone-700 leading-tight">
-                Pastikan cabang dan pesanan sudah sesuai. Pesanan yang sudah diproses admin ke kasir <b>tidak dapat dibatalkan atau diubah lokasinya</b>.
-            </p>
-        </div>
-
-        <!-- TOMBOL CHECKOUT RESMI -->
-        <div class="space-y-2 pt-1">
-            <button id="co-btn-tele" onclick="executeCheckout('telegram')" class="w-full bg-stone-900 hover:bg-stone-800 active:scale-95 text-white font-black py-3 rounded-2xl text-xs shadow-md transition flex items-center justify-center gap-2 cursor-pointer">
-                <i class="fas fa-bolt"></i>
-                <span>Pesan Otomatis (Proses Cepat via Bot)</span>
-            </button>
-            <button id="co-btn-wa" onclick="executeCheckout('whatsapp')" class="w-full bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white font-black py-3 rounded-2xl text-xs shadow-md transition flex items-center justify-center gap-2 cursor-pointer">
-                <i class="fab fa-whatsapp text-sm"></i>
-                <span>Pesan Manual via WhatsApp Admin</span>
-            </button>
-        </div>
-
-        <!-- FULLSCREEN LOADER PANTUN -->
-        <div id="thankyou-screen" class="fixed inset-0 z-[290] bg-slate-950/95 backdrop-blur-md flex items-center justify-center p-6 hidden opacity-0 transition-opacity duration-300">
-            <div id="thankyou-content" class="text-center space-y-4 max-w-sm transform scale-75 transition-transform duration-300">
-                <div class="w-16 h-16 rounded-3xl bg-amber-500/20 mx-auto flex items-center justify-center text-amber-400">
-                    <i class="fas fa-coffee text-4xl animate-bounce"></i>
-                </div>
-                <h2 class="text-xl font-black text-white tracking-tight">Pesanan Dirangkai!</h2>
-                <p id="thankyou-quote" class="text-xs text-amber-200 leading-relaxed font-medium px-2">
-                    Beli kopi buat begadang, terima kasih sudah memesan! Pesananmu sedang dirangkai, santai dulu ya sayang! ☕🫶
-                </p>
-                <div class="flex items-center justify-center gap-1.5 pt-2">
-                    <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
-                    <span class="text-[11px] text-stone-400 font-semibold">Menghubungkan ke admin...</span>
-                </div>
-            </div>
-        </div>
-
-    </main>
-
-    <script>
-        // Kredensial Supabase & Bot Telegram Mandiri
-        const SUPABASE_URL = "https://axaoagzveujcgoxybdmp.supabase.co";
-        const SUPABASE_ANON_KEY = "sb_publishable_GQ19XRT7yWIBido0iXJvCQ_ybZ_I7ju";
-        const botToken = "8765196047:AAGSnN7VoGnXxQK5rl5459ifGqBVE3EKsWo";
-        const chatId = "6731058601";
-        const waNumber = "6285959633342";
+        <!-- Quick Action Riwayat Pesanan -->
+        <button onclick="openHistoryModal()" class="w-full mt-3 py-2.5 px-4 rounded-2xl glass-portal hover:bg-white/10 text-xs font-semibold text-gray-300 transition flex items-center justify-center gap-2 border border-white/10 active:scale-95 cursor-pointer">
+            <i class="fas fa-clock-rotate-left text-amber-400"></i>
+            <span>Lihat Riwayat Pesanan Anda</span>
+        </button>
         
-        let supabaseClient = null;
-        if (window.supabase && typeof window.supabase.createClient === 'function') {
-            supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-        }
+        <p class="mt-6 text-[10px] text-gray-500 font-medium tracking-widest uppercase">© 2026 bintanggstore.web.id • Fast & Trusted</p>
+    </div>
 
-        const CHECKOUT_PANTUN = [
-            "Beli kopi buat begadang, terima kasih sudah memesan! Pesananmu sedang dirangkai, santai dulu ya sayang! ☕🫶",
-            "Mantan boleh bikin trauma, kopi Bintang bikin bahagia. Pesananmu sedang meluncur cepat ke barista! 🚀✨",
-            "Siang-siang makan bakwan, paling pas ditemani kenangan. Duduk manis ya kawan, pesananmu sedang disiapkan! 🥖☕",
-            "Beli melati di Pasar Minggu, kopi sejati setia menunggu. Sabar sebentar ya, barista lagi meracik pesananmu! ⏳🤎"
-        ];
-
-        let coCart = [];
-        let coOutlet = null;
-        let coOrderType = 'takeaway';
-        let coOrderTimeType = 'now';
-        let isCheckoutSubmitting = false;
-
-        const delay = (ms) => new Promise(res => setTimeout(res, ms));
-
-        document.addEventListener("DOMContentLoaded", () => {
-            try {
-                const rawCart = localStorage.getItem("bintang_cart");
-                coCart = rawCart ? JSON.parse(rawCart) : [];
-                coOutlet = JSON.parse(localStorage.getItem("bintang_selected_outlet") || "null");
-                coOrderType = localStorage.getItem("bintang_order_type") || "takeaway";
-            } catch(e) {
-                coCart = [];
-            }
-
-            // Fallback jika outlet belum tersimpan
-            if (!coOutlet) {
-                coOutlet = { name: "Grand Indonesia (Mall)", category: "Mall" };
-            }
-
-            // Pasang data member jika ada
-            try {
-                const savedMember = JSON.parse(localStorage.getItem("bintang_member_session") || "null");
-                if (savedMember) {
-                    const nameEl = document.getElementById("co-name");
-                    const waEl = document.getElementById("co-wa");
-                    if (nameEl && savedMember.name) nameEl.value = savedMember.name;
-                    if (waEl && savedMember.phone) waEl.value = savedMember.phone;
-                }
-            } catch(e) {}
-
-            renderCheckoutUI();
-        });
-
-        function renderCheckoutUI() {
-            // Render Outlet
-            document.getElementById("checkout-outlet-name").textContent = coOutlet.name || "Kopi Kenangan";
-            document.getElementById("outlet-type-badge").textContent = coOrderType === "takeaway" ? "Take Away" : "Dine In";
-            if (coOrderType === "dinein") {
-                const bagWrap = document.getElementById("co-bag-wrap");
-                if (bagWrap) bagWrap.classList.add("hidden");
-            }
-
-            // Render Item Keranjang
-            const listEl = document.getElementById("checkout-items-list");
-            const badgeEl = document.getElementById("cart-total-badge");
-
-            if (!coCart || coCart.length === 0) {
-                badgeEl.textContent = "0 Item";
-                listEl.innerHTML = `<p class="text-xs text-stone-400 italic py-4 text-center">Keranjang masih kosong.<br><a href="index.html#kopken" class="text-amber-800 font-bold underline mt-1 inline-block">Klik di sini untuk pilih menu</a></p>`;
-                recalcTotals();
-                return;
-            }
-
-            const totalQty = coCart.reduce((sum, c) => sum + (Number(c.qty) || 1), 0);
-            badgeEl.textContent = `${totalQty} Item`;
-
-            listEl.innerHTML = coCart.map((c, idx) => {
-                const name = c.name || (c.item && c.item.name) || "Menu Kopi";
-                const desc = c.details || c.note || "";
-                const qty = Number(c.qty) || 1;
-                const price = (Number(c.price) || 15000) * qty;
-
-                return `
-                    <div class="py-2.5 flex items-center justify-between gap-2">
-                        <div class="min-w-0 flex-1">
-                            <h4 class="font-extrabold text-stone-900 text-xs">${name}</h4>
-                            ${desc ? `<p class="text-[10px] text-stone-500 mt-0.5 truncate">${desc}</p>` : ''}
-                            <span class="text-[11px] font-bold text-amber-900 block mt-1">Rp ${price.toLocaleString('id-ID')}</span>
-                        </div>
-                        <div class="flex items-center gap-2 flex-shrink-0">
-                            <button type="button" onclick="changeCoQty(${idx}, -1)" class="w-6 h-6 rounded-lg bg-stone-100 hover:bg-stone-200 text-stone-700 font-black text-xs flex items-center justify-center cursor-pointer">-</button>
-                            <span class="text-xs font-black text-stone-800">${qty}</span>
-                            <button type="button" onclick="changeCoQty(${idx}, 1)" class="w-6 h-6 rounded-lg bg-stone-100 hover:bg-stone-200 text-stone-700 font-black text-xs flex items-center justify-center cursor-pointer">+</button>
-                        </div>
+    <!-- VIEW 2: KOPI KENANGAN STORE -->
+    <div id="view-kopken" class="view-section hidden text-kenangan-dark pb-32 max-w-4xl mx-auto">
+        
+        <!-- HEADER COMPACT & MODERN (Sticky Bersama Search Bar) -->
+        <header class="glass sticky top-0 z-40 px-3 sm:px-4 py-2.5 shadow-sm" id="main-header">
+            <div class="flex items-center justify-between gap-2">
+                <div class="flex items-center gap-2 min-w-0">
+                    <button onclick="switchView('portal')" class="w-8 h-8 flex items-center justify-center rounded-full bg-white text-kenangan-dark hover:bg-stone-100 transition border border-stone-200 flex-shrink-0 cursor-pointer">
+                        <i class="fas fa-arrow-left text-xs"></i>
+                    </button>
+                    <img src="https://i.postimg.cc/GpwttdxX/Logo-Kopi-Kenangan-Format-PNG-AI-EPS-CDR-PDF-SVG.png" alt="Logo Kopi Kenangan" class="w-7 h-7 object-contain flex-shrink-0">
+                    <div class="min-w-0">
+                        <h1 class="font-black text-kenangan-dark leading-none text-xs truncate">Kopi Kenangan</h1>
+                        <p class="text-[9px] text-kenangan-primary font-bold mt-0.5">Jasdor Bintang Store</p>
                     </div>
-                `;
-            }).join("");
+                </div>
 
-            recalcTotals();
+                <div class="flex items-center gap-1.5 flex-shrink-0">
+                    <button onclick="toggleLeaderboardModal(true)" class="px-2 py-1 rounded-lg bg-amber-100 text-amber-950 text-[10px] font-extrabold border border-amber-300/80 flex items-center gap-1 cursor-pointer">
+                        <i class="fas fa-trophy text-[9px] text-amber-600"></i> Top
+                    </button>
+                    <button onclick="toggleWifiModal(true)" class="px-2 py-1 rounded-lg bg-white text-kenangan-primary text-[10px] font-bold border border-stone-200 flex items-center gap-1 cursor-pointer">
+                        <i class="fas fa-wifi text-[9px]"></i> WiFi
+                    </button>
+                    <button onclick="openHistoryModal()" class="px-2 py-1 rounded-lg bg-white text-kenangan-dark text-[10px] font-bold border border-stone-200 flex items-center gap-1 cursor-pointer">
+                        <i class="fas fa-clock-rotate-left text-[9px] text-amber-700"></i>
+                    </button>
+                    <!-- ELEMEN PENGAMAN KOMPATIBILITAS APP.JS -->
+                    <button id="cart-icon-btn" onclick="goToCheckoutPage()" class="hidden">
+                        <i class="fas fa-shopping-bag text-base" id="cart-icon"></i>
+                        <span id="cart-badge" class="hidden">0</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- SEARCH BAR TERPADU -->
+            <div class="mt-2 relative w-full">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-stone-400">
+                    <i class="fas fa-search text-[11px]"></i>
+                </span>
+                <input type="text" id="menu-search-input" oninput="searchMenu()" placeholder="Cari menu kopi, bundling, atau roti..." class="w-full pl-8 pr-3 py-1.5 rounded-xl bg-white border border-stone-200/80 focus:outline-none focus:ring-2 focus:ring-kenangan-primary text-xs font-semibold text-kenangan-dark placeholder-stone-400 shadow-inner">
+            </div>
+
+            <!-- KATEGORI MENU HORIZONTAL -->
+            <nav class="mt-2 overflow-x-auto no-scrollbar whitespace-nowrap flex gap-1.5 pb-0.5">
+                <button onclick="scrollToCategory('cat-bundling', event)" class="px-3 py-1 rounded-full bg-white text-kenangan-dark text-xs font-bold shadow-xs border border-stone-200 hover:bg-stone-50 active:scale-95 transition cursor-pointer">🎁 Bundling</button>
+                <button onclick="scrollToCategory('cat-coffee', event)" class="px-3 py-1 rounded-full bg-white text-kenangan-dark text-xs font-bold shadow-xs border border-stone-200 hover:bg-stone-50 active:scale-95 transition cursor-pointer">Coffee</button>
+                <button onclick="scrollToCategory('cat-noncoffee', event)" class="px-3 py-1 rounded-full bg-white text-kenangan-dark text-xs font-bold shadow-xs border border-stone-200 hover:bg-stone-50 active:scale-95 transition cursor-pointer">Non-Coffee</button>
+                <button onclick="scrollToCategory('cat-frappe', event)" class="px-3 py-1 rounded-full bg-white text-kenangan-dark text-xs font-bold shadow-xs border border-stone-200 hover:bg-stone-50 active:scale-95 transition cursor-pointer">Frappe</button>
+                <button onclick="scrollToCategory('cat-new', event)" class="px-3 py-1 rounded-full bg-white text-kenangan-dark text-xs font-bold shadow-xs border border-stone-200 hover:bg-stone-50 active:scale-95 transition cursor-pointer">New</button>
+                <button onclick="scrollToCategory('cat-bakery', event)" class="px-3 py-1 rounded-full bg-white text-kenangan-dark text-xs font-bold shadow-xs border border-stone-200 hover:bg-stone-50 active:scale-95 transition cursor-pointer">Makanan</button>
+            </nav>
+        </header>
+
+        <!-- Banner Info Jam Malam -->
+        <div id="night-hours-banner" class="hidden mx-4 mt-3 p-3 bg-indigo-950 border border-indigo-500/40 rounded-2xl text-white shadow-xs flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-lg bg-indigo-800 flex items-center justify-center text-indigo-300 flex-shrink-0 text-sm">
+                <i class="fas fa-moon"></i>
+            </div>
+            <div class="min-w-0">
+                <h4 class="text-xs font-bold text-indigo-200">Layanan Jam Malam (00:00 - 06:00 WIB)</h4>
+                <p class="text-[10px] text-indigo-100/75 leading-tight mt-0.5">Pesanan masuk antrean pagi & diproses mulai jam 06:00 WIB ya Kak ☕</p>
+            </div>
+        </div>
+
+        <!-- Banner Outlet Segera Tutup -->
+        <div id="outlet-closing-soon-banner" class="hidden mx-4 mt-3 p-3 bg-rose-950 border border-rose-500/40 rounded-2xl text-rose-100 shadow-xs flex items-center gap-2.5 animate-pulse">
+            <div class="w-8 h-8 rounded-lg bg-rose-800 flex items-center justify-center text-rose-200 flex-shrink-0 text-sm">
+                <i class="fas fa-hourglass-half"></i>
+            </div>
+            <div class="min-w-0">
+                <h4 class="text-xs font-black text-rose-200">Outlet Segera Tutup!</h4>
+                <p id="outlet-closing-soon-text" class="text-[10px] text-rose-100/90 leading-tight mt-0.5">
+                    Segera selesaikan transaksi agar pesanan dapat diproses barista sebelum kasir closing.
+                </p>
+            </div>
+        </div>
+
+        <!-- Banner Admin Sibuk -->
+        <div id="admin-busy-banner" class="hidden mx-4 mt-3 p-3 bg-amber-50 border border-amber-300 rounded-2xl text-amber-900 shadow-xs flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-lg bg-amber-200 text-amber-800 flex items-center justify-center text-sm flex-shrink-0">
+                <i class="fas fa-business-time"></i>
+            </div>
+            <div class="min-w-0">
+                <h4 id="admin-busy-title" class="text-xs font-black text-amber-900">Admin Sedang Sibuk (Slow Response)</h4>
+                <p id="admin-busy-text" class="text-[10px] text-amber-800 leading-tight mt-0.5">Pesanan tetap diterima dan diproses sesuai antrean ya Kak 🫶</p>
+            </div>
+        </div>
+
+        <!-- Kartu Lokasi Outlet Aktif -->
+        <div class="mx-4 mt-3 p-3 bg-white rounded-2xl border border-stone-200/80 shadow-xs flex items-center justify-between gap-2">
+            <div class="flex items-center gap-2.5 min-w-0">
+                <div class="w-8 h-8 rounded-lg bg-amber-50 border border-amber-200/70 flex items-center justify-center text-amber-800 flex-shrink-0">
+                    <i id="banner-order-type-icon" class="fas fa-bag-shopping text-sm"></i>
+                </div>
+                <div class="min-w-0">
+                    <div class="flex items-center gap-1.5 flex-wrap">
+                        <span id="banner-order-type-label" class="text-[9px] font-black px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 uppercase">Take Away</span>
+                        <span id="banner-outlet-status" class="text-[9px] font-black px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 uppercase">BUKA</span>
+                        <a id="banner-outlet-maps-btn" href="#" target="_blank" class="text-[9px] font-bold px-1.5 py-0.5 rounded bg-blue-50 text-blue-700 hover:bg-blue-100 flex items-center gap-0.5 transition" title="Lihat di Google Maps">
+                            <i class="fas fa-location-arrow text-[8px]"></i> Peta
+                        </a>
+                    </div>
+                    <p id="banner-outlet-name" class="text-xs font-black text-kenangan-dark truncate mt-0.5">Grand Indonesia (Mall)</p>
+                </div>
+            </div>
+            <button onclick="openWelcomeGateModal(true)" class="px-2.5 py-1.5 rounded-xl bg-stone-50 hover:bg-stone-100 text-kenangan-dark font-extrabold text-[10px] transition border border-stone-200 flex-shrink-0 cursor-pointer">
+                Ganti
+            </button>
+        </div>
+
+        <!-- Daftar Menu Utama -->
+        <main class="px-4 space-y-6 mt-3" id="menu-container"></main>
+
+        <!-- ELEMEN HIDDEN UNTUK PENGAMAN KOMPATIBILITAS APP.JS -->
+        <div class="hidden" id="checkout-section">
+            <span id="cart-item-count-text"></span>
+            <div id="cart-items-container"></div>
+            <input type="text" id="cust-name">
+            <input type="tel" id="cust-wa">
+            <input type="checkbox" id="bag-checkbox">
+            <input type="text" id="cust-notes">
+            <span id="summary-subtotal"></span>
+            <span id="summary-total"></span>
+            <button id="btn-submit-tele-kopken"></button>
+            <button id="btn-submit-wa-kopken"></button>
+        </div>
+    </div>
+
+    <!-- VIEW 3: TOMORO COFFEE SHOWCASE -->
+    <div id="view-tomoro" class="view-section hidden text-slate-800 pb-36 max-w-4xl mx-auto">
+        <header class="glass sticky top-0 z-40 px-4 py-3 flex items-center justify-between shadow-xs border-b border-stone-200/60">
+            <div class="flex items-center gap-2.5">
+                <button onclick="switchView('portal')" class="w-8 h-8 flex items-center justify-center rounded-full bg-white text-slate-800 hover:bg-stone-100 transition border border-stone-200 cursor-pointer">
+                    <i class="fas fa-arrow-left text-xs"></i>
+                </button>
+                <div class="w-7 h-7 rounded-full bg-orange-500 flex items-center justify-center text-white text-[10px] font-black">TC</div>
+                <div>
+                    <h1 class="font-black text-slate-900 leading-tight text-xs sm:text-sm">Tomoro Coffee</h1>
+                    <p class="text-[9px] text-orange-600 font-bold">Katalog Menu & Outlet</p>
+                </div>
+            </div>
+            <span class="text-[9px] font-black px-2 py-0.5 rounded-full bg-orange-100 text-orange-800">KATALOG</span>
+        </header>
+
+        <div class="mx-4 mt-3 p-3 bg-white rounded-2xl border border-stone-200 shadow-xs">
+            <label class="block text-[9px] font-bold text-stone-400 uppercase mb-1">Cari Outlet Tomoro</label>
+            <div class="relative">
+                <input type="text" id="tomoro-outlet-search-input" oninput="handleTomoroOutletSearch()" placeholder="Ketik nama jalan / area / mall..." class="w-full pl-3 pr-3 py-1.5 rounded-xl bg-stone-50 border border-stone-200 text-xs font-semibold text-slate-800 outline-none">
+                <div id="tomoro-outlet-dropdown" class="absolute left-0 right-0 top-full mt-1 bg-white rounded-2xl shadow-xl border border-stone-200 max-h-56 overflow-y-auto z-50 hidden"></div>
+            </div>
+
+            <div id="tomoro-selected-box" class="mt-2 p-2 rounded-xl bg-orange-50/80 border border-orange-200 flex items-center justify-between gap-2">
+                <span id="tomoro-selected-name" class="text-xs font-black text-slate-900 truncate">Tomoro Coffee - Riau Bandung</span>
+                <span id="tomoro-selected-status" class="text-[9px] font-black px-1.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 uppercase">BUKA</span>
+            </div>
+        </div>
+
+        <nav class="glass sticky top-[53px] z-30 px-4 py-2 my-3 overflow-x-auto no-scrollbar whitespace-nowrap border-b border-stone-200/60">
+            <div class="flex gap-1.5">
+                <button onclick="filterTomoroCategory('all', this)" class="tomoro-cat-btn px-3 py-1 rounded-full bg-orange-500 text-white text-xs font-bold transition">Semua</button>
+                <button onclick="filterTomoroCategory('Classic Coffee', this)" class="tomoro-cat-btn px-3 py-1 rounded-full bg-white text-slate-700 text-xs font-bold transition">Classic</button>
+                <button onclick="filterTomoroCategory('Fruity Series', this)" class="tomoro-cat-btn px-3 py-1 rounded-full bg-white text-slate-700 text-xs font-bold transition">Fruity</button>
+                <button onclick="filterTomoroCategory('Frappe', this)" class="tomoro-cat-btn px-3 py-1 rounded-full bg-white text-slate-700 text-xs font-bold transition">Frappe</button>
+            </div>
+        </nav>
+
+        <main class="px-4">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3" id="tomoro-menu-grid"></div>
+        </main>
+    </div>
+
+    <!-- FLOATING BOTTOM BAR ALA SHOPEEFOOD (Menuju Checkout Mandiri) -->
+    <div id="shopee-bottom-bar" class="fixed bottom-0 inset-x-0 z-40 p-3 bg-white/95 backdrop-blur-md border-t border-stone-200 shadow-2xl transition-all duration-300 transform translate-y-full hidden">
+        <div class="max-w-md mx-auto flex items-center justify-between gap-3">
+            <div class="flex items-center gap-2.5 cursor-pointer" onclick="goToCheckoutPage()">
+                <div class="relative flex items-center justify-center w-10 h-10 rounded-2xl bg-amber-500/15 text-amber-700 flex-shrink-0">
+                    <i class="fas fa-shopping-basket text-base"></i>
+                    <span id="bottom-cart-badge" class="absolute -top-1 -right-1 bg-red-600 text-white font-black text-[9px] w-4.5 h-4.5 rounded-full flex items-center justify-center ring-2 ring-white">
+                        0
+                    </span>
+                </div>
+                <div>
+                    <p class="text-[9px] text-stone-500 font-semibold leading-none">Total Tagihan</p>
+                    <p id="bottom-cart-total" class="text-sm font-black text-stone-900 mt-0.5">Rp 0</p>
+                </div>
+            </div>
+
+            <button type="button" onclick="goToCheckoutPage()" class="px-5 py-2.5 bg-amber-600 hover:bg-amber-700 active:scale-95 text-white font-black text-xs rounded-xl shadow-md transition flex items-center gap-1.5 cursor-pointer">
+                <span>Checkout</span>
+                <i class="fas fa-arrow-right text-[9px]"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL WELCOME GATE (DILENGKAPI FITUR MEMBER KILAT OPSI 3) -->
+    <div id="modal-welcome-gate" class="fixed inset-0 bg-black/70 backdrop-blur-xs z-[300] hidden opacity-0 transition-opacity duration-200 flex items-center justify-center p-4">
+        <div id="welcome-gate-card" class="bg-white rounded-3xl p-5 max-w-sm w-full text-kenangan-dark shadow-2xl border border-stone-200">
+            <div class="flex items-center justify-between pb-3 border-b border-stone-100 mb-3">
+                <div class="flex items-center gap-2">
+                    <img src="https://i.postimg.cc/GpwttdxX/Logo-Kopi-Kenangan-Format-PNG-AI-EPS-CDR-PDF-SVG.png" alt="Logo" class="w-5 h-5 object-contain">
+                    <h3 class="font-black text-xs text-kenangan-dark">Pilih Lokasi & Ambil</h3>
+                </div>
+                <button onclick="closeWelcomeGateModal()" class="w-6 h-6 bg-stone-100 hover:bg-stone-200 rounded-full flex justify-center items-center text-stone-400 cursor-pointer">
+                    <i class="fas fa-times text-xs"></i>
+                </button>
+            </div>
+
+            <!-- KOTAK MEMBER KILAT DI AWAL -->
+            <div class="mb-3.5 p-3 rounded-2xl bg-amber-500/10 border border-amber-500/30 relative">
+                <div class="flex items-center gap-1.5 mb-0.5">
+                    <span class="text-xs">✨</span>
+                    <h4 class="text-xs font-black text-amber-950">Langganan Bintang Store?</h4>
+                </div>
+                <p class="text-[10px] text-amber-900 leading-tight mb-2">
+                    Tinggal ketik username member, cabang dan datamu langsung beres!
+                </p>
+                <div class="relative">
+                    <input type="text" id="memberCodeInput" placeholder="Ketik username member (misal: dimas)..." 
+                           oninput="onInputMemberCode(this.value)" autocomplete="off"
+                           class="w-full p-2 pl-7 rounded-xl border border-amber-300 bg-white text-xs outline-none focus:ring-2 focus:ring-kenangan-primary text-kenangan-dark font-bold">
+                    <i class="fas fa-id-card absolute left-2.5 top-2.5 text-amber-600/70 text-xs"></i>
+                </div>
+                <div id="memberSuggestBox" class="hidden absolute left-3 right-3 top-full mt-1 bg-white border border-stone-200 rounded-xl shadow-xl z-50 max-h-48 overflow-y-auto divide-y divide-stone-100"></div>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-2 mb-3">
+                <button type="button" id="gate-type-takeaway" onclick="setGateOrderType('takeaway')" class="py-2 px-3 rounded-2xl border-2 border-kenangan-primary bg-amber-50 text-kenangan-primary font-bold text-xs flex flex-col items-center gap-1 transition cursor-pointer">
+                    <i class="fas fa-bag-shopping text-sm"></i>
+                    <span>Take Away</span>
+                </button>
+                <button type="button" id="gate-type-dinein" onclick="setGateOrderType('dinein')" class="py-2 px-3 rounded-2xl border-2 border-stone-200 bg-white text-stone-600 font-bold text-xs flex flex-col items-center gap-1 transition cursor-pointer">
+                    <i class="fas fa-mug-hot text-sm"></i>
+                    <span>Dine In</span>
+                </button>
+            </div>
+
+            <div class="relative mb-3">
+                <label class="block text-[9px] font-bold text-stone-500 uppercase mb-1">Cari Outlet Lain</label>
+                <input type="text" id="gate-outlet-search" oninput="handleGateOutletSearch()" placeholder="Ketik mall atau nama cabang..." class="w-full px-3 py-1.5 rounded-xl bg-stone-50 border border-stone-200 text-xs font-semibold text-kenangan-dark outline-none">
+                <button id="gate-clear-search-btn" onclick="clearGateSearch()" class="absolute inset-y-0 right-0 flex items-center pr-2.5 text-stone-400 hidden">
+                    <i class="fas fa-times-circle text-xs"></i>
+                </button>
+                <div id="gate-outlet-dropdown" class="absolute left-0 right-0 top-full mt-1 bg-white rounded-2xl shadow-xl border border-stone-200 max-h-48 overflow-y-auto z-50 hidden"></div>
+            </div>
+
+            <div id="gate-selected-preview" class="mb-4 bg-amber-50/80 border border-amber-200 rounded-2xl p-2.5 flex items-start justify-between gap-2">
+                <div class="min-w-0">
+                    <h4 id="gate-preview-name" class="text-xs font-black text-kenangan-dark truncate">Grand Indonesia</h4>
+                    <p id="gate-preview-address" class="text-[9px] text-stone-500 line-clamp-1">Grand Indonesia Mall Lt. 3, Jakarta</p>
+                </div>
+                <span id="gate-preview-status" class="text-[9px] font-black px-1.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 uppercase">BUKA</span>
+            </div>
+
+            <button id="btn-gate-confirm" onclick="confirmWelcomeGate()" class="w-full bg-kenangan-primary hover:bg-kenangan-hover text-white font-black py-2.5 rounded-xl shadow-xs transition text-xs cursor-pointer">
+                Mulai Pilih Menu ➔
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL KUSTOMISASI MENU -->
+    <div id="modal-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-[200] hidden opacity-0 transition-opacity duration-200">
+        <div id="modal-content" class="absolute bottom-0 left-0 right-0 mx-auto w-full max-w-md bg-white rounded-t-3xl shadow-2xl transform translate-y-full transition-transform duration-200 max-h-[85vh] flex flex-col text-kenangan-dark pb-5">
+            <div class="w-full flex justify-center pt-3 pb-1 cursor-pointer" onclick="closeModal(event)">
+                <div class="w-10 h-1 bg-stone-300 rounded-full"></div>
+            </div>
+            
+            <div class="px-4 pb-2.5 flex justify-between items-start border-b border-stone-100 shrink-0">
+                <div>
+                    <h3 id="modal-title" class="font-black text-sm leading-tight">Nama Menu</h3>
+                    <p id="modal-price" class="text-kenangan-primary font-bold text-xs mt-0.5">Rp 0</p>
+                </div>
+                <button onclick="closeModal(event)" class="w-6 h-6 bg-stone-100 rounded-full flex justify-center items-center text-stone-400 hover:text-stone-600 cursor-pointer">
+                    <i class="fas fa-times text-xs"></i>
+                </button>
+            </div>
+
+            <div id="modal-options-container" class="px-4 py-3 overflow-y-auto flex-grow space-y-3"></div>
+
+            <div class="p-3 border-t border-stone-100 bg-stone-50 shrink-0">
+                <button onclick="addToCartFromModal()" class="w-full bg-kenangan-dark hover:bg-stone-900 text-white font-black py-3 rounded-2xl shadow-sm active:scale-95 transition flex justify-between px-4 items-center text-xs cursor-pointer">
+                    <span id="modal-btn-label">Simpan ke Keranjang</span>
+                    <span id="modal-btn-price" class="bg-white/20 px-2 py-0.5 rounded-md text-xs font-black text-amber-300">Rp 0</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL INFO WIFI -->
+    <div id="modal-wifi" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-[170] hidden opacity-0 transition-opacity duration-200 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-5 max-w-sm w-full text-kenangan-dark shadow-2xl border border-stone-200 relative">
+            <button onclick="toggleWifiModal(false)" class="absolute right-4 top-4 w-6 h-6 bg-stone-100 rounded-full flex justify-center items-center text-stone-400 cursor-pointer">
+                <i class="fas fa-times text-xs"></i>
+            </button>
+            <div class="w-10 h-10 rounded-2xl bg-amber-100 text-kenangan-primary flex items-center justify-center mb-2.5">
+                <i class="fas fa-wifi text-lg"></i>
+            </div>
+            <h3 class="font-black text-sm mb-1">WiFi Kopi Kenangan</h3>
+            <p class="text-xs text-stone-500 mb-3">Gunakan koneksi internet gratis di outlet:</p>
+
+            <div class="space-y-1.5 bg-stone-50 p-3 rounded-2xl border border-stone-200 text-xs mb-3">
+                <div class="flex justify-between items-center py-0.5 border-b border-stone-200">
+                    <span class="text-stone-500 font-medium">SSID:</span>
+                    <span class="font-bold text-kenangan-dark">Teman Kenangan</span>
+                </div>
+                <div class="flex justify-between items-center py-0.5 border-b border-stone-200">
+                    <span class="text-stone-500 font-medium">User ID:</span>
+                    <span class="font-mono font-bold text-kenangan-dark">kopikenangan</span>
+                </div>
+                <div class="flex justify-between items-center py-0.5">
+                    <span class="text-stone-500 font-medium">Password Hari Ini:</span>
+                    <div class="flex items-center gap-1">
+                        <span id="wifi-pass-text" class="font-mono font-bold text-kenangan-primary bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200">...</span>
+                        <button onclick="copyWifiPass()" class="px-1.5 py-0.5 rounded bg-kenangan-primary text-white text-[9px] font-bold">
+                            Salin
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <p class="text-[9px] text-stone-400 text-center">*Password di-update harian mengikuti tanggal kalender.</p>
+        </div>
+    </div>
+
+    <!-- MODAL LEADERBOARD SULTAN -->
+    <div id="modal-leaderboard" class="hidden fixed inset-0 z-[250] flex items-end sm:items-center justify-center bg-black/60 backdrop-blur-xs p-0 sm:p-4 transition-opacity duration-200 opacity-0">
+        <div class="bg-white w-full max-w-sm rounded-t-3xl sm:rounded-3xl p-4 shadow-2xl border border-stone-200 flex flex-col gap-2.5 max-h-[85vh]">
+            <div class="flex items-center justify-between border-b border-stone-100 pb-2">
+                <div class="flex items-center gap-2">
+                    <span class="text-base">🏆</span>
+                    <div>
+                        <h3 class="font-black text-xs text-kenangan-dark">Leaderboard Sultan</h3>
+                        <p class="text-[9px] text-stone-400">Paling Rajin Ngopi Bulan Ini</p>
+                    </div>
+                </div>
+                <button onclick="toggleLeaderboardModal(false)" class="w-6 h-6 rounded-full bg-stone-100 text-stone-400 flex items-center justify-center text-xs cursor-pointer">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div id="leaderboard-list" class="space-y-1.5 overflow-y-auto pr-0.5 max-h-56"></div>
+        </div>
+    </div>
+
+    <!-- MODAL RIWAYAT PESANAN -->
+    <div id="modal-history" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-[170] hidden opacity-0 transition-opacity duration-200 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-4 max-w-md w-full text-kenangan-dark shadow-2xl border border-stone-200 flex flex-col max-h-[85vh]">
+            <div class="flex justify-between items-center mb-2 pb-2 border-b border-stone-100">
+                <div class="flex items-center gap-1.5">
+                    <i class="fas fa-receipt text-amber-700 text-xs"></i>
+                    <h3 class="font-black text-sm">Riwayat Pesanan</h3>
+                </div>
+                <button onclick="closeHistoryModal()" class="w-6 h-6 bg-stone-100 rounded-full flex justify-center items-center text-stone-400 cursor-pointer">
+                    <i class="fas fa-times text-xs"></i>
+                </button>
+            </div>
+
+            <div class="mb-3 p-2.5 rounded-2xl bg-amber-50/70 border border-amber-200">
+                <label class="block text-[9px] font-black text-amber-900 uppercase mb-1">Cek Status via Nomor WA</label>
+                <div class="flex gap-1">
+                    <input type="tel" id="history-lookup-wa" placeholder="0812..." class="flex-1 px-2.5 py-1 text-xs rounded-lg bg-white border border-amber-300 font-semibold outline-none">
+                    <button onclick="lookupCustomerLoyaltyHistory()" class="px-3 py-1 bg-kenangan-dark text-white text-xs font-bold rounded-lg transition">
+                        Cek
+                    </button>
+                </div>
+                <div id="loyalty-summary-box" class="hidden mt-2 pt-1 border-t border-amber-200 text-xs">
+                    <p id="loyalty-summary-text" class="font-black text-amber-950"></p>
+                    <p id="loyalty-sub-text" class="text-[9px] text-amber-800 mt-0.5"></p>
+                </div>
+            </div>
+
+            <div id="history-items-list" class="space-y-2 overflow-y-auto flex-grow pr-1"></div>
+
+            <div class="pt-2 border-t border-stone-100 flex justify-between items-center mt-2">
+                <button onclick="clearOrderHistory()" class="text-[10px] text-red-500 font-bold hover:underline cursor-pointer">
+                    Hapus Riwayat
+                </button>
+                <button onclick="closeHistoryModal()" class="px-3 py-1 rounded-lg bg-stone-100 text-xs font-bold text-stone-600 transition cursor-pointer">
+                    Tutup
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL PANEL ADMIN -->
+    <div id="modal-admin-panel" class="fixed inset-0 bg-black/80 backdrop-blur-xs z-[350] hidden opacity-0 transition-opacity duration-200 flex items-center justify-center p-4">
+        <div id="modal-admin-card" class="bg-slate-900 border border-white/20 rounded-3xl p-5 max-w-sm w-full text-white shadow-2xl">
+            <div class="flex items-center justify-between pb-2 border-b border-white/10 mb-3">
+                <h3 class="font-black text-xs text-white">Panel Admin Toko</h3>
+                <button onclick="closeAdminModal()" class="w-6 h-6 bg-white/10 rounded-full flex justify-center items-center text-stone-400 cursor-pointer">
+                    <i class="fas fa-times text-xs"></i>
+                </button>
+            </div>
+
+            <div id="admin-step-pin" class="space-y-3">
+                <p class="text-xs text-stone-300">Masukkan PIN Admin:</p>
+                <input type="password" id="admin-pin-input" maxlength="6" class="w-full text-center tracking-[8px] font-mono text-base font-black py-2 rounded-xl bg-slate-800 border border-white/20 text-amber-400 outline-none">
+                <button onclick="verifyAdminPin()" class="w-full bg-amber-500 text-slate-950 font-black py-2.5 rounded-xl text-xs">
+                    Buka Akses Admin
+                </button>
+            </div>
+
+            <div id="admin-step-controls" class="hidden space-y-3">
+                <div class="grid grid-cols-1 gap-2">
+                    <button onclick="updateStoreAdminStatus('online')" class="py-2 px-3 rounded-xl border border-emerald-500 bg-emerald-500/20 text-emerald-300 font-bold text-xs">
+                        Set Online (Gercep)
+                    </button>
+                    <button onclick="updateStoreAdminStatus('busy')" class="py-2 px-3 rounded-xl border border-amber-500 bg-amber-500/20 text-amber-300 font-bold text-xs">
+                        Set Sibuk (Slow Response)
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL CUSTOM REQUEST MENU -->
+    <div id="modal-custom-req" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-[220] hidden opacity-0 transition-opacity duration-200 flex items-center justify-center p-4">
+        <div id="modal-custom-req-card" class="bg-white rounded-3xl p-5 max-w-sm w-full text-kenangan-dark shadow-2xl border border-stone-200 space-y-3">
+            <div class="flex items-center justify-between pb-2 border-b border-stone-100">
+                <div class="flex items-center gap-1.5">
+                    <i class="fas fa-pen text-amber-700 text-xs"></i>
+                    <h3 class="font-black text-xs">Form Request Menu</h3>
+                </div>
+                <button onclick="closeCustomRequestModal()" class="w-6 h-6 bg-stone-100 rounded-full flex justify-center items-center text-stone-400 cursor-pointer">
+                    <i class="fas fa-times text-xs"></i>
+                </button>
+            </div>
+            <div class="space-y-2 text-xs">
+                <div>
+                    <label class="block font-bold text-stone-600 mb-1">Nama Menu</label>
+                    <input type="text" id="req-menu-name" oninput="validateCustomReqForm()" placeholder="Misal: Avocado Coffee" class="w-full p-2.5 rounded-xl border border-stone-200 bg-stone-50 font-semibold outline-none focus:ring-2 focus:ring-kenangan-primary">
+                </div>
+                <div>
+                    <label class="block font-bold text-stone-600 mb-1">Perkiraan Harga (Rp)</label>
+                    <input type="number" id="req-menu-price" placeholder="18000" class="w-full p-2.5 rounded-xl border border-stone-200 bg-stone-50 font-semibold outline-none focus:ring-2 focus:ring-kenangan-primary">
+                </div>
+                <div>
+                    <label class="block font-bold text-stone-600 mb-1">Catatan Racikan</label>
+                    <input type="text" id="req-menu-note" placeholder="Misal: Less Sugar, Ice Normal" class="w-full p-2.5 rounded-xl border border-stone-200 bg-stone-50 font-semibold outline-none focus:ring-2 focus:ring-kenangan-primary">
+                </div>
+            </div>
+            <button id="btn-save-custom-req" onclick="addCustomRequestToCart()" class="w-full bg-kenangan-primary text-white font-black py-2.5 rounded-xl text-xs transition active:scale-95 cursor-pointer">
+                Tambahkan ke Keranjang
+            </button>
+        </div>
+    </div>
+
+    <!-- FULLSCREEN ANIMASI CHECKOUT DENGAN PANTUN ACAK (SINKRON DENGAN APP.JS) -->
+    <div id="thankyou-screen" class="fixed inset-0 z-[290] bg-slate-950/95 backdrop-blur-md flex items-center justify-center p-6 hidden opacity-0 transition-opacity duration-300">
+        <div id="thankyou-content" class="text-center space-y-4 max-w-sm transform scale-75 transition-transform duration-300">
+            <div id="thankyou-icon-wrapper" class="w-16 h-16 rounded-3xl bg-amber-500/20 mx-auto flex items-center justify-center text-amber-400">
+                <i class="fas fa-coffee text-4xl animate-bounce"></i>
+            </div>
+            <h2 id="thankyou-title" class="text-xl font-black text-white tracking-tight">Pesanan Dirangkai!</h2>
+            <p id="thankyou-quote" class="text-xs text-amber-200 leading-relaxed font-medium px-2">
+                Beli kopi buat begadang, terima kasih sudah memesan! Pesananmu sedang dirangkai, santai dulu ya sayang! ☕🫶
+            </p>
+            <div class="flex items-center justify-center gap-1.5 pt-2">
+                <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
+                <span class="text-[11px] text-stone-400 font-semibold">Menghubungkan ke admin...</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL POPUP PEMBAYARAN QRIS -->
+    <div id="payment-popup" class="fixed inset-0 z-[280] bg-black/75 backdrop-blur-xs flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-200">
+        <div id="payment-popup-content" class="bg-white rounded-3xl p-5 max-w-sm w-full text-stone-900 shadow-2xl border border-stone-200 space-y-3.5 text-center transform scale-95 transition-transform duration-200">
+            <div class="flex justify-between items-center border-b border-stone-100 pb-2">
+                <div class="flex items-center gap-1.5">
+                    <span class="text-base">💳</span>
+                    <h3 class="text-xs font-black text-stone-900">Pembayaran Pesanan</h3>
+                </div>
+                <button onclick="closePaymentPopup()" class="w-6 h-6 bg-stone-100 rounded-full flex justify-center items-center text-stone-400 hover:text-stone-600 cursor-pointer">
+                    <i class="fas fa-times text-xs"></i>
+                </button>
+            </div>
+
+            <div class="space-y-1">
+                <p class="text-[11px] text-stone-500 font-semibold">Total Tagihan Pas:</p>
+                <div class="flex items-center justify-center gap-2">
+                    <span id="popup-total-tagihan" class="text-2xl font-black text-amber-950">Rp 0</span>
+                    <button type="button" onclick="copyPopupNominal()" class="px-2.5 py-1 bg-amber-50 hover:bg-amber-100 border border-amber-300 text-amber-900 rounded-lg text-[10px] font-bold transition flex items-center gap-1 active:scale-90 cursor-pointer">
+                        <i class="fas fa-copy"></i> Salin
+                    </button>
+                </div>
+            </div>
+
+            <div class="bg-stone-50 p-3 rounded-2xl border border-stone-200 inline-block shadow-inner mx-auto max-w-[220px]">
+                <img src="https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/assets/6134394067262051124.jpg" alt="QRIS Bintang Store" class="w-full h-auto rounded-xl object-contain mx-auto" />
+            </div>
+
+            <div class="space-y-2 pt-1">
+                <a id="payment-wa-link" href="#" target="_blank" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-extrabold shadow-sm transition active:scale-95 flex items-center justify-center gap-1.5">
+                    <i class="fab fa-whatsapp text-sm"></i> Kirim Bukti Transfer ke Admin
+                </a>
+                <button type="button" onclick="closePaymentPopup()" class="text-[11px] text-stone-500 hover:text-stone-800 font-bold underline">
+                    Tutup & Pantau di Ruang Tunggu
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SINKRONISASI APP.JS (DIPASANG CACHE-BUSTER) -->
+    <script src="app.js?v=2.5"></script>
+
+    <!-- SINKRONISASI BAR SHOPEE, MODAL OUTLET OTOMATIS, & REDIRECT KE CHECKOUT.HTML -->
+    <script>
+      function syncShopeeBottomBar() {
+        const bottomBar = document.getElementById("shopee-bottom-bar");
+        const badge = document.getElementById("bottom-cart-badge");
+        const total = document.getElementById("bottom-cart-total");
+        const kopkenView = document.getElementById("view-kopken");
+
+        if (!bottomBar || !kopkenView) return;
+
+        const isKopkenActive = !kopkenView.classList.contains("hidden");
+        const totalQty = (typeof cart !== 'undefined' && Array.isArray(cart)) 
+            ? cart.reduce((sum, c) => sum + (c.qty || 1), 0) 
+            : 0;
+
+        let subtotal = 0;
+        if (typeof cart !== 'undefined' && Array.isArray(cart)) {
+            subtotal = cart.reduce((sum, c) => sum + (c.price * (c.qty || 1)), 0);
         }
 
-        function changeCoQty(idx, delta) {
-            coCart[idx].qty = (Number(coCart[idx].qty) || 1) + delta;
-            if (coCart[idx].qty <= 0) {
-                coCart.splice(idx, 1);
-            }
-            localStorage.setItem("bintang_cart", JSON.stringify(coCart));
-            renderCheckoutUI();
+        if (isKopkenActive && totalQty > 0) {
+          bottomBar.classList.remove("hidden", "translate-y-full");
+          bottomBar.classList.add("translate-y-0");
+          if (badge) badge.textContent = totalQty;
+          if (total) total.textContent = `Rp ${subtotal.toLocaleString('id-ID')}`;
+        } else {
+          bottomBar.classList.add("translate-y-full");
+          setTimeout(() => {
+            if (totalQty === 0 || !isKopkenActive) bottomBar.classList.add("hidden");
+          }, 250);
         }
+      }
 
-        function setCheckoutOrderTime(type) {
-            coOrderTimeType = type;
-            const btnNow = document.getElementById("btn-co-now");
-            const btnSched = document.getElementById("btn-co-schedule");
-            const box = document.getElementById("co-schedule-box");
-
-            if (type === "schedule") {
-                btnSched.className = "py-2 px-3 text-xs font-bold rounded-xl border border-amber-600 bg-amber-50 text-amber-900 flex items-center justify-center gap-1.5 shadow-xs";
-                btnNow.className = "py-2 px-3 text-xs font-bold rounded-xl border border-stone-200 bg-white text-stone-600 flex items-center justify-center gap-1.5";
-                box.classList.remove("hidden");
+      function goToCheckoutPage() {
+        if (!cart || cart.length === 0) {
+            if (typeof showToast === 'function') {
+                showToast("Keranjang masih kosong, pilih menu dulu ya!");
             } else {
-                btnNow.className = "py-2 px-3 text-xs font-bold rounded-xl border border-amber-600 bg-amber-50 text-amber-900 flex items-center justify-center gap-1.5 shadow-xs";
-                btnSched.className = "py-2 px-3 text-xs font-bold rounded-xl border border-stone-200 bg-white text-stone-600 flex items-center justify-center gap-1.5";
-                box.classList.add("hidden");
+                alert("Keranjang masih kosong, pilih menu dulu ya!");
             }
+            return;
+        }
+        
+        // PENGUNCI KEBERLANJUTAN KERANJANG KE CHECKOUT.HTML
+        try {
+            localStorage.setItem("bintang_cart", JSON.stringify(cart));
+            localStorage.setItem("bintang_selected_outlet", JSON.stringify(selectedOutlet));
+            localStorage.setItem("bintang_order_type", currentOrderType || 'takeaway');
+        } catch(e) {
+            console.error("Gagal simpan data keranjang:", e);
         }
 
-        function recalcTotals() {
-            let subtotal = coCart.reduce((sum, c) => sum + ((Number(c.price) || 15000) * (Number(c.qty) || 1)), 0);
-            document.getElementById("co-subtotal").textContent = `Rp ${subtotal.toLocaleString('id-ID')}`;
+        window.location.href = "checkout.html";
+      }
 
-            const isMall = coOutlet && (coOutlet.category === "Mall" || /mall|plaza/i.test(coOutlet.name || ''));
-            const mallFee = (isMall && coCart.length > 0) ? 3000 : 0;
-            const mallRow = document.getElementById("co-mall-fee-row");
-            if (mallFee > 0) mallRow.classList.remove("hidden");
-            else mallRow.classList.add("hidden");
+      // OTOMATIS MUNCULKAN POP-UP OUTLET DI AWAL JIKA USER BERADA DI TAMPILAN KOPI KENANGAN
+      window.addEventListener('load', () => {
+          if (window.location.hash === '#kopken') {
+              setTimeout(() => {
+                  if (typeof openWelcomeGateModal === 'function') {
+                      openWelcomeGateModal(true);
+                  }
+              }, 400);
+          }
+      });
 
-            const isBagChecked = document.getElementById("co-bag").checked && coOrderType === "takeaway";
-            const bagFee = isBagChecked ? 1000 : 0;
-            const bagRow = document.getElementById("co-bag-fee-row");
-            if (bagFee > 0) bagRow.classList.remove("hidden");
-            else bagRow.classList.add("hidden");
-
-            const grandTotal = subtotal + mallFee + bagFee;
-            document.getElementById("co-grand-total").textContent = `Rp ${grandTotal.toLocaleString('id-ID')}`;
-
-            return grandTotal;
-        }
-
-        async function sendSingleTelegramMsg(msgHtml) {
-            try {
-                const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
-                await fetch(url, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ chat_id: chatId, text: msgHtml, parse_mode: 'HTML' })
-                });
-            } catch (e) {}
-        }
-
-        async function sendTelegramButtons(orderId, customerName, grandTotal, outletName) {
-            const text = `🔔 <b>ORDERAN MASUK ATAS NAMA ${customerName.toUpperCase()}!</b>\n\n` +
-                `🆔 <b>Order ID:</b> <code>${orderId}</code>\n` +
-                `👤 <b>Nama:</b> ${customerName}\n` +
-                `📍 <b>Outlet:</b> ${outletName}\n` +
-                `💰 <b>Total:</b> Rp ${grandTotal.toLocaleString('id-ID')}\n` +
-                `📌 <b>Status:</b> Menunggu Konfirmasi`;
-
-            const inlineKeyboard = {
-                inline_keyboard: [
-                    [{ text: "⏳ Konfirmasi (Tagih QRIS)", callback_data: `st:${orderId}:menunggu_pembayaran` }],
-                    [{ text: "☕ Pembayaran Diterima (Proses Kasir)", callback_data: `st:${orderId}:sedang_diproses` }],
-                    [{ text: "🎉 Pesanan Selesai (Siap Ambil)", callback_data: `st:${orderId}:selesai` }]
-                ]
-            };
-
-            try {
-                await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ chat_id: chatId, text: text, parse_mode: 'HTML', reply_markup: inlineKeyboard })
-                });
-            } catch (e) {}
-        }
-
-        async function executeCheckout(method) {
-            if (isCheckoutSubmitting) {
-                alert("Pesanan sedang diproses ke admin, mohon tunggu sebentar...");
-                return;
-            }
-
-            if (!coCart || coCart.length === 0) {
-                alert("Keranjang masih kosong, pilih menu dulu!");
-                window.location.href = "index.html#kopken";
-                return;
-            }
-
-            const name = document.getElementById("co-name").value.trim();
-            const wa = document.getElementById("co-wa").value.trim();
-            const notes = document.getElementById("co-notes").value.trim();
-
-            if (!name || name.length < 2) {
-                alert("Mohon isi Nama Pemesan untuk kasir!");
-                document.getElementById("co-name").focus();
-                return;
-            }
-            if (!wa || wa.length < 9) {
-                alert("Mohon isi Nomor WhatsApp aktif untuk konfirmasi & struk!");
-                document.getElementById("co-wa").focus();
-                return;
-            }
-
-            isCheckoutSubmitting = true;
-            const btnTele = document.getElementById("co-btn-tele");
-            const btnWa = document.getElementById("co-btn-wa");
-            if (btnTele) btnTele.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
-            if (btnWa) btnWa.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
-
-            const grandTotal = recalcTotals();
-            const rawClean = name.replace(/[^a-zA-Z0-9]/g, '').toLowerCase() || 'order';
-            const orderId = `${rawClean}-${Date.now().toString().slice(-4)}`;
-
-            let cleanWa = wa.replace(/[^0-9]/g, '');
-            if (cleanWa.startsWith('0')) cleanWa = '62' + cleanWa.slice(1);
-            else if (!cleanWa.startsWith('62') && cleanWa.length > 0) cleanWa = '62' + cleanWa;
-
-            let timeText = coOrderTimeType === 'schedule' 
-                ? `📅 TERJADWAL [${document.getElementById('co-schedule-day').value}, ${document.getElementById('co-schedule-time').value}]`
-                : '⚡ Segera (5-15 Menit)';
-
-            // Simpan ke Supabase
-            try {
-                if (supabaseClient) {
-                    await supabaseClient.from('orders').upsert([{
-                        id: orderId,
-                        customer_name: name,
-                        customer_wa: cleanWa,
-                        outlet_name: coOutlet ? coOutlet.name : 'Kopi Kenangan',
-                        order_items: coCart,
-                        total_price: grandTotal,
-                        estimated_profit: Math.round(grandTotal * 0.35),
-                        status: 'menunggu_konfirmasi'
-                    }]);
-                }
-            } catch(e) {}
-
-            const trackingUrl = `https://bintanggstore.web.id/tracking.html?order_id=${orderId}`;
-            const waDirectLink = cleanWa ? `https://wa.me/${cleanWa}` : '-';
-            let itemsMsg = coCart.map((c, i) => `${i+1}. ${c.qty || 1}x ${c.name || (c.item && c.item.name) || 'Menu'} (Rp ${((Number(c.price) || 15000) * (Number(c.qty) || 1)).toLocaleString('id-ID')})`).join('\n');
-
-            // 4 BUBBLE LENGKAP TELEGRAM
-            const bubble1 = `── .✦ <b>ORDER KOPI KENANGAN BARU</b> ✦.──\n` +
-                `🆔 <b>Order ID :</b> <code>${orderId}</code>\n` +
-                `🔗 <b>Link Tracking CS :</b> <a href="${trackingUrl}">${trackingUrl}</a>\n` +
-                `👤 <b>Nama Pemesan :</b> ${name}\n` +
-                `📱 <b>No. WhatsApp :</b> ${wa}\n` +
-                `🔗 <b>Chat Customer :</b> <a href="${waDirectLink}">${waDirectLink}</a>\n` +
-                `🛵 <b>Tipe :</b> ${coOrderType === 'takeaway' ? 'Take Away' : 'Dine In'}\n` +
-                `📍 <b>Outlet :</b> ${coOutlet ? coOutlet.name : 'Kopi Kenangan'}\n` +
-                `⏰ <b>Waktu :</b> ${timeText}\n` +
-                `📝 <b>Catatan :</b> "${notes || '-'}"\n` +
-                `--------------------------------------------------\n` +
-                `📋 <b>Detail Menu:</b>\n${itemsMsg}\n` +
-                `--------------------------------------------------\n` +
-                `💰 <b>TOTAL TAGIHAN : Rp ${grandTotal.toLocaleString('id-ID')}</b>\n` +
-                `📌 <b>Status : [MENUNGGU PEMBAYARAN QRIS]</b>`;
-
-            const bubble3 = `<code>Halo Kak ${name}! 🫶✨\nTerima kasih sudah order Kopi Kenangan di Bintang Store!\n\n📋 Rincian Pesanan:\n${itemsMsg}\n📍 Outlet: ${coOutlet ? coOutlet.name : 'Kopi Kenangan'}\n💰 Total Tagihan: Rp ${grandTotal.toLocaleString('id-ID')}\n\n🔗 Live Tracking: ${trackingUrl}\n\nSilakan transfer via QRIS kami ya Kak. Setelah transfer kirim buktinya ke sini agar langsung kami proseskan ke kasir! 🫰💖</code>`;
-            const bubble4 = `<code>Terima kasih banyak Kak ${name}! Pembayaran Rp ${grandTotal.toLocaleString('id-ID')} sudah kami terima ☕✨\n\nPesananmu sedang diproses ke kasir. Pantau nomor antreanmu di: ${trackingUrl} 🫶</code>`;
-
-            // Kirim pesan Telegram
-            await sendSingleTelegramMsg(bubble1);
-            await delay(300);
-            await sendTelegramButtons(orderId, name, grandTotal, coOutlet ? coOutlet.name : 'Kopi Kenangan');
-            await delay(300);
-            await sendSingleTelegramMsg(bubble3);
-            await delay(300);
-            await sendSingleTelegramMsg(`👇 <b>[TEMPLATE BALASAN TRANSFER DITERIMA]:</b>\n\n${bubble4}`);
-
-            // Tampilkan Layar Animasi Fullscreen Pantun
-            const screen = document.getElementById("thankyou-screen");
-            const content = document.getElementById("thankyou-content");
-            const quoteEl = document.getElementById("thankyou-quote");
-            if (screen && quoteEl) {
-                quoteEl.innerHTML = CHECKOUT_PANTUN[Math.floor(Math.random() * CHECKOUT_PANTUN.length)];
-                screen.classList.remove("hidden");
-                setTimeout(() => screen.classList.remove("opacity-0"), 10);
-                setTimeout(() => {
-                    if (content) {
-                        content.classList.remove("scale-75");
-                        content.classList.add("scale-100");
-                    }
-                }, 100);
-            }
-
-            // Kosongkan keranjang setelah order dibuat
-            localStorage.removeItem("bintang_cart");
-
-            setTimeout(() => {
-                if (method === 'whatsapp') {
-                    const waMsg = `Halo Admin Bintang Store, saya mau pesan Kopi Kenangan:\n\nOrder ID: *${orderId}*\nNama: *${name}*\nTotal: *Rp ${grandTotal.toLocaleString('id-ID')}*\n\nMohon dicek ya! ☕`;
-                    window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(waMsg)}`, '_blank');
-                }
-                window.location.href = `tracking.html?order_id=${orderId}`;
-            }, 3500);
-        }
+      setInterval(syncShopeeBottomBar, 400);
     </script>
 </body>
 </html>
