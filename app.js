@@ -725,6 +725,7 @@ function showComingSoonToast(brandName) {
     showToast(`<b>${brandName}</b><br>Layanan segera hadir dengan diskon spesial! Ditunggu ya Kak ✨`);
 }
 
+// Ganti fungsi switchView di app.js
 function switchView(target, pushToHistory = true) {
     sfx.playTap();
     const viewPortal = document.getElementById('view-portal');
@@ -744,16 +745,22 @@ function switchView(target, pushToHistory = true) {
 
     if (target === 'portal') {
         body.style.backgroundColor = '#0F172A';
-        glow.style.background = 'radial-gradient(circle at 50% 50%, rgba(56, 189, 248, 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 40%)';
-        document.getElementById('particle-container').innerHTML = '';
+        if (glow) glow.style.background = 'radial-gradient(circle at 50% 50%, rgba(56, 189, 248, 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 40%)';
+        const pContainer = document.getElementById('particle-container');
+        if (pContainer) pContainer.innerHTML = '';
     } else if (target === 'kopken') {
         body.style.backgroundColor = '#F9F1E7';
-        glow.style.background = 'radial-gradient(circle at 50% 50%, rgba(232, 163, 89, 0.15) 0%, rgba(249, 241, 231, 0) 50%), radial-gradient(circle at 80% 20%, rgba(160, 92, 58, 0.1) 0%, rgba(249, 241, 231, 0) 40%)';
+        if (glow) glow.style.background = 'radial-gradient(circle at 50% 50%, rgba(232, 163, 89, 0.15) 0%, rgba(249, 241, 231, 0) 50%), radial-gradient(circle at 80% 20%, rgba(160, 92, 58, 0.1) 0%, rgba(249, 241, 231, 0) 40%)';
         initKopkenParticles();
+        // OTOMATIS TAMPILKAN POP-UP OUTLET BEGITU MASUK MENU KOPI KENANGAN
+        setTimeout(() => {
+            openWelcomeGateModal(true);
+        }, 150);
     } else if (target === 'tomoro') {
         body.style.backgroundColor = '#FFF7ED';
-        glow.style.background = 'radial-gradient(circle at 50% 50%, rgba(234, 88, 12, 0.15) 0%, rgba(255, 247, 237, 0) 50%), radial-gradient(circle at 80% 20%, rgba(249, 115, 22, 0.1) 0%, rgba(255, 247, 237, 0) 40%)';
-        document.getElementById('particle-container').innerHTML = '';
+        if (glow) glow.style.background = 'radial-gradient(circle at 50% 50%, rgba(234, 88, 12, 0.15) 0%, rgba(255, 247, 237, 0) 50%), radial-gradient(circle at 80% 20%, rgba(249, 115, 22, 0.1) 0%, rgba(255, 247, 237, 0) 40%)';
+        const pContainer = document.getElementById('particle-container');
+        if (pContainer) pContainer.innerHTML = '';
     }
 
     if (pushToHistory) {
