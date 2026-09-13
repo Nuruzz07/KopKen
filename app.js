@@ -238,77 +238,6 @@ function getOfficialOriginalPrice(itemName, fallbackPrice = 0) {
     return fallbackPrice > 0 ? Math.round(fallbackPrice * 1.35) : 22000;
 }
 
-async function sendSingleTelegramMsg(msgHtml) {
-    try {
-        const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
-        const resp = await fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                chat_id: chatId,
-                text: msgHtml,
-                parse_mode: 'HTML'
-            })
-        });
-        return resp.ok;
-    } catch (err) {
-        console.error("Gagal kirim pesan telegram", err);
-        logSystemError(err.message, "sendSingleTelegramMsg");
-        return false;
-    }
-}
-
-// KIRIM NOTIFIKASI KE BOT TELEGRAM ADMIN BESERTA TOMBOL AKSI CEPAT
-async function sendTelegramOrderWithButtons(orderId, customerName, grandTotal, outletName) {
-    const text = `🔔 <b>ORDERAN MASUK ATAS NAMA ${customerName.toUpperCase()}!</b>\n\n` +
-      `🆔 <b>Order ID:</b> <code>${orderId}</code>\n` +
-      `👤 <b>Nama:</b> ${customerName}\n` +
-      `📍 <b>Outlet:</b> ${outletName}\n` +
-      `💰 <b>Total:</b> ${formatRp(grandTotal)}\n` +
-      `📌 <b>Status:</b> Menunggu Konfirmasi\n\n` +
-      `<i>Pilih tombol di bawah untuk update status ke website pembeli secara otomatis:</i>`;
-
-    const inlineKeyboard = {
-      inline_keyboard: [
-        [
-          { text: "⏳ Konfirmasi (Tagih QRIS)", callback_data: `st:${orderId}:menunggu_pembayaran` }
-        ],
-        [
-          { text: "☕ Pembayaran Diterima (Proses Kasir)", callback_data: `st:${orderId}:sedang_diproses` }
-        ],
-        [
-          { text: "🎉 Pesanan Selesai (Siap Ambil)", callback_data: `st:${orderId}:selesai` }
-        ]
-      ]
-    };
-
-    try {
-        await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                chat_id: chatId,
-                text: text,
-                parse_mode: 'HTML',
-                reply_markup: inlineKeyboard
-            })
-        });
-    } catch (e) {
-        console.error("Gagal kirim tombol bot Telegram:", e);
-    }
-}
-
-async function logSystemError(errorMsg, context = "general") {
-    try {
-        if (supabaseClient) {
-            await supabaseClient.from('system_logs').insert([{
-                error_message: errorMsg,
-                context: context
-            }]);
-        }
-    } catch(e) {}
-}
-
 const wifiPasswords = {
     1: "TemanKenangan#01", 2: "SelaluSeru@02", 3: "WorkFromKenangan+03",
     4: "SahabatSetia=4", 5: "PaduanPas!05", 6: "AndalanMantan#06",
@@ -353,103 +282,9 @@ let currentModalItem = null;
 let modalPriceCache = 0;
 let editingCartIndex = null;
 let pickupMode = 'now';
-let checkoutCustomerName = "Pelanggan";
-let checkoutGrandTotal = 0;
-let checkoutCustomerWa = "";
-let pendingCheckoutMethod = null;
-let isMidnightForced = false;
-let tomoroDebounceTimer = null;
 let selectedOrderType = 'now';
 let activeVoucherDiscount = 0;
 let appliedVoucherId = null;
-
-let isSubmittingKopkenOrder = false;
-let orderConfirmationCountdownInterval = null;
-
-const RANDOM_CHECKOUT_QUOTES = [
-    "Beli kopi buat begadang, terima kasih sudah memesan! Pesananmu sedang dirangkai, santai dulu ya sayang! ☕🫶",
-    "Mantan boleh bikin trauma, kopi Bintang bikin bahagia. Pesananmu sedang meluncur cepat ke barista! 🚀✨",
-    "Siang-siang makan bakwan, paling pas ditemani kenangan. Duduk manis ya kawan, pesananmu sedang disiapkan! 🥖☕",
-    "Beli melati di Pasar Minggu, kopi sejati setia menunggu. Sabar sebentar ya, barista lagi meracik pesananmu! ⏳🤎",
-    "Pagi-pagi minum jamu, siangnya beli es kopi susu. Duduk santai ya bosku, pesanan segera meluncur untukmu! 🛵✨"
-];
-
-function startOrderConfirmationTimer(targetMinutes = 10) {
-    clearInterval(orderConfirmationCountdownInterval);
-    const descEl = document.getElementById('tracking-status-desc');
-    let remainingSeconds = targetMinutes * 60;
-
-    orderConfirmationCountdownInterval = setInterval(async () => {
-        if (!descEl) return;
-        remainingSeconds--;
-
-        const m = Math.floor(remainingSeconds / 60);
-        const s = remainingSeconds % 60;
-        const timeFormatted = `${m}:${s < 10 ? '0' : ''}${s}`;
-
-        if (remainingSeconds > 0) {
-            descEl.innerHTML = `⏳ <b>Estimasi Konfirmasi CS: ${timeFormatted}</b><br>Admin sedang memproses pesanan ke kasir. Harap tunggu sebentar ya Kak ☕`;
-        } else {
-            clearInterval(orderConfirmationCountdownInterval);
-            descEl.innerHTML = `⚠️ <b>Konfirmasi Melewati 10 Menit:</b><br>Admin mungkin sedang antre di kasir. Silakan <a href="https://wa.me/${waNumber}?text=Halo%20Admin%20Bintang%20Store%2C%20orderan%20saya%20sudah%2010%20menit%20belum%20ada%20update%20nih" target="_blank" class="text-amber-800 underline font-black">Chat / Telepon WhatsApp Admin Di Sini</a> 📞`;
-            
-            const activeId = localStorage.getItem('active_tracking_order_id') || 'Order';
-            await sendSingleTelegramMsg(`🚨 <b>PERINGATAN ORDER MELEWATI 10 MENIT!</b>\nOrder ID: <code>${activeId}</code> belum dikonfirmasi oleh CS. Pelanggan diperbolehkan menghubungi/misscall WhatsApp!`);
-        }
-    }, 1000);
-}
-
-// Cek otomatis voucher hak member di Supabase
-async function checkMemberEligibleVoucher(phone) {
-    activeVoucherDiscount = 0;
-    appliedVoucherId = null;
-    if (!supabaseClient || !phone || phone.length < 9) {
-        validateKopkenForm();
-        return;
-    }
-
-    let cleanWa = phone.replace(/[^0-9]/g, '');
-    if (cleanWa.startsWith('0')) cleanWa = '62' + cleanWa.slice(1);
-    else if (!cleanWa.startsWith('62')) cleanWa = '62' + cleanWa;
-
-    try {
-        const { data: vouchers } = await supabaseClient
-            .from('member_vouchers')
-            .select('*')
-            .eq('customer_wa', cleanWa)
-            .eq('is_used', false)
-            .limit(1);
-
-        if (vouchers && vouchers.length > 0) {
-            appliedVoucherId = vouchers[0].id;
-            const totalCup = cart.reduce((sum, c) => sum + (c.qty || 1), 0);
-            if (totalCup >= 2) {
-                activeVoucherDiscount = 1000;
-                showToast("✨ <b>Voucher Rp1.000 Aktif!</b><br>Potongan ulasan foto kamu berhasil dipasang.");
-            }
-        }
-    } catch(e) {}
-    validateKopkenForm();
-}
-
-function setOrderTimeType(type) {
-  selectedOrderType = type;
-  const btnNow = document.getElementById('btn-order-now');
-  const btnSchedule = document.getElementById('btn-order-schedule');
-  const picker = document.getElementById('schedule-picker');
-
-  if (!btnNow || !btnSchedule || !picker) return;
-
-  if (type === 'schedule') {
-    btnSchedule.className = "py-2 px-3 text-xs font-semibold rounded-xl border border-amber-600 bg-amber-50 text-amber-900 transition-all flex items-center justify-center gap-1.5 shadow-sm";
-    btnNow.className = "py-2 px-3 text-xs font-semibold rounded-xl border border-stone-200 bg-stone-50 text-stone-600 transition-all flex items-center justify-center gap-1.5";
-    picker.classList.remove('hidden');
-  } else {
-    btnNow.className = "py-2 px-3 text-xs font-semibold rounded-xl border border-amber-600 bg-amber-50 text-amber-900 transition-all flex items-center justify-center gap-1.5 shadow-sm";
-    btnSchedule.className = "py-2 px-3 text-xs font-semibold rounded-xl border border-stone-200 bg-stone-50 text-stone-600 transition-all flex items-center justify-center gap-1.5";
-    picker.classList.add('hidden');
-  }
-}
 
 function handleSecretLogoTap() {
     secretLogoTapCount++;
@@ -526,9 +361,6 @@ function refreshAdminControlUI() {
 
 async function updateStoreAdminStatus(newStatus) {
     sfx.playTap();
-    const syncText = document.getElementById('admin-sync-indicator');
-    if (syncText) syncText.textContent = "⏳ Menyimpan status ke database cloud...";
-
     const isOnlineBool = newStatus === 'online';
     const statusLabel = isOnlineBool ? 'Admin Online & Proses Cepat' : 'Admin Sedang Kuliah/Sibuk (Proses ±15-30 Mnt)';
 
@@ -537,29 +369,15 @@ async function updateStoreAdminStatus(newStatus) {
             await supabaseClient
                 .from('store_settings')
                 .upsert({ id: 'main', is_online: isOnlineBool, status_label: statusLabel, updated_at: new Date() });
-        } else {
-            const endpoint = `${SUPABASE_TOMORO_URL}/rest/v1/store_settings?id=eq.main`;
-            await fetch(endpoint, {
-                method: 'PATCH',
-                headers: {
-                    'apikey': SUPABASE_TOMORO_KEY,
-                    'Authorization': `Bearer ${SUPABASE_TOMORO_KEY}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ is_online: isOnlineBool, status_label: statusLabel })
-            });
         }
-
         currentAdminStoreStatus = newStatus;
         applyAdminStatusToUI(newStatus);
         refreshAdminControlUI();
-        if (syncText) syncText.textContent = "✅ Status berhasil diperbarui di cloud!";
         showToast(`Status toko diubah ke: <b>${newStatus.toUpperCase()}</b>`);
     } catch (err) {
         currentAdminStoreStatus = newStatus;
         applyAdminStatusToUI(newStatus);
         refreshAdminControlUI();
-        if (syncText) syncText.textContent = "⚠️ Tersimpan lokal";
         showToast(`Status tersimpan lokal: <b>${newStatus.toUpperCase()}</b>`);
     }
 }
@@ -570,18 +388,6 @@ async function fetchStoreAdminStatus() {
         if (supabaseClient) {
             const { data } = await supabaseClient.from('store_settings').select('*').eq('id', 'main').single();
             if (data) isOnline = data.is_online !== false;
-        } else {
-            const endpoint = `${SUPABASE_TOMORO_URL}/rest/v1/store_settings?id=eq.main&select=*`;
-            const res = await fetch(endpoint, {
-                headers: {
-                    'apikey': SUPABASE_TOMORO_KEY,
-                    'Authorization': `Bearer ${SUPABASE_TOMORO_KEY}`
-                }
-            });
-            if (res.ok) {
-                const arr = await res.json();
-                if (arr && arr.length > 0) isOnline = arr[0].is_online !== false;
-            }
         }
         currentAdminStoreStatus = isOnline ? 'online' : 'busy';
         applyAdminStatusToUI(currentAdminStoreStatus);
@@ -724,7 +530,6 @@ function showComingSoonToast(brandName) {
     showToast(`<b>${brandName}</b><br>Layanan segera hadir dengan diskon spesial! Ditunggu ya Kak ✨`);
 }
 
-// 1. ROUTING HALAMAN TEPAT: HASH TERTULIS BENAR & BACK BUTTON BEKERJA
 function switchView(target, pushToHistory = true) {
     sfx.playTap();
     const viewPortal = document.getElementById('view-portal');
@@ -740,20 +545,16 @@ function switchView(target, pushToHistory = true) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
     const body = document.body;
-    const glow = document.getElementById('main-glow');
 
     if (target === 'portal') {
         body.style.backgroundColor = '#0F172A';
-        if (glow) glow.style.background = 'radial-gradient(circle at 50% 50%, rgba(56, 189, 248, 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 40%)';
         const pContainer = document.getElementById('particle-container');
         if (pContainer) pContainer.innerHTML = '';
     } else if (target === 'kopken') {
         body.style.backgroundColor = '#F9F1E7';
-        if (glow) glow.style.background = 'radial-gradient(circle at 50% 50%, rgba(232, 163, 89, 0.15) 0%, rgba(249, 241, 231, 0) 50%), radial-gradient(circle at 80% 20%, rgba(160, 92, 58, 0.1) 0%, rgba(249, 241, 231, 0) 40%)';
         initKopkenParticles();
     } else if (target === 'tomoro') {
         body.style.backgroundColor = '#FFF7ED';
-        if (glow) glow.style.background = 'radial-gradient(circle at 50% 50%, rgba(234, 88, 12, 0.15) 0%, rgba(255, 247, 237, 0) 50%), radial-gradient(circle at 80% 20%, rgba(249, 115, 22, 0.1) 0%, rgba(255, 247, 237, 0) 40%)';
         const pContainer = document.getElementById('particle-container');
         if (pContainer) pContainer.innerHTML = '';
     }
@@ -763,12 +564,15 @@ function switchView(target, pushToHistory = true) {
     }
 }
 
-// 2. PEMILIHAN LOKASI LANGSUNG DIBUKA SAAT TOMBOL DIKLIK
+// Buka Flow Kopi Kenangan dari Portal
 function openKopkenFlow() {
     switchView('kopken');
-    setTimeout(() => {
-        openWelcomeGateModal(true);
-    }, 150);
+    const savedOutlet = localStorage.getItem("bintang_selected_outlet") || localStorage.getItem("selectedOutlet");
+    if (!savedOutlet) {
+        setTimeout(() => {
+            openWelcomeGateModal(true);
+        }, 150);
+    }
 }
 
 function openTomoroFlow() {
@@ -855,7 +659,18 @@ async function loadDataFiles() {
             { id: 5, name: "Summarecon Mall Serpong", address: "SMS 1 Ground Floor, Tangerang", category: "Mall", is_open: true, open_time: "10:00:00", order_close_time: "21:30:00", real_close_time: "22:00:00" }
         ];
     }
-    selectedOutlet = allOutlets[0];
+
+    const savedOutletRaw = localStorage.getItem("bintang_selected_outlet") || localStorage.getItem("selectedOutlet");
+    if (savedOutletRaw) {
+        try {
+            selectedOutlet = JSON.parse(savedOutletRaw);
+        } catch(e) {
+            selectedOutlet = allOutlets[0];
+        }
+    } else {
+        selectedOutlet = allOutlets[0];
+    }
+    
     updateOutletUI();
 
     let parsedMenu = [];
@@ -884,7 +699,7 @@ async function loadDataFiles() {
             }
         }
     } catch (e) {
-        console.warn("Gagal mengambil menu dari Supabase, mencoba muat dari menu.json...", e);
+        console.warn("Gagal memuat menu Supabase:", e);
     }
 
     if (parsedMenu.length === 0) {
@@ -957,15 +772,9 @@ function updateOutletUI() {
         if (currentOrderType === 'takeaway') {
             orderIcon.className = "fas fa-bag-shopping text-base";
             orderLabel.textContent = "Take Away";
-            const bagWrap = document.getElementById('plastic-bag-wrapper');
-            if (bagWrap) bagWrap.classList.remove('hidden');
         } else {
             orderIcon.className = "fas fa-mug-hot text-base";
             orderLabel.textContent = "Dine In";
-            const bagWrap = document.getElementById('plastic-bag-wrapper');
-            if (bagWrap) bagWrap.classList.add('hidden');
-            const bagChk = document.getElementById('bag-checkbox');
-            if (bagChk) bagChk.checked = false;
         }
     }
 
@@ -989,7 +798,6 @@ function updateOutletUI() {
     }
 
     checkOutletClosingSoon();
-    validateKopkenForm();
 }
 
 function renderMenu(filterKeyword = '') {
@@ -1038,31 +846,12 @@ function renderMenu(filterKeyword = '') {
 
                 let imageBoxHtml = '';
                 if (item.imgs && item.imgs.length > 1) {
-                    if (item.imgs.length === 2) {
-                        imageBoxHtml = `
-                            <div class="w-full aspect-square p-1.5 mb-2 bg-gradient-to-br from-amber-50 to-orange-50 rounded-xl overflow-hidden shadow-inner grid grid-cols-2 gap-1 items-center">
-                                <img src="${item.imgs[0]}" alt="${item.name} 1" class="w-full h-full object-contain hover:scale-105 transition" loading="lazy">
-                                <img src="${item.imgs[1]}" alt="${item.name} 2" class="w-full h-full object-contain hover:scale-105 transition" loading="lazy">
-                            </div>
-                        `;
-                    } else if (item.imgs.length === 3) {
-                        imageBoxHtml = `
-                            <div class="w-full aspect-square p-1.5 mb-2 bg-gradient-to-br from-amber-50 to-orange-50 rounded-xl overflow-hidden shadow-inner grid grid-cols-2 grid-rows-2 gap-1 items-center">
-                                <div class="col-span-2 flex justify-center h-full"><img src="${item.imgs[0]}" alt="${item.name} 1" class="h-full object-contain" loading="lazy"></div>
-                                <div class="flex justify-center h-full"><img src="${item.imgs[1]}" alt="${item.name} 2" class="h-full object-contain" loading="lazy"></div>
-                                <div class="flex justify-center h-full"><img src="${item.imgs[2]}" alt="${item.name} 3" class="h-full object-contain" loading="lazy"></div>
-                            </div>
-                        `;
-                    } else {
-                        imageBoxHtml = `
-                            <div class="w-full aspect-square p-1.5 mb-2 bg-gradient-to-br from-amber-50 to-orange-50 rounded-xl overflow-hidden shadow-inner grid grid-cols-2 grid-rows-2 gap-1 items-center">
-                                <img src="${item.imgs[0]}" alt="${item.name} 1" class="w-full h-full object-contain" loading="lazy">
-                                <img src="${item.imgs[1]}" alt="${item.name} 2" class="w-full h-full object-contain" loading="lazy">
-                                <img src="${item.imgs[2]}" alt="${item.name} 3" class="w-full h-full object-contain" loading="lazy">
-                                <img src="${item.imgs[3]}" alt="${item.name} 4" class="w-full h-full object-contain" loading="lazy">
-                            </div>
-                        `;
-                    }
+                    imageBoxHtml = `
+                        <div class="w-full aspect-square p-1.5 mb-2 bg-gradient-to-br from-amber-50 to-orange-50 rounded-xl overflow-hidden shadow-inner grid grid-cols-2 gap-1 items-center">
+                            <img src="${item.imgs[0]}" alt="${item.name} 1" class="w-full h-full object-contain hover:scale-105 transition" loading="lazy">
+                            <img src="${item.imgs[1]}" alt="${item.name} 2" class="w-full h-full object-contain hover:scale-105 transition" loading="lazy">
+                        </div>
+                    `;
                 } else {
                     imageBoxHtml = `
                         <div class="w-full aspect-square flex items-center justify-center p-2 mb-2 bg-white/70 rounded-xl overflow-hidden shadow-inner">
@@ -1125,12 +914,7 @@ function scrollToCategory(id, event) {
     }
 }
 
-function scrollToCart() {
-    const cs = document.getElementById('checkout-section');
-    if (cs) cs.scrollIntoView({ behavior: 'smooth' });
-}
-
-// 3. FUNGSI WELCOME GATE DIRECT RENDER (BEBAS MACET TRANSISI)
+// Welcome Gate Modal
 function openWelcomeGateModal(forceOpen = true) {
     const modal = document.getElementById('modal-welcome-gate');
     const card = document.getElementById('welcome-gate-card');
@@ -1162,6 +946,9 @@ function closeWelcomeGateModal() {
 
 function setGateOrderType(type) {
     currentOrderType = type;
+    localStorage.setItem("bintang_order_type", type);
+    localStorage.setItem("orderType", type);
+
     const btnTakeaway = document.getElementById('gate-type-takeaway');
     const btnDinein = document.getElementById('gate-type-dinein');
 
@@ -1240,20 +1027,13 @@ function selectOutletItem(outletId) {
     const outlet = allOutlets.find(o => o.id === outletId);
     if (!outlet) return;
 
-    const isSig = isSignatureOutlet(outlet);
-    const isOpen = isOutletOpenNow(outlet);
-
-    if (isSig) {
-        showToast(`<b>Outlet Signature/Heritage</b><br>Cabang ini memiliki menu & harga khusus, promo reguler tidak berlaku.`);
-    } else if (!isOpen) {
-        showToast(`<b>Cabang ${outlet.name}</b><br>Melewati jam operasional standar, namun tetap bisa dicoba pesan.`);
-    }
-
     selectedOutlet = outlet;
+    localStorage.setItem("bintang_selected_outlet", JSON.stringify(outlet));
+    localStorage.setItem("selectedOutlet", JSON.stringify(outlet));
+
     clearGateSearch();
     updateGatePreview();
     updateOutletUI();
-    validateKopkenForm();
 }
 
 function updateGatePreview() {
@@ -1286,15 +1066,12 @@ function confirmWelcomeGate() {
         return;
     }
 
-    const isSig = isSignatureOutlet(selectedOutlet);
-    if (isSig) {
-        showToast("<b>Outlet Signature</b><br>Outlet ini memiliki menu khusus dan promo reguler tidak berlaku.");
-    }
-
     sfx.playTap();
+    localStorage.setItem("bintang_selected_outlet", JSON.stringify(selectedOutlet));
+    localStorage.setItem("selectedOutlet", JSON.stringify(selectedOutlet));
+
     closeWelcomeGateModal();
     updateOutletUI();
-    validateKopkenForm();
     showToast(`Lokasi: <b>${selectedOutlet.name}</b> (${currentOrderType === 'takeaway' ? 'Take Away' : 'Dine In'})`);
 }
 
@@ -1517,10 +1294,10 @@ function addToCartFromModal() {
         
         details.push(temp);
         details.push(sizePick);
-        if(sugar !== 'Normal Sugar') details.push(sugar);
+        if (sugar !== 'Normal Sugar') details.push(sugar);
         if (temp === 'Ice') {
             const ice = document.querySelector('input[name="mod-ice"]:checked')?.value || 'Normal Ice';
-            if(ice !== 'Normal Ice') details.push(ice);
+            if (ice !== 'Normal Ice') details.push(ice);
         }
         document.querySelectorAll('.mod-addons-chk:checked').forEach(chk => {
             details.push(chk.value);
@@ -1552,16 +1329,17 @@ function addToCartFromModal() {
         showToast(`<b>${itemName}</b><br>Berhasil masuk ke keranjang!`);
     }
 
-    // 4. OTOMATIS SIMPAN KE LOCALSTORAGE TIAP ADA ITEM MASUK (ANTI KERANJANG KOSONG)
+    // KUNCI PENYIMPANAN KE LOCALSTORAGE
     try {
         localStorage.setItem("bintang_cart", JSON.stringify(cart));
+        localStorage.setItem("cart", JSON.stringify(cart));
         localStorage.setItem("bintang_selected_outlet", JSON.stringify(selectedOutlet));
+        localStorage.setItem("selectedOutlet", JSON.stringify(selectedOutlet));
         localStorage.setItem("bintang_order_type", currentOrderType);
     } catch(e) {}
 
     closeModal();
     updateCartUI();
-    validateKopkenForm();
 }
 
 function closeModal(e) {
@@ -1580,185 +1358,19 @@ function closeModal(e) {
 
 function playFlyToCartAnimation() {
     sfx.playSuccess();
-    const cartBtn = document.getElementById('cart-icon-btn');
-    const cartIcon = document.getElementById('cart-icon');
-    const badge = document.getElementById('cart-badge');
-    if (!cartBtn || !cartIcon || !badge) return;
-    const rect = cartBtn.getBoundingClientRect();
-
-    const flyer = document.createElement('div');
-    flyer.innerHTML = '<i class="fas fa-coffee text-white text-base"></i>';
-    flyer.className = 'fixed z-[250] flex items-center justify-center w-10 h-10 bg-kenangan-primary rounded-full shadow-lg';
-    flyer.style.left = '50%';
-    flyer.style.top = '70%';
-    flyer.style.transform = 'translate(-50%, -50%) scale(0)';
-    flyer.style.transition = 'all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
-    document.body.appendChild(flyer);
-
-    flyer.getBoundingClientRect();
-    flyer.style.transform = 'translate(-50%, -50%) scale(1)';
-
-    setTimeout(() => {
-        flyer.style.left = `${rect.left + rect.width / 2}px`;
-        flyer.style.top = `${rect.top + rect.height / 2}px`;
-        flyer.style.transform = 'translate(-50%, -50%) scale(0.2)';
-        flyer.style.opacity = '0';
-    }, 300);
-
-    setTimeout(() => {
-        flyer.remove();
-        cartIcon.classList.add('scale-125', 'text-kenangan-primary');
-        badge.classList.add('scale-125');
-        setTimeout(() => {
-            cartIcon.classList.remove('scale-125', 'text-kenangan-primary');
-            badge.classList.remove('scale-125');
-        }, 200);
-    }, 800);
 }
 
 function updateCartUI() {
-    const container = document.getElementById('cart-items-container');
     const badge = document.getElementById('cart-badge');
     const countText = document.getElementById('cart-item-count-text');
-
     let totalQty = cart.reduce((sum, c) => sum + (c.qty || 1), 0);
     if (countText) countText.textContent = `${totalQty} Item`;
-
-    if (!container) return;
-
-    if (cart.length === 0) {
-        container.innerHTML = '<p class="text-xs text-gray-500 italic text-center py-4">Keranjang masih kosong.</p>';
-        if (badge) badge.classList.add('hidden');
-    } else {
-        if (badge) {
+    if (badge) {
+        if (totalQty > 0) {
             badge.classList.remove('hidden');
             badge.textContent = totalQty;
-        }
-        container.innerHTML = '';
-        
-        cart.forEach((c, idx) => {
-            const displayName = c.name || (c.item && c.item.name) || 'Menu Kopi';
-            container.innerHTML += `
-                <div class="flex justify-between items-start bg-white/70 p-3 rounded-2xl border border-white">
-                    <div class="flex-grow pr-2">
-                        <h4 class="font-bold text-xs text-kenangan-dark">${displayName}</h4>
-                        ${c.details ? `<p class="text-[10px] text-gray-600 mt-0.5"><i class="fas fa-sliders-h mr-1"></i>${c.details}</p>` : ''}
-                        ${c.note ? `<p class="text-[10px] text-gray-500 italic mt-0.5">Catatan: "${c.note}"</p>` : ''}
-                        <p class="text-xs font-bold text-kenangan-primary mt-1">${formatRp(c.price * (c.qty || 1))}</p>
-                    </div>
-                    <div class="flex flex-col items-end gap-1.5 flex-shrink-0">
-                        <button onclick="openModal('${(c.item && c.item.id) || c.id}', ${idx})" class="text-[10px] font-bold text-gray-400 hover:text-kenangan-primary cursor-pointer">
-                            <i class="fas fa-pencil mr-0.5"></i> Edit
-                        </button>
-                        <button onclick="removeFromCart(${idx})" class="text-red-400 hover:text-red-600 text-xs p-1 cursor-pointer">
-                            <i class="fas fa-trash-alt"></i>
-                        </button>
-                    </div>
-                </div>
-            `;
-        });
-    }
-}
-
-function removeFromCart(index) {
-    cart.splice(index, 1);
-    try {
-        localStorage.setItem("bintang_cart", JSON.stringify(cart));
-    } catch(e) {}
-    updateCartUI();
-    validateKopkenForm();
-    showToast("Item dihapus dari keranjang");
-}
-
-function handleBagCheckboxChange() {
-    validateKopkenForm();
-}
-
-function setPickupMode(mode) {
-    pickupMode = mode;
-    const btnNow = document.getElementById('btn-pickup-now');
-    const btnSched = document.getElementById('btn-pickup-sched');
-    const pickerBox = document.getElementById('schedule-picker-box');
-
-    if (mode === 'now') {
-        if (btnNow) btnNow.className = "py-2 px-3 rounded-xl border-2 border-kenangan-primary bg-amber-50 text-kenangan-primary font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer";
-        if (btnSched) btnSched.className = "py-2 px-3 rounded-xl border-2 border-gray-200 bg-white text-gray-600 font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer";
-        if (pickerBox) pickerBox.classList.add('hidden');
-    } else {
-        if (btnSched) btnSched.className = "py-2 px-3 rounded-xl border-2 border-kenangan-primary bg-amber-50 text-kenangan-primary font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer";
-        if (btnNow) btnNow.className = "py-2 px-3 rounded-xl border-2 border-gray-200 bg-white text-gray-600 font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer";
-        if (pickerBox) pickerBox.classList.remove('hidden');
-    }
-}
-
-function initScheduleDropdown() {
-    const select = document.getElementById('pickup-time-select');
-    if (!select) return;
-    select.innerHTML = '';
-    const now = getWIBDate();
-    let curMin = now.getHours() * 60 + now.getMinutes();
-    let startMin = Math.ceil(curMin / 15) * 15 + 15;
-
-    for (let m = startMin; m <= 23 * 60 + 45; m += 15) {
-        const hStr = String(Math.floor(m / 60)).padStart(2, '0');
-        const mStr = String(m % 60).padStart(2, '0');
-        select.innerHTML += `<option value="${hStr}.${mStr}">Pukul ${hStr}.${mStr}</option>`;
-    }
-}
-
-function validateKopkenForm() {
-    const nameEl = document.getElementById('cust-name');
-    const waEl = document.getElementById('cust-wa');
-    const name = nameEl ? nameEl.value.trim() : '';
-    const wa = waEl ? waEl.value.trim() : '';
-    const btnTele = document.getElementById('btn-submit-tele-kopken');
-    const btnWa = document.getElementById('btn-submit-wa-kopken');
-    const closedWarning = document.getElementById('outlet-closed-warning-box');
-
-    let subtotal = cart.reduce((sum, c) => sum + (c.price * (c.qty || 1)), 0);
-    const subtotalEl = document.getElementById('summary-subtotal');
-    if (subtotalEl) subtotalEl.textContent = formatRp(subtotal);
-
-    let totalEstimatedReal = 0;
-    cart.forEach(c => {
-        const qty = c.qty || 1;
-        const rPrice = (c.item && c.item.realPrice) || c.realPrice || (c.price * 1.35);
-        totalEstimatedReal += (rPrice * qty);
-    });
-    const savingsTotal = Math.max(0, Math.round(totalEstimatedReal - subtotal));
-    const savingsBadge = document.getElementById('savings-badge-box');
-    const savingsText = document.getElementById('savings-total-text');
-    if (savingsBadge && savingsText) {
-        if (savingsTotal > 0 && cart.length > 0) {
-            savingsBadge.classList.remove('hidden');
-            savingsText.textContent = formatRp(savingsTotal);
         } else {
-            savingsBadge.classList.add('hidden');
-        }
-    }
-
-    const isMall = isMallOutlet(selectedOutlet);
-    const surcharge = (isMall && cart.length > 0) ? 3000 : 0;
-    const bagChk = document.getElementById('bag-checkbox');
-    const isBagChecked = bagChk ? (bagChk.checked && currentOrderType === 'takeaway') : false;
-    const bagFee = (isBagChecked && cart.length > 0) ? 1000 : 0;
-
-    const total = Math.max(0, subtotal + surcharge + bagFee - activeVoucherDiscount);
-    const totalEl = document.getElementById('summary-total');
-    if (totalEl) totalEl.textContent = formatRp(total);
-
-    const isOpenNow = isOutletOpenNow(selectedOutlet);
-    const isSig = isSignatureOutlet(selectedOutlet);
-
-    if (closedWarning) {
-        if (isSig) {
-            closedWarning.innerHTML = '⚠️ Outlet Signature/Heritage tutup untuk promo reguler.';
-            closedWarning.classList.remove('hidden');
-        } else if (!isOpenNow) {
-            closedWarning.innerHTML = '⚠️ <b>Outlet tercatat melewati jam operasional standar.</b>';
-            closedWarning.classList.remove('hidden');
-        } else {
-            closedWarning.classList.add('hidden');
+            badge.classList.add('hidden');
         }
     }
 }
@@ -1774,30 +1386,7 @@ function applyRacikanPas() {
     if (normIceRadio) normIceRadio.checked = true;
 
     toggleIceOptions();
-    showToast("✨ Racikan Pas (Ice Normal + Less Sugar 70%) diterapkan!");
-}
-
-function addUpsellRoti() {
-    sfx.playSuccess();
-    cart.push({
-        item: {
-            id: 'upsell_roti_' + Date.now(),
-            name: 'Roti Coklat Klasik',
-            type: 'food'
-        },
-        name: 'Roti Coklat Klasik',
-        details: 'Siap Santap',
-        note: 'Menu Tambahan Pengejar Promo',
-        price: 10000,
-        qty: 1
-    });
-    try {
-        localStorage.setItem("bintang_cart", JSON.stringify(cart));
-    } catch(e) {}
-    updateCartUI();
-    validateKopkenForm();
-    playFlyToCartAnimation();
-    showToast("🍞 1x Roti Coklat Klasik berhasil ditambahkan!");
+    showToast("✨ Racikan Pas diterapkan!");
 }
 
 function getDailyWifiPassword() {
@@ -1824,7 +1413,6 @@ async function lookupCustomerLoyaltyHistory() {
 
     if (summaryBox) summaryBox.classList.remove('hidden');
     if (summaryText) summaryText.innerHTML = '<i class="fas fa-spinner fa-spin mr-1"></i> Memeriksa data langganan...';
-    if (subText) subText.textContent = '';
 
     try {
         if (!supabaseClient) throw new Error("Database belum terhubung");
@@ -1836,216 +1424,18 @@ async function lookupCustomerLoyaltyHistory() {
             .single();
 
         if (error || !cust) {
-            if (summaryText) summaryText.innerHTML = `👋 Halo Kak! Nomor WhatsApp belum tercatat sebagai langganan.`;
-            if (subText) subText.textContent = `Yuk selesaikan pesanan pertamamu hari ini untuk mulai mengumpulkan riwayat langganan hemat!`;
+            if (summaryText) summaryText.innerHTML = `👋 Nomor WhatsApp belum tercatat sebagai langganan.`;
+            if (subText) subText.textContent = `Yuk selesaikan pesanan pertamamu hari ini!`;
             return;
         }
 
         const totalOrders = cust.total_orders || 1;
         const totalSpent = cust.total_spent || 0;
-        if (summaryText) summaryText.innerHTML = `⭐ <b>Halo Kak ${cust.customer_name || 'Pelanggan Setia'}!</b>`;
-        if (subText) subText.innerHTML = `Kamu sudah order <b>${totalOrders} kali</b> di Bintang Store dengan total jajan <b>${formatRp(totalSpent)}</b>. Terima kasih sudah selalu mempercayakan jajanan kopimu pada kami! 🫶☕`;
+        if (summaryText) summaryText.innerHTML = `⭐ <b>Halo Kak ${cust.customer_name || 'Pelanggan'}!</b>`;
+        if (subText) subText.innerHTML = `Kamu sudah order <b>${totalOrders} kali</b> dengan total jajan <b>${formatRp(totalSpent)}</b>. 🫶☕`;
     } catch (e) {
-        if (summaryText) summaryText.innerHTML = `⚠️ Data langganan belum dapat dimuat saat ini.`;
-        if (subText) subText.textContent = `Pastikan nomor WhatsApp sudah benar dan pernah digunakan untuk memesan.`;
+        if (summaryText) summaryText.innerHTML = `⚠️ Data belum dapat dimuat.`;
     }
-}
-
-// 5. SUBMIT ORDER LANGSUNG 4 BALON NOTIFIKASI
-async function submitOrderKopken(method) {
-    if (isSubmittingKopkenOrder) {
-        showToast("⚠️ Pesanan sedang dikirim ke admin, harap tunggu sebentar...");
-        return;
-    }
-
-    const nameEl = document.getElementById('cust-name');
-    const custWaInputEl = document.getElementById('cust-wa');
-    const notesEl = document.getElementById('cust-notes');
-    const bagChk = document.getElementById('bag-checkbox');
-
-    const name = nameEl ? nameEl.value.trim() : 'Pelanggan';
-    const custWaInput = custWaInputEl ? custWaInputEl.value.trim() : '';
-    const notes = notesEl ? notesEl.value.trim() : '';
-    const isBagChecked = bagChk ? (bagChk.checked && currentOrderType === 'takeaway') : false;
-
-    isSubmittingKopkenOrder = true;
-    sfx.playSuccess();
-
-    checkoutCustomerName = name || "Pelanggan";
-    checkoutCustomerWa = custWaInput || "";
-
-    let timeSched = (selectedOrderType === 'schedule') 
-        ? `📅 TERJADWAL [${(document.getElementById('schedule-day')?.value || 'Hari Ini').toUpperCase()}, ${document.getElementById('schedule-time')?.value || '12:00 WIB'}]`
-        : (isMidnightHour() ? '🌙 Jam Malam (Antrean Pagi 06:00 WIB)' : '⚡ Segera (5-15 Menit)');
-
-    let itemsText = '';
-    let subtotal = 0;
-    let totalAppOriginalPrice = 0;
-
-    cart.forEach((c, i) => {
-        const qty = c.qty || 1;
-        const itemTotal = c.price * qty;
-        subtotal += itemTotal;
-
-        const displayName = c.name || (c.item && c.item.name) || 'Menu Kopi';
-        const unitOriginalPrice = (c.item && c.item.realPrice) || c.realPrice || getOfficialOriginalPrice(displayName, c.price);
-        totalAppOriginalPrice += (unitOriginalPrice * qty);
-
-        itemsText += `${i+1}. ${qty}x ${displayName}\n`;
-        if(c.details) itemsText += `   [Racikan: ${c.details}]\n`;
-        if(c.note) itemsText += `   (Catatan: "${c.note}")\n`;
-        itemsText += `   Subtotal: ${formatRp(itemTotal)}\n`;
-    });
-
-    const isMall = isMallOutlet(selectedOutlet);
-    const surcharge = isMall ? 3000 : 0;
-    const bagFee = isBagChecked ? 1000 : 0;
-    const grandTotal = subtotal + surcharge + bagFee;
-    checkoutGrandTotal = grandTotal;
-
-    let cleanWaNumber = custWaInput ? custWaInput.replace(/[^0-9]/g, '') : '';
-    if (cleanWaNumber.startsWith('0')) cleanWaNumber = '62' + cleanWaNumber.slice(1);
-    else if (!cleanWaNumber.startsWith('62') && cleanWaNumber.length > 0) cleanWaNumber = '62' + cleanWaNumber;
-
-    const rawClean = (name || 'pelanggan').trim().replace(/[^a-zA-Z0-9]/g, '').toLowerCase() || 'order';
-    const singleOrderId = `${rawClean}-${Date.now().toString().slice(-4)}`;
-
-    localStorage.setItem('active_tracking_order_id', singleOrderId);
-    localStorage.setItem('last_order_id', singleOrderId);
-
-    try {
-        if (supabaseClient) {
-            await supabaseClient.from('orders').upsert([{
-                id: singleOrderId,
-                customer_name: name,
-                customer_wa: cleanWaNumber || custWaInput,
-                outlet_name: selectedOutlet ? selectedOutlet.name : 'Kopi Kenangan',
-                order_items: cart,
-                total_price: grandTotal,
-                estimated_profit: Math.round(grandTotal * 0.35),
-                status: 'menunggu_konfirmasi'
-            }], { onConflict: 'id' });
-        }
-    } catch(err) {
-        console.warn("Gagal simpan order:", err);
-    }
-
-    initRealtimeOrderTracker(singleOrderId);
-
-    const trackingUrl = `https://www.bintangstore.web.id/tracking.html?order_id=${singleOrderId}`;
-    const waDirectLink = cleanWaNumber ? `https://wa.me/${cleanWaNumber}` : '-';
-
-    const bubble1 = `── .✦ <b>ORDER KOPI KENANGAN BARU</b> ✦.──\n` +
-        `🆔 <b>Order ID :</b> <code>${singleOrderId}</code>\n` +
-        `🔗 <b>Link Tracking CS :</b> <a href="${trackingUrl}">${trackingUrl}</a>\n` +
-        `👤 <b>Nama Pemesan :</b> ${name}\n` +
-        `📱 <b>No. WhatsApp :</b> ${custWaInput || 'Via WhatsApp Chat'}\n` +
-        `🔗 <b>Chat Customer :</b> <a href="${waDirectLink}">${waDirectLink}</a>\n` +
-        `🛵 <b>Tipe :</b> ${currentOrderType === 'takeaway' ? 'Take Away' : 'Dine In'}\n` +
-        `📍 <b>Outlet :</b> ${selectedOutlet ? selectedOutlet.name : 'Kopi Kenangan'}\n` +
-        `⏰ <b>Waktu :</b> ${timeSched}\n` +
-        `📝 <b>Catatan :</b> "${notes || '-'}"\n` +
-        `--------------------------------------------------\n` +
-        `📋 <b>Detail Menu:</b>\n${itemsText}` +
-        `--------------------------------------------------\n` +
-        `💰 <b>TOTAL TAGIHAN : ${formatRp(grandTotal)}</b>\n` +
-        `📌 <b>Status : [MENUNGGU PEMBAYARAN QRIS]</b>`;
-
-    const bubble3 = `<code>Halo Kak ${name}! 🫶✨\nTerima kasih sudah order Kopi Kenangan di Bintang Store!\n\n📋 Rincian Pesanan:\n${itemsText}📍 Outlet: ${selectedOutlet ? selectedOutlet.name : 'Kopi Kenangan'}\n💰 Total Tagihan: ${formatRp(grandTotal)}\n\n🔗 Live Tracking:\n${trackingUrl}\n\nSilakan transfer via QRIS kami ya Kak. Setelah transfer kirim buktinya ke sini agar langsung kami proseskan ke kasir! 🫰💖</code>`;
-    const bubble4 = `<code>Terima kasih banyak Kak ${name}! Pembayaran ${formatRp(grandTotal)} sudah kami terima ☕✨\n\nPesananmu sedang diproses ke kasir. Pantau nomor antreanmu di: ${trackingUrl} 🫶</code>`;
-
-    await sendSingleTelegramMsg(bubble1);
-    await delay(350);
-    await sendTelegramOrderWithButtons(singleOrderId, name, grandTotal, selectedOutlet ? selectedOutlet.name : 'Kopi Kenangan');
-    await delay(350);
-    await sendSingleTelegramMsg(bubble3);
-    await delay(350);
-    await sendSingleTelegramMsg(`👇 <b>[TEMPLATE BALASAN TRANSFER DITERIMA]:</b>\n\n${bubble4}`);
-
-    showFullscreenLoader('kopken', method === 'whatsapp', method === 'whatsapp' ? `https://wa.me/${waNumber}?text=${encodeURIComponent(`Halo Admin Bintang Store, saya mau pesan Kopi Kenangan dengan Order ID: ${singleOrderId}`)}` : '');
-
-    cart = [];
-    localStorage.removeItem("bintang_cart");
-    updateCartUI();
-    isSubmittingKopkenOrder = false;
-}
-
-function showFullscreenLoader(type, isWaRedirect, waUrl) {
-    const screen = document.getElementById('thankyou-screen');
-    const content = document.getElementById('thankyou-content');
-    const quoteEl = document.getElementById('thankyou-quote');
-    const titleEl = document.getElementById('thankyou-title');
-    const iconWrap = document.getElementById('thankyou-icon-wrapper');
-
-    if (!screen || !content) return;
-
-    if (type === 'kopken' && iconWrap) {
-        iconWrap.innerHTML = '<i class="fas fa-coffee text-4xl text-amber-400 animate-bounce"></i>';
-        if (titleEl) titleEl.textContent = "Pesanan Dirangkai!";
-        if (quoteEl) {
-            const randomQuote = RANDOM_CHECKOUT_QUOTES[Math.floor(Math.random() * RANDOM_CHECKOUT_QUOTES.length)];
-            quoteEl.innerHTML = randomQuote;
-        }
-    }
-
-    screen.classList.remove('hidden');
-    setTimeout(() => screen.classList.remove('opacity-0'), 10);
-    setTimeout(() => {
-        content.classList.remove('scale-75', 'opacity-0');
-        content.classList.add('scale-100', 'opacity-100');
-    }, 100);
-
-    setTimeout(() => {
-        if (isWaRedirect && waUrl) {
-            window.open(waUrl, '_blank');
-        } else {
-            showPaymentPopup();
-        }
-
-        setTimeout(() => {
-            screen.classList.add('opacity-0');
-            content.classList.remove('scale-100', 'opacity-100');
-            content.classList.add('scale-75', 'opacity-0');
-            setTimeout(() => screen.classList.add('hidden'), 400);
-        }, 800);
-    }, 4500);
-}
-
-function showPaymentPopup() {
-    const popupTotal = document.getElementById('popup-total-tagihan');
-    if (popupTotal) popupTotal.textContent = formatRp(checkoutGrandTotal);
-
-    const message = `Halo Admin, saya sudah transfer pesanan via QRIS atas nama *${checkoutCustomerName}* dengan total tagihan pas *${formatRp(checkoutGrandTotal)}*.\n\nBerikut bukti transfer saya, tolong segera diproses ya Kak! 🫶✨`;
-    const encoded = encodeURIComponent(message);
-    const waLink = document.getElementById('payment-wa-link');
-    if (waLink) waLink.href = `https://wa.me/${waNumber}?text=${encoded}`;
-
-    const popup = document.getElementById('payment-popup');
-    const popupContent = document.getElementById('payment-popup-content');
-    if (!popup || !popupContent) return;
-    popup.classList.remove('hidden');
-    setTimeout(() => {
-        popup.classList.remove('opacity-0');
-        popupContent.classList.remove('scale-95');
-        popupContent.classList.add('scale-100');
-    }, 10);
-}
-
-function copyPopupNominal() {
-    if (!checkoutGrandTotal) return;
-    navigator.clipboard.writeText(checkoutGrandTotal.toString());
-    showToast(`Nominal <b>${formatRp(checkoutGrandTotal)}</b> berhasil disalin!`);
-}
-
-function closePaymentPopup() {
-    sfx.playTap();
-    const popup = document.getElementById('payment-popup');
-    const popupContent = document.getElementById('payment-popup-content');
-    if (!popup || !popupContent) return;
-    popup.classList.add('opacity-0');
-    popupContent.classList.remove('scale-100');
-    popupContent.classList.add('scale-95');
-    setTimeout(() => popup.classList.add('hidden'), 250);
 }
 
 function closeCustomRequestModal() {
@@ -2058,36 +1448,11 @@ function closeCustomRequestModal() {
     setTimeout(() => modal.classList.add('hidden'), 250);
 }
 
-let reqCurrentItemType = 'drink';
-
-function setReqItemType(type) {
-    reqCurrentItemType = type;
-    const btnDrink = document.getElementById('btn-req-type-drink');
-    const btnFood = document.getElementById('btn-req-type-food');
-    const drinkOptionsBox = document.getElementById('req-drink-options-box');
-
-    if (type === 'drink') {
-        if (btnDrink) btnDrink.className = "py-2 px-3 rounded-xl border-2 border-kenangan-primary bg-amber-50 text-kenangan-primary font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer";
-        if (btnFood) btnFood.className = "py-2 px-3 rounded-xl border-2 border-gray-200 bg-white text-gray-600 font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer";
-        if (drinkOptionsBox) drinkOptionsBox.classList.remove('hidden');
-    } else {
-        if (btnFood) btnFood.className = "py-2 px-3 rounded-xl border-2 border-kenangan-primary bg-amber-50 text-kenangan-primary font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer";
-        if (btnDrink) btnDrink.className = "py-2 px-3 rounded-xl border-2 border-gray-200 bg-white text-gray-600 font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer";
-        if (drinkOptionsBox) drinkOptionsBox.classList.add('hidden');
-    }
-}
-
 function validateCustomReqForm() {
     const name = document.getElementById('req-menu-name')?.value.trim() || '';
     const btn = document.getElementById('btn-save-custom-req');
     if (!btn) return;
-    if (name.length >= 2) {
-        btn.disabled = false;
-        btn.className = "w-full bg-kenangan-dark hover:bg-kenangan-hover text-white font-extrabold py-3.5 rounded-2xl shadow-md transition duration-200 flex justify-center items-center gap-2 text-xs active:scale-98 cursor-pointer";
-    } else {
-        btn.disabled = true;
-        btn.className = "w-full bg-gray-300 text-gray-500 font-extrabold py-3.5 rounded-2xl transition duration-200 flex justify-center items-center gap-2 cursor-not-allowed text-xs";
-    }
+    btn.disabled = name.length < 2;
 }
 
 function addCustomRequestToCart() {
@@ -2096,7 +1461,6 @@ function addCustomRequestToCart() {
 
     let price = parseFloat(document.getElementById('req-menu-price')?.value) || 18000;
     const note = document.getElementById('req-menu-note')?.value.trim() || '';
-    let details = ['[REQUEST KUSTOM]'];
 
     cart.push({
         item: {
@@ -2105,7 +1469,7 @@ function addCustomRequestToCart() {
             isCustom: true
         },
         name: `✍️ [Request] ${name}`,
-        details: details.join(', '),
+        details: '[REQUEST KUSTOM]',
         note: note,
         price: price,
         qty: 1
@@ -2113,13 +1477,12 @@ function addCustomRequestToCart() {
 
     try {
         localStorage.setItem("bintang_cart", JSON.stringify(cart));
+        localStorage.setItem("cart", JSON.stringify(cart));
     } catch(e) {}
 
     closeCustomRequestModal();
     updateCartUI();
-    validateKopkenForm();
-    playFlyToCartAnimation();
-    showToast(`Request <b>${name}</b> berhasil dimasukkan ke keranjang!`);
+    showToast(`Request <b>${name}</b> berhasil masuk ke keranjang!`);
 }
 
 function openCustomRequestModal(keyword = '') {
@@ -2130,7 +1493,6 @@ function openCustomRequestModal(keyword = '') {
     nameInput.value = keyword || '';
     document.getElementById('req-menu-price').value = '';
     document.getElementById('req-menu-note').value = '';
-    setReqItemType('drink');
     validateCustomReqForm();
 
     modal.classList.remove('hidden');
@@ -2142,10 +1504,9 @@ function openCustomRequestModal(keyword = '') {
     }, 10);
 }
 
-// 6. INISIALISASI HALAMAN UTAMA DENGAN ROUTING HASH STABIL
+// Inisialisasi Aplikasi Utama
 document.addEventListener('DOMContentLoaded', async () => {
     initWifiDisplay();
-    initScheduleDropdown();
     checkNightHours();
     initSocialProofTicker();
     updateBusyStatusUI();
@@ -2156,28 +1517,29 @@ document.addEventListener('DOMContentLoaded', async () => {
     await loadDataFiles();
     renderMenu();
 
-    // Pulihkan keranjang dari localStorage jika ada
     try {
-        const savedCart = localStorage.getItem("bintang_cart");
+        const savedCart = localStorage.getItem("bintang_cart") || localStorage.getItem("cart");
         if (savedCart) {
             cart = JSON.parse(savedCart);
             updateCartUI();
         }
     } catch(e) {}
 
-    const savedOrderId = localStorage.getItem('active_tracking_order_id');
-    if (savedOrderId) {
-        initRealtimeOrderTracker(savedOrderId);
-    }
-
-    // Pengecekan URL hash secara akurat
+    // ROUTING HASH & PENGECEKAN KEMBALI DARI CHECKOUT
     const currentHash = window.location.hash.replace('#', '');
     if (currentHash === 'kopken') {
         history.replaceState({ view: 'kopken' }, '', '#kopken');
         switchView('kopken', false);
-        setTimeout(() => {
-            openWelcomeGateModal(true);
-        }, 200);
+
+        const hasSavedOutlet = localStorage.getItem("bintang_selected_outlet") || localStorage.getItem("selectedOutlet");
+        const hasCartItems = cart && cart.length > 0;
+
+        // Hanya buka popup jika belum pernah pilih cabang dan keranjang kosong
+        if (!hasSavedOutlet && !hasCartItems) {
+            setTimeout(() => {
+                openWelcomeGateModal(true);
+            }, 200);
+        }
     } else if (currentHash === 'tomoro') {
         history.replaceState({ view: 'tomoro' }, '', '#tomoro');
         switchView('tomoro', false);
@@ -2186,7 +1548,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         switchView('portal', false);
     }
 
-    // Navigasi Back Browser
     window.addEventListener('popstate', (e) => {
         const targetView = (e.state && e.state.view) ? e.state.view : (window.location.hash.replace('#', '') || 'portal');
         switchView(targetView, false);
@@ -2225,18 +1586,15 @@ function initSocialProofTicker() {
     }, 24000);
 }
 
-// Blokir Klik Kanan, Inspect & Drag
+// Blokir Inspect
 document.addEventListener('contextmenu', (e) => e.preventDefault());
 document.addEventListener('keydown', (e) => {
     if (e.key === "F12" || e.keyCode === 123) { e.preventDefault(); return false; }
     if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) { e.preventDefault(); return false; }
     if (e.ctrlKey && (e.key === 'U' || e.key === 'u' || e.key === 'S' || e.key === 's')) { e.preventDefault(); return false; }
 });
-document.addEventListener('dragstart', (e) => {
-    if (e.target.tagName.toLowerCase() === 'img') e.preventDefault();
-});
 
-// Fitur Member Autofill
+// Member Autofill
 let memberSearchTimeout = null;
 async function onInputMemberCode(val) {
     const query = val.trim().toLowerCase();
@@ -2284,7 +1642,6 @@ async function onInputMemberCode(val) {
 
 function applyMemberProfile(code, encodedName, phone, outletName) {
     const name = decodeURIComponent(encodedName);
-    
     localStorage.setItem("bintang_member_session", JSON.stringify({
         code: code,
         name: name,
@@ -2292,12 +1649,7 @@ function applyMemberProfile(code, encodedName, phone, outletName) {
         outlet: outletName
     }));
 
-    const nameInput = document.getElementById('cust-name');
-    const phoneInput = document.getElementById('cust-wa');
     const memberInput = document.getElementById('memberCodeInput');
-
-    if (nameInput) nameInput.value = name;
-    if (phoneInput) phoneInput.value = phone;
     if (memberInput) memberInput.value = code;
 
     const suggestBox = document.getElementById('memberSuggestBox');
@@ -2307,13 +1659,13 @@ function applyMemberProfile(code, encodedName, phone, outletName) {
         const found = allOutlets.find(o => o.name.toLowerCase() === outletName.toLowerCase());
         if (found) {
             selectedOutlet = found;
+            localStorage.setItem("bintang_selected_outlet", JSON.stringify(found));
+            localStorage.setItem("selectedOutlet", JSON.stringify(found));
             updateOutletUI();
             updateGatePreview();
         }
     }
-
-    validateKopkenForm();
-    showToast(`✨ Profil <b>@${code}</b> terpasang!<br>Cabang dan datamu langsung beres Kak ${name}.`);
+    showToast(`✨ Profil <b>@${code}</b> terpasang!`);
 }
 
 function openHistoryModal() {
@@ -2334,7 +1686,6 @@ function closeHistoryModal() {
 function renderOrderHistory() {
     const container = document.getElementById('history-items-list');
     const history = JSON.parse(localStorage.getItem('bintang_order_history') || '[]');
-
     if (!container) return;
 
     if (history.length === 0) {
@@ -2374,20 +1725,24 @@ function reorderHistoryItem(index) {
 
     try {
         localStorage.setItem("bintang_cart", JSON.stringify(cart));
+        localStorage.setItem("cart", JSON.stringify(cart));
+        if (selectedOutlet) {
+            localStorage.setItem("bintang_selected_outlet", JSON.stringify(selectedOutlet));
+            localStorage.setItem("selectedOutlet", JSON.stringify(selectedOutlet));
+        }
     } catch(e) {}
 
     closeHistoryModal();
     switchView('kopken');
     updateOutletUI();
     updateCartUI();
-    validateKopkenForm();
-    showToast("Pesanan sebelumnya berhasil dimuat ke keranjang!");
+    showToast("Pesanan dimuat ke keranjang!");
 }
 
 function clearOrderHistory() {
     localStorage.removeItem('bintang_order_history');
     renderOrderHistory();
-    showToast("Riwayat pesanan berhasil dibersihkan");
+    showToast("Riwayat pesanan dibersihkan");
 }
 
 function initWifiDisplay() {
@@ -2442,44 +1797,5 @@ function toggleLeaderboardModal(show) {
     } else {
         modal.classList.add('opacity-0');
         setTimeout(() => modal.classList.add('hidden'), 200);
-    }
-}
-
-function initRealtimeOrderTracker(orderId) {
-    if (!supabaseClient || !orderId) return;
-    localStorage.setItem('active_tracking_order_id', orderId);
-
-    supabaseClient
-        .channel(`order_tracking_channel_${orderId}`)
-        .on(
-            'postgres_changes',
-            {
-                event: 'UPDATE',
-                schema: 'public',
-                table: 'orders',
-                filter: `id=eq.${orderId}`
-            },
-            (payload) => {
-                if (payload.new && payload.new.status) {
-                    onOrderStatusUpdated(payload.new.status, payload.new);
-                }
-            }
-        )
-        .subscribe();
-}
-
-function onOrderStatusUpdated(newStatus, orderObj = {}) {
-    sfx.playSuccess();
-    const statusBadge = document.getElementById('tracking-status-badge');
-    const statusText = document.getElementById('tracking-status-desc');
-
-    if (newStatus === 'menunggu_konfirmasi') {
-        startOrderConfirmationTimer(10);
-    } else {
-        clearInterval(orderConfirmationCountdownInterval);
-    }
-
-    if (newStatus === 'selesai') {
-        showToast("🎉 <b>Pesanan Selesai!</b><br>Nomor antrean kasir siap diambil.");
     }
 }
