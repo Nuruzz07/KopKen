@@ -310,97 +310,129 @@
             return grandTotal;
         }
 
-        async function executeCheckout(method) {
-            const name = document.getElementById("co-name").value.trim();
-            const wa = document.getElementById("co-wa").value.trim();
-            const notes = document.getElementById("co-notes").value.trim();
-            const isBag = document.getElementById("co-bag").checked && coOrderType === "takeaway";
+        const CHECKOUT_PANTUN = [
+    "Beli kopi buat begadang, terima kasih sudah memesan! Pesananmu sedang dirangkai, santai dulu ya sayang! ☕🫶",
+    "Mantan boleh bikin trauma, kopi Bintang bikin bahagia. Pesananmu sedang meluncur cepat ke barista! 🚀✨",
+    "Siang-siang makan bakwan, paling pas ditemani kenangan. Duduk manis ya kawan, pesananmu sedang disiapkan! 🥖☕",
+    "Beli melati di Pasar Minggu, kopi sejati setia menunggu. Sabar sebentar ya, barista lagi meracik pesananmu! ⏳🤎"
+];
 
-            if (!name || name.length < 2) {
-                alert("Mohon isi Nama Pemesan untuk kasir!");
-                document.getElementById("co-name").focus();
-                return;
+let isCheckoutSubmitting = false;
+
+async function executeCheckout(method) {
+    if (isCheckoutSubmitting) {
+        alert("Pesanan sedang diproses ke admin, mohon tunggu sebentar...");
+        return;
+    }
+
+    const name = document.getElementById("co-name").value.trim();
+    const wa = document.getElementById("co-wa").value.trim();
+    const notes = document.getElementById("co-notes").value.trim();
+
+    if (!name || name.length < 2) {
+        alert("Mohon isi Nama Pemesan untuk kasir!");
+        document.getElementById("co-name").focus();
+        return;
+    }
+    if (!wa || wa.length < 9) {
+        alert("Mohon isi Nomor WhatsApp aktif untuk konfirmasi & struk!");
+        document.getElementById("co-wa").focus();
+        return;
+    }
+
+    isCheckoutSubmitting = true;
+    const btnTele = document.getElementById("co-btn-tele");
+    const btnWa = document.getElementById("co-btn-wa");
+    if (btnTele) btnTele.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
+    if (btnWa) btnWa.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
+
+    const grandTotal = recalcTotals();
+    const rawClean = name.replace(/[^a-zA-Z0-9]/g, '').toLowerCase() || 'order';
+    const orderId = `${rawClean}-${Date.now().toString().slice(-4)}`;
+
+    let cleanWa = wa.replace(/[^0-9]/g, '');
+    if (cleanWa.startsWith('0')) cleanWa = '62' + cleanWa.slice(1);
+    else if (!cleanWa.startsWith('62') && cleanWa.length > 0) cleanWa = '62' + cleanWa;
+
+    let timeText = coOrderTimeType === 'schedule' 
+        ? `📅 TERJADWAL [${document.getElementById('co-schedule-day').value}, ${document.getElementById('co-schedule-time').value}]`
+        : '⚡ Segera (5-15 Menit)';
+
+    // Simpan ke Supabase
+    try {
+        if (supabaseClient) {
+            await supabaseClient.from('orders').upsert([{
+                id: orderId,
+                customer_name: name,
+                customer_wa: cleanWa,
+                outlet_name: coOutlet ? coOutlet.name : 'Kopi Kenangan',
+                order_items: coCart,
+                total_price: grandTotal,
+                estimated_profit: Math.round(grandTotal * 0.35),
+                status: 'menunggu_konfirmasi'
+            }]);
+        }
+    } catch(e) {}
+
+    const trackingUrl = `https://www.bintangstore.web.id/tracking.html?order_id=${orderId}`;
+    const waDirectLink = cleanWa ? `https://wa.me/${cleanWa}` : '-';
+    let itemsMsg = coCart.map((c, i) => `${i+1}. ${c.qty || 1}x ${c.item ? c.item.name : c.name} (Rp ${(c.price * (c.qty || 1)).toLocaleString('id-ID')})`).join('\n');
+
+    // 4 BUBBLE LENGKAP BOT TELEGRAM
+    const bubble1 = `── .✦ <b>ORDER KOPI KENANGAN BARU</b> ✦.──\n` +
+        `🆔 <b>Order ID :</b> <code>${orderId}</code>\n` +
+        `🔗 <b>Link Tracking CS :</b> <a href="${trackingUrl}">${trackingUrl}</a>\n` +
+        `👤 <b>Nama Pemesan :</b> ${name}\n` +
+        `📱 <b>No. WhatsApp :</b> ${wa}\n` +
+        `🔗 <b>Chat Customer :</b> <a href="${waDirectLink}">${waDirectLink}</a>\n` +
+        `🛵 <b>Tipe :</b> ${coOrderType === 'takeaway' ? 'Take Away' : 'Dine In'}\n` +
+        `📍 <b>Outlet :</b> ${coOutlet ? coOutlet.name : 'Kopi Kenangan'}\n` +
+        `⏰ <b>Waktu :</b> ${timeText}\n` +
+        `📝 <b>Catatan :</b> "${notes || '-'}"\n` +
+        `--------------------------------------------------\n` +
+        `📋 <b>Detail Menu:</b>\n${itemsMsg}\n` +
+        `--------------------------------------------------\n` +
+        `💰 <b>TOTAL TAGIHAN : Rp ${grandTotal.toLocaleString('id-ID')}</b>\n` +
+        `📌 <b>Status : [MENUNGGU PEMBAYARAN QRIS]</b>`;
+
+    const bubble3 = `<code>Halo Kak ${name}! 🫶✨\nTerima kasih sudah order Kopi Kenangan di Bintang Store!\n\n📋 Rincian Pesanan:\n${itemsMsg}\n📍 Outlet: ${coOutlet ? coOutlet.name : 'Kopi Kenangan'}\n💰 Total Tagihan: Rp ${grandTotal.toLocaleString('id-ID')}\n\n🔗 Live Tracking: ${trackingUrl}\n\nSilakan transfer via QRIS kami ya Kak. Setelah transfer kirim buktinya ke sini agar langsung kami proseskan ke kasir! 🫰💖</code>`;
+    const bubble4 = `<code>Terima kasih banyak Kak ${name}! Pembayaran Rp ${grandTotal.toLocaleString('id-ID')} sudah kami terima ☕✨\n\nPesananmu sedang diproses ke kasir. Pantau nomor antreanmu di: ${trackingUrl} 🫶</code>`;
+
+    // Kirim 4 Pesan Telegram Berurutan
+    await sendSingleTelegramMsg(bubble1);
+    await delay(350);
+    await sendTelegramOrderWithButtons(orderId, name, grandTotal, coOutlet ? coOutlet.name : 'Kopi Kenangan');
+    await delay(350);
+    await sendSingleTelegramMsg(bubble3);
+    await delay(350);
+    await sendSingleTelegramMsg(`👇 <b>[TEMPLATE BALASAN TRANSFER DITERIMA]:</b>\n\n${bubble4}`);
+
+    // Tampilkan Animasi Fullscreen dengan Pantun Acak
+    const screen = document.getElementById("thankyou-screen");
+    const content = document.getElementById("thankyou-content");
+    const quoteEl = document.getElementById("thankyou-quote");
+    if (screen && quoteEl) {
+        quoteEl.innerHTML = CHECKOUT_PANTUN[Math.floor(Math.random() * CHECKOUT_PANTUN.length)];
+        screen.classList.remove("hidden");
+        setTimeout(() => screen.classList.remove("opacity-0"), 10);
+        setTimeout(() => {
+            if (content) {
+                content.classList.remove("scale-75");
+                content.classList.add("scale-100");
             }
-            if (!wa || wa.length < 9) {
-                alert("Mohon isi Nomor WhatsApp aktif untuk konfirmasi & struk!");
-                document.getElementById("co-wa").focus();
-                return;
-            }
+        }, 100);
+    }
 
-            const grandTotal = recalcTotals();
-            const rawClean = name.replace(/[^a-zA-Z0-9]/g, '').toLowerCase() || 'order';
-            const orderId = `${rawClean}-${Date.now().toString().slice(-4)}`;
+    localStorage.removeItem("bintang_cart");
 
-            let timeText = coOrderTimeType === 'schedule' 
-                ? `📅 [${document.getElementById('co-schedule-day').value}, ${document.getElementById('co-schedule-time').value}]`
-                : '⚡ Sekarang (5-15 Menit)';
-
-            // Cek registrasi member baru
-            const regChk = document.getElementById("co-reg-chk");
-            if (regChk && regChk.checked) {
-                let code = document.getElementById("co-new-member-code").value.trim().toLowerCase().replace(/[^a-z0-9_]/g, '');
-                if (!code) code = rawClean + Math.floor(10 + Math.random() * 90);
-                try {
-                    if (supabaseClient) {
-                        await supabaseClient.from('members').upsert({
-                            member_code: code,
-                            customer_name: name,
-                            customer_phone: wa,
-                            favorite_outlet_name: coOutlet ? coOutlet.name : ''
-                        }, { onConflict: 'member_code' });
-                    }
-                } catch(e) {}
-            }
-
-            // Simpan data order ke database Supabase
-            try {
-                if (supabaseClient) {
-                    await supabaseClient.from('orders').upsert([{
-                        id: orderId,
-                        customer_name: name,
-                        customer_wa: wa,
-                        outlet_name: coOutlet ? coOutlet.name : 'Kopi Kenangan',
-                        order_items: coCart,
-                        total_price: grandTotal,
-                        estimated_profit: Math.round(grandTotal * 0.35),
-                        status: 'menunggu_konfirmasi'
-                    }]);
-                }
-            } catch(e) {}
-
-            let itemsMsg = coCart.map((c, i) => `${i+1}. ${c.qty || 1}x ${c.item ? c.item.name : c.name} (Rp ${(c.price * (c.qty || 1)).toLocaleString('id-ID')})`).join('\n');
-            const trackingUrl = `https://bintanggstore.web.id/tracking.html?order_id=${orderId}`;
-
-            const telegramSummary = `── .✦ <b>ORDER KOPI KENANGAN BARU</b> ✦.──\n` +
-                `🆔 <b>Order ID :</b> <code>${orderId}</code>\n` +
-                `🔗 <b>Tracking Web :</b> <a href="${trackingUrl}">${trackingUrl}</a>\n` +
-                `👤 <b>Nama :</b> ${name}\n` +
-                `📱 <b>WhatsApp :</b> ${wa}\n` +
-                `📍 <b>Outlet :</b> ${coOutlet ? coOutlet.name : 'Kopi Kenangan'}\n` +
-                `⏰ <b>Waktu :</b> ${timeText}\n` +
-                `📝 <b>Catatan :</b> "${notes || '-'}"\n` +
-                `--------------------------------------------------\n` +
-                `📋 <b>Detail Menu:</b>\n${itemsMsg}\n` +
-                `--------------------------------------------------\n` +
-                `💰 <b>TOTAL TAGIHAN : Rp ${grandTotal.toLocaleString('id-ID')}</b>\n` +
-                `📌 <b>Status : [MENUNGGU PEMBAYARAN QRIS]</b>`;
-
-            // Kirim ke Bot Telegram
-            await sendSingleTelegramMsg(telegramSummary);
-            await sendTelegramOrderWithButtons(orderId, name, grandTotal, coOutlet ? coOutlet.name : 'Kopi Kenangan');
-
-            // Kosongkan keranjang
-            localStorage.removeItem("bintang_cart");
-
-            if (method === 'telegram') {
-                window.location.href = `tracking.html?order_id=${orderId}`;
-            } else {
-                const waMsg = `Halo Admin Bintang Store, saya mau pesan Kopi Kenangan:\n\nOrder ID: *${orderId}*\nNama: *${name}*\nTotal: *Rp ${grandTotal.toLocaleString('id-ID')}*\n\nMohon dicek ya! ☕`;
-                window.open(`https://wa.me/6285959633342?text=${encodeURIComponent(waMsg)}`, '_blank');
-                setTimeout(() => {
-                    window.location.href = `tracking.html?order_id=${orderId}`;
-                }, 1000);
-            }
+    setTimeout(() => {
+        if (method === 'whatsapp') {
+            const waMsg = `Halo Admin Bintang Store, saya mau pesan Kopi Kenangan:\n\nOrder ID: *${orderId}*\nNama: *${name}*\nTotal: *Rp ${grandTotal.toLocaleString('id-ID')}*\n\nMohon dicek ya! ☕`;
+            window.open(`https://wa.me/6285959633342?text=${encodeURIComponent(waMsg)}`, '_blank');
+        }
+        window.location.href = `tracking.html?order_id=${orderId}`;
+    }, 4000);
+}
         }
     </script>
 </body>
