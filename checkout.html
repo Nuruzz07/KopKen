@@ -181,7 +181,22 @@
                 <span>Pesan Manual via WhatsApp Admin</span>
             </button>
         </div>
-
+    <!-- FULLSCREEN LOADER PANTUN DI CHECKOUT.HTML -->
+    <div id="thankyou-screen" class="fixed inset-0 z-[290] bg-slate-950/95 backdrop-blur-md flex items-center justify-center p-6 hidden opacity-0 transition-opacity duration-300">
+        <div id="thankyou-content" class="text-center space-y-4 max-w-sm transform scale-75 transition-transform duration-300">
+            <div class="w-16 h-16 rounded-3xl bg-amber-500/20 mx-auto flex items-center justify-center text-amber-400">
+                <i class="fas fa-coffee text-4xl animate-bounce"></i>
+            </div>
+            <h2 class="text-xl font-black text-white tracking-tight">Pesanan Dirangkai!</h2>
+            <p id="thankyou-quote" class="text-xs text-amber-200 leading-relaxed font-medium px-2">
+                Beli kopi buat begadang, terima kasih sudah memesan! Pesananmu sedang dirangkai, santai dulu ya sayang! ☕🫶
+            </p>
+            <div class="flex items-center justify-center gap-1.5 pt-2">
+                <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
+                <span class="text-[11px] text-stone-400 font-semibold">Menghubungkan ke admin...</span>
+            </div>
+        </div>
+    </div>
     </main>
 
     <!-- KONEKSI LOGIKA KE APP.JS & SUPABASE -->
