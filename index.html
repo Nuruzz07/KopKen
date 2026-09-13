@@ -279,7 +279,7 @@
     <!-- VIEW 2: KOPI KENANGAN STORE -->
     <div id="view-kopken" class="view-section hidden text-kenangan-dark pb-32 max-w-4xl mx-auto">
         
-        <!-- HEADER COMPACT & MODERN (Sticky Bersama Search Bar) -->
+        <!-- HEADER COMPACT & MODERN -->
         <header class="glass sticky top-0 z-40 px-3 sm:px-4 py-2.5 shadow-sm" id="main-header">
             <div class="flex items-center justify-between gap-2">
                 <div class="flex items-center gap-2 min-w-0">
@@ -303,7 +303,6 @@
                     <button onclick="openHistoryModal()" class="px-2 py-1 rounded-lg bg-white text-kenangan-dark text-[10px] font-bold border border-stone-200 flex items-center gap-1 cursor-pointer">
                         <i class="fas fa-clock-rotate-left text-[9px] text-amber-700"></i>
                     </button>
-                    <!-- ELEMEN PENGAMAN KOMPATIBILITAS APP.JS -->
                     <button id="cart-icon-btn" onclick="goToCheckoutPage()" class="hidden">
                         <i class="fas fa-shopping-bag text-base" id="cart-icon"></i>
                         <span id="cart-badge" class="hidden">0</span>
@@ -389,20 +388,6 @@
 
         <!-- Daftar Menu Utama -->
         <main class="px-4 space-y-6 mt-3" id="menu-container"></main>
-
-        <!-- ELEMEN HIDDEN UNTUK PENGAMAN KOMPATIBILITAS APP.JS -->
-        <div class="hidden" id="checkout-section">
-            <span id="cart-item-count-text"></span>
-            <div id="cart-items-container"></div>
-            <input type="text" id="cust-name">
-            <input type="tel" id="cust-wa">
-            <input type="checkbox" id="bag-checkbox">
-            <input type="text" id="cust-notes">
-            <span id="summary-subtotal"></span>
-            <span id="summary-total"></span>
-            <button id="btn-submit-tele-kopken"></button>
-            <button id="btn-submit-wa-kopken"></button>
-        </div>
     </div>
 
     <!-- VIEW 3: TOMORO COFFEE SHOWCASE -->
@@ -421,34 +406,12 @@
             <span class="text-[9px] font-black px-2 py-0.5 rounded-full bg-orange-100 text-orange-800">KATALOG</span>
         </header>
 
-        <div class="mx-4 mt-3 p-3 bg-white rounded-2xl border border-stone-200 shadow-xs">
-            <label class="block text-[9px] font-bold text-stone-400 uppercase mb-1">Cari Outlet Tomoro</label>
-            <div class="relative">
-                <input type="text" id="tomoro-outlet-search-input" oninput="handleTomoroOutletSearch()" placeholder="Ketik nama jalan / area / mall..." class="w-full pl-3 pr-3 py-1.5 rounded-xl bg-stone-50 border border-stone-200 text-xs font-semibold text-slate-800 outline-none">
-                <div id="tomoro-outlet-dropdown" class="absolute left-0 right-0 top-full mt-1 bg-white rounded-2xl shadow-xl border border-stone-200 max-h-56 overflow-y-auto z-50 hidden"></div>
-            </div>
-
-            <div id="tomoro-selected-box" class="mt-2 p-2 rounded-xl bg-orange-50/80 border border-orange-200 flex items-center justify-between gap-2">
-                <span id="tomoro-selected-name" class="text-xs font-black text-slate-900 truncate">Tomoro Coffee - Riau Bandung</span>
-                <span id="tomoro-selected-status" class="text-[9px] font-black px-1.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 uppercase">BUKA</span>
-            </div>
-        </div>
-
-        <nav class="glass sticky top-[53px] z-30 px-4 py-2 my-3 overflow-x-auto no-scrollbar whitespace-nowrap border-b border-stone-200/60">
-            <div class="flex gap-1.5">
-                <button onclick="filterTomoroCategory('all', this)" class="tomoro-cat-btn px-3 py-1 rounded-full bg-orange-500 text-white text-xs font-bold transition">Semua</button>
-                <button onclick="filterTomoroCategory('Classic Coffee', this)" class="tomoro-cat-btn px-3 py-1 rounded-full bg-white text-slate-700 text-xs font-bold transition">Classic</button>
-                <button onclick="filterTomoroCategory('Fruity Series', this)" class="tomoro-cat-btn px-3 py-1 rounded-full bg-white text-slate-700 text-xs font-bold transition">Fruity</button>
-                <button onclick="filterTomoroCategory('Frappe', this)" class="tomoro-cat-btn px-3 py-1 rounded-full bg-white text-slate-700 text-xs font-bold transition">Frappe</button>
-            </div>
-        </nav>
-
-        <main class="px-4">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-3" id="tomoro-menu-grid"></div>
+        <main class="px-4 py-6 text-center">
+            <p class="text-xs text-stone-500 font-bold">Showcase Menu Tomoro Sedang Disiapkan</p>
         </main>
     </div>
 
-    <!-- FLOATING BOTTOM BAR ALA SHOPEEFOOD (Menuju Checkout Mandiri) -->
+    <!-- FLOATING BOTTOM BAR ALA SHOPEEFOOD -->
     <div id="shopee-bottom-bar" class="fixed bottom-0 inset-x-0 z-40 p-3 bg-white/95 backdrop-blur-md border-t border-stone-200 shadow-2xl transition-all duration-300 transform translate-y-full hidden">
         <div class="max-w-md mx-auto flex items-center justify-between gap-3">
             <div class="flex items-center gap-2.5 cursor-pointer" onclick="goToCheckoutPage()">
@@ -471,7 +434,7 @@
         </div>
     </div>
 
-    <!-- MODAL WELCOME GATE (DILENGKAPI FITUR MEMBER KILAT OPSI 3) -->
+    <!-- MODAL WELCOME GATE -->
     <div id="modal-welcome-gate" class="fixed inset-0 bg-black/70 backdrop-blur-xs z-[300] hidden opacity-0 transition-opacity duration-200 flex items-center justify-center p-4">
         <div id="welcome-gate-card" class="bg-white rounded-3xl p-5 max-w-sm w-full text-kenangan-dark shadow-2xl border border-stone-200">
             <div class="flex items-center justify-between pb-3 border-b border-stone-100 mb-3">
@@ -722,9 +685,9 @@
     </div>
 
     <!-- SCRIPT UTAMA SISTEM -->
-    <script src="app.js?v=2.6"></script>
+    <script src="app.js?v=3.0"></script>
 
-    <!-- PENGUNCI KEBERLANJUTAN KERANJANG KE CHECKOUT & KONTROL BAR SHOPEE -->
+    <!-- SINKRONISASI BOTTOM BAR & NAVIGASI CHECKOUT MANDIRI -->
     <script>
       function syncShopeeBottomBar() {
         const bottomBar = document.getElementById("shopee-bottom-bar");
@@ -736,12 +699,12 @@
 
         const isKopkenActive = !kopkenView.classList.contains("hidden");
         const totalQty = (typeof cart !== 'undefined' && Array.isArray(cart)) 
-            ? cart.reduce((sum, c) => sum + (c.qty || 1), 0) 
+            ? cart.reduce((sum, c) => sum + (Number(c.qty) || 1), 0) 
             : 0;
 
         let subtotal = 0;
         if (typeof cart !== 'undefined' && Array.isArray(cart)) {
-            subtotal = cart.reduce((sum, c) => sum + (c.price * (c.qty || 1)), 0);
+            subtotal = cart.reduce((sum, c) => sum + ((Number(c.price) || 15000) * (Number(c.qty) || 1)), 0);
         }
 
         if (isKopkenActive && totalQty > 0) {
@@ -758,7 +721,6 @@
       }
 
       function goToCheckoutPage() {
-        // Ambil keranjang aktif saat tombol ditekan
         const activeCart = (typeof cart !== 'undefined' && Array.isArray(cart)) ? cart : [];
         
         if (activeCart.length === 0) {
@@ -770,7 +732,6 @@
             return;
         }
 
-        // SIMPAN KE KEDUA NAMA KEY UNTUK MENCEGAH DATA KOSONG DI CHECKOUT.HTML
         try {
             localStorage.setItem("bintang_cart", JSON.stringify(activeCart));
             localStorage.setItem("cart", JSON.stringify(activeCart));
@@ -787,11 +748,10 @@
             console.error("Gagal simpan ke localStorage:", e);
         }
 
-        // Langsung arahkan ke checkout.html
         window.location.href = "checkout.html";
       }
 
-      setInterval(syncShopeeBottomBar, 400);
+      setInterval(syncShopeeBottomBar, 300);
     </script>
 </body>
 </html>
