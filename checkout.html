@@ -101,11 +101,11 @@
             <div class="space-y-2.5 pt-1">
                 <div>
                     <label class="block text-[11px] font-bold text-stone-700 mb-1">Nama Pemesan Kasir <span class="text-red-500">*</span></label>
-                    <input type="text" id="co-name" placeholder="Nama untuk dipanggil barista saat ambil" oninput="recalcTotals()" class="w-full px-3 py-2 rounded-xl bg-stone-50 border border-stone-200 text-xs font-semibold focus:bg-white focus:ring-2 focus:ring-amber-600 outline-none">
+                    <input type="text" id="co-name" placeholder="Nama untuk dipanggil barista saat ambil" class="w-full px-3 py-2 rounded-xl bg-stone-50 border border-stone-200 text-xs font-semibold focus:bg-white focus:ring-2 focus:ring-amber-600 outline-none">
                 </div>
                 <div>
                     <label class="block text-[11px] font-bold text-stone-700 mb-1">Nomor WhatsApp Aktif <span class="text-red-500">*</span></label>
-                    <input type="tel" id="co-wa" placeholder="081234567890 (Untuk struk & nomor antrean)" oninput="recalcTotals()" class="w-full px-3 py-2 rounded-xl bg-stone-50 border border-stone-200 text-xs font-semibold focus:bg-white focus:ring-2 focus:ring-amber-600 outline-none">
+                    <input type="tel" id="co-wa" placeholder="081234567890 (Untuk struk & nomor antrean)" class="w-full px-3 py-2 rounded-xl bg-stone-50 border border-stone-200 text-xs font-semibold focus:bg-white focus:ring-2 focus:ring-amber-600 outline-none">
                 </div>
                 <div id="co-bag-wrap">
                     <label class="flex items-center gap-2 p-2 rounded-xl bg-stone-50 border border-stone-200 cursor-pointer">
@@ -139,10 +139,6 @@
                 <span>Kantong Belanja:</span>
                 <span>+ Rp 1.000</span>
             </div>
-            <div id="co-voucher-row" class="flex justify-between text-emerald-700 font-bold hidden">
-                <span>Voucher Potongan Ulasan:</span>
-                <span>- Rp 1.000</span>
-            </div>
             <hr class="border-stone-100 my-1">
             <div class="flex justify-between items-baseline font-black text-stone-900">
                 <span class="text-xs uppercase">Total Tagihan Final:</span>
@@ -150,7 +146,7 @@
             </div>
         </div>
 
-        <!-- FORM DAFTAR MEMBER BARU (Jika Belum Jadi Member) -->
+        <!-- FORM DAFTAR MEMBER BARU -->
         <div id="co-register-member-box" class="bg-amber-500/10 border border-amber-500/20 rounded-3xl p-3.5 space-y-2">
             <label class="flex items-center gap-2 cursor-pointer">
                 <input type="checkbox" id="co-reg-chk" class="w-4 h-4 accent-amber-700 rounded" onchange="document.getElementById('co-member-wrap').classList.toggle('hidden', !this.checked)">
@@ -181,77 +177,117 @@
                 <span>Pesan Manual via WhatsApp Admin</span>
             </button>
         </div>
-    <!-- FULLSCREEN LOADER PANTUN DI CHECKOUT.HTML -->
-    <div id="thankyou-screen" class="fixed inset-0 z-[290] bg-slate-950/95 backdrop-blur-md flex items-center justify-center p-6 hidden opacity-0 transition-opacity duration-300">
-        <div id="thankyou-content" class="text-center space-y-4 max-w-sm transform scale-75 transition-transform duration-300">
-            <div class="w-16 h-16 rounded-3xl bg-amber-500/20 mx-auto flex items-center justify-center text-amber-400">
-                <i class="fas fa-coffee text-4xl animate-bounce"></i>
-            </div>
-            <h2 class="text-xl font-black text-white tracking-tight">Pesanan Dirangkai!</h2>
-            <p id="thankyou-quote" class="text-xs text-amber-200 leading-relaxed font-medium px-2">
-                Beli kopi buat begadang, terima kasih sudah memesan! Pesananmu sedang dirangkai, santai dulu ya sayang! ☕🫶
-            </p>
-            <div class="flex items-center justify-center gap-1.5 pt-2">
-                <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
-                <span class="text-[11px] text-stone-400 font-semibold">Menghubungkan ke admin...</span>
+
+        <!-- FULLSCREEN LOADER PANTUN -->
+        <div id="thankyou-screen" class="fixed inset-0 z-[290] bg-slate-950/95 backdrop-blur-md flex items-center justify-center p-6 hidden opacity-0 transition-opacity duration-300">
+            <div id="thankyou-content" class="text-center space-y-4 max-w-sm transform scale-75 transition-transform duration-300">
+                <div class="w-16 h-16 rounded-3xl bg-amber-500/20 mx-auto flex items-center justify-center text-amber-400">
+                    <i class="fas fa-coffee text-4xl animate-bounce"></i>
+                </div>
+                <h2 class="text-xl font-black text-white tracking-tight">Pesanan Dirangkai!</h2>
+                <p id="thankyou-quote" class="text-xs text-amber-200 leading-relaxed font-medium px-2">
+                    Beli kopi buat begadang, terima kasih sudah memesan! Pesananmu sedang dirangkai, santai dulu ya sayang! ☕🫶
+                </p>
+                <div class="flex items-center justify-center gap-1.5 pt-2">
+                    <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
+                    <span class="text-[11px] text-stone-400 font-semibold">Menghubungkan ke admin...</span>
+                </div>
             </div>
         </div>
-    </div>
+
     </main>
 
-    <!-- KONEKSI LOGIKA KE APP.JS & SUPABASE -->
-    <script src="app.js"></script>
     <script>
+        const SUPABASE_URL = "https://axaoagzveujcgoxybdmp.supabase.co";
+        const SUPABASE_ANON_KEY = "sb_publishable_GQ19XRT7yWIBido0iXJvCQ_ybZ_I7ju";
+        const botToken = "8765196047:AAGSnN7VoGnXxQK5rl5459ifGqBVE3EKsWo";
+        const chatId = "6731058601";
+        const waNumber = "6285959633342";
+
+        let supabaseClient = null;
+        if (window.supabase && typeof window.supabase.createClient === 'function') {
+            supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        }
+
+        const delay = (ms) => new Promise(res => setTimeout(res, ms));
+
         let coCart = [];
         let coOutlet = null;
         let coOrderType = 'takeaway';
         let coOrderTimeType = 'now';
+        let isCheckoutSubmitting = false;
+
+        const CHECKOUT_PANTUN = [
+            "Beli kopi buat begadang, terima kasih sudah memesan! Pesananmu sedang dirangkai, santai dulu ya sayang! ☕🫶",
+            "Mantan boleh bikin trauma, kopi Bintang bikin bahagia. Pesananmu sedang meluncur cepat ke barista! 🚀✨",
+            "Siang-siang makan bakwan, paling pas ditemani kenangan. Duduk manis ya kawan, pesananmu sedang disiapkan! 🥖☕",
+            "Beli melati di Pasar Minggu, kopi sejati setia menunggu. Sabar sebentar ya, barista lagi meracik pesananmu! ⏳🤎"
+        ];
 
         document.addEventListener("DOMContentLoaded", () => {
             try {
-                coCart = JSON.parse(localStorage.getItem("bintang_cart") || "[]");
-                coOutlet = JSON.parse(localStorage.getItem("bintang_selected_outlet") || "null");
-                coOrderType = localStorage.getItem("bintang_order_type") || "takeaway";
-            } catch(e) {}
-
-            if (!coCart || coCart.length === 0) {
-                alert("Keranjang belanja kosong. Kembali ke katalog menu!");
-                window.location.href = "index.html#kopken";
-                return;
+                const rawCart = localStorage.getItem("bintang_cart") || localStorage.getItem("cart");
+                coCart = rawCart ? JSON.parse(rawCart) : [];
+                
+                const rawOutlet = localStorage.getItem("bintang_selected_outlet") || localStorage.getItem("selectedOutlet");
+                coOutlet = rawOutlet ? JSON.parse(rawOutlet) : null;
+                
+                coOrderType = localStorage.getItem("bintang_order_type") || localStorage.getItem("orderType") || "takeaway";
+            } catch (e) {
+                console.error("Gagal membaca localStorage:", e);
+                coCart = [];
             }
 
-            // Pasang data sesi member jika sebelumnya sudah login di awal
-            const savedMember = JSON.parse(localStorage.getItem("bintang_member_session") || "null");
-            if (savedMember) {
-                const nameEl = document.getElementById("co-name");
-                const waEl = document.getElementById("co-wa");
-                if (nameEl && savedMember.name) nameEl.value = savedMember.name;
-                if (waEl && savedMember.phone) waEl.value = savedMember.phone;
-                document.getElementById("co-register-member-box").classList.add("hidden");
+            if (!coOutlet) {
+                coOutlet = { name: "Grand Indonesia", category: "Mall" };
             }
+
+            try {
+                const savedMember = JSON.parse(localStorage.getItem("bintang_member_session") || "null");
+                if (savedMember) {
+                    const nameEl = document.getElementById("co-name");
+                    const waEl = document.getElementById("co-wa");
+                    if (nameEl && savedMember.name) nameEl.value = savedMember.name;
+                    if (waEl && savedMember.phone) waEl.value = savedMember.phone;
+                    const regBox = document.getElementById("co-register-member-box");
+                    if (regBox) regBox.classList.add("hidden");
+                }
+            } catch (e) {}
 
             renderCheckoutUI();
         });
 
         function renderCheckoutUI() {
-            // Render Outlet
-            if (coOutlet) {
-                document.getElementById("checkout-outlet-name").textContent = coOutlet.name || "Kopi Kenangan";
-                document.getElementById("outlet-type-badge").textContent = coOrderType === "takeaway" ? "Take Away" : "Dine In";
-                if (coOrderType === "dinein") {
-                    document.getElementById("co-bag-wrap").classList.add("hidden");
-                }
+            document.getElementById("checkout-outlet-name").textContent = coOutlet.name || "Kopi Kenangan";
+            document.getElementById("outlet-type-badge").textContent = coOrderType === "takeaway" ? "Take Away" : "Dine In";
+            
+            if (coOrderType === "dinein") {
+                const bagWrap = document.getElementById("co-bag-wrap");
+                if (bagWrap) bagWrap.classList.add("hidden");
+                const bagChk = document.getElementById("co-bag");
+                if (bagChk) bagChk.checked = false;
             }
 
-            // Render Item Keranjang
             const listEl = document.getElementById("checkout-items-list");
-            document.getElementById("cart-total-badge").textContent = `${coCart.reduce((sum, c) => sum + (c.qty || 1), 0)} Item`;
+            const badgeEl = document.getElementById("cart-total-badge");
+
+            if (!coCart || coCart.length === 0) {
+                badgeEl.textContent = "0 Item";
+                listEl.innerHTML = `<p class="text-xs text-stone-400 italic py-3 text-center">Keranjang masih kosong...</p>`;
+                recalcTotals();
+                return;
+            }
+
+            const totalQty = coCart.reduce((sum, c) => sum + (Number(c.qty) || 1), 0);
+            badgeEl.textContent = `${totalQty} Item`;
 
             listEl.innerHTML = coCart.map((c, idx) => {
-                const name = c.item ? c.item.name : (c.name || "Menu");
-                const desc = c.details || "";
-                const qty = c.qty || 1;
-                const price = c.price * qty;
+                const name = c.name || (c.item && c.item.name) || "Menu Kopi";
+                const desc = c.details || c.note || "";
+                const qty = Number(c.qty) || 1;
+                const unitPrice = Number(c.price) || 15000;
+                const price = unitPrice * qty;
+
                 return `
                     <div class="py-2.5 flex items-center justify-between gap-2">
                         <div class="min-w-0 flex-1">
@@ -260,9 +296,9 @@
                             <span class="text-[11px] font-bold text-amber-900 block mt-1">Rp ${price.toLocaleString('id-ID')}</span>
                         </div>
                         <div class="flex items-center gap-2 flex-shrink-0">
-                            <button type="button" onclick="changeCoQty(${idx}, -1)" class="w-6 h-6 rounded-lg bg-stone-100 hover:bg-stone-200 text-stone-700 font-black text-xs flex items-center justify-center cursor-pointer">-</button>
+                            <button type="button" onclick="changeCoQty(${idx}, -1)" class="w-6 h-6 rounded-lg bg-stone-100 hover:bg-stone-200 text-stone-700 font-black text-xs flex items-center justify-center cursor-pointer active:scale-90 transition">-</button>
                             <span class="text-xs font-black text-stone-800">${qty}</span>
-                            <button type="button" onclick="changeCoQty(${idx}, 1)" class="w-6 h-6 rounded-lg bg-stone-100 hover:bg-stone-200 text-stone-700 font-black text-xs flex items-center justify-center cursor-pointer">+</button>
+                            <button type="button" onclick="changeCoQty(${idx}, 1)" class="w-6 h-6 rounded-lg bg-stone-100 hover:bg-stone-200 text-stone-700 font-black text-xs flex items-center justify-center cursor-pointer active:scale-90 transition">+</button>
                         </div>
                     </div>
                 `;
@@ -272,17 +308,12 @@
         }
 
         function changeCoQty(idx, delta) {
-            coCart[idx].qty = (coCart[idx].qty || 1) + delta;
+            coCart[idx].qty = (Number(coCart[idx].qty) || 1) + delta;
             if (coCart[idx].qty <= 0) {
                 coCart.splice(idx, 1);
             }
-            if (coCart.length === 0) {
-                localStorage.removeItem("bintang_cart");
-                alert("Keranjang kosong!");
-                window.location.href = "index.html#kopken";
-                return;
-            }
             localStorage.setItem("bintang_cart", JSON.stringify(coCart));
+            localStorage.setItem("cart", JSON.stringify(coCart));
             renderCheckoutUI();
         }
 
@@ -304,10 +335,10 @@
         }
 
         function recalcTotals() {
-            let subtotal = coCart.reduce((sum, c) => sum + (c.price * (c.qty || 1)), 0);
+            let subtotal = coCart.reduce((sum, c) => sum + ((Number(c.price) || 15000) * (Number(c.qty) || 1)), 0);
             document.getElementById("co-subtotal").textContent = `Rp ${subtotal.toLocaleString('id-ID')}`;
 
-            const isMall = coOutlet && (coOutlet.category === "Mall" || /mall|plaza/i.test(coOutlet.name || ''));
+            const isMall = coOutlet && (coOutlet.category === "Mall" || /mall|plaza|square/i.test(coOutlet.name || ''));
             const mallFee = (isMall && coCart.length > 0) ? 3000 : 0;
             const mallRow = document.getElementById("co-mall-fee-row");
             if (mallFee > 0) mallRow.classList.remove("hidden");
@@ -325,129 +356,202 @@
             return grandTotal;
         }
 
-        const CHECKOUT_PANTUN = [
-    "Beli kopi buat begadang, terima kasih sudah memesan! Pesananmu sedang dirangkai, santai dulu ya sayang! ☕🫶",
-    "Mantan boleh bikin trauma, kopi Bintang bikin bahagia. Pesananmu sedang meluncur cepat ke barista! 🚀✨",
-    "Siang-siang makan bakwan, paling pas ditemani kenangan. Duduk manis ya kawan, pesananmu sedang disiapkan! 🥖☕",
-    "Beli melati di Pasar Minggu, kopi sejati setia menunggu. Sabar sebentar ya, barista lagi meracik pesananmu! ⏳🤎"
-];
-
-let isCheckoutSubmitting = false;
-
-async function executeCheckout(method) {
-    if (isCheckoutSubmitting) {
-        alert("Pesanan sedang diproses ke admin, mohon tunggu sebentar...");
-        return;
-    }
-
-    const name = document.getElementById("co-name").value.trim();
-    const wa = document.getElementById("co-wa").value.trim();
-    const notes = document.getElementById("co-notes").value.trim();
-
-    if (!name || name.length < 2) {
-        alert("Mohon isi Nama Pemesan untuk kasir!");
-        document.getElementById("co-name").focus();
-        return;
-    }
-    if (!wa || wa.length < 9) {
-        alert("Mohon isi Nomor WhatsApp aktif untuk konfirmasi & struk!");
-        document.getElementById("co-wa").focus();
-        return;
-    }
-
-    isCheckoutSubmitting = true;
-    const btnTele = document.getElementById("co-btn-tele");
-    const btnWa = document.getElementById("co-btn-wa");
-    if (btnTele) btnTele.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
-    if (btnWa) btnWa.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
-
-    const grandTotal = recalcTotals();
-    const rawClean = name.replace(/[^a-zA-Z0-9]/g, '').toLowerCase() || 'order';
-    const orderId = `${rawClean}-${Date.now().toString().slice(-4)}`;
-
-    let cleanWa = wa.replace(/[^0-9]/g, '');
-    if (cleanWa.startsWith('0')) cleanWa = '62' + cleanWa.slice(1);
-    else if (!cleanWa.startsWith('62') && cleanWa.length > 0) cleanWa = '62' + cleanWa;
-
-    let timeText = coOrderTimeType === 'schedule' 
-        ? `📅 TERJADWAL [${document.getElementById('co-schedule-day').value}, ${document.getElementById('co-schedule-time').value}]`
-        : '⚡ Segera (5-15 Menit)';
-
-    // Simpan ke Supabase
-    try {
-        if (supabaseClient) {
-            await supabaseClient.from('orders').upsert([{
-                id: orderId,
-                customer_name: name,
-                customer_wa: cleanWa,
-                outlet_name: coOutlet ? coOutlet.name : 'Kopi Kenangan',
-                order_items: coCart,
-                total_price: grandTotal,
-                estimated_profit: Math.round(grandTotal * 0.35),
-                status: 'menunggu_konfirmasi'
-            }]);
-        }
-    } catch(e) {}
-
-    const trackingUrl = `https://www.bintangstore.web.id/tracking.html?order_id=${orderId}`;
-    const waDirectLink = cleanWa ? `https://wa.me/${cleanWa}` : '-';
-    let itemsMsg = coCart.map((c, i) => `${i+1}. ${c.qty || 1}x ${c.item ? c.item.name : c.name} (Rp ${(c.price * (c.qty || 1)).toLocaleString('id-ID')})`).join('\n');
-
-    // 4 BUBBLE LENGKAP BOT TELEGRAM
-    const bubble1 = `── .✦ <b>ORDER KOPI KENANGAN BARU</b> ✦.──\n` +
-        `🆔 <b>Order ID :</b> <code>${orderId}</code>\n` +
-        `🔗 <b>Link Tracking CS :</b> <a href="${trackingUrl}">${trackingUrl}</a>\n` +
-        `👤 <b>Nama Pemesan :</b> ${name}\n` +
-        `📱 <b>No. WhatsApp :</b> ${wa}\n` +
-        `🔗 <b>Chat Customer :</b> <a href="${waDirectLink}">${waDirectLink}</a>\n` +
-        `🛵 <b>Tipe :</b> ${coOrderType === 'takeaway' ? 'Take Away' : 'Dine In'}\n` +
-        `📍 <b>Outlet :</b> ${coOutlet ? coOutlet.name : 'Kopi Kenangan'}\n` +
-        `⏰ <b>Waktu :</b> ${timeText}\n` +
-        `📝 <b>Catatan :</b> "${notes || '-'}"\n` +
-        `--------------------------------------------------\n` +
-        `📋 <b>Detail Menu:</b>\n${itemsMsg}\n` +
-        `--------------------------------------------------\n` +
-        `💰 <b>TOTAL TAGIHAN : Rp ${grandTotal.toLocaleString('id-ID')}</b>\n` +
-        `📌 <b>Status : [MENUNGGU PEMBAYARAN QRIS]</b>`;
-
-    const bubble3 = `<code>Halo Kak ${name}! 🫶✨\nTerima kasih sudah order Kopi Kenangan di Bintang Store!\n\n📋 Rincian Pesanan:\n${itemsMsg}\n📍 Outlet: ${coOutlet ? coOutlet.name : 'Kopi Kenangan'}\n💰 Total Tagihan: Rp ${grandTotal.toLocaleString('id-ID')}\n\n🔗 Live Tracking: ${trackingUrl}\n\nSilakan transfer via QRIS kami ya Kak. Setelah transfer kirim buktinya ke sini agar langsung kami proseskan ke kasir! 🫰💖</code>`;
-    const bubble4 = `<code>Terima kasih banyak Kak ${name}! Pembayaran Rp ${grandTotal.toLocaleString('id-ID')} sudah kami terima ☕✨\n\nPesananmu sedang diproses ke kasir. Pantau nomor antreanmu di: ${trackingUrl} 🫶</code>`;
-
-    // Kirim 4 Pesan Telegram Berurutan
-    await sendSingleTelegramMsg(bubble1);
-    await delay(350);
-    await sendTelegramOrderWithButtons(orderId, name, grandTotal, coOutlet ? coOutlet.name : 'Kopi Kenangan');
-    await delay(350);
-    await sendSingleTelegramMsg(bubble3);
-    await delay(350);
-    await sendSingleTelegramMsg(`👇 <b>[TEMPLATE BALASAN TRANSFER DITERIMA]:</b>\n\n${bubble4}`);
-
-    // Tampilkan Animasi Fullscreen dengan Pantun Acak
-    const screen = document.getElementById("thankyou-screen");
-    const content = document.getElementById("thankyou-content");
-    const quoteEl = document.getElementById("thankyou-quote");
-    if (screen && quoteEl) {
-        quoteEl.innerHTML = CHECKOUT_PANTUN[Math.floor(Math.random() * CHECKOUT_PANTUN.length)];
-        screen.classList.remove("hidden");
-        setTimeout(() => screen.classList.remove("opacity-0"), 10);
-        setTimeout(() => {
-            if (content) {
-                content.classList.remove("scale-75");
-                content.classList.add("scale-100");
+        async function sendSingleTelegramMsg(msgHtml) {
+            try {
+                const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+                await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ chat_id: chatId, text: msgHtml, parse_mode: 'HTML' })
+                });
+            } catch (e) {
+                console.error("Gagal kirim single message:", e);
             }
-        }, 100);
-    }
-
-    localStorage.removeItem("bintang_cart");
-
-    setTimeout(() => {
-        if (method === 'whatsapp') {
-            const waMsg = `Halo Admin Bintang Store, saya mau pesan Kopi Kenangan:\n\nOrder ID: *${orderId}*\nNama: *${name}*\nTotal: *Rp ${grandTotal.toLocaleString('id-ID')}*\n\nMohon dicek ya! ☕`;
-            window.open(`https://wa.me/6285959633342?text=${encodeURIComponent(waMsg)}`, '_blank');
         }
-        window.location.href = `tracking.html?order_id=${orderId}`;
-    }, 4000);
-}
+
+        async function sendTelegramOrderWithButtons(orderId, customerName, grandTotal, outletName) {
+            const text = `🔔 <b>ORDERAN MASUK ATAS NAMA ${customerName.toUpperCase()}!</b>\n\n` +
+                `🆔 <b>Order ID:</b> <code>${orderId}</code>\n` +
+                `👤 <b>Nama:</b> ${customerName}\n` +
+                `📍 <b>Outlet:</b> ${outletName}\n` +
+                `💰 <b>Total:</b> Rp ${grandTotal.toLocaleString('id-ID')}\n` +
+                `📌 <b>Status:</b> Menunggu Konfirmasi\n\n` +
+                `<i>Pilih tombol di bawah untuk update status ke website pembeli secara otomatis:</i>`;
+
+            const inlineKeyboard = {
+                inline_keyboard: [
+                    [{ text: "⏳ Konfirmasi (Tagih QRIS)", callback_data: `st:${orderId}:menunggu_pembayaran` }],
+                    [{ text: "☕ Pembayaran Diterima (Proses Kasir)", callback_data: `st:${orderId}:sedang_diproses` }],
+                    [{ text: "🎉 Pesanan Selesai (Siap Ambil)", callback_data: `st:${orderId}:selesai` }]
+                ]
+            };
+
+            try {
+                const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+                await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: chatId,
+                        text: text,
+                        parse_mode: 'HTML',
+                        reply_markup: inlineKeyboard
+                    })
+                });
+            } catch (e) {
+                console.error("Gagal kirim keyboard telegram:", e);
+            }
+        }
+
+        async function executeCheckout(method) {
+            if (isCheckoutSubmitting) {
+                alert("Pesanan sedang diproses ke admin, mohon tunggu sebentar...");
+                return;
+            }
+
+            if (!coCart || coCart.length === 0) {
+                alert("Keranjang belanja kosong. Kembali ke katalog menu!");
+                window.location.href = "index.html#kopken";
+                return;
+            }
+
+            const name = document.getElementById("co-name").value.trim();
+            const wa = document.getElementById("co-wa").value.trim();
+            const notes = document.getElementById("co-notes").value.trim();
+
+            if (!name || name.length < 2) {
+                alert("Mohon isi Nama Pemesan untuk kasir!");
+                document.getElementById("co-name").focus();
+                return;
+            }
+            if (!wa || wa.length < 9) {
+                alert("Mohon isi Nomor WhatsApp aktif untuk konfirmasi & struk!");
+                document.getElementById("co-wa").focus();
+                return;
+            }
+
+            isCheckoutSubmitting = true;
+            const btnTele = document.getElementById("co-btn-tele");
+            const btnWa = document.getElementById("co-btn-wa");
+            if (btnTele) btnTele.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
+            if (btnWa) btnWa.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
+
+            const grandTotal = recalcTotals();
+            const rawClean = name.replace(/[^a-zA-Z0-9]/g, '').toLowerCase() || 'order';
+            const orderId = `${rawClean}-${Date.now().toString().slice(-4)}`;
+
+            let cleanWa = wa.replace(/[^0-9]/g, '');
+            if (cleanWa.startsWith('0')) cleanWa = '62' + cleanWa.slice(1);
+            else if (!cleanWa.startsWith('62') && cleanWa.length > 0) cleanWa = '62' + cleanWa;
+
+            let timeText = coOrderTimeType === 'schedule' 
+                ? `📅 TERJADWAL [${document.getElementById('co-schedule-day').value}, ${document.getElementById('co-schedule-time').value}]`
+                : '⚡ Segera (5-15 Menit)';
+
+            // Simpan member baru jika opsi dicentang
+            const isRegChecked = document.getElementById("co-reg-chk")?.checked;
+            const newMemberCode = document.getElementById("co-new-member-code")?.value.trim().toLowerCase().replace(/[^a-z0-9_]/g, '');
+            if (isRegChecked && newMemberCode && newMemberCode.length >= 2 && supabaseClient) {
+                try {
+                    await supabaseClient.from('members').upsert({
+                        member_code: newMemberCode,
+                        customer_name: name,
+                        customer_phone: cleanWa,
+                        favorite_outlet_name: coOutlet ? coOutlet.name : ''
+                    }, { onConflict: 'member_code' });
+                    
+                    localStorage.setItem("bintang_member_session", JSON.stringify({
+                        code: newMemberCode,
+                        name: name,
+                        phone: cleanWa,
+                        outlet: coOutlet ? coOutlet.name : ''
+                    }));
+                } catch (e) {
+                    console.warn("Gagal simpan member baru:", e);
+                }
+            }
+
+            // Simpan Order ke Database Supabase
+            try {
+                if (supabaseClient) {
+                    await supabaseClient.from('orders').upsert([{
+                        id: orderId,
+                        customer_name: name,
+                        customer_wa: cleanWa,
+                        outlet_name: coOutlet ? coOutlet.name : 'Kopi Kenangan',
+                        order_items: coCart,
+                        total_price: grandTotal,
+                        estimated_profit: Math.round(grandTotal * 0.35),
+                        status: 'menunggu_konfirmasi'
+                    }]);
+                }
+            } catch (e) {
+                console.warn("Gagal simpan pesanan Supabase:", e);
+            }
+
+            const trackingUrl = `https://bintanggstore.web.id/tracking.html?order_id=${orderId}`;
+            const waDirectLink = cleanWa ? `https://wa.me/${cleanWa}` : '-';
+            let itemsMsg = coCart.map((c, i) => {
+                const iName = c.name || (c.item && c.item.name) || "Menu";
+                const iQty = Number(c.qty) || 1;
+                const iPrice = (Number(c.price) || 15000) * iQty;
+                return `${i+1}. ${iQty}x ${iName} (Rp ${iPrice.toLocaleString('id-ID')})`;
+            }).join('\n');
+
+            // 4 Pesan Telegram Berurutan
+            const bubble1 = `── .✦ <b>ORDER KOPI KENANGAN BARU</b> ✦.──\n` +
+                `🆔 <b>Order ID :</b> <code>${orderId}</code>\n` +
+                `🔗 <b>Link Tracking CS :</b> <a href="${trackingUrl}">${trackingUrl}</a>\n` +
+                `👤 <b>Nama Pemesan :</b> ${name}\n` +
+                `📱 <b>No. WhatsApp :</b> ${wa}\n` +
+                `🔗 <b>Chat Customer :</b> <a href="${waDirectLink}">${waDirectLink}</a>\n` +
+                `🛵 <b>Tipe :</b> ${coOrderType === 'takeaway' ? 'Take Away' : 'Dine In'}\n` +
+                `📍 <b>Outlet :</b> ${coOutlet ? coOutlet.name : 'Kopi Kenangan'}\n` +
+                `⏰ <b>Waktu :</b> ${timeText}\n` +
+                `📝 <b>Catatan :</b> "${notes || '-'}"\n` +
+                `--------------------------------------------------\n` +
+                `📋 <b>Detail Menu:</b>\n${itemsMsg}\n` +
+                `--------------------------------------------------\n` +
+                `💰 <b>TOTAL TAGIHAN : Rp ${grandTotal.toLocaleString('id-ID')}</b>\n` +
+                `📌 <b>Status : [MENUNGGU PEMBAYARAN QRIS]</b>`;
+
+            const bubble3 = `<code>Halo Kak ${name}! 🫶✨\nTerima kasih sudah order Kopi Kenangan di Bintang Store!\n\n📋 Rincian Pesanan:\n${itemsMsg}\n\n📍 Outlet: ${coOutlet ? coOutlet.name : 'Kopi Kenangan'}\n💰 Total Tagihan: Rp ${grandTotal.toLocaleString('id-ID')}\n\n🔗 Live Tracking:\n${trackingUrl}\n\nSilakan transfer via QRIS kami ya Kak. Setelah transfer kirim buktinya ke sini agar langsung kami proseskan ke kasir! 🫰💖</code>`;
+            const bubble4 = `<code>Terima kasih banyak Kak ${name}! Pembayaran Rp ${grandTotal.toLocaleString('id-ID')} sudah kami terima ☕✨\n\nPesananmu sedang diproses ke kasir. Pantau nomor antreanmu di: ${trackingUrl} 🫶</code>`;
+
+            await sendSingleTelegramMsg(bubble1);
+            await delay(350);
+            await sendTelegramOrderWithButtons(orderId, name, grandTotal, coOutlet ? coOutlet.name : 'Kopi Kenangan');
+            await delay(350);
+            await sendSingleTelegramMsg(bubble3);
+            await delay(350);
+            await sendSingleTelegramMsg(`👇 <b>[TEMPLATE BALASAN TRANSFER DITERIMA]:</b>\n\n${bubble4}`);
+
+            // Animasi Layar Fullscreen
+            const screen = document.getElementById("thankyou-screen");
+            const content = document.getElementById("thankyou-content");
+            const quoteEl = document.getElementById("thankyou-quote");
+            if (screen && quoteEl) {
+                quoteEl.innerHTML = CHECKOUT_PANTUN[Math.floor(Math.random() * CHECKOUT_PANTUN.length)];
+                screen.classList.remove("hidden");
+                setTimeout(() => screen.classList.remove("opacity-0"), 10);
+                setTimeout(() => {
+                    if (content) {
+                        content.classList.remove("scale-75");
+                        content.classList.add("scale-100");
+                    }
+                }, 100);
+            }
+
+            localStorage.removeItem("bintang_cart");
+            localStorage.removeItem("cart");
+
+            setTimeout(() => {
+                if (method === 'whatsapp') {
+                    const waMsg = `Halo Admin Bintang Store, saya mau pesan Kopi Kenangan:\n\nOrder ID: *${orderId}*\nNama: *${name}*\nTotal: *Rp ${grandTotal.toLocaleString('id-ID')}*\n\nMohon dicek ya! ☕`;
+                    window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(waMsg)}`, '_blank');
+                }
+                window.location.href = `tracking.html?order_id=${orderId}`;
+            }, 4000);
         }
     </script>
 </body>
