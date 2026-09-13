@@ -721,65 +721,10 @@
         </div>
     </div>
 
-    <!-- FULLSCREEN ANIMASI CHECKOUT DENGAN PANTUN ACAK (SINKRON DENGAN APP.JS) -->
-    <div id="thankyou-screen" class="fixed inset-0 z-[290] bg-slate-950/95 backdrop-blur-md flex items-center justify-center p-6 hidden opacity-0 transition-opacity duration-300">
-        <div id="thankyou-content" class="text-center space-y-4 max-w-sm transform scale-75 transition-transform duration-300">
-            <div id="thankyou-icon-wrapper" class="w-16 h-16 rounded-3xl bg-amber-500/20 mx-auto flex items-center justify-center text-amber-400">
-                <i class="fas fa-coffee text-4xl animate-bounce"></i>
-            </div>
-            <h2 id="thankyou-title" class="text-xl font-black text-white tracking-tight">Pesanan Dirangkai!</h2>
-            <p id="thankyou-quote" class="text-xs text-amber-200 leading-relaxed font-medium px-2">
-                Beli kopi buat begadang, terima kasih sudah memesan! Pesananmu sedang dirangkai, santai dulu ya sayang! ☕🫶
-            </p>
-            <div class="flex items-center justify-center gap-1.5 pt-2">
-                <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
-                <span class="text-[11px] text-stone-400 font-semibold">Menghubungkan ke admin...</span>
-            </div>
-        </div>
-    </div>
+    <!-- SCRIPT UTAMA SISTEM -->
+    <script src="app.js?v=2.6"></script>
 
-    <!-- MODAL POPUP PEMBAYARAN QRIS -->
-    <div id="payment-popup" class="fixed inset-0 z-[280] bg-black/75 backdrop-blur-xs flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-200">
-        <div id="payment-popup-content" class="bg-white rounded-3xl p-5 max-w-sm w-full text-stone-900 shadow-2xl border border-stone-200 space-y-3.5 text-center transform scale-95 transition-transform duration-200">
-            <div class="flex justify-between items-center border-b border-stone-100 pb-2">
-                <div class="flex items-center gap-1.5">
-                    <span class="text-base">💳</span>
-                    <h3 class="text-xs font-black text-stone-900">Pembayaran Pesanan</h3>
-                </div>
-                <button onclick="closePaymentPopup()" class="w-6 h-6 bg-stone-100 rounded-full flex justify-center items-center text-stone-400 hover:text-stone-600 cursor-pointer">
-                    <i class="fas fa-times text-xs"></i>
-                </button>
-            </div>
-
-            <div class="space-y-1">
-                <p class="text-[11px] text-stone-500 font-semibold">Total Tagihan Pas:</p>
-                <div class="flex items-center justify-center gap-2">
-                    <span id="popup-total-tagihan" class="text-2xl font-black text-amber-950">Rp 0</span>
-                    <button type="button" onclick="copyPopupNominal()" class="px-2.5 py-1 bg-amber-50 hover:bg-amber-100 border border-amber-300 text-amber-900 rounded-lg text-[10px] font-bold transition flex items-center gap-1 active:scale-90 cursor-pointer">
-                        <i class="fas fa-copy"></i> Salin
-                    </button>
-                </div>
-            </div>
-
-            <div class="bg-stone-50 p-3 rounded-2xl border border-stone-200 inline-block shadow-inner mx-auto max-w-[220px]">
-                <img src="https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/assets/6134394067262051124.jpg" alt="QRIS Bintang Store" class="w-full h-auto rounded-xl object-contain mx-auto" />
-            </div>
-
-            <div class="space-y-2 pt-1">
-                <a id="payment-wa-link" href="#" target="_blank" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-extrabold shadow-sm transition active:scale-95 flex items-center justify-center gap-1.5">
-                    <i class="fab fa-whatsapp text-sm"></i> Kirim Bukti Transfer ke Admin
-                </a>
-                <button type="button" onclick="closePaymentPopup()" class="text-[11px] text-stone-500 hover:text-stone-800 font-bold underline">
-                    Tutup & Pantau di Ruang Tunggu
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- SINKRONISASI APP.JS (DIPASANG CACHE-BUSTER) -->
-    <script src="app.js?v=2.5"></script>
-
-    <!-- SINKRONISASI BAR SHOPEE, MODAL OUTLET OTOMATIS, & REDIRECT KE CHECKOUT.HTML -->
+    <!-- PENGUNCI KEBERLANJUTAN KERANJANG KE CHECKOUT & KONTROL BAR SHOPEE -->
     <script>
       function syncShopeeBottomBar() {
         const bottomBar = document.getElementById("shopee-bottom-bar");
@@ -813,7 +758,10 @@
       }
 
       function goToCheckoutPage() {
-        if (!cart || cart.length === 0) {
+        // Ambil keranjang aktif saat tombol ditekan
+        const activeCart = (typeof cart !== 'undefined' && Array.isArray(cart)) ? cart : [];
+        
+        if (activeCart.length === 0) {
             if (typeof showToast === 'function') {
                 showToast("Keranjang masih kosong, pilih menu dulu ya!");
             } else {
@@ -821,29 +769,27 @@
             }
             return;
         }
-        
-        // PENGUNCI KEBERLANJUTAN KERANJANG KE CHECKOUT.HTML
+
+        // SIMPAN KE KEDUA NAMA KEY UNTUK MENCEGAH DATA KOSONG DI CHECKOUT.HTML
         try {
-            localStorage.setItem("bintang_cart", JSON.stringify(cart));
-            localStorage.setItem("bintang_selected_outlet", JSON.stringify(selectedOutlet));
-            localStorage.setItem("bintang_order_type", currentOrderType || 'takeaway');
+            localStorage.setItem("bintang_cart", JSON.stringify(activeCart));
+            localStorage.setItem("cart", JSON.stringify(activeCart));
+
+            if (typeof selectedOutlet !== 'undefined' && selectedOutlet) {
+                localStorage.setItem("bintang_selected_outlet", JSON.stringify(selectedOutlet));
+                localStorage.setItem("selectedOutlet", JSON.stringify(selectedOutlet));
+            }
+
+            const currentType = typeof currentOrderType !== 'undefined' ? currentOrderType : 'takeaway';
+            localStorage.setItem("bintang_order_type", currentType);
+            localStorage.setItem("orderType", currentType);
         } catch(e) {
-            console.error("Gagal simpan data keranjang:", e);
+            console.error("Gagal simpan ke localStorage:", e);
         }
 
+        // Langsung arahkan ke checkout.html
         window.location.href = "checkout.html";
       }
-
-      // OTOMATIS MUNCULKAN POP-UP OUTLET DI AWAL JIKA USER BERADA DI TAMPILAN KOPI KENANGAN
-      window.addEventListener('load', () => {
-          if (window.location.hash === '#kopken') {
-              setTimeout(() => {
-                  if (typeof openWelcomeGateModal === 'function') {
-                      openWelcomeGateModal(true);
-                  }
-              }, 400);
-          }
-      });
 
       setInterval(syncShopeeBottomBar, 400);
     </script>
