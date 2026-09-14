@@ -881,7 +881,7 @@
 
           // 1. Simpan ke Supabase Orders
           try {
-              if (supabaseClient) {
+              if (typeof supabaseClient !== 'undefined') {
                   await supabaseClient.from('orders').upsert([{
                       id: orderId,
                       customer_name: name,
@@ -897,7 +897,9 @@
               console.error("Gagal simpan order digital:", e);
           }
 
-          // 2. Format Notifikasi Telegram
+          // 2. Kirim Langsung ke Bot Telegram via Fetch Mandiri
+          const botToken = "8765196047:AAGSnN7VoGnXxQK5rl5459ifGqBVE3EKsWo";
+          const adminChatId = "6731058601";
           const trackingUrl = `https://www.bintangstore.web.id/tracking.html?order_id=${orderId}`;
           const waDirectLink = cleanWa ? `https://wa.me/${cleanWa}` : '-';
 
@@ -917,21 +919,46 @@
           const bubble3 = `<code>Halo Kak ${name}! 🫶✨\nTerima kasih sudah order ${currentDigitalProduct} (${plan.name}) di Bintang Store!\n\n💰 Total Tagihan: Rp ${grandTotal.toLocaleString('id-ID')}\n🔗 Live Tracking: ${trackingUrl}\n\nSilakan transfer via QRIS di halaman tracking ya Kak. Bukti transfer kirim ke sini agar akun langsung kami proseskan secepatnya! 🫰💖</code>`;
           const bubble4 = `<code>Terima kasih banyak Kak ${name}! Pembayaran Rp ${grandTotal.toLocaleString('id-ID')} untuk ${currentDigitalProduct} sudah diterima ✨ Akun kamu sedang disiapkan/diinvite oleh admin sekarang ya 🫶</code>`;
 
-          // 3. Kirim Telegram Secara Aman (Anti-Stuck)
+          const inlineKeyboard = {
+              inline_keyboard: [
+                  [
+                      { text: "✅ Verifikasi QRIS", callback_data: `qris_ok:${orderId}` },
+                      { text: "🚀 Selesaikan Akun", callback_data: `done:${orderId}` }
+                  ],
+                  [
+                      { text: "❌ Batalkan", callback_data: `cancel:${orderId}` }
+                  ]
+              ]
+          };
+
+          const sendMsg = (text, replyMarkup = null) => {
+              const body = {
+                  chat_id: adminChatId,
+                  text: text,
+                  parse_mode: "HTML",
+                  disable_web_page_preview: true
+              };
+              if (replyMarkup) body.reply_markup = replyMarkup;
+              return fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify(body)
+              }).catch(err => console.error("Telegram send error:", err));
+          };
+
           try {
-              if (typeof sendSingleTelegramMsg === 'function') {
-                  await sendSingleTelegramMsg(bubble1);
-                  if (typeof sendTelegramOrderWithButtons === 'function') {
-                      await sendTelegramOrderWithButtons(orderId, name, grandTotal, 'Produk Digital');
-                  }
-                  await sendSingleTelegramMsg(bubble3);
-                  await sendSingleTelegramMsg(`👇 <b>[TEMPLATE BALASAN TRANSFER DITERIMA]:</b>\n\n${bubble4}`);
-              }
+              // Kirim Bubble 1 (Detail Order)
+              await sendMsg(bubble1);
+              // Kirim Bubble 2 (Tombol Aksi)
+              await sendMsg(`⚡ <b>Aksi Cepat Admin untuk Order:</b> <code>${orderId}</code>`, inlineKeyboard);
+              // Kirim Bubble 3 & 4 (Template Pesan Pelanggan)
+              await sendMsg(bubble3);
+              await sendMsg(`👇 <b>[TEMPLATE BALASAN TRANSFER DITERIMA]:</b>\n\n${bubble4}`);
           } catch(err) {
-              console.warn("Gagal kirim bubble Telegram, lanjut ke tracking:", err);
+              console.error("Gagal kirim notif telegram:", err);
           }
 
-          // 4. Langsung Arahkan ke Tracking Halaman Pembeli
+          // 3. Arahkan Langsung ke Ruang Tunggu Tracking
           window.location.href = `tracking.html?order_id=${orderId}`;
       }
 
