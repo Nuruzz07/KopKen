@@ -76,6 +76,35 @@
           <span id="status-text">Memeriksa pesanan...</span>
         </div>
       </div>
+
+      <!-- KOTAK HITUNG MUNDUR 15 MENIT -->
+      <div id="confirmation-timer-box" class="hidden p-3.5 rounded-2xl bg-amber-50 border border-amber-300 space-y-1">
+        <div class="flex items-center justify-center gap-1.5 text-xs font-bold text-amber-950">
+          <i class="fas fa-hourglass-half text-amber-600"></i>
+          <span>Batas Waktu Konfirmasi CS</span>
+        </div>
+        <div id="confirmation-countdown" class="text-2xl font-black font-mono text-amber-900">
+          15:00
+        </div>
+        <p class="text-[10px] text-amber-800">Pesanan otomatis diproses ke antrean kasir oleh admin.</p>
+      </div>
+
+      <!-- KOTAK DARURAT MENIT KE-15 -->
+      <div id="emergency-call-box" class="hidden p-4 rounded-2xl bg-rose-50 border-2 border-rose-400 space-y-2 text-center animate-pulse">
+        <p class="text-xs font-black text-rose-950">⚠️ CS Melewati Batas 15 Menit!</p>
+        <p class="text-[10px] text-rose-800 leading-snug">
+          Admin mungkin sedang fokus mengantre di kasir. Silakan hubungi via telepon atau WhatsApp langsung:
+        </p>
+        <div class="grid grid-cols-2 gap-2 pt-1">
+          <a href="tel:085959633342" class="py-2.5 px-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-black text-xs shadow-sm flex items-center justify-center gap-1.5">
+            <i class="fas fa-phone"></i> Panggil Telepon
+          </a>
+          <a id="emergency-wa-btn" href="https://wa.me/6285959633342" target="_blank" class="py-2.5 px-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs shadow-sm flex items-center justify-center gap-1.5">
+            <i class="fab fa-whatsapp"></i> Chat Prioritas
+          </a>
+        </div>
+      </div>
+
       <p id="status-desc" class="text-xs text-stone-500 font-medium leading-relaxed px-2">
         Halaman ini terhubung langsung dengan sistem kami. Status akan berganti otomatis tanpa perlu refresh.
       </p>
@@ -115,7 +144,7 @@
       </div>
     </div>
 
-    <!-- Form Rating & Ulasan Pelanggan (Sukarela Berhadiah Voucher Rp 1.000) -->
+    <!-- Form Rating & Ulasan Pelanggan -->
     <div id="review-card" class="hidden bg-white rounded-3xl p-5 shadow-sm border border-stone-200/80 space-y-3">
       <div class="flex items-start gap-2.5">
         <span class="text-2xl">☕</span>
@@ -242,12 +271,21 @@
     const SUPABASE_ANON_KEY = "sb_publishable_GQ19XRT7yWIBido0iXJvCQ_ybZ_I7ju";
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+    const BOT_TOKEN = "8765196047:AAGSnN7VoGnXxQK5rl5459ifGqBVE3EKsWo";
+    const ADMIN_CHAT_ID = "6731058601";
+
     const urlParams = new URLSearchParams(window.location.search);
     const orderId = urlParams.get("order_id");
 
     let selectedRating = 5;
     let currentOrder = null;
     let rawOrderTotal = 0;
+
+    let countdownSeconds = 15 * 60;
+    let countdownInterval = null;
+    let alertSent5Min = false;
+    let alertSent10Min = false;
+    let alertSent15Min = false;
 
     const elOrderId = document.getElementById("order-id");
     const elStatusBadge = document.getElementById("status-badge");
@@ -264,6 +302,71 @@
     const elQrisCard = document.getElementById("qris-payment-card");
     const elQrisTotal = document.getElementById("qris-total-amount");
     const elQrisWaBtn = document.getElementById("qris-wa-confirm-btn");
+    const elTimerBox = document.getElementById("confirmation-timer-box");
+    const elCountdown = document.getElementById("confirmation-countdown");
+    const elEmergencyBox = document.getElementById("emergency-call-box");
+    const elEmergencyWaBtn = document.getElementById("emergency-wa-btn");
+
+    async function sendTelegramAlert(text) {
+      try {
+        await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            chat_id: ADMIN_CHAT_ID,
+            text: text,
+            parse_mode: "HTML"
+          })
+        });
+      } catch(e) {}
+    }
+
+    function startConfirmationCountdown() {
+      if (countdownInterval) return;
+      elTimerBox.classList.remove("hidden");
+      elEmergencyBox.classList.add("hidden");
+
+      countdownInterval = setInterval(() => {
+        countdownSeconds--;
+        const m = Math.floor(countdownSeconds / 60);
+        const s = countdownSeconds % 60;
+        elCountdown.textContent = `${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;
+
+        // Menit ke-5 lewat (Sisa 10 menit = 600 detik)
+        if (countdownSeconds <= 10 * 60 && !alertSent5Min) {
+          alertSent5Min = true;
+          sendTelegramAlert(`⏳ <b>PENGINGAT ORDER 5 MENIT</b>\nOrder <code>${orderId}</code> sudah 5 menit menunggu konfirmasi CS. Segera cek dan tagih QRIS!`);
+        }
+
+        // Menit ke-10 lewat (Sisa 5 menit = 300 detik)
+        if (countdownSeconds <= 5 * 60 && !alertSent10Min) {
+          alertSent10Min = true;
+          sendTelegramAlert(`🚨 <b>PENGINGAT DARURAT 10 MENIT!</b>\nOrder <code>${orderId}</code> atas nama <b>${currentOrder?.customer_name || 'Pelanggan'}</b> belum dikonfirmasi selama 10 menit!`);
+        }
+
+        // Menit ke-15 habis (0 detik)
+        if (countdownSeconds <= 0) {
+          clearInterval(countdownInterval);
+          countdownInterval = null;
+          elTimerBox.classList.add("hidden");
+          elEmergencyBox.classList.remove("hidden");
+
+          if (!alertSent15Min) {
+            alertSent15Min = true;
+            sendTelegramAlert(`🚨🚨 <b>PERINGATAN ORDER MELEWATI 15 MENIT!</b>\nOrder <code>${orderId}</code> belum dikonfirmasi! Pelanggan diarahkan untuk langsung menelpon WhatsApp admin sekarang!`);
+          }
+        }
+      }, 1000);
+    }
+
+    function stopConfirmationCountdown() {
+      if (countdownInterval) {
+        clearInterval(countdownInterval);
+        countdownInterval = null;
+      }
+      elTimerBox.classList.add("hidden");
+      elEmergencyBox.classList.add("hidden");
+    }
 
     async function loadOrderData() {
       if (!orderId) {
@@ -302,6 +405,10 @@
       if (elQrisWaBtn) {
         const msg = encodeURIComponent(`Halo Admin Bintang Store, saya mau konfirmasi pembayaran QRIS atas nama *${order.customer_name || 'Pelanggan'}* dengan Order ID: *${orderId}* sebesar *Rp ${parseInt(rawOrderTotal).toLocaleString('id-ID')}*. Berikut bukti transfer saya:`);
         elQrisWaBtn.href = `https://wa.me/6285959633342?text=${msg}`;
+      }
+      if (elEmergencyWaBtn) {
+        const msgEmergency = encodeURIComponent(`Halo Admin Bintang Store, orderan saya dengan ID *${orderId}* sudah lebih dari 15 menit belum dikonfirmasi nih, mohon dicek ya! 🙏`);
+        elEmergencyWaBtn.href = `https://wa.me/6285959633342?text=${msgEmergency}`;
       }
 
       const statusMap = {
@@ -342,6 +449,13 @@
       elStatusText.textContent = cur.text;
       elStatusDesc.textContent = cur.desc;
 
+      // PENGENDALIAN HITUNG MUNDUR 15 MENIT
+      if (order.status === "menunggu" || order.status === "menunggu_konfirmasi") {
+        startConfirmationCountdown();
+      } else {
+        stopConfirmationCountdown();
+      }
+
       if (order.status === "menunggu_pembayaran") {
         elQrisCard.classList.remove("hidden");
       } else {
@@ -373,7 +487,6 @@
       }
 
       if (order.status === "selesai") {
-        // TIKET LANGSUNG TERBUKA TANPA SENSOR
         elPickupCardWrapper.classList.remove("hidden");
         elQueueNumber.textContent = order.queue_number || "-";
 
@@ -480,8 +593,6 @@
         .eq("id", orderId);
 
       if (uploadedPhotoUrl) {
-        const adminChatId = "6731058601";
-        const botToken = "8765196047:AAGSnN7VoGnXxQK5rl5459ifGqBVE3EKsWo";
         const caption = `⭐ <b>ULASAN FOTO BARU MASUK!</b>\n🆔 <b>Order:</b> <code>${orderId}</code>\n👤 <b>Nama:</b> ${currentOrder?.customer_name || '-'}\n📱 <b>WA:</b> ${currentOrder?.customer_wa || '-'}\n🌟 <b>Bintang:</b> ${selectedRating}/5\n💬 <b>Komentar:</b> "${comment || '-'}"\n\n<i>Validasi keaslian foto ulasan untuk voucher Rp 1.000:</i>`;
 
         const inlineKeyboard = {
@@ -493,11 +604,11 @@
           ]
         };
 
-        fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
+        fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            chat_id: adminChatId,
+            chat_id: ADMIN_CHAT_ID,
             photo: uploadedPhotoUrl,
             caption: caption,
             reply_markup: inlineKeyboard
