@@ -12,17 +12,17 @@
     body { font-family: 'Inter', sans-serif; background-color: #F9F1E7; }
   </style>
 </head>
-<body class="min-h-screen text-stone-800 p-4 sm:p-6 flex flex-col items-center justify-start antialiased">
+<body class="min-h-screen text-stone-800 p-4 sm:p-6 flex flex-col items-center justify-start antialiased pb-24">
 
   <main class="w-full max-w-md space-y-4">
 
     <!-- Header Mini Toko & Salin Tautan -->
     <div class="flex items-center justify-between px-1">
       <div class="flex items-center gap-2">
-        <img src="https://i.postimg.cc/GpwttdxX/Logo-Kopi-Kenangan-Format-PNG-AI-EPS-CDR-PDF-SVG.png" alt="Logo" class="w-7 h-7 object-contain" />
+        <img src="https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/assets/Screenshot%202026-09-07%20210228-modified%20(1)%20(1).png" alt="Logo" class="w-7 h-7 object-contain rounded-full shadow-xs" />
         <div>
           <h1 class="text-xs font-black text-stone-900 tracking-tight">Bintang Store Tracker</h1>
-          <p class="text-[10px] text-amber-800 font-semibold">Ruang Tunggu Pesanan</p>
+          <p class="text-[10px] text-amber-800 font-semibold">Ruang Tunggu & Status Pesanan</p>
         </div>
       </div>
       <button onclick="copyTrackingLink()" class="px-2.5 py-1.5 rounded-xl bg-white/80 hover:bg-white text-stone-700 text-[11px] font-bold shadow-xs border border-stone-200 transition flex items-center gap-1 active:scale-95 cursor-pointer">
@@ -31,10 +31,24 @@
       </button>
     </div>
 
-    <!-- KARTU PEMBAYARAN QRIS (Otomatis Muncul Saat Menunggu Pembayaran) -->
+    <!-- KARTU HITUNGAN MUNDUR MENUNGGU KONFIRMASI -->
+    <div id="confirmation-timer-card" class="hidden bg-white rounded-3xl p-4 shadow-sm border-2 border-amber-500/40 text-center space-y-2">
+      <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 text-amber-900 text-[10px] font-extrabold tracking-wide uppercase">
+        <i class="fas fa-hourglass-half text-amber-600 animate-spin"></i> Estimasi Waktu Konfirmasi
+      </div>
+      <div>
+        <p id="timer-countdown-text" class="text-3xl font-black text-stone-900 font-mono tracking-tight">15:00</p>
+        <p id="timer-desc-text" class="text-[11px] text-stone-500 mt-0.5">Admin sedang memverifikasi pesananmu.</p>
+      </div>
+      <div class="w-full bg-stone-100 rounded-full h-1.5 overflow-hidden">
+        <div id="timer-progress-bar" class="bg-amber-600 h-1.5 rounded-full transition-all duration-1000" style="width: 100%;"></div>
+      </div>
+    </div>
+
+    <!-- KARTU PEMBAYARAN QRIS -->
     <div id="qris-payment-card" class="hidden bg-white rounded-3xl p-5 shadow-md border-2 border-amber-500/40 space-y-3.5 text-center transition-all duration-300">
       <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 text-amber-900 text-[10px] font-extrabold tracking-wide uppercase">
-        <i class="fas fa-qrcode"></i> Menunggu Pembayaran QRIS
+        <i class="fas fa-qrcode"></i> Pembayaran QRIS
       </div>
 
       <div class="space-y-1">
@@ -62,7 +76,7 @@
       </div>
     </div>
 
-    <!-- Kartu Status Utama -->
+    <!-- KARTU STATUS UTAMA -->
     <div class="bg-white rounded-3xl p-5 shadow-sm border border-stone-200/80 space-y-4 text-center">
       <div class="space-y-0.5">
         <p class="text-[10px] font-extrabold uppercase tracking-wider text-stone-400">Order ID</p>
@@ -76,40 +90,13 @@
           <span id="status-text">Memeriksa pesanan...</span>
         </div>
       </div>
-
-      <!-- KOTAK HITUNG MUNDUR 15 MENIT -->
-      <div id="confirmation-timer-box" class="hidden p-3.5 rounded-2xl bg-amber-50 border border-amber-300 space-y-1">
-        <div class="flex items-center justify-center gap-1.5 text-xs font-bold text-amber-950">
-          <i class="fas fa-hourglass-half text-amber-600"></i>
-          <span>Batas Waktu Konfirmasi CS</span>
-        </div>
-        <div id="confirmation-countdown" class="text-2xl font-black font-mono text-amber-900">
-          15:00
-        </div>
-        <p class="text-[10px] text-amber-800">Pesanan otomatis diproses ke antrean kasir oleh admin.</p>
-      </div>
-
-      <!-- KOTAK DARURAT MENIT KE-15 -->
-      <div id="emergency-call-box" class="hidden p-4 rounded-2xl bg-rose-50 border-2 border-rose-400 space-y-2 text-center animate-pulse">
-        <p class="text-xs font-black text-rose-950">⚠️ CS Melewati Batas 15 Menit!</p>
-        <p class="text-[10px] text-rose-800 leading-snug">
-          Admin mungkin sedang fokus mengantre di kasir. Silakan hubungi via telepon atau WhatsApp langsung:
-        </p>
-        <div class="grid grid-cols-2 gap-2 pt-1">
-          <a href="tel:085959633342" class="py-2.5 px-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-black text-xs shadow-sm flex items-center justify-center gap-1.5">
-            <i class="fas fa-phone"></i> Panggil Telepon
-          </a>
-          <a id="emergency-wa-btn" href="https://wa.me/6285959633342" target="_blank" class="py-2.5 px-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs shadow-sm flex items-center justify-center gap-1.5">
-            <i class="fab fa-whatsapp"></i> Chat Prioritas
-          </a>
-        </div>
-      </div>
-
       <p id="status-desc" class="text-xs text-stone-500 font-medium leading-relaxed px-2">
         Halaman ini terhubung langsung dengan sistem kami. Status akan berganti otomatis tanpa perlu refresh.
       </p>
 
-      <!-- TIKET PENGAMBILAN RESMI (Status 'selesai' - TERBUKA LANGSUNG) -->
+      <!-- ========================================== -->
+      <!-- KARTU TIKET KOPI (OTOMATIS UNTUK PRODUK KOPI) -->
+      <!-- ========================================== -->
       <div id="pickup-card-wrapper" class="hidden relative pt-4 border-t border-dashed border-stone-200 space-y-4 text-left">
         <div id="pickup-content" class="space-y-4">
           <div class="bg-amber-500/10 border-2 border-amber-500/40 rounded-2xl p-4 text-center shadow-xs">
@@ -118,7 +105,6 @@
             <p class="text-xs text-amber-900 font-semibold">Atas Nama: <span id="customer-name" class="underline font-bold">-</span></p>
           </div>
 
-          <!-- Preview Struk Resmi Aplikasi -->
           <div id="receipt-container" class="hidden space-y-2">
             <div class="flex items-center justify-between">
               <span class="text-xs font-black text-stone-700 uppercase tracking-wide">Foto Struk Resmi Aplikasi:</span>
@@ -132,7 +118,6 @@
             </div>
           </div>
 
-          <!-- Panduan Pengambilan di Kasir -->
           <div class="bg-stone-50 rounded-2xl p-3.5 text-xs text-stone-700 leading-relaxed border border-stone-200 flex items-start gap-2.5">
             <i class="fas fa-lightbulb text-amber-600 text-sm mt-0.5 flex-shrink-0"></i>
             <div>
@@ -142,16 +127,58 @@
           </div>
         </div>
       </div>
+
+      <!-- ========================================== -->
+      <!-- KARTU GARANSI & AKSES DIGITAL (KHUSUS PRODUK DIGITAL) -->
+      <!-- ========================================== -->
+      <div id="digital-card-wrapper" class="hidden relative pt-4 border-t border-dashed border-stone-200 space-y-3.5 text-left">
+        <div class="bg-gradient-to-br from-slate-900 to-slate-800 text-white rounded-3xl p-5 shadow-md border border-slate-700 space-y-3">
+          <div class="flex items-center justify-between">
+            <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[10px] font-extrabold tracking-wide uppercase">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span id="dig-warranty-badge">GARANSI AKTIF</span>
+            </div>
+            <span id="dig-warranty-days" class="text-[10px] font-bold text-gray-300">Sisa - Hari</span>
+          </div>
+
+          <div>
+            <h3 id="dig-product-title" class="text-sm font-black text-white">Produk Digital</h3>
+            <p id="dig-expiry-date" class="text-[11px] text-emerald-300 font-semibold mt-0.5">Masa Berlaku: -</p>
+          </div>
+
+          <div class="p-3 rounded-2xl bg-white/10 border border-white/10 space-y-1">
+            <div class="flex items-center gap-1.5 text-xs font-bold text-amber-400">
+              <i class="fab fa-whatsapp"></i>
+              <span>Status Pengiriman Akun:</span>
+            </div>
+            <p class="text-[11px] text-gray-200 leading-snug">
+              Akun / link aktivasi telah dikirimkan langsung oleh admin ke nomor WhatsApp kamu (<b id="dig-customer-phone">-</b>).
+            </p>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2 pt-1">
+            <a id="btn-open-wa-chat" href="https://wa.me/6285959633342" target="_blank" class="py-2.5 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-center font-extrabold text-[11px] transition shadow-xs flex items-center justify-center gap-1.5">
+              <i class="fab fa-whatsapp text-sm"></i>
+              <span>Cek Akun di WA</span>
+            </a>
+            <button type="button" onclick="openClaimWarrantyModal()" class="py-2.5 px-3 rounded-xl bg-rose-600/20 hover:bg-rose-600/30 border border-rose-500/40 text-rose-300 text-center font-extrabold text-[11px] transition flex items-center justify-center gap-1.5 cursor-pointer">
+              <i class="fas fa-shield-halved text-xs"></i>
+              <span>Klaim Garansi</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <!-- Form Rating & Ulasan Pelanggan -->
     <div id="review-card" class="hidden bg-white rounded-3xl p-5 shadow-sm border border-stone-200/80 space-y-3">
       <div class="flex items-start gap-2.5">
-        <span class="text-2xl">☕</span>
+        <span class="text-2xl" id="review-card-icon">☕</span>
         <div class="min-w-0">
-          <h2 class="text-xs font-black text-stone-950">Pesanan Sudah Diterima? Beri Ulasan!</h2>
-          <p class="text-[10px] text-stone-500 leading-snug mt-0.5">
-            Bagikan foto kopimu untuk mendapatkan <b>Voucher Potongan Rp 1.000</b> otomatis pada pesanan berikutnya ✨
+          <h2 class="text-xs font-black text-stone-950" id="review-card-title">Pesanan Selesai? Beri Ulasan!</h2>
+          <p class="text-[10px] text-stone-500 leading-snug mt-0.5" id="review-card-desc">
+            Bagikan ulasanmu untuk mendapatkan <b>Voucher Potongan Rp 1.000</b> otomatis pada pesanan berikutnya ✨
           </p>
         </div>
       </div>
@@ -165,14 +192,14 @@
           <button type="button" class="star text-amber-400 transition-transform active:scale-125 cursor-pointer" data-star="5">★</button>
         </div>
 
-        <div class="p-3 bg-amber-500/10 border border-amber-500/30 rounded-2xl">
+        <div id="review-photo-box" class="p-3 bg-amber-500/10 border border-amber-500/30 rounded-2xl">
           <label class="block text-[11px] font-bold text-amber-950 mb-1">
-            📸 Lampirkan Foto Kopi (Syarat Klaim Voucher Rp 1.000):
+            📸 Lampirkan Foto (Syarat Klaim Voucher Rp 1.000):
           </label>
           <input type="file" id="review-photo-input" accept="image/*" class="w-full text-xs text-stone-600 file:mr-2 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-amber-600 file:text-white hover:file:bg-amber-700 cursor-pointer" />
         </div>
 
-        <textarea id="review-comment" rows="2" placeholder="Bagikan kesanmu belanja jastip kopi di sini..." class="w-full text-xs p-3 rounded-xl border border-stone-200 bg-stone-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-600 resize-none font-medium text-stone-800"></textarea>
+        <textarea id="review-comment" rows="2" placeholder="Bagikan kesanmu belanja di Bintang Store di sini..." class="w-full text-xs p-3 rounded-xl border border-stone-200 bg-stone-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-600 resize-none font-medium text-stone-800"></textarea>
 
         <button type="submit" id="submit-review-btn" class="w-full py-2.5 bg-stone-900 hover:bg-stone-800 text-white rounded-xl text-xs font-extrabold transition shadow-sm active:scale-95 cursor-pointer">
           Kirim Ulasan & Klaim Voucher
@@ -209,7 +236,7 @@
     <!-- Rincian Menu Pesanan -->
     <div class="bg-white rounded-3xl p-5 shadow-sm border border-stone-200/80 space-y-3">
       <div class="flex items-center justify-between border-b border-stone-100 pb-2.5">
-        <h2 class="text-xs font-black uppercase tracking-wider text-stone-400">Rincian Menu</h2>
+        <h2 class="text-xs font-black uppercase tracking-wider text-stone-400">Rincian Pesanan</h2>
         <span id="outlet-label" class="text-xs font-bold text-amber-900 truncate max-w-[200px]">-</span>
       </div>
       <div id="order-items" class="text-xs divide-y divide-stone-100">
@@ -217,51 +244,59 @@
       </div>
     </div>
 
-    <!-- Onboarding Member Mandiri -->
-    <div id="member-banner-card" class="bg-amber-500/10 border border-amber-500/30 rounded-3xl p-4 flex items-center justify-between gap-3 shadow-xs">
-      <div class="flex items-center gap-2.5 min-w-0">
-        <div class="w-9 h-9 rounded-2xl bg-amber-500/20 text-amber-900 flex items-center justify-center text-sm font-black flex-shrink-0">
-          ✨
-        </div>
-        <div class="min-w-0">
-          <h3 class="text-xs font-black text-amber-950 truncate">Belum Jadi Member?</h3>
-          <p class="text-[10px] text-amber-800 mt-0.5">Daftar sekarang untuk simpan profil belanja hemat!</p>
-        </div>
-      </div>
-      <button onclick="openMemberModal()" class="px-3 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-[11px] font-extrabold transition active:scale-95 flex-shrink-0 shadow-xs cursor-pointer">
-        Daftar
-      </button>
-    </div>
-
     <!-- Navigasi Kembali ke Toko -->
     <div class="text-center pt-2">
-      <a href="index.html#kopken" class="text-xs font-bold text-stone-500 hover:text-stone-800 transition inline-flex items-center gap-1.5 cursor-pointer">
+      <a href="index.html" class="text-xs font-bold text-stone-500 hover:text-stone-800 transition inline-flex items-center gap-1.5 cursor-pointer">
         <i class="fas fa-arrow-left text-[10px]"></i>
-        <span>Pesan Menu Lainnya di Toko</span>
+        <span>Kembali ke Portal Bintang Store</span>
       </a>
     </div>
 
   </main>
 
-  <!-- Modal Pendaftaran Member -->
-  <div id="member-modal" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 hidden opacity-0 transition-opacity duration-200 flex items-center justify-center p-4">
-    <div class="bg-white rounded-3xl p-5 max-w-sm w-full space-y-3.5 shadow-2xl border border-stone-200">
-      <div class="flex items-center justify-between border-b border-stone-100 pb-2">
+  <!-- MODAL DARURAT 15 MENIT: TELEPON / WA ADMIN -->
+  <div id="urgent-call-modal" class="fixed inset-0 bg-black/75 backdrop-blur-xs z-[200] hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl p-5 max-w-sm w-full text-center space-y-3 shadow-2xl border-2 border-rose-500 animate-pulse">
+      <div class="w-14 h-14 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center text-2xl mx-auto">
+        <i class="fas fa-phone-volume animate-bounce"></i>
+      </div>
+      <div>
+        <h3 class="font-black text-sm text-stone-900">Konfirmasi Melewati 15 Menit</h3>
+        <p class="text-[11px] text-stone-500 mt-1 leading-snug">
+          Admin mungkin sedang menyiapkan antrean. Silakan langsung hubungi atau telepon WhatsApp admin sekarang:
+        </p>
+      </div>
+      <div class="space-y-2 pt-1">
+        <a id="btn-urgent-call" href="https://wa.me/6285959633342?text=Halo%20Admin%20Bintang%20Store%2C%20pesanan%20saya%20sudah%2015%20menit%20belum%20ada%20konfirmasi.%20Mohon%20segera%20diproses!" target="_blank" class="w-full py-3 bg-rose-600 hover:bg-rose-700 text-white font-black rounded-xl text-xs shadow-md transition flex items-center justify-center gap-2">
+          <i class="fas fa-phone"></i>
+          <span>Telepon / Chat WhatsApp Admin</span>
+        </a>
+        <button onclick="closeUrgentCallModal()" class="text-[10px] text-stone-400 font-bold hover:underline">
+          Tutup Pemberitahuan
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL KLAIM GARANSI DIGITAL -->
+  <div id="claim-warranty-modal" class="fixed inset-0 bg-black/75 backdrop-blur-xs z-[250] hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 text-white rounded-3xl p-5 max-w-sm w-full space-y-3 shadow-2xl border border-slate-700">
+      <div class="flex items-center justify-between pb-2 border-b border-white/10">
         <div class="flex items-center gap-2">
-          <span class="text-base">💳</span>
-          <h3 class="text-xs font-black text-stone-900">Daftar Member Bintang Store</h3>
+          <i class="fas fa-shield-halved text-rose-500 text-sm"></i>
+          <h3 class="font-black text-xs text-white">Formulir Klaim Garansi</h3>
         </div>
-        <button onclick="closeMemberModal()" class="w-6 h-6 rounded-full bg-stone-100 text-stone-400 hover:text-stone-700 text-xs flex items-center justify-center cursor-pointer">
+        <button onclick="closeClaimWarrantyModal()" class="w-6 h-6 rounded-full bg-white/10 text-stone-400 hover:text-white flex items-center justify-center text-xs">
           <i class="fas fa-times"></i>
         </button>
       </div>
-      <div class="space-y-2">
-        <label class="block text-[11px] font-bold text-stone-700">Username / Kode Member Pilihanmu:</label>
-        <input type="text" id="new-member-code" placeholder="Contoh: arabb, dimas, sari" class="w-full p-2.5 text-xs rounded-xl border border-stone-200 bg-stone-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-600 font-bold" />
-        <p class="text-[10px] text-stone-500">Gunakan username ini di form belanja berikutnya agar data langsung otomatis terisi!</p>
-      </div>
-      <button onclick="submitNewMember()" id="btn-save-member" class="w-full py-2.5 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-black transition active:scale-95 cursor-pointer">
-        Aktifkan Member
+      <p class="text-[11px] text-gray-300 leading-snug">
+        Ada masalah akun keluar sendiri atau tidak bisa akses? Jelaskan kendalamu, sistem akan langsung membunyikan alert darurat ke admin:
+      </p>
+      <textarea id="warranty-issue-input" rows="3" placeholder="Contoh: Akun ter-logout sendiri, mohon bantu invite ulang / reset..." class="w-full text-xs p-3 rounded-xl bg-slate-800 border border-white/10 text-white placeholder-gray-500 outline-none focus:ring-2 focus:ring-rose-500 resize-none"></textarea>
+      <button type="button" id="btn-submit-warranty" onclick="submitWarrantyClaim()" class="w-full py-2.5 bg-rose-600 hover:bg-rose-700 text-white font-black rounded-xl text-xs transition active:scale-95 shadow-md flex items-center justify-center gap-1.5">
+        <i class="fas fa-paper-plane text-xs"></i>
+        <span>Kirim Laporan Garansi ke Admin</span>
       </button>
     </div>
   </div>
@@ -275,23 +310,26 @@
     const ADMIN_CHAT_ID = "6731058601";
 
     const urlParams = new URLSearchParams(window.location.search);
-    const orderId = urlParams.get("order_id");
+    const orderId = urlParams.get("order_id") || "";
+    const isDigitalOrder = orderId.startsWith("dig-");
 
     let selectedRating = 5;
     let currentOrder = null;
     let rawOrderTotal = 0;
 
-    let countdownSeconds = 15 * 60;
-    let countdownInterval = null;
-    let alertSent5Min = false;
-    let alertSent10Min = false;
-    let alertSent15Min = false;
+    // Kontrol Timer 15 Menit
+    let confirmationTimerInterval = null;
+    let remainingSeconds = 15 * 60;
+    let alert5MinSent = false;
+    let alert10MinSent = false;
+    let alert15MinSent = false;
 
     const elOrderId = document.getElementById("order-id");
     const elStatusBadge = document.getElementById("status-badge");
     const elStatusText = document.getElementById("status-text");
     const elStatusDesc = document.getElementById("status-desc");
     const elPickupCardWrapper = document.getElementById("pickup-card-wrapper");
+    const elDigitalCardWrapper = document.getElementById("digital-card-wrapper");
     const elQueueNumber = document.getElementById("queue-number");
     const elCustomerName = document.getElementById("customer-name");
     const elReceiptContainer = document.getElementById("receipt-container");
@@ -302,70 +340,79 @@
     const elQrisCard = document.getElementById("qris-payment-card");
     const elQrisTotal = document.getElementById("qris-total-amount");
     const elQrisWaBtn = document.getElementById("qris-wa-confirm-btn");
-    const elTimerBox = document.getElementById("confirmation-timer-box");
-    const elCountdown = document.getElementById("confirmation-countdown");
-    const elEmergencyBox = document.getElementById("emergency-call-box");
-    const elEmergencyWaBtn = document.getElementById("emergency-wa-btn");
+    const elTimerCard = document.getElementById("confirmation-timer-card");
+    const elCountdownText = document.getElementById("timer-countdown-text");
+    const elProgressBar = document.getElementById("timer-progress-bar");
 
-    async function sendTelegramAlert(text) {
+    async function sendTelegramAlert(textHtml) {
       try {
         await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             chat_id: ADMIN_CHAT_ID,
-            text: text,
+            text: textHtml,
             parse_mode: "HTML"
           })
         });
-      } catch(e) {}
+      } catch (e) {
+        console.error("Gagal kirim alert telegram:", e);
+      }
     }
 
     function startConfirmationCountdown() {
-      if (countdownInterval) return;
-      elTimerBox.classList.remove("hidden");
-      elEmergencyBox.classList.add("hidden");
+      if (confirmationTimerInterval) return;
+      elTimerCard.classList.remove("hidden");
 
-      countdownInterval = setInterval(() => {
-        countdownSeconds--;
-        const m = Math.floor(countdownSeconds / 60);
-        const s = countdownSeconds % 60;
-        elCountdown.textContent = `${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;
+      confirmationTimerInterval = setInterval(async () => {
+        remainingSeconds--;
 
-        // Menit ke-5 lewat (Sisa 10 menit = 600 detik)
-        if (countdownSeconds <= 10 * 60 && !alertSent5Min) {
-          alertSent5Min = true;
-          sendTelegramAlert(`⏳ <b>PENGINGAT ORDER 5 MENIT</b>\nOrder <code>${orderId}</code> sudah 5 menit menunggu konfirmasi CS. Segera cek dan tagih QRIS!`);
+        const m = Math.floor(remainingSeconds / 60);
+        const s = remainingSeconds % 60;
+        if (elCountdownText) {
+          elCountdownText.textContent = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
         }
 
-        // Menit ke-10 lewat (Sisa 5 menit = 300 detik)
-        if (countdownSeconds <= 5 * 60 && !alertSent10Min) {
-          alertSent10Min = true;
-          sendTelegramAlert(`🚨 <b>PENGINGAT DARURAT 10 MENIT!</b>\nOrder <code>${orderId}</code> atas nama <b>${currentOrder?.customer_name || 'Pelanggan'}</b> belum dikonfirmasi selama 10 menit!`);
+        const percentage = Math.max(0, (remainingSeconds / (15 * 60)) * 100);
+        if (elProgressBar) elProgressBar.style.width = `${percentage}%`;
+
+        // Peringatan Menit ke-5
+        if (remainingSeconds <= 600 && !alert5MinSent) {
+          alert5MinSent = true;
+          sendTelegramAlert(`⏳ <b>PENGINGAT (5 MENIT BERJALAN):</b>\nOrder <code>${orderId}</code> (${isDigitalOrder ? 'Digital' : 'Kopi'}) atas nama <b>${currentOrder?.customer_name || 'Pelanggan'}</b> belum dikonfirmasi!`);
         }
 
-        // Menit ke-15 habis (0 detik)
-        if (countdownSeconds <= 0) {
-          clearInterval(countdownInterval);
-          countdownInterval = null;
-          elTimerBox.classList.add("hidden");
-          elEmergencyBox.classList.remove("hidden");
+        // Peringatan Menit ke-10
+        if (remainingSeconds <= 300 && !alert10MinSent) {
+          alert10MinSent = true;
+          sendTelegramAlert(`⚠️ <b>PERINGATAN (10 MENIT BERJALAN):</b>\nOrder <code>${orderId}</code> belum dikonfirmasi! Pembeli sudah menunggu 10 menit.`);
+        }
 
-          if (!alertSent15Min) {
-            alertSent15Min = true;
-            sendTelegramAlert(`🚨🚨 <b>PERINGATAN ORDER MELEWATI 15 MENIT!</b>\nOrder <code>${orderId}</code> belum dikonfirmasi! Pelanggan diarahkan untuk langsung menelpon WhatsApp admin sekarang!`);
+        // Menit ke-15 Habis
+        if (remainingSeconds <= 0) {
+          clearInterval(confirmationTimerInterval);
+          confirmationTimerInterval = null;
+
+          if (!alert15MinSent) {
+            alert15MinSent = true;
+            sendTelegramAlert(`🚨 <b>DARURAT (15 MENIT TERLEWAT):</b>\nOrder <code>${orderId}</code> melewati batas waktu konfirmasi! Pembeli diarahkan langsung menelpon/menghubungi WhatsApp admin sekarang!`);
           }
+
+          document.getElementById("urgent-call-modal").classList.remove("hidden");
         }
       }, 1000);
     }
 
     function stopConfirmationCountdown() {
-      if (countdownInterval) {
-        clearInterval(countdownInterval);
-        countdownInterval = null;
+      if (confirmationTimerInterval) {
+        clearInterval(confirmationTimerInterval);
+        confirmationTimerInterval = null;
       }
-      elTimerBox.classList.add("hidden");
-      elEmergencyBox.classList.add("hidden");
+      elTimerCard.classList.add("hidden");
+    }
+
+    function closeUrgentCallModal() {
+      document.getElementById("urgent-call-modal").classList.add("hidden");
     }
 
     async function loadOrderData() {
@@ -394,47 +441,48 @@
       listenRealtime();
     }
 
-    function renderOrder(order) {
+    async function renderOrder(order) {
       if (!order) return;
       currentOrder = order;
       rawOrderTotal = order.total_price || 0;
       elCustomerName.textContent = order.customer_name || "-";
-      elOutletLabel.textContent = order.outlet_name || "Kopi Kenangan";
+      elOutletLabel.textContent = order.outlet_name || (isDigitalOrder ? "Produk Digital" : "Kopi Kenangan");
 
       if (elQrisTotal) elQrisTotal.textContent = `Rp ${parseInt(rawOrderTotal).toLocaleString('id-ID')}`;
       if (elQrisWaBtn) {
         const msg = encodeURIComponent(`Halo Admin Bintang Store, saya mau konfirmasi pembayaran QRIS atas nama *${order.customer_name || 'Pelanggan'}* dengan Order ID: *${orderId}* sebesar *Rp ${parseInt(rawOrderTotal).toLocaleString('id-ID')}*. Berikut bukti transfer saya:`);
         elQrisWaBtn.href = `https://wa.me/6285959633342?text=${msg}`;
       }
-      if (elEmergencyWaBtn) {
-        const msgEmergency = encodeURIComponent(`Halo Admin Bintang Store, orderan saya dengan ID *${orderId}* sudah lebih dari 15 menit belum dikonfirmasi nih, mohon dicek ya! 🙏`);
-        elEmergencyWaBtn.href = `https://wa.me/6285959633342?text=${msgEmergency}`;
-      }
 
+      // Status Map Khusus: Beda Kopi vs Digital
       const statusMap = {
         menunggu: {
-          text: "Menunggu Konfirmasi Admin",
-          desc: "Admin sedang memeriksa pesanan dan ketersediaan slot kasir.",
+          text: "Menunggu Konfirmasi",
+          desc: "Admin sedang memeriksa pesananmu.",
           class: "bg-amber-100 text-amber-900 border border-amber-300"
         },
         menunggu_konfirmasi: {
-          text: "Menunggu Konfirmasi Admin",
-          desc: "Admin sedang memeriksa pesanan dan ketersediaan slot kasir.",
+          text: "Menunggu Konfirmasi",
+          desc: "Admin sedang memeriksa pesananmu.",
           class: "bg-amber-100 text-amber-900 border border-amber-300"
         },
         menunggu_pembayaran: {
-          text: "Menunggu Pembayaran (QRIS)",
-          desc: "Pesanan terkonfirmasi! Silakan scan QRIS di atas sesuai nominal tagihan.",
+          text: "Menunggu Pembayaran",
+          desc: "Pesanan siap! Silakan scan QRIS di atas sesuai nominal tagihan.",
           class: "bg-orange-100 text-orange-900 border border-orange-300"
         },
         sedang_diproses: {
-          text: "Sedang Diproses ke Kasir",
-          desc: "Pembayaran terverifikasi! Pesananmu sedang dipesankan langsung ke kasir gerai.",
+          text: isDigitalOrder ? "Akun Sedang Disiapkan" : "Pesanan Sedang Diproses",
+          desc: isDigitalOrder 
+            ? "Pembayaran terverifikasi! Admin sedang menyiapkan kredensial/meng-invite akun kamu ke WhatsApp."
+            : "Pembayaran terverifikasi! Pesananmu sedang diracik barista gerai.",
           class: "bg-blue-100 text-blue-900 border border-blue-300"
         },
         selesai: {
-          text: "Pesanan Siap Diambil",
-          desc: "Kopi kamu sudah jadi! Ambil di kasir/barista gerai menggunakan tiket di bawah ini.",
+          text: isDigitalOrder ? "Akun Aktif & Selesai" : "Pesanan Selesai Diproses",
+          desc: isDigitalOrder
+            ? "Akun kamu sudah aktif! Cek pesan WhatsApp kamu dan simpan halaman ini sebagai kartu garansi."
+            : "Kopi kamu sudah jadi! Ambil di kasir/barista gerai menggunakan tiket di bawah ini.",
           class: "bg-emerald-100 text-emerald-950 border border-emerald-300"
         }
       };
@@ -449,8 +497,7 @@
       elStatusText.textContent = cur.text;
       elStatusDesc.textContent = cur.desc;
 
-      // PENGENDALIAN HITUNG MUNDUR 15 MENIT
-      if (order.status === "menunggu" || order.status === "menunggu_konfirmasi") {
+      if (order.status === "menunggu_konfirmasi" || order.status === "menunggu") {
         startConfirmationCountdown();
       } else {
         stopConfirmationCountdown();
@@ -462,10 +509,11 @@
         elQrisCard.classList.add("hidden");
       }
 
+      // Render Item Pesanan
       const rawItems = order.order_items || order.items || [];
       if (Array.isArray(rawItems) && rawItems.length > 0) {
         elOrderItems.innerHTML = rawItems.map(i => {
-          const name = i.name || (i.item && i.item.name) || "Menu";
+          const name = i.name || (i.item && i.item.name) || "Item";
           const desc = i.details || i.note || "";
           const qty = i.qty || 1;
           const price = i.price ? `Rp ${(i.price * qty).toLocaleString('id-ID')}` : '';
@@ -482,19 +530,69 @@
             </div>
           `;
         }).join("");
-      } else {
-        elOrderItems.innerHTML = `<p class="text-xs text-stone-400 py-2 italic">Rincian menu sedang disiapkan...</p>`;
       }
 
+      // KONDISI SELESAI
       if (order.status === "selesai") {
-        elPickupCardWrapper.classList.remove("hidden");
-        elQueueNumber.textContent = order.queue_number || "-";
+        if (isDigitalOrder) {
+          // TAMPILKAN KARTU GARANSI DIGITAL
+          elPickupCardWrapper.classList.add("hidden");
+          elDigitalCardWrapper.classList.remove("hidden");
 
-        if (order.receipt_image_url) {
-          elReceiptContainer.classList.remove("hidden");
-          elReceiptImg.src = order.receipt_image_url;
+          // Ambil data detail garansi dari digital_subscriptions
+          const { data: subData } = await supabaseClient
+            .from("digital_subscriptions")
+            .select("*")
+            .eq("id", orderId)
+            .single();
+
+          const prodName = rawItems[0]?.name || "Produk Digital";
+          document.getElementById("dig-product-title").textContent = prodName;
+          document.getElementById("dig-customer-phone").textContent = order.customer_wa || "Nomor WA kamu";
+
+          if (subData && subData.end_date) {
+            const endDate = new Date(subData.end_date);
+            const now = new Date();
+            const diffTime = endDate.getTime() - now.getTime();
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+            const dateStr = endDate.toLocaleDateString("id-ID", {
+              day: "numeric",
+              month: "long",
+              year: "numeric"
+            });
+
+            document.getElementById("dig-expiry-date").textContent = `Garansi Aktif s/d: ${dateStr}`;
+
+            if (diffDays > 0) {
+              document.getElementById("dig-warranty-days").textContent = `Sisa ${diffDays} Hari`;
+              document.getElementById("dig-warranty-badge").textContent = "GARANSI AKTIF";
+            } else {
+              document.getElementById("dig-warranty-days").textContent = "Kadaluwarsa";
+              document.getElementById("dig-warranty-badge").textContent = "GARANSI HABIS";
+              document.getElementById("dig-warranty-badge").parentElement.className = "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-stone-500/20 text-stone-400 border border-stone-500/30 text-[10px] font-extrabold uppercase";
+            }
+          }
+
+          // Sesuaikan Text Review untuk Digital
+          document.getElementById("review-card-icon").textContent = "⚡";
+          document.getElementById("review-card-title").textContent = "Akun Sudah Aktif? Beri Ulasan!";
+          document.getElementById("review-card-desc").textContent = "Bagikan kepuasanmu belanja akun di Bintang Store untuk klaim voucher diskon!";
+          document.getElementById("review-photo-box").classList.add("hidden"); // Tidak wajib foto struk kalau digital
+
+        } else {
+          // TAMPILKAN TIKET KASIR KOPI
+          elDigitalCardWrapper.classList.add("hidden");
+          elPickupCardWrapper.classList.remove("hidden");
+          elQueueNumber.textContent = order.queue_number || "-";
+
+          if (order.receipt_image_url) {
+            elReceiptContainer.classList.remove("hidden");
+            elReceiptImg.src = order.receipt_image_url;
+          }
         }
 
+        // Tampilkan Form Review Jika Belum
         if (!order.rating) {
           elReviewCard.classList.remove("hidden");
         } else {
@@ -507,6 +605,64 @@
           elReviewCard.classList.remove("hidden");
         }
       }
+    }
+
+    function openClaimWarrantyModal() {
+      document.getElementById("claim-warranty-modal").classList.remove("hidden");
+    }
+
+    function closeClaimWarrantyModal() {
+      document.getElementById("claim-warranty-modal").classList.add("hidden");
+    }
+
+    async function submitWarrantyClaim() {
+      const issue = document.getElementById("warranty-issue-input").value.trim();
+      const btn = document.getElementById("btn-submit-warranty");
+
+      if (!issue || issue.length < 5) {
+        alert("Mohon jelaskan kendala yang dialami secara singkat!");
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim Laporan...';
+
+      // 1. Update status klaim di Supabase
+      await supabaseClient
+        .from("digital_subscriptions")
+        .update({ warranty_status: "klaim_garansi", warranty_notes: issue })
+        .eq("id", orderId);
+
+      // 2. Kirim Notifikasi Darurat ke Bot Telegram Admin
+      const textAlert = `🚨 <b>LAPORAN KLAIM GARANSI MASUK!</b>\n` +
+        `🆔 <b>Order ID:</b> <code>${orderId}</code>\n` +
+        `👤 <b>Nama:</b> ${currentOrder?.customer_name || '-'}\n` +
+        `📱 <b>WhatsApp:</b> ${currentOrder?.customer_wa || '-'}\n` +
+        `⚡ <b>Kendala:</b> "${issue}"\n\n` +
+        `👉 <i>Mohon segera periksa akun pembeli dan hubungi via WA.</i>`;
+
+      const directWa = currentOrder?.customer_wa ? `https://wa.me/${currentOrder.customer_wa}` : '';
+      const replyMarkup = directWa ? {
+        inline_keyboard: [[{ text: "💬 Chat WA Pembeli", url: directWa }]]
+      } : undefined;
+
+      try {
+        await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            chat_id: ADMIN_CHAT_ID,
+            text: textAlert,
+            parse_mode: "HTML",
+            reply_markup: replyMarkup
+          })
+        });
+      } catch (e) {}
+
+      alert("Laporan kendala garansi berhasil dikirim ke Admin! Admin akan segera memeriksa akun kamu.");
+      closeClaimWarrantyModal();
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fas fa-paper-plane text-xs"></i> <span>Kirim Laporan Garansi ke Admin</span>';
     }
 
     function copyQrisNominal() {
@@ -571,7 +727,7 @@
 
       let uploadedPhotoUrl = null;
 
-      if (photoInput.files && photoInput.files[0]) {
+      if (!isDigitalOrder && photoInput.files && photoInput.files[0]) {
         const file = photoInput.files[0];
         const filePath = `review_${orderId}_${Date.now()}.jpg`;
         const { error: upErr } = await supabaseClient.storage
@@ -595,15 +751,6 @@
       if (uploadedPhotoUrl) {
         const caption = `⭐ <b>ULASAN FOTO BARU MASUK!</b>\n🆔 <b>Order:</b> <code>${orderId}</code>\n👤 <b>Nama:</b> ${currentOrder?.customer_name || '-'}\n📱 <b>WA:</b> ${currentOrder?.customer_wa || '-'}\n🌟 <b>Bintang:</b> ${selectedRating}/5\n💬 <b>Komentar:</b> "${comment || '-'}"\n\n<i>Validasi keaslian foto ulasan untuk voucher Rp 1.000:</i>`;
 
-        const inlineKeyboard = {
-          inline_keyboard: [
-            [
-              { text: "✅ Setujui Voucher 1k", callback_data: `voc_ok:${orderId}` },
-              { text: "❌ Tolak", callback_data: `voc_no:${orderId}` }
-            ]
-          ]
-        };
-
         fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -611,131 +758,29 @@
             chat_id: ADMIN_CHAT_ID,
             photo: uploadedPhotoUrl,
             caption: caption,
-            reply_markup: inlineKeyboard
+            reply_markup: {
+              inline_keyboard: [[
+                { text: "✅ Setujui Voucher 1k", callback_data: `voc_ok:${orderId}` },
+                { text: "❌ Tolak", callback_data: `voc_no:${orderId}` }
+              ]]
+            }
           })
         }).catch(() => {});
       }
 
       if (!error) {
         elReviewCard.innerHTML = `
-          <div class="py-4 text-center space-y-3">
+          <div class="py-4 text-center space-y-2">
             <p class="text-3xl animate-bounce">🎉</p>
             <p class="text-xs font-black text-stone-900">Ulasan Berhasil Dikirim!</p>
-            <p class="text-[11px] text-stone-500">
-              ${uploadedPhotoUrl 
-                ? "Foto kopimu sedang diverifikasi admin. Diskon Rp 1.000 otomatis aktif untuk orderanmu berikutnya!" 
-                : "Terima kasih banyak atas ulasan dan bintangmu!"}
-            </p>
-
-            <div id="redirect-box" class="mt-3 p-4 bg-gradient-to-br from-emerald-50 via-amber-50 to-stone-50 border-2 border-emerald-400 rounded-2xl space-y-2.5 text-left">
-              <div class="space-y-1">
-                <p class="text-[11px] font-black text-emerald-950">
-                  Kopimu beres, langganan apps-mu jangan kemahalan.
-                </p>
-                <p class="text-[10px] text-stone-600 leading-snug">
-                  Mau <b>Netflix, YT Premium, CapCut Pro, atau Gemini Plus</b> harga miring? Kuotanya sering ludes duluan di Saluran WhatsApp:
-                </p>
-                <a href="https://whatsapp.com/channel/0029Vb91UWjInlqTkOqqUT06" target="_blank" class="w-full mt-2 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-black shadow-md transition flex items-center justify-center gap-1.5 cursor-pointer">
-                  <i class="fab fa-whatsapp text-sm"></i> Amankan Akses Saluran WA
-                </a>
-              </div>
-
-              <div class="pt-2 border-t border-stone-200 text-center">
-                <p class="text-[10px] font-bold text-stone-500">
-                  Otomatis kembali ke menu utama dalam <span id="countdown-timer" class="font-black text-amber-600 text-xs">8</span> detik...
-                </p>
-                <div class="flex gap-2 justify-center mt-1.5">
-                  <button type="button" onclick="cancelRedirect()" class="px-3 py-1 rounded-xl border border-stone-300 bg-white hover:bg-stone-100 text-stone-700 text-[10px] font-extrabold shadow-xs transition active:scale-95 cursor-pointer">
-                    Tetap di Sini
-                  </button>
-                  <a href="index.html#kopken" class="px-3 py-1 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-[10px] font-extrabold shadow-xs transition active:scale-95 inline-flex items-center gap-1">
-                    Kembali Sekarang ➔
-                  </a>
-                </div>
-              </div>
-            </div>
+            <p class="text-[11px] text-stone-500">Terima kasih banyak atas ulasan dan rating bintangmu!</p>
           </div>
         `;
-
-        let timeLeft = 8;
-        const timerEl = document.getElementById("countdown-timer");
-        
-        window.redirectInterval = setInterval(() => {
-          timeLeft--;
-          if (timerEl) timerEl.textContent = timeLeft;
-          if (timeLeft <= 0) {
-            clearInterval(window.redirectInterval);
-            window.location.href = "index.html#kopken";
-          }
-        }, 1000);
-
       } else {
         btn.disabled = false;
         btn.textContent = "Coba Lagi";
       }
     });
-
-    window.cancelRedirect = function() {
-      if (window.redirectInterval) {
-        clearInterval(window.redirectInterval);
-      }
-      const box = document.getElementById("redirect-box");
-      if (box) {
-        box.innerHTML = `
-          <div class="space-y-2">
-            <p class="text-[11px] font-bold text-emerald-800">
-              ✓ Pengalihan dibatalkan. Kamu tetap berada di ruang tunggu.
-            </p>
-            <a href="https://whatsapp.com/channel/0029Vb91UWjInlqTkOqqUT06" target="_blank" class="w-full py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-black shadow-xs transition flex items-center justify-center gap-1.5">
-              <i class="fab fa-whatsapp text-sm"></i> Amankan Akses Saluran WA
-            </a>
-          </div>
-        `;
-      }
-    };
-
-    function openMemberModal() {
-      const modal = document.getElementById('member-modal');
-      modal.classList.remove('hidden');
-      setTimeout(() => modal.classList.remove('opacity-0'), 10);
-    }
-
-    function closeMemberModal() {
-      const modal = document.getElementById('member-modal');
-      modal.classList.add('opacity-0');
-      setTimeout(() => modal.classList.add('hidden'), 200);
-    }
-
-    async function submitNewMember() {
-      const codeInput = document.getElementById('new-member-code');
-      const code = codeInput.value.trim().toLowerCase().replace(/[^a-z0-9_]/g, '');
-      const btn = document.getElementById('btn-save-member');
-
-      if (!code || code.length < 2) {
-        alert("Masukkan username minimal 2 karakter!");
-        return;
-      }
-
-      btn.disabled = true;
-      btn.textContent = "Menyimpan...";
-
-      try {
-        await supabaseClient.from('members').upsert({
-          member_code: code,
-          customer_name: currentOrder ? currentOrder.customer_name : 'Pelanggan',
-          customer_phone: currentOrder ? currentOrder.customer_wa : '',
-          favorite_outlet_name: currentOrder ? currentOrder.outlet_name : ''
-        }, { onConflict: 'member_code' });
-
-        alert(`Selamat! Username @${code} berhasil didaftarkan sebagai member!`);
-        closeMemberModal();
-        document.getElementById('member-banner-card').classList.add('hidden');
-      } catch (err) {
-        alert("Gagal mendaftar, coba username lain.");
-        btn.disabled = false;
-        btn.textContent = "Aktifkan Member";
-      }
-    }
 
     loadOrderData();
   </script>
