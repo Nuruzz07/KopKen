@@ -31,7 +31,6 @@
                                 light: '#FFF7ED',
                                 cyan: '#009EB2'
                             },
-                            netflix: { dark: '#141414', primary: '#E50914', light: '#F5F5F1' },
                             portal: { dark: '#0F172A', accent: '#38BDF8' }
                         }
                     }
@@ -105,17 +104,6 @@
 
     <!-- Toast Notification Melayang Global -->
     <div id="toast-container" class="fixed top-5 left-1/2 transform -translate-x-1/2 z-[300] flex flex-col gap-2 w-[90%] max-w-sm pointer-events-none"></div>
-
-    <!-- Floating Social Proof Ticker -->
-    <div id="social-proof-toast" class="fixed bottom-24 left-4 z-[160] max-w-xs bg-slate-900/95 backdrop-blur-md text-white px-3.5 py-2.5 rounded-2xl border border-white/10 shadow-xl flex items-center gap-2.5 transform -translate-x-[120%] transition-transform duration-500 pointer-events-none">
-        <div class="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center flex-shrink-0 text-sm">
-            ☕
-        </div>
-        <div class="min-w-0">
-            <p id="sp-user-text" class="text-[11px] font-bold text-gray-200 truncate">Dimas baru saja order Duo Mantan</p>
-            <p id="sp-time-text" class="text-[9px] text-gray-400">2 menit lalu • Grand Indonesia</p>
-        </div>
-    </div>
 
     <!-- VIEW 1: PORTAL UTAMA BINTANG STORE -->
     <div id="view-portal" class="view-section min-h-screen flex flex-col items-center justify-center px-5 py-8 max-w-lg mx-auto">
@@ -798,16 +786,18 @@
     </div>
 
     <!-- SCRIPT UTAMA SISTEM -->
-    <script src="app.js?v=3.3"></script>
+    <script src="app.js?v=3.4"></script>
 
     <!-- LOGIKA CHECKOUT PRODUK DIGITAL & KONEKSI TELEGRAM LENGKAP -->
     <script>
       let currentDigitalProduct = null;
       let currentDigitalPlans = [];
+      let isSubmittingDigital = false;
 
       function openDigitalCheckoutModal(productName, plans, snkList) {
           currentDigitalProduct = productName;
           currentDigitalPlans = plans;
+          isSubmittingDigital = false;
 
           document.getElementById('dig-modal-title').textContent = productName;
           
@@ -816,6 +806,13 @@
 
           const planSelect = document.getElementById('dig-plan-select');
           planSelect.innerHTML = plans.map((p, idx) => `<option value="${idx}">${p.name} - Rp ${p.price.toLocaleString('id-ID')}</option>`).join('');
+
+          // Reset Tombol & Input ke Kondisi Bersih
+          const btn = document.getElementById('btn-submit-digital');
+          if (btn) {
+              btn.disabled = false;
+              btn.innerHTML = '<span>Lanjut Bayar ➔</span>';
+          }
 
           updateDigitalPriceDisplay();
 
@@ -839,22 +836,31 @@
       }
 
       async function submitDigitalOrder() {
-          const name = document.getElementById('dig-cust-name').value.trim();
-          const wa = document.getElementById('dig-cust-wa').value.trim();
-          const email = document.getElementById('dig-cust-email').value.trim();
+          if (isSubmittingDigital) return;
+
+          const nameEl = document.getElementById('dig-cust-name');
+          const waEl = document.getElementById('dig-cust-wa');
+          const emailEl = document.getElementById('dig-cust-email');
+          const btn = document.getElementById('btn-submit-digital');
+
+          const name = nameEl ? nameEl.value.trim() : '';
+          const wa = waEl ? waEl.value.trim() : '';
+          const email = emailEl ? emailEl.value.trim() : '';
           const planIdx = parseInt(document.getElementById('dig-plan-select').value) || 0;
           const plan = currentDigitalPlans[planIdx];
 
           if (!name || name.length < 2) {
               alert("Mohon isi Nama Pemesan!");
+              if (nameEl) nameEl.focus();
               return;
           }
           if (!wa || wa.length < 9) {
               alert("Mohon isi Nomor WhatsApp aktif untuk pengiriman akun!");
+              if (waEl) waEl.focus();
               return;
           }
 
-          const btn = document.getElementById('btn-submit-digital');
+          isSubmittingDigital = true;
           btn.disabled = true;
           btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
 
@@ -870,7 +876,7 @@
               name: `${currentDigitalProduct} (${plan.name})`,
               qty: 1,
               price: grandTotal,
-              details: `Email: ${email || 'Akun siap pakai / minta via WA'}`
+              details: `Email: ${email || 'Akun siap pakai / konfirmasi via WA'}`
           }];
 
           // 1. Simpan ke Supabase Orders
@@ -891,7 +897,7 @@
               console.error("Gagal simpan order digital:", e);
           }
 
-          // 2. Kirim 4 Pesan Telegram Admin Lengkap Tombol Aksi
+          // 2. Format Notifikasi Telegram
           const trackingUrl = `https://www.bintangstore.web.id/tracking.html?order_id=${orderId}`;
           const waDirectLink = cleanWa ? `https://wa.me/${cleanWa}` : '-';
 
@@ -911,15 +917,21 @@
           const bubble3 = `<code>Halo Kak ${name}! 🫶✨\nTerima kasih sudah order ${currentDigitalProduct} (${plan.name}) di Bintang Store!\n\n💰 Total Tagihan: Rp ${grandTotal.toLocaleString('id-ID')}\n🔗 Live Tracking: ${trackingUrl}\n\nSilakan transfer via QRIS di halaman tracking ya Kak. Bukti transfer kirim ke sini agar akun langsung kami proseskan secepatnya! 🫰💖</code>`;
           const bubble4 = `<code>Terima kasih banyak Kak ${name}! Pembayaran Rp ${grandTotal.toLocaleString('id-ID')} untuk ${currentDigitalProduct} sudah diterima ✨ Akun kamu sedang disiapkan/diinvite oleh admin sekarang ya 🫶</code>`;
 
-          await sendSingleTelegramMsg(bubble1);
-          await delay(350);
-          await sendTelegramOrderWithButtons(orderId, name, grandTotal, 'Produk Digital');
-          await delay(350);
-          await sendSingleTelegramMsg(bubble3);
-          await delay(350);
-          await sendSingleTelegramMsg(`👇 <b>[TEMPLATE BALASAN TRANSFER DITERIMA]:</b>\n\n${bubble4}`);
+          // 3. Kirim Telegram Secara Aman (Anti-Stuck)
+          try {
+              if (typeof sendSingleTelegramMsg === 'function') {
+                  await sendSingleTelegramMsg(bubble1);
+                  if (typeof sendTelegramOrderWithButtons === 'function') {
+                      await sendTelegramOrderWithButtons(orderId, name, grandTotal, 'Produk Digital');
+                  }
+                  await sendSingleTelegramMsg(bubble3);
+                  await sendSingleTelegramMsg(`👇 <b>[TEMPLATE BALASAN TRANSFER DITERIMA]:</b>\n\n${bubble4}`);
+              }
+          } catch(err) {
+              console.warn("Gagal kirim bubble Telegram, lanjut ke tracking:", err);
+          }
 
-          // 3. Arahkan Langsung ke Ruang Tunggu Tracking
+          // 4. Langsung Arahkan ke Tracking Halaman Pembeli
           window.location.href = `tracking.html?order_id=${orderId}`;
       }
 
