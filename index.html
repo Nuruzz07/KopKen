@@ -919,18 +919,16 @@
           const bubble3 = `<code>Halo Kak ${name}! 🫶✨\nTerima kasih sudah order ${currentDigitalProduct} (${plan.name}) di Bintang Store!\n\n💰 Total Tagihan: Rp ${grandTotal.toLocaleString('id-ID')}\n🔗 Live Tracking: ${trackingUrl}\n\nSilakan transfer via QRIS di halaman tracking ya Kak. Bukti transfer kirim ke sini agar akun langsung kami proseskan secepatnya! 🫰💖</code>`;
           const bubble4 = `<code>Terima kasih banyak Kak ${name}! Pembayaran Rp ${grandTotal.toLocaleString('id-ID')} untuk ${currentDigitalProduct} sudah diterima ✨ Akun kamu sedang disiapkan/diinvite oleh admin sekarang ya 🫶</code>`;
 
-          const inlineKeyboard = {
+         const inlineKeyboard = {
               inline_keyboard: [
                   [
-                      { text: "✅ Verifikasi QRIS", callback_data: `qris_ok:${orderId}` },
-                      { text: "🚀 Selesaikan Akun", callback_data: `done:${orderId}` }
+                      { text: "✅ Pembayaran Diterima (Proses)", callback_data: `st:${orderId}:sedang_diproses` }
                   ],
                   [
-                      { text: "❌ Batalkan", callback_data: `cancel:${orderId}` }
+                      { text: "🎉 Akun Selesai Dikirim", callback_data: `st:${orderId}:selesai` }
                   ]
               ]
           };
-
           const sendMsg = (text, replyMarkup = null) => {
               const body = {
                   chat_id: adminChatId,
