@@ -8,7 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="icon" type="image/png" href="https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/assets/Screenshot%202026-09-07%20210228-modified%20(1)%20(1).png">
     
     <script>
         if (typeof tailwind !== 'undefined') {
@@ -128,8 +128,8 @@
         </div>
 
         <div class="text-center mb-6 w-full">
-            <div onclick="handleSecretLogoTap()" title="Bintang Store" class="w-20 h-20 bg-[#0c1226] rounded-full mx-auto flex items-center justify-center shadow-lg border border-white/15 mb-4 float-logo transition duration-300 overflow-hidden relative cursor-pointer active:scale-95">
-                <img src="favicon.png" alt="Bintang Store Logo" class="w-full h-full object-cover scale-[2.1] translate-y-[-2px] pointer-events-none" onerror="this.onerror=null; this.src='https://placehold.co/100x100/38BDF8/ffffff?text=⭐'">
+            <div onclick="handleSecretLogoTap()" title="Bintang Store" class="w-20 h-20 rounded-full mx-auto flex items-center justify-center shadow-lg border border-white/20 mb-4 float-logo transition duration-300 overflow-hidden relative cursor-pointer active:scale-95 bg-slate-900">
+                <img src="https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/assets/Screenshot%202026-09-07%20210228-modified%20(1)%20(1).png" alt="Bintang Store Logo" class="w-full h-full object-cover pointer-events-none">
             </div>
             <h1 class="text-2xl sm:text-3xl font-extrabold text-white mb-1.5 tracking-tight">Bintang Store</h1>
             <p class="text-gray-300 text-xs max-w-xs mx-auto leading-relaxed">Satu portal jastip kopi diskon & akun hiburan digital terpercaya!</p>
@@ -141,8 +141,8 @@
                 <span>F&B / Kopi</span>
             </button>
             <button id="portal-tab-btn-digital" onclick="switchPortalTab('digital')" class="py-2 px-3 rounded-xl font-bold text-xs transition-all flex items-center justify-center gap-1.5 text-gray-400 hover:text-white cursor-pointer">
-                <i class="fas fa-tv text-xs"></i>
-                <span>Digital & Stream</span>
+                <i class="fas fa-bolt text-xs text-sky-400"></i>
+                <span>Digital & AI</span>
             </button>
         </div>
 
@@ -197,56 +197,119 @@
             </div>
         </div>
 
-        <!-- SECTION TAB 2: DIGITAL & STREAMING -->
+        <!-- SECTION TAB 2: DIGITAL & AI -->
         <div id="portal-tab-digital" class="w-full space-y-3 hidden">
-            <a href="https://wa.me/6285959633342?text=Halo%20Admin%20Bintang%20Store%2C%20mau%20order%20Prime%20Video%201%20Bulan%20(Rp%2015.000)%20dong%20%F0%9F%8E%AC" target="_blank" onclick="sfx.playTap()" class="block w-full relative group overflow-hidden rounded-3xl glass-portal p-4 sm:p-5 text-left transition duration-200 hover:scale-[1.01] active:scale-95 border-l-4 border-l-sky-500 cursor-pointer">
+            <!-- YouTube Premium -->
+            <div onclick="openDigitalCheckoutModal('YouTube Premium + YT Music', [
+                { name: '1 Bulan (Email Sama / Perpanjangan)', price: 12000 },
+                { name: '3 Bulan (Email Sama / Perpanjangan)', price: 30000 }
+            ], [
+                'Bisa perpanjangan selamanya pakai email yang sama.',
+                'Sistem invite ke family plan tiap bulan, bebas batas rotasi tahunan.',
+                'Bebas iklan di HP, Laptop, & Smart TV + YouTube Music Premium.',
+                'Garansi aktif penuh selama durasi pesanan.'
+            ])" class="w-full relative group overflow-hidden rounded-3xl glass-portal p-4 sm:p-5 text-left transition duration-200 hover:scale-[1.01] active:scale-95 border-l-4 border-l-rose-500 cursor-pointer">
                 <div class="flex items-center gap-3.5 relative z-10">
-                    <div class="w-12 h-12 rounded-2xl bg-sky-500/15 border border-sky-500/25 flex items-center justify-center flex-shrink-0 text-sky-400">
-                        <i class="fas fa-video text-xl"></i>
+                    <div class="w-12 h-12 p-1.5 rounded-2xl bg-white/10 flex items-center justify-center flex-shrink-0 overflow-hidden">
+                        <img src="https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/assets/ytprem.webp" alt="YouTube Premium" class="w-full h-full object-contain">
                     </div>
                     <div class="min-w-0 flex-1">
                         <div class="flex items-center gap-2">
-                            <h2 class="text-base font-bold text-white leading-tight">Prime Video 1 Bulan</h2>
-                            <span class="bg-sky-500/20 text-sky-300 text-[10px] font-extrabold px-2 py-0.5 rounded-full border border-sky-500/30">READY</span>
+                            <h2 class="text-sm font-bold text-white leading-tight">YouTube Premium + Music</h2>
+                            <span class="bg-rose-500/20 text-rose-300 text-[9px] font-extrabold px-1.5 py-0.5 rounded border border-rose-500/30">BEBAS IKLAN</span>
                         </div>
-                        <p class="text-xs text-gray-300 mt-0.5">Streaming film eksklusif bebas iklan</p>
+                        <p class="text-[11px] text-gray-300 mt-0.5 truncate">Perpanjang email sama • 12k/bln, 30k/3bln</p>
                     </div>
                     <div class="text-right flex-shrink-0">
-                        <span class="text-xs font-black text-sky-300 block">Rp 15.000</span>
-                        <span class="text-[9px] text-gray-400">/ bulan</span>
+                        <span class="text-xs font-black text-rose-400 block">Mulai 12k</span>
+                        <span class="text-[9px] text-gray-400">Order ➔</span>
                     </div>
-                </div>
-            </a>
-
-            <div onclick="showNetflixClosedToast()" class="w-full relative overflow-hidden rounded-3xl glass-portal p-4 sm:p-5 text-left border-l-4 border-l-red-600 opacity-80 cursor-pointer transition hover:opacity-100">
-                <div class="flex items-center gap-3.5 relative z-10">
-                    <div class="w-12 h-12 rounded-2xl bg-red-500/15 border border-red-500/25 flex items-center justify-center flex-shrink-0 text-red-500">
-                        <i class="fas fa-play text-xl"></i>
-                    </div>
-                    <div class="min-w-0 flex-1">
-                        <div class="flex items-center gap-2">
-                            <h2 class="text-base font-bold text-white leading-tight">Netflix Premium</h2>
-                            <span class="bg-red-500/20 text-red-400 text-[9px] font-extrabold px-2 py-0.5 rounded-full border border-red-500/30">WAITING LIST</span>
-                        </div>
-                        <p class="text-xs text-gray-400 mt-0.5">Slot akun sedang penuh / istirahat sementara</p>
-                    </div>
-                    <span class="text-[10px] font-bold text-red-400 uppercase">CLOSED</span>
                 </div>
             </div>
 
-            <div onclick="showComingSoonToast('YouTube Premium')" class="w-full relative overflow-hidden rounded-3xl glass-portal p-4 sm:p-5 text-left border-l-4 border-l-rose-500/40 opacity-75 hover:opacity-90 transition cursor-pointer">
+            <!-- Gemini Pro + Drive 2TB -->
+            <div onclick="openDigitalCheckoutModal('Gemini Pro + Google Drive 2TB', [
+                { name: '1 Bulan (15k - Email Pribadi)', price: 15000 },
+                { name: '6 Bulan (60k - CS Terima Jadi)', price: 60000 },
+                { name: '18 Bulan (120k - CS Terima Jadi)', price: 120000 }
+            ], [
+                'Akses Gemini Advanced tercanggih + Storage Google Drive 2TB.',
+                'Bebas menggunakan email pribadi.',
+                'Khusus 1 Bulan: jika distop tidak bisa diperpanjang di email yang sama, namun file data Drive 2TB tetap aman dan bisa diakses.',
+                'Khusus 6 & 18 Bulan: akun dibantu login sementara oleh admin untuk aktivasi resmi, kamu terima jadi siap pakai!',
+                'Garansi penuh selama masa aktif.'
+            ])" class="w-full relative group overflow-hidden rounded-3xl glass-portal p-4 sm:p-5 text-left transition duration-200 hover:scale-[1.01] active:scale-95 border-l-4 border-l-indigo-500 cursor-pointer">
                 <div class="flex items-center gap-3.5 relative z-10">
-                    <div class="w-12 h-12 rounded-2xl bg-rose-500/15 border border-rose-500/20 flex items-center justify-center flex-shrink-0 text-rose-400">
-                        <i class="fab fa-youtube text-2xl"></i>
+                    <div class="w-12 h-12 p-1.5 rounded-2xl bg-white/10 flex items-center justify-center flex-shrink-0 overflow-hidden">
+                        <img src="https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/assets/geminipro.webp" alt="Gemini Pro" class="w-full h-full object-contain">
                     </div>
                     <div class="min-w-0 flex-1">
                         <div class="flex items-center gap-2">
-                            <h2 class="text-base font-bold text-white leading-tight">YouTube Premium</h2>
-                            <span class="bg-rose-500/20 text-rose-300 text-[9px] font-extrabold px-2 py-0.5 rounded-full border border-rose-500/30">SOON</span>
+                            <h2 class="text-sm font-bold text-white leading-tight">Gemini Pro + Drive 2TB</h2>
+                            <span class="bg-indigo-500/20 text-indigo-300 text-[9px] font-extrabold px-1.5 py-0.5 rounded border border-indigo-500/30">AI + 2TB</span>
                         </div>
-                        <p class="text-xs text-gray-400 mt-0.5">Nonton tanpa iklan + YouTube Music</p>
+                        <p class="text-[11px] text-gray-300 mt-0.5 truncate">Email pribadi • 15k/bln, 60k/6bln, 120k/18bln</p>
                     </div>
-                    <span class="text-[10px] font-bold text-rose-400 uppercase">SOON</span>
+                    <div class="text-right flex-shrink-0">
+                        <span class="text-xs font-black text-indigo-300 block">Mulai 15k</span>
+                        <span class="text-[9px] text-gray-400">Order ➔</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ChatGPT GO -->
+            <div onclick="openDigitalCheckoutModal('ChatGPT GO', [
+                { name: '3 Bulan (Akses Privat Bebas Otak-Atik)', price: 30000 }
+            ], [
+                'Bukan akun sharing! Akun privat milik kamu sendiri.',
+                'Bebas otak-atik custom GPTs, setting, & chat history.',
+                'Keunggulan ChatGPT GO: Kuota pesan model inti lebih luas, upload file/gambar lebih banyak, dan memori percakapan lebih panjang.',
+                'Cocok untuk tugas skripsi, analisis data, hingga ngoding.',
+                'Garansi aktif penuh selama 3 bulan.'
+            ])" class="w-full relative group overflow-hidden rounded-3xl glass-portal p-4 sm:p-5 text-left transition duration-200 hover:scale-[1.01] active:scale-95 border-l-4 border-l-emerald-500 cursor-pointer">
+                <div class="flex items-center gap-3.5 relative z-10">
+                    <div class="w-12 h-12 p-1.5 rounded-2xl bg-white/10 flex items-center justify-center flex-shrink-0 overflow-hidden">
+                        <img src="https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/assets/Chatgptgo.webp" alt="ChatGPT GO" class="w-full h-full object-contain">
+                    </div>
+                    <div class="min-w-0 flex-1">
+                        <div class="flex items-center gap-2">
+                            <h2 class="text-sm font-bold text-white leading-tight">ChatGPT GO (3 Bulan)</h2>
+                            <span class="bg-emerald-500/20 text-emerald-300 text-[9px] font-extrabold px-1.5 py-0.5 rounded border border-emerald-500/30">BUKAN SHARING</span>
+                        </div>
+                        <p class="text-[11px] text-gray-300 mt-0.5 truncate">Akses privat bebas otak-atik • Limit luas</p>
+                    </div>
+                    <div class="text-right flex-shrink-0">
+                        <span class="text-xs font-black text-emerald-300 block">Rp 30.000</span>
+                        <span class="text-[9px] text-gray-400">/ 3 bln</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Spotify Premium -->
+            <div onclick="openDigitalCheckoutModal('Spotify Premium', [
+                { name: '3 Bulan (Akun Siap Pakai)', price: 30000 }
+            ], [
+                'Akun siap pakai langsung dari admin.',
+                'Dilarang mengubah kredensial utama (password/profil).',
+                'Bebas dengar lagu tanpa jeda iklan, skip lagu tanpa batas, unduh offline.',
+                'Kualitas audio tertinggi (Very High 320kbps).',
+                'Garansi penuh selama 3 bulan.'
+            ])" class="w-full relative group overflow-hidden rounded-3xl glass-portal p-4 sm:p-5 text-left transition duration-200 hover:scale-[1.01] active:scale-95 border-l-4 border-l-green-500 cursor-pointer">
+                <div class="flex items-center gap-3.5 relative z-10">
+                    <div class="w-12 h-12 p-1.5 rounded-2xl bg-white/10 flex items-center justify-center flex-shrink-0 overflow-hidden">
+                        <img src="https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/assets/spotifyprem.webp" alt="Spotify Premium" class="w-full h-full object-contain">
+                    </div>
+                    <div class="min-w-0 flex-1">
+                        <div class="flex items-center gap-2">
+                            <h2 class="text-sm font-bold text-white leading-tight">Spotify Premium (3 Bulan)</h2>
+                            <span class="bg-green-500/20 text-green-300 text-[9px] font-extrabold px-1.5 py-0.5 rounded border border-green-500/30">RESMI</span>
+                        </div>
+                        <p class="text-[11px] text-gray-300 mt-0.5 truncate">Akun jadi dari admin • Audio 320kbps</p>
+                    </div>
+                    <div class="text-right flex-shrink-0">
+                        <span class="text-xs font-black text-green-400 block">Rp 30.000</span>
+                        <span class="text-[9px] text-gray-400">/ 3 bln</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -278,8 +341,6 @@
 
     <!-- VIEW 2: KOPI KENANGAN STORE -->
     <div id="view-kopken" class="view-section hidden text-kenangan-dark pb-32 max-w-4xl mx-auto">
-        
-        <!-- HEADER COMPACT & MODERN -->
         <header class="glass sticky top-0 z-40 px-3 sm:px-4 py-2.5 shadow-sm" id="main-header">
             <div class="flex items-center justify-between gap-2">
                 <div class="flex items-center gap-2 min-w-0">
@@ -310,7 +371,6 @@
                 </div>
             </div>
 
-            <!-- SEARCH BAR TERPADU -->
             <div class="mt-2 relative w-full">
                 <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-stone-400">
                     <i class="fas fa-search text-[11px]"></i>
@@ -318,7 +378,6 @@
                 <input type="text" id="menu-search-input" oninput="searchMenu()" placeholder="Cari menu kopi, bundling, atau roti..." class="w-full pl-8 pr-3 py-1.5 rounded-xl bg-white border border-stone-200/80 focus:outline-none focus:ring-2 focus:ring-kenangan-primary text-xs font-semibold text-kenangan-dark placeholder-stone-400 shadow-inner">
             </div>
 
-            <!-- KATEGORI MENU HORIZONTAL -->
             <nav class="mt-2 overflow-x-auto no-scrollbar whitespace-nowrap flex gap-1.5 pb-0.5">
                 <button onclick="scrollToCategory('cat-bundling', event)" class="px-3 py-1 rounded-full bg-white text-kenangan-dark text-xs font-bold shadow-xs border border-stone-200 hover:bg-stone-50 active:scale-95 transition cursor-pointer">🎁 Bundling</button>
                 <button onclick="scrollToCategory('cat-coffee', event)" class="px-3 py-1 rounded-full bg-white text-kenangan-dark text-xs font-bold shadow-xs border border-stone-200 hover:bg-stone-50 active:scale-95 transition cursor-pointer">Coffee</button>
@@ -329,7 +388,6 @@
             </nav>
         </header>
 
-        <!-- Banner Info Jam Malam -->
         <div id="night-hours-banner" class="hidden mx-4 mt-3 p-3 bg-indigo-950 border border-indigo-500/40 rounded-2xl text-white shadow-xs flex items-center gap-2.5">
             <div class="w-8 h-8 rounded-lg bg-indigo-800 flex items-center justify-center text-indigo-300 flex-shrink-0 text-sm">
                 <i class="fas fa-moon"></i>
@@ -340,7 +398,6 @@
             </div>
         </div>
 
-        <!-- Banner Outlet Segera Tutup -->
         <div id="outlet-closing-soon-banner" class="hidden mx-4 mt-3 p-3 bg-rose-950 border border-rose-500/40 rounded-2xl text-rose-100 shadow-xs flex items-center gap-2.5 animate-pulse">
             <div class="w-8 h-8 rounded-lg bg-rose-800 flex items-center justify-center text-rose-200 flex-shrink-0 text-sm">
                 <i class="fas fa-hourglass-half"></i>
@@ -353,7 +410,6 @@
             </div>
         </div>
 
-        <!-- Banner Admin Sibuk -->
         <div id="admin-busy-banner" class="hidden mx-4 mt-3 p-3 bg-amber-50 border border-amber-300 rounded-2xl text-amber-900 shadow-xs flex items-center gap-2.5">
             <div class="w-8 h-8 rounded-lg bg-amber-200 text-amber-800 flex items-center justify-center text-sm flex-shrink-0">
                 <i class="fas fa-business-time"></i>
@@ -386,7 +442,6 @@
             </button>
         </div>
 
-        <!-- Daftar Menu Utama -->
         <main class="px-4 space-y-6 mt-3" id="menu-container"></main>
     </div>
 
@@ -447,7 +502,6 @@
                 </button>
             </div>
 
-            <!-- KOTAK MEMBER KILAT DI AWAL -->
             <div class="mb-3.5 p-3 rounded-2xl bg-amber-500/10 border border-amber-500/30 relative">
                 <div class="flex items-center gap-1.5 mb-0.5">
                     <span class="text-xs">✨</span>
@@ -499,7 +553,7 @@
         </div>
     </div>
 
-    <!-- MODAL KUSTOMISASI MENU -->
+    <!-- MODAL KUSTOMISASI MENU KOPI -->
     <div id="modal-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-[200] hidden opacity-0 transition-opacity duration-200">
         <div id="modal-content" class="absolute bottom-0 left-0 right-0 mx-auto w-full max-w-md bg-white rounded-t-3xl shadow-2xl transform translate-y-full transition-transform duration-200 max-h-[85vh] flex flex-col text-kenangan-dark pb-5">
             <div class="w-full flex justify-center pt-3 pb-1 cursor-pointer" onclick="closeModal(event)">
@@ -684,11 +738,191 @@
         </div>
     </div>
 
-    <!-- SCRIPT UTAMA SISTEM -->
-    <script src="app.js?v=3.0"></script>
+    <!-- MODAL CHECKOUT PRODUK DIGITAL DENGAN S&K LENGKAP -->
+    <div id="modal-digital-checkout" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[320] hidden opacity-0 transition-opacity duration-200 flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-white/20 rounded-3xl p-5 max-w-sm w-full text-white shadow-2xl space-y-3.5 max-h-[90vh] overflow-y-auto">
+            <div class="flex items-center justify-between pb-2 border-b border-white/10">
+                <div>
+                    <h3 id="dig-modal-title" class="font-black text-sm text-sky-400">Order Produk Digital</h3>
+                    <p class="text-[10px] text-gray-400">Data otomatis terhubung ke sistem tracking</p>
+                </div>
+                <button onclick="closeDigitalCheckoutModal()" class="w-6 h-6 bg-white/10 rounded-full flex justify-center items-center text-stone-400 cursor-pointer">
+                    <i class="fas fa-times text-xs"></i>
+                </button>
+            </div>
 
-    <!-- SINKRONISASI BOTTOM BAR & NAVIGASI CHECKOUT MANDIRI -->
+            <div class="space-y-2.5 text-xs">
+                <div>
+                    <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Pilih Paket Durasi</label>
+                    <select id="dig-plan-select" onchange="updateDigitalPriceDisplay()" class="w-full p-2.5 rounded-xl bg-slate-800 border border-white/20 text-white font-semibold outline-none focus:ring-2 focus:ring-sky-500"></select>
+                </div>
+
+                <!-- Box S&K Resmi Produk -->
+                <div class="p-3 rounded-2xl bg-slate-800/80 border border-white/10 space-y-1.5">
+                    <div class="flex items-center gap-1.5 text-amber-400 font-extrabold text-[11px]">
+                        <i class="fas fa-shield-halved"></i>
+                        <span>Syarat, Ketentuan & Garansi:</span>
+                    </div>
+                    <ul id="dig-snk-list" class="text-[10px] text-gray-300 space-y-1 pl-3.5 list-disc leading-tight"></ul>
+                    <p class="text-[9px] text-gray-400 pt-1 border-t border-white/10 leading-tight">
+                        *Full garansi selama masa aktif, kecuali ada pembatasan massal resmi dari pihak aplikasi atau kesalahan pengguna.
+                    </p>
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Nama Pemesan <span class="text-rose-400">*</span></label>
+                    <input type="text" id="dig-cust-name" placeholder="Misal: Dimas" class="w-full p-2 rounded-xl bg-slate-800 border border-white/20 text-white font-semibold outline-none focus:ring-2 focus:ring-sky-500">
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Nomor WhatsApp Aktif <span class="text-rose-400">*</span></label>
+                    <input type="tel" id="dig-cust-wa" placeholder="081234567890 (Untuk kirim data akun)" class="w-full p-2 rounded-xl bg-slate-800 border border-white/20 text-white font-semibold outline-none focus:ring-2 focus:ring-sky-500">
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Email Kamu (Bebas Email Pribadi)</label>
+                    <input type="email" id="dig-cust-email" placeholder="nama@gmail.com (Opsional jika akun jadi)" class="w-full p-2 rounded-xl bg-slate-800 border border-white/20 text-white font-semibold outline-none focus:ring-2 focus:ring-sky-500">
+                </div>
+            </div>
+
+            <div class="pt-2 border-t border-white/10 flex items-center justify-between">
+                <div>
+                    <span class="text-[10px] text-gray-400 block">Total Tagihan:</span>
+                    <span id="dig-price-display" class="text-base font-black text-sky-400">Rp 0</span>
+                </div>
+                <button type="button" id="btn-submit-digital" onclick="submitDigitalOrder()" class="px-5 py-2.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-black text-xs shadow-md transition active:scale-95 cursor-pointer flex items-center gap-1.5">
+                    <span>Lanjut Bayar ➔</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT UTAMA SISTEM -->
+    <script src="app.js?v=3.3"></script>
+
+    <!-- LOGIKA CHECKOUT PRODUK DIGITAL & KONEKSI TELEGRAM LENGKAP -->
     <script>
+      let currentDigitalProduct = null;
+      let currentDigitalPlans = [];
+
+      function openDigitalCheckoutModal(productName, plans, snkList) {
+          currentDigitalProduct = productName;
+          currentDigitalPlans = plans;
+
+          document.getElementById('dig-modal-title').textContent = productName;
+          
+          const snkUl = document.getElementById('dig-snk-list');
+          snkUl.innerHTML = snkList.map(item => `<li>${item}</li>`).join('');
+
+          const planSelect = document.getElementById('dig-plan-select');
+          planSelect.innerHTML = plans.map((p, idx) => `<option value="${idx}">${p.name} - Rp ${p.price.toLocaleString('id-ID')}</option>`).join('');
+
+          updateDigitalPriceDisplay();
+
+          const modal = document.getElementById('modal-digital-checkout');
+          modal.classList.remove('hidden');
+          setTimeout(() => modal.classList.remove('opacity-0'), 10);
+      }
+
+      function closeDigitalCheckoutModal() {
+          const modal = document.getElementById('modal-digital-checkout');
+          modal.classList.add('opacity-0');
+          setTimeout(() => modal.classList.add('hidden'), 200);
+      }
+
+      function updateDigitalPriceDisplay() {
+          const planIdx = parseInt(document.getElementById('dig-plan-select').value) || 0;
+          const selectedPlan = currentDigitalPlans[planIdx] || currentDigitalPlans[0];
+          if (selectedPlan) {
+              document.getElementById('dig-price-display').textContent = `Rp ${selectedPlan.price.toLocaleString('id-ID')}`;
+          }
+      }
+
+      async function submitDigitalOrder() {
+          const name = document.getElementById('dig-cust-name').value.trim();
+          const wa = document.getElementById('dig-cust-wa').value.trim();
+          const email = document.getElementById('dig-cust-email').value.trim();
+          const planIdx = parseInt(document.getElementById('dig-plan-select').value) || 0;
+          const plan = currentDigitalPlans[planIdx];
+
+          if (!name || name.length < 2) {
+              alert("Mohon isi Nama Pemesan!");
+              return;
+          }
+          if (!wa || wa.length < 9) {
+              alert("Mohon isi Nomor WhatsApp aktif untuk pengiriman akun!");
+              return;
+          }
+
+          const btn = document.getElementById('btn-submit-digital');
+          btn.disabled = true;
+          btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
+
+          const rawClean = name.replace(/[^a-zA-Z0-9]/g, '').toLowerCase() || 'order';
+          const orderId = `dig-${rawClean}-${Date.now().toString().slice(-4)}`;
+          const grandTotal = plan.price;
+
+          let cleanWa = wa.replace(/[^0-9]/g, '');
+          if (cleanWa.startsWith('0')) cleanWa = '62' + cleanWa.slice(1);
+          else if (!cleanWa.startsWith('62') && cleanWa.length > 0) cleanWa = '62' + cleanWa;
+
+          const digitalItem = [{
+              name: `${currentDigitalProduct} (${plan.name})`,
+              qty: 1,
+              price: grandTotal,
+              details: `Email: ${email || 'Akun siap pakai / minta via WA'}`
+          }];
+
+          // 1. Simpan ke Supabase Orders
+          try {
+              if (supabaseClient) {
+                  await supabaseClient.from('orders').upsert([{
+                      id: orderId,
+                      customer_name: name,
+                      customer_wa: cleanWa,
+                      outlet_name: 'Produk Digital Bintang Store',
+                      order_items: digitalItem,
+                      total_price: grandTotal,
+                      estimated_profit: Math.round(grandTotal * 0.4),
+                      status: 'menunggu_pembayaran'
+                  }]);
+              }
+          } catch(e) {
+              console.error("Gagal simpan order digital:", e);
+          }
+
+          // 2. Kirim 4 Pesan Telegram Admin Lengkap Tombol Aksi
+          const trackingUrl = `https://www.bintangstore.web.id/tracking.html?order_id=${orderId}`;
+          const waDirectLink = cleanWa ? `https://wa.me/${cleanWa}` : '-';
+
+          const bubble1 = `── .✦ <b>ORDER PRODUK DIGITAL BARU</b> ✦.──\n` +
+              `🆔 <b>Order ID :</b> <code>${orderId}</code>\n` +
+              `🔗 <b>Link Tracking CS :</b> <a href="${trackingUrl}">${trackingUrl}</a>\n` +
+              `👤 <b>Nama Pemesan :</b> ${name}\n` +
+              `📱 <b>No. WhatsApp :</b> ${wa}\n` +
+              `📧 <b>Email Akun :</b> ${email || '(Akun Siap Pakai / Chat WA)'}\n` +
+              `🔗 <b>Chat Customer :</b> <a href="${waDirectLink}">${waDirectLink}</a>\n` +
+              `⚡ <b>Paket :</b> ${currentDigitalProduct}\n` +
+              `⏱️ <b>Durasi :</b> ${plan.name}\n` +
+              `--------------------------------------------------\n` +
+              `💰 <b>TOTAL TAGIHAN : Rp ${grandTotal.toLocaleString('id-ID')}</b>\n` +
+              `📌 <b>Status : [MENUNGGU PEMBAYARAN QRIS]</b>`;
+
+          const bubble3 = `<code>Halo Kak ${name}! 🫶✨\nTerima kasih sudah order ${currentDigitalProduct} (${plan.name}) di Bintang Store!\n\n💰 Total Tagihan: Rp ${grandTotal.toLocaleString('id-ID')}\n🔗 Live Tracking: ${trackingUrl}\n\nSilakan transfer via QRIS di halaman tracking ya Kak. Bukti transfer kirim ke sini agar akun langsung kami proseskan secepatnya! 🫰💖</code>`;
+          const bubble4 = `<code>Terima kasih banyak Kak ${name}! Pembayaran Rp ${grandTotal.toLocaleString('id-ID')} untuk ${currentDigitalProduct} sudah diterima ✨ Akun kamu sedang disiapkan/diinvite oleh admin sekarang ya 🫶</code>`;
+
+          await sendSingleTelegramMsg(bubble1);
+          await delay(350);
+          await sendTelegramOrderWithButtons(orderId, name, grandTotal, 'Produk Digital');
+          await delay(350);
+          await sendSingleTelegramMsg(bubble3);
+          await delay(350);
+          await sendSingleTelegramMsg(`👇 <b>[TEMPLATE BALASAN TRANSFER DITERIMA]:</b>\n\n${bubble4}`);
+
+          // 3. Arahkan Langsung ke Ruang Tunggu Tracking
+          window.location.href = `tracking.html?order_id=${orderId}`;
+      }
+
       function syncShopeeBottomBar() {
         const bottomBar = document.getElementById("shopee-bottom-bar");
         const badge = document.getElementById("bottom-cart-badge");
@@ -698,10 +932,7 @@
         if (!bottomBar || !kopkenView) return;
 
         const isKopkenActive = !kopkenView.classList.contains("hidden");
-        const totalQty = (typeof cart !== 'undefined' && Array.isArray(cart)) 
-            ? cart.reduce((sum, c) => sum + (Number(c.qty) || 1), 0) 
-            : 0;
-
+        const totalQty = (typeof cart !== 'undefined' && Array.isArray(cart)) ? cart.reduce((sum, c) => sum + (Number(c.qty) || 1), 0) : 0;
         let subtotal = 0;
         if (typeof cart !== 'undefined' && Array.isArray(cart)) {
             subtotal = cart.reduce((sum, c) => sum + ((Number(c.price) || 15000) * (Number(c.qty) || 1)), 0);
@@ -722,32 +953,20 @@
 
       function goToCheckoutPage() {
         const activeCart = (typeof cart !== 'undefined' && Array.isArray(cart)) ? cart : [];
-        
         if (activeCart.length === 0) {
-            if (typeof showToast === 'function') {
-                showToast("Keranjang masih kosong, pilih menu dulu ya!");
-            } else {
-                alert("Keranjang masih kosong, pilih menu dulu ya!");
-            }
+            alert("Keranjang masih kosong, pilih menu dulu ya!");
             return;
         }
-
         try {
             localStorage.setItem("bintang_cart", JSON.stringify(activeCart));
             localStorage.setItem("cart", JSON.stringify(activeCart));
-
             if (typeof selectedOutlet !== 'undefined' && selectedOutlet) {
                 localStorage.setItem("bintang_selected_outlet", JSON.stringify(selectedOutlet));
                 localStorage.setItem("selectedOutlet", JSON.stringify(selectedOutlet));
             }
-
             const currentType = typeof currentOrderType !== 'undefined' ? currentOrderType : 'takeaway';
             localStorage.setItem("bintang_order_type", currentType);
-            localStorage.setItem("orderType", currentType);
-        } catch(e) {
-            console.error("Gagal simpan ke localStorage:", e);
-        }
-
+        } catch(e) {}
         window.location.href = "checkout.html";
       }
 
