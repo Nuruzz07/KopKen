@@ -477,13 +477,13 @@
         </div>
     </div>
 
-    <!-- MODAL WELCOME GATE -->
+    <!-- MODAL WELCOME GATE (DENGAN DUKUNGAN SHOPEE INSTAN) -->
     <div id="modal-welcome-gate" class="fixed inset-0 bg-black/70 backdrop-blur-xs z-[300] hidden opacity-0 transition-opacity duration-200 flex items-center justify-center p-4">
-        <div id="welcome-gate-card" class="bg-white rounded-3xl p-5 max-w-sm w-full text-kenangan-dark shadow-2xl border border-stone-200">
+        <div id="welcome-gate-card" class="bg-white rounded-3xl p-5 max-w-sm w-full text-kenangan-dark shadow-2xl border border-stone-200 max-h-[92vh] overflow-y-auto">
             <div class="flex items-center justify-between pb-3 border-b border-stone-100 mb-3">
                 <div class="flex items-center gap-2">
                     <img src="https://i.postimg.cc/GpwttdxX/Logo-Kopi-Kenangan-Format-PNG-AI-EPS-CDR-PDF-SVG.png" alt="Logo" class="w-5 h-5 object-contain">
-                    <h3 class="font-black text-xs text-kenangan-dark">Pilih Lokasi & Ambil</h3>
+                    <h3 class="font-black text-xs text-kenangan-dark">Pilih Lokasi & Cara Ambil</h3>
                 </div>
                 <button onclick="closeWelcomeGateModal()" class="w-6 h-6 bg-stone-100 hover:bg-stone-200 rounded-full flex justify-center items-center text-stone-400 cursor-pointer">
                     <i class="fas fa-times text-xs"></i>
@@ -507,19 +507,63 @@
                 <div id="memberSuggestBox" class="hidden absolute left-3 right-3 top-full mt-1 bg-white border border-stone-200 rounded-xl shadow-xl z-50 max-h-48 overflow-y-auto divide-y divide-stone-100"></div>
             </div>
             
-            <div class="grid grid-cols-2 gap-2 mb-3">
-                <button type="button" id="gate-type-takeaway" onclick="setGateOrderType('takeaway')" class="py-2 px-3 rounded-2xl border-2 border-kenangan-primary bg-amber-50 text-kenangan-primary font-bold text-xs flex flex-col items-center gap-1 transition cursor-pointer">
+            <!-- 3 Opsi Tipe Pemesanan -->
+            <div class="grid grid-cols-3 gap-1.5 mb-3">
+                <button type="button" id="gate-type-takeaway" onclick="setGateOrderType('takeaway')" class="py-2 px-1 rounded-2xl border-2 border-kenangan-primary bg-amber-50 text-kenangan-primary font-bold text-xs flex flex-col items-center gap-1 transition cursor-pointer text-center">
                     <i class="fas fa-bag-shopping text-sm"></i>
-                    <span>Take Away</span>
+                    <span class="text-[11px]">Take Away</span>
                 </button>
-                <button type="button" id="gate-type-dinein" onclick="setGateOrderType('dinein')" class="py-2 px-3 rounded-2xl border-2 border-stone-200 bg-white text-stone-600 font-bold text-xs flex flex-col items-center gap-1 transition cursor-pointer">
+                <button type="button" id="gate-type-dinein" onclick="setGateOrderType('dinein')" class="py-2 px-1 rounded-2xl border-2 border-stone-200 bg-white text-stone-600 font-bold text-xs flex flex-col items-center gap-1 transition cursor-pointer text-center">
                     <i class="fas fa-mug-hot text-sm"></i>
-                    <span>Dine In</span>
+                    <span class="text-[11px]">Dine In</span>
+                </button>
+                <button type="button" id="gate-type-delivery" onclick="setGateOrderType('delivery')" class="py-2 px-1 rounded-2xl border-2 border-stone-200 bg-white text-stone-600 font-bold text-xs flex flex-col items-center gap-1 transition cursor-pointer text-center">
+                    <i class="fas fa-motorcycle text-sm"></i>
+                    <span class="text-[11px]">Delivery</span>
                 </button>
             </div>
 
+            <!-- Form Khusus Delivery Shopee Instan -->
+            <div id="gate-delivery-details-box" class="hidden mb-3 p-3 bg-amber-500/10 border border-amber-500/30 rounded-2xl space-y-2.5 text-left">
+                <div class="flex items-center gap-1.5 text-xs font-black text-amber-950">
+                    <i class="fas fa-bolt text-amber-600"></i>
+                    <span>Pengantaran Shopee Instan</span>
+                </div>
+                
+                <div class="space-y-1">
+                    <label class="block text-[10px] font-bold text-stone-600">Pilih Radius Jarak dari Gerai:</label>
+                    <div class="grid grid-cols-2 gap-1.5">
+                        <label class="flex items-center gap-1.5 p-2 bg-white rounded-xl border border-stone-200 cursor-pointer">
+                            <input type="radio" name="gate_delivery_tier" value="5000" checked onchange="onDeliveryTierChange(5000)" class="text-amber-600 focus:ring-amber-500">
+                            <div class="text-[10px] leading-tight">
+                                <p class="font-bold text-stone-800">Dekat (&lt;3 km)</p>
+                                <p class="text-[9px] text-amber-800 font-extrabold">+Rp 5.000</p>
+                            </div>
+                        </label>
+                        <label class="flex items-center gap-1.5 p-2 bg-white rounded-xl border border-stone-200 cursor-pointer">
+                            <input type="radio" name="gate_delivery_tier" value="10000" onchange="onDeliveryTierChange(10000)" class="text-amber-600 focus:ring-amber-500">
+                            <div class="text-[10px] leading-tight">
+                                <p class="font-bold text-stone-800">Sedang (3-6 km)</p>
+                                <p class="text-[9px] text-amber-800 font-extrabold">+Rp 10.000</p>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="space-y-1.5">
+                    <div>
+                        <label class="block text-[10px] font-bold text-stone-600 mb-0.5">Alamat Lengkap & Patokan Rumah: <span class="text-rose-500">*</span></label>
+                        <textarea id="gate-delivery-address" rows="2" placeholder="Contoh: Jl. Dipatiukur No. 12, Pagar hitam sebelah warung" class="w-full text-xs p-2 rounded-xl border border-stone-200 bg-white font-medium text-stone-800 focus:outline-none focus:ring-2 focus:ring-kenangan-primary resize-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-stone-600 mb-0.5">Link Google Maps (Opsional):</label>
+                        <input type="url" id="gate-delivery-maps" placeholder="https://maps.google.com/?q=..." class="w-full text-xs p-2 rounded-xl border border-stone-200 bg-white text-stone-800 focus:outline-none focus:ring-2 focus:ring-kenangan-primary">
+                    </div>
+                </div>
+            </div>
+
             <div class="relative mb-3">
-                <label class="block text-[9px] font-bold text-stone-500 uppercase mb-1">Cari Outlet Lain</label>
+                <label class="block text-[9px] font-bold text-stone-500 uppercase mb-1">Cari Outlet Terdekat</label>
                 <input type="text" id="gate-outlet-search" oninput="handleGateOutletSearch()" placeholder="Ketik mall atau nama cabang..." class="w-full px-3 py-1.5 rounded-xl bg-stone-50 border border-stone-200 text-xs font-semibold text-kenangan-dark outline-none">
                 <button id="gate-clear-search-btn" onclick="clearGateSearch()" class="absolute inset-y-0 right-0 flex items-center pr-2.5 text-stone-400 hidden">
                     <i class="fas fa-times-circle text-xs"></i>
@@ -785,14 +829,113 @@
         </div>
     </div>
 
-    <!-- SCRIPT UTAMA SISTEM -->
+    <!-- SCRIPT UTAMA SISTEM KOPI -->
     <script src="app.js?v=3.4"></script>
 
-    <!-- LOGIKA CHECKOUT PRODUK DIGITAL & KONEKSI TELEGRAM LENGKAP -->
+    <!-- LOGIKA CHECKOUT PRODUK DIGITAL & METODE DELIVERY SHOPEE INSTAN -->
     <script>
       let currentDigitalProduct = null;
       let currentDigitalPlans = [];
       let isSubmittingDigital = false;
+
+      // Variabel Khusus Delivery
+      let activeOrderType = localStorage.getItem("bintang_order_type") || "takeaway";
+      let activeDeliveryFee = parseInt(localStorage.getItem("bintang_delivery_fee")) || 5000;
+
+      // Handle Perubahan Pilihan Tipe Order di Welcome Gate
+      function setGateOrderType(type) {
+        activeOrderType = type;
+        
+        const btnTakeaway = document.getElementById("gate-type-takeaway");
+        const btnDinein = document.getElementById("gate-type-dinein");
+        const btnDelivery = document.getElementById("gate-type-delivery");
+        const deliveryBox = document.getElementById("gate-delivery-details-box");
+
+        // Reset Styles
+        [btnTakeaway, btnDinein, btnDelivery].forEach(b => {
+          if (b) {
+            b.className = "py-2 px-1 rounded-2xl border-2 border-stone-200 bg-white text-stone-600 font-bold text-xs flex flex-col items-center gap-1 transition cursor-pointer text-center";
+          }
+        });
+
+        // Set Active Style
+        const activeBtn = document.getElementById(`gate-type-${type}`);
+        if (activeBtn) {
+          activeBtn.className = "py-2 px-1 rounded-2xl border-2 border-kenangan-primary bg-amber-50 text-kenangan-primary font-bold text-xs flex flex-col items-center gap-1 transition cursor-pointer text-center";
+        }
+
+        // Tampilkan/Sembunyikan Box Delivery
+        if (type === 'delivery') {
+          if (deliveryBox) deliveryBox.classList.remove("hidden");
+          const checkedRadio = document.querySelector('input[name="gate_delivery_tier"]:checked');
+          activeDeliveryFee = checkedRadio ? parseInt(checkedRadio.value) : 5000;
+        } else {
+          if (deliveryBox) deliveryBox.classList.add("hidden");
+          activeDeliveryFee = 0;
+        }
+
+        // Update Global State jika fungsi tersedia di app.js
+        if (typeof currentOrderType !== 'undefined') {
+          currentOrderType = type;
+        }
+        updateBannerOrderTypeUI(type);
+      }
+
+      function onDeliveryTierChange(fee) {
+        activeDeliveryFee = fee;
+      }
+
+      function updateBannerOrderTypeUI(type) {
+        const iconEl = document.getElementById("banner-order-type-icon");
+        const labelEl = document.getElementById("banner-order-type-label");
+        if (!iconEl || !labelEl) return;
+
+        if (type === "delivery") {
+          iconEl.className = "fas fa-motorcycle text-sm";
+          labelEl.textContent = "Delivery";
+        } else if (type === "dinein") {
+          iconEl.className = "fas fa-mug-hot text-sm";
+          labelEl.textContent = "Dine In";
+        } else {
+          iconEl.className = "fas fa-bag-shopping text-sm";
+          labelEl.textContent = "Take Away";
+        }
+      }
+
+      // Override confirmWelcomeGate untuk memvalidasi dan menyimpan data delivery
+      const originalConfirmWelcomeGate = window.confirmWelcomeGate;
+      window.confirmWelcomeGate = function() {
+        if (activeOrderType === "delivery") {
+          const addrEl = document.getElementById("gate-delivery-address");
+          const mapsEl = document.getElementById("gate-delivery-maps");
+          const addrVal = addrEl ? addrEl.value.trim() : "";
+          const mapsVal = mapsEl ? mapsEl.value.trim() : "";
+
+          if (!addrVal || addrVal.length < 8) {
+            alert("Mohon masukkan alamat lengkap dan patokan rumah untuk pengantaran Shopee Instan!");
+            if (addrEl) addrEl.focus();
+            return;
+          }
+
+          localStorage.setItem("bintang_order_type", "delivery");
+          localStorage.setItem("bintang_delivery_fee", activeDeliveryFee.toString());
+          localStorage.setItem("bintang_delivery_address", addrVal);
+          localStorage.setItem("bintang_delivery_maps", mapsVal);
+        } else {
+          localStorage.setItem("bintang_order_type", activeOrderType);
+          localStorage.setItem("bintang_delivery_fee", "0");
+          localStorage.removeItem("bintang_delivery_address");
+          localStorage.removeItem("bintang_delivery_maps");
+        }
+
+        updateBannerOrderTypeUI(activeOrderType);
+
+        if (typeof originalConfirmWelcomeGate === "function") {
+          originalConfirmWelcomeGate();
+        } else {
+          closeWelcomeGateModal();
+        }
+      };
 
       function openDigitalCheckoutModal(productName, plans, snkList) {
           currentDigitalProduct = productName;
@@ -807,7 +950,6 @@
           const planSelect = document.getElementById('dig-plan-select');
           planSelect.innerHTML = plans.map((p, idx) => `<option value="${idx}">${p.name} - Rp ${p.price.toLocaleString('id-ID')}</option>`).join('');
 
-          // Reset Tombol & Input ke Kondisi Bersih
           const btn = document.getElementById('btn-submit-digital');
           if (btn) {
               btn.disabled = false;
@@ -879,7 +1021,6 @@
               details: `Email: ${email || 'Akun siap pakai / konfirmasi via WA'}`
           }];
 
-          // 1. Simpan ke Supabase Orders
           try {
               if (typeof supabaseClient !== 'undefined') {
                   await supabaseClient.from('orders').upsert([{
@@ -897,7 +1038,6 @@
               console.error("Gagal simpan order digital:", e);
           }
 
-          // 2. Kirim Langsung ke Bot Telegram via Fetch Mandiri
           const botToken = "8765196047:AAGSnN7VoGnXxQK5rl5459ifGqBVE3EKsWo";
           const adminChatId = "6731058601";
           const trackingUrl = `https://www.bintangstore.web.id/tracking.html?order_id=${orderId}`;
@@ -919,7 +1059,7 @@
           const bubble3 = `<code>Halo Kak ${name}! 🫶✨\nTerima kasih sudah order ${currentDigitalProduct} (${plan.name}) di Bintang Store!\n\n💰 Total Tagihan: Rp ${grandTotal.toLocaleString('id-ID')}\n🔗 Live Tracking: ${trackingUrl}\n\nSilakan transfer via QRIS di halaman tracking ya Kak. Bukti transfer kirim ke sini agar akun langsung kami proseskan secepatnya! 🫰💖</code>`;
           const bubble4 = `<code>Terima kasih banyak Kak ${name}! Pembayaran Rp ${grandTotal.toLocaleString('id-ID')} untuk ${currentDigitalProduct} sudah diterima ✨ Akun kamu sedang disiapkan/diinvite oleh admin sekarang ya 🫶</code>`;
 
-         const inlineKeyboard = {
+          const inlineKeyboard = {
               inline_keyboard: [
                   [
                       { text: "✅ Pembayaran Diterima (Proses)", callback_data: `st:${orderId}:sedang_diproses` }
@@ -945,18 +1085,14 @@
           };
 
           try {
-              // Kirim Bubble 1 (Detail Order)
               await sendMsg(bubble1);
-              // Kirim Bubble 2 (Tombol Aksi)
               await sendMsg(`⚡ <b>Aksi Cepat Admin untuk Order:</b> <code>${orderId}</code>`, inlineKeyboard);
-              // Kirim Bubble 3 & 4 (Template Pesan Pelanggan)
               await sendMsg(bubble3);
               await sendMsg(`👇 <b>[TEMPLATE BALASAN TRANSFER DITERIMA]:</b>\n\n${bubble4}`);
           } catch(err) {
               console.error("Gagal kirim notif telegram:", err);
           }
 
-          // 3. Arahkan Langsung ke Ruang Tunggu Tracking
           window.location.href = `tracking.html?order_id=${orderId}`;
       }
 
@@ -1001,11 +1137,30 @@
                 localStorage.setItem("bintang_selected_outlet", JSON.stringify(selectedOutlet));
                 localStorage.setItem("selectedOutlet", JSON.stringify(selectedOutlet));
             }
-            const currentType = typeof currentOrderType !== 'undefined' ? currentOrderType : 'takeaway';
-            localStorage.setItem("bintang_order_type", currentType);
+            
+            // Sinkronisasi tipe order & delivery fee ke checkout
+            localStorage.setItem("bintang_order_type", activeOrderType);
+            localStorage.setItem("bintang_delivery_fee", activeOrderType === "delivery" ? activeDeliveryFee.toString() : "0");
         } catch(e) {}
         window.location.href = "checkout.html";
       }
+
+      // Sinkronisasi Awal saat halaman dimuat
+      window.addEventListener("DOMContentLoaded", () => {
+        const savedType = localStorage.getItem("bintang_order_type") || "takeaway";
+        setGateOrderType(savedType);
+        
+        const savedAddr = localStorage.getItem("bintang_delivery_address");
+        const savedMaps = localStorage.getItem("bintang_delivery_maps");
+        if (savedAddr) {
+          const addrEl = document.getElementById("gate-delivery-address");
+          if (addrEl) addrEl.value = savedAddr;
+        }
+        if (savedMaps) {
+          const mapsEl = document.getElementById("gate-delivery-maps");
+          if (mapsEl) mapsEl.value = savedMaps;
+        }
+      });
 
       setInterval(syncShopeeBottomBar, 300);
     </script>
