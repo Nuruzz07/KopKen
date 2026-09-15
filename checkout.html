@@ -29,7 +29,7 @@
         <div class="bg-white rounded-3xl p-4 shadow-xs border border-stone-200/80 flex items-center justify-between gap-2">
             <div class="flex items-center gap-2.5 min-w-0">
                 <div class="w-9 h-9 rounded-xl bg-amber-50 border border-amber-200/70 flex items-center justify-center text-amber-800 flex-shrink-0">
-                    <i class="fas fa-store text-sm"></i>
+                    <i id="outlet-card-icon" class="fas fa-store text-sm"></i>
                 </div>
                 <div class="min-w-0">
                     <div class="flex items-center gap-1.5">
@@ -42,6 +42,27 @@
             <a href="index.html#kopken" class="px-2.5 py-1.5 rounded-xl bg-stone-50 hover:bg-stone-100 text-stone-700 font-extrabold text-[10px] transition border border-stone-200 flex-shrink-0">
                 Ganti
             </a>
+        </div>
+
+        <!-- KARTU ALAMAT PENGIRIMAN KHUSUS DELIVERY SHOPEE INSTAN -->
+        <div id="delivery-address-card" class="hidden bg-white rounded-3xl p-4 shadow-xs border border-stone-200/80 space-y-2">
+            <div class="flex items-center justify-between border-b border-stone-100 pb-2">
+                <div class="flex items-center gap-1.5 text-xs font-black text-stone-900">
+                    <i class="fas fa-motorcycle text-amber-700"></i>
+                    <span>Tujuan Pengantaran Shopee Instan</span>
+                </div>
+                <span id="delivery-tier-badge" class="text-[9px] font-black px-1.5 py-0.5 rounded bg-amber-100 text-amber-900 uppercase">Ongkir Rp 5.000</span>
+            </div>
+            <div class="text-xs space-y-1">
+                <p class="text-[10px] font-bold text-stone-400 uppercase tracking-wider">Alamat & Patokan:</p>
+                <p id="delivery-address-text" class="font-semibold text-stone-800 leading-snug">-</p>
+                <div id="delivery-maps-box" class="hidden pt-1">
+                    <a id="delivery-maps-link" href="#" target="_blank" class="inline-flex items-center gap-1 text-[11px] font-bold text-blue-600 hover:underline">
+                        <i class="fas fa-location-dot text-rose-500"></i>
+                        <span>Buka Titik Peta Google Maps</span>
+                    </a>
+                </div>
+            </div>
         </div>
 
         <!-- KARTU 2: RINCIAN MENU KERANJANG -->
@@ -62,8 +83,8 @@
             </h3>
 
             <!-- Pilihan Waktu -->
-            <div>
-                <label class="block text-[11px] font-bold text-stone-700 mb-1.5">Waktu Pengambilan</label>
+            <div id="pickup-time-section">
+                <label id="time-section-label" class="block text-[11px] font-bold text-stone-700 mb-1.5">Waktu Pengambilan</label>
                 <div class="grid grid-cols-2 gap-2 mb-2">
                     <button type="button" id="btn-co-now" onclick="setCheckoutOrderTime('now')" class="py-2 px-3 text-xs font-bold rounded-xl border border-amber-600 bg-amber-50 text-amber-900 flex items-center justify-center gap-1.5">
                         ⚡ Sekarang (5-15 mnt)
@@ -100,12 +121,12 @@
             <!-- Input Nama & WA -->
             <div class="space-y-2.5 pt-1">
                 <div>
-                    <label class="block text-[11px] font-bold text-stone-700 mb-1">Nama Pemesan Kasir <span class="text-red-500">*</span></label>
-                    <input type="text" id="co-name" placeholder="Nama untuk dipanggil barista saat ambil" class="w-full px-3 py-2 rounded-xl bg-stone-50 border border-stone-200 text-xs font-semibold focus:bg-white focus:ring-2 focus:ring-amber-600 outline-none">
+                    <label id="name-field-label" class="block text-[11px] font-bold text-stone-700 mb-1">Nama Pemesan <span class="text-red-500">*</span></label>
+                    <input type="text" id="co-name" placeholder="Nama untuk pesanan" class="w-full px-3 py-2 rounded-xl bg-stone-50 border border-stone-200 text-xs font-semibold focus:bg-white focus:ring-2 focus:ring-amber-600 outline-none">
                 </div>
                 <div>
                     <label class="block text-[11px] font-bold text-stone-700 mb-1">Nomor WhatsApp Aktif <span class="text-red-500">*</span></label>
-                    <input type="tel" id="co-wa" placeholder="081234567890 (Untuk struk & nomor antrean)" class="w-full px-3 py-2 rounded-xl bg-stone-50 border border-stone-200 text-xs font-semibold focus:bg-white focus:ring-2 focus:ring-amber-600 outline-none">
+                    <input type="tel" id="co-wa" placeholder="081234567890 (Untuk koordinasi & struk)" class="w-full px-3 py-2 rounded-xl bg-stone-50 border border-stone-200 text-xs font-semibold focus:bg-white focus:ring-2 focus:ring-amber-600 outline-none">
                 </div>
                 <div id="co-bag-wrap">
                     <label class="flex items-center gap-2 p-2 rounded-xl bg-stone-50 border border-stone-200 cursor-pointer">
@@ -139,6 +160,10 @@
                 <span>Kantong Belanja:</span>
                 <span>+ Rp 1.000</span>
             </div>
+            <div id="co-delivery-fee-row" class="flex justify-between text-amber-800 font-semibold hidden">
+                <span>Ongkir Shopee Instan:</span>
+                <span id="co-delivery-fee-text">+ Rp 0</span>
+            </div>
             <hr class="border-stone-100 my-1">
             <div class="flex justify-between items-baseline font-black text-stone-900">
                 <span class="text-xs uppercase">Total Tagihan Final:</span>
@@ -161,7 +186,7 @@
         <!-- PERINGATAN TEGAS CABANG & VARIAN PAS -->
         <div class="p-3 bg-amber-500/10 border border-amber-500/30 rounded-2xl flex items-start gap-2">
             <i class="fas fa-info-circle text-amber-700 text-xs mt-0.5 flex-shrink-0"></i>
-            <p class="text-[10px] text-stone-700 leading-tight">
+            <p id="co-warning-text" class="text-[10px] text-stone-700 leading-tight">
                 Pastikan cabang dan pesanan sudah sesuai. Pesanan yang sudah diproses admin ke kasir <b>tidak dapat dibatalkan atau diubah lokasinya</b>.
             </p>
         </div>
@@ -214,6 +239,9 @@
         let coCart = [];
         let coOutlet = null;
         let coOrderType = 'takeaway';
+        let coDeliveryFee = 0;
+        let coDeliveryAddress = '';
+        let coDeliveryMaps = '';
         let coOrderTimeType = 'now';
         let isCheckoutSubmitting = false;
 
@@ -233,6 +261,9 @@
                 coOutlet = rawOutlet ? JSON.parse(rawOutlet) : null;
                 
                 coOrderType = localStorage.getItem("bintang_order_type") || localStorage.getItem("orderType") || "takeaway";
+                coDeliveryFee = parseInt(localStorage.getItem("bintang_delivery_fee")) || 0;
+                coDeliveryAddress = localStorage.getItem("bintang_delivery_address") || "";
+                coDeliveryMaps = localStorage.getItem("bintang_delivery_maps") || "";
             } catch (e) {
                 console.error("Gagal membaca localStorage:", e);
                 coCart = [];
@@ -259,13 +290,57 @@
 
         function renderCheckoutUI() {
             document.getElementById("checkout-outlet-name").textContent = coOutlet.name || "Kopi Kenangan";
-            document.getElementById("outlet-type-badge").textContent = coOrderType === "takeaway" ? "Take Away" : "Dine In";
             
-            if (coOrderType === "dinein") {
+            const badgeType = document.getElementById("outlet-type-badge");
+            const iconOutlet = document.getElementById("outlet-card-icon");
+            const addrCard = document.getElementById("delivery-address-card");
+            const timeLabel = document.getElementById("time-section-label");
+            const nameLabel = document.getElementById("name-field-label");
+
+            if (coOrderType === "delivery") {
+                badgeType.textContent = "Delivery (Shopee Instan)";
+                badgeType.className = "text-[9px] font-black px-1.5 py-0.5 rounded bg-orange-100 text-orange-900 uppercase";
+                if (iconOutlet) iconOutlet.className = "fas fa-motorcycle text-sm";
+                
+                if (addrCard) {
+                    addrCard.classList.remove("hidden");
+                    document.getElementById("delivery-address-text").textContent = coDeliveryAddress || "Alamat belum terisi";
+                    document.getElementById("delivery-tier-badge").textContent = `Ongkir Rp ${coDeliveryFee.toLocaleString('id-ID')}`;
+                    
+                    const mapsBox = document.getElementById("delivery-maps-box");
+                    const mapsLink = document.getElementById("delivery-maps-link");
+                    if (coDeliveryMaps) {
+                        mapsBox.classList.remove("hidden");
+                        mapsLink.href = coDeliveryMaps;
+                    } else {
+                        mapsBox.classList.add("hidden");
+                    }
+                }
+
+                if (timeLabel) timeLabel.textContent = "Estimasi Pengantaran Kurir";
+                if (nameLabel) nameLabel.innerHTML = 'Nama Penerima <span class="text-red-500">*</span>';
+                document.getElementById("co-name").placeholder = "Nama penerima paket kopi";
+
+                const bagWrap = document.getElementById("co-bag-wrap");
+                if (bagWrap) bagWrap.classList.remove("hidden"); // Delivery butuh kantong plastik
+                const bagChk = document.getElementById("co-bag");
+                if (bagChk) bagChk.checked = true;
+
+            } else if (coOrderType === "dinein") {
+                badgeType.textContent = "Dine In";
+                badgeType.className = "text-[9px] font-black px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 uppercase";
+                if (iconOutlet) iconOutlet.className = "fas fa-mug-hot text-sm";
+                if (addrCard) addrCard.classList.add("hidden");
+                
                 const bagWrap = document.getElementById("co-bag-wrap");
                 if (bagWrap) bagWrap.classList.add("hidden");
                 const bagChk = document.getElementById("co-bag");
                 if (bagChk) bagChk.checked = false;
+            } else {
+                badgeType.textContent = "Take Away";
+                badgeType.className = "text-[9px] font-black px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 uppercase";
+                if (iconOutlet) iconOutlet.className = "fas fa-store text-sm";
+                if (addrCard) addrCard.classList.add("hidden");
             }
 
             const listEl = document.getElementById("checkout-items-list");
@@ -344,13 +419,22 @@
             if (mallFee > 0) mallRow.classList.remove("hidden");
             else mallRow.classList.add("hidden");
 
-            const isBagChecked = document.getElementById("co-bag").checked && coOrderType === "takeaway";
+            const isBagChecked = document.getElementById("co-bag").checked && coOrderType !== "dinein";
             const bagFee = isBagChecked ? 1000 : 0;
             const bagRow = document.getElementById("co-bag-fee-row");
             if (bagFee > 0) bagRow.classList.remove("hidden");
             else bagRow.classList.add("hidden");
 
-            const grandTotal = subtotal + mallFee + bagFee;
+            const deliveryFee = coOrderType === "delivery" ? coDeliveryFee : 0;
+            const deliveryRow = document.getElementById("co-delivery-fee-row");
+            if (deliveryFee > 0) {
+                deliveryRow.classList.remove("hidden");
+                document.getElementById("co-delivery-fee-text").textContent = `+ Rp ${deliveryFee.toLocaleString('id-ID')}`;
+            } else {
+                deliveryRow.classList.add("hidden");
+            }
+
+            const grandTotal = subtotal + mallFee + bagFee + deliveryFee;
             document.getElementById("co-grand-total").textContent = `Rp ${grandTotal.toLocaleString('id-ID')}`;
 
             return grandTotal;
@@ -362,7 +446,7 @@
                 await fetch(url, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ chat_id: chatId, text: msgHtml, parse_mode: 'HTML' })
+                    body: JSON.stringify({ chat_id: chatId, text: msgHtml, parse_mode: 'HTML', disable_web_page_preview: true })
                 });
             } catch (e) {
                 console.error("Gagal kirim single message:", e);
@@ -373,6 +457,7 @@
             const text = `🔔 <b>ORDERAN MASUK ATAS NAMA ${customerName.toUpperCase()}!</b>\n\n` +
                 `🆔 <b>Order ID:</b> <code>${orderId}</code>\n` +
                 `👤 <b>Nama:</b> ${customerName}\n` +
+                `🛵 <b>Metode:</b> ${coOrderType === 'delivery' ? 'Delivery Shopee Instan' : (coOrderType === 'takeaway' ? 'Take Away' : 'Dine In')}\n` +
                 `📍 <b>Outlet:</b> ${outletName}\n` +
                 `💰 <b>Total:</b> Rp ${grandTotal.toLocaleString('id-ID')}\n` +
                 `📌 <b>Status:</b> Menunggu Konfirmasi\n\n` +
@@ -381,8 +466,8 @@
             const inlineKeyboard = {
                 inline_keyboard: [
                     [{ text: "⏳ Konfirmasi (Tagih QRIS)", callback_data: `st:${orderId}:menunggu_pembayaran` }],
-                    [{ text: "☕ Pembayaran Diterima (Proses Kasir)", callback_data: `st:${orderId}:sedang_diproses` }],
-                    [{ text: "🎉 Pesanan Selesai (Siap Ambil)", callback_data: `st:${orderId}:selesai` }]
+                    [{ text: "☕ Pembayaran Diterima (Proses)", callback_data: `st:${orderId}:sedang_diproses` }],
+                    [{ text: "🎉 Pesanan Selesai", callback_data: `st:${orderId}:selesai` }]
                 ]
             };
 
@@ -420,13 +505,19 @@
             const notes = document.getElementById("co-notes").value.trim();
 
             if (!name || name.length < 2) {
-                alert("Mohon isi Nama Pemesan untuk kasir!");
+                alert("Mohon isi Nama Pemesan!");
                 document.getElementById("co-name").focus();
                 return;
             }
             if (!wa || wa.length < 9) {
                 alert("Mohon isi Nomor WhatsApp aktif untuk konfirmasi & struk!");
                 document.getElementById("co-wa").focus();
+                return;
+            }
+
+            if (coOrderType === "delivery" && (!coDeliveryAddress || coDeliveryAddress.length < 8)) {
+                alert("Alamat pengiriman belum lengkap! Silakan ganti atau lengkapi alamat di katalog menu.");
+                window.location.href = "index.html#kopken";
                 return;
             }
 
@@ -479,6 +570,10 @@
                         customer_name: name,
                         customer_wa: cleanWa,
                         outlet_name: coOutlet ? coOutlet.name : 'Kopi Kenangan',
+                        order_type: coOrderType,
+                        delivery_fee: coOrderType === "delivery" ? coDeliveryFee : 0,
+                        delivery_address: coOrderType === "delivery" ? coDeliveryAddress : null,
+                        delivery_maps_url: (coOrderType === "delivery" && coDeliveryMaps) ? coDeliveryMaps : null,
                         order_items: coCart,
                         total_price: grandTotal,
                         estimated_profit: Math.round(grandTotal * 0.35),
@@ -498,15 +593,26 @@
                 return `${i+1}. ${iQty}x ${iName} (Rp ${iPrice.toLocaleString('id-ID')})`;
             }).join('\n');
 
-            // 4 Pesan Telegram Berurutan
+            // Format Pesan Telegram Khusus Delivery vs Pickup
+            let deliveryTextTg = '';
+            if (coOrderType === 'delivery') {
+                deliveryTextTg = 
+                    `🛵 <b>TIPE : DELIVERY SHOPEE INSTAN</b>\n` +
+                    `📦 <b>Ongkir :</b> Rp ${coDeliveryFee.toLocaleString('id-ID')}\n` +
+                    `🏠 <b>Alamat Kirim :</b> ${coDeliveryAddress}\n` +
+                    `📍 <b>Google Maps :</b> ${coDeliveryMaps || '(Tidak disertakan)'}\n`;
+            } else {
+                deliveryTextTg = `🛵 <b>Tipe :</b> ${coOrderType === 'takeaway' ? 'Take Away' : 'Dine In'}\n`;
+            }
+
             const bubble1 = `── .✦ <b>ORDER KOPI KENANGAN BARU</b> ✦.──\n` +
                 `🆔 <b>Order ID :</b> <code>${orderId}</code>\n` +
                 `🔗 <b>Link Tracking CS :</b> <a href="${trackingUrl}">${trackingUrl}</a>\n` +
                 `👤 <b>Nama Pemesan :</b> ${name}\n` +
                 `📱 <b>No. WhatsApp :</b> ${wa}\n` +
                 `🔗 <b>Chat Customer :</b> <a href="${waDirectLink}">${waDirectLink}</a>\n` +
-                `🛵 <b>Tipe :</b> ${coOrderType === 'takeaway' ? 'Take Away' : 'Dine In'}\n` +
-                `📍 <b>Outlet :</b> ${coOutlet ? coOutlet.name : 'Kopi Kenangan'}\n` +
+                deliveryTextTg +
+                `📍 <b>Outlet Asal :</b> ${coOutlet ? coOutlet.name : 'Kopi Kenangan'}\n` +
                 `⏰ <b>Waktu :</b> ${timeText}\n` +
                 `📝 <b>Catatan :</b> "${notes || '-'}"\n` +
                 `--------------------------------------------------\n` +
@@ -515,8 +621,11 @@
                 `💰 <b>TOTAL TAGIHAN : Rp ${grandTotal.toLocaleString('id-ID')}</b>\n` +
                 `📌 <b>Status : [MENUNGGU PEMBAYARAN QRIS]</b>`;
 
-            const bubble3 = `<code>Halo Kak ${name}! 🫶✨\nTerima kasih sudah order Kopi Kenangan di Bintang Store!\n\n📋 Rincian Pesanan:\n${itemsMsg}\n\n📍 Outlet: ${coOutlet ? coOutlet.name : 'Kopi Kenangan'}\n💰 Total Tagihan: Rp ${grandTotal.toLocaleString('id-ID')}\n\n🔗 Live Tracking:\n${trackingUrl}\n\nSilakan transfer via QRIS kami ya Kak. Setelah transfer kirim buktinya ke sini agar langsung kami proseskan ke kasir! 🫰💖</code>`;
-            const bubble4 = `<code>Terima kasih banyak Kak ${name}! Pembayaran Rp ${grandTotal.toLocaleString('id-ID')} sudah kami terima ☕✨\n\nPesananmu sedang diproses ke kasir. Pantau nomor antreanmu di: ${trackingUrl} 🫶</code>`;
+            const bubble3 = `<code>Halo Kak ${name}! 🫶✨\nTerima kasih sudah order Kopi Kenangan di Bintang Store!\n\n📋 Rincian Pesanan:\n${itemsMsg}\n\n📍 Outlet: ${coOutlet ? coOutlet.name : 'Kopi Kenangan'}\n${coOrderType === 'delivery' ? `🛵 Pengantaran: Shopee Instan\n🏠 Alamat: ${coDeliveryAddress}\n` : ''}💰 Total Tagihan: Rp ${grandTotal.toLocaleString('id-ID')}\n\n🔗 Live Tracking:\n${trackingUrl}\n\nSilakan transfer via QRIS kami ya Kak. Setelah transfer kirim buktinya ke sini agar langsung kami proseskan! 🫰💖</code>`;
+            
+            const bubble4 = coOrderType === 'delivery'
+                ? `<code>Terima kasih banyak Kak ${name}! Pembayaran Rp ${grandTotal.toLocaleString('id-ID')} sudah kami terima ☕✨\n\nPesananmu sedang diproses ke gerai & kurir Shopee Instan segera disiapkan. Pantau statusmu di: ${trackingUrl} 🛵🫶</code>`
+                : `<code>Terima kasih banyak Kak ${name}! Pembayaran Rp ${grandTotal.toLocaleString('id-ID')} sudah kami terima ☕✨\n\nPesananmu sedang diproses ke kasir. Pantau nomor antreanmu di: ${trackingUrl} 🫶</code>`;
 
             await sendSingleTelegramMsg(bubble1);
             await delay(350);
@@ -526,7 +635,7 @@
             await delay(350);
             await sendSingleTelegramMsg(`👇 <b>[TEMPLATE BALASAN TRANSFER DITERIMA]:</b>\n\n${bubble4}`);
 
-            // Animasi Layar Fullscreen
+            // Tampilkan Layar Pemuatan
             const screen = document.getElementById("thankyou-screen");
             const content = document.getElementById("thankyou-content");
             const quoteEl = document.getElementById("thankyou-quote");
@@ -547,7 +656,7 @@
 
             setTimeout(() => {
                 if (method === 'whatsapp') {
-                    const waMsg = `Halo Admin Bintang Store, saya mau pesan Kopi Kenangan:\n\nOrder ID: *${orderId}*\nNama: *${name}*\nTotal: *Rp ${grandTotal.toLocaleString('id-ID')}*\n\nMohon dicek ya! ☕`;
+                    const waMsg = `Halo Admin Bintang Store, saya mau pesan Kopi Kenangan:\n\nOrder ID: *${orderId}*\nNama: *${name}*\nMetode: *${coOrderType === 'delivery' ? 'Delivery Shopee Instan' : coOrderType}*\nTotal: *Rp ${grandTotal.toLocaleString('id-ID')}*\n\nMohon dicek ya! ☕`;
                     window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(waMsg)}`, '_blank');
                 }
                 window.location.href = `tracking.html?order_id=${orderId}`;
