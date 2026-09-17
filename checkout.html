@@ -322,7 +322,7 @@
                 document.getElementById("co-name").placeholder = "Nama penerima paket kopi";
 
                 const bagWrap = document.getElementById("co-bag-wrap");
-                if (bagWrap) bagWrap.classList.remove("hidden"); // Delivery butuh kantong plastik
+                if (bagWrap) bagWrap.classList.remove("hidden");
                 const bagChk = document.getElementById("co-bag");
                 if (bagChk) bagChk.checked = true;
 
@@ -358,7 +358,13 @@
 
             listEl.innerHTML = coCart.map((c, idx) => {
                 const name = c.name || (c.item && c.item.name) || "Menu Kopi";
-                const desc = c.details || c.note || "";
+                
+                // Ambil detail racikan (details, note, atau options)
+                let desc = c.details || c.note || "";
+                if (!desc && c.options && typeof c.options === 'object') {
+                    desc = Object.entries(c.options).map(([k, v]) => `${k}: ${v}`).join(', ');
+                }
+
                 const qty = Number(c.qty) || 1;
                 const unitPrice = Number(c.price) || 15000;
                 const price = unitPrice * qty;
@@ -367,7 +373,7 @@
                     <div class="py-2.5 flex items-center justify-between gap-2">
                         <div class="min-w-0 flex-1">
                             <h4 class="font-extrabold text-stone-900 text-xs">${name}</h4>
-                            ${desc ? `<p class="text-[10px] text-stone-500 mt-0.5 truncate">${desc}</p>` : ''}
+                            ${desc ? `<p class="text-[10px] text-stone-500 mt-0.5">${desc}</p>` : ''}
                             <span class="text-[11px] font-bold text-amber-900 block mt-1">Rp ${price.toLocaleString('id-ID')}</span>
                         </div>
                         <div class="flex items-center gap-2 flex-shrink-0">
@@ -586,12 +592,25 @@
 
             const trackingUrl = `https://bintanggstore.web.id/tracking.html?order_id=${orderId}`;
             const waDirectLink = cleanWa ? `https://wa.me/${cleanWa}` : '-';
+
+            // FORMAT MENU LENGKAP DENGAN UKURAN, GULA, ES, TOPPING & CATATAN
             let itemsMsg = coCart.map((c, i) => {
                 const iName = c.name || (c.item && c.item.name) || "Menu";
                 const iQty = Number(c.qty) || 1;
                 const iPrice = (Number(c.price) || 15000) * iQty;
-                return `${i+1}. ${iQty}x ${iName} (Rp ${iPrice.toLocaleString('id-ID')})`;
-            }).join('\n');
+
+                let detailsText = "";
+                if (c.details) {
+                    detailsText = c.details;
+                } else if (c.note) {
+                    detailsText = c.note;
+                } else if (c.options && typeof c.options === 'object') {
+                    detailsText = Object.entries(c.options).map(([k, v]) => `${k}: ${v}`).join(', ');
+                }
+
+                const detailLine = detailsText ? `\n   └ <i>${detailsText}</i>` : '';
+                return `<b>${i+1}. ${iQty}x ${iName}</b> (Rp ${iPrice.toLocaleString('id-ID')})${detailLine}`;
+            }).join('\n\n');
 
             // Format Pesan Telegram Khusus Delivery vs Pickup
             let deliveryTextTg = '';
@@ -621,7 +640,7 @@
                 `💰 <b>TOTAL TAGIHAN : Rp ${grandTotal.toLocaleString('id-ID')}</b>\n` +
                 `📌 <b>Status : [MENUNGGU PEMBAYARAN QRIS]</b>`;
 
-            const bubble3 = `<code>Halo Kak ${name}! 🫶✨\nTerima kasih sudah order Kopi Kenangan di Bintang Store!\n\n📋 Rincian Pesanan:\n${itemsMsg}\n\n📍 Outlet: ${coOutlet ? coOutlet.name : 'Kopi Kenangan'}\n${coOrderType === 'delivery' ? `🛵 Pengantaran: Shopee Instan\n🏠 Alamat: ${coDeliveryAddress}\n` : ''}💰 Total Tagihan: Rp ${grandTotal.toLocaleString('id-ID')}\n\n🔗 Live Tracking:\n${trackingUrl}\n\nSilakan transfer via QRIS kami ya Kak. Setelah transfer kirim buktinya ke sini agar langsung kami proseskan! 🫰💖</code>`;
+            const bubble3 = `<code>Halo Kak ${name}! 🫶✨\nTerima kasih sudah order Kopi Kenangan di Bintang Store!\n\n📋 Rincian Pesanan:\n${itemsMsg.replace(/<[^>]*>/g, '')}\n\n📍 Outlet: ${coOutlet ? coOutlet.name : 'Kopi Kenangan'}\n${coOrderType === 'delivery' ? `🛵 Pengantaran: Shopee Instan\n🏠 Alamat: ${coDeliveryAddress}\n` : ''}💰 Total Tagihan: Rp ${grandTotal.toLocaleString('id-ID')}\n\n🔗 Live Tracking:\n${trackingUrl}\n\nSilakan transfer via QRIS kami ya Kak. Setelah transfer kirim buktinya ke sini agar langsung kami proseskan! 🫰💖</code>`;
             
             const bubble4 = coOrderType === 'delivery'
                 ? `<code>Terima kasih banyak Kak ${name}! Pembayaran Rp ${grandTotal.toLocaleString('id-ID')} sudah kami terima ☕✨\n\nPesananmu sedang diproses ke gerai & kurir Shopee Instan segera disiapkan. Pantau statusmu di: ${trackingUrl} 🛵🫶</code>`
