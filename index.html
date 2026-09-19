@@ -187,6 +187,35 @@
 
         <!-- SECTION TAB 2: DIGITAL & AI -->
         <div id="portal-tab-digital" class="w-full space-y-3 hidden">
+            <!-- Duolingo Super Private -->
+            <div onclick="openDigitalCheckoutModal('Duolingo Super (Private)', [
+                { name: '2 Bulan (Akun Private - 25k)', price: 25000 }
+            ], [
+                'Akun Private (bisa pakai email sendiri atau dibuatkan admin).',
+                'Hati / Nyawa Tanpa Batas (bebas salah belajar tanpa batas nyawa).',
+                '100% Bebas Iklan mengganggu di semua kursus bahasa.',
+                'Fitur Latihan Keahlian & Ulasan Kesalahan otomatis aktif.',
+                'Tantangan Legendaris gratis tanpa bayar permata (Gems).',
+                'Garansi aktif penuh selama 2 bulan (hanya ~12rb-an/bulan).'
+            ])" class="w-full relative group overflow-hidden rounded-3xl glass-portal p-4 sm:p-5 text-left transition duration-200 hover:scale-[1.01] active:scale-95 border-l-4 border-l-lime-500 cursor-pointer">
+                <div class="flex items-center gap-3.5 relative z-10">
+                    <div class="w-12 h-12 p-1 rounded-2xl bg-white/10 flex items-center justify-center flex-shrink-0 overflow-hidden">
+                        <img src="https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/assets/duolingo%20super.webp" alt="Duolingo Super" class="w-full h-full object-cover rounded-xl">
+                    </div>
+                    <div class="min-w-0 flex-1">
+                        <div class="flex items-center gap-2">
+                            <h2 class="text-sm font-bold text-white leading-tight">Duolingo Super</h2>
+                            <span class="bg-lime-500/20 text-lime-300 text-[9px] font-extrabold px-1.5 py-0.5 rounded border border-lime-500/30">BEST VALUE</span>
+                        </div>
+                        <p class="text-[11px] text-gray-300 mt-0.5 truncate">Private • Nyawa ∞ • Bebas Iklan • 25k/2bln</p>
+                    </div>
+                    <div class="text-right flex-shrink-0">
+                        <span class="text-xs font-black text-lime-300 block">Rp 25.000</span>
+                        <span class="text-[9px] text-gray-400">/ 2 bln ➔</span>
+                    </div>
+                </div>
+            </div>
+
             <!-- YouTube Premium -->
             <div onclick="openDigitalCheckoutModal('YouTube Premium + YT Music', [
                 { name: '1 Bulan (Email Sama / Perpanjangan)', price: 12000 },
@@ -842,7 +871,6 @@
       let activeOrderType = localStorage.getItem("bintang_order_type") || "takeaway";
       let activeDeliveryFee = parseInt(localStorage.getItem("bintang_delivery_fee")) || 5000;
 
-      // Handle Perubahan Pilihan Tipe Order di Welcome Gate
       function setGateOrderType(type) {
         activeOrderType = type;
         
@@ -851,20 +879,17 @@
         const btnDelivery = document.getElementById("gate-type-delivery");
         const deliveryBox = document.getElementById("gate-delivery-details-box");
 
-        // Reset Styles
         [btnTakeaway, btnDinein, btnDelivery].forEach(b => {
           if (b) {
             b.className = "py-2 px-1 rounded-2xl border-2 border-stone-200 bg-white text-stone-600 font-bold text-xs flex flex-col items-center gap-1 transition cursor-pointer text-center";
           }
         });
 
-        // Set Active Style
         const activeBtn = document.getElementById(`gate-type-${type}`);
         if (activeBtn) {
           activeBtn.className = "py-2 px-1 rounded-2xl border-2 border-kenangan-primary bg-amber-50 text-kenangan-primary font-bold text-xs flex flex-col items-center gap-1 transition cursor-pointer text-center";
         }
 
-        // Tampilkan/Sembunyikan Box Delivery
         if (type === 'delivery') {
           if (deliveryBox) deliveryBox.classList.remove("hidden");
           const checkedRadio = document.querySelector('input[name="gate_delivery_tier"]:checked');
@@ -874,7 +899,6 @@
           activeDeliveryFee = 0;
         }
 
-        // Update Global State jika fungsi tersedia di app.js
         if (typeof currentOrderType !== 'undefined') {
           currentOrderType = type;
         }
@@ -902,7 +926,6 @@
         }
       }
 
-      // Override confirmWelcomeGate untuk memvalidasi dan menyimpan data delivery
       const originalConfirmWelcomeGate = window.confirmWelcomeGate;
       window.confirmWelcomeGate = function() {
         if (activeOrderType === "delivery") {
@@ -1040,57 +1063,44 @@
 
           const botToken = "8765196047:AAGSnN7VoGnXxQK5rl5459ifGqBVE3EKsWo";
           const adminChatId = "6731058601";
-          const trackingUrl = `https://www.bintangstore.web.id/tracking.html?order_id=${orderId}`;
+          const trackingUrl = `https://bintanggstore.web.id/tracking.html?order_id=${orderId}`;
           const waDirectLink = cleanWa ? `https://wa.me/${cleanWa}` : '-';
 
-          const bubble1 = `── .✦ <b>ORDER PRODUK DIGITAL BARU</b> ✦.──\n` +
+          const singleDigitalMsg = `── .✦ <b>ORDER PRODUK DIGITAL MASUK</b> ✦.──\n` +
               `🆔 <b>Order ID :</b> <code>${orderId}</code>\n` +
-              `🔗 <b>Link Tracking CS :</b> <a href="${trackingUrl}">${trackingUrl}</a>\n` +
+              `🔗 <b>Link Tracking :</b> <a href="${trackingUrl}">${trackingUrl}</a>\n` +
               `👤 <b>Nama Pemesan :</b> ${name}\n` +
               `📱 <b>No. WhatsApp :</b> ${wa}\n` +
-              `📧 <b>Email Akun :</b> ${email || '(Akun Siap Pakai / Chat WA)'}\n` +
+              `📧 <b>Email Akun :</b> ${email || '(Konfirmasi via Chat WA)'}\n` +
               `🔗 <b>Chat Customer :</b> <a href="${waDirectLink}">${waDirectLink}</a>\n` +
               `⚡ <b>Paket :</b> ${currentDigitalProduct}\n` +
               `⏱️ <b>Durasi :</b> ${plan.name}\n` +
               `--------------------------------------------------\n` +
               `💰 <b>TOTAL TAGIHAN : Rp ${grandTotal.toLocaleString('id-ID')}</b>\n` +
-              `📌 <b>Status : [MENUNGGU PEMBAYARAN QRIS]</b>`;
-
-          const bubble3 = `<code>Halo Kak ${name}! 🫶✨\nTerima kasih sudah order ${currentDigitalProduct} (${plan.name}) di Bintang Store!\n\n💰 Total Tagihan: Rp ${grandTotal.toLocaleString('id-ID')}\n🔗 Live Tracking: ${trackingUrl}\n\nSilakan transfer via QRIS di halaman tracking ya Kak. Bukti transfer kirim ke sini agar akun langsung kami proseskan secepatnya! 🫰💖</code>`;
-          const bubble4 = `<code>Terima kasih banyak Kak ${name}! Pembayaran Rp ${grandTotal.toLocaleString('id-ID')} untuk ${currentDigitalProduct} sudah diterima ✨ Akun kamu sedang disiapkan/diinvite oleh admin sekarang ya 🫶</code>`;
-
-          const inlineKeyboard = {
-              inline_keyboard: [
-                  [
-                      { text: "✅ Pembayaran Diterima (Proses)", callback_data: `st:${orderId}:sedang_diproses` }
-                  ],
-                  [
-                      { text: "🎉 Akun Selesai Dikirim", callback_data: `st:${orderId}:selesai` }
-                  ]
-              ]
-          };
-          const sendMsg = (text, replyMarkup = null) => {
-              const body = {
-                  chat_id: adminChatId,
-                  text: text,
-                  parse_mode: "HTML",
-                  disable_web_page_preview: true
-              };
-              if (replyMarkup) body.reply_markup = replyMarkup;
-              return fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-                  method: "POST",
-                  headers: { "Content-Type": "application/json" },
-                  body: JSON.stringify(body)
-              }).catch(err => console.error("Telegram send error:", err));
-          };
+              `📌 <b>Status : [MENUNGGU PEMBAYARAN QRIS]</b>\n\n` +
+              `<i>Pelanggan sedang berada di ruang pembayaran (tracking.html). Bukti bayar akan terkirim otomatis ke bot setelah diunggah.</i>`;
 
           try {
-              await sendMsg(bubble1);
-              await sendMsg(`⚡ <b>Aksi Cepat Admin untuk Order:</b> <code>${orderId}</code>`, inlineKeyboard);
-              await sendMsg(bubble3);
-              await sendMsg(`👇 <b>[TEMPLATE BALASAN TRANSFER DITERIMA]:</b>\n\n${bubble4}`);
+              await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({
+                      chat_id: adminChatId,
+                      text: singleDigitalMsg,
+                      parse_mode: "HTML",
+                      disable_web_page_preview: true,
+                      reply_markup: {
+                          inline_keyboard: [
+                              [
+                                  { text: "💬 Chat WA Pembeli", url: waDirectLink },
+                                  { text: "🚫 Batal / Fiktif", callback_data: `st:${orderId}:batal` }
+                              ]
+                          ]
+                      }
+                  })
+              });
           } catch(err) {
-              console.error("Gagal kirim notif telegram:", err);
+              console.error("Gagal kirim notif digital telegram:", err);
           }
 
           window.location.href = `tracking.html?order_id=${orderId}`;
@@ -1138,14 +1148,12 @@
                 localStorage.setItem("selectedOutlet", JSON.stringify(selectedOutlet));
             }
             
-            // Sinkronisasi tipe order & delivery fee ke checkout
             localStorage.setItem("bintang_order_type", activeOrderType);
             localStorage.setItem("bintang_delivery_fee", activeOrderType === "delivery" ? activeDeliveryFee.toString() : "0");
         } catch(e) {}
         window.location.href = "checkout.html";
       }
 
-      // Sinkronisasi Awal saat halaman dimuat
       window.addEventListener("DOMContentLoaded", () => {
         const savedType = localStorage.getItem("bintang_order_type") || "takeaway";
         setGateOrderType(savedType);
