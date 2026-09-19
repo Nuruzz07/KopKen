@@ -31,24 +31,21 @@
       </button>
     </div>
 
-    <!-- KARTU HITUNGAN MUNDUR MENUNGGU KONFIRMASI -->
-    <div id="confirmation-timer-card" class="hidden bg-white rounded-3xl p-4 shadow-sm border-2 border-amber-500/40 text-center space-y-2">
-      <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 text-amber-900 text-[10px] font-extrabold tracking-wide uppercase">
-        <i class="fas fa-hourglass-half text-amber-600 animate-spin"></i> Estimasi Waktu Konfirmasi
+    <!-- BANNER KHUSUS: MODE ANTREAN PADAT (ADMIN LUAR RUANGAN) -->
+    <div id="busy-mode-banner" class="hidden bg-gradient-to-r from-amber-500/20 via-orange-500/15 to-amber-500/20 border-2 border-amber-500/50 rounded-3xl p-3.5 space-y-1 text-left shadow-xs">
+      <div class="flex items-center gap-2">
+        <span class="w-2.5 h-2.5 rounded-full bg-amber-500 animate-ping"></span>
+        <h3 class="text-xs font-black text-amber-950 uppercase tracking-wide">Pemberitahuan Antrean Padat</h3>
       </div>
-      <div>
-        <p id="timer-countdown-text" class="text-3xl font-black text-stone-900 font-mono tracking-tight">15:00</p>
-        <p id="timer-desc-text" class="text-[11px] text-stone-500 mt-0.5">Admin sedang memverifikasi pesananmu.</p>
-      </div>
-      <div class="w-full bg-stone-100 rounded-full h-1.5 overflow-hidden">
-        <div id="timer-progress-bar" class="bg-amber-600 h-1.5 rounded-full transition-all duration-1000" style="width: 100%;"></div>
-      </div>
+      <p class="text-[11px] text-stone-700 font-medium leading-relaxed">
+        Admin sedang dalam operasional luar ruangan atau menangani antrean jam sibuk. Estimasi pemrosesan otomatis disesuaikan maksimal <b>30 menit</b>. Terima kasih atas kesabarannya!
+      </p>
     </div>
 
-    <!-- KARTU PEMBAYARAN QRIS -->
-    <div id="qris-payment-card" class="hidden bg-white rounded-3xl p-5 shadow-md border-2 border-amber-500/40 space-y-3.5 text-center transition-all duration-300">
+    <!-- KARTU PEMBAYARAN QRIS (DITAMPILKAN SAAT STATUS menunggu_pembayaran) -->
+    <div id="qris-payment-card" class="hidden bg-white rounded-3xl p-5 shadow-md border-2 border-amber-500/50 space-y-3.5 text-center transition-all duration-300">
       <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 text-amber-900 text-[10px] font-extrabold tracking-wide uppercase">
-        <i class="fas fa-qrcode"></i> Pembayaran QRIS
+        <i class="fas fa-qrcode text-amber-700"></i> Pembayaran QRIS Bintang Store
       </div>
 
       <div class="space-y-1">
@@ -59,20 +56,51 @@
             <i class="fas fa-copy"></i> Salin
           </button>
         </div>
-        <p id="qris-payment-note" class="text-[10px] text-amber-800 font-semibold">Wajib transfer pas sesuai nominal agar sistem mudah verifikasi.</p>
+        <p id="qris-payment-note" class="text-[10px] text-amber-800 font-semibold">Wajib transfer pas sesuai nominal di atas.</p>
       </div>
 
       <div class="bg-stone-50 p-3 rounded-2xl border border-stone-200 inline-block shadow-inner mx-auto max-w-[240px]">
         <img id="qris-image-view" src="https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/assets/6134394067262051124.jpg" alt="QRIS Bintang Store" class="w-full h-auto rounded-xl object-contain mx-auto" />
       </div>
 
-      <div class="space-y-2 pt-1">
-        <p class="text-[11px] text-stone-600 leading-snug px-1">
-          Scan pakai GoPay, OVO, Dana, ShopeePay, BCA, atau m-Banking apa saja.
-        </p>
-        <a id="qris-wa-confirm-btn" href="https://wa.me/6285959633342" target="_blank" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-extrabold shadow-sm transition active:scale-95 flex items-center justify-center gap-1.5">
-          <i class="fab fa-whatsapp text-sm"></i> Kirim Bukti Transfer ke Admin
-        </a>
+      <p class="text-[11px] text-stone-600 leading-snug px-1">
+        Scan melalui GoPay, OVO, DANA, ShopeePay, BCA, atau m-Banking apa saja.
+      </p>
+
+      <!-- FORM UPLOAD BUKTI TRANSFER & KONFIRMASI OTOMATIS -->
+      <div class="space-y-2 pt-2 border-t border-dashed border-stone-200 text-left">
+        <label class="block text-[11px] font-black text-stone-800">
+          📸 Upload Bukti Struk Transfer (Opsional tapi lebih cepat):
+        </label>
+        <input type="file" id="transfer-proof-file" accept="image/*" class="w-full text-xs text-stone-600 file:mr-2 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-amber-600 file:text-white hover:file:bg-amber-700 cursor-pointer" />
+
+        <button type="button" id="btn-submit-payment" onclick="submitPaymentConfirmation()" class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-2xl text-xs font-black shadow-md transition active:scale-95 flex items-center justify-center gap-2 cursor-pointer mt-2">
+          <i class="fas fa-check-circle text-sm"></i>
+          <span>Saya Sudah Bayar, Verifikasi Sekarang!</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- KARTU HITUNGAN MUNDUR MENUNGGU KONFIRMASI -->
+    <div id="confirmation-timer-card" class="hidden bg-white rounded-3xl p-4.5 shadow-sm border-2 border-amber-500/40 text-center space-y-2.5">
+      <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 text-amber-900 text-[10px] font-extrabold tracking-wide uppercase">
+        <i class="fas fa-hourglass-half text-amber-600 animate-spin"></i> Garansi Respon Admin
+      </div>
+      <div>
+        <p id="timer-countdown-text" class="text-3xl font-black text-stone-900 font-mono tracking-tight">15:00</p>
+        <p id="timer-desc-text" class="text-[11px] text-stone-500 mt-0.5">Admin sedang memverifikasi pesananmu.</p>
+      </div>
+      <div class="w-full bg-stone-100 rounded-full h-1.5 overflow-hidden">
+        <div id="timer-progress-bar" class="bg-amber-600 h-1.5 rounded-full transition-all duration-1000" style="width: 100%;"></div>
+      </div>
+
+      <!-- TOMBOL BATAL & REFUND (TERKUNCI DI AWAL) -->
+      <div class="pt-2 border-t border-stone-100">
+        <button id="btn-cancel-order" disabled onclick="openRefundModal()" class="w-full py-2 px-3 rounded-xl bg-stone-200 text-stone-400 text-xs font-bold transition cursor-not-allowed flex items-center justify-center gap-1.5">
+          <i class="fas fa-lock text-[10px]" id="cancel-lock-icon"></i>
+          <span id="cancel-btn-label">Batal & Refund (Terkunci <span id="cancel-lock-timer">10:00</span>)</span>
+        </button>
+        <p id="cancel-helper-text" class="text-[9px] text-stone-400 mt-1">Tombol pembatalan dan refund dana terbuka jika admin belum memproses dalam waktu tunggu.</p>
       </div>
     </div>
 
@@ -100,14 +128,14 @@
       <div id="pickup-card-wrapper" class="hidden relative pt-4 border-t border-dashed border-stone-200 space-y-4 text-left">
         <div id="pickup-content" class="space-y-4">
           
-          <!-- Box Nomor Antrean Kasir (Hanya tampil untuk Take Away / Dine In) -->
+          <!-- Box Nomor Antrean Kasir -->
           <div id="queue-box" class="bg-amber-500/10 border-2 border-amber-500/40 rounded-2xl p-4 text-center shadow-xs">
             <p class="text-[11px] text-amber-950 font-bold uppercase tracking-wide">Nomor Antrean / Pesanan Kasir</p>
             <p id="queue-number" class="text-4xl font-black text-amber-950 tracking-tight my-1">-</p>
             <p class="text-xs text-amber-900 font-semibold">Atas Nama: <span id="customer-name" class="underline font-bold">-</span></p>
           </div>
 
-          <!-- Box Khusus Info Pengantaran Kurir (Tampil Jika Delivery Shopee Instan) -->
+          <!-- Box Khusus Info Pengantaran Kurir -->
           <div id="delivery-info-card" class="hidden bg-orange-500/10 border-2 border-orange-500/30 rounded-2xl p-4 space-y-2 text-left">
             <div class="flex items-center justify-between">
               <div class="flex items-center gap-1.5 text-xs font-black text-orange-950">
@@ -233,6 +261,29 @@
       </form>
     </div>
 
+    <!-- BANNER HIGHLIGHT PROMO DIGITAL: DUOLINGO SUPER PRIVATE -->
+    <div class="bg-gradient-to-br from-amber-500/15 via-white to-orange-50 border-2 border-amber-500/40 rounded-3xl p-4 shadow-sm space-y-3">
+      <div class="flex items-center gap-3">
+        <div class="w-14 h-14 rounded-2xl bg-stone-900 flex-shrink-0 overflow-hidden border border-stone-200 shadow-xs">
+          <img src="https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/assets/duolingo%20super.webp" alt="Duolingo Super" class="w-full h-full object-cover" />
+        </div>
+        <div class="min-w-0 flex-1">
+          <div class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[9px] font-black uppercase">
+            <span>⚡ Promo Spesial Antrean</span>
+          </div>
+          <h3 class="text-xs font-black text-stone-900 leading-snug mt-0.5 truncate">Duolingo Super Private 2 Bulan</h3>
+          <p class="text-[10px] text-amber-900 font-extrabold">Hanya Rp 25.000 <span class="text-stone-400 font-semibold text-[9px]">(~12rb/bulan)</span></p>
+        </div>
+      </div>
+      <p class="text-[10px] text-stone-600 leading-snug">
+        Akun private full garansi, bebas iklan, nyawa tanpa batas. Sambil nunggu pesanan kopi siap, bisa langsung pesan ke admin!
+      </p>
+      <a href="https://wa.me/6285959633342?text=Halo%20Admin%20Bintang%20Store%2C%20saya%20tertarik%20tambah%20order%20Duolingo%20Super%20Private%202%20Bulan%20Rp%2025.000!" target="_blank" class="w-full py-2 bg-stone-900 hover:bg-stone-800 text-white rounded-xl text-xs font-extrabold transition shadow-xs flex items-center justify-center gap-1.5 active:scale-95 cursor-pointer">
+        <i class="fab fa-whatsapp text-emerald-400"></i>
+        <span>Pesan Akun Duolingo via WA</span>
+      </a>
+    </div>
+
     <!-- BANNER SALURAN WHATSAPP VIP -->
     <div class="bg-gradient-to-br from-emerald-500/15 via-amber-500/10 to-stone-100 border-2 border-emerald-500/40 rounded-3xl p-4.5 space-y-3 shadow-xs">
       <div class="flex items-start gap-3">
@@ -242,7 +293,7 @@
         <div class="min-w-0">
           <h3 class="text-xs font-black text-stone-900 leading-tight">Tempat Bocoran Kopi & Akun Murah 🤫</h3>
           <p class="text-[10px] text-stone-600 mt-1 leading-snug">
-            Daripada langganan harga normal, mending pantau saluran ini:
+            Daripada langganan harga normal, pantau penawaran di saluran ini:
           </p>
           <ul class="text-[10px] text-stone-700 font-semibold space-y-1 mt-1.5">
             <li>• <b>Netflix & YouTube Premium</b> harga receh (anti-hold)</li>
@@ -280,20 +331,20 @@
 
   </main>
 
-  <!-- MODAL DARURAT 15 MENIT: TELEPON / WA ADMIN -->
+  <!-- MODAL DARURAT 15/30 MENIT: TELEPON / WA ADMIN -->
   <div id="urgent-call-modal" class="fixed inset-0 bg-black/75 backdrop-blur-xs z-[200] hidden flex items-center justify-center p-4">
     <div class="bg-white rounded-3xl p-5 max-w-sm w-full text-center space-y-3 shadow-2xl border-2 border-rose-500 animate-pulse">
       <div class="w-14 h-14 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center text-2xl mx-auto">
         <i class="fas fa-phone-volume animate-bounce"></i>
       </div>
       <div>
-        <h3 class="font-black text-sm text-stone-900">Konfirmasi Melewati 15 Menit</h3>
+        <h3 class="font-black text-sm text-stone-900">Konfirmasi Melewati Batas Waktu</h3>
         <p class="text-[11px] text-stone-500 mt-1 leading-snug">
-          Admin mungkin sedang menyiapkan antrean. Silakan langsung hubungi atau telepon WhatsApp admin sekarang:
+          Admin mungkin sedang menangani antrean fisik. Silakan langsung hubungi atau telepon WhatsApp admin sekarang:
         </p>
       </div>
       <div class="space-y-2 pt-1">
-        <a id="btn-urgent-call" href="https://wa.me/6285959633342?text=Halo%20Admin%20Bintang%20Store%2C%20pesanan%20saya%20sudah%2015%20menit%20belum%20ada%20konfirmasi.%20Mohon%20segera%20diproses!" target="_blank" class="w-full py-3 bg-rose-600 hover:bg-rose-700 text-white font-black rounded-xl text-xs shadow-md transition flex items-center justify-center gap-2">
+        <a id="btn-urgent-call" href="https://wa.me/6285959633342?text=Halo%20Admin%20Bintang%20Store%2C%20pesanan%20saya%20sudah%20melewati%20batas%20waktu%20belum%20ada%20konfirmasi.%20Mohon%20segera%20diproses!" target="_blank" class="w-full py-3 bg-rose-600 hover:bg-rose-700 text-white font-black rounded-xl text-xs shadow-md transition flex items-center justify-center gap-2">
           <i class="fas fa-phone"></i>
           <span>Telepon / Chat WhatsApp Admin</span>
         </a>
@@ -301,6 +352,31 @@
           Tutup Pemberitahuan
         </button>
       </div>
+    </div>
+  </div>
+
+  <!-- MODAL FORMULIR BATAL & REFUND DANA -->
+  <div id="refund-modal" class="fixed inset-0 bg-black/75 backdrop-blur-xs z-[300] hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl p-5 max-w-sm w-full space-y-3 shadow-2xl border border-stone-200 text-left">
+      <div class="flex items-center justify-between pb-2 border-b border-stone-100">
+        <div class="flex items-center gap-1.5 text-rose-600">
+          <i class="fas fa-undo-alt text-xs"></i>
+          <h3 class="font-black text-xs text-stone-900">Pengajuan Batal & Refund</h3>
+        </div>
+        <button onclick="closeRefundModal()" class="w-6 h-6 bg-stone-100 text-stone-500 rounded-full flex items-center justify-center text-xs">✕</button>
+      </div>
+      <p class="text-[11px] text-stone-600 leading-snug">
+        Admin belum merespons dalam batas waktu tunggu. Masukkan data rekening/e-wallet kamu untuk pengembalian dana:
+      </p>
+      <div class="space-y-2">
+        <input id="refund-bank-name" type="text" placeholder="Nama E-Wallet / Bank (DANA, GoPay, BCA)" class="w-full text-xs p-2.5 rounded-xl border border-stone-200 bg-stone-50 font-semibold outline-none focus:bg-white focus:ring-2 focus:ring-rose-500" />
+        <input id="refund-account-number" type="tel" placeholder="Nomor Rekening / No. E-Wallet" class="w-full text-xs p-2.5 rounded-xl border border-stone-200 bg-stone-50 font-semibold outline-none focus:bg-white focus:ring-2 focus:ring-rose-500" />
+        <input id="refund-account-holder" type="text" placeholder="Nama Pemilik Rekening" class="w-full text-xs p-2.5 rounded-xl border border-stone-200 bg-stone-50 font-semibold outline-none focus:bg-white focus:ring-2 focus:ring-rose-500" />
+      </div>
+      <button type="button" id="btn-submit-refund" onclick="submitRefundClaim()" class="w-full py-2.5 bg-rose-600 hover:bg-rose-700 text-white font-black rounded-xl text-xs transition active:scale-95 shadow-md flex items-center justify-center gap-1.5">
+        <i class="fas fa-paper-plane text-xs"></i>
+        <span>Kirim Permintaan Refund ke Admin</span>
+      </button>
     </div>
   </div>
 
@@ -317,9 +393,9 @@
         </button>
       </div>
       <p class="text-[11px] text-gray-300 leading-snug">
-        Ada masalah akun keluar sendiri atau tidak bisa akses? Jelaskan kendalamu, sistem akan langsung membunyikan alert darurat ke admin:
+        Ada masalah kendala akses akun? Jelaskan kendalamu di bawah:
       </p>
-      <textarea id="warranty-issue-input" rows="3" placeholder="Contoh: Akun ter-logout sendiri, mohon bantu invite ulang / reset..." class="w-full text-xs p-3 rounded-xl bg-slate-800 border border-white/10 text-white placeholder-gray-500 outline-none focus:ring-2 focus:ring-rose-500 resize-none"></textarea>
+      <textarea id="warranty-issue-input" rows="3" placeholder="Contoh: Akun ter-logout sendiri, mohon bantu invite ulang..." class="w-full text-xs p-3 rounded-xl bg-slate-800 border border-white/10 text-white placeholder-gray-500 outline-none focus:ring-2 focus:ring-rose-500 resize-none"></textarea>
       <button type="button" id="btn-submit-warranty" onclick="submitWarrantyClaim()" class="w-full py-2.5 bg-rose-600 hover:bg-rose-700 text-white font-black rounded-xl text-xs transition active:scale-95 shadow-md flex items-center justify-center gap-1.5">
         <i class="fas fa-paper-plane text-xs"></i>
         <span>Kirim Laporan Garansi ke Admin</span>
@@ -343,12 +419,29 @@
     let currentOrder = null;
     let rawOrderTotal = 0;
 
-    // Kontrol Timer 15 Menit
+    // Evaluasi Jam Sibuk:
+    // Selasa: 07:00 - 11:40 (420-700 mnt) & 14:20 - 16:00 (860-960 mnt)
+    // Kamis : 08:40 - 10:20 (520-620 mnt) & 14:20 - 16:00 (860-960 mnt)
+    function checkIsBusySchedule() {
+      const now = new Date();
+      const day = now.getDay(); // 2 = Selasa, 4 = Kamis
+      const minutes = (now.getHours() * 60) + now.getMinutes();
+
+      if (day === 2) {
+        if ((minutes >= 420 && minutes <= 700) || (minutes >= 860 && minutes <= 960)) return true;
+      } else if (day === 4) {
+        if ((minutes >= 520 && minutes <= 620) || (minutes >= 860 && minutes <= 960)) return true;
+      }
+      return false;
+    }
+
+    const isBusyMode = checkIsBusySchedule();
+    const TOTAL_TIMER_MINUTES = isBusyMode ? 30 : 15;
+    const LOCK_MINUTES = isBusyMode ? 20 : 10;
+    const TOTAL_TIMER_SECONDS = TOTAL_TIMER_MINUTES * 60;
+    const LOCK_SECONDS = LOCK_MINUTES * 60;
+
     let confirmationTimerInterval = null;
-    let remainingSeconds = 15 * 60;
-    let alert5MinSent = false;
-    let alert10MinSent = false;
-    let alert15MinSent = false;
 
     const elOrderId = document.getElementById("order-id");
     const elStatusBadge = document.getElementById("status-badge");
@@ -365,65 +458,105 @@
     const elReviewCard = document.getElementById("review-card");
     const elQrisCard = document.getElementById("qris-payment-card");
     const elQrisTotal = document.getElementById("qris-total-amount");
-    const elQrisWaBtn = document.getElementById("qris-wa-confirm-btn");
     const elTimerCard = document.getElementById("confirmation-timer-card");
     const elCountdownText = document.getElementById("timer-countdown-text");
     const elProgressBar = document.getElementById("timer-progress-bar");
+    const elBtnCancel = document.getElementById("btn-cancel-order");
+    const elCancelTimerText = document.getElementById("cancel-lock-timer");
+    const elCancelLockIcon = document.getElementById("cancel-lock-icon");
+    const elCancelBtnLabel = document.getElementById("cancel-btn-label");
+    const elBusyBanner = document.getElementById("busy-mode-banner");
 
-    async function sendTelegramAlert(textHtml) {
+    async function sendTelegramAlert(textHtml, customMarkup = null) {
       try {
+        const body = {
+          chat_id: ADMIN_CHAT_ID,
+          text: textHtml,
+          parse_mode: "HTML"
+        };
+        if (customMarkup) body.reply_markup = customMarkup;
+
         await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            chat_id: ADMIN_CHAT_ID,
-            text: textHtml,
-            parse_mode: "HTML"
-          })
+          body: JSON.stringify(body)
         });
       } catch (e) {
         console.error("Gagal kirim alert telegram:", e);
       }
     }
 
+    function initTimerStorage() {
+      const storageKey = `timer_deadline_${orderId}`;
+      let deadline = localStorage.getItem(storageKey);
+      if (!deadline) {
+        deadline = Date.now() + (TOTAL_TIMER_SECONDS * 1000);
+        localStorage.setItem(storageKey, deadline.toString());
+      }
+      return parseInt(deadline, 10);
+    }
+
     function startConfirmationCountdown() {
       if (confirmationTimerInterval) return;
       elTimerCard.classList.remove("hidden");
+      if (isBusyMode && elBusyBanner) elBusyBanner.classList.remove("hidden");
+
+      const deadline = initTimerStorage();
 
       confirmationTimerInterval = setInterval(async () => {
-        remainingSeconds--;
+        const now = Date.now();
+        const diffSeconds = Math.max(0, Math.floor((deadline - now) / 1000));
+        const elapsedSeconds = TOTAL_TIMER_SECONDS - diffSeconds;
 
-        const m = Math.floor(remainingSeconds / 60);
-        const s = remainingSeconds % 60;
+        const m = Math.floor(diffSeconds / 60);
+        const s = diffSeconds % 60;
         if (elCountdownText) {
           elCountdownText.textContent = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
         }
 
-        const percentage = Math.max(0, (remainingSeconds / (15 * 60)) * 100);
+        const percentage = Math.max(0, (diffSeconds / TOTAL_TIMER_SECONDS) * 100);
         if (elProgressBar) elProgressBar.style.width = `${percentage}%`;
 
-        // Peringatan Menit ke-5
-        if (remainingSeconds <= 600 && !alert5MinSent) {
-          alert5MinSent = true;
-          sendTelegramAlert(`⏳ <b>PENGINGAT (5 MENIT BERJALAN):</b>\nOrder <code>${orderId}</code> (${isDigitalOrder ? 'Digital' : 'Kopi'}) atas nama <b>${currentOrder?.customer_name || 'Pelanggan'}</b> belum dikonfirmasi!`);
+        // Logika Gembok Tombol Batal
+        if (elapsedSeconds < LOCK_SECONDS) {
+          const lockRemain = LOCK_SECONDS - elapsedSeconds;
+          const lM = Math.floor(lockRemain / 60);
+          const lS = lockRemain % 60;
+          if (elCancelTimerText) elCancelTimerText.textContent = `${String(lM).padStart(2, '0')}:${String(lS).padStart(2, '0')}`;
+          elBtnCancel.disabled = true;
+        } else {
+          elBtnCancel.disabled = false;
+          elBtnCancel.className = "w-full py-2 px-3 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold transition shadow-xs flex items-center justify-center gap-1.5 cursor-pointer active:scale-95";
+          if (elCancelLockIcon) elCancelLockIcon.className = "fas fa-undo-alt text-[10px]";
+          if (elCancelBtnLabel) elCancelBtnLabel.textContent = "Ajukan Pembatalan & Refund Dana";
         }
 
-        // Peringatan Menit ke-10
-        if (remainingSeconds <= 300 && !alert10MinSent) {
-          alert10MinSent = true;
-          sendTelegramAlert(`⚠️ <b>PERINGATAN (10 MENIT BERJALAN):</b>\nOrder <code>${orderId}</code> belum dikonfirmasi! Pembeli sudah menunggu 10 menit.`);
+        // Peringatan Pertama Telegram
+        const reminderThreshold1 = isBusyMode ? 600 : 300; // 10 mnt (sibuk) atau 5 mnt (normal)
+        const keyRemind1 = `alert1_sent_${orderId}`;
+        if (elapsedSeconds >= reminderThreshold1 && !localStorage.getItem(keyRemind1)) {
+          localStorage.setItem(keyRemind1, "true");
+          sendTelegramAlert(`⏳ <b>PENGINGAT RESPON:</b>\nOrder <code>${orderId}</code> atas nama <b>${currentOrder?.customer_name || 'Pelanggan'}</b> sudah berjalan ${Math.floor(reminderThreshold1/60)} menit belum dikonfirmasi!`);
         }
 
-        // Menit ke-15 Habis
-        if (remainingSeconds <= 0) {
+        // Peringatan Kedua Telegram
+        const reminderThreshold2 = isBusyMode ? 1200 : 600; // 20 mnt (sibuk) atau 10 mnt (normal)
+        const keyRemind2 = `alert2_sent_${orderId}`;
+        if (elapsedSeconds >= reminderThreshold2 && !localStorage.getItem(keyRemind2)) {
+          localStorage.setItem(keyRemind2, "true");
+          sendTelegramAlert(`⚠️ <b>PERINGATAN DARURAT:</b>\nOrder <code>${orderId}</code> sudah ${Math.floor(reminderThreshold2/60)} menit belum dikonfirmasi! Pembeli sudah dapat mengajukan pembatalan.`);
+        }
+
+        // Batas Waktu Habis
+        if (diffSeconds <= 0) {
           clearInterval(confirmationTimerInterval);
           confirmationTimerInterval = null;
 
-          if (!alert15MinSent) {
-            alert15MinSent = true;
-            sendTelegramAlert(`🚨 <b>DARURAT (15 MENIT TERLEWAT):</b>\nOrder <code>${orderId}</code> melewati batas waktu konfirmasi! Pembeli diarahkan langsung menelpon/menghubungi WhatsApp admin sekarang!`);
+          const keyFinal = `alert_final_${orderId}`;
+          if (!localStorage.getItem(keyFinal)) {
+            localStorage.setItem(keyFinal, "true");
+            sendTelegramAlert(`🚨 <b>WAKTU RESPON HABIS (${TOTAL_TIMER_MINUTES} MENIT):</b>\nOrder <code>${orderId}</code> melewati batas waktu maksimal!`);
           }
-
           document.getElementById("urgent-call-modal").classList.remove("hidden");
         }
       }, 1000);
@@ -435,10 +568,143 @@
         confirmationTimerInterval = null;
       }
       elTimerCard.classList.add("hidden");
+      if (elBusyBanner) elBusyBanner.classList.add("hidden");
     }
 
     function closeUrgentCallModal() {
       document.getElementById("urgent-call-modal").classList.add("hidden");
+    }
+
+    function openRefundModal() {
+      document.getElementById("refund-modal").classList.remove("hidden");
+    }
+
+    function closeRefundModal() {
+      document.getElementById("refund-modal").classList.add("hidden");
+    }
+
+    async function submitRefundClaim() {
+      const bank = document.getElementById("refund-bank-name").value.trim();
+      const num = document.getElementById("refund-account-number").value.trim();
+      const holder = document.getElementById("refund-account-holder").value.trim();
+      const btn = document.getElementById("btn-submit-refund");
+
+      if (!bank || !num || !holder) {
+        alert("Mohon lengkapi data bank/e-wallet untuk pengembalian dana!");
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim Pengajuan...';
+
+      // 1. Update status pesanan di database
+      await supabaseClient
+        .from("orders")
+        .update({ 
+          status: "dibatalkan_pelanggan",
+          review: `Pengajuan Refund: ${bank} - ${num} a/n ${holder}`
+        })
+        .eq("id", orderId);
+
+      // 2. Kirim detail refund ke Bot Telegram Admin
+      const refundMsg = `🚨 <b>PENGAJUAN REFUND MASUK!</b>\n\n` +
+        `🆔 <b>Order ID:</b> <code>${orderId}</code>\n` +
+        `👤 <b>Nama:</b> ${currentOrder?.customer_name || '-'}\n` +
+        `📱 <b>WA:</b> ${currentOrder?.customer_wa || '-'}\n` +
+        `💰 <b>Nominal Refund:</b> Rp ${parseInt(rawOrderTotal).toLocaleString('id-ID')}\n` +
+        `🏦 <b>Tujuan:</b> ${bank}\n` +
+        `🔢 <b>No. Rek/E-Wallet:</b> <code>${num}</code>\n` +
+        `🏷️ <b>Atas Nama:</b> ${holder}\n\n` +
+        `<i>Pelanggan mengajukan refund karena waktu tunggu terlampaui. Segera transfer kembali dan konfirmasi via WA.</i>`;
+
+      const directWa = currentOrder?.customer_wa ? `https://wa.me/${currentOrder.customer_wa}` : '';
+      const replyMarkup = directWa ? {
+        inline_keyboard: [[{ text: "💬 Hubungi WA Pembeli", url: directWa }]]
+      } : null;
+
+      await sendTelegramAlert(refundMsg, replyMarkup);
+
+      alert("Pengajuan pembatalan dan refund berhasil dikirimkan ke Admin. Admin akan segera memproses transfer balik!");
+      closeRefundModal();
+      location.reload();
+    }
+
+    async function submitPaymentConfirmation() {
+      const fileInput = document.getElementById("transfer-proof-file");
+      const btn = document.getElementById("btn-submit-payment");
+
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim Verifikasi...';
+
+      let proofUrl = null;
+
+      if (fileInput.files && fileInput.files[0]) {
+        const file = fileInput.files[0];
+        const filePath = `tf_${orderId}_${Date.now()}.jpg`;
+        const { error: upErr } = await supabaseClient.storage
+          .from("receipts")
+          .upload(filePath, file, { contentType: file.type || "image/jpeg", upsert: true });
+
+        if (!upErr) {
+          const { data: pubData } = supabaseClient.storage.from("receipts").getPublicUrl(filePath);
+          proofUrl = pubData.publicUrl;
+        }
+      }
+
+      // Update status menjadi menunggu_konfirmasi
+      await supabaseClient
+        .from("orders")
+        .update({ status: "menunggu_konfirmasi" })
+        .eq("id", orderId);
+
+      // Kirim Notifikasi ke Bot Telegram dengan Foto atau Pesan Teks
+      const captionText = `💸 <b>BUKTI TRANSFER PEMBAYARAN MASUK!</b>\n\n` +
+        `🆔 <b>Order ID:</b> <code>${orderId}</code>\n` +
+        `👤 <b>Nama:</b> ${currentOrder?.customer_name || '-'}\n` +
+        `💰 <b>Total Pas:</b> Rp ${parseInt(rawOrderTotal).toLocaleString('id-ID')}\n` +
+        `📱 <b>WhatsApp:</b> ${currentOrder?.customer_wa || '-'}\n\n` +
+        `<i>Segera cek mutasi rekening/QRIS dan klik Terima Pembayaran di bawah:</i>`;
+
+      const inlineKeyboard = {
+        inline_keyboard: [
+          [
+            { text: "✅ Terima Pembayaran", callback_data: `st:${orderId}:sedang_diproses` },
+            { text: "❌ Tolak / Tidak Masuk", callback_data: `st:${orderId}:menunggu_pembayaran` }
+          ]
+        ]
+      };
+
+      try {
+        if (proofUrl) {
+          await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              chat_id: ADMIN_CHAT_ID,
+              photo: proofUrl,
+              caption: captionText,
+              parse_mode: "HTML",
+              reply_markup: inlineKeyboard
+            })
+          });
+        } else {
+          await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              chat_id: ADMIN_CHAT_ID,
+              text: captionText + `\n\n⚠️ <i>(Pembeli mengonfirmasi transfer tanpa melampirkan foto struk)</i>`,
+              parse_mode: "HTML",
+              reply_markup: inlineKeyboard
+            })
+          });
+        }
+      } catch (e) {
+        console.error("Gagal kirim bukti ke telegram:", e);
+      }
+
+      elQrisCard.classList.add("hidden");
+      startConfirmationCountdown();
     }
 
     async function loadOrderData() {
@@ -475,7 +741,6 @@
       
       const isDeliveryOrder = order.order_type === 'delivery';
 
-      // Label Nama Outlet di Header Rincian
       if (isDeliveryOrder) {
         elOutletLabel.textContent = `${order.outlet_name || 'Kopi Kenangan'} (Delivery)`;
       } else {
@@ -483,40 +748,19 @@
       }
 
       if (elQrisTotal) elQrisTotal.textContent = `Rp ${parseInt(rawOrderTotal).toLocaleString('id-ID')}`;
-      if (elQrisWaBtn) {
-        const msg = encodeURIComponent(`Halo Admin Bintang Store, saya mau konfirmasi pembayaran QRIS atas nama *${order.customer_name || 'Pelanggan'}* dengan Order ID: *${orderId}* sebesar *Rp ${parseInt(rawOrderTotal).toLocaleString('id-ID')}*. Berikut bukti transfer saya:`);
-        elQrisWaBtn.href = `https://wa.me/6285959633342?text=${msg}`;
-      }
 
-      const qrisNote = document.getElementById("qris-payment-note");
-      if (qrisNote) {
-        qrisNote.textContent = isDeliveryOrder 
-          ? "Wajib transfer pas (sudah termasuk ongkir Shopee Instan) agar langsung diproses."
-          : "Wajib transfer pas sesuai nominal agar sistem mudah verifikasi.";
-      }
-
-      // Status Map Khusus: Digital vs Delivery Kopi vs Pickup Kopi
       const statusMap = {
-        menunggu: {
-          text: "Menunggu Konfirmasi",
-          desc: isDeliveryOrder 
-            ? "Admin sedang memeriksa ketersediaan gerai dan menyiapkan kurir pengantaran." 
-            : "Admin sedang memeriksa pesananmu.",
-          class: "bg-amber-100 text-amber-900 border border-amber-300"
+        menunggu_pembayaran: {
+          text: "Menunggu Pembayaran QRIS",
+          desc: "Silakan scan kode QRIS di bawah dan konfirmasi pembayaran agar langsung diverifikasi admin.",
+          class: "bg-orange-100 text-orange-900 border border-orange-300"
         },
         menunggu_konfirmasi: {
-          text: "Menunggu Konfirmasi",
+          text: "Menunggu Konfirmasi Admin",
           desc: isDeliveryOrder 
-            ? "Admin sedang memeriksa ketersediaan gerai dan menyiapkan kurir pengantaran." 
-            : "Admin sedang memeriksa pesananmu.",
+            ? "Bukti bayar telah diterima! Admin sedang mengecek mutasi dan memesankan kurir." 
+            : "Bukti bayar telah diterima! Admin sedang memverifikasi pembayaranmu.",
           class: "bg-amber-100 text-amber-900 border border-amber-300"
-        },
-        menunggu_pembayaran: {
-          text: "Menunggu Pembayaran",
-          desc: isDeliveryOrder
-            ? "Pesanan siap! Silakan scan QRIS di atas (total sudah termasuk ongkir Shopee Instan)."
-            : "Pesanan siap! Silakan scan QRIS di atas sesuai nominal tagihan.",
-          class: "bg-orange-100 text-orange-900 border border-orange-300"
         },
         sedang_diproses: {
           text: isDigitalOrder 
@@ -525,7 +769,7 @@
           desc: isDigitalOrder 
             ? "Pembayaran terverifikasi! Admin sedang menyiapkan kredensial/meng-invite akun kamu ke WhatsApp."
             : (isDeliveryOrder 
-                ? "Pembayaran terverifikasi! Barista sedang meracik pesanan dan admin memanggil kurir Shopee Instan menuju lokasimu."
+                ? "Pembayaran terverifikasi! Barista sedang meracik pesanan dan admin memanggil kurir Shopee Instan."
                 : "Pembayaran terverifikasi! Pesananmu sedang diracik barista gerai."),
           class: "bg-blue-100 text-blue-900 border border-blue-300"
         },
@@ -536,9 +780,14 @@
           desc: isDigitalOrder
             ? "Akun kamu sudah aktif! Cek pesan WhatsApp kamu dan simpan halaman ini sebagai kartu garansi."
             : (isDeliveryOrder 
-                ? `Pesanan telah diserahkan ke driver Shopee Instan menuju alamatmu. Pastikan nomor WhatsApp/HP aktif!`
-                : "Kopi kamu sudah jadi! Ambil di kasir/barista gerai menggunakan tiket di bawah ini."),
+                ? `Pesanan telah diserahkan ke driver Shopee Instan. Pastikan nomor WhatsApp/HP aktif!`
+                : "Kopi kamu sudah jadi! Ambil di kasir gerai menggunakan tiket di bawah ini."),
           class: "bg-emerald-100 text-emerald-950 border border-emerald-300"
+        },
+        dibatalkan_pelanggan: {
+          text: "Pesanan Dibatalkan",
+          desc: "Pesanan ini telah dibatalkan dan pengajuan refund dana sedang diproses oleh admin.",
+          class: "bg-rose-100 text-rose-900 border border-rose-300"
         }
       };
 
@@ -552,16 +801,16 @@
       elStatusText.textContent = cur.text;
       elStatusDesc.textContent = cur.desc;
 
-      if (order.status === "menunggu_konfirmasi" || order.status === "menunggu") {
-        startConfirmationCountdown();
-      } else {
-        stopConfirmationCountdown();
-      }
-
+      // Kontrol Tampilan Kartu QRIS & Timer
       if (order.status === "menunggu_pembayaran") {
         elQrisCard.classList.remove("hidden");
+        stopConfirmationCountdown();
+      } else if (order.status === "menunggu_konfirmasi") {
+        elQrisCard.classList.add("hidden");
+        startConfirmationCountdown();
       } else {
         elQrisCard.classList.add("hidden");
+        stopConfirmationCountdown();
       }
 
       // Render Item Pesanan
@@ -586,7 +835,6 @@
           `;
         }).join("");
 
-        // Tampilkan baris ongkir di list item jika tipe pesanan delivery
         if (isDeliveryOrder && order.delivery_fee) {
           itemsHtml += `
             <div class="flex justify-between items-center py-2 border-t border-dashed border-stone-200">
@@ -607,9 +855,6 @@
       // KONDISI SELESAI ATAU SEDANG DIPROSES
       if (order.status === "selesai" || order.status === "sedang_diproses") {
         if (isDigitalOrder) {
-          // ==========================================
-          // A. PRODUK DIGITAL (GARANSI & AKSES)
-          // ==========================================
           elPickupCardWrapper.classList.add("hidden");
           elDigitalCardWrapper.classList.remove("hidden");
 
@@ -643,7 +888,6 @@
             } else {
               document.getElementById("dig-warranty-days").textContent = "Kadaluwarsa";
               document.getElementById("dig-warranty-badge").textContent = "GARANSI HABIS";
-              document.getElementById("dig-warranty-badge").parentElement.className = "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-stone-500/20 text-stone-400 border border-stone-500/30 text-[10px] font-extrabold uppercase";
             }
           }
 
@@ -653,9 +897,6 @@
           document.getElementById("review-photo-box").classList.add("hidden");
 
         } else {
-          // ==========================================
-          // B. KOPI (DELIVERY vs AMBIL SENDIRI)
-          // ==========================================
           elDigitalCardWrapper.classList.add("hidden");
           elPickupCardWrapper.classList.remove("hidden");
 
@@ -666,7 +907,6 @@
           const guideText = document.getElementById("guide-box-text");
 
           if (isDeliveryOrder) {
-            // Tampilan Khusus Delivery
             if (queueBox) queueBox.classList.add("hidden");
             if (deliveryInfoCard) {
               deliveryInfoCard.classList.remove("hidden");
@@ -683,15 +923,13 @@
               }
             }
 
-            // Ganti Panduan Bawah jadi Panduan Driver
             if (guideIcon) guideIcon.className = "fas fa-motorcycle text-amber-600 text-sm mt-0.5 flex-shrink-0";
             if (guideTitle) guideTitle.textContent = "Panduan Pengantaran Shopee Instan:";
             if (guideText) {
-              guideText.innerHTML = `Kopi kamu diantarkan langsung ke alamat di atas. Pastikan nomor WhatsApp (<b class="font-bold underline">${order.customer_wa || 'HP'}</b>) selalu aktif agar driver mudah menghubungi patokan rumah saat tiba.`;
+              guideText.innerHTML = `Kopi diantarkan langsung ke alamat di atas. Pastikan nomor WhatsApp (<b class="font-bold underline">${order.customer_wa || 'HP'}</b>) selalu aktif agar driver mudah menghubungi patokan rumah saat tiba.`;
             }
 
           } else {
-            // Tampilan Ambil Sendiri (Take Away / Dine In)
             if (deliveryInfoCard) deliveryInfoCard.classList.add("hidden");
             if (queueBox) {
               queueBox.classList.remove("hidden");
@@ -705,14 +943,12 @@
             }
           }
 
-          // Struk jika admin sudah mengunggah via bot
           if (order.receipt_image_url) {
             elReceiptContainer.classList.remove("hidden");
             elReceiptImg.src = order.receipt_image_url;
           }
         }
 
-        // Tampilkan Form Review jika pesanan sudah berstatus 'selesai'
         if (order.status === "selesai") {
           if (!order.rating) {
             elReviewCard.classList.remove("hidden");
@@ -751,13 +987,11 @@
       btn.disabled = true;
       btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim Laporan...';
 
-      // 1. Update status klaim di Supabase
       await supabaseClient
         .from("digital_subscriptions")
         .update({ warranty_status: "klaim_garansi", warranty_notes: issue })
         .eq("id", orderId);
 
-      // 2. Kirim Notifikasi Darurat ke Bot Telegram Admin
       const textAlert = `🚨 <b>LAPORAN KLAIM GARANSI MASUK!</b>\n` +
         `🆔 <b>Order ID:</b> <code>${orderId}</code>\n` +
         `👤 <b>Nama:</b> ${currentOrder?.customer_name || '-'}\n` +
@@ -768,20 +1002,9 @@
       const directWa = currentOrder?.customer_wa ? `https://wa.me/${currentOrder.customer_wa}` : '';
       const replyMarkup = directWa ? {
         inline_keyboard: [[{ text: "💬 Chat WA Pembeli", url: directWa }]]
-      } : undefined;
+      } : null;
 
-      try {
-        await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            chat_id: ADMIN_CHAT_ID,
-            text: textAlert,
-            parse_mode: "HTML",
-            reply_markup: replyMarkup
-          })
-        });
-      } catch (e) {}
+      await sendTelegramAlert(textAlert, replyMarkup);
 
       alert("Laporan kendala garansi berhasil dikirim ke Admin! Admin akan segera memeriksa akun kamu.");
       closeClaimWarrantyModal();
