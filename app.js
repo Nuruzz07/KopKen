@@ -805,12 +805,12 @@ function renderMenu(filterKeyword = '') {
     if (!container) return;
     container.innerHTML = '';
 
-    const categories = [
+   const categories = [
         { id: 'cat-bundling', title: '🎁 Paket Bundling Hemat', filter: 'bundling' },
+        { id: 'cat-new', title: 'New Variant (Varian Baru)', filter: 'new' },
         { id: 'cat-coffee', title: 'Coffee Series (Kopi)', filter: 'coffee' },
         { id: 'cat-noncoffee', title: 'Non-Coffee Series (Non-Kopi)', filter: 'noncoffee' },
         { id: 'cat-frappe', title: 'Oatside & Frappe Series', filter: 'frappe' },
-        { id: 'cat-new', title: 'New Variant (Varian Baru)', filter: 'new' },
         { id: 'cat-bakery', title: 'Signature Bakes, Toast & Food', filter: 'bakery' }
     ];
 
