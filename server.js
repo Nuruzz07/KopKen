@@ -73,6 +73,58 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
+  if (req.url === "/api/notifications/telegram/photo" && req.method === "POST") {
+    let body = "";
+
+    req.on("data", chunk => {
+      body += chunk;
+    });
+
+    req.on("end", async () => {
+      try {
+        const data = JSON.parse(body);
+
+        if (!process.env.TELEGRAM_BOT_TOKEN || !process.env.TELEGRAM_CHAT_ID) {
+          throw new Error("Telegram backend belum dikonfigurasi.");
+        }
+
+        const response = await fetch(
+          `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendPhoto`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              chat_id: process.env.TELEGRAM_CHAT_ID,
+              photo: data.photo,
+              caption: data.caption || "",
+              parse_mode: "HTML",
+              reply_markup: data.reply_markup
+            })
+          }
+        );
+
+        const result = await response.json();
+
+        res.writeHead(response.ok ? 200 : 500, {
+          "Content-Type": "application/json"
+        });
+
+        res.end(JSON.stringify(result));
+      } catch (error) {
+        res.writeHead(500, {
+          "Content-Type": "application/json"
+        });
+
+        res.end(JSON.stringify({
+          ok: false,
+          error: error.message
+        }));
+      }
+    });
+
+    return;
+  }
+
   let filePath = decodeURIComponent(req.url.split("?")[0]);
 
   if (filePath === "/") filePath = "/index.html";

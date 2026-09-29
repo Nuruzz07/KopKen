@@ -408,8 +408,6 @@
     const SUPABASE_ANON_KEY = "sb_publishable_GQ19XRT7yWIBido0iXJvCQ_ybZ_I7ju";
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    const BOT_TOKEN = "8765196047:AAGSnN7VoGnXxQK5rl5459ifGqBVE3EKsWo";
-    const ADMIN_CHAT_ID = "6731058601";
 
     const urlParams = new URLSearchParams(window.location.search);
     const orderId = urlParams.get("order_id") || "";
@@ -469,20 +467,23 @@
 
     async function sendTelegramAlert(textHtml, customMarkup = null) {
       try {
-        const body = {
-          chat_id: ADMIN_CHAT_ID,
-          text: textHtml,
-          parse_mode: "HTML"
-        };
-        if (customMarkup) body.reply_markup = customMarkup;
-
-        await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+        const response = await fetch("/api/notifications/telegram", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(body)
+          body: JSON.stringify({
+            message: textHtml,
+            reply_markup: customMarkup
+          })
         });
+
+        if (!response.ok) {
+          throw new Error("Gagal mengirim notifikasi Telegram.");
+        }
+
+        return await response.json();
       } catch (e) {
         console.error("Gagal kirim alert telegram:", e);
+        return null;
       }
     }
 
@@ -683,25 +684,21 @@
 
       try {
         if (proofUrl) {
-          await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, {
+          await fetch("/api/notifications/telegram/photo", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-              chat_id: ADMIN_CHAT_ID,
               photo: proofUrl,
               caption: captionText,
-              parse_mode: "HTML",
               reply_markup: inlineKeyboard
             })
           });
         } else {
-          await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+          await fetch("/api/notifications/telegram", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-              chat_id: ADMIN_CHAT_ID,
-              text: captionText + `\n\n⚠️ <i>(Pembeli mengonfirmasi transfer tanpa melampirkan foto struk)</i>`,
-              parse_mode: "HTML",
+              message: captionText + `\\n\\n⚠️ <i>(Pembeli mengonfirmasi transfer tanpa melampirkan foto struk)</i>`,
               reply_markup: inlineKeyboard
             })
           });
@@ -1119,11 +1116,10 @@
       if (uploadedPhotoUrl) {
         const caption = `⭐ <b>ULASAN FOTO BARU MASUK!</b>\n🆔 <b>Order:</b> <code>${orderId}</code>\n👤 <b>Nama:</b> ${currentOrder?.customer_name || '-'}\n📱 <b>WA:</b> ${currentOrder?.customer_wa || '-'}\n🌟 <b>Bintang:</b> ${selectedRating}/5\n💬 <b>Komentar:</b> "${comment || '-'}"\n\n<i>Validasi keaslian foto ulasan untuk voucher Rp 1.000:</i>`;
 
-        fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, {
+        fetch("/api/notifications/telegram/photo", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            chat_id: ADMIN_CHAT_ID,
             photo: uploadedPhotoUrl,
             caption: caption,
             reply_markup: {
