@@ -639,23 +639,23 @@
       let proofUrl = null;
 
       if (fileInput.files && fileInput.files[0]) {
-        const file = fileInput.files[0];
-        const filePath = `tf_${orderId}_${Date.now()}.jpg`;
-        const { error: upErr } = await supabaseClient.storage
-          .from("receipts")
-          .upload(filePath, file, { contentType: file.type || "image/jpeg", upsert: true });
-
-        if (!upErr) {
-          const { data: pubData } = supabaseClient.storage.from("receipts").getPublicUrl(filePath);
-          proofUrl = pubData.publicUrl;
+        try {
+          const updatedOrder = await window.BintangPaymentService.uploadPaymentProof(
+            fileInput.files[0],
+            orderId
+          );
+          proofUrl = updatedOrder?.receipt_image_url || null;
+        } catch (err) {
+          console.error("Gagal upload bukti pembayaran:", err);
         }
       }
 
       // Update status menjadi menunggu_konfirmasi
-      await supabaseClient
-        .from("orders")
-        .update({ status: "menunggu_konfirmasi" })
-        .eq("id", orderId);
+      try {
+        await window.BintangPaymentService.markPaymentSubmitted(orderId);
+      } catch (err) {
+        console.error("Gagal update status pembayaran:", err);
+      }
 
       // Kirim Notifikasi ke Bot Telegram dengan Foto atau Pesan Teks
       const captionText = `💸 <b>BUKTI TRANSFER PEMBAYARAN MASUK!</b>\n\n` +
