@@ -1087,13 +1087,19 @@
         }
       }
 
-      const { error } = await supabaseClient
-        .from("orders")
-        .update({ 
-          rating: selectedRating, 
-          review: comment 
-        })
-        .eq("id", orderId);
+      let error = null;
+
+      try {
+        await window.BintangReviewService.submitReview({
+          orderId,
+          rating: selectedRating,
+          comment,
+          photoUrl: uploadedPhotoUrl
+        });
+      } catch (err) {
+        error = err;
+        console.error("Gagal menyimpan review:", err);
+      }
 
       if (uploadedPhotoUrl) {
         const caption = `⭐ <b>ULASAN FOTO BARU MASUK!</b>\n🆔 <b>Order:</b> <code>${orderId}</code>\n👤 <b>Nama:</b> ${currentOrder?.customer_name || '-'}\n📱 <b>WA:</b> ${currentOrder?.customer_wa || '-'}\n🌟 <b>Bintang:</b> ${selectedRating}/5\n💬 <b>Komentar:</b> "${comment || '-'}"\n\n<i>Validasi keaslian foto ulasan untuk voucher Rp 1.000:</i>`;
