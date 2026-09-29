@@ -1,4 +1,4 @@
-﻿function normalizeWhatsApp(phone) {
+function normalizeWhatsApp(phone) {
   let clean = String(phone || "").replace(/[^0-9]/g, "");
 
   if (clean.startsWith("0")) {
@@ -20,6 +20,7 @@ function generateOrderId(name) {
 }
 
 function buildOrderData({
+  orderId,
   name,
   phone,
   outlet,
