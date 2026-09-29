@@ -597,14 +597,21 @@
       btn.disabled = true;
       btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim Pengajuan...';
 
-      // 1. Update status pesanan di database
-      await supabaseClient
-        .from("orders")
-        .update({ 
-          status: "dibatalkan_pelanggan",
-          review: `Pengajuan Refund: ${bank} - ${num} a/n ${holder}`
-        })
-        .eq("id", orderId);
+      // 1. Simpan pengajuan refund melalui Refund Service
+      try {
+        await window.BintangRefundService.submitRefund({
+          orderId,
+          bank,
+          accountNumber: num,
+          accountHolder: holder
+        });
+      } catch (err) {
+        console.error("Gagal menyimpan pengajuan refund:", err);
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-paper-plane text-xs"></i> <span>Ajukan Refund</span>';
+        alert("Pengajuan refund gagal disimpan. Silakan coba lagi.");
+        return;
+      }
 
       // 2. Kirim detail refund ke Bot Telegram Admin
       const refundMsg = `🚨 <b>PENGAJUAN REFUND MASUK!</b>\n\n` +
