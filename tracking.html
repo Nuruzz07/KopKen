@@ -994,10 +994,18 @@
       btn.disabled = true;
       btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim Laporan...';
 
-      await supabaseClient
-        .from("digital_subscriptions")
-        .update({ warranty_status: "klaim_garansi", warranty_notes: issue })
-        .eq("id", orderId);
+      try {
+        await window.BintangWarrantyService.submitWarrantyClaim({
+          orderId,
+          issue
+        });
+      } catch (err) {
+        console.error("Gagal menyimpan klaim garansi:", err);
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-paper-plane text-xs"></i> <span>Kirim Laporan Garansi ke Admin</span>';
+        alert("Klaim garansi gagal disimpan. Silakan coba lagi.");
+        return;
+      }
 
       const textAlert = `🚨 <b>LAPORAN KLAIM GARANSI MASUK!</b>\n` +
         `🆔 <b>Order ID:</b> <code>${orderId}</code>\n` +

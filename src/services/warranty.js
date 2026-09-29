@@ -6,38 +6,32 @@ async function getWarranty(orderId) {
   const { data, error } = await supabaseClient
     .from("digital_subscriptions")
     .select("*")
-    .eq("order_id", orderId)
+    .eq("id", orderId)
     .maybeSingle();
 
   if (error) throw error;
-
   return data;
 }
 
-async function submitWarrantyClaim({
-  orderId,
-  issue
-}) {
+async function submitWarrantyClaim({ orderId, issue }) {
   if (!orderId) throw new Error("Order ID tidak ditemukan.");
-  if (!issue || issue.trim().length < 3) {
+  if (!issue || issue.trim().length < 5) {
     throw new Error("Keluhan garansi belum diisi.");
   }
 
   const { data, error } = await supabaseClient
     .from("digital_subscriptions")
     .update({
-      status: "claim"
+      warranty_status: "klaim_garansi",
+      warranty_notes: issue
     })
-    .eq("order_id", orderId)
+    .eq("id", orderId)
     .select()
     .single();
 
   if (error) throw error;
 
-  return {
-    subscription: data,
-    issue
-  };
+  return data;
 }
 
 export {
