@@ -1131,5 +1131,17 @@
 
     loadOrderData();
   </script>
+<script type="module">
+import {
+  uploadPaymentProof,
+  markPaymentSubmitted
+} from "./src/services/payments.js";
+
+window.BintangPaymentService = {
+  uploadPaymentProof,
+  markPaymentSubmitted
+};
+</script>
+
 </body>
 </html>
