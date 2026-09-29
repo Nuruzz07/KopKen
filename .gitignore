@@ -1,0 +1,5 @@
+﻿.env
+node_modules/
+KopKen-main.zip
+checkout.html.before-*
+*.log
