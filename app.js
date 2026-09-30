@@ -279,6 +279,9 @@ let currentOrderType = 'takeaway';
 let selectedOutlet = null;
 const OutletModule = window.BintangOutlet;
 const TimeModule = window.BintangTime;
+const CartModule = window.BintangCart;
+const MemberModule = window.BintangMember;
+const HistoryModule = window.BintangHistory;
 const CatalogModule = window.BintangCatalog;
 let cart = [];
 let currentModalItem = null;
@@ -1169,66 +1172,18 @@ function openModal(itemId, editIndex = null) {
 }
 
 function addToCartFromModal() {
-    if (!currentModalItem) return;
-    const itemName = currentModalItem.name;
-    let details = [];
-    let chosenPrice = modalPriceCache;
-
-    if (currentModalItem.type === 'bundling') {
-        details.push(document.getElementById('mod-bundle-sel').value);
-    } else if (currentModalItem.type === 'drink') {
-        const temp = document.querySelector('input[name="mod-temp"]:checked')?.value || 'Ice';
-        const sizePick = document.querySelector('input[name="mod-size-pick"]:checked')?.value || 'Regular';
-        const sugar = document.querySelector('input[name="mod-sugar"]:checked')?.value || 'Normal Sugar';
-        
-        details.push(temp);
-        details.push(sizePick);
-        if (sugar !== 'Normal Sugar') details.push(sugar);
-        if (temp === 'Ice') {
-            const ice = document.querySelector('input[name="mod-ice"]:checked')?.value || 'Normal Ice';
-            if (ice !== 'Normal Ice') details.push(ice);
-        }
-        document.querySelectorAll('.mod-addons-chk:checked').forEach(chk => {
-            details.push(chk.value);
-        });
-    }
-
-    const note = document.getElementById('mod-note')?.value || '';
-
-    if (editingCartIndex !== null) {
-        cart[editingCartIndex] = {
-            item: currentModalItem,
-            name: currentModalItem.name,
-            details: details.join(', '),
-            note: note,
-            price: chosenPrice,
-            qty: cart[editingCartIndex].qty || 1
-        };
-        showToast("Pesanan di keranjang diperbarui!");
-    } else {
-        cart.push({
-            item: currentModalItem,
-            name: currentModalItem.name,
-            details: details.join(', '),
-            note: note,
-            price: chosenPrice,
-            qty: 1
-        });
-        playFlyToCartAnimation();
-        showToast(`<b>${itemName}</b><br>Berhasil masuk ke keranjang!`);
-    }
-
-    // KUNCI PENYIMPANAN KE LOCALSTORAGE
-    try {
-        localStorage.setItem("bintang_cart", JSON.stringify(cart));
-        localStorage.setItem("cart", JSON.stringify(cart));
-        localStorage.setItem("bintang_selected_outlet", JSON.stringify(selectedOutlet));
-        localStorage.setItem("selectedOutlet", JSON.stringify(selectedOutlet));
-        localStorage.setItem("bintang_order_type", currentOrderType);
-    } catch(e) {}
-
-    closeModal();
-    updateCartUI();
+    cart = CartModule.addToCartFromModal({
+        cart,
+        currentModalItem,
+        modalPriceCache,
+        editingCartIndex,
+        selectedOutlet,
+        currentOrderType,
+        onAnimation: playFlyToCartAnimation,
+        onToast: showToast,
+        onCloseModal: closeModal,
+        onUpdateCartUI: updateCartUI
+    });
 }
 
 function closeModal(e) {
@@ -1250,18 +1205,7 @@ function playFlyToCartAnimation() {
 }
 
 function updateCartUI() {
-    const badge = document.getElementById('cart-badge');
-    const countText = document.getElementById('cart-item-count-text');
-    let totalQty = cart.reduce((sum, c) => sum + (c.qty || 1), 0);
-    if (countText) countText.textContent = `${totalQty} Item`;
-    if (badge) {
-        if (totalQty > 0) {
-            badge.classList.remove('hidden');
-            badge.textContent = totalQty;
-        } else {
-            badge.classList.add('hidden');
-        }
-    }
+    CartModule.updateCartUI(cart);
 }
 
 function applyRacikanPas() {
@@ -1285,46 +1229,12 @@ function getDailyWifiPassword() {
 }
 
 async function lookupCustomerLoyaltyHistory() {
-    sfx.playTap();
-    const input = document.getElementById('history-lookup-wa');
-    const summaryBox = document.getElementById('loyalty-summary-box');
-    const summaryText = document.getElementById('loyalty-summary-text');
-    const subText = document.getElementById('loyalty-sub-text');
-
-    if (!input || !input.value.trim()) {
-        showToast("Masukkan nomor WhatsApp terlebih dahulu!");
-        return;
-    }
-
-    let cleanWa = input.value.trim().replace(/[^0-9]/g, '');
-    if (cleanWa.startsWith('0')) cleanWa = '62' + cleanWa.slice(1);
-    else if (!cleanWa.startsWith('62')) cleanWa = '62' + cleanWa;
-
-    if (summaryBox) summaryBox.classList.remove('hidden');
-    if (summaryText) summaryText.innerHTML = '<i class="fas fa-spinner fa-spin mr-1"></i> Memeriksa data langganan...';
-
-    try {
-        if (!supabaseClient) throw new Error("Database belum terhubung");
-
-        const { data: cust, error } = await supabaseClient
-            .from('customers')
-            .select('*')
-            .eq('phone_number', cleanWa)
-            .single();
-
-        if (error || !cust) {
-            if (summaryText) summaryText.innerHTML = `👋 Nomor WhatsApp belum tercatat sebagai langganan.`;
-            if (subText) subText.textContent = `Yuk selesaikan pesanan pertamamu hari ini!`;
-            return;
-        }
-
-        const totalOrders = cust.total_orders || 1;
-        const totalSpent = cust.total_spent || 0;
-        if (summaryText) summaryText.innerHTML = `⭐ <b>Halo Kak ${cust.customer_name || 'Pelanggan'}!</b>`;
-        if (subText) subText.innerHTML = `Kamu sudah order <b>${totalOrders} kali</b> dengan total jajan <b>${formatRp(totalSpent)}</b>. 🫶☕`;
-    } catch (e) {
-        if (summaryText) summaryText.innerHTML = `⚠️ Data belum dapat dimuat.`;
-    }
+    return MemberModule.lookupCustomerLoyaltyHistory({
+        supabaseClient,
+        formatRp,
+        onTap: () => sfx.playTap(),
+        onToast: showToast
+    });
 }
 
 function closeCustomRequestModal() {
@@ -1345,33 +1255,14 @@ function validateCustomReqForm() {
 }
 
 function addCustomRequestToCart() {
-    const name = document.getElementById('req-menu-name')?.value.trim();
-    if (!name) return;
-
-    let price = parseFloat(document.getElementById('req-menu-price')?.value) || 18000;
-    const note = document.getElementById('req-menu-note')?.value.trim() || '';
-
-    cart.push({
-        item: {
-            id: 'custom_req_' + Date.now(),
-            name: `✍️ [Request] ${name}`,
-            isCustom: true
-        },
-        name: `✍️ [Request] ${name}`,
-        details: '[REQUEST KUSTOM]',
-        note: note,
-        price: price,
-        qty: 1
+    cart = CartModule.addCustomRequestToCart({
+        cart,
+        selectedOutlet,
+        currentOrderType,
+        onClose: closeCustomRequestModal,
+        onUpdateCartUI: updateCartUI,
+        onToast: showToast
     });
-
-    try {
-        localStorage.setItem("bintang_cart", JSON.stringify(cart));
-        localStorage.setItem("cart", JSON.stringify(cart));
-    } catch(e) {}
-
-    closeCustomRequestModal();
-    updateCartUI();
-    showToast(`Request <b>${name}</b> berhasil masuk ke keranjang!`);
 }
 
 function openCustomRequestModal(keyword = '') {
@@ -1485,76 +1376,34 @@ document.addEventListener('keydown', (e) => {
 
 // Member Autofill
 let memberSearchTimeout = null;
-async function onInputMemberCode(val) {
-    const query = val.trim().toLowerCase();
-    const suggestBox = document.getElementById('memberSuggestBox');
-    if (!suggestBox) return;
 
-    if (query.length < 2) {
-        suggestBox.style.display = 'none';
-        suggestBox.innerHTML = '';
-        return;
-    }
-
+function onInputMemberCode(val) {
     clearTimeout(memberSearchTimeout);
-    memberSearchTimeout = setTimeout(async () => {
-        try {
-            if (!supabaseClient) return;
-            const { data, error } = await supabaseClient
-                .from('members')
-                .select('*')
-                .ilike('member_code', `${query}%`)
-                .limit(4);
 
-            if (!error && data && data.length > 0) {
-                suggestBox.innerHTML = data.map(m => `
-                    <div onclick="applyMemberProfile('${m.member_code}', '${encodeURIComponent(m.customer_name)}', '${m.customer_phone}', '${m.favorite_outlet_name || ''}')" 
-                         style="padding: 10px 12px; cursor: pointer; border-bottom: 1px solid #f1f1f1; display: flex; justify-content: space-between; align-items: center; text-align: left;"
-                         onmouseover="this.style.background='#faf5f0'" 
-                         onmouseout="this.style.background='white'">
-                        <div>
-                            <strong style="color: #9C532B; font-size: 13px;">@${m.member_code}</strong>
-                            <div style="font-size: 11px; color: #777;">Outlet: ${m.favorite_outlet_name || 'Bebas'}</div>
-                        </div>
-                        <span style="font-size: 11px; background: #E8D8C8; color: #5c2d16; padding: 2px 8px; border-radius: 12px; font-weight: 600;">Pakai</span>
-                    </div>
-                `).join('');
-                suggestBox.style.display = 'block';
-            } else {
-                suggestBox.style.display = 'none';
-            }
-        } catch(e) {
-            suggestBox.style.display = 'none';
-        }
+    memberSearchTimeout = setTimeout(() => {
+        MemberModule.searchMemberCode({
+            supabaseClient,
+            value: val,
+            onApply: applyMemberProfile
+        });
     }, 250);
 }
 
 function applyMemberProfile(code, encodedName, phone, outletName) {
-    const name = decodeURIComponent(encodedName);
-    localStorage.setItem("bintang_member_session", JSON.stringify({
-        code: code,
-        name: name,
-        phone: phone,
-        outlet: outletName
-    }));
-
-    const memberInput = document.getElementById('memberCodeInput');
-    if (memberInput) memberInput.value = code;
-
-    const suggestBox = document.getElementById('memberSuggestBox');
-    if (suggestBox) suggestBox.style.display = 'none';
-
-    if (outletName && Array.isArray(allOutlets)) {
-        const found = allOutlets.find(o => o.name.toLowerCase() === outletName.toLowerCase());
-        if (found) {
+    MemberModule.applyMemberProfile({
+        code,
+        encodedName,
+        phone,
+        outletName,
+        allOutlets,
+        onOutletSelected: (found) => {
             selectedOutlet = found;
-            localStorage.setItem("bintang_selected_outlet", JSON.stringify(found));
-            localStorage.setItem("selectedOutlet", JSON.stringify(found));
+            CartModule.persistCart(cart, selectedOutlet, currentOrderType);
             updateOutletUI();
             updateGatePreview();
-        }
-    }
-    showToast(`✨ Profil <b>@${code}</b> terpasang!`);
+        },
+        onToast: showToast
+    });
 }
 
 function openHistoryModal() {
@@ -1573,53 +1422,21 @@ function closeHistoryModal() {
 }
 
 function renderOrderHistory() {
-    const container = document.getElementById('history-items-list');
-    const history = JSON.parse(localStorage.getItem('bintang_order_history') || '[]');
-    if (!container) return;
-
-    if (history.length === 0) {
-        container.innerHTML = '<p class="text-xs text-gray-500 italic text-center py-6">Belum ada riwayat pesanan.</p>';
-        return;
-    }
-
-    container.innerHTML = '';
-    history.forEach((h, idx) => {
-        container.innerHTML += `
-            <div class="bg-gray-50 p-3.5 rounded-2xl border border-gray-200">
-                <div class="flex justify-between items-center mb-1">
-                    <span class="text-[10px] font-extrabold text-amber-800 bg-amber-100 px-2 py-0.5 rounded-full uppercase">${h.orderType}</span>
-                    <span class="text-[10px] text-gray-400 font-medium">${h.date}</span>
-                </div>
-                <h4 class="font-extrabold text-xs text-kenangan-dark">${h.outletName}</h4>
-                <p class="text-[11px] text-gray-600 line-clamp-2 mt-0.5">${h.itemsSummary}</p>
-                <div class="flex justify-between items-center mt-2 pt-2 border-t border-gray-200">
-                    <span class="text-xs font-extrabold text-kenangan-primary">${formatRp(h.grandTotal)}</span>
-                    <button onclick="reorderHistoryItem(${idx})" class="px-3 py-1 rounded-xl bg-kenangan-dark hover:bg-kenangan-primary text-white text-[11px] font-bold transition flex items-center gap-1 active:scale-95 cursor-pointer">
-                        <i class="fas fa-arrow-rotate-right text-[10px]"></i> Pesan Lagi
-                    </button>
-                </div>
-            </div>
-        `;
+    HistoryModule.renderOrderHistory({
+        formatRp
     });
 }
 
 function reorderHistoryItem(index) {
-    const history = JSON.parse(localStorage.getItem('bintang_order_history') || '[]');
-    const ord = history[index];
+    const ord = HistoryModule.getHistoryItem(index);
     if (!ord) return;
 
     cart = JSON.parse(JSON.stringify(ord.cartData || []));
     currentOrderType = ord.orderType || 'takeaway';
+
     if (ord.outletObj) selectedOutlet = ord.outletObj;
 
-    try {
-        localStorage.setItem("bintang_cart", JSON.stringify(cart));
-        localStorage.setItem("cart", JSON.stringify(cart));
-        if (selectedOutlet) {
-            localStorage.setItem("bintang_selected_outlet", JSON.stringify(selectedOutlet));
-            localStorage.setItem("selectedOutlet", JSON.stringify(selectedOutlet));
-        }
-    } catch(e) {}
+    CartModule.persistCart(cart, selectedOutlet, currentOrderType);
 
     closeHistoryModal();
     switchView('kopken');
@@ -1629,9 +1446,10 @@ function reorderHistoryItem(index) {
 }
 
 function clearOrderHistory() {
-    localStorage.removeItem('bintang_order_history');
-    renderOrderHistory();
-    showToast("Riwayat pesanan dibersihkan");
+    HistoryModule.clearOrderHistory({
+        onRender: renderOrderHistory,
+        onToast: showToast
+    });
 }
 
 function initWifiDisplay() {
