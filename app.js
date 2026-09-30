@@ -64,16 +64,12 @@ class SoundEffectsEngine {
 }
 const sfx = new SoundEffectsEngine();
 
-// Kredensial Bot Telegram & WA
-const botToken = "8765196047:AAGSnN7VoGnXxQK5rl5459ifGqBVE3EKsWo";
-const chatId = "6731058601";
-const waNumber = "6285959633342";
 const formatRp = (num) => 'Rp ' + parseInt(num || 0).toLocaleString('id-ID');
 const delay = (ms) => new Promise(res => setTimeout(res, ms));
 
 // Supabase Endpoint & Client
-const SUPABASE_TOMORO_URL = "https://axaoagzveujcgoxybdmp.supabase.co";
-const SUPABASE_TOMORO_KEY = "sb_publishable_GQ19XRT7yWIBido0iXJvCQ_ybZ_I7ju";
+const SUPABASE_TOMORO_URL = APP_CONFIG.supabase.url;
+const SUPABASE_TOMORO_KEY = APP_CONFIG.supabase.publishableKey;
 let supabaseClient = null;
 if (window.supabase && typeof window.supabase.createClient === 'function') {
     try {
@@ -90,12 +86,7 @@ let secretLogoTapCount = 0;
 let secretLogoTapTimer = null;
 
 // Konfigurasi Jam Agenda Terjadwal
-const SCHEDULE_BUSY = [
-  { day: 2, start: "07:00", end: "08:40" },
-  { day: 2, start: "14:20", end: "16:00" },
-  { day: 4, start: "08:40", end: "10:20" },
-  { day: 4, start: "16:10", end: "17:50" }
-];
+const SCHEDULE_BUSY = APP_CONFIG.scheduleBusy;
 
 function checkAdminSchedule() {
     return AdminModule.checkAdminSchedule(getWIBDate());
