@@ -98,23 +98,7 @@ const SCHEDULE_BUSY = [
 ];
 
 function checkAdminSchedule() {
-  const now = new Date();
-  const currentDay = now.getDay();
-  const currentMinutes = now.getHours() * 60 + now.getMinutes();
-
-  for (const slot of SCHEDULE_BUSY) {
-    if (slot.day === currentDay) {
-      const [sh, sm] = slot.start.split(":").map(Number);
-      const [eh, em] = slot.end.split(":").map(Number);
-      const startMinutes = sh * 60 + sm;
-      const endMinutes = eh * 60 + em;
-
-      if (currentMinutes >= startMinutes && currentMinutes <= endMinutes) {
-        return { isBusy: true, availableAt: slot.end };
-      }
-    }
-  }
-  return { isBusy: false, availableAt: null };
+    return AdminModule.checkAdminSchedule(getWIBDate());
 }
 
 function updateBusyStatusUI() {
@@ -283,6 +267,8 @@ const CartModule = window.BintangCart;
 const MemberModule = window.BintangMember;
 const HistoryModule = window.BintangHistory;
 const WifiModule = window.BintangWifi;
+const AdminModule = window.BintangAdmin;
+const StoreStatusModule = window.BintangStoreStatus;
 const CatalogModule = window.BintangCatalog;
 let cart = [];
 let currentModalItem = null;
@@ -368,56 +354,47 @@ function refreshAdminControlUI() {
 
 async function updateStoreAdminStatus(newStatus) {
     sfx.playTap();
-    const isOnlineBool = newStatus === 'online';
-    const statusLabel = isOnlineBool ? 'Admin Online & Proses Cepat' : 'Admin Sedang Kuliah/Sibuk (Proses ±15-30 Mnt)';
 
-    try {
-        if (supabaseClient) {
-            await supabaseClient
-                .from('store_settings')
-                .upsert({ id: 'main', is_online: isOnlineBool, status_label: statusLabel, updated_at: new Date() });
+    const result = await StoreStatusModule.updateStoreStatus({
+        supabaseClient,
+        newStatus,
+        onStatusChange: status => {
+            currentAdminStoreStatus = status;
+            applyAdminStatusToUI(status);
+            refreshAdminControlUI();
         }
-        currentAdminStoreStatus = newStatus;
-        applyAdminStatusToUI(newStatus);
-        refreshAdminControlUI();
+    });
+
+    if (result.ok) {
         showToast(`Status toko diubah ke: <b>${newStatus.toUpperCase()}</b>`);
-    } catch (err) {
-        currentAdminStoreStatus = newStatus;
-        applyAdminStatusToUI(newStatus);
-        refreshAdminControlUI();
+    } else {
         showToast(`Status tersimpan lokal: <b>${newStatus.toUpperCase()}</b>`);
     }
+
+    return result;
 }
 
 async function fetchStoreAdminStatus() {
-    try {
-        let isOnline = true;
-        if (supabaseClient) {
-            const { data } = await supabaseClient.from('store_settings').select('*').eq('id', 'main').single();
-            if (data) isOnline = data.is_online !== false;
+    const result = await StoreStatusModule.fetchStoreStatus({
+        supabaseClient,
+        onStatusChange: status => {
+            currentAdminStoreStatus = status;
+            applyAdminStatusToUI(status);
         }
-        currentAdminStoreStatus = isOnline ? 'online' : 'busy';
-        applyAdminStatusToUI(currentAdminStoreStatus);
-    } catch (e) {
-        applyAdminStatusToUI('online');
-    }
+    });
+
+    return result;
 }
 
 function initSupabaseRealtimeStatus() {
-    if (!supabaseClient) return;
-    try {
-        supabaseClient
-            .channel('public:store_settings')
-            .on('postgres_changes', { event: '*', schema: 'public', table: 'store_settings' }, payload => {
-                if (payload.new) {
-                    const isOnline = payload.new.is_online !== false;
-                    currentAdminStoreStatus = isOnline ? 'online' : 'busy';
-                    applyAdminStatusToUI(currentAdminStoreStatus);
-                    refreshAdminControlUI();
-                }
-            })
-            .subscribe();
-    } catch(e) {}
+    return StoreStatusModule.subscribeStoreStatus({
+        supabaseClient,
+        onStatusChange: status => {
+            currentAdminStoreStatus = status;
+            applyAdminStatusToUI(status);
+            refreshAdminControlUI();
+        }
+    });
 }
 
 function applyAdminStatusToUI(status) {
