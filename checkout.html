@@ -230,6 +230,7 @@ const waNumber = "6285959633342";
         let supabaseClient = null;
         if (window.supabase && typeof window.supabase.createClient === 'function') {
             supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            window.BintangSupabaseClient = supabaseClient;
         }
 
         let coCart = [];
