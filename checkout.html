@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -502,30 +502,47 @@ const waNumber = "6285959633342";
                 .replace(/[^a-z0-9_]/g, '');
 
 
-            // Bintang Store Checkout Engine V2
+            // Simpan data member baru jika dicentang
+            if (isRegChecked && newMemberCode && newMemberCode.length >= 2 && supabaseClient) {
+                try {
+                    await supabaseClient.from('members').upsert({
+                        member_code: newMemberCode,
+                        customer_name: name,
+                        customer_phone: cleanWa,
+                        favorite_outlet_name: coOutlet ? coOutlet.name : ''
+                    }, { onConflict: 'member_code' });
+
+                    localStorage.setItem("bintang_member_session", JSON.stringify({
+                        code: newMemberCode,
+                        name: name,
+                        phone: cleanWa,
+                        outlet: coOutlet ? coOutlet.name : ''
+                    }));
+                } catch (e) {
+                    console.warn("Gagal simpan member baru:", e);
+                }
+            }
+
+            // Simpan Order ke Database Supabase
             try {
-                if (window.BintangCheckout?.processCheckout) {
-                    await window.BintangCheckout.processCheckout({
-                        orderId,
-                        orderId,
-                        name,
-                        phone: wa,
-                        cleanWa,
-                        registerMember: isRegChecked,
-                        memberCode: newMemberCode,
-                        outlet: coOutlet,
-                        orderType: coOrderType,
-                        deliveryFee: coDeliveryFee,
-                        deliveryAddress: coDeliveryAddress,
-                        deliveryMaps: coDeliveryMaps,
-                        cart: coCart,
-                        grandTotal
-                    });
-                } else {
-                    throw new Error("Checkout Engine V2 belum termuat.");
+                if (supabaseClient) {
+                    await supabaseClient.from('orders').upsert([{
+                        id: orderId,
+                        customer_name: name,
+                        customer_wa: cleanWa,
+                        outlet_name: coOutlet ? coOutlet.name : 'Kopi Kenangan',
+                        order_type: coOrderType,
+                        delivery_fee: coOrderType === "delivery" ? coDeliveryFee : 0,
+                        delivery_address: coOrderType === "delivery" ? coDeliveryAddress : null,
+                        delivery_maps_url: (coOrderType === "delivery" && coDeliveryMaps) ? coDeliveryMaps : null,
+                        order_items: coCart,
+                        total_price: grandTotal,
+                        estimated_profit: Math.round(grandTotal * 0.35),
+                        status: 'menunggu_pembayaran'
+                    }]);
                 }
             } catch (e) {
-                console.warn("Checkout Engine V2 gagal:", e);
+                console.warn("Gagal simpan pesanan Supabase:", e);
             }
 
             const trackingUrl = `https://bintanggstore.web.id/tracking.html?order_id=${orderId}`;
