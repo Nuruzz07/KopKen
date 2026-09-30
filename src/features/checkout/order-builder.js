@@ -21,6 +21,7 @@ function generateOrderId(name) {
 
 function buildOrderData({
   orderId,
+  orderId,
   name,
   phone,
   outlet,
