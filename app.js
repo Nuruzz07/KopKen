@@ -278,6 +278,7 @@ let allMenu = [];
 let currentOrderType = 'takeaway';
 let selectedOutlet = null;
 const OutletModule = window.BintangOutlet;
+const TimeModule = window.BintangTime;
 const CatalogModule = window.BintangCatalog;
 let cart = [];
 let currentModalItem = null;
@@ -447,15 +448,11 @@ function applyAdminStatusToUI(status) {
 }
 
 function getWIBDate() {
-    const now = new Date();
-    const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
-    return new Date(utc + (3600000 * 7));
+    return TimeModule.getWIBDate();
 }
 
 function isMidnightHour() {
-    const wib = getWIBDate();
-    const hour = wib.getHours();
-    return hour >= 0 && hour < 6;
+    return TimeModule.isMidnightHour();
 }
 
 function checkNightHours() {
