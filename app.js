@@ -277,6 +277,8 @@ let allOutlets = [];
 let allMenu = [];
 let currentOrderType = 'takeaway';
 let selectedOutlet = null;
+const OutletModule = window.BintangOutlet;
+const CatalogModule = window.BintangCatalog;
 let cart = [];
 let currentModalItem = null;
 let modalPriceCache = 0;
@@ -597,47 +599,19 @@ function initKopkenParticles() {
 }
 
 function parseTimeToMinutes(timeStr) {
-    if (!timeStr) return 0;
-    const clean = timeStr.toString().replace('.', ':').trim();
-    const parts = clean.split(':');
-    if (parts.length < 2) return 0;
-    return (parseInt(parts[0], 10) || 0) * 60 + (parseInt(parts[1], 10) || 0);
+    return OutletModule.parseTimeToMinutes(timeStr);
 }
 
 function isSignatureOutlet(outlet) {
-    if (!outlet) return false;
-    const cat = (outlet.category || '').toLowerCase();
-    const name = (outlet.name || '').toLowerCase();
-    return cat.includes('signature') || /signature|heritage/i.test(name);
+    return OutletModule.isSignatureOutlet(outlet);
 }
 
 function isOutletOpenNow(outlet) {
-    if (!outlet) return true;
-    if (isSignatureOutlet(outlet)) return false;
-    const statusLabel = (outlet.status_label || '').toUpperCase();
-    const openStatus = (outlet.open_status || '').toUpperCase();
-    if (statusLabel === 'CLOSED' || openStatus === 'CLOSED') return false;
-    if (!outlet.open_time && !outlet.hours?.open_time) return false;
-
-    const wib = getWIBDate();
-    const curMin = wib.getHours() * 60 + wib.getMinutes();
-    const openTimeStr = outlet.open_time || outlet.hours?.open_time || "00:01";
-    const closeTimeStr = outlet.order_close_time || outlet.real_close_time || outlet.hours?.order_close_time || "23:59";
-    const openMin = parseTimeToMinutes(openTimeStr);
-    const closeMin = parseTimeToMinutes(closeTimeStr);
-    
-    if (closeMin < openMin) {
-        return curMin >= openMin || curMin < closeMin;
-    }
-    return curMin >= openMin && curMin < closeMin;
+    return OutletModule.isOutletOpenNow(outlet, getWIBDate);
 }
 
 function isMallOutlet(outlet) {
-    if (!outlet) return false;
-    const cat = (outlet.category || '').toLowerCase();
-    const name = (outlet.name || '').toLowerCase();
-    const pattern = /mall|plaza|tower|city|junction|avenue|walk|central park|grand indonesia|paskal|residence|hospital/i;
-    return cat.includes('mall') || pattern.test(name);
+    return OutletModule.isMallOutlet(outlet);
 }
 
 function showNetflixClosedToast() {
@@ -645,111 +619,31 @@ function showNetflixClosedToast() {
 }
 
 async function loadDataFiles() {
-    try {
-        const outletRes = await fetch('./outlet.json');
-        if (outletRes.ok) allOutlets = await outletRes.json();
-    } catch (e) {}
-
-    if (!allOutlets || allOutlets.length === 0) {
-        allOutlets = [
+    allOutlets = await OutletModule.loadOutlets({
+        fallbackOutlets: [
             { id: 1, name: "Grand Indonesia", address: "Grand Indonesia Mall Lt. 3, Jakarta Pusat", category: "Mall", is_open: true, open_time: "10:00:00", order_close_time: "21:30:00", real_close_time: "22:00:00" },
             { id: 2, name: "Pondok Indah Mall 2", address: "PIM 2 South Skywalk, Jakarta Selatan", category: "Mall", is_open: true, open_time: "10:00:00", order_close_time: "21:30:00", real_close_time: "22:00:00" },
             { id: 3, name: "23Paskal Bandung", address: "23Paskal Mall Lt. 2, Kota Bandung", category: "Mall", is_open: true, open_time: "10:00:00", order_close_time: "21:30:00", real_close_time: "22:00:00" },
             { id: 4, name: "Margonda Raya Depok", address: "Jl. Margonda Raya No. 120, Beji, Depok", category: "Shop House", is_open: true, open_time: "07:00:00", order_close_time: "22:30:00", real_close_time: "23:00:00" },
             { id: 5, name: "Summarecon Mall Serpong", address: "SMS 1 Ground Floor, Tangerang", category: "Mall", is_open: true, open_time: "10:00:00", order_close_time: "21:30:00", real_close_time: "22:00:00" }
-        ];
-    }
+        ]
+    });
 
-    const savedOutletRaw = localStorage.getItem("bintang_selected_outlet") || localStorage.getItem("selectedOutlet");
-    if (savedOutletRaw) {
-        try {
-            selectedOutlet = JSON.parse(savedOutletRaw);
-        } catch(e) {
-            selectedOutlet = allOutlets[0];
-        }
+
+
+    const savedOutlet = OutletModule.getSavedOutlet();
+
+    if (savedOutlet) {
+        selectedOutlet = savedOutlet;
     } else {
         selectedOutlet = allOutlets[0];
     }
     
     updateOutletUI();
 
-    let parsedMenu = [];
-    try {
-        if (supabaseClient) {
-            const { data, error } = await supabaseClient
-                .from('menus')
-                .select('*')
-                .eq('is_active', true);
-
-            if (!error && data && data.length > 0) {
-                data.forEach(item => {
-                    parsedMenu.push({
-                        id: item.id,
-                        name: item.name,
-                        cat: item.category,
-                        type: item.type,
-                        singlePrice: parseFloat(item.single_price) || 15000,
-                        realPrice: parseFloat(item.real_price) || 0,
-                        badge: item.badge || '',
-                        img: item.img || '',
-                        imgs: (item.imgs && Array.isArray(item.imgs) && item.imgs.length > 0) ? item.imgs : null,
-                        opts: (item.options && Array.isArray(item.options) && item.options.length > 0) ? item.options : ['Varian Default Paket']
-                    });
-                });
-            }
-        }
-    } catch (e) {
-        console.warn("Gagal memuat menu Supabase:", e);
-    }
-
-    if (parsedMenu.length === 0) {
-        try {
-            const menuRes = await fetch('./menu.json');
-            if (menuRes.ok) {
-                const menuData = await menuRes.json();
-                if (menuData && menuData["Kopi Kenangan"]) {
-                    const kk = menuData["Kopi Kenangan"];
-                    const catMap = { coffee: 'coffee', nonCoffee: 'noncoffee', oatside: 'frappe', frappe: 'frappe', food: 'bakery', baru: 'new' };
-
-                    if (kk.satuan) {
-                        for (const key in kk.satuan) {
-                            if (Array.isArray(kk.satuan[key])) {
-                                kk.satuan[key].forEach(item => {
-                                    parsedMenu.push({
-                                        id: item.id || `kk_${Math.random()}`,
-                                        name: item.name || item.nama,
-                                        singlePrice: parseFloat(item.price) || 15000,
-                                        realPrice: parseFloat(item.real_price) || 0,
-                                        cat: catMap[key] || 'coffee',
-                                        badge: item.badge || (item.isNew ? 'NEW' : ''),
-                                        img: item.img || item.image || 'https://placehold.co/400x400/9C532B/FBF5EE?text=Kopi+Kenangan',
-                                        type: (key === 'food' || item.isFood) ? 'food' : 'drink'
-                                    });
-                                });
-                            }
-                        }
-                    }
-
-                    if (kk.bundling && Array.isArray(kk.bundling)) {
-                        kk.bundling.forEach(b => {
-                            parsedMenu.unshift({
-                                id: b.id || `bundle_${Math.random()}`,
-                                cat: 'bundling',
-                                name: b.name || b.nama,
-                                singlePrice: parseFloat(b.price) || 35000,
-                                realPrice: parseFloat(b.real_price) || 0,
-                                type: 'bundling',
-                                badge: b.badge || '🎁 BUNDLE',
-                                img: b.img || b.image,
-                                imgs: b.imgs || (b.img ? [b.img] : null),
-                                opts: b.options || b.opts || ['Varian Default Paket']
-                            });
-                        });
-                    }
-                }
-            }
-        } catch (e) {}
-    }
+    const parsedMenu = await CatalogModule.loadCatalog({
+        supabaseClient
+    });
 
     if (parsedMenu.length > 0) {
         allMenu = parsedMenu;
@@ -817,11 +711,11 @@ function renderMenu(filterKeyword = '') {
     const keyword = filterKeyword.toLowerCase().trim();
 
     categories.forEach(c => {
-        const filteredProducts = allMenu.filter(m => {
-            const matchesCategory = m.cat === c.filter;
-            const matchesKeyword = keyword === '' || (m.name && m.name.toLowerCase().includes(keyword));
-            return matchesCategory && matchesKeyword;
-        });
+        const filteredProducts = CatalogModule.filterByCategory(
+            allMenu,
+            c.filter,
+            keyword
+        );
 
         if (filteredProducts.length > 0) {
             const section = document.createElement('div');
@@ -1028,8 +922,7 @@ function selectOutletItem(outletId) {
     if (!outlet) return;
 
     selectedOutlet = outlet;
-    localStorage.setItem("bintang_selected_outlet", JSON.stringify(outlet));
-    localStorage.setItem("selectedOutlet", JSON.stringify(outlet));
+    OutletModule.saveSelectedOutlet(outlet);
 
     clearGateSearch();
     updateGatePreview();
@@ -1067,8 +960,7 @@ function confirmWelcomeGate() {
     }
 
     sfx.playTap();
-    localStorage.setItem("bintang_selected_outlet", JSON.stringify(selectedOutlet));
-    localStorage.setItem("selectedOutlet", JSON.stringify(selectedOutlet));
+    OutletModule.saveSelectedOutlet(selectedOutlet);
 
     closeWelcomeGateModal();
     updateOutletUI();
@@ -1113,7 +1005,7 @@ function updateModalPrice() {
 }
 
 function openModal(itemId, editIndex = null) {
-    const item = allMenu.find(m => String(m.id) === String(itemId));
+    const item = CatalogModule.getProductById(allMenu, itemId);
     if (!item) return;
 
     currentModalItem = item;
