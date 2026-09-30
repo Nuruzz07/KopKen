@@ -282,6 +282,7 @@ const TimeModule = window.BintangTime;
 const CartModule = window.BintangCart;
 const MemberModule = window.BintangMember;
 const HistoryModule = window.BintangHistory;
+const WifiModule = window.BintangWifi;
 const CatalogModule = window.BintangCatalog;
 let cart = [];
 let currentModalItem = null;
@@ -1223,9 +1224,10 @@ function applyRacikanPas() {
 }
 
 function getDailyWifiPassword() {
-    const now = getWIBDate();
-    const dayNum = now.getDate();
-    return wifiPasswords[dayNum] || "TemanKenangan#01";
+    return WifiModule.getDailyWifiPassword({
+        getWIBDate,
+        wifiPasswords
+    });
 }
 
 async function lookupCustomerLoyaltyHistory() {
