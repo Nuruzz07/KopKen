@@ -13,6 +13,41 @@
     </style>
 </head>
 <body class="min-h-screen text-stone-800 p-4 sm:p-6 flex flex-col items-center justify-start antialiased pb-32">
+<style>
+.maintenance-notice {
+  margin: 16px auto;
+  padding: 22px;
+  max-width: 600px;
+  border: 1px solid #f1d69b;
+  border-radius: 16px;
+  background: #fff8e9;
+  color: #594b35;
+  text-align: center;
+}
+.maintenance-notice h2 { color: #8a5715; }
+.maintenance-notice p { line-height: 1.6; }
+.maintenance-notice a {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 12px 20px;
+  border-radius: 10px;
+  background: #18864b;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+</style>
+
+<div class="maintenance-notice">
+  <h2>Website Sedang Maintenance</h2>
+  <p>Mohon maaf, layanan checkout sedang dalam pemeliharaan sementara.</p>
+  <p>Silakan screenshot detail pesanan di halaman ini, lalu kirimkan ke WhatsApp admin untuk pemesanan manual.</p>
+  <a href="https://wa.me/6285959633342" target="_blank" rel="noopener noreferrer">
+    Hubungi Admin via WhatsApp
+  </a>
+  <p>Terima kasih atas pengertiannya.</p>
+</div>
+
 
     <main class="w-full max-w-md space-y-3.5">
 
@@ -193,11 +228,11 @@
 
         <!-- TOMBOL CHECKOUT RESMI -->
         <div class="space-y-2 pt-1">
-            <button id="co-btn-tele" onclick="executeCheckout('telegram')" class="w-full bg-stone-900 hover:bg-stone-800 active:scale-95 text-white font-black py-3 rounded-2xl text-xs shadow-md transition flex items-center justify-center gap-2 cursor-pointer">
+            <button id="co-btn-tele" onclick="executeCheckout('telegram')" class="w-full bg-stone-900 hover:bg-stone-800 active:scale-95 text-white font-black py-3 rounded-2xl text-xs shadow-md transition flex items-center justify-center gap-2 cursor-pointer" disabled aria-disabled="true" style="opacity:.5;cursor:not-allowed;">
                 <i class="fas fa-bolt"></i>
                 <span>Lanjut ke Pembayaran QRIS</span>
             </button>
-            <button id="co-btn-wa" onclick="executeCheckout('whatsapp')" class="w-full bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white font-black py-3 rounded-2xl text-xs shadow-md transition flex items-center justify-center gap-2 cursor-pointer">
+            <button id="co-btn-wa" onclick="executeCheckout('whatsapp')" class="w-full bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white font-black py-3 rounded-2xl text-xs shadow-md transition flex items-center justify-center gap-2 cursor-pointer" disabled aria-disabled="true" style="opacity:.5;cursor:not-allowed;">
                 <i class="fab fa-whatsapp text-sm"></i>
                 <span>Pesan Manual via WhatsApp Admin</span>
             </button>
@@ -443,6 +478,10 @@ const waNumber = "6285959633342";
         }
 
         async function executeCheckout(method) {
+            // CHECKOUT_MAINTENANCE_ACTIVE
+            alert("Checkout sedang maintenance. Silakan screenshot pesanan dan hubungi admin melalui WhatsApp.");
+            return;
+
             if (isCheckoutSubmitting) {
                 alert("Pesanan sedang diproses ke admin, mohon tunggu sebentar...");
                 return;
