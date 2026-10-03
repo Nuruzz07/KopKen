@@ -13,41 +13,6 @@
     </style>
 </head>
 <body class="min-h-screen text-stone-800 p-4 sm:p-6 flex flex-col items-center justify-start antialiased pb-32">
-<style>
-.maintenance-notice {
-  margin: 16px auto;
-  padding: 22px;
-  max-width: 600px;
-  border: 1px solid #f1d69b;
-  border-radius: 16px;
-  background: #fff8e9;
-  color: #594b35;
-  text-align: center;
-}
-.maintenance-notice h2 { color: #8a5715; }
-.maintenance-notice p { line-height: 1.6; }
-.maintenance-notice a {
-  display: inline-block;
-  margin-top: 12px;
-  padding: 12px 20px;
-  border-radius: 10px;
-  background: #18864b;
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-}
-</style>
-
-<div class="maintenance-notice">
-  <h2>Website Sedang Maintenance</h2>
-  <p>Mohon maaf, layanan checkout sedang dalam pemeliharaan sementara.</p>
-  <p>Silakan screenshot detail pesanan di halaman ini, lalu kirimkan ke WhatsApp admin untuk pemesanan manual.</p>
-  <a href="https://wa.me/6285959633342" target="_blank" rel="noopener noreferrer">
-    Hubungi Admin via WhatsApp
-  </a>
-  <p>Terima kasih atas pengertiannya.</p>
-</div>
-
 
     <main class="w-full max-w-md space-y-3.5">
 
@@ -122,10 +87,10 @@
                 <label id="time-section-label" class="block text-[11px] font-bold text-stone-700 mb-1.5">Waktu Pengambilan</label>
                 <div class="grid grid-cols-2 gap-2 mb-2">
                     <button type="button" id="btn-co-now" onclick="setCheckoutOrderTime('now')" class="py-2 px-3 text-xs font-bold rounded-xl border border-amber-600 bg-amber-50 text-amber-900 flex items-center justify-center gap-1.5">
-                        âš¡ Sekarang (5-15 mnt)
+                        ⚡ Sekarang (5-15 mnt)
                     </button>
                     <button type="button" id="btn-co-schedule" onclick="setCheckoutOrderTime('schedule')" class="py-2 px-3 text-xs font-bold rounded-xl border border-stone-200 bg-white text-stone-600 flex items-center justify-center gap-1.5">
-                        ðŸ“… Jadwalkan Jam
+                        📅 Jadwalkan Jam
                     </button>
                 </div>
 
@@ -210,7 +175,7 @@
         <div id="co-register-member-box" class="bg-amber-500/10 border border-amber-500/20 rounded-3xl p-3.5 space-y-2">
             <label class="flex items-center gap-2 cursor-pointer">
                 <input type="checkbox" id="co-reg-chk" class="w-4 h-4 accent-amber-700 rounded" onchange="document.getElementById('co-member-wrap').classList.toggle('hidden', !this.checked)">
-                <span class="text-xs font-black text-amber-950">Simpan Data & Buat Member Baru âœ¨</span>
+                <span class="text-xs font-black text-amber-950">Simpan Data & Buat Member Baru ✨</span>
             </label>
             <div id="co-member-wrap" class="hidden pt-2 border-t border-amber-200/60 space-y-1">
                 <input type="text" id="co-new-member-code" placeholder="Buat username unik kamu (misal: dimas)..." class="w-full p-2 rounded-xl border border-amber-300 bg-white text-xs font-bold outline-none">
@@ -228,11 +193,11 @@
 
         <!-- TOMBOL CHECKOUT RESMI -->
         <div class="space-y-2 pt-1">
-            <button id="co-btn-tele" onclick="executeCheckout('telegram')" class="w-full bg-stone-900 hover:bg-stone-800 active:scale-95 text-white font-black py-3 rounded-2xl text-xs shadow-md transition flex items-center justify-center gap-2 cursor-pointer" disabled aria-disabled="true" style="opacity:.5;cursor:not-allowed;">
+            <button id="co-btn-tele" onclick="executeCheckout('telegram')" class="w-full bg-stone-900 hover:bg-stone-800 active:scale-95 text-white font-black py-3 rounded-2xl text-xs shadow-md transition flex items-center justify-center gap-2 cursor-pointer">
                 <i class="fas fa-bolt"></i>
                 <span>Lanjut ke Pembayaran QRIS</span>
             </button>
-            <button id="co-btn-wa" onclick="executeCheckout('whatsapp')" class="w-full bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white font-black py-3 rounded-2xl text-xs shadow-md transition flex items-center justify-center gap-2 cursor-pointer" disabled aria-disabled="true" style="opacity:.5;cursor:not-allowed;">
+            <button id="co-btn-wa" onclick="executeCheckout('whatsapp')" class="w-full bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white font-black py-3 rounded-2xl text-xs shadow-md transition flex items-center justify-center gap-2 cursor-pointer">
                 <i class="fab fa-whatsapp text-sm"></i>
                 <span>Pesan Manual via WhatsApp Admin</span>
             </button>
@@ -246,7 +211,7 @@
                 </div>
                 <h2 class="text-xl font-black text-white tracking-tight">Pesanan Dirangkai!</h2>
                 <p id="thankyou-quote" class="text-xs text-amber-200 leading-relaxed font-medium px-2">
-                    Beli kopi buat begadang, terima kasih sudah memesan! Pesananmu sedang dirangkai, santai dulu ya sayang! â˜•ðŸ«¶
+                    Beli kopi buat begadang, terima kasih sudah memesan! Pesananmu sedang dirangkai, santai dulu ya sayang! ☕🫶
                 </p>
                 <div class="flex items-center justify-center gap-1.5 pt-2">
                     <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
@@ -260,12 +225,13 @@
     <script>
         const SUPABASE_URL = "https://axaoagzveujcgoxybdmp.supabase.co";
         const SUPABASE_ANON_KEY = "sb_publishable_GQ19XRT7yWIBido0iXJvCQ_ybZ_I7ju";
-const waNumber = "6285959633342";
+        const botToken = "8765196047:AAGSnN7VoGnXxQK5rl5459ifGqBVE3EKsWo";
+        const chatId = "6731058601";
+        const waNumber = "6285959633342";
 
         let supabaseClient = null;
         if (window.supabase && typeof window.supabase.createClient === 'function') {
             supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-            window.BintangSupabaseClient = supabaseClient;
         }
 
         let coCart = [];
@@ -278,10 +244,10 @@ const waNumber = "6285959633342";
         let isCheckoutSubmitting = false;
 
         const CHECKOUT_PANTUN = [
-            "Beli kopi buat begadang, terima kasih sudah memesan! Pesananmu sedang dirangkai, santai dulu ya sayang! â˜•ðŸ«¶",
-            "Mantan boleh bikin trauma, kopi Bintang bikin bahagia. Pesananmu sedang meluncur cepat ke barista! ðŸš€âœ¨",
-            "Siang-siang makan bakwan, paling pas ditemani kenangan. Duduk manis ya kawan, pesananmu sedang disiapkan! ðŸ¥–â˜•",
-            "Beli melati di Pasar Minggu, kopi sejati setia menunggu. Sabar sebentar ya, barista lagi meracik pesananmu! â³ðŸ¤Ž"
+            "Beli kopi buat begadang, terima kasih sudah memesan! Pesananmu sedang dirangkai, santai dulu ya sayang! ☕🫶",
+            "Mantan boleh bikin trauma, kopi Bintang bikin bahagia. Pesananmu sedang meluncur cepat ke barista! 🚀✨",
+            "Siang-siang makan bakwan, paling pas ditemani kenangan. Duduk manis ya kawan, pesananmu sedang disiapkan! 🥖☕",
+            "Beli melati di Pasar Minggu, kopi sejati setia menunggu. Sabar sebentar ya, barista lagi meracik pesananmu! ⏳🤎"
         ];
 
         document.addEventListener("DOMContentLoaded", () => {
@@ -478,10 +444,6 @@ const waNumber = "6285959633342";
         }
 
         async function executeCheckout(method) {
-            // CHECKOUT_MAINTENANCE_ACTIVE
-            alert("Checkout sedang maintenance. Silakan screenshot pesanan dan hubungi admin melalui WhatsApp.");
-            return;
-
             if (isCheckoutSubmitting) {
                 alert("Pesanan sedang diproses ke admin, mohon tunggu sebentar...");
                 return;
@@ -529,19 +491,12 @@ const waNumber = "6285959633342";
             else if (!cleanWa.startsWith('62') && cleanWa.length > 0) cleanWa = '62' + cleanWa;
 
             let timeText = coOrderTimeType === 'schedule' 
-                ? `ðŸ“… TERJADWAL [${document.getElementById('co-schedule-day').value}, ${document.getElementById('co-schedule-time').value}]`
-                : 'âš¡ Segera (5-15 Menit)';
-            // Bintang Member Service V2
-            const isRegChecked = document.getElementById("co-reg-chk")?.checked;
-            const newMemberCode = document
-                .getElementById("co-new-member-code")
-                ?.value
-                .trim()
-                .toLowerCase()
-                .replace(/[^a-z0-9_]/g, '');
-
+                ? `📅 TERJADWAL [${document.getElementById('co-schedule-day').value}, ${document.getElementById('co-schedule-time').value}]`
+                : '⚡ Segera (5-15 Menit)';
 
             // Simpan data member baru jika dicentang
+            const isRegChecked = document.getElementById("co-reg-chk")?.checked;
+            const newMemberCode = document.getElementById("co-new-member-code")?.value.trim().toLowerCase().replace(/[^a-z0-9_]/g, '');
             if (isRegChecked && newMemberCode && newMemberCode.length >= 2 && supabaseClient) {
                 try {
                     await supabaseClient.from('members').upsert({
@@ -550,7 +505,7 @@ const waNumber = "6285959633342";
                         customer_phone: cleanWa,
                         favorite_outlet_name: coOutlet ? coOutlet.name : ''
                     }, { onConflict: 'member_code' });
-
+                    
                     localStorage.setItem("bintang_member_session", JSON.stringify({
                         code: newMemberCode,
                         name: name,
@@ -562,7 +517,7 @@ const waNumber = "6285959633342";
                 }
             }
 
-            // Simpan Order ke Database Supabase
+            // Simpan Order ke Database Supabase dengan status awal menunggu_pembayaran
             try {
                 if (supabaseClient) {
                     await supabaseClient.from('orders').upsert([{
@@ -600,46 +555,52 @@ const waNumber = "6285959633342";
                     detailsText = Object.entries(c.options).map(([k, v]) => `${k}: ${v}`).join(', ');
                 }
 
-                const detailLine = detailsText ? `\n   â”” <i>${detailsText}</i>` : '';
+                const detailLine = detailsText ? `\n   └ <i>${detailsText}</i>` : '';
                 return `<b>${i+1}. ${iQty}x ${iName}</b> (Rp ${iPrice.toLocaleString('id-ID')})${detailLine}`;
             }).join('\n\n');
 
             let deliveryTextTg = '';
             if (coOrderType === 'delivery') {
                 deliveryTextTg = 
-                    `ðŸ›µ <b>TIPE : DELIVERY SHOPEE INSTAN</b>\n` +
-                    `ðŸ“¦ <b>Ongkir :</b> Rp ${coDeliveryFee.toLocaleString('id-ID')}\n` +
-                    `ðŸ  <b>Alamat Kirim :</b> ${coDeliveryAddress}\n` +
-                    `ðŸ“ <b>Google Maps :</b> ${coDeliveryMaps || '(Tidak disertakan)'}\n`;
+                    `🛵 <b>TIPE : DELIVERY SHOPEE INSTAN</b>\n` +
+                    `📦 <b>Ongkir :</b> Rp ${coDeliveryFee.toLocaleString('id-ID')}\n` +
+                    `🏠 <b>Alamat Kirim :</b> ${coDeliveryAddress}\n` +
+                    `📍 <b>Google Maps :</b> ${coDeliveryMaps || '(Tidak disertakan)'}\n`;
             } else {
-                deliveryTextTg = `ðŸ›µ <b>Tipe :</b> ${coOrderType === 'takeaway' ? 'Take Away' : 'Dine In'}\n`;
+                deliveryTextTg = `🛵 <b>Tipe :</b> ${coOrderType === 'takeaway' ? 'Take Away' : 'Dine In'}\n`;
             }
 
-            const singleOrderMsg = window.BintangNotificationFormatter?.formatOrderNotification({
-                orderId,
-                customerName: name,
-                customerWa: cleanWa,
-                outletName: coOutlet ? coOutlet.name : "Kopi Kenangan",
-                orderType: coOrderType,
-                deliveryFee: coDeliveryFee,
-                deliveryAddress: coDeliveryAddress,
-                deliveryMaps: coDeliveryMaps,
-                cart: coCart,
-                grandTotal,
-                trackingUrl
-            }) || "";
+            const singleOrderMsg = `── .✦ <b>ORDER KOPI KENANGAN MASUK</b> ✦.──\n` +
+                `🆔 <b>Order ID :</b> <code>${orderId}</code>\n` +
+                `🔗 <b>Link Tracking :</b> <a href="${trackingUrl}">${trackingUrl}</a>\n` +
+                `👤 <b>Nama Pemesan :</b> ${name}\n` +
+                `📱 <b>No. WhatsApp :</b> ${wa}\n` +
+                `🔗 <b>Chat Customer :</b> <a href="${waDirectLink}">${waDirectLink}</a>\n` +
+                deliveryTextTg +
+                `📍 <b>Outlet Asal :</b> ${coOutlet ? coOutlet.name : 'Kopi Kenangan'}\n` +
+                `⏰ <b>Waktu :</b> ${timeText}\n` +
+                `📝 <b>Catatan :</b> "${notes || '-'}"\n` +
+                `--------------------------------------------------\n` +
+                `📋 <b>Detail Menu:</b>\n${itemsMsg}\n` +
+                `--------------------------------------------------\n` +
+                `💰 <b>TOTAL TAGIHAN : Rp ${grandTotal.toLocaleString('id-ID')}</b>\n` +
+                `📌 <b>Status : [MENUNGGU PEMBAYARAN QRIS]</b>\n\n` +
+                `<i>Pelanggan sedang berada di tracking.html untuk transfer. Bukti bayar akan masuk otomatis ke bot setelah diunggah.</i>`;
 
             try {
-                await fetch("/api/notifications/telegram", {
+                await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        message: singleOrderMsg,
+                        chat_id: chatId,
+                        text: singleOrderMsg,
+                        parse_mode: 'HTML',
+                        disable_web_page_preview: true,
                         reply_markup: {
                             inline_keyboard: [
                                 [
-                                    { text: "ðŸ’¬ Chat WA Pembeli", url: waDirectLink },
-                                    { text: "ðŸš« Batal / Fiktif", callback_data: `st:${orderId}:batal` }
+                                    { text: "💬 Chat WA Pembeli", url: waDirectLink },
+                                    { text: "🚫 Batal / Fiktif", callback_data: `st:${orderId}:batal` }
                                 ]
                             ]
                         }
@@ -670,36 +631,12 @@ const waNumber = "6285959633342";
 
             setTimeout(() => {
                 if (method === 'whatsapp') {
-                    const waMsg = `Halo Admin Bintang Store, saya mau bayar pesanan Kopi Kenangan:\n\nOrder ID: *${orderId}*\nNama: *${name}*\nTotal: *Rp ${grandTotal.toLocaleString('id-ID')}*\n\nSaya sedang di halaman QRIS tracking. Mohon standby! â˜•`;
+                    const waMsg = `Halo Admin Bintang Store, saya mau bayar pesanan Kopi Kenangan:\n\nOrder ID: *${orderId}*\nNama: *${name}*\nTotal: *Rp ${grandTotal.toLocaleString('id-ID')}*\n\nSaya sedang di halaman QRIS tracking. Mohon standby! ☕`;
                     window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(waMsg)}`, '_blank');
                 }
                 window.location.href = `tracking.html?order_id=${orderId}`;
             }, 3000);
         }
     </script>
-    <script type="module">
-    import { formatOrderNotification } from "./src/features/notifications/formatter.js";
-
-    window.BintangNotificationFormatter = {
-        formatOrderNotification
-    };
-</script>
-<script type="module">
-    import {
-        processCheckout
-    } from "./src/features/checkout/checkout.js";
-
-    window.BintangCheckout = {
-        processCheckout
-    };
-</script>
 </body>
 </html>
-
-
-
-
-
-
-
-
