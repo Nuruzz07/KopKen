@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Ruang Tunggu & Status Pesanan - Bintang Store</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    body { font-family: 'Inter', sans-serif; background-color: #F9F1E7; }
+  </style>
+</head>
+<body class="min-h-screen text-stone-800 p-4 sm:p-6 flex flex-col items-center justify-start antialiased pb-24">
+
+  <main class="w-full max-w-md space-y-4">
+
+    <!-- Header Mini Toko & Salin Tautan -->
+    <div class="flex items-center justify-between px-1">
+      <div class="flex items-center gap-2">
+        <img src="https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/assets/Screenshot%202026-09-07%20210228-modified%20(1)%20(1).png" alt="Logo" class="w-7 h-7 object-contain rounded-full shadow-xs" />
+        <div>
+          <h1 class="text-xs font-black text-stone-900 tracking-tight">Bintang Store Tracker</h1>
+          <p class="text-[10px] text-amber-800 font-semibold">Ruang Tunggu & Status Pesanan</p>
+        </div>
+      </div>
+      <button onclick="copyTrackingLink()" class="px-2.5 py-1.5 rounded-xl bg-white/80 hover:bg-white text-stone-700 text-[11px] font-bold shadow-xs border border-stone-200 transition flex items-center gap-1 active:scale-95 cursor-pointer">
+        <i class="fas fa-link text-[10px] text-amber-700"></i>
+        <span>Salin Link</span>
+      </button>
+    </div>
+
+    <!-- BANNER KHUSUS: MODE ANTREAN PADAT (ADMIN LUAR RUANGAN) -->
+    <div id="busy-mode-banner" class="hidden bg-gradient-to-r from-amber-500/20 via-orange-500/15 to-amber-500/20 border-2 border-amber-500/50 rounded-3xl p-3.5 space-y-1 text-left shadow-xs">
+      <div class="flex items-center gap-2">
+        <span class="w-2.5 h-2.5 rounded-full bg-amber-500 animate-ping"></span>
+        <h3 class="text-xs font-black text-amber-950 uppercase tracking-wide">Pemberitahuan Antrean Padat</h3>
+      </div>
+      <p class="text-[11px] text-stone-700 font-medium leading-relaxed">
+        Admin sedang dalam operasional luar ruangan atau menangani antrean jam sibuk. Estimasi pemrosesan otomatis disesuaikan maksimal <b>30 menit</b>. Terima kasih atas kesabarannya!
+      </p>
+    </div>
+
+    <!-- KARTU PEMBAYARAN QRIS (DITAMPILKAN SAAT STATUS menunggu_pembayaran) -->
+    <div id="qris-payment-card" class="hidden bg-white rounded-3xl p-5 shadow-md border-2 border-amber-500/50 space-y-3.5 text-center transition-all duration-300">
+      <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 text-amber-900 text-[10px] font-extrabold tracking-wide uppercase">
+        <i class="fas fa-qrcode text-amber-700"></i> Pembayaran QRIS Bintang Store
+      </div>
+
+      <div class="space-y-1">
+        <p class="text-xs text-stone-500 font-semibold">Total Tagihan Pas:</p>
+        <div class="flex items-center justify-center gap-2">
+          <span id="qris-total-amount" class="text-2xl font-black text-amber-950 tracking-tight">Rp 0</span>
+          <button type="button" onclick="copyQrisNominal()" class="px-2.5 py-1 bg-amber-50 hover:bg-amber-100 border border-amber-300 text-amber-900 rounded-lg text-[10px] font-bold transition flex items-center gap-1 active:scale-90 cursor-pointer">
+            <i class="fas fa-copy"></i> Salin
+          </button>
+        </div>
+        <p id="qris-payment-note" class="text-[10px] text-amber-800 font-semibold">Wajib transfer pas sesuai nominal di atas.</p>
+      </div>
+
+      <div class="bg-stone-50 p-3 rounded-2xl border border-stone-200 inline-block shadow-inner mx-auto max-w-[240px]">
+        <img id="qris-image-view" src="https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/assets/6134394067262051124.jpg" alt="QRIS Bintang Store" class="w-full h-auto rounded-xl object-contain mx-auto" />
+      </div>
+
+      <p class="text-[11px] text-stone-600 leading-snug px-1">
+        Scan melalui GoPay, OVO, DANA, ShopeePay, BCA, atau m-Banking apa saja.
+      </p>
+
+      <!-- FORM UPLOAD BUKTI TRANSFER & KONFIRMASI OTOMATIS -->
+      <div class="space-y-2 pt-2 border-t border-dashed border-stone-200 text-left">
+        <label class="block text-[11px] font-black text-stone-800">
+          📸 Upload Bukti Struk Transfer (Opsional tapi lebih cepat):
+        </label>
+        <input type="file" id="transfer-proof-file" accept="image/*" class="w-full text-xs text-stone-600 file:mr-2 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-amber-600 file:text-white hover:file:bg-amber-700 cursor-pointer" />
+
+        <button type="button" id="btn-submit-payment" onclick="submitPaymentConfirmation()" class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-2xl text-xs font-black shadow-md transition active:scale-95 flex items-center justify-center gap-2 cursor-pointer mt-2">
+          <i class="fas fa-check-circle text-sm"></i>
+          <span>Saya Sudah Bayar, Verifikasi Sekarang!</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- KARTU HITUNGAN MUNDUR MENUNGGU KONFIRMASI -->
+    <div id="confirmation-timer-card" class="hidden bg-white rounded-3xl p-4.5 shadow-sm border-2 border-amber-500/40 text-center space-y-2.5">
+      <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 text-amber-900 text-[10px] font-extrabold tracking-wide uppercase">
+        <i class="fas fa-hourglass-half text-amber-600 animate-spin"></i> Garansi Respon Admin
+      </div>
+      <div>
+        <p id="timer-countdown-text" class="text-3xl font-black text-stone-900 font-mono tracking-tight">15:00</p>
+        <p id="timer-desc-text" class="text-[11px] text-stone-500 mt-0.5">Admin sedang memverifikasi pesananmu.</p>
+      </div>
+      <div class="w-full bg-stone-100 rounded-full h-1.5 overflow-hidden">
+        <div id="timer-progress-bar" class="bg-amber-600 h-1.5 rounded-full transition-all duration-1000" style="width: 100%;"></div>
+      </div>
+
+      <!-- TOMBOL BATAL & REFUND (TERKUNCI DI AWAL) -->
+      <div class="pt-2 border-t border-stone-100">
+        <button id="btn-cancel-order" disabled onclick="openRefundModal()" class="w-full py-2 px-3 rounded-xl bg-stone-200 text-stone-400 text-xs font-bold transition cursor-not-allowed flex items-center justify-center gap-1.5">
+          <i class="fas fa-lock text-[10px]" id="cancel-lock-icon"></i>
+          <span id="cancel-btn-label">Batal & Refund (Terkunci <span id="cancel-lock-timer">10:00</span>)</span>
+        </button>
+        <p id="cancel-helper-text" class="text-[9px] text-stone-400 mt-1">Tombol pembatalan dan refund dana terbuka jika admin belum memproses dalam waktu tunggu.</p>
+      </div>
+    </div>
+
+    <!-- KARTU STATUS UTAMA -->
+    <div class="bg-white rounded-3xl p-5 shadow-sm border border-stone-200/80 space-y-4 text-center">
+      <div class="space-y-0.5">
+        <p class="text-[10px] font-extrabold uppercase tracking-wider text-stone-400">Order ID</p>
+        <p id="order-id" class="text-sm font-mono font-black text-stone-800">Memuat ID...</p>
+      </div>
+
+      <!-- Badge Status Realtime -->
+      <div class="flex justify-center">
+        <div id="status-badge" class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-black bg-stone-100 text-stone-600 shadow-xs transition-all duration-300">
+          <span class="w-2 h-2 rounded-full bg-stone-400 animate-pulse"></span>
+          <span id="status-text">Memeriksa pesanan...</span>
+        </div>
+      </div>
+      <p id="status-desc" class="text-xs text-stone-500 font-medium leading-relaxed px-2">
+        Halaman ini terhubung langsung dengan sistem kami. Status akan berganti otomatis tanpa perlu refresh.
+      </p>
+
+      <!-- ========================================== -->
+      <!-- KARTU TIKET KOPI (AMBIL SENDIRI / DELIVERY) -->
+      <!-- ========================================== -->
+      <div id="pickup-card-wrapper" class="hidden relative pt-4 border-t border-dashed border-stone-200 space-y-4 text-left">
+        <div id="pickup-content" class="space-y-4">
+          
+          <!-- Box Nomor Antrean Kasir -->
+          <div id="queue-box" class="bg-amber-500/10 border-2 border-amber-500/40 rounded-2xl p-4 text-center shadow-xs">
+            <p class="text-[11px] text-amber-950 font-bold uppercase tracking-wide">Nomor Antrean / Pesanan Kasir</p>
+            <p id="queue-number" class="text-4xl font-black text-amber-950 tracking-tight my-1">-</p>
+            <p class="text-xs text-amber-900 font-semibold">Atas Nama: <span id="customer-name" class="underline font-bold">-</span></p>
+          </div>
+
+          <!-- Box Khusus Info Pengantaran Kurir -->
+          <div id="delivery-info-card" class="hidden bg-orange-500/10 border-2 border-orange-500/30 rounded-2xl p-4 space-y-2 text-left">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-1.5 text-xs font-black text-orange-950">
+                <i class="fas fa-motorcycle text-orange-600"></i>
+                <span>Pengantaran Shopee Instan</span>
+              </div>
+              <span class="text-[10px] font-black px-2 py-0.5 rounded-full bg-orange-200 text-orange-900 uppercase">DIANTAR KE RUMAH</span>
+            </div>
+            <div class="text-xs space-y-1">
+              <p class="text-[10px] text-stone-500 font-bold uppercase">Penerima & Alamat Kirim:</p>
+              <p class="font-extrabold text-stone-900"><span id="delivery-recipient-name">-</span></p>
+              <p id="delivery-destination-address" class="text-stone-700 leading-snug font-medium">-</p>
+              <div id="delivery-maps-container" class="hidden pt-1">
+                <a id="delivery-maps-target" href="#" target="_blank" class="inline-flex items-center gap-1 text-[11px] font-bold text-blue-600 hover:underline">
+                  <i class="fas fa-location-dot text-rose-500"></i>
+                  <span>Buka Titik Maps Pengantaran</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Struk Pembelian Kasir -->
+          <div id="receipt-container" class="hidden space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-black text-stone-700 uppercase tracking-wide">Foto Struk Resmi Aplikasi:</span>
+              <span class="text-[10px] text-stone-400">Bukti Order Kasir</span>
+            </div>
+            <div class="relative overflow-hidden rounded-2xl border border-stone-200 bg-stone-50">
+              <img id="receipt-img" src="" alt="Struk Kopi Kenangan" class="w-full max-h-72 object-contain mx-auto transition-transform duration-200 cursor-pointer" onclick="toggleZoom(this)" />
+              <span class="block text-center py-1.5 text-[10px] font-semibold text-stone-400 bg-stone-100 border-t border-stone-200">
+                🔍 Ketuk gambar untuk memperbesar struk
+              </span>
+            </div>
+          </div>
+
+          <!-- Box Panduan Pengambilan / Pengantaran Dinamis -->
+          <div id="guide-box-container" class="bg-stone-50 rounded-2xl p-3.5 text-xs text-stone-700 leading-relaxed border border-stone-200 flex items-start gap-2.5">
+            <i id="guide-box-icon" class="fas fa-lightbulb text-amber-600 text-sm mt-0.5 flex-shrink-0"></i>
+            <div>
+              <strong id="guide-box-title" class="font-black text-stone-900 block mb-0.5">Panduan Pengambilan di Kasir:</strong>
+              <span id="guide-box-text">Sebutkan <span class="font-bold underline">nama pemesan</span> dan <span class="font-bold underline">nomor antrean</span> di atas ke barista, atau perlihatkan foto struk resmi di atas jika barista meminta verifikasi.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- KARTU GARANSI & AKSES DIGITAL (KHUSUS PRODUK DIGITAL) -->
+      <!-- ========================================== -->
+      <div id="digital-card-wrapper" class="hidden relative pt-4 border-t border-dashed border-stone-200 space-y-3.5 text-left">
+        <div class="bg-gradient-to-br from-slate-900 to-slate-800 text-white rounded-3xl p-5 shadow-md border border-slate-700 space-y-3">
+          <div class="flex items-center justify-between">
+            <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[10px] font-extrabold tracking-wide uppercase">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span id="dig-warranty-badge">GARANSI AKTIF</span>
+            </div>
+            <span id="dig-warranty-days" class="text-[10px] font-bold text-gray-300">Sisa - Hari</span>
+          </div>
+
+          <div>
+            <h3 id="dig-product-title" class="text-sm font-black text-white">Produk Digital</h3>
+            <p id="dig-expiry-date" class="text-[11px] text-emerald-300 font-semibold mt-0.5">Masa Berlaku: -</p>
+          </div>
+
+          <div class="p-3 rounded-2xl bg-white/10 border border-white/10 space-y-1">
+            <div class="flex items-center gap-1.5 text-xs font-bold text-amber-400">
+              <i class="fab fa-whatsapp"></i>
+              <span>Status Pengiriman Akun:</span>
+            </div>
+            <p class="text-[11px] text-gray-200 leading-snug">
+              Akun / link aktivasi telah dikirimkan langsung oleh admin ke nomor WhatsApp kamu (<b id="dig-customer-phone">-</b>).
+            </p>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2 pt-1">
+            <a id="btn-open-wa-chat" href="https://wa.me/6285959633342" target="_blank" class="py-2.5 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-center font-extrabold text-[11px] transition shadow-xs flex items-center justify-center gap-1.5">
+              <i class="fab fa-whatsapp text-sm"></i>
+              <span>Cek Akun di WA</span>
+            </a>
+            <button type="button" onclick="openClaimWarrantyModal()" class="py-2.5 px-3 rounded-xl bg-rose-600/20 hover:bg-rose-600/30 border border-rose-500/40 text-rose-300 text-center font-extrabold text-[11px] transition flex items-center justify-center gap-1.5 cursor-pointer">
+              <i class="fas fa-shield-halved text-xs"></i>
+              <span>Klaim Garansi</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Form Rating & Ulasan Pelanggan -->
+    <div id="review-card" class="hidden bg-white rounded-3xl p-5 shadow-sm border border-stone-200/80 space-y-3">
+      <div class="flex items-start gap-2.5">
+        <span class="text-2xl" id="review-card-icon">☕</span>
+        <div class="min-w-0">
+          <h2 class="text-xs font-black text-stone-950" id="review-card-title">Pesanan Selesai? Beri Ulasan!</h2>
+          <p class="text-[10px] text-stone-500 leading-snug mt-0.5" id="review-card-desc">
+            Bagikan ulasanmu untuk mendapatkan <b>Voucher Potongan Rp 1.000</b> otomatis pada pesanan berikutnya ✨
+          </p>
+        </div>
+      </div>
+
+      <form id="review-form" class="space-y-3 pt-1">
+        <div class="flex gap-2 justify-center py-1 text-2xl" id="star-container">
+          <button type="button" class="star text-amber-400 transition-transform active:scale-125 cursor-pointer" data-star="1">★</button>
+          <button type="button" class="star text-amber-400 transition-transform active:scale-125 cursor-pointer" data-star="2">★</button>
+          <button type="button" class="star text-amber-400 transition-transform active:scale-125 cursor-pointer" data-star="3">★</button>
+          <button type="button" class="star text-amber-400 transition-transform active:scale-125 cursor-pointer" data-star="4">★</button>
+          <button type="button" class="star text-amber-400 transition-transform active:scale-125 cursor-pointer" data-star="5">★</button>
+        </div>
+
+        <div id="review-photo-box" class="p-3 bg-amber-500/10 border border-amber-500/30 rounded-2xl">
+          <label class="block text-[11px] font-bold text-amber-950 mb-1">
+            📸 Lampirkan Foto (Syarat Klaim Voucher Rp 1.000):
+          </label>
+          <input type="file" id="review-photo-input" accept="image/*" class="w-full text-xs text-stone-600 file:mr-2 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-amber-600 file:text-white hover:file:bg-amber-700 cursor-pointer" />
+        </div>
+
+        <textarea id="review-comment" rows="2" placeholder="Bagikan kesanmu belanja di Bintang Store di sini..." class="w-full text-xs p-3 rounded-xl border border-stone-200 bg-stone-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-600 resize-none font-medium text-stone-800"></textarea>
+
+        <button type="submit" id="submit-review-btn" class="w-full py-2.5 bg-stone-900 hover:bg-stone-800 text-white rounded-xl text-xs font-extrabold transition shadow-sm active:scale-95 cursor-pointer">
+          Kirim Ulasan & Klaim Voucher
+        </button>
+      </form>
+    </div>
+
+    <!-- BANNER HIGHLIGHT PROMO DIGITAL: DUOLINGO SUPER PRIVATE -->
+    <div class="bg-gradient-to-br from-amber-500/15 via-white to-orange-50 border-2 border-amber-500/40 rounded-3xl p-4 shadow-sm space-y-3">
+      <div class="flex items-center gap-3">
+        <div class="w-14 h-14 rounded-2xl bg-stone-900 flex-shrink-0 overflow-hidden border border-stone-200 shadow-xs">
+          <img src="https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/assets/duolingo%20super.webp" alt="Duolingo Super" class="w-full h-full object-cover" />
+        </div>
+        <div class="min-w-0 flex-1">
+          <div class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[9px] font-black uppercase">
+            <span>⚡ Promo Spesial Antrean</span>
+          </div>
+          <h3 class="text-xs font-black text-stone-900 leading-snug mt-0.5 truncate">Duolingo Super Private 2 Bulan</h3>
+          <p class="text-[10px] text-amber-900 font-extrabold">Hanya Rp 25.000 <span class="text-stone-400 font-semibold text-[9px]">(~12rb/bulan)</span></p>
+        </div>
+      </div>
+      <p class="text-[10px] text-stone-600 leading-snug">
+        Akun private full garansi, bebas iklan, nyawa tanpa batas. Sambil nunggu pesanan kopi siap, bisa langsung pesan ke admin!
+      </p>
+      <a href="https://wa.me/6285959633342?text=Halo%20Admin%20Bintang%20Store%2C%20saya%20tertarik%20tambah%20order%20Duolingo%20Super%20Private%202%20Bulan%20Rp%2025.000!" target="_blank" class="w-full py-2 bg-stone-900 hover:bg-stone-800 text-white rounded-xl text-xs font-extrabold transition shadow-xs flex items-center justify-center gap-1.5 active:scale-95 cursor-pointer">
+        <i class="fab fa-whatsapp text-emerald-400"></i>
+        <span>Pesan Akun Duolingo via WA</span>
+      </a>
+    </div>
+
+    <!-- BANNER SALURAN WHATSAPP VIP -->
+    <div class="bg-gradient-to-br from-emerald-500/15 via-amber-500/10 to-stone-100 border-2 border-emerald-500/40 rounded-3xl p-4.5 space-y-3 shadow-xs">
+      <div class="flex items-start gap-3">
+        <div class="w-10 h-10 rounded-2xl bg-emerald-600 text-white flex items-center justify-center text-lg font-black flex-shrink-0 shadow-md">
+          <i class="fab fa-whatsapp"></i>
+        </div>
+        <div class="min-w-0">
+          <h3 class="text-xs font-black text-stone-900 leading-tight">Tempat Bocoran Kopi & Akun Murah 🤫</h3>
+          <p class="text-[10px] text-stone-600 mt-1 leading-snug">
+            Daripada langganan harga normal, pantau penawaran di saluran ini:
+          </p>
+          <ul class="text-[10px] text-stone-700 font-semibold space-y-1 mt-1.5">
+            <li>• <b>Netflix & YouTube Premium</b> harga receh (anti-hold)</li>
+            <li>• <b>CapCut Pro, Canva Pro, Gemini Plus</b> buat nugas/ngonten</li>
+            <li>• <b>Jastip Kopken, Fore & Tomoro</b> diskon gede + sandi WiFi</li>
+            <li>• Bocoran voucher & flash sale Shopee harian</li>
+          </ul>
+        </div>
+      </div>
+      <a href="https://whatsapp.com/channel/0029Vb91UWjInlqTkOqqUT06" target="_blank" class="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-black transition active:scale-95 shadow-sm flex items-center justify-center gap-2 cursor-pointer">
+        <i class="fab fa-whatsapp text-sm"></i>
+        <span>Masuk Saluran (Biar Gak Ketinggalan)</span>
+        <i class="fas fa-arrow-right text-[10px]"></i>
+      </a>
+    </div>
+
+    <!-- Rincian Menu Pesanan -->
+    <div class="bg-white rounded-3xl p-5 shadow-sm border border-stone-200/80 space-y-3">
+      <div class="flex items-center justify-between border-b border-stone-100 pb-2.5">
+        <h2 class="text-xs font-black uppercase tracking-wider text-stone-400">Rincian Pesanan</h2>
+        <span id="outlet-label" class="text-xs font-bold text-amber-900 truncate max-w-[200px]">-</span>
+      </div>
+      <div id="order-items" class="text-xs divide-y divide-stone-100">
+        <p class="text-xs text-stone-400 italic py-2">Memuat rincian pesanan...</p>
+      </div>
+    </div>
+
+    <!-- Navigasi Kembali ke Toko -->
+    <div class="text-center pt-2">
+      <a href="index.html" class="text-xs font-bold text-stone-500 hover:text-stone-800 transition inline-flex items-center gap-1.5 cursor-pointer">
+        <i class="fas fa-arrow-left text-[10px]"></i>
+        <span>Kembali ke Portal Bintang Store</span>
+      </a>
+    </div>
+
+  </main>
+
+  <!-- MODAL DARURAT 15/30 MENIT: TELEPON / WA ADMIN -->
+  <div id="urgent-call-modal" class="fixed inset-0 bg-black/75 backdrop-blur-xs z-[200] hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl p-5 max-w-sm w-full text-center space-y-3 shadow-2xl border-2 border-rose-500 animate-pulse">
+      <div class="w-14 h-14 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center text-2xl mx-auto">
+        <i class="fas fa-phone-volume animate-bounce"></i>
+      </div>
+      <div>
+        <h3 class="font-black text-sm text-stone-900">Konfirmasi Melewati Batas Waktu</h3>
+        <p class="text-[11px] text-stone-500 mt-1 leading-snug">
+          Admin mungkin sedang menangani antrean fisik. Silakan langsung hubungi atau telepon WhatsApp admin sekarang:
+        </p>
+      </div>
+      <div class="space-y-2 pt-1">
+        <a id="btn-urgent-call" href="https://wa.me/6285959633342?text=Halo%20Admin%20Bintang%20Store%2C%20pesanan%20saya%20sudah%20melewati%20batas%20waktu%20belum%20ada%20konfirmasi.%20Mohon%20segera%20diproses!" target="_blank" class="w-full py-3 bg-rose-600 hover:bg-rose-700 text-white font-black rounded-xl text-xs shadow-md transition flex items-center justify-center gap-2">
+          <i class="fas fa-phone"></i>
+          <span>Telepon / Chat WhatsApp Admin</span>
+        </a>
+        <button onclick="closeUrgentCallModal()" class="text-[10px] text-stone-400 font-bold hover:underline">
+          Tutup Pemberitahuan
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL FORMULIR BATAL & REFUND DANA -->
+  <div id="refund-modal" class="fixed inset-0 bg-black/75 backdrop-blur-xs z-[300] hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl p-5 max-w-sm w-full space-y-3 shadow-2xl border border-stone-200 text-left">
+      <div class="flex items-center justify-between pb-2 border-b border-stone-100">
+        <div class="flex items-center gap-1.5 text-rose-600">
+          <i class="fas fa-undo-alt text-xs"></i>
+          <h3 class="font-black text-xs text-stone-900">Pengajuan Batal & Refund</h3>
+        </div>
+        <button onclick="closeRefundModal()" class="w-6 h-6 bg-stone-100 text-stone-500 rounded-full flex items-center justify-center text-xs">✕</button>
+      </div>
+      <p class="text-[11px] text-stone-600 leading-snug">
+        Admin belum merespons dalam batas waktu tunggu. Masukkan data rekening/e-wallet kamu untuk pengembalian dana:
+      </p>
+      <div class="space-y-2">
+        <input id="refund-bank-name" type="text" placeholder="Nama E-Wallet / Bank (DANA, GoPay, BCA)" class="w-full text-xs p-2.5 rounded-xl border border-stone-200 bg-stone-50 font-semibold outline-none focus:bg-white focus:ring-2 focus:ring-rose-500" />
+        <input id="refund-account-number" type="tel" placeholder="Nomor Rekening / No. E-Wallet" class="w-full text-xs p-2.5 rounded-xl border border-stone-200 bg-stone-50 font-semibold outline-none focus:bg-white focus:ring-2 focus:ring-rose-500" />
+        <input id="refund-account-holder" type="text" placeholder="Nama Pemilik Rekening" class="w-full text-xs p-2.5 rounded-xl border border-stone-200 bg-stone-50 font-semibold outline-none focus:bg-white focus:ring-2 focus:ring-rose-500" />
+      </div>
+      <button type="button" id="btn-submit-refund" onclick="submitRefundClaim()" class="w-full py-2.5 bg-rose-600 hover:bg-rose-700 text-white font-black rounded-xl text-xs transition active:scale-95 shadow-md flex items-center justify-center gap-1.5">
+        <i class="fas fa-paper-plane text-xs"></i>
+        <span>Kirim Permintaan Refund ke Admin</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- MODAL KLAIM GARANSI DIGITAL -->
+  <div id="claim-warranty-modal" class="fixed inset-0 bg-black/75 backdrop-blur-xs z-[250] hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 text-white rounded-3xl p-5 max-w-sm w-full space-y-3 shadow-2xl border border-slate-700">
+      <div class="flex items-center justify-between pb-2 border-b border-white/10">
+        <div class="flex items-center gap-2">
+          <i class="fas fa-shield-halved text-rose-500 text-sm"></i>
+          <h3 class="font-black text-xs text-white">Formulir Klaim Garansi</h3>
+        </div>
+        <button onclick="closeClaimWarrantyModal()" class="w-6 h-6 bg-white/10 text-stone-400 hover:text-white flex items-center justify-center text-xs">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <p class="text-[11px] text-gray-300 leading-snug">
+        Ada masalah kendala akses akun? Jelaskan kendalamu di bawah:
+      </p>
+      <textarea id="warranty-issue-input" rows="3" placeholder="Contoh: Akun ter-logout sendiri, mohon bantu invite ulang..." class="w-full text-xs p-3 rounded-xl bg-slate-800 border border-white/10 text-white placeholder-gray-500 outline-none focus:ring-2 focus:ring-rose-500 resize-none"></textarea>
+      <button type="button" id="btn-submit-warranty" onclick="submitWarrantyClaim()" class="w-full py-2.5 bg-rose-600 hover:bg-rose-700 text-white font-black rounded-xl text-xs transition active:scale-95 shadow-md flex items-center justify-center gap-1.5">
+        <i class="fas fa-paper-plane text-xs"></i>
+        <span>Kirim Laporan Garansi ke Admin</span>
+      </button>
+    </div>
+  </div>
+
+  <script>
+    const SUPABASE_URL = "https://axaoagzveujcgoxybdmp.supabase.co";
+    const SUPABASE_ANON_KEY = "sb_publishable_GQ19XRT7yWIBido0iXJvCQ_ybZ_I7ju";
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    const BOT_TOKEN = "8765196047:AAGSnN7VoGnXxQK5rl5459ifGqBVE3EKsWo";
+    const ADMIN_CHAT_ID = "6731058601";
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const orderId = urlParams.get("order_id") || "";
+    const isDigitalOrder = orderId.startsWith("dig-");
+
+    let selectedRating = 5;
+    let currentOrder = null;
+    let rawOrderTotal = 0;
+
+    // Evaluasi Jam Sibuk:
+    // Selasa: 07:00 - 11:40 (420-700 mnt) & 14:20 - 16:00 (860-960 mnt)
+    // Kamis : 08:40 - 10:20 (520-620 mnt) & 14:20 - 16:00 (860-960 mnt)
+    function checkIsBusySchedule() {
+      const now = new Date();
+      const day = now.getDay(); // 2 = Selasa, 4 = Kamis
+      const minutes = (now.getHours() * 60) + now.getMinutes();
+
+      if (day === 2) {
+        if ((minutes >= 420 && minutes <= 700) || (minutes >= 860 && minutes <= 960)) return true;
+      } else if (day === 4) {
+        if ((minutes >= 520 && minutes <= 620) || (minutes >= 860 && minutes <= 960)) return true;
+      }
+      return false;
+    }
+
+    const isBusyMode = checkIsBusySchedule();
+    const TOTAL_TIMER_MINUTES = isBusyMode ? 30 : 15;
+    const LOCK_MINUTES = isBusyMode ? 20 : 10;
+    const TOTAL_TIMER_SECONDS = TOTAL_TIMER_MINUTES * 60;
+    const LOCK_SECONDS = LOCK_MINUTES * 60;
+
+    let confirmationTimerInterval = null;
+
+    const elOrderId = document.getElementById("order-id");
+    const elStatusBadge = document.getElementById("status-badge");
+    const elStatusText = document.getElementById("status-text");
+    const elStatusDesc = document.getElementById("status-desc");
+    const elPickupCardWrapper = document.getElementById("pickup-card-wrapper");
+    const elDigitalCardWrapper = document.getElementById("digital-card-wrapper");
+    const elQueueNumber = document.getElementById("queue-number");
+    const elCustomerName = document.getElementById("customer-name");
+    const elReceiptContainer = document.getElementById("receipt-container");
+    const elReceiptImg = document.getElementById("receipt-img");
+    const elOutletLabel = document.getElementById("outlet-label");
+    const elOrderItems = document.getElementById("order-items");
+    const elReviewCard = document.getElementById("review-card");
+    const elQrisCard = document.getElementById("qris-payment-card");
+    const elQrisTotal = document.getElementById("qris-total-amount");
+    const elTimerCard = document.getElementById("confirmation-timer-card");
+    const elCountdownText = document.getElementById("timer-countdown-text");
+    const elProgressBar = document.getElementById("timer-progress-bar");
+    const elBtnCancel = document.getElementById("btn-cancel-order");
+    const elCancelTimerText = document.getElementById("cancel-lock-timer");
+    const elCancelLockIcon = document.getElementById("cancel-lock-icon");
+    const elCancelBtnLabel = document.getElementById("cancel-btn-label");
+    const elBusyBanner = document.getElementById("busy-mode-banner");
+
+    async function sendTelegramAlert(textHtml, customMarkup = null) {
+      try {
+        const body = {
+          chat_id: ADMIN_CHAT_ID,
+          text: textHtml,
+          parse_mode: "HTML"
+        };
+        if (customMarkup) body.reply_markup = customMarkup;
+
+        await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body)
+        });
+      } catch (e) {
+        console.error("Gagal kirim alert telegram:", e);
+      }
+    }
+
+    function initTimerStorage() {
+      const storageKey = `timer_deadline_${orderId}`;
+      let deadline = localStorage.getItem(storageKey);
+      if (!deadline) {
+        deadline = Date.now() + (TOTAL_TIMER_SECONDS * 1000);
+        localStorage.setItem(storageKey, deadline.toString());
+      }
+      return parseInt(deadline, 10);
+    }
+
+    function startConfirmationCountdown() {
+      if (confirmationTimerInterval) return;
+      elTimerCard.classList.remove("hidden");
+      if (isBusyMode && elBusyBanner) elBusyBanner.classList.remove("hidden");
+
+      const deadline = initTimerStorage();
+
+      confirmationTimerInterval = setInterval(async () => {
+        const now = Date.now();
+        const diffSeconds = Math.max(0, Math.floor((deadline - now) / 1000));
+        const elapsedSeconds = TOTAL_TIMER_SECONDS - diffSeconds;
+
+        const m = Math.floor(diffSeconds / 60);
+        const s = diffSeconds % 60;
+        if (elCountdownText) {
+          elCountdownText.textContent = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+        }
+
+        const percentage = Math.max(0, (diffSeconds / TOTAL_TIMER_SECONDS) * 100);
+        if (elProgressBar) elProgressBar.style.width = `${percentage}%`;
+
+        // Logika Gembok Tombol Batal
+        if (elapsedSeconds < LOCK_SECONDS) {
+          const lockRemain = LOCK_SECONDS - elapsedSeconds;
+          const lM = Math.floor(lockRemain / 60);
+          const lS = lockRemain % 60;
+          if (elCancelTimerText) elCancelTimerText.textContent = `${String(lM).padStart(2, '0')}:${String(lS).padStart(2, '0')}`;
+          elBtnCancel.disabled = true;
+        } else {
+          elBtnCancel.disabled = false;
+          elBtnCancel.className = "w-full py-2 px-3 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold transition shadow-xs flex items-center justify-center gap-1.5 cursor-pointer active:scale-95";
+          if (elCancelLockIcon) elCancelLockIcon.className = "fas fa-undo-alt text-[10px]";
+          if (elCancelBtnLabel) elCancelBtnLabel.textContent = "Ajukan Pembatalan & Refund Dana";
+        }
+
+        // Peringatan Pertama Telegram
+        const reminderThreshold1 = isBusyMode ? 600 : 300; // 10 mnt (sibuk) atau 5 mnt (normal)
+        const keyRemind1 = `alert1_sent_${orderId}`;
+        if (elapsedSeconds >= reminderThreshold1 && !localStorage.getItem(keyRemind1)) {
+          localStorage.setItem(keyRemind1, "true");
+          sendTelegramAlert(`⏳ <b>PENGINGAT RESPON:</b>\nOrder <code>${orderId}</code> atas nama <b>${currentOrder?.customer_name || 'Pelanggan'}</b> sudah berjalan ${Math.floor(reminderThreshold1/60)} menit belum dikonfirmasi!`);
+        }
+
+        // Peringatan Kedua Telegram
+        const reminderThreshold2 = isBusyMode ? 1200 : 600; // 20 mnt (sibuk) atau 10 mnt (normal)
+        const keyRemind2 = `alert2_sent_${orderId}`;
+        if (elapsedSeconds >= reminderThreshold2 && !localStorage.getItem(keyRemind2)) {
+          localStorage.setItem(keyRemind2, "true");
+          sendTelegramAlert(`⚠️ <b>PERINGATAN DARURAT:</b>\nOrder <code>${orderId}</code> sudah ${Math.floor(reminderThreshold2/60)} menit belum dikonfirmasi! Pembeli sudah dapat mengajukan pembatalan.`);
+        }
+
+        // Batas Waktu Habis
+        if (diffSeconds <= 0) {
+          clearInterval(confirmationTimerInterval);
+          confirmationTimerInterval = null;
+
+          const keyFinal = `alert_final_${orderId}`;
+          if (!localStorage.getItem(keyFinal)) {
+            localStorage.setItem(keyFinal, "true");
+            sendTelegramAlert(`🚨 <b>WAKTU RESPON HABIS (${TOTAL_TIMER_MINUTES} MENIT):</b>\nOrder <code>${orderId}</code> melewati batas waktu maksimal!`);
+          }
+          document.getElementById("urgent-call-modal").classList.remove("hidden");
+        }
+      }, 1000);
+    }
+
+    function stopConfirmationCountdown() {
+      if (confirmationTimerInterval) {
+        clearInterval(confirmationTimerInterval);
+        confirmationTimerInterval = null;
+      }
+      elTimerCard.classList.add("hidden");
+      if (elBusyBanner) elBusyBanner.classList.add("hidden");
+    }
+
+    function closeUrgentCallModal() {
+      document.getElementById("urgent-call-modal").classList.add("hidden");
+    }
+
+    function openRefundModal() {
+      document.getElementById("refund-modal").classList.remove("hidden");
+    }
+
+    function closeRefundModal() {
+      document.getElementById("refund-modal").classList.add("hidden");
+    }
+
+    async function submitRefundClaim() {
+      const bank = document.getElementById("refund-bank-name").value.trim();
+      const num = document.getElementById("refund-account-number").value.trim();
+      const holder = document.getElementById("refund-account-holder").value.trim();
+      const btn = document.getElementById("btn-submit-refund");
+
+      if (!bank || !num || !holder) {
+        alert("Mohon lengkapi data bank/e-wallet untuk pengembalian dana!");
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim Pengajuan...';
+
+      // 1. Update status pesanan di database
+      await supabaseClient
+        .from("orders")
+        .update({ 
+          status: "dibatalkan_pelanggan",
+          review: `Pengajuan Refund: ${bank} - ${num} a/n ${holder}`
+        })
+        .eq("id", orderId);
+
+      // 2. Kirim detail refund ke Bot Telegram Admin
+      const refundMsg = `🚨 <b>PENGAJUAN REFUND MASUK!</b>\n\n` +
+        `🆔 <b>Order ID:</b> <code>${orderId}</code>\n` +
+        `👤 <b>Nama:</b> ${currentOrder?.customer_name || '-'}\n` +
+        `📱 <b>WA:</b> ${currentOrder?.customer_wa || '-'}\n` +
+        `💰 <b>Nominal Refund:</b> Rp ${parseInt(rawOrderTotal).toLocaleString('id-ID')}\n` +
+        `🏦 <b>Tujuan:</b> ${bank}\n` +
+        `🔢 <b>No. Rek/E-Wallet:</b> <code>${num}</code>\n` +
+        `🏷️ <b>Atas Nama:</b> ${holder}\n\n` +
+        `<i>Pelanggan mengajukan refund karena waktu tunggu terlampaui. Segera transfer kembali dan konfirmasi via WA.</i>`;
+
+      const directWa = currentOrder?.customer_wa ? `https://wa.me/${currentOrder.customer_wa}` : '';
+      const replyMarkup = directWa ? {
+        inline_keyboard: [[{ text: "💬 Hubungi WA Pembeli", url: directWa }]]
+      } : null;
+
+      await sendTelegramAlert(refundMsg, replyMarkup);
+
+      alert("Pengajuan pembatalan dan refund berhasil dikirimkan ke Admin. Admin akan segera memproses transfer balik!");
+      closeRefundModal();
+      location.reload();
+    }
+
+    async function submitPaymentConfirmation() {
+      const fileInput = document.getElementById("transfer-proof-file");
+      const btn = document.getElementById("btn-submit-payment");
+
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim Verifikasi...';
+
+      let proofUrl = null;
+
+      if (fileInput.files && fileInput.files[0]) {
+        const file = fileInput.files[0];
+        const filePath = `tf_${orderId}_${Date.now()}.jpg`;
+        const { error: upErr } = await supabaseClient.storage
+          .from("receipts")
+          .upload(filePath, file, { contentType: file.type || "image/jpeg", upsert: true });
+
+        if (!upErr) {
+          const { data: pubData } = supabaseClient.storage.from("receipts").getPublicUrl(filePath);
+          proofUrl = pubData.publicUrl;
+        }
+      }
+
+      // Update status menjadi menunggu_konfirmasi
+      await supabaseClient
+        .from("orders")
+        .update({ status: "menunggu_konfirmasi" })
+        .eq("id", orderId);
+
+      // Kirim Notifikasi ke Bot Telegram dengan Foto atau Pesan Teks
+      const captionText = `💸 <b>BUKTI TRANSFER PEMBAYARAN MASUK!</b>\n\n` +
+        `🆔 <b>Order ID:</b> <code>${orderId}</code>\n` +
+        `👤 <b>Nama:</b> ${currentOrder?.customer_name || '-'}\n` +
+        `💰 <b>Total Pas:</b> Rp ${parseInt(rawOrderTotal).toLocaleString('id-ID')}\n` +
+        `📱 <b>WhatsApp:</b> ${currentOrder?.customer_wa || '-'}\n\n` +
+        `<i>Segera cek mutasi rekening/QRIS dan klik Terima Pembayaran di bawah:</i>`;
+
+      const inlineKeyboard = {
+        inline_keyboard: [
+          [
+            { text: "✅ Terima Pembayaran", callback_data: `st:${orderId}:sedang_diproses` },
+            { text: "❌ Tolak / Tidak Masuk", callback_data: `st:${orderId}:menunggu_pembayaran` }
+          ]
+        ]
+      };
+
+      try {
+        if (proofUrl) {
+          await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              chat_id: ADMIN_CHAT_ID,
+              photo: proofUrl,
+              caption: captionText,
+              parse_mode: "HTML",
+              reply_markup: inlineKeyboard
+            })
+          });
+        } else {
+          await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              chat_id: ADMIN_CHAT_ID,
+              text: captionText + `\n\n⚠️ <i>(Pembeli mengonfirmasi transfer tanpa melampirkan foto struk)</i>`,
+              parse_mode: "HTML",
+              reply_markup: inlineKeyboard
+            })
+          });
+        }
+      } catch (e) {
+        console.error("Gagal kirim bukti ke telegram:", e);
+      }
+
+      elQrisCard.classList.add("hidden");
+      startConfirmationCountdown();
+    }
+
+    async function loadOrderData() {
+      if (!orderId) {
+        elOrderId.textContent = "ID Tidak Ditemukan";
+        elStatusText.textContent = "Parameter ?order_id= kosong";
+        elStatusDesc.textContent = "Silakan buat pesanan melalui menu utama toko terlebih dahulu.";
+        return;
+      }
+
+      elOrderId.textContent = orderId;
+
+      const { data, error } = await supabaseClient
+        .from("orders")
+        .select("*")
+        .eq("id", orderId)
+        .single();
+
+      if (error || !data) {
+        elStatusText.textContent = "Pesanan sedang disinkronkan...";
+        elStatusDesc.textContent = "Menghubungkan ke database cloud Supabase...";
+        return;
+      }
+
+      renderOrder(data);
+      listenRealtime();
+    }
+
+    async function renderOrder(order) {
+      if (!order) return;
+      currentOrder = order;
+      rawOrderTotal = order.total_price || 0;
+      elCustomerName.textContent = order.customer_name || "-";
+      
+      const isDeliveryOrder = order.order_type === 'delivery';
+
+      if (isDeliveryOrder) {
+        elOutletLabel.textContent = `${order.outlet_name || 'Kopi Kenangan'} (Delivery)`;
+      } else {
+        elOutletLabel.textContent = order.outlet_name || (isDigitalOrder ? "Produk Digital" : "Kopi Kenangan");
+      }
+
+      if (elQrisTotal) elQrisTotal.textContent = `Rp ${parseInt(rawOrderTotal).toLocaleString('id-ID')}`;
+
+      const statusMap = {
+        menunggu_pembayaran: {
+          text: "Menunggu Pembayaran QRIS",
+          desc: "Silakan scan kode QRIS di bawah dan konfirmasi pembayaran agar langsung diverifikasi admin.",
+          class: "bg-orange-100 text-orange-900 border border-orange-300"
+        },
+        menunggu_konfirmasi: {
+          text: "Menunggu Konfirmasi Admin",
+          desc: isDeliveryOrder 
+            ? "Bukti bayar telah diterima! Admin sedang mengecek mutasi dan memesankan kurir." 
+            : "Bukti bayar telah diterima! Admin sedang memverifikasi pembayaranmu.",
+          class: "bg-amber-100 text-amber-900 border border-amber-300"
+        },
+        sedang_diproses: {
+          text: isDigitalOrder 
+            ? "Akun Sedang Disiapkan" 
+            : (isDeliveryOrder ? "Kopi Dibuat & Kurir Disiapkan" : "Pesanan Sedang Diproses"),
+          desc: isDigitalOrder 
+            ? "Pembayaran terverifikasi! Admin sedang menyiapkan kredensial/meng-invite akun kamu ke WhatsApp."
+            : (isDeliveryOrder 
+                ? "Pembayaran terverifikasi! Barista sedang meracik pesanan dan admin memanggil kurir Shopee Instan."
+                : "Pembayaran terverifikasi! Pesananmu sedang diracik barista gerai."),
+          class: "bg-blue-100 text-blue-900 border border-blue-300"
+        },
+        selesai: {
+          text: isDigitalOrder 
+            ? "Akun Aktif & Selesai" 
+            : (isDeliveryOrder ? "Kopi Meluncur via Kurir" : "Pesanan Selesai Diproses"),
+          desc: isDigitalOrder
+            ? "Akun kamu sudah aktif! Cek pesan WhatsApp kamu dan simpan halaman ini sebagai kartu garansi."
+            : (isDeliveryOrder 
+                ? `Pesanan telah diserahkan ke driver Shopee Instan. Pastikan nomor WhatsApp/HP aktif!`
+                : "Kopi kamu sudah jadi! Ambil di kasir gerai menggunakan tiket di bawah ini."),
+          class: "bg-emerald-100 text-emerald-950 border border-emerald-300"
+        },
+        dibatalkan_pelanggan: {
+          text: "Pesanan Dibatalkan",
+          desc: "Pesanan ini telah dibatalkan dan pengajuan refund dana sedang diproses oleh admin.",
+          class: "bg-rose-100 text-rose-900 border border-rose-300"
+        }
+      };
+
+      const cur = statusMap[order.status] || {
+        text: order.status || "Memproses...",
+        desc: "Pesanan sedang dalam penanganan admin.",
+        class: "bg-stone-100 text-stone-700"
+      };
+
+      elStatusBadge.className = `inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-black shadow-xs ${cur.class}`;
+      elStatusText.textContent = cur.text;
+      elStatusDesc.textContent = cur.desc;
+
+      // Kontrol Tampilan Kartu QRIS & Timer
+      if (order.status === "menunggu_pembayaran") {
+        elQrisCard.classList.remove("hidden");
+        stopConfirmationCountdown();
+      } else if (order.status === "menunggu_konfirmasi") {
+        elQrisCard.classList.add("hidden");
+        startConfirmationCountdown();
+      } else {
+        elQrisCard.classList.add("hidden");
+        stopConfirmationCountdown();
+      }
+
+      // Render Item Pesanan
+      const rawItems = order.order_items || order.items || [];
+      if (Array.isArray(rawItems) && rawItems.length > 0) {
+        let itemsHtml = rawItems.map(i => {
+          const name = i.name || (i.item && i.item.name) || "Item";
+          const desc = i.details || i.note || "";
+          const qty = i.qty || 1;
+          const price = i.price ? `Rp ${(i.price * qty).toLocaleString('id-ID')}` : '';
+          return `
+            <div class="flex justify-between items-center py-2">
+              <div class="min-w-0 pr-2">
+                <p class="font-extrabold text-stone-900 text-xs">${name}</p>
+                ${desc ? `<p class="text-[10px] text-stone-400 mt-0.5 truncate">${desc}</p>` : ''}
+              </div>
+              <div class="text-right flex-shrink-0">
+                <span class="text-xs font-black text-stone-700">x${qty}</span>
+                ${price ? `<span class="block text-[10px] font-bold text-amber-800">${price}</span>` : ''}
+              </div>
+            </div>
+          `;
+        }).join("");
+
+        if (isDeliveryOrder && order.delivery_fee) {
+          itemsHtml += `
+            <div class="flex justify-between items-center py-2 border-t border-dashed border-stone-200">
+              <div class="min-w-0 pr-2">
+                <p class="font-extrabold text-stone-900 text-xs">🛵 Ongkir Shopee Instan</p>
+                <p class="text-[10px] text-stone-500 mt-0.5">Pengantaran langsung ke alamat</p>
+              </div>
+              <div class="text-right flex-shrink-0">
+                <span class="text-xs font-black text-amber-800">Rp ${Number(order.delivery_fee).toLocaleString('id-ID')}</span>
+              </div>
+            </div>
+          `;
+        }
+
+        elOrderItems.innerHTML = itemsHtml;
+      }
+
+      // KONDISI SELESAI ATAU SEDANG DIPROSES
+      if (order.status === "selesai" || order.status === "sedang_diproses") {
+        if (isDigitalOrder) {
+          elPickupCardWrapper.classList.add("hidden");
+          elDigitalCardWrapper.classList.remove("hidden");
+
+          const { data: subData } = await supabaseClient
+            .from("digital_subscriptions")
+            .select("*")
+            .eq("id", orderId)
+            .single();
+
+          const prodName = rawItems[0]?.name || "Produk Digital";
+          document.getElementById("dig-product-title").textContent = prodName;
+          document.getElementById("dig-customer-phone").textContent = order.customer_wa || "Nomor WA kamu";
+
+          if (subData && subData.end_date) {
+            const endDate = new Date(subData.end_date);
+            const now = new Date();
+            const diffTime = endDate.getTime() - now.getTime();
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+            const dateStr = endDate.toLocaleDateString("id-ID", {
+              day: "numeric",
+              month: "long",
+              year: "numeric"
+            });
+
+            document.getElementById("dig-expiry-date").textContent = `Garansi Aktif s/d: ${dateStr}`;
+
+            if (diffDays > 0) {
+              document.getElementById("dig-warranty-days").textContent = `Sisa ${diffDays} Hari`;
+              document.getElementById("dig-warranty-badge").textContent = "GARANSI AKTIF";
+            } else {
+              document.getElementById("dig-warranty-days").textContent = "Kadaluwarsa";
+              document.getElementById("dig-warranty-badge").textContent = "GARANSI HABIS";
+            }
+          }
+
+          document.getElementById("review-card-icon").textContent = "⚡";
+          document.getElementById("review-card-title").textContent = "Akun Sudah Aktif? Beri Ulasan!";
+          document.getElementById("review-card-desc").textContent = "Bagikan kepuasanmu belanja akun di Bintang Store untuk klaim voucher diskon!";
+          document.getElementById("review-photo-box").classList.add("hidden");
+
+        } else {
+          elDigitalCardWrapper.classList.add("hidden");
+          elPickupCardWrapper.classList.remove("hidden");
+
+          const queueBox = document.getElementById("queue-box");
+          const deliveryInfoCard = document.getElementById("delivery-info-card");
+          const guideIcon = document.getElementById("guide-box-icon");
+          const guideTitle = document.getElementById("guide-box-title");
+          const guideText = document.getElementById("guide-box-text");
+
+          if (isDeliveryOrder) {
+            if (queueBox) queueBox.classList.add("hidden");
+            if (deliveryInfoCard) {
+              deliveryInfoCard.classList.remove("hidden");
+              document.getElementById("delivery-recipient-name").textContent = order.customer_name || "Pemesan";
+              document.getElementById("delivery-destination-address").textContent = order.delivery_address || "Alamat lengkap pengiriman";
+              
+              const mapsBox = document.getElementById("delivery-maps-container");
+              const mapsTarget = document.getElementById("delivery-maps-target");
+              if (order.delivery_maps_url) {
+                mapsBox.classList.remove("hidden");
+                mapsTarget.href = order.delivery_maps_url;
+              } else {
+                mapsBox.classList.add("hidden");
+              }
+            }
+
+            if (guideIcon) guideIcon.className = "fas fa-motorcycle text-amber-600 text-sm mt-0.5 flex-shrink-0";
+            if (guideTitle) guideTitle.textContent = "Panduan Pengantaran Shopee Instan:";
+            if (guideText) {
+              guideText.innerHTML = `Kopi diantarkan langsung ke alamat di atas. Pastikan nomor WhatsApp (<b class="font-bold underline">${order.customer_wa || 'HP'}</b>) selalu aktif agar driver mudah menghubungi patokan rumah saat tiba.`;
+            }
+
+          } else {
+            if (deliveryInfoCard) deliveryInfoCard.classList.add("hidden");
+            if (queueBox) {
+              queueBox.classList.remove("hidden");
+              elQueueNumber.textContent = order.queue_number || "-";
+            }
+
+            if (guideIcon) guideIcon.className = "fas fa-lightbulb text-amber-600 text-sm mt-0.5 flex-shrink-0";
+            if (guideTitle) guideTitle.textContent = "Panduan Pengambilan di Kasir:";
+            if (guideText) {
+              guideText.innerHTML = `Sebutkan <span class="font-bold underline">nama pemesan</span> dan <span class="font-bold underline">nomor antrean</span> di atas ke barista, atau perlihatkan foto struk resmi di atas jika barista meminta verifikasi.`;
+            }
+          }
+
+          if (order.receipt_image_url) {
+            elReceiptContainer.classList.remove("hidden");
+            elReceiptImg.src = order.receipt_image_url;
+          }
+        }
+
+        if (order.status === "selesai") {
+          if (!order.rating) {
+            elReviewCard.classList.remove("hidden");
+          } else {
+            elReviewCard.innerHTML = `
+              <div class="py-3 text-center space-y-1 bg-stone-50 rounded-2xl border border-stone-100">
+                <p class="text-xs font-black text-stone-800">Ulasanmu Sudah Tersimpan: ${'★'.repeat(order.rating)}</p>
+                <p class="text-[10px] text-stone-500 italic">"${order.review || 'Terima kasih atas ulasanmu!'}"</p>
+              </div>
+            `;
+            elReviewCard.classList.remove("hidden");
+          }
+        } else {
+          elReviewCard.classList.add("hidden");
+        }
+      }
+    }
+
+    function openClaimWarrantyModal() {
+      document.getElementById("claim-warranty-modal").classList.remove("hidden");
+    }
+
+    function closeClaimWarrantyModal() {
+      document.getElementById("claim-warranty-modal").classList.add("hidden");
+    }
+
+    async function submitWarrantyClaim() {
+      const issue = document.getElementById("warranty-issue-input").value.trim();
+      const btn = document.getElementById("btn-submit-warranty");
+
+      if (!issue || issue.length < 5) {
+        alert("Mohon jelaskan kendala yang dialami secara singkat!");
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim Laporan...';
+
+      await supabaseClient
+        .from("digital_subscriptions")
+        .update({ warranty_status: "klaim_garansi", warranty_notes: issue })
+        .eq("id", orderId);
+
+      const textAlert = `🚨 <b>LAPORAN KLAIM GARANSI MASUK!</b>\n` +
+        `🆔 <b>Order ID:</b> <code>${orderId}</code>\n` +
+        `👤 <b>Nama:</b> ${currentOrder?.customer_name || '-'}\n` +
+        `📱 <b>WhatsApp:</b> ${currentOrder?.customer_wa || '-'}\n` +
+        `⚡ <b>Kendala:</b> "${issue}"\n\n` +
+        `👉 <i>Mohon segera periksa akun pembeli dan hubungi via WA.</i>`;
+
+      const directWa = currentOrder?.customer_wa ? `https://wa.me/${currentOrder.customer_wa}` : '';
+      const replyMarkup = directWa ? {
+        inline_keyboard: [[{ text: "💬 Chat WA Pembeli", url: directWa }]]
+      } : null;
+
+      await sendTelegramAlert(textAlert, replyMarkup);
+
+      alert("Laporan kendala garansi berhasil dikirim ke Admin! Admin akan segera memeriksa akun kamu.");
+      closeClaimWarrantyModal();
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fas fa-paper-plane text-xs"></i> <span>Kirim Laporan Garansi ke Admin</span>';
+    }
+
+    function copyQrisNominal() {
+      navigator.clipboard.writeText(rawOrderTotal.toString());
+      alert(`Nominal Rp ${parseInt(rawOrderTotal).toLocaleString('id-ID')} berhasil disalin!`);
+    }
+
+    function listenRealtime() {
+      supabaseClient
+        .channel(`order_tracking_room_${orderId}`)
+        .on(
+          "postgres_changes",
+          {
+            event: "*",
+            schema: "public",
+            table: "orders",
+            filter: `id=eq.${orderId}`
+          },
+          (payload) => {
+            if (payload.new && payload.new.id === orderId) {
+              renderOrder(payload.new);
+            }
+          }
+        )
+        .subscribe();
+    }
+
+    function toggleZoom(img) {
+      img.classList.toggle("max-h-72");
+    }
+
+    function copyTrackingLink() {
+      navigator.clipboard.writeText(window.location.href);
+      alert("Tautan ruang tunggu berhasil disalin!");
+    }
+
+    const stars = document.querySelectorAll(".star");
+    function updateStarUI(val) {
+      stars.forEach(s => {
+        const starVal = parseInt(s.dataset.star);
+        s.classList.toggle("text-amber-400", starVal <= val);
+        s.classList.toggle("text-stone-200", starVal > val);
+      });
+    }
+
+    stars.forEach(s => {
+      s.addEventListener("click", () => {
+        selectedRating = parseInt(s.dataset.star);
+        updateStarUI(selectedRating);
+      });
+    });
+    updateStarUI(selectedRating);
+
+    document.getElementById("review-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const comment = document.getElementById("review-comment").value.trim();
+      const photoInput = document.getElementById("review-photo-input");
+      const btn = document.getElementById("submit-review-btn");
+
+      btn.disabled = true;
+      btn.textContent = "Mengunggah Ulasan...";
+
+      let uploadedPhotoUrl = null;
+
+      if (!isDigitalOrder && photoInput.files && photoInput.files[0]) {
+        const file = photoInput.files[0];
+        const filePath = `review_${orderId}_${Date.now()}.jpg`;
+        const { error: upErr } = await supabaseClient.storage
+          .from("receipts")
+          .upload(filePath, file, { contentType: file.type || "image/jpeg", upsert: true });
+
+        if (!upErr) {
+          const { data: pubData } = supabaseClient.storage.from("receipts").getPublicUrl(filePath);
+          uploadedPhotoUrl = pubData.publicUrl;
+        }
+      }
+
+      const { error } = await supabaseClient
+        .from("orders")
+        .update({ 
+          rating: selectedRating, 
+          review: comment 
+        })
+        .eq("id", orderId);
+
+      if (uploadedPhotoUrl) {
+        const caption = `⭐ <b>ULASAN FOTO BARU MASUK!</b>\n🆔 <b>Order:</b> <code>${orderId}</code>\n👤 <b>Nama:</b> ${currentOrder?.customer_name || '-'}\n📱 <b>WA:</b> ${currentOrder?.customer_wa || '-'}\n🌟 <b>Bintang:</b> ${selectedRating}/5\n💬 <b>Komentar:</b> "${comment || '-'}"\n\n<i>Validasi keaslian foto ulasan untuk voucher Rp 1.000:</i>`;
+
+        fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            chat_id: ADMIN_CHAT_ID,
+            photo: uploadedPhotoUrl,
+            caption: caption,
+            reply_markup: {
+              inline_keyboard: [[
+                { text: "✅ Setujui Voucher 1k", callback_data: `voc_ok:${orderId}` },
+                { text: "❌ Tolak", callback_data: `voc_no:${orderId}` }
+              ]]
+            }
+          })
+        }).catch(() => {});
+      }
+
+      if (!error) {
+        elReviewCard.innerHTML = `
+          <div class="py-4 text-center space-y-2">
+            <p class="text-3xl animate-bounce">🎉</p>
+            <p class="text-xs font-black text-stone-900">Ulasan Berhasil Dikirim!</p>
+            <p class="text-[11px] text-stone-500">Terima kasih banyak atas ulasan dan rating bintangmu!</p>
+          </div>
+        `;
+      } else {
+        btn.disabled = false;
+        btn.textContent = "Coba Lagi";
+      }
+    });
+
+    loadOrderData();
+  </script>
+</body>
+</html>
