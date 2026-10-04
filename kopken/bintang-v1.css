@@ -1,0 +1,713 @@
+/**
+ * ==========================================================================
+ * BINTANG STORE DESIGN SYSTEM — V1.0
+ * File: bintang-v1.css
+ * Standard visual & UI tokens according to Bintang Store Design System V1.0
+ * Acuan: Bab 6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17, 18, 20, 21, 30
+ * ==========================================================================
+ */
+
+/* ==========================================================================
+   1. DESIGN TOKENS (BAB 6, 7, 8, 9, 11)
+   ========================================================================== */
+:root {
+  /* Bab 6 & 7: Color Tokens */
+  --color-bg-page: #F3EFEA;            /* Clean neutral/cream desktop backdrop */
+  --color-bg: #FAF7F2;                 /* Primary app canvas / background */
+  --color-surface: #FFFFFF;            /* Pure white cards, containers, panels */
+  --color-surface-subtle: #F5F1EB;     /* Secondary / tinted cards & inputs */
+  --color-surface-hover: #F8F5F0;      /* Card hover state */
+  
+  --color-text: #1C1917;               /* Stone 900: High-contrast primary text */
+  --color-text-secondary: #44403C;     /* Stone 700: Body / secondary text */
+  --color-muted: #78716C;              /* Stone 500: Subtitles, captions, hints */
+  --color-muted-light: #A8A29E;        /* Stone 400: Borders, placeholders */
+  
+  --color-border: #E7E2DA;             /* Clean separating borders */
+  --color-border-subtle: #EFECE6;      /* Faint interior borders */
+  --color-border-focus: #9C532B;       /* Focus ring / border */
+
+  /* Primary Brand (KopKen warm coffee brand) */
+  --color-primary: #9C532B;            /* KopKen warm terracotta / coffee */
+  --color-primary-hover: #82421E;      /* Darker shade on hover */
+  --color-primary-active: #6E3617;     /* Active / pressed */
+  --color-primary-light: #F7EFE9;      /* Soft tint for pills & badges */
+  --color-primary-contrast: #FFFFFF;   /* Text on primary */
+
+  /* Dark Vertical / Espresso Brand */
+  --color-dark: #2C1A0D;               /* Deep roasted coffee brown */
+  --color-dark-hover: #1E1209;
+  --color-dark-surface: #1E293B;
+
+  /* Bab 7: Semantic Colors */
+  --color-success: #15803D;            /* Paid, open, active */
+  --color-success-bg: #F0FDF4;
+  --color-success-border: #BBF7D0;
+  --color-success-text: #166534;
+
+  --color-warning: #B45309;            /* Busy, pending, alert */
+  --color-warning-bg: #FFFBEB;
+  --color-warning-border: #FDE68A;
+  --color-warning-text: #92400E;
+
+  --color-danger: #DC2626;             /* Error, canceled, destructive */
+  --color-danger-bg: #FEF2F2;
+  --color-danger-border: #FECACA;
+  --color-danger-text: #991B1B;
+
+  --color-info: #0284C7;               /* Informational badges */
+  --color-info-bg: #F0F9FF;
+  --color-info-border: #BAE6FD;
+  --color-info-text: #0369A1;
+
+  /* Bab 9: Spacing System */
+  --space-1: 4px;                      /* Micro gap */
+  --space-2: 8px;                      /* Compact gap */
+  --space-3: 12px;                     /* Small gap */
+  --space-4: 16px;                     /* Standard gap */
+  --space-5: 24px;                     /* Component gap */
+  --space-6: 32px;                     /* Section internal */
+  --space-7: 48px;                     /* Major spacing */
+  --space-8: 64px;                     /* Large section */
+  --space-9: 96px;                     /* Hero / major separation */
+
+  /* Bab 8: Typography System */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* Typographic Scale Tokens */
+  --text-display: 1.75rem;             /* 28px */
+  --text-h1: 1.375rem;                 /* 22px */
+  --text-h2: 1.125rem;                 /* 18px */
+  --text-h3: 1rem;                     /* 16px */
+  --text-body-large: 0.9375rem;        /* 15px */
+  --text-body: 0.875rem;               /* 14px */
+  --text-body-small: 0.75rem;          /* 12px */
+  --text-caption: 0.6875rem;           /* 11px */
+  --text-label: 0.625rem;              /* 10px */
+
+  /* Bab 11: Radius System */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-2xl: 24px;
+  --radius-pill: 9999px;
+
+  /* Bab 11: Elevation & Shadows */
+  --shadow-xs: 0 1px 2px rgba(28, 25, 23, 0.04);
+  --shadow-sm: 0 2px 4px rgba(28, 25, 23, 0.04), 0 1px 2px rgba(28, 25, 23, 0.02);
+  --shadow-md: 0 4px 12px rgba(28, 25, 23, 0.06), 0 1px 3px rgba(28, 25, 23, 0.03);
+  --shadow-lg: 0 10px 24px -4px rgba(28, 25, 23, 0.08), 0 4px 8px -2px rgba(28, 25, 23, 0.04);
+  --shadow-shell: 0 0 35px rgba(0, 0, 0, 0.06);
+  --shadow-modal: 0 20px 40px -10px rgba(0, 0, 0, 0.15);
+
+  /* Bab 10: Layout Constraints */
+  --shell-max-width: 440px;
+}
+
+/* ==========================================================================
+   2. GLOBAL RESET & BASE
+   ========================================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: var(--font-sans);
+  background-color: var(--color-bg-page);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background-color: var(--color-bg-page) !important;
+  color: var(--color-text) !important;
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* ==========================================================================
+   3. BAB 10: MOBILE-FIRST APP SHELL (440px Centered)
+   ========================================================================== */
+.app-shell-wrapper {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  background-color: var(--color-bg-page);
+}
+
+.app-shell {
+  width: 100%;
+  max-width: var(--shell-max-width);
+  min-height: 100vh;
+  background-color: var(--color-bg);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-shell);
+  border-left: 1px solid var(--color-border);
+  border-right: 1px solid var(--color-border);
+}
+
+@media (max-width: 440px) {
+  .app-shell {
+    border-left: none;
+    border-right: none;
+    box-shadow: none;
+  }
+}
+
+/* View Sections inside App Shell */
+.view-section {
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* ==========================================================================
+   4. SCROLLBAR & SELECTION
+   ========================================================================== */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: var(--radius-pill);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-muted-light);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+input[type="number"]::-webkit-inner-spin-button, 
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* ==========================================================================
+   5. NAVIGATION & SEGMENTED TABS (BAB 16 & DO/DON'T)
+   ========================================================================== */
+.segmented-control {
+  display: grid;
+  padding: 4px;
+  background-color: var(--color-surface-subtle);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  gap: 4px;
+}
+
+.segmented-tab-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-muted);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.segmented-tab-btn:hover {
+  color: var(--color-text);
+}
+
+.segmented-tab-btn.active {
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  box-shadow: var(--shadow-xs);
+  border: 1px solid var(--color-border);
+}
+
+.category-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-surface);
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-xs);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+
+.category-nav-btn:hover {
+  background-color: var(--color-surface-hover);
+  border-color: var(--color-muted-light);
+  color: var(--color-text);
+}
+
+.category-nav-btn:active {
+  transform: scale(0.96);
+}
+
+.category-nav-btn.active {
+  background-color: var(--color-primary);
+  color: #FFFFFF;
+  border-color: var(--color-primary);
+}
+
+/* ==========================================================================
+   6. CARDS (BAB 15 & BAB 17 PRODUCT UI)
+   ========================================================================== */
+.bintang-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.bintang-card-interactive {
+  cursor: pointer;
+}
+
+.bintang-card-interactive:hover {
+  border-color: var(--color-muted-light);
+  box-shadow: var(--shadow-sm);
+}
+
+.bintang-card-interactive:active {
+  transform: scale(0.985);
+}
+
+/* Menu Product Card Grid - Enforce 2 Columns inside 440px shell */
+#menu-container .grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 10px !important;
+}
+
+#menu-container .glass {
+  background: var(--color-surface) !important;
+  border: 1px solid var(--color-border) !important;
+  border-radius: var(--radius-lg) !important;
+  padding: 10px !important;
+  box-shadow: var(--shadow-xs) !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease !important;
+}
+
+#menu-container .glass:hover {
+  border-color: var(--color-primary) !important;
+  box-shadow: var(--shadow-sm) !important;
+  transform: translateY(-2px) !important;
+}
+
+.menu-product-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background-color: var(--color-primary);
+  color: #FFFFFF;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  padding: 2px 7px;
+  border-radius: var(--radius-pill);
+  z-index: 10;
+  text-transform: uppercase;
+}
+
+.menu-product-image-box {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background-color: var(--color-surface-subtle);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  margin-bottom: 8px;
+  border: 1px solid var(--color-border-subtle);
+}
+
+.menu-product-image-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.menu-product-card:hover .menu-product-image-box img {
+  transform: scale(1.05);
+}
+
+.menu-product-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 32px;
+}
+
+.menu-product-old-price {
+  font-size: 10px;
+  color: var(--color-muted);
+  text-decoration: line-through;
+  margin-top: 2px;
+}
+
+.menu-product-price {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--color-primary);
+  letter-spacing: -0.02em;
+}
+
+.menu-product-add-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-md);
+  background-color: var(--color-dark);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  font-size: 11px;
+  box-shadow: var(--shadow-xs);
+  transition: all 0.15s ease;
+}
+
+.menu-product-add-btn:hover {
+  background-color: var(--color-primary);
+}
+
+.menu-product-add-btn:active {
+  transform: scale(0.9);
+}
+
+/* ==========================================================================
+   7. BUTTONS (BAB 13)
+   ========================================================================== */
+.btn-primary {
+  background-color: var(--color-primary);
+  color: var(--color-primary-contrast);
+  font-weight: 700;
+  font-size: 13px;
+  border-radius: var(--radius-md);
+  padding: 10px 16px;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: var(--shadow-xs);
+  transition: background-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-primary-hover);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-primary:active {
+  background-color: var(--color-primary-active);
+  transform: scale(0.98);
+}
+
+.btn-secondary {
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  font-weight: 600;
+  font-size: 13px;
+  border-radius: var(--radius-md);
+  padding: 10px 16px;
+  border: 1px solid var(--color-border);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-surface-hover);
+  border-color: var(--color-muted-light);
+}
+
+.btn-secondary:active {
+  transform: scale(0.98);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--color-muted);
+  border: none;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.btn-ghost:hover {
+  color: var(--color-text);
+  background-color: var(--color-surface-subtle);
+}
+
+/* ==========================================================================
+   8. BADGES & STATUS INDICATORS (BAB 20)
+   ========================================================================== */
+.badge-clean {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  letter-spacing: 0.02em;
+}
+
+.badge-clean-success {
+  background-color: var(--color-success-bg);
+  color: var(--color-success-text);
+  border: 1px solid var(--color-success-border);
+}
+
+.badge-clean-warning {
+  background-color: var(--color-warning-bg);
+  color: var(--color-warning-text);
+  border: 1px solid var(--color-warning-border);
+}
+
+.badge-clean-danger {
+  background-color: var(--color-danger-bg);
+  color: var(--color-danger-text);
+  border: 1px solid var(--color-danger-border);
+}
+
+.badge-clean-info {
+  background-color: var(--color-info-bg);
+  color: var(--color-info-text);
+  border: 1px solid var(--color-info-border);
+}
+
+.badge-clean-primary {
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+  border: 1px solid rgba(156, 83, 43, 0.2);
+}
+
+/* ==========================================================================
+   9. MODALS & BOTTOM SHEETS (BAB 21)
+   ========================================================================== */
+.modal-backdrop-clean {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(28, 25, 23, 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.modal-card-clean {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-lg);
+  color: var(--color-text);
+  width: 100%;
+  max-width: 400px;
+  overflow: hidden;
+}
+
+/* Modal Bottom Sheet - Locked to 440px Shell */
+#modal-content {
+  position: fixed;
+  bottom: 0;
+  left: 50% !important;
+  right: auto !important;
+  transform: translate(-50%, 100%);
+  width: 100%;
+  max-width: var(--shell-max-width);
+  background-color: var(--color-surface);
+  border-top-left-radius: var(--radius-2xl);
+  border-top-right-radius: var(--radius-2xl);
+  box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.12);
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  max-height: 88vh;
+  color: var(--color-text);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#modal-content.translate-y-0 {
+  transform: translate(-50%, 0) !important;
+}
+
+#modal-content.translate-y-full {
+  transform: translate(-50%, 100%) !important;
+}
+
+/* Custom Racikan Pill Options */
+.racikan-option-pill {
+  border: 1.5px solid var(--color-border);
+  background-color: var(--color-surface);
+  border-radius: var(--radius-md);
+  padding: 8px 12px;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.racikan-option-pill:hover {
+  background-color: var(--color-surface-hover);
+  border-color: var(--color-muted-light);
+}
+
+input:checked + .racikan-option-pill {
+  border-color: var(--color-primary);
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   10. FLOATING BOTTOM BAR (BAB 10 & BAB 18)
+   ========================================================================== */
+#shopee-bottom-bar {
+  max-width: var(--shell-max-width);
+  left: 50% !important;
+  right: auto !important;
+  transform: translateX(-50%) translateY(0);
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-top: 1px solid var(--color-border);
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.06);
+}
+
+#shopee-bottom-bar.translate-y-full {
+  transform: translateX(-50%) translateY(100%) !important;
+}
+
+#shopee-bottom-bar.translate-y-0 {
+  transform: translateX(-50%) translateY(0) !important;
+}
+
+/* ==========================================================================
+   11. STICKY HEADER (BAB 16)
+   ========================================================================== */
+#main-header {
+  background-color: rgba(250, 247, 242, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* ==========================================================================
+   12. FORM INPUTS & SEARCH (BAB 14)
+   ========================================================================== */
+.bintang-input {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  font-size: 12px;
+  font-weight: 500;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.bintang-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px var(--color-primary-light);
+}
+
+.bintang-input::placeholder {
+  color: var(--color-muted-light);
+}
+
+/* ==========================================================================
+   13. TOAST NOTIFICATIONS
+   ========================================================================== */
+#toast-container {
+  max-width: 400px;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  pointer-events: none;
+}
+
+.toast-clean {
+  background-color: var(--color-dark);
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-lg);
+  padding: 10px 14px;
+  font-size: 12px;
+  font-weight: 500;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  pointer-events: auto;
+}
+
+/* ==========================================================================
+   14. ANIMATIONS & MICRO-INTERACTIONS (BAB 23)
+   ========================================================================== */
+.view-section {
+  animation: bintangFadeIn 0.25s ease forwards;
+}
+
+@keyframes bintangFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,0 +1,136 @@
+/* ==========================================================================
+   BINTANG STORE - THE OBSIDIAN GATE: CINEMATIC DUAL-SHUTTER SYSTEM
+   ========================================================================== */
+
+#bs-transition-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+#bs-transition-layer.active {
+  pointer-events: auto;
+  visibility: visible;
+}
+
+/* Tirai Belah Dua (Top & Bottom Shutter) */
+.gate-shutter {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 50.5%;
+  background: #0c0a09;
+  transition: transform 0.45s cubic-bezier(0.77, 0, 0.175, 1);
+  z-index: 1;
+}
+
+.gate-shutter-top {
+  top: 0;
+  transform: translateY(-100%);
+  border-bottom: 1px solid rgba(217, 119, 6, 0.2);
+}
+
+.gate-shutter-bottom {
+  bottom: 0;
+  transform: translateY(100%);
+  border-top: 1px solid rgba(217, 119, 6, 0.2);
+}
+
+/* Saat Tirai Menutup */
+#bs-transition-layer.closing .gate-shutter-top,
+#bs-transition-layer.closing .gate-shutter-bottom {
+  transform: translateY(0%);
+}
+
+/* Konten Logo & Teks di Tengah */
+.trans-center-stage {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0.92);
+  transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#bs-transition-layer.closing .trans-center-stage {
+  opacity: 1;
+  transform: scale(1);
+  transition-delay: 0.1s;
+}
+
+/* Animasi Emblem Concept 6C */
+.trans-emblem-wrap {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.trans-aura-glow {
+  position: absolute;
+  inset: -14px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(217, 119, 6, 0.5) 0%, transparent 70%);
+  filter: blur(14px);
+  animation: gateAuraBreathe 1.8s ease-in-out infinite alternate;
+}
+
+.trans-logo-svg {
+  width: 52px;
+  height: 52px;
+  position: relative;
+  z-index: 2;
+  filter: drop-shadow(0 0 14px rgba(245, 158, 11, 0.6));
+  animation: gateIconScale 1.8s ease-in-out infinite alternate;
+}
+
+@keyframes gateIconScale {
+  0% { transform: scale(0.94); filter: drop-shadow(0 0 8px rgba(217, 119, 6, 0.4)); }
+  100% { transform: scale(1.06); filter: drop-shadow(0 0 20px rgba(245, 158, 11, 0.85)); }
+}
+
+@keyframes gateAuraBreathe {
+  0% { transform: scale(0.85); opacity: 0.35; }
+  100% { transform: scale(1.2); opacity: 0.85; }
+}
+
+/* Tipografi Branding Bersih */
+.gate-brand-title {
+  margin-top: 16px;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+  color: #f5f5f4;
+  text-transform: uppercase;
+}
+
+.gate-sub-label {
+  margin-top: 5px;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-indent: 0.22em;
+  color: #a8a29e;
+  text-transform: uppercase;
+}
+
+/* Varian Tema Khusus */
+.theme-coffee .trans-aura-glow {
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.6) 0%, transparent 70%);
+}
+.theme-digital .trans-aura-glow {
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.4) 0%, transparent 70%);
+}

@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Digital Infrastructure &amp; Premium Access — Bintang Store</title>
+    <meta name="description" content="Lisensi aplikasi premium, utility automation bot, dan akun pro legal dengan proteksi garansi penuh di Bintang Store." />
+
+    <!-- Favicon Concept 6C -->
+    <link rel="icon" type="image/svg+xml" href="./assets/logo.svg">
+
+    <!-- Page Transition CSS -->
+    <link rel="stylesheet" href="./assets/transition.css">
+
+    <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- External Libraries & Font Awesome -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+    <!-- Tailwind Config with Design Tokens V1.0 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'Inter', 'sans-serif'],
+                        mono: ['Courier New', 'monospace']
+                    },
+                    colors: {
+                        ivory: '#FAF8F5',
+                        stone: {
+                            950: '#1C1917',
+                            900: '#1C1917',
+                            800: '#292524',
+                            700: '#44403C',
+                            600: '#78716C',
+                            500: '#78716C',
+                            400: '#A8A29E',
+                            300: '#D6D3D1',
+                            200: '#E7E5E4',
+                            100: '#F5F5F4',
+                            50: '#FAFAF9'
+                        },
+                        terracotta: {
+                            DEFAULT: '#9C532B',
+                            hover: '#834320',
+                            soft: '#FBF5F1',
+                            border: '#E8D5C8'
+                        }
+                    },
+                    boxShadow: {
+                        'xs': '0 1px 2px 0 rgba(0, 0, 0, 0.04)',
+                        'subtle': '0 4px 20px -2px rgba(0, 0, 0, 0.04)'
+                    }
+                }
+            }
+        };
+    </script>
+
+    <style>
+        body {
+            background-color: #FAF8F5;
+            color: #1C1917;
+            font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .nav-glass {
+            background: rgba(250, 248, 245, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-stone-200 selection:text-stone-900">
+
+    <!-- Global Toast Container -->
+    <div id="toast-container" class="fixed top-4 left-1/2 transform -translate-x-1/2 z-[300] flex flex-col gap-2 w-[90%] max-w-sm pointer-events-none"></div>
+
+    <!-- ========================================== -->
+    <!-- 1. NAVBAR TERPADU (UNIFIED NAVBAR)         -->
+    <!-- ========================================== -->
+    <header class="nav-glass sticky top-0 z-40 border-b border-stone-200/80 transition-all">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- Logo Concept 6C -->
+            <a href="./home.html" class="flex items-center gap-3.5 group focus:outline-none rounded-lg p-1">
+                <img src="./assets/logo.svg" alt="Logo Bintang Store" class="w-9 h-9 transition-transform group-hover:scale-105 duration-200 shadow-sm" />
+                <div class="flex flex-col">
+                    <span class="font-extrabold tracking-wider text-base text-stone-950 uppercase leading-none">Bintang Store</span>
+                    <span class="text-[10px] tracking-widest text-stone-600 uppercase font-semibold mt-1">Digital Vault Access</span>
+                </div>
+            </a>
+
+            <!-- Menu Link Tengah (PC View) -->
+            <nav class="hidden md:flex items-center space-x-7 text-sm font-semibold text-stone-600">
+                <a href="./home.html" class="hover:text-stone-950 transition-colors">Home</a>
+                <a href="./digital-legacy.html" class="text-stone-950 font-bold transition-colors">Digital Store</a>
+                <a href="./kopken.html" class="hover:text-stone-950 transition-colors">KopKen</a>
+                <a href="./studio/index.html" class="hover:text-stone-950 transition-colors">Tech Studio</a>
+                <a href="./tracking.html" class="hover:text-stone-950 transition-colors">Unified Orders</a>
+            </nav>
+
+            <!-- Tombol CTA Kanan & Mobile Hamburger -->
+            <div class="flex items-center gap-3">
+                <a href="https://wa.me/6285959633342?text=Halo%20Admin%20Bintang%20Store%2C%20saya%20ingin%20tanya%20produk%20digital" 
+                   target="_blank" 
+                   rel="noopener noreferrer"
+                   class="inline-flex items-center gap-2 bg-stone-950 hover:bg-stone-800 text-ivory text-xs sm:text-sm font-semibold px-4 sm:px-5 py-2.5 rounded-full transition-all duration-200 shadow-sm active:scale-95">
+                    <span>Mulai Konsultasi</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                </a>
+
+                <button id="mobileMenuBtn" aria-label="Toggle Menu" class="md:hidden p-2 rounded-lg text-stone-700 hover:bg-stone-100 focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Dropdown Navigation -->
+        <div id="mobileMenuDropdown" class="hidden md:hidden border-t border-stone-200 bg-[#FAF8F5] px-6 py-5 space-y-4">
+            <a href="./home.html" class="block text-sm font-medium text-stone-600 hover:text-stone-950">Home</a>
+            <a href="./digital-legacy.html" class="block text-sm font-bold text-stone-950">Digital Store</a>
+            <a href="./kopken.html" class="block text-sm font-medium text-stone-600 hover:text-stone-950">KopKen</a>
+            <a href="./studio/index.html" class="block text-sm font-medium text-stone-600 hover:text-stone-950">Tech Studio</a>
+            <a href="./tracking.html" class="block text-sm font-medium text-stone-600 hover:text-stone-950">Unified Orders</a>
+        </div>
+    </header>
+
+    <!-- ========================================== -->
+    <!-- 2. HERO SECTION (MINIMALIST LUXURY)        -->
+    <!-- ========================================== -->
+    <section class="relative pt-12 pb-14 md:pt-20 md:pb-20 overflow-hidden">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            
+            <h1 class="text-3xl sm:text-5xl md:text-6xl font-extrabold text-stone-950 tracking-tight leading-[1.15] mb-5">
+                Digital Infrastructure &amp; Premium Access
+            </h1>
+
+            <p class="text-base sm:text-lg md:text-xl text-stone-600 max-w-2xl mx-auto font-normal leading-relaxed mb-8">
+                Lisensi aplikasi premium, utility automation bot, dan akun pro legal dengan proteksi garansi penuh.
+            </p>
+
+            <!-- Quick Trust Badges -->
+            <div class="flex flex-wrap items-center justify-center gap-2.5 sm:gap-4 text-xs font-semibold text-stone-700">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-stone-200 shadow-xs">
+                    <i class="fas fa-bolt text-amber-500 text-[11px]"></i> Proses Instan &lt; 5 Menit
+                </span>
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-stone-200 shadow-xs">
+                    <i class="fas fa-shield-check text-emerald-600 text-[11px]"></i> 100% Legal &amp; Garansi Anti-Hold
+                </span>
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-stone-200 shadow-xs">
+                    <i class="fas fa-headset text-indigo-600 text-[11px]"></i> Support Dispatch 24/7
+                </span>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- 3. BENTO GRID KATALOG PRODUK DIGITAL       -->
+    <!-- ========================================== -->
+    <section class="py-8 pb-16">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+
+            <!-- ==================================================== -->
+            <!-- SECTION 1: AI & PRODUCTIVITY TOOLS                   -->
+            <!-- ==================================================== -->
+            <div>
+                <div class="mb-5 flex items-center justify-between">
+                    <div>
+                        <span class="text-[11px] font-bold tracking-widest text-stone-500 uppercase">Productivity Tier</span>
+                        <h2 class="text-xl sm:text-2xl font-extrabold text-stone-950 tracking-tight">AI &amp; Productivity Tools</h2>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    
+                    <!-- Card 1: Google One AI Pro 2TB & Gemini Advanced -->
+                    <div class="bg-white rounded-3xl border border-stone-200 p-6 sm:p-7 shadow-sm hover:border-amber-400 hover:shadow-md transition duration-300 flex flex-col justify-between group">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="px-3 py-1 rounded-full text-[10px] font-extrabold tracking-wider uppercase bg-amber-50 text-amber-900 border border-amber-200">
+                                    POPULAR CHOICE
+                                </span>
+                                <span class="text-xs font-bold text-emerald-600">Garansi Penuh 100%</span>
+                            </div>
+
+                            <div class="w-12 h-12 rounded-2xl bg-stone-50 border border-stone-200 flex items-center justify-center text-amber-500 text-2xl mb-4 group-hover:scale-105 transition-transform">
+                                <i class="fab fa-google"></i>
+                            </div>
+
+                            <h3 class="text-lg sm:text-xl font-extrabold text-stone-950 tracking-tight mb-1">
+                                Google One AI Pro 2TB &amp; Gemini Advanced
+                            </h3>
+                            <p class="text-stone-600 text-xs sm:text-sm leading-relaxed mb-4">
+                                Kapasitas cloud 2TB terintegrasi langsung dengan model tercanggih Gemini 1.5 Pro, workspace AI, dan photo editing pro.
+                            </p>
+
+                            <ul class="space-y-1.5 text-xs text-stone-600 font-medium mb-6">
+                                <li class="flex items-center gap-2"><i class="fas fa-check text-emerald-600 text-[10px]"></i> Cloud Storage Google Drive &amp; Photos 2000GB</li>
+                                <li class="flex items-center gap-2"><i class="fas fa-check text-emerald-600 text-[10px]"></i> Model Reasoning Gemini 1.5 Pro &amp; Deep Think</li>
+                                <li class="flex items-center gap-2"><i class="fas fa-check text-emerald-600 text-[10px]"></i> Akun aman private / invite family resmi</li>
+                            </ul>
+                        </div>
+
+                        <div class="pt-4 border-t border-stone-100 flex items-center justify-between">
+                            <div>
+                                <span class="text-[10px] text-stone-400 line-through block">Rp 309.000</span>
+                                <span class="text-base sm:text-lg font-bold text-stone-900 tracking-tight">Rp 45.000 <span class="text-xs font-normal text-stone-500">/bln</span></span>
+                            </div>
+                            <button onclick="openDigitalCheckoutModal('Google One AI Pro 2TB &amp; Gemini Advanced', [
+                                { name: '1 Bulan Invite / Private - 45k', price: 45000 },
+                                { name: '3 Bulan Garansi Penuh - 125k', price: 125000 }
+                            ], [
+                                'Bisa diinvite langsung ke email Gmail pribadi kamu.',
+                                'Penyimpanan Google Drive, Gmail, & Photos otomatis naik 2TB.',
+                                'Garansi penggantian akun jika terjadi kendala akses.'
+                            ])" class="px-5 py-2.5 rounded-full bg-stone-950 hover:bg-stone-800 text-ivory font-bold text-xs shadow-sm transition active:scale-95 cursor-pointer">
+                                Pesan Sekarang ➔
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Card 2: ChatGPT Plus & Perplexity Pro -->
+                    <div class="bg-white rounded-3xl border border-stone-200 p-6 sm:p-7 shadow-sm hover:border-amber-400 hover:shadow-md transition duration-300 flex flex-col justify-between group">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="px-3 py-1 rounded-full text-[10px] font-extrabold tracking-wider uppercase bg-stone-100 text-stone-800 border border-stone-200">
+                                    FAST DISPATCH
+                                </span>
+                                <span class="text-xs font-bold text-emerald-600">Garansi Akun</span>
+                            </div>
+
+                            <div class="w-12 h-12 rounded-2xl bg-stone-50 border border-stone-200 flex items-center justify-center text-stone-900 text-2xl mb-4 group-hover:scale-105 transition-transform">
+                                <i class="fas fa-brain"></i>
+                            </div>
+
+                            <h3 class="text-lg sm:text-xl font-extrabold text-stone-950 tracking-tight mb-1">
+                                ChatGPT Plus &amp; Perplexity Pro
+                            </h3>
+                            <p class="text-stone-600 text-xs sm:text-sm leading-relaxed mb-4">
+                                Akses model reasoning terbaik untuk penulisan artikel, analisis data, pembuatan gambar DALL-E, dan web research real-time.
+                            </p>
+
+                            <ul class="space-y-1.5 text-xs text-stone-600 font-medium mb-6">
+                                <li class="flex items-center gap-2"><i class="fas fa-check text-emerald-600 text-[10px]"></i> Model GPT-4o, Canvas, &amp; DALL-E 3 aktif</li>
+                                <li class="flex items-center gap-2"><i class="fas fa-check text-emerald-600 text-[10px]"></i> Perplexity Pro search citations real-time</li>
+                                <li class="flex items-center gap-2"><i class="fas fa-check text-emerald-600 text-[10px]"></i> Pilihan akun shared ekonomis &amp; private akun</li>
+                            </ul>
+                        </div>
+
+                        <div class="pt-4 border-t border-stone-100 flex items-center justify-between">
+                            <div>
+                                <span class="text-[10px] text-stone-400 line-through block">Rp 350.000</span>
+                                <span class="text-base sm:text-lg font-bold text-stone-900 tracking-tight">Rp 45.000 <span class="text-xs font-normal text-stone-500">/bln</span></span>
+                            </div>
+                            <button onclick="openDigitalCheckoutModal('ChatGPT Plus &amp; Perplexity Pro', [
+                                { name: 'Perplexity Pro 1 Bulan - 45k', price: 45000 },
+                                { name: 'ChatGPT Plus Shared Slot 1 Bulan - 55k', price: 55000 },
+                                { name: 'ChatGPT Plus Private 1 Akun Penuh - 195k', price: 195000 }
+                            ], [
+                                'Akun legal, bebas limit standar, dan langsung login.',
+                                'Garansi penggantian instan jika akun ter-logout.',
+                                'Dilarang mengganti password pada paket shared slot.'
+                            ])" class="px-5 py-2.5 rounded-full bg-stone-950 hover:bg-stone-800 text-ivory font-bold text-xs shadow-sm transition active:scale-95 cursor-pointer">
+                                Pesan Sekarang ➔
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ==================================================== -->
+            <!-- SECTION 2: ENTERTAINMENT & STREAMING                 -->
+            <!-- ==================================================== -->
+            <div>
+                <div class="mb-5 flex items-center justify-between">
+                    <div>
+                        <span class="text-[11px] font-bold tracking-widest text-stone-500 uppercase">Streaming Tier</span>
+                        <h2 class="text-xl sm:text-2xl font-extrabold text-stone-950 tracking-tight">Entertainment &amp; Streaming</h2>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                    <!-- Card 3: YouTube Premium -->
+                    <div class="bg-white rounded-3xl border border-stone-200 p-6 sm:p-7 shadow-sm hover:border-amber-400 hover:shadow-md transition duration-300 flex flex-col justify-between group">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="px-3 py-1 rounded-full text-[10px] font-extrabold tracking-wider uppercase bg-rose-50 text-rose-800 border border-rose-200">
+                                    BEST VALUE
+                                </span>
+                                <span class="text-xs font-bold text-emerald-600">Anti-Ads Bebas Iklan</span>
+                            </div>
+
+                            <div class="w-12 h-12 rounded-2xl bg-stone-50 border border-stone-200 flex items-center justify-center text-rose-600 text-2xl mb-4 group-hover:scale-105 transition-transform">
+                                <i class="fab fa-youtube"></i>
+                            </div>
+
+                            <h3 class="text-lg sm:text-xl font-extrabold text-stone-950 tracking-tight mb-1">
+                                YouTube Premium (Family &amp; Individual)
+                            </h3>
+                            <p class="text-stone-600 text-xs sm:text-sm leading-relaxed mb-4">
+                                Tonton jutaan video tanpa jeda iklan, putar di latar belakang, dan nikmati akses penuh YouTube Music Premium.
+                            </p>
+
+                            <ul class="space-y-1.5 text-xs text-stone-600 font-medium mb-6">
+                                <li class="flex items-center gap-2"><i class="fas fa-check text-emerald-600 text-[10px]"></i> Bebas iklan di Smart TV, Android, iOS, &amp; Laptop</li>
+                                <li class="flex items-center gap-2"><i class="fas fa-check text-emerald-600 text-[10px]"></i> YouTube Music Premium aktif kualitas tinggi</li>
+                                <li class="flex items-center gap-2"><i class="fas fa-check text-emerald-600 text-[10px]"></i> Bisa pakai akun Gmail pribadi kamu</li>
+                            </ul>
+                        </div>
+
+                        <div class="pt-4 border-t border-stone-100 flex items-center justify-between">
+                            <div>
+                                <span class="text-[10px] text-stone-400 line-through block">Rp 49.000</span>
+                                <span class="text-base sm:text-lg font-bold text-stone-900 tracking-tight">Rp 12.000 <span class="text-xs font-normal text-stone-500">/bln</span></span>
+                            </div>
+                            <button onclick="openDigitalCheckoutModal('YouTube Premium', [
+                                { name: '1 Bulan Invite Family - 12k', price: 12000 },
+                                { name: '3 Bulan Invite Family - 30k', price: 30000 },
+                                { name: '1 Bulan Individual Private - 25k', price: 25000 }
+                            ], [
+                                'Paket Family: Invite dikirim ke email Google kamu (maks 2x pindah fam/tahun).',
+                                'Paket Individual: Akun langsung jadi dari admin atau upgrade.',
+                                'Garansi aktif full masa durasi langganan.'
+                            ])" class="px-5 py-2.5 rounded-full bg-stone-950 hover:bg-stone-800 text-ivory font-bold text-xs shadow-sm transition active:scale-95 cursor-pointer">
+                                Pesan Sekarang ➔
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Card 4: Spotify Premium & Netflix Private -->
+                    <div class="bg-white rounded-3xl border border-stone-200 p-6 sm:p-7 shadow-sm hover:border-amber-400 hover:shadow-md transition duration-300 flex flex-col justify-between group">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="px-3 py-1 rounded-full text-[10px] font-extrabold tracking-wider uppercase bg-emerald-50 text-emerald-800 border border-emerald-200">
+                                    LEGAL 100%
+                                </span>
+                                <span class="text-xs font-bold text-emerald-600">4K Ultra HD</span>
+                            </div>
+
+                            <div class="w-12 h-12 rounded-2xl bg-stone-50 border border-stone-200 flex items-center justify-center text-emerald-600 text-2xl mb-4 group-hover:scale-105 transition-transform">
+                                <i class="fab fa-spotify"></i>
+                            </div>
+
+                            <h3 class="text-lg sm:text-xl font-extrabold text-stone-950 tracking-tight mb-1">
+                                Spotify Premium &amp; Netflix Private
+                            </h3>
+                            <p class="text-stone-600 text-xs sm:text-sm leading-relaxed mb-4">
+                                Putar musik kualitas tinggi bebas skip dan tonton serial bioskop 4K UHD tanpa kendala household/layar terkunci.
+                            </p>
+
+                            <ul class="space-y-1.5 text-xs text-stone-600 font-medium mb-6">
+                                <li class="flex items-center gap-2"><i class="fas fa-check text-emerald-600 text-[10px]"></i> Spotify download offline &amp; unlimited skips</li>
+                                <li class="flex items-center gap-2"><i class="fas fa-check text-emerald-600 text-[10px]"></i> Netflix 4K UHD + PIN Profil pribadi</li>
+                                <li class="flex items-center gap-2"><i class="fas fa-check text-emerald-600 text-[10px]"></i> Garansi anti-on-hold selama masa sewa</li>
+                            </ul>
+                        </div>
+
+                        <div class="pt-4 border-t border-stone-100 flex items-center justify-between">
+                            <div>
+                                <span class="text-[10px] text-stone-400 line-through block">Rp 54.000</span>
+                                <span class="text-base sm:text-lg font-bold text-stone-900 tracking-tight">Rp 20.000 <span class="text-xs font-normal text-stone-500">/bln</span></span>
+                            </div>
+                            <button onclick="openDigitalCheckoutModal('Spotify & Netflix Premium', [
+                                { name: 'Spotify Individual 1 Bulan - 20k', price: 20000 },
+                                { name: 'Netflix 1 Profil 1 Bulan (4K UHD) - 38k', price: 38000 },
+                                { name: 'Netflix Private 1 Akun Penuh (4 Layar) - 165k', price: 165000 }
+                            ], [
+                                'Profil Netflix dilengkapi PIN khusus privasi kamu.',
+                                'Garansi penuh anti-hold & auto-replace jika ada kendala server.',
+                                'Dilarang merubah password akun bersama.'
+                            ])" class="px-5 py-2.5 rounded-full bg-stone-950 hover:bg-stone-800 text-ivory font-bold text-xs shadow-sm transition active:scale-95 cursor-pointer">
+                                Pesan Sekarang ➔
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ==================================================== -->
+            <!-- SECTION 3: EDUCATION & UTILITY                       -->
+            <!-- ==================================================== -->
+            <div>
+                <div class="mb-5 flex items-center justify-between">
+                    <div>
+                        <span class="text-[11px] font-bold tracking-widest text-stone-500 uppercase">Growth Tier</span>
+                        <h2 class="text-xl sm:text-2xl font-extrabold text-stone-950 tracking-tight">Education &amp; Utility</h2>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                    <!-- Card 5: Duolingo Super Private -->
+                    <div class="bg-white rounded-3xl border border-stone-200 p-6 sm:p-7 shadow-sm hover:border-amber-400 hover:shadow-md transition duration-300 flex flex-col justify-between group">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="px-3 py-1 rounded-full text-[10px] font-extrabold tracking-wider uppercase bg-emerald-50 text-emerald-800 border border-emerald-200">
+                                    VERIFIED EDU
+                                </span>
+                                <span class="text-xs font-bold text-emerald-600">Private Progress</span>
+                            </div>
+
+                            <div class="w-12 h-12 rounded-2xl bg-stone-50 border border-stone-200 flex items-center justify-center text-emerald-500 text-2xl mb-4 group-hover:scale-105 transition-transform">
+                                <i class="fas fa-feather-pointed"></i>
+                            </div>
+
+                            <h3 class="text-lg sm:text-xl font-extrabold text-stone-950 tracking-tight mb-1">
+                                Duolingo Super (Private)
+                            </h3>
+                            <p class="text-stone-600 text-xs sm:text-sm leading-relaxed mb-4">
+                                Pelajari bahasa asing tanpa takut kehabisan nyawa, tanpa iklan, dan akses fitur latihan listening/speaking tak terbatas.
+                            </p>
+
+                            <ul class="space-y-1.5 text-xs text-stone-600 font-medium mb-6">
+                                <li class="flex items-center gap-2"><i class="fas fa-check text-emerald-600 text-[10px]"></i> Unlimited Hearts (nyawa tak terbatas)</li>
+                                <li class="flex items-center gap-2"><i class="fas fa-check text-emerald-600 text-[10px]"></i> Bebas iklan &amp; tes kuis tak terbatas</li>
+                                <li class="flex items-center gap-2"><i class="fas fa-check text-emerald-600 text-[10px]"></i> Bisa pakai email akun Duolingo sendiri</li>
+                            </ul>
+                        </div>
+
+                        <div class="pt-4 border-t border-stone-100 flex items-center justify-between">
+                            <div>
+                                <span class="text-[10px] text-stone-400 line-through block">Rp 79.000</span>
+                                <span class="text-base sm:text-lg font-bold text-stone-900 tracking-tight">Rp 35.000 <span class="text-xs font-normal text-stone-500">/2 bln</span></span>
+                            </div>
+                            <button onclick="openDigitalCheckoutModal('Duolingo Super (Private)', [
+                                { name: '2 Bulan Super Private - 35k', price: 35000 },
+                                { name: '6 Bulan Super Private - 85k', price: 85000 }
+                            ], [
+                                'Akun private tanpa tercampur histori pengguna lain.',
+                                'Progress belajar tersimpan aman di akun pribadi.',
+                                'Garansi aktif full durasi masa belajar.'
+                            ])" class="px-5 py-2.5 rounded-full bg-stone-950 hover:bg-stone-800 text-ivory font-bold text-xs shadow-sm transition active:scale-95 cursor-pointer">
+                                Pesan Sekarang ➔
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Card 6: Canva Pro Lifetime Access (FREE CLAIM) -->
+                    <div class="bg-white rounded-3xl border border-stone-200 p-6 sm:p-7 shadow-sm hover:border-emerald-400 hover:shadow-md transition duration-300 flex flex-col justify-between group">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="px-3 py-1 rounded-full text-[10px] font-extrabold tracking-wider uppercase bg-emerald-100 text-emerald-900 border border-emerald-300">
+                                    GRATIS VIA VIRAL CLAIM
+                                </span>
+                                <span class="text-xs font-bold text-emerald-700">Lifetime Team</span>
+                            </div>
+
+                            <div class="w-12 h-12 rounded-2xl bg-stone-50 border border-stone-200 flex items-center justify-center text-cyan-500 text-2xl mb-4 group-hover:scale-105 transition-transform">
+                                <i class="fas fa-palette"></i>
+                            </div>
+
+                            <h3 class="text-lg sm:text-xl font-extrabold text-stone-950 tracking-tight mb-1">
+                                Canva Pro Lifetime Access
+                            </h3>
+                            <p class="text-stone-600 text-xs sm:text-sm leading-relaxed mb-4">
+                                Akses ribuan template pro, background remover instan, brand kit, dan jutaan aset grafis premium seumur hidup tanpa biaya langganan bulanan.
+                            </p>
+
+                            <ul class="space-y-1.5 text-xs text-stone-600 font-medium mb-6">
+                                <li class="flex items-center gap-2"><i class="fas fa-check text-emerald-600 text-[10px]"></i> Magic Eraser &amp; One-Click Background Remover</li>
+                                <li class="flex items-center gap-2"><i class="fas fa-check text-emerald-600 text-[10px]"></i> Unlimited premium stock photo, video &amp; audio</li>
+                                <li class="flex items-center gap-2"><i class="fas fa-check text-emerald-600 text-[10px]"></i> Ditautkan langsung ke email Canva terdaftar</li>
+                            </ul>
+                        </div>
+
+                        <div class="pt-4 border-t border-stone-100 flex items-center justify-between">
+                            <div>
+                                <span class="text-[10px] text-stone-400 line-through block">Rp 150.000</span>
+                                <span class="text-base sm:text-lg font-bold text-emerald-700 tracking-tight">GRATIS <span class="text-xs font-normal text-stone-500">(Rp 0)</span></span>
+                            </div>
+                            <a href="./kopken.html?ref=canva_claim" class="px-5 py-2.5 rounded-full bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs shadow-sm transition active:scale-95 cursor-pointer inline-flex items-center gap-1.5">
+                                <span>Klaim Gratis ➔</span>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ==================================================== -->
+            <!-- SECTION 4: FEATURED VIP PERK UTILITY (OBSIDIAN)      -->
+            <!-- ==================================================== -->
+            <div class="bg-[#1C1917] text-white rounded-3xl border border-stone-800 p-7 sm:p-9 shadow-xl relative overflow-hidden group">
+                <!-- Ambient Amber Radial Glow -->
+                <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="relative z-10 max-w-3xl">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-black tracking-widest uppercase bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                            <i class="fas fa-crown text-[10px] text-amber-400"></i> EXCLUSIVE PERK
+                        </span>
+                        <span class="text-xs font-bold text-stone-400">Nilai Manfaat Rp 50.000+</span>
+                    </div>
+
+                    <h3 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-2">
+                        Bintang Radar — GetContact VIP Scanner
+                    </h3>
+
+                    <p class="text-stone-300 text-sm sm:text-base leading-relaxed mb-5">
+                        Identifikasi nomor asing, cek tag kontak, dan riwayat pelacak secara instan via Bot WhatsApp &amp; Telegram resmi Bintang Store.
+                    </p>
+
+                    <!-- Keterangan Perk Aktif -->
+                    <div class="p-3.5 bg-stone-900/90 rounded-2xl border border-stone-800 text-xs text-amber-200/90 leading-relaxed mb-6 flex items-start gap-3">
+                        <i class="fas fa-gift text-amber-400 mt-0.5 text-sm flex-shrink-0"></i>
+                        <span>
+                            <b>Akses Otomatis Aktif:</b> Cukup lakukan transaksi minimal <b>Rp 50.000</b> di seluruh ekosistem Bintang Store (KopKen, Akun Pro, atau Layanan Web), dan akses bot scanner ini langsung aktif tanpa biaya tambahan!
+                        </span>
+                    </div>
+
+                    <!-- Tombol Aksi Bot -->
+                    <div class="flex flex-wrap items-center gap-3">
+                        <a href="https://t.me/abang_gtc_bot" target="_blank" rel="noopener noreferrer" class="px-6 py-3 rounded-full bg-amber-400 hover:bg-amber-300 text-stone-950 font-bold text-xs sm:text-sm shadow-md transition active:scale-95 flex items-center gap-2 cursor-pointer">
+                            <i class="fab fa-telegram text-sm"></i>
+                            <span>Buka Bot Scanner (Telegram)</span>
+                        </a>
+                        <a href="https://wa.me/6285959633342?text=Halo%20Admin%2C%20saya%20sudah%20order%2050k%20di%20Bintang%20Store%2C%20klaim%20akses%20Bot%20GetContact" target="_blank" rel="noopener noreferrer" class="px-5 py-3 rounded-full bg-stone-900 hover:bg-stone-800 text-white font-semibold text-xs sm:text-sm border border-stone-700 transition active:scale-95 flex items-center gap-2 cursor-pointer">
+                            <i class="fab fa-whatsapp text-sm text-emerald-400"></i>
+                            <span>Klaim Akses via WA</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================================================== -->
+            <!-- SECTION 5: MINIMAL CONCIERGE F&B BANNER              -->
+            <!-- ==================================================== -->
+            <div class="bg-gradient-to-r from-[#FAF5EE] to-[#F5ECE1] rounded-3xl border border-terracotta-border/80 p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-sm">
+                <div class="flex items-center gap-4 text-center md:text-left">
+                    <div class="w-14 h-14 rounded-2xl bg-white border border-terracotta-border flex items-center justify-center text-terracotta text-2xl flex-shrink-0 shadow-xs">
+                        <i class="fas fa-mug-hot"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-base sm:text-lg font-extrabold text-stone-900 tracking-tight">
+                            Ingin pesan Kopi Kenangan hemat mulai 14rb?
+                        </h4>
+                        <p class="text-xs sm:text-sm text-stone-600 mt-1 max-w-lg leading-relaxed">
+                            Jastip instan tanpa antre, diskon harian, bundling hemat, dan menu roti fresh langsung diproses barista terdekat.
+                        </p>
+                    </div>
+                </div>
+
+                <a href="./kopken.html" class="w-full md:w-auto px-6 py-3 rounded-full bg-terracotta hover:bg-terracotta-hover text-white font-bold text-xs sm:text-sm transition shadow-sm active:scale-95 flex items-center justify-center gap-2 flex-shrink-0 cursor-pointer">
+                    <span>Pesan Kopi Kenangan ➔</span>
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- 4. FOOTER (MONOLITH MINIMALIST)           -->
+    <!-- ========================================== -->
+    <footer class="mt-auto border-t border-stone-200/80 bg-white pt-14 pb-12">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 pb-12 border-b border-stone-100">
+                
+                <!-- Kolom 1: Logo & Tagline -->
+                <div class="space-y-3.5">
+                    <div class="flex items-center gap-3">
+                        <img src="./assets/logo.svg" alt="Logo Bintang Store" class="w-8 h-8 object-contain" />
+                        <span class="font-extrabold tracking-wider text-base text-stone-950 uppercase">Bintang Store</span>
+                    </div>
+                    <p class="text-xs text-stone-500 leading-relaxed max-w-xs">
+                        Unified Lifestyle &amp; Digital Infrastructure
+                    </p>
+                </div>
+
+                <!-- Kolom 2: Tautan Navigasi Vertikal Ringkas -->
+                <div class="space-y-2.5">
+                    <h4 class="text-xs font-bold text-stone-950 uppercase tracking-widest mb-3">Divisi &amp; Layanan</h4>
+                    <ul class="space-y-2 text-xs font-semibold text-stone-600">
+                        <li><a href="./digital-legacy.html" class="hover:text-stone-950 transition-colors">Digital Vault</a></li>
+                        <li><a href="./kopken.html" class="hover:text-stone-950 transition-colors">Kopi Kenangan Jastip</a></li>
+                        <li><a href="./studio/index.html" class="hover:text-stone-950 transition-colors">Tech Studio</a></li>
+                        <li><a href="./tracking.html" class="hover:text-stone-950 transition-colors">Track Order</a></li>
+                    </ul>
+                </div>
+
+                <!-- Kolom 3: Status Sistem -->
+                <div class="space-y-3">
+                    <h4 class="text-xs font-bold text-stone-950 uppercase tracking-widest mb-3">System Health</h4>
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200/70 text-emerald-800 text-xs font-semibold">
+                        <span class="relative flex h-2 w-2">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                        </span>
+                        <span>System Operational &bull; 24/7 Monitored Dispatch</span>
+                    </div>
+                    <p class="text-[11px] text-stone-500 leading-tight">
+                        Seluruh gateway transaksi, bot otomasi, dan antrean jastip beroperasi normal.
+                    </p>
+                </div>
+
+            </div>
+
+            <!-- Copyright -->
+            <div class="pt-8 text-center text-xs text-stone-400">
+                &copy; 2026 Bintang Store. Unified Lifestyle &amp; Digital Infrastructure. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========================================== -->
+    <!-- 5. MODAL CHECKOUT PRODUK DIGITAL           -->
+    <!-- ========================================== -->
+    <div id="modal-digital-checkout" class="fixed inset-0 bg-stone-950/80 backdrop-blur-sm z-[200] hidden flex items-center justify-center p-4 opacity-0 transition-opacity duration-200">
+        <div class="bg-white rounded-3xl p-6 sm:p-7 max-w-md w-full border border-stone-200 shadow-2xl space-y-4">
+            
+            <div class="flex items-start justify-between border-b border-stone-100 pb-3">
+                <div>
+                    <span class="text-[10px] font-bold tracking-wider uppercase text-amber-600 block">Form Konfirmasi Pesanan</span>
+                    <h3 id="dig-modal-title" class="text-base font-extrabold text-stone-900 leading-snug">Nama Produk</h3>
+                </div>
+                <button type="button" onclick="closeDigitalCheckoutModal()" class="w-8 h-8 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-600 flex items-center justify-center transition cursor-pointer">
+                    <i class="fas fa-times text-xs"></i>
+                </button>
+            </div>
+
+            <div class="space-y-3">
+                <div>
+                    <label class="block text-[10px] font-bold text-stone-500 uppercase tracking-wider mb-1">Pilih Paket Durasi <span class="text-rose-500">*</span></label>
+                    <select id="dig-plan-select" onchange="updateDigitalPriceDisplay()" class="w-full p-2.5 rounded-xl bg-stone-50 border border-stone-200 text-stone-900 font-semibold text-xs outline-none focus:ring-2 focus:ring-stone-950 cursor-pointer"></select>
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-bold text-stone-500 uppercase tracking-wider mb-1">Nama Pemesan <span class="text-rose-500">*</span></label>
+                    <input type="text" id="dig-cust-name" placeholder="Nama Lengkap / Panggilan" class="w-full p-2.5 rounded-xl bg-stone-50 border border-stone-200 text-stone-900 font-semibold text-xs outline-none focus:ring-2 focus:ring-stone-950 placeholder:text-stone-400">
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-bold text-stone-500 uppercase tracking-wider mb-1">Nomor WhatsApp Aktif <span class="text-rose-500">*</span></label>
+                    <input type="tel" id="dig-cust-wa" placeholder="081234567890 (Untuk pengiriman data akun)" class="w-full p-2.5 rounded-xl bg-stone-50 border border-stone-200 text-stone-900 font-semibold text-xs outline-none focus:ring-2 focus:ring-stone-950 placeholder:text-stone-400">
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-bold text-stone-500 uppercase tracking-wider mb-1">Email Kamu (Opsional / Jika Diperlukan)</label>
+                    <input type="email" id="dig-cust-email" placeholder="nama@gmail.com" class="w-full p-2.5 rounded-xl bg-stone-50 border border-stone-200 text-stone-900 font-semibold text-xs outline-none focus:ring-2 focus:ring-stone-950 placeholder:text-stone-400">
+                </div>
+
+                <!-- Syarat & Ketentuan Ringkas -->
+                <div class="p-3 bg-stone-50 rounded-2xl border border-stone-200">
+                    <span class="text-[10px] font-extrabold uppercase tracking-wider text-stone-600 block mb-1">Ketentuan Layanan:</span>
+                    <ul id="dig-snk-list" class="space-y-1 text-[11px] text-stone-600 list-disc list-inside"></ul>
+                </div>
+            </div>
+
+            <!-- Rincian Total & Tombol Submit -->
+            <div class="pt-3 border-t border-stone-100 flex items-center justify-between">
+                <div>
+                    <span class="text-[10px] text-stone-400 block font-medium">Total Tagihan:</span>
+                    <span id="dig-price-display" class="text-base font-black text-stone-950 font-mono">Rp 0</span>
+                </div>
+                <button type="button" id="btn-submit-digital" onclick="submitDigitalOrder()" class="px-5 py-2.5 rounded-xl bg-stone-950 hover:bg-stone-800 text-ivory font-bold text-xs shadow-md transition active:scale-95 cursor-pointer flex items-center gap-1.5">
+                    <span>Lanjut Bayar ➔</span>
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Modal Sukses Klaim Canva Pro (Cyber-Luxury Monolith) -->
+    <div id="modal-canva-success" class="fixed inset-0 bg-stone-950/80 backdrop-blur-sm z-[250] hidden opacity-0 transition-opacity duration-200 flex items-center justify-center p-4">
+        <div class="bg-[#1C1917] border border-amber-500/30 rounded-3xl p-6 sm:p-7 max-w-sm w-full text-white shadow-2xl relative text-center space-y-4">
+            <div class="w-14 h-14 mx-auto rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 text-2xl shadow-inner">
+                <i class="fas fa-crown"></i>
+            </div>
+            <div>
+                <span class="inline-block text-[10px] font-extrabold uppercase tracking-widest text-amber-300 bg-amber-500/20 px-3 py-1 rounded-full border border-amber-500/30 mb-2">
+                    VERIFIKASI DITERIMA
+                </span>
+                <h3 class="font-extrabold text-base sm:text-lg text-white leading-snug">Pendaftaran Berhasil!</h3>
+                <p id="canva-success-email-text" class="text-xs text-stone-300 mt-1 leading-relaxed">
+                    Akses Canva Pro Lifetime sedang diproses ke email Anda. Undangan tim akan dikirimkan maksimal 1x24 jam.
+                </p>
+            </div>
+            <button type="button" onclick="closeCanvaSuccessModal()" class="w-full bg-amber-400 hover:bg-amber-300 text-stone-950 font-bold py-3 rounded-xl text-xs transition active:scale-95 cursor-pointer shadow-md">
+                Tutup &amp; Lanjutkan
+            </button>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- 6. CORE LOGIC CONTROLLER SCRIPT            -->
+    <!-- ========================================== -->
+    <script>
+        window.scrollTo(0, 0);
+
+        // Inisialisasi Supabase
+        const SUPABASE_URL = "https://axaoagzveujcgoxybdmp.supabase.co";
+        const SUPABASE_KEY = "sb_publishable_GQ19XRT7yWIBido0iXJvCQ_ybZ_I7ju";
+        let supabaseClient = null;
+        if (window.supabase && typeof window.supabase.createClient === 'function') {
+            try {
+                supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+            } catch (e) {
+                console.warn("Supabase init error:", e);
+            }
+        }
+
+        // State Order Digital
+        let currentDigitalProduct = null;
+        let currentDigitalPlans = [];
+        let isSubmittingDigital = false;
+
+        function openDigitalCheckoutModal(productName, plans, snkList) {
+            currentDigitalProduct = productName;
+            currentDigitalPlans = plans;
+            isSubmittingDigital = false;
+
+            const titleEl = document.getElementById('dig-modal-title');
+            if (titleEl) titleEl.textContent = productName;
+            
+            const snkUl = document.getElementById('dig-snk-list');
+            if (snkUl) snkUl.innerHTML = snkList.map(item => `<li>${item}</li>`).join('');
+
+            const planSelect = document.getElementById('dig-plan-select');
+            if (planSelect) {
+                planSelect.innerHTML = plans.map((p, idx) => `<option value="${idx}">${p.name} - Rp ${p.price.toLocaleString('id-ID')}</option>`).join('');
+            }
+
+            const btn = document.getElementById('btn-submit-digital');
+            if (btn) {
+                btn.disabled = false;
+                btn.innerHTML = '<span>Lanjut Bayar ➔</span>';
+            }
+
+            updateDigitalPriceDisplay();
+
+            const modal = document.getElementById('modal-digital-checkout');
+            if (modal) {
+                modal.classList.remove('hidden');
+                setTimeout(() => modal.classList.remove('opacity-0'), 10);
+            }
+        }
+
+        function closeDigitalCheckoutModal() {
+            const modal = document.getElementById('modal-digital-checkout');
+            if (modal) {
+                modal.classList.add('opacity-0');
+                setTimeout(() => modal.classList.add('hidden'), 200);
+            }
+        }
+
+        function updateDigitalPriceDisplay() {
+            const planSelect = document.getElementById('dig-plan-select');
+            const planIdx = planSelect ? (parseInt(planSelect.value) || 0) : 0;
+            const selectedPlan = currentDigitalPlans[planIdx] || currentDigitalPlans[0];
+            const priceEl = document.getElementById('dig-price-display');
+            if (selectedPlan && priceEl) {
+                priceEl.textContent = `Rp ${selectedPlan.price.toLocaleString('id-ID')}`;
+            }
+        }
+
+        async function submitDigitalOrder() {
+            if (isSubmittingDigital) return;
+
+            const nameEl = document.getElementById('dig-cust-name');
+            const waEl = document.getElementById('dig-cust-wa');
+            const emailEl = document.getElementById('dig-cust-email');
+            const btn = document.getElementById('btn-submit-digital');
+
+            const name = nameEl ? nameEl.value.trim() : '';
+            const wa = waEl ? waEl.value.trim() : '';
+            const email = emailEl ? emailEl.value.trim() : '';
+            const planSelect = document.getElementById('dig-plan-select');
+            const planIdx = planSelect ? (parseInt(planSelect.value) || 0) : 0;
+            const plan = currentDigitalPlans[planIdx];
+
+            if (!name || name.length < 2) {
+                showToast("Mohon isi Nama Pemesan!");
+                if (nameEl) nameEl.focus();
+                return;
+            }
+            if (!wa || wa.length < 9) {
+                showToast("Mohon isi Nomor WhatsApp aktif untuk pengiriman akun!");
+                if (waEl) waEl.focus();
+                return;
+            }
+
+            isSubmittingDigital = true;
+            if (btn) {
+                btn.disabled = true;
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
+            }
+
+            const rawClean = name.replace(/[^a-zA-Z0-9]/g, '').toLowerCase() || 'order';
+            const orderId = `dig-${rawClean}-${Date.now().toString().slice(-4)}`;
+            const grandTotal = plan ? plan.price : 45000;
+
+            let cleanWa = wa.replace(/[^0-9]/g, '');
+            if (cleanWa.startsWith('0')) cleanWa = '62' + cleanWa.slice(1);
+            else if (!cleanWa.startsWith('62') && cleanWa.length > 0) cleanWa = '62' + cleanWa;
+
+            const digitalItem = [{
+                name: `${currentDigitalProduct} (${plan ? plan.name : 'Paket'})`,
+                qty: 1,
+                price: grandTotal,
+                details: `Email: ${email || 'Akun siap pakai / konfirmasi via WA'}`
+            }];
+
+            // Simpan ke Supabase
+            try {
+                if (supabaseClient) {
+                    await supabaseClient.from('orders').upsert([{
+                        id: orderId,
+                        customer_name: name,
+                        customer_wa: cleanWa,
+                        outlet_name: 'Produk Digital Bintang Store',
+                        order_items: digitalItem,
+                        total_price: grandTotal,
+                        estimated_profit: Math.round(grandTotal * 0.4),
+                        status: 'menunggu_pembayaran'
+                    }]);
+                }
+            } catch(e) {
+                console.error("Gagal simpan order digital:", e);
+            }
+
+            // Simpan ID lokal
+            localStorage.setItem("bintang_active_order_id", orderId);
+            localStorage.setItem("last_order_id", orderId);
+
+            // Notifikasi ke Telegram Admin
+            const botToken = "8765196047:AAFA3XpCebL4WQDYgkZ0bDeyw-WqQKhCiXU";
+            const adminChatId = "6731058601";
+            const trackingUrl = `https://bintanggstore.web.id/tracking?order_id=${orderId}`;
+            const waDirectLink = cleanWa ? `https://wa.me/${cleanWa}` : '-';
+
+            const singleDigitalMsg = `── .✦ <b>ORDER PRODUK DIGITAL MASUK</b> ✦.──\n` +
+                `🆔 <b>Order ID :</b> <code>${orderId}</code>\n` +
+                `🔗 <b>Link Tracking :</b> <a href="${trackingUrl}">${trackingUrl}</a>\n` +
+                `👤 <b>Nama Pemesan :</b> ${name}\n` +
+                `📱 <b>No. WhatsApp :</b> ${wa}\n` +
+                `📧 <b>Email Akun :</b> ${email || '(Konfirmasi via Chat WA)'}\n` +
+                `🔗 <b>Chat Customer :</b> <a href="${waDirectLink}">${waDirectLink}</a>\n` +
+                `⚡ <b>Paket :</b> ${currentDigitalProduct}\n` +
+                `⏱️ <b>Durasi :</b> ${plan ? plan.name : '-'}\n` +
+                `--------------------------------------------------\n` +
+                `💰 <b>TOTAL TAGIHAN : Rp ${grandTotal.toLocaleString('id-ID')}</b>\n` +
+                `📌 <b>Status : [MENUNGGU PEMBAYARAN QRIS]</b>\n\n` +
+                `<i>Pelanggan diarahkan ke ruang pembayaran tracking. Struk bayar akan masuk setelah diverifikasi.</i>`;
+
+            try {
+                await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        chat_id: adminChatId,
+                        text: singleDigitalMsg,
+                        parse_mode: "HTML",
+                        disable_web_page_preview: true,
+                        reply_markup: {
+                            inline_keyboard: [
+                                [
+                                    { text: "💬 Chat WA Pembeli", url: waDirectLink },
+                                    { text: "🚫 Batal / Fiktif", callback_data: `st:${orderId}:batal` }
+                                ]
+                            ]
+                        }
+                    })
+                });
+            } catch(err) {
+                console.error("Gagal kirim notif telegram digital:", err);
+            }
+
+            // Redirect ke tracking.html dengan animasi The Obsidian Gate
+            const targetTrackingUrl = `./tracking.html?order_id=${encodeURIComponent(orderId)}`;
+            if (typeof window.triggerTransition === 'function') {
+                window.triggerTransition('route-digital', 'MEMPROSES TRANSAKSI AMAN...', () => {
+                    window.location.href = targetTrackingUrl;
+                });
+            } else {
+                window.location.href = targetTrackingUrl;
+            }
+        }
+
+        // Toast Notification System
+        function showToast(message) {
+            const container = document.getElementById('toast-container');
+            if (!container) return;
+            const toast = document.createElement('div');
+            toast.className = 'bg-[#1C1917] text-white border border-amber-500/30 px-4 py-3 rounded-2xl shadow-xl flex items-center gap-3 transform transition-all duration-300 translate-y-[-16px] opacity-0 z-[300] text-xs pointer-events-auto';
+            
+            toast.innerHTML = `
+                <div class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/30 flex items-center justify-center flex-shrink-0">
+                    <i class="fas fa-check text-[10px]"></i>
+                </div>
+                <div class="flex-grow min-w-0 text-left font-semibold text-stone-100 text-xs">
+                    ${message}
+                </div>
+            `;
+            
+            container.appendChild(toast);
+            requestAnimationFrame(() => {
+                toast.classList.remove('translate-y-[-16px]', 'opacity-0');
+                toast.classList.add('translate-y-0', 'opacity-100');
+            });
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-[-16px]', 'opacity-0');
+                setTimeout(() => toast.remove(), 400);
+            }, 3200);
+        }
+
+        // Canva Success Modal Controllers
+        function openCanvaSuccessModal(email) {
+            const modal = document.getElementById('modal-canva-success');
+            const emailText = document.getElementById('canva-success-email-text');
+            if (emailText && email) {
+                emailText.innerHTML = `Akses Canva Pro Lifetime sedang diproses ke email <b>${email}</b>. Undangan tim akan dikirimkan maksimal 1x24 jam.`;
+            }
+            if (modal) {
+                modal.classList.remove('hidden');
+                setTimeout(() => modal.classList.remove('opacity-0'), 10);
+            }
+        }
+
+        function closeCanvaSuccessModal() {
+            const modal = document.getElementById('modal-canva-success');
+            if (modal) {
+                modal.classList.add('opacity-0');
+                setTimeout(() => modal.classList.add('hidden'), 200);
+            }
+        }
+
+        // Mobile Menu Toggle
+        document.getElementById('mobileMenuBtn')?.addEventListener('click', () => {
+            const dropdown = document.getElementById('mobileMenuDropdown');
+            if (dropdown) dropdown.classList.toggle('hidden');
+        });
+    </script>
+
+    <!-- Page Transition Script -->
+    <script src="./assets/transition.js"></script>
+</body>
+</html>
