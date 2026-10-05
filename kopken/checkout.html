@@ -163,10 +163,6 @@
                 <span>Subtotal Menu:</span>
                 <span id="co-subtotal" class="font-bold text-stone-900 mono-num">Rp 0</span>
             </div>
-            <div id="co-mall-fee-row" class="flex justify-between text-amber-900 font-semibold hidden">
-                <span>Biaya Outlet Mall:</span>
-                <span class="mono-num">+ Rp 3.000</span>
-            </div>
             <div id="co-bag-fee-row" class="flex justify-between text-stone-600 hidden">
                 <span>Kantong Belanja:</span>
                 <span class="mono-num">+ Rp 1.000</span>
@@ -427,12 +423,7 @@
             let subtotal = coCart.reduce((sum, c) => sum + ((Number(c.price) || 15000) * (Number(c.qty) || 1)), 0);
             document.getElementById("co-subtotal").textContent = `Rp ${subtotal.toLocaleString('id-ID')}`;
 
-            const isMall = coOutlet && (coOutlet.category === "Mall" || /mall|plaza|square/i.test(coOutlet.name || ''));
-            const mallFee = (isMall && coCart.length > 0) ? 3000 : 0;
-            const mallRow = document.getElementById("co-mall-fee-row");
-            if (mallFee > 0) mallRow.classList.remove("hidden");
-            else mallRow.classList.add("hidden");
-
+            // Biaya Outlet Mall ditiadakan (0)
             const isBagChecked = document.getElementById("co-bag").checked && coOrderType !== "dinein";
             const bagFee = isBagChecked ? 1000 : 0;
             const bagRow = document.getElementById("co-bag-fee-row");
@@ -448,7 +439,7 @@
                 deliveryRow.classList.add("hidden");
             }
 
-            const grandTotal = subtotal + mallFee + bagFee + deliveryFee;
+            const grandTotal = subtotal + bagFee + deliveryFee;
             document.getElementById("co-grand-total").textContent = `Rp ${grandTotal.toLocaleString('id-ID')}`;
 
             return grandTotal;

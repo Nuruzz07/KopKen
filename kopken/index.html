@@ -177,29 +177,25 @@
                     
                     <!-- Kiri: Tombol Kembali + Logo Brand + Title -->
                     <div class="flex items-center gap-2.5 min-w-0">
-                        <a href="../home.html" title="Kembali ke Portal Utama" class="w-8 h-8 flex items-center justify-center rounded-xl bg-white text-stone-800 hover:bg-stone-100 transition border border-stone-200 shadow-xs flex-shrink-0 cursor-pointer active:scale-95">
+                        <a href="../coffee.html" title="Kembali ke Coffee Hub" class="w-8 h-8 flex items-center justify-center rounded-xl bg-white text-stone-800 hover:bg-stone-100 transition border border-stone-200 shadow-xs flex-shrink-0 cursor-pointer active:scale-95">
                             <i class="fas fa-arrow-left text-xs text-stone-700"></i>
                         </a>
                         <div class="flex items-center -space-x-1.5 flex-shrink-0">
                             <div class="w-8 h-8 rounded-xl bg-white border border-stone-200 p-1 flex items-center justify-center shadow-xs z-10">
                                 <img src="../assets/logo.svg" alt="Logo Bintang Store" class="w-full h-full object-contain">
                             </div>
-                            <div class="w-8 h-8 rounded-xl bg-white border border-stone-200 p-1.5 flex items-center justify-center shadow-xs">
-                                <img src="https://i.postimg.cc/GpwttdxX/Logo-Kopi-Kenangan-Format-PNG-AI-EPS-CDR-PDF-SVG.png" alt="Logo Kopi Kenangan" class="w-full h-full object-contain">
+                            <div class="w-8 h-8 rounded-xl bg-white border border-stone-200 p-1 flex items-center justify-center shadow-xs" id="header-brand-logo-wrap">
+                                <img id="header-brand-logo-img" src="https://i.postimg.cc/GpwttdxX/Logo-Kopi-Kenangan-Format-PNG-AI-EPS-CDR-PDF-SVG.png" alt="Logo Brand" class="w-full h-full object-contain">
                             </div>
                         </div>
                         <div class="min-w-0">
-                            <h1 class="font-bold text-stone-900 text-sm leading-tight truncate">Kopi Kenangan</h1>
-                            <p class="text-[11px] text-stone-600 font-medium truncate mt-0.5">Bintang Jastip Concierge</p>
+                            <h1 id="header-brand-title" class="font-bold text-stone-900 text-sm leading-tight truncate">Kopi Kenangan</h1>
+                            <p id="header-brand-subtitle" class="text-[11px] text-stone-600 font-medium truncate mt-0.5">Official Jastip &bull; Daily Handcrafted Brews</p>
                         </div>
                     </div>
 
-                    <!-- Kanan: Action Buttons (Mikro WiFi Status Pill & Hidden Cart) -->
+                    <!-- Kanan: Action Buttons (Hidden Cart) -->
                     <div class="flex items-center gap-1.5 flex-shrink-0">
-                        <button onclick="toggleWifiModal(true)" title="Info Password WiFi" class="bg-emerald-50 text-emerald-700 border border-emerald-200/60 px-2.5 py-1 rounded-full text-[10px] font-semibold flex items-center gap-1.5 shadow-xs hover:bg-emerald-100 transition cursor-pointer active:scale-95">
-                            <i class="fas fa-wifi text-[9px]"></i>
-                            <span>WiFi</span>
-                        </button>
                         <!-- Fallback Hidden Cart Button for JS Compatibility -->
                         <button id="cart-icon-btn" onclick="goToCheckoutPage()" class="hidden">
                             <i class="fas fa-shopping-bag" id="cart-icon"></i>
@@ -208,16 +204,16 @@
                     </div>
                 </div>
 
-                <!-- 2. SEARCH BAR PENCARIAN -->
-                <div class="mt-3 relative w-full">
+                <!-- 3. SEARCH BAR PENCARIAN -->
+                <div class="mt-2.5 relative w-full">
                     <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-stone-400">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
                     </span>
                     <input type="text" id="menu-search-input" oninput="searchMenu()" placeholder="Cari menu kopi, bundling, atau roti..." class="w-full pl-9 pr-4 py-2 rounded-xl bg-white border border-stone-200 focus:outline-none focus:ring-2 focus:ring-stone-900 text-xs font-medium text-stone-900 placeholder-stone-400 shadow-xs transition">
                 </div>
 
-                <!-- 3. FILTER KATEGORI (PILL HORIZONTAL SCROLLABLE) -->
-                <nav class="mt-2.5 overflow-x-auto no-scrollbar whitespace-nowrap flex gap-1.5 pb-0.5" aria-label="Kategori Menu">
+                <!-- 4. FILTER KATEGORI (PILL HORIZONTAL SCROLLABLE) -->
+                <nav class="mt-2.5 overflow-x-auto no-scrollbar whitespace-nowrap flex gap-1.5 pb-0.5" id="category-nav-bar" aria-label="Kategori Menu">
                     <button onclick="filterCategoryAll(this)" class="cat-pill active px-3.5 py-1.5 rounded-full bg-stone-950 text-ivory text-xs font-semibold shadow-xs border border-stone-950 transition cursor-pointer">
                         Semua
                     </button>
@@ -690,7 +686,10 @@
             </div>
 
             <!-- Footer Tombol Aksi Lanjut Bayar (Warna Hijau Elegan #15803D) -->
-            <div class="p-4 border-t border-stone-200 bg-white shrink-0">
+            <div class="p-4 border-t border-stone-200 bg-white shrink-0 space-y-2">
+                <!-- Banner Peringatan Minimal Order Janji Jiwa Rp 25.000 -->
+                <div id="jj-min-order-guard" class="hidden"></div>
+
                 <button type="button" id="btn-sheet-submit-order" onclick="executeFullOrderFlow()" class="w-full bg-[#15803D] hover:bg-emerald-800 text-white font-extrabold py-3.5 rounded-2xl shadow-sm transition flex items-center justify-center gap-2 cursor-pointer active:scale-95 text-xs sm:text-sm">
                     <span>Lanjut ke Pembayaran QRIS</span>
                     <i class="fas fa-arrow-right text-xs"></i>
@@ -850,6 +849,37 @@
 
 
     <!-- ================================================================= -->
+    <!-- 11B. MODAL KONFIRMASI RESET KERANJANG BRAND BERBEDA (CART ISOLATION)-->
+    <!-- ================================================================= -->
+    <div id="modal-cart-conflict" class="fixed inset-0 bg-stone-950/70 backdrop-blur-sm z-[350] hidden opacity-0 transition-opacity duration-200 flex items-center justify-center p-4">
+        <div id="cart-conflict-card" class="bg-[#1C1917] rounded-3xl p-5 sm:p-6 max-w-sm w-full text-white shadow-2xl border border-amber-500/30 transform scale-95 transition-transform duration-200 space-y-4">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-2xl bg-amber-500/20 text-amber-400 border border-amber-500/30 flex items-center justify-center flex-shrink-0 text-lg">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <div>
+                    <h3 class="font-extrabold text-sm text-stone-100">Ganti Keranjang Brand?</h3>
+                    <p class="text-[11px] text-stone-400">Pemisahan Pesanan Multi-Brand</p>
+                </div>
+            </div>
+            
+            <p id="cart-conflict-message" class="text-xs text-stone-300 leading-relaxed">
+                Keranjang kamu saat ini berisi menu dari <b id="conflict-old-brand" class="text-amber-400 font-bold">Kopi Kenangan</b>. Transaksi antar brand kopi tidak dapat digabungkan dalam satu pesanan demi menjaga ketepatan racikan barista gerai.<br><br>
+                Apakah kamu ingin mengosongkan keranjang lama dan memulai pesanan baru dari <b id="conflict-new-brand" class="text-amber-400 font-bold">Janji Jiwa</b>?
+            </p>
+
+            <div class="grid grid-cols-2 gap-2 pt-2">
+                <button type="button" onclick="closeCartConflictModal()" class="w-full py-2.5 px-3 rounded-xl bg-stone-800 hover:bg-stone-700 text-stone-300 font-bold text-xs transition cursor-pointer active:scale-95">
+                    Batal
+                </button>
+                <button type="button" id="btn-confirm-cart-reset" class="w-full py-2.5 px-3 rounded-xl bg-[#9C532B] hover:bg-[#834320] text-white font-extrabold text-xs transition cursor-pointer shadow-sm active:scale-95">
+                    Reset &amp; Lanjut
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================================================================= -->
     <!-- 12. MODAL WELCOME GATE (LOKASI & CARA AMBIL)                      -->
     <!-- ================================================================= -->
     <div id="modal-welcome-gate" class="fixed inset-0 bg-stone-950/60 backdrop-blur-xs z-[300] hidden opacity-0 transition-opacity duration-200 flex items-center justify-center p-4">
@@ -965,40 +995,6 @@
     <!-- ================================================================= -->
     <!-- 13. MODAL INFO WIFI, LEADERBOARD, ADMIN PANEL & CUSTOM REQUEST    -->
     <!-- ================================================================= -->
-    <!-- Modal WiFi -->
-    <div id="modal-wifi" class="fixed inset-0 bg-stone-950/60 backdrop-blur-xs z-[170] hidden opacity-0 transition-opacity duration-200 flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl p-5 max-w-sm w-full text-stone-900 shadow-xl border border-stone-200 relative">
-            <button onclick="toggleWifiModal(false)" class="absolute right-4 top-4 w-6 h-6 bg-stone-100 rounded-full flex justify-center items-center text-stone-500 cursor-pointer">
-                <i class="fas fa-times text-xs"></i>
-            </button>
-            <div class="w-10 h-10 rounded-xl bg-terracotta-soft text-terracotta flex items-center justify-center mb-2.5 border border-terracotta-border">
-                <i class="fas fa-wifi text-base"></i>
-            </div>
-            <h3 class="font-extrabold text-sm mb-1 text-stone-900">WiFi Kopi Kenangan</h3>
-            <p class="text-xs text-stone-500 mb-3">Gunakan koneksi internet resmi di outlet:</p>
-
-            <div class="space-y-1.5 bg-stone-50 p-3 rounded-2xl border border-stone-200 text-xs mb-3">
-                <div class="flex justify-between items-center py-0.5 border-b border-stone-200">
-                    <span class="text-stone-500 font-medium">SSID:</span>
-                    <span class="font-bold text-stone-900">Teman Kenangan</span>
-                </div>
-                <div class="flex justify-between items-center py-0.5 border-b border-stone-200">
-                    <span class="text-stone-500 font-medium">User ID:</span>
-                    <span class="font-mono font-bold text-stone-900">kopikenangan</span>
-                </div>
-                <div class="flex justify-between items-center py-0.5">
-                    <span class="text-stone-500 font-medium">Password Hari Ini:</span>
-                    <div class="flex items-center gap-1">
-                        <span id="wifi-pass-text" class="font-mono font-bold text-terracotta bg-white px-2 py-0.5 rounded border border-terracotta-border">...</span>
-                        <button onclick="copyWifiPass()" class="px-2 py-0.5 rounded bg-stone-950 text-white text-[10px] font-bold cursor-pointer">
-                            Salin
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <p class="text-[9px] text-stone-400 text-center">*Password diperbarui harian mengikuti kalender.</p>
-        </div>
-    </div>
 
     <!-- Modal Leaderboard Sultan -->
     <div id="modal-leaderboard" class="hidden fixed inset-0 z-[250] flex items-end sm:items-center justify-center bg-stone-950/60 backdrop-blur-xs p-0 sm:p-4 transition-opacity duration-200 opacity-0">
@@ -1679,6 +1675,50 @@
             if (elDel) elDel.textContent = deliveryFee > 0 ? `Rp ${deliveryFee.toLocaleString('id-ID')}` : 'Gratis / Ambil Sendiri';
             if (elGrand) elGrand.textContent = `Rp ${grandTotal.toLocaleString('id-ID')}`;
 
+            // Validasi Minimum Order Janji Jiwa Rp 25.000
+            const cartBrand = (cart && cart.length > 0 && cart[0].brand) ? cart[0].brand : (typeof currentActiveBrand !== 'undefined' ? currentActiveBrand : 'kopken');
+            const isJanjiJiwa = (cartBrand === 'janji-jiwa' || cartBrand === 'Janji Jiwa');
+            const minOrderJJ = 25000;
+            const submitBtn = document.getElementById('btn-sheet-submit-order');
+            const guardBox = document.getElementById('jj-min-order-guard');
+
+            if (isJanjiJiwa && subtotal < minOrderJJ && subtotal > 0) {
+                const diff = minOrderJJ - subtotal;
+                const percent = Math.min(100, Math.round((subtotal / minOrderJJ) * 100));
+                if (guardBox) {
+                    guardBox.classList.remove('hidden');
+                    guardBox.innerHTML = `
+                        <div class="p-3 bg-amber-500/10 border border-amber-500/30 rounded-2xl space-y-1.5 transition-all text-left">
+                            <div class="flex items-center justify-between text-xs font-bold text-amber-300">
+                                <span class="flex items-center gap-1.5"><i class="fas fa-shield-halved text-amber-400 text-xs"></i> Minimal Order Janji Jiwa Rp 25.000</span>
+                                <span class="text-[10px] font-extrabold px-1.5 py-0.5 rounded-md bg-amber-500/20 text-amber-300">${percent}%</span>
+                            </div>
+                            <div class="w-full bg-stone-900/80 rounded-full h-1.5 overflow-hidden">
+                                <div class="bg-gradient-to-r from-amber-500 to-amber-400 h-full rounded-full transition-all duration-300" style="width: ${percent}%"></div>
+                            </div>
+                            <p class="text-[11px] text-stone-400 leading-tight">
+                                Tambah menu senilai <strong class="text-amber-300">Rp ${diff.toLocaleString('id-ID')}</strong> lagi untuk dapat melanjutkan pesanan.
+                            </p>
+                        </div>
+                    `;
+                }
+                if (submitBtn) {
+                    submitBtn.disabled = true;
+                    submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                    submitBtn.innerHTML = `<span>Min. Order Rp 25.000 (Kurang Rp ${diff.toLocaleString('id-ID')})</span>`;
+                }
+            } else {
+                if (guardBox) {
+                    guardBox.classList.add('hidden');
+                    guardBox.innerHTML = '';
+                }
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                    submitBtn.innerHTML = `<span>Lanjut ke Pembayaran QRIS</span> <i class="fas fa-arrow-right text-xs"></i>`;
+                }
+            }
+
             // Update Cart Booster Progress (Target 50k)
             const boosterBox = document.getElementById('cart-booster-box');
             const boosterTitleText = document.getElementById('booster-title-text');
@@ -1729,6 +1769,16 @@
                     showToast("Keranjang belanja kosong! Pilih menu favoritmu dulu.");
                 } else {
                     alert("Keranjang kosong!");
+                }
+                return;
+            }
+
+            const currentOrderBrand = (cart[0] && (cart[0].brand === 'janji-jiwa' || cart[0].brand === 'Janji Jiwa')) ? 'janji-jiwa' : 'kopken';
+            const subtotalCheck = cart.reduce((sum, item) => sum + ((Number(item.price) || 15000) * (Number(item.qty) || 1)), 0);
+
+            if (currentOrderBrand === 'janji-jiwa' && subtotalCheck < 25000) {
+                if (typeof showToast === 'function') {
+                    showToast("Minimal order Janji Jiwa Rp 25.000 (Kurang Rp " + (25000 - subtotalCheck).toLocaleString('id-ID') + ")!");
                 }
                 return;
             }
@@ -1807,7 +1857,8 @@
             }
 
             const rawName = name.replace(/[^a-zA-Z0-9]/g, '').toLowerCase() || 'order';
-            const orderId = `kk-${rawName}-${Date.now().toString().slice(-4)}`;
+            const orderPrefix = currentOrderBrand === 'janji-jiwa' ? 'jj' : 'kk';
+            const orderId = `${orderPrefix}-${rawName}-${Date.now().toString().slice(-4)}`;
 
             let cleanWa = wa.replace(/[^0-9]/g, '');
             if (cleanWa.startsWith('0')) cleanWa = '62' + cleanWa.slice(1);
@@ -1881,7 +1932,9 @@
             const methodInput = document.querySelector('input[name="sheet-payment-method"]:checked');
             const paymentMethod = methodInput ? methodInput.value : 'QRIS';
 
-            const activeOutlet = (typeof selectedOutlet !== 'undefined' && selectedOutlet) ? selectedOutlet.name : 'Grand Indonesia';
+            const activeOutlet = (typeof selectedOutlet !== 'undefined' && selectedOutlet) 
+                ? selectedOutlet.name 
+                : (currentOrderBrand === 'janji-jiwa' ? 'Janji Jiwa Jilid' : 'Grand Indonesia');
             const orderTypeLabel = (typeof currentOrderType !== 'undefined') ? currentOrderType.toUpperCase() : 'TAKEAWAY';
 
             // Status awal sesuai panduan: "Processing / Menunggu Verifikasi"
@@ -1905,6 +1958,7 @@
 
                 return {
                     name: item.name,
+                    brand: currentOrderBrand === 'janji-jiwa' ? 'Janji Jiwa' : 'Kopi Kenangan',
                     qty: itemQty,
                     price: itemPrice,
                     details: item.details || '',
@@ -1925,6 +1979,7 @@
             // Objek pesanan aktif
             currentPendingOrder = {
                 orderId,
+                brand: currentOrderBrand === 'janji-jiwa' ? 'Janji Jiwa' : 'Kopi Kenangan',
                 name,
                 wa: cleanWa,
                 outlet: activeOutlet,
@@ -1972,6 +2027,7 @@
                 let histList = historyRaw ? JSON.parse(historyRaw) : [];
                 const histItem = {
                     orderId: orderId,
+                    brand: currentOrderBrand === 'janji-jiwa' ? 'Janji Jiwa' : 'Kopi Kenangan',
                     date: new Date().toLocaleString('id-ID'),
                     outlet: activeOutlet,
                     outletName: activeOutlet,
@@ -2019,7 +2075,11 @@
                     `Maps Link : ${deliveryMapsUrl || '-'}\n`;
             }
 
-            const telegramMsg = `☕ ── PESANAN BARU KOPI KENANGAN JASDOR ──\n` +
+            const brandHeaderTitle = currentOrderBrand === 'janji-jiwa'
+                ? `🥪 ── PESANAN BARU JANJI JIWA JASDOR ──\n`
+                : `☕ ── PESANAN BARU KOPI KENANGAN JASDOR ──\n`;
+
+            const telegramMsg = brandHeaderTitle +
                 `Order ID : <code>${orderId}</code>\n` +
                 `Gerai Outlet : ${activeOutlet}\n` +
                 `Tipe Order : ${orderTypeLabel}\n` +
@@ -2092,8 +2152,9 @@
             if (amtDisplay) amtDisplay.textContent = `Rp ${order.grandTotal.toLocaleString('id-ID')}`;
 
             // Siapkan link WA opsional jika pelanggan butuh bantuan
+            const brandLabel = order.brand || 'Kopi Kenangan';
             const waAdminMsg = encodeURIComponent(
-                `Halo Admin Bintang Store, saya mau konfirmasi pembayaran pesanan Kopi Kenangan:\n\n` +
+                `Halo Admin Bintang Store, saya mau konfirmasi pembayaran pesanan ${brandLabel}:\n\n` +
                 `*Order ID:* ${order.orderId}\n` +
                 `*Nama:* ${order.name}\n` +
                 `*Outlet:* ${order.outlet}\n` +

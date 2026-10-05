@@ -2449,7 +2449,6 @@ function openCustomRequestModal(keyword = '') {
 
 // Inisialisasi Aplikasi Utama
 document.addEventListener('DOMContentLoaded', async () => {
-    initWifiDisplay();
     checkNightHours();
     initSocialProofTicker();
     updateBusyStatusUI();
@@ -2722,29 +2721,6 @@ function clearOrderHistory() {
     showToast("Riwayat pesanan dibersihkan");
 }
 
-function initWifiDisplay() {
-    const pass = getDailyWifiPassword();
-    const wifiPassEl = document.getElementById('wifi-pass-text');
-    if (wifiPassEl) wifiPassEl.textContent = pass;
-}
-
-function toggleWifiModal(show) {
-    const modal = document.getElementById('modal-wifi');
-    if (!modal) return;
-    if (show) {
-        modal.classList.remove('hidden');
-        setTimeout(() => modal.classList.remove('opacity-0'), 10);
-    } else {
-        modal.classList.add('opacity-0');
-        setTimeout(() => modal.classList.add('hidden'), 250);
-    }
-}
-
-function copyWifiPass() {
-    const pass = document.getElementById('wifi-pass-text')?.textContent || '';
-    navigator.clipboard.writeText(pass);
-    showToast("Password WiFi berhasil disalin!");
-}
 
 function showToast(message) {
     const container = document.getElementById('toast-container');

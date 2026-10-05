@@ -286,6 +286,209 @@ let selectedOrderType = 'now';
 let activeVoucherDiscount = 0;
 let appliedVoucherId = null;
 
+// Multi-Brand State Controller
+let currentActiveBrand = 'kopken'; // 'kopken' | 'janji-jiwa'
+let allKopkenOutlets = [];
+let allKopkenMenu = [];
+let allJanjiJiwaOutlets = [];
+let allJanjiJiwaMenu = [];
+let selectedKopkenOutlet = null;
+let selectedJjOutlet = null;
+
+const defaultCuratedJanjiJiwaMenu = [
+    {
+        id: "jj_bnd_1",
+        cat: "paket bundling",
+        category: "PAKET BUNDLING",
+        name: "Paket Hemat Jiwa (Kopi Susu + Toast)",
+        singlePrice: 30000,
+        realPrice: 42000,
+        type: "bundling",
+        badge: "BEST DEAL",
+        img: "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/assets/Janji%20Jiwa%20Logo.png",
+        opts: ["1x Kopi Susu Sahabat (Reguler) + 1x Jiwa Toast Egg and Cheese", "1x Kopi Americano (Reguler) + 1x Jiwa Toast Crispy Chicken Mentai"],
+        brand: "Janji Jiwa"
+    },
+    {
+        id: "jj_bnd_2",
+        cat: "paket bundling",
+        category: "PAKET BUNDLING",
+        name: "Paket Mabar Berdua Jiwa (2 Kopi + 1 Toast)",
+        singlePrice: 42000,
+        realPrice: 58000,
+        type: "bundling",
+        badge: "HEMAT",
+        img: "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/assets/Janji%20Jiwa%20Logo.png",
+        opts: ["2x Kopi Susu Sahabat (Reguler) + 1x Jiwa Toast Egg and Cheese"],
+        brand: "Janji Jiwa"
+    },
+    {
+        id: "jj_c_sahabat",
+        cat: "coffee",
+        category: "COFFEE",
+        name: "Kopi Susu Sahabat",
+        singlePrice: 15000,
+        realPrice: 20000,
+        type: "drink",
+        badge: "BEST SELLER",
+        img: "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/assets/Janji%20Jiwa%20Logo.png",
+        brand: "Janji Jiwa"
+    },
+    {
+        id: "jj_c_pokat",
+        cat: "coffee",
+        category: "COFFEE",
+        name: "Kopi Pokat",
+        singlePrice: 22000,
+        realPrice: 28000,
+        type: "drink",
+        badge: "FAVORITE",
+        img: "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/assets/Janji%20Jiwa%20Logo.png",
+        brand: "Janji Jiwa"
+    },
+    {
+        id: "jj_c_americano",
+        cat: "coffee",
+        category: "COFFEE",
+        name: "Kopi Americano",
+        singlePrice: 14000,
+        realPrice: 18000,
+        type: "drink",
+        badge: "CLASSIC",
+        img: "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/assets/Janji%20Jiwa%20Logo.png",
+        brand: "Janji Jiwa"
+    },
+    {
+        id: "jj_c_macchiato",
+        cat: "coffee",
+        category: "COFFEE",
+        name: "Caramel Macchiato",
+        singlePrice: 20000,
+        realPrice: 26000,
+        type: "drink",
+        badge: "POPULAR",
+        img: "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/assets/Janji%20Jiwa%20Logo.png",
+        brand: "Janji Jiwa"
+    },
+    {
+        id: "jj_c_matcha",
+        cat: "coffee",
+        category: "COFFEE",
+        name: "Matcha Macchiato",
+        singlePrice: 19000,
+        realPrice: 25000,
+        type: "drink",
+        badge: "FAVORITE",
+        img: "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/assets/Janji%20Jiwa%20Logo.png",
+        brand: "Janji Jiwa"
+    },
+    {
+        id: "jj_fa_berry",
+        cat: "flavored americano",
+        category: "FLAVORED AMERICANO",
+        name: "Americano Berry Splash",
+        singlePrice: 18000,
+        realPrice: 24000,
+        type: "drink",
+        badge: "FRESH",
+        img: "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/assets/Janji%20Jiwa%20Logo.png",
+        brand: "Janji Jiwa"
+    },
+    {
+        id: "jj_fa_peach",
+        cat: "flavored americano",
+        category: "FLAVORED AMERICANO",
+        name: "Americano Peach Splash",
+        singlePrice: 18000,
+        realPrice: 24000,
+        type: "drink",
+        badge: "FAVORITE",
+        img: "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/assets/Janji%20Jiwa%20Logo.png",
+        brand: "Janji Jiwa"
+    },
+    {
+        id: "jj_t_eggcheese",
+        cat: "jiwa toast",
+        category: "JIWA TOAST",
+        name: "Jiwa Toast Egg and Cheese",
+        singlePrice: 18000,
+        realPrice: 24000,
+        type: "toast",
+        badge: "FAVORITE",
+        img: "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/assets/Janji%20Jiwa%20Logo.png",
+        brand: "Janji Jiwa"
+    },
+    {
+        id: "jj_t_mentai",
+        cat: "jiwa toast",
+        category: "JIWA TOAST",
+        name: "Jiwa Toast Crispy Chicken Mentai",
+        singlePrice: 25000,
+        realPrice: 32000,
+        type: "toast",
+        badge: "BEST DEAL",
+        img: "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/assets/Janji%20Jiwa%20Logo.png",
+        brand: "Janji Jiwa"
+    },
+    {
+        id: "jj_t_bulgogi",
+        cat: "jiwa toast",
+        category: "JIWA TOAST",
+        name: "Jiwa Toast Spicy Bulgogi",
+        singlePrice: 26000,
+        realPrice: 34000,
+        type: "toast",
+        badge: "POPULAR",
+        img: "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/assets/Janji%20Jiwa%20Logo.png",
+        brand: "Janji Jiwa"
+    },
+    {
+        id: "jj_t_chococrunch",
+        cat: "lite toast",
+        category: "LITE TOAST",
+        name: "Lite Toast Choco Crunch",
+        singlePrice: 14000,
+        realPrice: 18000,
+        type: "toast",
+        badge: "LITE",
+        img: "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/assets/Janji%20Jiwa%20Logo.png",
+        brand: "Janji Jiwa"
+    },
+    {
+        id: "jj_t_sweetbutter",
+        cat: "lite toast",
+        category: "LITE TOAST",
+        name: "Lite Toast Sweet Butter",
+        singlePrice: 14000,
+        realPrice: 18000,
+        type: "toast",
+        badge: "LITE",
+        img: "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/assets/Janji%20Jiwa%20Logo.png",
+        brand: "Janji Jiwa"
+    },
+    {
+        id: "jj_btl_sahabat",
+        cat: "bottled",
+        category: "BOTTLED",
+        name: "1 Liter Kopi Susu Sahabat",
+        singlePrice: 65000,
+        realPrice: 85000,
+        type: "drink",
+        badge: "1 LITER",
+        img: "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/assets/Janji%20Jiwa%20Logo.png",
+        brand: "Janji Jiwa"
+    }
+];
+
+const defaultCuratedJanjiJiwaOutlets = [
+    { id: "jj-1", name: "Janji Jiwa Jilid 120 - Tebet Raya", address: "Jl. Tebet Raya No. 42, Tebet, Jakarta Selatan", category: "Shop House", is_open: true, open_time: "07:00:00", order_close_time: "21:30:00", real_close_time: "22:00:00" },
+    { id: "jj-2", name: "Janji Jiwa Jilid 455 - Grand Indonesia", address: "Grand Indonesia West Mall Lt. 3A, Jakarta Pusat", category: "Mall", is_open: true, open_time: "10:00:00", order_close_time: "21:30:00", real_close_time: "22:00:00" },
+    { id: "jj-3", name: "Janji Jiwa Jilid 88 - Margonda Raya", address: "Jl. Margonda Raya No. 250, Beji, Depok", category: "Shop House", is_open: true, open_time: "07:00:00", order_close_time: "22:00:00", real_close_time: "22:30:00" },
+    { id: "jj-4", name: "Janji Jiwa Jilid 312 - Dago", address: "Jl. Ir. H. Juanda No. 102, Dago, Bandung", category: "Shop House", is_open: true, open_time: "07:00:00", order_close_time: "22:00:00", real_close_time: "22:30:00" },
+    { id: "jj-5", name: "Janji Jiwa Jilid 560 - Bintaro Xchange", address: "Bintaro Jaya Xchange Mall LG Floor, Tangerang Selatan", category: "Mall", is_open: true, open_time: "10:00:00", order_close_time: "21:30:00", real_close_time: "22:00:00" },
+    { id: "jj-6", name: "Janji Jiwa Jilid 204 - Gading Serpong", address: "Ruko Gading Serpong Blok AA3 No. 12, Tangerang", category: "Shop House", is_open: true, open_time: "07:00:00", order_close_time: "22:00:00", real_close_time: "22:30:00" }
+];
+
 function handleSecretLogoTap() {
     secretLogoTapCount++;
     clearTimeout(secretLogoTapTimer);
@@ -530,6 +733,191 @@ function showComingSoonToast(brandName) {
     showToast(`<b>${brandName}</b><br>Layanan segera hadir dengan penawaran spesial! Ditunggu ya Kak.`);
 }
 
+function handleComingSoonBrand(brandName) {
+    showComingSoonToast(brandName);
+}
+
+function switchBrandTab(brand) {
+    if (brand === currentActiveBrand) return;
+    sfx.playTap();
+
+    const tabKopken = document.getElementById('tab-brand-kopken');
+    const tabJj = document.getElementById('tab-brand-janji-jiwa');
+    const headerTitle = document.getElementById('header-brand-title');
+    const headerSubtitle = document.getElementById('header-brand-subtitle');
+    const headerLogoImg = document.getElementById('header-brand-logo-img');
+    const menuContainer = document.getElementById('menu-container');
+
+    // Smooth skeleton placeholder saat beralih brand
+    if (menuContainer) {
+        menuContainer.innerHTML = `
+            <div class="space-y-4 animate-pulse py-2">
+                <div class="h-5 bg-stone-200/80 rounded-md w-36"></div>
+                <div class="grid grid-cols-2 gap-2.5">
+                    <div class="bg-white rounded-3xl p-3 border border-stone-200 h-52 flex flex-col justify-between">
+                        <div class="w-full h-32 bg-stone-100 rounded-2xl"></div>
+                        <div class="h-3 bg-stone-200 rounded w-3/4 mt-2"></div>
+                        <div class="h-3 bg-stone-100 rounded w-1/2"></div>
+                    </div>
+                    <div class="bg-white rounded-3xl p-3 border border-stone-200 h-52 flex flex-col justify-between">
+                        <div class="w-full h-32 bg-stone-100 rounded-2xl"></div>
+                        <div class="h-3 bg-stone-200 rounded w-3/4 mt-2"></div>
+                        <div class="h-3 bg-stone-100 rounded w-1/2"></div>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    if (brand === 'janji-jiwa') {
+        currentActiveBrand = 'janji-jiwa';
+        if (tabKopken) {
+            tabKopken.className = "brand-switcher-btn flex items-center gap-2 px-3 py-1.5 rounded-xl bg-stone-900/80 hover:bg-stone-900 text-stone-300 hover:text-white border border-stone-800 transition-all duration-200 cursor-pointer flex-shrink-0 active:scale-95";
+        }
+        if (tabJj) {
+            tabJj.className = "brand-switcher-btn active flex items-center gap-2 px-3 py-1.5 rounded-xl bg-stone-950 text-white border border-amber-500/50 shadow-xs transition-all duration-200 cursor-pointer flex-shrink-0 active:scale-95";
+        }
+        if (headerTitle) headerTitle.textContent = "Janji Jiwa Hub";
+        if (headerSubtitle) headerSubtitle.textContent = "Kopi Dari Hati & Jiwa Toast";
+        if (headerLogoImg) headerLogoImg.src = "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/assets/Janji%20Jiwa%20Logo.png";
+
+        selectedKopkenOutlet = selectedOutlet;
+        allMenu = (allJanjiJiwaMenu && allJanjiJiwaMenu.length > 0) ? allJanjiJiwaMenu : defaultCuratedJanjiJiwaMenu;
+        allOutlets = (allJanjiJiwaOutlets && allJanjiJiwaOutlets.length > 0) ? allJanjiJiwaOutlets : defaultCuratedJanjiJiwaOutlets;
+
+        const savedJjOutlet = localStorage.getItem("bintang_selected_jj_outlet");
+        if (savedJjOutlet) {
+            try { selectedJjOutlet = JSON.parse(savedJjOutlet); } catch(e) { selectedJjOutlet = allOutlets[0]; }
+        }
+        selectedOutlet = selectedJjOutlet || allOutlets[0];
+
+        renderCategoryPills('janji-jiwa');
+        updateOutletUI();
+        setTimeout(() => {
+            renderMenu();
+        }, 120);
+    } else {
+        currentActiveBrand = 'kopken';
+        if (tabJj) {
+            tabJj.className = "brand-switcher-btn flex items-center gap-2 px-3 py-1.5 rounded-xl bg-stone-900/80 hover:bg-stone-900 text-stone-300 hover:text-white border border-stone-800 transition-all duration-200 cursor-pointer flex-shrink-0 active:scale-95";
+        }
+        if (tabKopken) {
+            tabKopken.className = "brand-switcher-btn active flex items-center gap-2 px-3 py-1.5 rounded-xl bg-stone-950 text-white border border-amber-500/50 shadow-xs transition-all duration-200 cursor-pointer flex-shrink-0 active:scale-95";
+        }
+        if (headerTitle) headerTitle.textContent = "Coffee Hub";
+        if (headerSubtitle) headerSubtitle.textContent = "Kopi Kenangan • Janji Jiwa";
+        if (headerLogoImg) headerLogoImg.src = "https://i.postimg.cc/GpwttdxX/Logo-Kopi-Kenangan-Format-PNG-AI-EPS-CDR-PDF-SVG.png";
+
+        selectedJjOutlet = selectedOutlet;
+        allMenu = allKopkenMenu;
+        allOutlets = allKopkenOutlets;
+
+        const savedKkOutlet = localStorage.getItem("bintang_selected_outlet") || localStorage.getItem("selectedOutlet");
+        if (savedKkOutlet) {
+            try { selectedKopkenOutlet = JSON.parse(savedKkOutlet); } catch(e) { selectedKopkenOutlet = allOutlets[0]; }
+        }
+        selectedOutlet = selectedKopkenOutlet || allOutlets[0];
+
+        renderCategoryPills('kopken');
+        updateOutletUI();
+        setTimeout(() => {
+            renderMenu();
+        }, 120);
+    }
+}
+
+function renderCategoryPills(brand = currentActiveBrand) {
+    const navBar = document.getElementById('category-nav-bar');
+    if (!navBar) return;
+    if (brand === 'janji-jiwa') {
+        navBar.innerHTML = `
+            <button onclick="filterCategoryAll(this)" class="cat-pill active px-3.5 py-1.5 rounded-full bg-stone-950 text-ivory text-xs font-semibold shadow-xs border border-stone-950 transition cursor-pointer">
+                Semua
+            </button>
+            <button onclick="scrollToCategory('cat-jj-bundling', event); setActivePill(this)" class="cat-pill px-3.5 py-1.5 rounded-full bg-white text-stone-700 hover:text-stone-950 text-xs font-semibold shadow-xs border border-stone-200 transition cursor-pointer">
+                Paket Bundling
+            </button>
+            <button onclick="scrollToCategory('cat-jj-coffee', event); setActivePill(this)" class="cat-pill px-3.5 py-1.5 rounded-full bg-white text-stone-700 hover:text-stone-950 text-xs font-semibold shadow-xs border border-stone-200 transition cursor-pointer">
+                Coffee
+            </button>
+            <button onclick="scrollToCategory('cat-jj-americano', event); setActivePill(this)" class="cat-pill px-3.5 py-1.5 rounded-full bg-white text-stone-700 hover:text-stone-950 text-xs font-semibold shadow-xs border border-stone-200 transition cursor-pointer">
+                Flavored Americano
+            </button>
+            <button onclick="scrollToCategory('cat-jj-toast', event); setActivePill(this)" class="cat-pill px-3.5 py-1.5 rounded-full bg-white text-stone-700 hover:text-stone-950 text-xs font-semibold shadow-xs border border-stone-200 transition cursor-pointer">
+                Jiwa Toast
+            </button>
+            <button onclick="scrollToCategory('cat-jj-litetoast', event); setActivePill(this)" class="cat-pill px-3.5 py-1.5 rounded-full bg-white text-stone-700 hover:text-stone-950 text-xs font-semibold shadow-xs border border-stone-200 transition cursor-pointer">
+                Lite Toast
+            </button>
+            <button onclick="scrollToCategory('cat-jj-bottled', event); setActivePill(this)" class="cat-pill px-3.5 py-1.5 rounded-full bg-white text-stone-700 hover:text-stone-950 text-xs font-semibold shadow-xs border border-stone-200 transition cursor-pointer">
+                Bottled
+            </button>
+        `;
+    } else {
+        navBar.innerHTML = `
+            <button onclick="filterCategoryAll(this)" class="cat-pill active px-3.5 py-1.5 rounded-full bg-stone-950 text-ivory text-xs font-semibold shadow-xs border border-stone-950 transition cursor-pointer">
+                Semua
+            </button>
+            <button onclick="scrollToCategory('cat-bundling', event); setActivePill(this)" class="cat-pill px-3.5 py-1.5 rounded-full bg-white text-stone-700 hover:text-stone-950 text-xs font-semibold shadow-xs border border-stone-200 transition cursor-pointer">
+                Bundling Hemat
+            </button>
+            <button onclick="scrollToCategory('cat-coffee', event); setActivePill(this)" class="cat-pill px-3.5 py-1.5 rounded-full bg-white text-stone-700 hover:text-stone-950 text-xs font-semibold shadow-xs border border-stone-200 transition cursor-pointer">
+                Coffee
+            </button>
+            <button onclick="scrollToCategory('cat-noncoffee', event); setActivePill(this)" class="cat-pill px-3.5 py-1.5 rounded-full bg-white text-stone-700 hover:text-stone-950 text-xs font-semibold shadow-xs border border-stone-200 transition cursor-pointer">
+                Non-Coffee
+            </button>
+            <button onclick="scrollToCategory('cat-bakery', event); setActivePill(this)" class="cat-pill px-3.5 py-1.5 rounded-full bg-white text-stone-700 hover:text-stone-950 text-xs font-semibold shadow-xs border border-stone-200 transition cursor-pointer">
+                Toast &amp; Makanan
+            </button>
+            <button onclick="scrollToCategory('cat-bundling', event); setActivePill(this)" class="cat-pill px-3.5 py-1.5 rounded-full bg-white text-terracotta border border-orange-200 text-xs font-semibold shadow-xs transition cursor-pointer">
+                Promo
+            </button>
+        `;
+    }
+}
+
+function openCartConflictModal(oldBrand, newBrand, onConfirm) {
+    const modal = document.getElementById('modal-cart-conflict');
+    const card = document.getElementById('cart-conflict-card');
+    const oldBrandEl = document.getElementById('conflict-old-brand');
+    const newBrandEl = document.getElementById('conflict-new-brand');
+    const confirmBtn = document.getElementById('btn-confirm-cart-reset');
+
+    if (oldBrandEl) oldBrandEl.textContent = oldBrand;
+    if (newBrandEl) newBrandEl.textContent = newBrand;
+
+    if (confirmBtn) {
+        confirmBtn.onclick = () => {
+            closeCartConflictModal();
+            if (typeof onConfirm === 'function') onConfirm();
+        };
+    }
+
+    if (modal) {
+        modal.classList.remove('hidden');
+        setTimeout(() => {
+            modal.classList.remove('opacity-0');
+            if (card) {
+                card.classList.remove('scale-95');
+                card.classList.add('scale-100');
+            }
+        }, 10);
+    }
+}
+
+function closeCartConflictModal() {
+    const modal = document.getElementById('modal-cart-conflict');
+    const card = document.getElementById('cart-conflict-card');
+    if (!modal) return;
+    modal.classList.add('opacity-0');
+    if (card) {
+        card.classList.remove('scale-100');
+        card.classList.add('scale-95');
+    }
+    setTimeout(() => modal.classList.add('hidden'), 200);
+}
+
 function switchView(target, pushToHistory = true) {
     sfx.playTap();
     const viewPortal = document.getElementById('view-portal');
@@ -654,6 +1042,102 @@ function isMallOutlet(outlet) {
 
 function showNetflixClosedToast() {
     showToast("<b>Netflix Tutup Sementara</b><br>Slot akun sedang penuh / istirahat ya Kak.");
+}
+
+async function loadJanjiJiwaData() {
+    let jjMenu = [];
+    let jjOutlets = [];
+    try {
+        if (supabaseClient) {
+            const { data: menuData, error: menuErr } = await supabaseClient
+                .from('janji_jiwa_menus')
+                .select('*')
+                .eq('is_available', true);
+            if (!menuErr && menuData && menuData.length > 0) {
+                menuData.forEach(item => {
+                    const rawCat = (item.category || item.cat || 'coffee').toString().trim();
+                    const normCat = rawCat.toLowerCase();
+                    const rawImg = item.image_url || item.img || item.image || '';
+                    const fallbackLogo = 'https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/assets/Janji%20Jiwa%20Logo.png';
+
+                    jjMenu.push({
+                        id: item.id || `jj_${Math.random().toString(36).substring(2, 9)}`,
+                        name: item.name,
+                        cat: normCat,
+                        category: rawCat.toUpperCase(),
+                        type: item.type || (normCat.includes('toast') ? 'toast' : (normCat.includes('bundling') ? 'bundling' : 'drink')),
+                        singlePrice: parseFloat(item.single_price || item.price) || 15000,
+                        realPrice: parseFloat(item.real_price) || 0,
+                        badge: item.badge || '',
+                        img: rawImg || fallbackLogo,
+                        imgs: item.imgs || null,
+                        opts: item.options || null,
+                        brand: 'Janji Jiwa'
+                    });
+                });
+            }
+        }
+    } catch (e) {
+        console.warn("Gagal memuat Janji Jiwa dari Supabase:", e);
+    }
+
+    // Sambungkan file lokal outlet_jj.json
+    const jjOutletPaths = ['./outlet_jj.json', 'outlet_jj.json', '../outlet_jj.json', '/outlet_jj.json', 'kopken/outlet_jj.json'];
+    for (const path of jjOutletPaths) {
+        try {
+            const outletRes = await fetch(path);
+            if (outletRes.ok) {
+                const rawOutlets = await outletRes.json();
+                if (Array.isArray(rawOutlets) && rawOutlets.length > 0) {
+                    jjOutlets = rawOutlets.map((o, idx) => ({
+                        id: o.id || `jj_${idx + 1}`,
+                        name: o.name || `Outlet Janji Jiwa ${idx + 1}`,
+                        address: o.address || '',
+                        category: o.category || (o.name && o.name.toLowerCase().includes('mall') ? 'Mall' : 'Shop House'),
+                        is_open: o.is_open !== false,
+                        open_time: o.open_time || "07:00:00",
+                        order_close_time: o.order_close_time || "21:30:00",
+                        real_close_time: o.real_close_time || "22:00:00"
+                    }));
+                    break;
+                }
+            }
+        } catch (e) {}
+    }
+
+    // Fallback outlets ke Supabase jika file lokal gagal dimuat
+    if (jjOutlets.length === 0 && supabaseClient) {
+        try {
+            const { data: outletData, error: outletErr } = await supabaseClient
+                .from('janji_jiwa_outlets')
+                .select('*');
+            if (!outletErr && outletData && outletData.length > 0) {
+                outletData.forEach((o, idx) => {
+                    if (o.is_active === false) return;
+                    jjOutlets.push({
+                        id: o.id || `jj_sb_${idx + 1}`,
+                        name: o.name,
+                        address: o.address,
+                        category: o.category || 'Shop House',
+                        is_open: o.is_open !== false,
+                        open_time: o.open_time || "07:00:00",
+                        order_close_time: o.order_close_time || "21:30:00",
+                        real_close_time: o.real_close_time || "22:00:00"
+                    });
+                });
+            }
+        } catch (e) {}
+    }
+
+    if (jjMenu.length === 0) {
+        jjMenu = defaultCuratedJanjiJiwaMenu;
+    }
+    if (jjOutlets.length === 0) {
+        jjOutlets = defaultCuratedJanjiJiwaOutlets;
+    }
+
+    allJanjiJiwaMenu = jjMenu;
+    allJanjiJiwaOutlets = jjOutlets;
 }
 
 async function loadDataFiles() {
@@ -905,6 +1389,17 @@ async function loadDataFiles() {
     if (parsedMenu.length > 0) {
         allMenu = parsedMenu;
     }
+
+    allKopkenOutlets = [...allOutlets];
+    allKopkenMenu = [...allMenu];
+
+    await loadJanjiJiwaData();
+
+    if (currentActiveBrand === 'janji-jiwa') {
+        allMenu = (allJanjiJiwaMenu && allJanjiJiwaMenu.length > 0) ? allJanjiJiwaMenu : defaultCuratedJanjiJiwaMenu;
+        allOutlets = (allJanjiJiwaOutlets && allJanjiJiwaOutlets.length > 0) ? allJanjiJiwaOutlets : defaultCuratedJanjiJiwaOutlets;
+        selectedOutlet = selectedJjOutlet || allOutlets[0];
+    }
 }
 
 function updateOutletUI() {
@@ -956,7 +1451,14 @@ function renderMenu(filterKeyword = '') {
     if (!container) return;
     container.innerHTML = '';
 
-   const categories = [
+    const categories = (currentActiveBrand === 'janji-jiwa') ? [
+        { id: 'cat-jj-bundling', title: 'Paket Bundling', filter: 'paket bundling' },
+        { id: 'cat-jj-coffee', title: 'Coffee Series', filter: 'coffee' },
+        { id: 'cat-jj-americano', title: 'Flavored Americano', filter: 'flavored americano' },
+        { id: 'cat-jj-toast', title: 'Jiwa Toast', filter: 'jiwa toast' },
+        { id: 'cat-jj-litetoast', title: 'Lite Toast', filter: 'lite toast' },
+        { id: 'cat-jj-bottled', title: 'Bottled Series (1 Liter)', filter: 'bottled' }
+    ] : [
         { id: 'cat-bundling', title: 'Paket Bundling Hemat', filter: 'bundling' },
         { id: 'cat-new', title: 'New Variant (Varian Baru)', filter: 'new' },
         { id: 'cat-coffee', title: 'Coffee Series (Kopi)', filter: 'coffee' },
@@ -966,10 +1468,29 @@ function renderMenu(filterKeyword = '') {
     ];
 
     const keyword = filterKeyword.toLowerCase().trim();
+    const defaultImgFallback = (currentActiveBrand === 'janji-jiwa')
+        ? 'https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/assets/Janji%20Jiwa%20Logo.png'
+        : 'https://placehold.co/400x400/9C532B/FBF5EE?text=Kopi+Kenangan';
 
     categories.forEach(c => {
         const filteredProducts = allMenu.filter(m => {
-            const matchesCategory = m.cat === c.filter;
+            const itemCat = (m.cat || m.category || '').toLowerCase().trim();
+            let matchesCategory = false;
+            if (c.filter === 'paket bundling') {
+                matchesCategory = itemCat === 'paket bundling' || itemCat === 'bundling';
+            } else if (c.filter === 'jiwa toast') {
+                matchesCategory = itemCat === 'jiwa toast' || itemCat === 'toast';
+            } else if (c.filter === 'lite toast') {
+                matchesCategory = itemCat === 'lite toast';
+            } else if (c.filter === 'flavored americano') {
+                matchesCategory = itemCat === 'flavored americano' || itemCat === 'americano';
+            } else if (c.filter === 'coffee') {
+                matchesCategory = itemCat === 'coffee' || itemCat === 'kopi';
+            } else if (c.filter === 'bottled') {
+                matchesCategory = itemCat === 'bottled' || itemCat === '1 liter';
+            } else {
+                matchesCategory = itemCat === c.filter;
+            }
             const matchesKeyword = keyword === '' || (m.name && m.name.toLowerCase().includes(keyword));
             return matchesCategory && matchesKeyword;
         });
@@ -1008,7 +1529,7 @@ function renderMenu(filterKeyword = '') {
                 } else {
                     imageBoxHtml = `
                         <div class="w-full rounded-2xl bg-gradient-to-b from-[#FAF8F5] to-[#F5F0E6] p-3 h-36 flex items-center justify-center relative overflow-hidden mb-2.5">
-                            <img src="${item.img || (item.imgs && item.imgs[0])}" alt="${item.name}" class="max-h-full object-contain drop-shadow-[0_8px_16px_rgba(0,0,0,0.1)] pointer-events-none transition-transform duration-300 group-hover:scale-105" loading="lazy" onerror="this.src='https://placehold.co/400x400/9C532B/FBF5EE?text=Kopi+Kenangan';">
+                            <img src="${item.img || (item.imgs && item.imgs[0]) || defaultImgFallback}" alt="${item.name}" class="max-h-full object-contain drop-shadow-[0_8px_16px_rgba(0,0,0,0.1)] pointer-events-none transition-transform duration-300 group-hover:scale-105" loading="lazy" onerror="this.src='${defaultImgFallback}';">
                         </div>
                     `;
                 }
@@ -1134,10 +1655,11 @@ function handleGateOutletSearch() {
     }
 
     if (clearBtn) clearBtn.classList.remove('hidden');
-    const filtered = allOutlets.filter(o => 
-        (o.name && o.name.toLowerCase().includes(query)) ||
-        (o.address && o.address.toLowerCase().includes(query))
-    ).slice(0, 15);
+    const tokens = query.split(/\s+/).filter(Boolean);
+    const filtered = allOutlets.filter(o => {
+        const textToSearch = `${o.name || ''} ${o.address || ''}`.toLowerCase();
+        return tokens.every(token => textToSearch.includes(token));
+    }).slice(0, 20);
 
     if (!dropdown) return;
     dropdown.innerHTML = '';
@@ -1159,7 +1681,7 @@ function handleGateOutletSearch() {
             }
 
             dropdown.innerHTML += `
-                <div onclick="selectOutletItem(${o.id})" class="p-3 hover:bg-amber-50/80 cursor-pointer border-b border-gray-100 last:border-none flex items-center justify-between gap-2 transition ${!isOpen ? 'opacity-70 bg-gray-50' : ''}">
+                <div onclick="selectOutletItem('${o.id}')" class="p-3 hover:bg-amber-50/80 cursor-pointer border-b border-gray-100 last:border-none flex items-center justify-between gap-2 transition ${!isOpen ? 'opacity-70 bg-gray-50' : ''}">
                     <div class="min-w-0">
                         <div class="flex items-center gap-1.5 flex-wrap">
                             <h5 class="text-xs font-bold text-kenangan-dark truncate">${o.name}</h5>
@@ -1185,12 +1707,20 @@ function clearGateSearch() {
 }
 
 function selectOutletItem(outletId) {
-    const outlet = allOutlets.find(o => o.id === outletId);
+    const outlet = allOutlets.find(o => String(o.id) === String(outletId));
     if (!outlet) return;
 
     selectedOutlet = outlet;
-    localStorage.setItem("bintang_selected_outlet", JSON.stringify(outlet));
-    localStorage.setItem("selectedOutlet", JSON.stringify(outlet));
+    if (currentActiveBrand === 'janji-jiwa') {
+        selectedJjOutlet = outlet;
+        try { localStorage.setItem("bintang_selected_jj_outlet", JSON.stringify(outlet)); } catch(e) {}
+    } else {
+        selectedKopkenOutlet = outlet;
+        try {
+            localStorage.setItem("bintang_selected_outlet", JSON.stringify(outlet));
+            localStorage.setItem("selectedOutlet", JSON.stringify(outlet));
+        } catch(e) {}
+    }
 
     clearGateSearch();
     updateGatePreview();
@@ -1250,23 +1780,41 @@ function toggleIceOptions() {
 
 function updateModalPrice() {
     if (!currentModalItem) return;
+    const isJJ = (currentModalItem.brand === 'Janji Jiwa') || (currentActiveBrand === 'janji-jiwa');
     let basePrice = 0;
-    const sizePick = document.querySelector('input[name="mod-size-pick"]:checked')?.value || 'Regular';
 
-    if (currentModalItem.prices) {
-        const sizeKey = (sizePick === 'Large' || sizePick === 'L') ? 'L' : 'R';
-        basePrice = currentModalItem.prices[sizeKey] || currentModalItem.prices.R || currentModalItem.singlePrice || 15000;
+    if (isJJ) {
+        basePrice = currentModalItem.singlePrice || 15000;
+        const sizePick = document.querySelector('input[name="mod-size-pick"]:checked')?.value || 'Regular';
+        if (sizePick === 'Large' && currentModalItem.type === 'drink') {
+            basePrice += 6000;
+        }
+        const blendPick = document.querySelector('input[name="mod-jj-blend"]:checked')?.value;
+        if (blendPick === 'Jiwa Blend') {
+            basePrice += 4000;
+        }
+        let toppingTotal = 0;
+        document.querySelectorAll('.mod-jj-topping-chk:checked').forEach(() => {
+            toppingTotal += 6000;
+        });
+        modalPriceCache = basePrice + toppingTotal;
     } else {
-        const itemBase = currentModalItem.singlePrice || 15000;
-        basePrice = (sizePick === 'Large' && currentModalItem.type === 'drink') ? (itemBase + 7500) : itemBase;
+        const sizePick = document.querySelector('input[name="mod-size-pick"]:checked')?.value || 'Regular';
+        if (currentModalItem.prices) {
+            const sizeKey = (sizePick === 'Large' || sizePick === 'L') ? 'L' : 'R';
+            basePrice = currentModalItem.prices[sizeKey] || currentModalItem.prices.R || currentModalItem.singlePrice || 15000;
+        } else {
+            const itemBase = currentModalItem.singlePrice || 15000;
+            basePrice = (sizePick === 'Large' && currentModalItem.type === 'drink') ? (itemBase + 7500) : itemBase;
+        }
+
+        let addOnTotal = 0;
+        document.querySelectorAll('.mod-addons-chk:checked').forEach(() => {
+            addOnTotal += 7000;
+        });
+        modalPriceCache = basePrice + addOnTotal;
     }
 
-    let addOnTotal = 0;
-    document.querySelectorAll('.mod-addons-chk:checked').forEach(() => {
-        addOnTotal += 7000;
-    });
-
-    modalPriceCache = basePrice + addOnTotal;
     const priceEl = document.getElementById('modal-price');
     const btnPriceEl = document.getElementById('modal-btn-price');
     if (priceEl) priceEl.textContent = formatRp(modalPriceCache);
@@ -1274,11 +1822,19 @@ function updateModalPrice() {
 }
 
 function openModal(itemId, editIndex = null) {
-    const item = allMenu.find(m => String(m.id) === String(itemId));
+    let item = allMenu.find(m => String(m.id) === String(itemId));
+    if (!item && allJanjiJiwaMenu) {
+        item = allJanjiJiwaMenu.find(m => String(m.id) === String(itemId));
+    }
+    if (!item && allKopkenMenu) {
+        item = allKopkenMenu.find(m => String(m.id) === String(itemId));
+    }
     if (!item) return;
 
     currentModalItem = item;
     editingCartIndex = editIndex;
+    const isJJ = (item.brand === 'Janji Jiwa') || (currentActiveBrand === 'janji-jiwa');
+
     const titleEl = document.getElementById('modal-title');
     const labelEl = document.getElementById('modal-btn-label');
     if (titleEl) titleEl.textContent = item.name;
@@ -1288,141 +1844,307 @@ function openModal(itemId, editIndex = null) {
     if (!optionsContainer) return;
     optionsContainer.innerHTML = '';
 
-    if (item.type === 'bundling') {
-        let html = `<label class="block text-xs font-bold mb-1.5">Pilih Kombinasi Varian <span class="text-red-500">*</span></label>
-                    <select id="mod-bundle-sel" class="w-full p-2.5 rounded-xl border border-gray-200 bg-gray-50 focus:ring-kenangan-primary text-xs outline-none font-medium">`;
-        (item.opts || ['Paket Default']).forEach(opt => {
-            html += `<option value="${opt}">${opt}</option>`;
-        });
-        html += `</select>`;
-        optionsContainer.innerHTML = html;
-    } else if (item.type === 'drink') {
-        optionsContainer.innerHTML = `
-            <div class="space-y-4">
-                <div style="background-color: #FFFDF8;" class="flex items-center justify-between p-3 rounded-2xl border border-[#FDE68A] shadow-xs">
-                    <div class="flex items-center gap-2">
-                        <i class="fa-regular fa-star text-amber-700 text-xs"></i>
-                        <div>
-                            <span class="text-xs font-extrabold text-stone-900 block leading-tight">Racikan Pas (Favorit)</span>
-                            <span class="text-[11px] text-stone-600">Ice Normal, Less Sugar 70% (Manis pas)</span>
-                        </div>
-                    </div>
-                    <button type="button" onclick="applyRacikanPas()" class="px-3 py-1.5 rounded-xl bg-[#9C4221] hover:bg-[#85361A] text-white font-extrabold text-xs shadow-xs transition active:scale-95 cursor-pointer">
-                        Terapkan
-                    </button>
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold text-stone-900 mb-1.5">Penyajian <span class="text-rose-500">*</span></label>
-                    <div class="grid grid-cols-2 gap-2">
-                        <label class="relative cursor-pointer">
-                            <input type="radio" name="mod-temp" id="mod-temp-ice" value="Ice" class="peer sr-only" checked onchange="toggleIceOptions()">
-                            <div class="rounded-xl border border-stone-200 bg-stone-50 py-2.5 px-3 text-center transition-all hover:bg-stone-100 peer-checked:border-stone-900 peer-checked:bg-stone-900 peer-checked:text-white text-stone-700 font-bold text-xs shadow-xs">
-                                <i class="fas fa-snowflake mr-1"></i> Iced
-                            </div>
-                        </label>
-                        <label class="relative cursor-pointer">
-                            <input type="radio" name="mod-temp" id="mod-temp-hot" value="Hot" class="peer sr-only" onchange="toggleIceOptions()">
-                            <div class="rounded-xl border border-stone-200 bg-stone-50 py-2.5 px-3 text-center transition-all hover:bg-stone-100 peer-checked:border-stone-900 peer-checked:bg-stone-900 peer-checked:text-white text-stone-700 font-bold text-xs shadow-xs">
-                                <i class="fas fa-mug-hot mr-1"></i> Hot
-                            </div>
-                        </label>
-                    </div>
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold text-stone-900 mb-1.5">Ukuran Cup <span class="text-rose-500">*</span></label>
-                    <div class="grid grid-cols-2 gap-2">
-                        <label class="relative cursor-pointer">
-                            <input type="radio" name="mod-size-pick" id="mod-size-reg" value="Regular" class="peer sr-only" checked onchange="updateModalPrice()">
-                            <div class="rounded-xl border border-stone-200 bg-stone-50 py-2.5 px-3 text-center transition-all hover:bg-stone-100 peer-checked:border-stone-900 peer-checked:bg-stone-900 peer-checked:text-white text-stone-700 font-bold text-xs shadow-xs">
-                                Regular
-                            </div>
-                        </label>
-                        <label class="relative cursor-pointer">
-                            <input type="radio" name="mod-size-pick" id="mod-size-lrg" value="Large" class="peer sr-only" onchange="updateModalPrice()">
-                            <div class="rounded-xl border border-stone-200 bg-stone-50 py-2.5 px-3 text-center transition-all hover:bg-stone-100 peer-checked:border-stone-900 peer-checked:bg-stone-900 peer-checked:text-white text-stone-700 font-bold text-xs shadow-xs">
-                                Large (+Rp 7.500)
-                            </div>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="space-y-3 bg-stone-50/80 p-3.5 rounded-2xl border border-stone-200">
+    if (isJJ) {
+        if (item.type === 'bundling') {
+            let html = `<label class="block text-xs font-bold mb-1.5 text-stone-900">Pilih Paket Kombinasi <span class="text-rose-500">*</span></label>
+                        <select id="mod-bundle-sel" class="w-full p-2.5 rounded-xl border border-stone-200 bg-stone-50 focus:ring-1 focus:ring-stone-900 text-xs outline-none font-medium">`;
+            (item.opts || ['Paket Bundling Default']).forEach(opt => {
+                html += `<option value="${opt}">${opt}</option>`;
+            });
+            html += `</select>`;
+            optionsContainer.innerHTML = html;
+        } else if (item.type === 'toast') {
+            optionsContainer.innerHTML = `
+                <div class="space-y-3.5">
                     <div>
-                        <label class="block text-[10px] font-bold mb-1.5 text-stone-600 uppercase tracking-wider">Level Gula</label>
-                        <div class="grid grid-cols-3 gap-2">
-                            <label class="cursor-pointer">
-                                <input type="radio" name="mod-sugar" id="mod-sugar-norm" value="Normal Sugar" class="peer sr-only" checked>
-                                <div class="rounded-xl border border-stone-200 bg-white py-1.5 text-center text-xs transition-all peer-checked:bg-stone-900 peer-checked:text-white peer-checked:border-stone-900 text-stone-700 font-bold shadow-xs hover:bg-stone-100">Normal</div>
+                        <label class="block text-xs font-bold text-stone-900 mb-1.5">Penyajian Toast <span class="text-rose-500">*</span></label>
+                        <div class="grid grid-cols-2 gap-2">
+                            <label class="relative cursor-pointer">
+                                <input type="radio" name="mod-jj-toast-warm" value="Dipanggang Hangat" class="peer sr-only" checked>
+                                <div class="rounded-xl border border-stone-200 bg-stone-50 py-2.5 px-3 text-center transition-all hover:bg-stone-100 peer-checked:border-stone-900 peer-checked:bg-stone-900 peer-checked:text-white text-stone-700 font-bold text-xs shadow-xs">
+                                    <i class="fas fa-fire-burner mr-1"></i> Dipanggang Hangat
+                                </div>
                             </label>
-                            <label class="cursor-pointer">
-                                <input type="radio" name="mod-sugar" id="mod-sugar-less" value="Less Sugar" class="peer sr-only">
-                                <div class="rounded-xl border border-stone-200 bg-white py-1.5 text-center text-xs transition-all peer-checked:bg-stone-900 peer-checked:text-white peer-checked:border-stone-900 text-stone-700 font-bold shadow-xs hover:bg-stone-100">Less (70%)</div>
-                            </label>
-                            <label class="cursor-pointer">
-                                <input type="radio" name="mod-sugar" id="mod-sugar-zero" value="No Sugar" class="peer sr-only">
-                                <div class="rounded-xl border border-stone-200 bg-white py-1.5 text-center text-xs transition-all peer-checked:bg-stone-900 peer-checked:text-white peer-checked:border-stone-900 text-stone-700 font-bold shadow-xs hover:bg-stone-100">No Sugar</div>
-                            </label>
-                        </div>
-                    </div>
-                    
-                    <div id="ice-level-container">
-                        <label class="block text-[10px] font-bold mb-1.5 text-stone-600 uppercase tracking-wider">Level Es</label>
-                        <div class="grid grid-cols-3 gap-2">
-                            <label class="cursor-pointer">
-                                <input type="radio" name="mod-ice" id="mod-ice-norm" value="Normal Ice" class="peer sr-only" checked>
-                                <div class="rounded-xl border border-stone-200 bg-white py-1.5 text-center text-xs transition-all peer-checked:bg-stone-900 peer-checked:text-white peer-checked:border-stone-900 text-stone-700 font-bold shadow-xs hover:bg-stone-100">Normal</div>
-                            </label>
-                            <label class="cursor-pointer">
-                                <input type="radio" name="mod-ice" id="mod-ice-less" value="Less Ice" class="peer sr-only">
-                                <div class="rounded-xl border border-stone-200 bg-white py-1.5 text-center text-xs transition-all peer-checked:bg-stone-900 peer-checked:text-white peer-checked:border-stone-900 text-stone-700 font-bold shadow-xs hover:bg-stone-100">Less</div>
-                            </label>
-                            <label class="cursor-pointer">
-                                <input type="radio" name="mod-ice" id="mod-ice-extra" value="Extra Ice" class="peer sr-only">
-                                <div class="rounded-xl border border-stone-200 bg-white py-1.5 text-center text-xs transition-all peer-checked:bg-stone-900 peer-checked:text-white peer-checked:border-stone-900 text-stone-700 font-bold shadow-xs hover:bg-stone-100">Extra</div>
+                            <label class="relative cursor-pointer">
+                                <input type="radio" name="mod-jj-toast-warm" value="Standard" class="peer sr-only">
+                                <div class="rounded-xl border border-stone-200 bg-stone-50 py-2.5 px-3 text-center transition-all hover:bg-stone-100 peer-checked:border-stone-900 peer-checked:bg-stone-900 peer-checked:text-white text-stone-700 font-bold text-xs shadow-xs">
+                                    Standard
+                                </div>
                             </label>
                         </div>
                     </div>
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold text-stone-900 mb-1.5">Extra Topping (+Rp 7.000)</label>
-                    <div class="grid grid-cols-1 gap-1.5 max-h-32 overflow-y-auto pr-1">
-                        ${addOnToppings.map(t => `
-                            <label class="flex items-center gap-2 p-2.5 border border-stone-200 rounded-xl bg-white shadow-xs cursor-pointer text-xs font-semibold text-stone-800 hover:border-stone-300">
-                                <input type="checkbox" value="Topping ${t}" onchange="updateModalPrice()" class="mod-addons-chk accent-stone-900 w-4 h-4 rounded"> 
-                                ${t}
+                    <div>
+                        <label class="block text-xs font-bold text-stone-900 mb-1.5">Potongan Toast <span class="text-rose-500">*</span></label>
+                        <div class="grid grid-cols-2 gap-2">
+                            <label class="relative cursor-pointer">
+                                <input type="radio" name="mod-jj-toast-cut" value="Utuh" class="peer sr-only" checked>
+                                <div class="rounded-xl border border-stone-200 bg-stone-50 py-2.5 px-3 text-center transition-all hover:bg-stone-100 peer-checked:border-stone-900 peer-checked:bg-stone-900 peer-checked:text-white text-stone-700 font-bold text-xs shadow-xs">
+                                    Utuh
+                                </div>
                             </label>
-                        `).join('')}
+                            <label class="relative cursor-pointer">
+                                <input type="radio" name="mod-jj-toast-cut" value="Potong 2 Bagian" class="peer sr-only">
+                                <div class="rounded-xl border border-stone-200 bg-stone-50 py-2.5 px-3 text-center transition-all hover:bg-stone-100 peer-checked:border-stone-900 peer-checked:bg-stone-900 peer-checked:text-white text-stone-700 font-bold text-xs shadow-xs">
+                                    <i class="fas fa-scissors mr-1"></i> Potong Jadi 2
+                                </div>
+                            </label>
+                        </div>
                     </div>
                 </div>
-
-                <div>
-                    <label class="block text-xs font-bold text-stone-900 mb-1.5">Extra Syrup (+Rp 7.000)</label>
-                    <div class="grid grid-cols-1 gap-1.5 max-h-32 overflow-y-auto pr-1">
-                        ${addOnSyrups.map(s => `
-                            <label class="flex items-center gap-2 p-2.5 border border-stone-200 rounded-xl bg-white shadow-xs cursor-pointer text-xs font-semibold text-stone-800 hover:border-stone-300">
-                                <input type="checkbox" value="Syrup ${s}" onchange="updateModalPrice()" class="mod-addons-chk accent-stone-900 w-4 h-4 rounded"> 
-                                ${s}
+            `;
+        } else {
+            // Drink Janji Jiwa
+            optionsContainer.innerHTML = `
+                <div class="space-y-3.5">
+                    <div>
+                        <label class="block text-xs font-bold text-stone-900 mb-1.5">Penyajian <span class="text-rose-500">*</span></label>
+                        <div class="grid grid-cols-2 gap-2">
+                            <label class="relative cursor-pointer">
+                                <input type="radio" name="mod-temp" id="mod-temp-ice" value="Ice" class="peer sr-only" checked onchange="toggleIceOptions()">
+                                <div class="rounded-xl border border-stone-200 bg-stone-50 py-2.5 px-3 text-center transition-all hover:bg-stone-100 peer-checked:border-stone-900 peer-checked:bg-stone-900 peer-checked:text-white text-stone-700 font-bold text-xs shadow-xs">
+                                    <i class="fas fa-snowflake mr-1"></i> Iced
+                                </div>
                             </label>
-                        `).join('')}
+                            <label class="relative cursor-pointer">
+                                <input type="radio" name="mod-temp" id="mod-temp-hot" value="Hot" class="peer sr-only" onchange="toggleIceOptions()">
+                                <div class="rounded-xl border border-stone-200 bg-stone-50 py-2.5 px-3 text-center transition-all hover:bg-stone-100 peer-checked:border-stone-900 peer-checked:bg-stone-900 peer-checked:text-white text-stone-700 font-bold text-xs shadow-xs">
+                                    <i class="fas fa-mug-hot mr-1"></i> Hot
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-stone-900 mb-1.5">Ukuran Cup <span class="text-rose-500">*</span></label>
+                        <div class="grid grid-cols-2 gap-2">
+                            <label class="relative cursor-pointer">
+                                <input type="radio" name="mod-size-pick" id="mod-size-reg" value="Regular" class="peer sr-only" checked onchange="updateModalPrice()">
+                                <div class="rounded-xl border border-stone-200 bg-stone-50 py-2.5 px-3 text-center transition-all hover:bg-stone-100 peer-checked:border-stone-900 peer-checked:bg-stone-900 peer-checked:text-white text-stone-700 font-bold text-xs shadow-xs">
+                                    Regular
+                                </div>
+                            </label>
+                            <label class="relative cursor-pointer">
+                                <input type="radio" name="mod-size-pick" id="mod-size-lrg" value="Large" class="peer sr-only" onchange="updateModalPrice()">
+                                <div class="rounded-xl border border-stone-200 bg-stone-50 py-2.5 px-3 text-center transition-all hover:bg-stone-100 peer-checked:border-stone-900 peer-checked:bg-stone-900 peer-checked:text-white text-stone-700 font-bold text-xs shadow-xs">
+                                    Large (+Rp 6.000)
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-stone-900 mb-1.5">Pilihan Blend Biji Kopi <span class="text-rose-500">*</span></label>
+                        <div class="grid grid-cols-2 gap-2">
+                            <label class="relative cursor-pointer">
+                                <input type="radio" name="mod-jj-blend" value="Regular Blend" class="peer sr-only" checked onchange="updateModalPrice()">
+                                <div class="rounded-xl border border-stone-200 bg-stone-50 py-2.5 px-3 text-center transition-all hover:bg-stone-100 peer-checked:border-stone-900 peer-checked:bg-stone-900 peer-checked:text-white text-stone-700 font-bold text-xs shadow-xs">
+                                    Regular Blend
+                                </div>
+                            </label>
+                            <label class="relative cursor-pointer">
+                                <input type="radio" name="mod-jj-blend" value="Jiwa Blend" class="peer sr-only" onchange="updateModalPrice()">
+                                <div class="rounded-xl border border-stone-200 bg-stone-50 py-2.5 px-3 text-center transition-all hover:bg-stone-100 peer-checked:border-stone-900 peer-checked:bg-stone-900 peer-checked:text-white text-stone-700 font-bold text-xs shadow-xs">
+                                    Jiwa Blend (+Rp 4.000)
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 bg-stone-50/80 p-3.5 rounded-2xl border border-stone-200">
+                        <div>
+                            <label class="block text-[10px] font-bold mb-1.5 text-stone-600 uppercase tracking-wider">Level Gula</label>
+                            <div class="grid grid-cols-3 gap-2">
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="mod-sugar" id="mod-sugar-norm" value="Normal Sugar" class="peer sr-only" checked>
+                                    <div class="rounded-xl border border-stone-200 bg-white py-1.5 text-center text-xs transition-all peer-checked:bg-stone-900 peer-checked:text-white peer-checked:border-stone-900 text-stone-700 font-bold shadow-xs hover:bg-stone-100">Normal</div>
+                                </label>
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="mod-sugar" id="mod-sugar-less" value="Less Sugar" class="peer sr-only">
+                                    <div class="rounded-xl border border-stone-200 bg-white py-1.5 text-center text-xs transition-all peer-checked:bg-stone-900 peer-checked:text-white peer-checked:border-stone-900 text-stone-700 font-bold shadow-xs hover:bg-stone-100">Less (70%)</div>
+                                </label>
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="mod-sugar" id="mod-sugar-zero" value="No Sugar" class="peer sr-only">
+                                    <div class="rounded-xl border border-stone-200 bg-white py-1.5 text-center text-xs transition-all peer-checked:bg-stone-900 peer-checked:text-white peer-checked:border-stone-900 text-stone-700 font-bold shadow-xs hover:bg-stone-100">No Sugar</div>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div id="ice-level-container">
+                            <label class="block text-[10px] font-bold mb-1.5 text-stone-600 uppercase tracking-wider">Level Es</label>
+                            <div class="grid grid-cols-3 gap-2">
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="mod-ice" id="mod-ice-norm" value="Normal Ice" class="peer sr-only" checked>
+                                    <div class="rounded-xl border border-stone-200 bg-white py-1.5 text-center text-xs transition-all peer-checked:bg-stone-900 peer-checked:text-white peer-checked:border-stone-900 text-stone-700 font-bold shadow-xs hover:bg-stone-100">Normal</div>
+                                </label>
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="mod-ice" id="mod-ice-less" value="Less Ice" class="peer sr-only">
+                                    <div class="rounded-xl border border-stone-200 bg-white py-1.5 text-center text-xs transition-all peer-checked:bg-stone-900 peer-checked:text-white peer-checked:border-stone-900 text-stone-700 font-bold shadow-xs hover:bg-stone-100">Less</div>
+                                </label>
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="mod-ice" id="mod-ice-zero" value="No Ice" class="peer sr-only">
+                                    <div class="rounded-xl border border-stone-200 bg-white py-1.5 text-center text-xs transition-all peer-checked:bg-stone-900 peer-checked:text-white peer-checked:border-stone-900 text-stone-700 font-bold shadow-xs hover:bg-stone-100">No Ice</div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-stone-900 mb-1.5">Extra Topping (+Rp 6.000)</label>
+                        <div class="grid grid-cols-1 gap-1.5 max-h-32 overflow-y-auto pr-1">
+                            <label class="flex items-center gap-2 p-2.5 border border-stone-200 rounded-xl bg-white shadow-xs cursor-pointer text-xs font-semibold text-stone-800 hover:border-stone-300">
+                                <input type="checkbox" value="Extra Shot" onchange="updateModalPrice()" class="mod-jj-topping-chk accent-stone-900 w-4 h-4 rounded"> 
+                                Extra Shot (+Rp 6.000)
+                            </label>
+                            <label class="flex items-center gap-2 p-2.5 border border-stone-200 rounded-xl bg-white shadow-xs cursor-pointer text-xs font-semibold text-stone-800 hover:border-stone-300">
+                                <input type="checkbox" value="Coco Jelly" onchange="updateModalPrice()" class="mod-jj-topping-chk accent-stone-900 w-4 h-4 rounded"> 
+                                Coco Jelly (+Rp 6.000)
+                            </label>
+                            <label class="flex items-center gap-2 p-2.5 border border-stone-200 rounded-xl bg-white shadow-xs cursor-pointer text-xs font-semibold text-stone-800 hover:border-stone-300">
+                                <input type="checkbox" value="Extra Shot Jiwa" onchange="updateModalPrice()" class="mod-jj-topping-chk accent-stone-900 w-4 h-4 rounded"> 
+                                Extra Shot Jiwa (+Rp 6.000)
+                            </label>
+                        </div>
                     </div>
                 </div>
-            </div>
-        `;
+            `;
+        }
     } else {
-        optionsContainer.innerHTML = `
-            <div class="bg-stone-100 p-3 rounded-2xl border border-stone-200 text-xs text-stone-800 font-medium">
-                <i class="fas fa-bread-slice mr-1 text-terracotta"></i> Varian Makanan & Bakery siap santap.
-            </div>
-        `;
+        if (item.type === 'bundling') {
+            let html = `<label class="block text-xs font-bold mb-1.5">Pilih Kombinasi Varian <span class="text-red-500">*</span></label>
+                        <select id="mod-bundle-sel" class="w-full p-2.5 rounded-xl border border-gray-200 bg-gray-50 focus:ring-kenangan-primary text-xs outline-none font-medium">`;
+            (item.opts || ['Paket Default']).forEach(opt => {
+                html += `<option value="${opt}">${opt}</option>`;
+            });
+            html += `</select>`;
+            optionsContainer.innerHTML = html;
+        } else if (item.type === 'drink') {
+            optionsContainer.innerHTML = `
+                <div class="space-y-4">
+                    <div style="background-color: #FFFDF8;" class="flex items-center justify-between p-3 rounded-2xl border border-[#FDE68A] shadow-xs">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-regular fa-star text-amber-700 text-xs"></i>
+                            <div>
+                                <span class="text-xs font-extrabold text-stone-900 block leading-tight">Racikan Pas (Favorit)</span>
+                                <span class="text-[11px] text-stone-600">Ice Normal, Less Sugar 70% (Manis pas)</span>
+                            </div>
+                        </div>
+                        <button type="button" onclick="applyRacikanPas()" class="px-3 py-1.5 rounded-xl bg-[#9C4221] hover:bg-[#85361A] text-white font-extrabold text-xs shadow-xs transition active:scale-95 cursor-pointer">
+                            Terapkan
+                        </button>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-stone-900 mb-1.5">Penyajian <span class="text-rose-500">*</span></label>
+                        <div class="grid grid-cols-2 gap-2">
+                            <label class="relative cursor-pointer">
+                                <input type="radio" name="mod-temp" id="mod-temp-ice" value="Ice" class="peer sr-only" checked onchange="toggleIceOptions()">
+                                <div class="rounded-xl border border-stone-200 bg-stone-50 py-2.5 px-3 text-center transition-all hover:bg-stone-100 peer-checked:border-stone-900 peer-checked:bg-stone-900 peer-checked:text-white text-stone-700 font-bold text-xs shadow-xs">
+                                    <i class="fas fa-snowflake mr-1"></i> Iced
+                                </div>
+                            </label>
+                            <label class="relative cursor-pointer">
+                                <input type="radio" name="mod-temp" id="mod-temp-hot" value="Hot" class="peer sr-only" onchange="toggleIceOptions()">
+                                <div class="rounded-xl border border-stone-200 bg-stone-50 py-2.5 px-3 text-center transition-all hover:bg-stone-100 peer-checked:border-stone-900 peer-checked:bg-stone-900 peer-checked:text-white text-stone-700 font-bold text-xs shadow-xs">
+                                    <i class="fas fa-mug-hot mr-1"></i> Hot
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-stone-900 mb-1.5">Ukuran Cup <span class="text-rose-500">*</span></label>
+                        <div class="grid grid-cols-2 gap-2">
+                            <label class="relative cursor-pointer">
+                                <input type="radio" name="mod-size-pick" id="mod-size-reg" value="Regular" class="peer sr-only" checked onchange="updateModalPrice()">
+                                <div class="rounded-xl border border-stone-200 bg-stone-50 py-2.5 px-3 text-center transition-all hover:bg-stone-100 peer-checked:border-stone-900 peer-checked:bg-stone-900 peer-checked:text-white text-stone-700 font-bold text-xs shadow-xs">
+                                    Regular
+                                </div>
+                            </label>
+                            <label class="relative cursor-pointer">
+                                <input type="radio" name="mod-size-pick" id="mod-size-lrg" value="Large" class="peer sr-only" onchange="updateModalPrice()">
+                                <div class="rounded-xl border border-stone-200 bg-stone-50 py-2.5 px-3 text-center transition-all hover:bg-stone-100 peer-checked:border-stone-900 peer-checked:bg-stone-900 peer-checked:text-white text-stone-700 font-bold text-xs shadow-xs">
+                                    Large (+Rp 7.500)
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 bg-stone-50/80 p-3.5 rounded-2xl border border-stone-200">
+                        <div>
+                            <label class="block text-[10px] font-bold mb-1.5 text-stone-600 uppercase tracking-wider">Level Gula</label>
+                            <div class="grid grid-cols-3 gap-2">
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="mod-sugar" id="mod-sugar-norm" value="Normal Sugar" class="peer sr-only" checked>
+                                    <div class="rounded-xl border border-stone-200 bg-white py-1.5 text-center text-xs transition-all peer-checked:bg-stone-900 peer-checked:text-white peer-checked:border-stone-900 text-stone-700 font-bold shadow-xs hover:bg-stone-100">Normal</div>
+                                </label>
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="mod-sugar" id="mod-sugar-less" value="Less Sugar" class="peer sr-only">
+                                    <div class="rounded-xl border border-stone-200 bg-white py-1.5 text-center text-xs transition-all peer-checked:bg-stone-900 peer-checked:text-white peer-checked:border-stone-900 text-stone-700 font-bold shadow-xs hover:bg-stone-100">Less (70%)</div>
+                                </label>
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="mod-sugar" id="mod-sugar-zero" value="No Sugar" class="peer sr-only">
+                                    <div class="rounded-xl border border-stone-200 bg-white py-1.5 text-center text-xs transition-all peer-checked:bg-stone-900 peer-checked:text-white peer-checked:border-stone-900 text-stone-700 font-bold shadow-xs hover:bg-stone-100">No Sugar</div>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div id="ice-level-container">
+                            <label class="block text-[10px] font-bold mb-1.5 text-stone-600 uppercase tracking-wider">Level Es</label>
+                            <div class="grid grid-cols-3 gap-2">
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="mod-ice" id="mod-ice-norm" value="Normal Ice" class="peer sr-only" checked>
+                                    <div class="rounded-xl border border-stone-200 bg-white py-1.5 text-center text-xs transition-all peer-checked:bg-stone-900 peer-checked:text-white peer-checked:border-stone-900 text-stone-700 font-bold shadow-xs hover:bg-stone-100">Normal</div>
+                                </label>
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="mod-ice" id="mod-ice-less" value="Less Ice" class="peer sr-only">
+                                    <div class="rounded-xl border border-stone-200 bg-white py-1.5 text-center text-xs transition-all peer-checked:bg-stone-900 peer-checked:text-white peer-checked:border-stone-900 text-stone-700 font-bold shadow-xs hover:bg-stone-100">Less</div>
+                                </label>
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="mod-ice" id="mod-ice-extra" value="Extra Ice" class="peer sr-only">
+                                    <div class="rounded-xl border border-stone-200 bg-white py-1.5 text-center text-xs transition-all peer-checked:bg-stone-900 peer-checked:text-white peer-checked:border-stone-900 text-stone-700 font-bold shadow-xs hover:bg-stone-100">Extra</div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-stone-900 mb-1.5">Extra Topping (+Rp 7.000)</label>
+                        <div class="grid grid-cols-1 gap-1.5 max-h-32 overflow-y-auto pr-1">
+                            ${addOnToppings.map(t => `
+                                <label class="flex items-center gap-2 p-2.5 border border-stone-200 rounded-xl bg-white shadow-xs cursor-pointer text-xs font-semibold text-stone-800 hover:border-stone-300">
+                                    <input type="checkbox" value="Topping ${t}" onchange="updateModalPrice()" class="mod-addons-chk accent-stone-900 w-4 h-4 rounded"> 
+                                    ${t}
+                                </label>
+                            `).join('')}
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-stone-900 mb-1.5">Extra Syrup (+Rp 7.000)</label>
+                        <div class="grid grid-cols-1 gap-1.5 max-h-32 overflow-y-auto pr-1">
+                            ${addOnSyrups.map(s => `
+                                <label class="flex items-center gap-2 p-2.5 border border-stone-200 rounded-xl bg-white shadow-xs cursor-pointer text-xs font-semibold text-stone-800 hover:border-stone-300">
+                                    <input type="checkbox" value="Syrup ${s}" onchange="updateModalPrice()" class="mod-addons-chk accent-stone-900 w-4 h-4 rounded"> 
+                                    ${s}
+                                </label>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+        } else {
+            optionsContainer.innerHTML = `
+                <div class="bg-stone-100 p-3 rounded-2xl border border-stone-200 text-xs text-stone-800 font-medium">
+                    <i class="fas fa-bread-slice mr-1 text-terracotta"></i> Varian Makanan & Bakery siap santap.
+                </div>
+            `;
+        }
     }
 
     optionsContainer.innerHTML += `
         <div class="mt-3">
-            <label class="block text-xs font-bold text-stone-900 mb-1">Catatan Racikan Khusus (Opsional)</label>
-            <input type="text" id="mod-note" placeholder="Misal: ekstra shot / minta dipanaskan" class="w-full p-3 rounded-xl border border-[#E7E5E4] bg-white text-xs outline-none focus:ring-1 focus:ring-stone-900 transition text-stone-900 placeholder:text-stone-400 font-medium">
+            <label class="block text-xs font-bold text-stone-900 mb-1">Catatan Racikan Khusus (Maks. 50 Karakter)</label>
+            <input type="text" id="mod-note" maxlength="50" placeholder="Misal: ekstra shot / minta dipanaskan" class="w-full p-3 rounded-xl border border-[#E7E5E4] bg-white text-xs outline-none focus:ring-1 focus:ring-stone-900 transition text-stone-900 placeholder:text-stone-400 font-medium">
         </div>
     `;
 
@@ -1442,35 +2164,88 @@ function openModal(itemId, editIndex = null) {
 
 function addToCartFromModal() {
     if (!currentModalItem) return;
-    const itemName = currentModalItem.name;
+    const isJJ = (currentModalItem.brand === 'Janji Jiwa') || (currentActiveBrand === 'janji-jiwa');
+    const itemBrand = isJJ ? 'Janji Jiwa' : 'Kopi Kenangan';
     let details = [];
     let chosenPrice = modalPriceCache;
 
-    if (currentModalItem.type === 'bundling') {
-        details.push(document.getElementById('mod-bundle-sel').value);
-    } else if (currentModalItem.type === 'drink') {
-        const temp = document.querySelector('input[name="mod-temp"]:checked')?.value || 'Ice';
-        const sizePick = document.querySelector('input[name="mod-size-pick"]:checked')?.value || 'Regular';
-        const sugar = document.querySelector('input[name="mod-sugar"]:checked')?.value || 'Normal Sugar';
-        
-        details.push(temp);
-        details.push(sizePick);
-        if (sugar !== 'Normal Sugar') details.push(sugar);
-        if (temp === 'Ice') {
-            const ice = document.querySelector('input[name="mod-ice"]:checked')?.value || 'Normal Ice';
-            if (ice !== 'Normal Ice') details.push(ice);
+    if (isJJ) {
+        if (currentModalItem.type === 'bundling') {
+            const bVal = document.getElementById('mod-bundle-sel')?.value;
+            if (bVal) details.push(bVal);
+        } else if (currentModalItem.type === 'toast') {
+            const warm = document.querySelector('input[name="mod-jj-toast-warm"]:checked')?.value || 'Dipanggang Hangat';
+            const cut = document.querySelector('input[name="mod-jj-toast-cut"]:checked')?.value || 'Utuh';
+            details.push(warm);
+            details.push(cut);
+        } else {
+            const temp = document.querySelector('input[name="mod-temp"]:checked')?.value || 'Ice';
+            const sizePick = document.querySelector('input[name="mod-size-pick"]:checked')?.value || 'Regular';
+            const blend = document.querySelector('input[name="mod-jj-blend"]:checked')?.value || 'Regular Blend';
+            const sugar = document.querySelector('input[name="mod-sugar"]:checked')?.value || 'Normal Sugar';
+            
+            details.push(temp);
+            details.push(sizePick);
+            if (blend !== 'Regular Blend') details.push(blend);
+            if (sugar !== 'Normal Sugar') details.push(sugar);
+            if (temp === 'Ice') {
+                const ice = document.querySelector('input[name="mod-ice"]:checked')?.value || 'Normal Ice';
+                if (ice !== 'Normal Ice') details.push(ice);
+            }
+            document.querySelectorAll('.mod-jj-topping-chk:checked').forEach(chk => {
+                details.push(chk.value);
+            });
         }
-        document.querySelectorAll('.mod-addons-chk:checked').forEach(chk => {
-            details.push(chk.value);
-        });
+    } else {
+        if (currentModalItem.type === 'bundling') {
+            details.push(document.getElementById('mod-bundle-sel').value);
+        } else if (currentModalItem.type === 'drink') {
+            const temp = document.querySelector('input[name="mod-temp"]:checked')?.value || 'Ice';
+            const sizePick = document.querySelector('input[name="mod-size-pick"]:checked')?.value || 'Regular';
+            const sugar = document.querySelector('input[name="mod-sugar"]:checked')?.value || 'Normal Sugar';
+            
+            details.push(temp);
+            details.push(sizePick);
+            if (sugar !== 'Normal Sugar') details.push(sugar);
+            if (temp === 'Ice') {
+                const ice = document.querySelector('input[name="mod-ice"]:checked')?.value || 'Normal Ice';
+                if (ice !== 'Normal Ice') details.push(ice);
+            }
+            document.querySelectorAll('.mod-addons-chk:checked').forEach(chk => {
+                details.push(chk.value);
+            });
+        }
     }
 
-    const note = document.getElementById('mod-note')?.value || '';
+    const note = (document.getElementById('mod-note')?.value || '').trim().slice(0, 50);
 
+    // Cart Isolation Guard: Jangan gabungkan brand berbeda dalam satu pesanan
+    if (editingCartIndex === null && cart && cart.length > 0) {
+        const existingBrand = cart[0].brand || 'Kopi Kenangan';
+        if (existingBrand !== itemBrand) {
+            openCartConflictModal(existingBrand, itemBrand, () => {
+                cart = [];
+                try {
+                    localStorage.setItem("bintang_cart", JSON.stringify(cart));
+                    localStorage.setItem("cart", JSON.stringify(cart));
+                } catch(e) {}
+                updateCartUI();
+                finalizeAddToCart(itemBrand, chosenPrice, details, note);
+            });
+            return;
+        }
+    }
+
+    finalizeAddToCart(itemBrand, chosenPrice, details, note);
+}
+
+function finalizeAddToCart(itemBrand, chosenPrice, details, note) {
+    const itemName = currentModalItem.name;
     if (editingCartIndex !== null) {
         cart[editingCartIndex] = {
             item: currentModalItem,
             name: currentModalItem.name,
+            brand: itemBrand,
             details: details.join(', '),
             note: note,
             price: chosenPrice,
@@ -1481,6 +2256,7 @@ function addToCartFromModal() {
         cart.push({
             item: currentModalItem,
             name: currentModalItem.name,
+            brand: itemBrand,
             details: details.join(', '),
             note: note,
             price: chosenPrice,
@@ -1490,17 +2266,23 @@ function addToCartFromModal() {
         showToast(`<b>${itemName}</b><br>Berhasil masuk ke keranjang!`);
     }
 
-    // KUNCI PENYIMPANAN KE LOCALSTORAGE
     try {
         localStorage.setItem("bintang_cart", JSON.stringify(cart));
         localStorage.setItem("cart", JSON.stringify(cart));
-        localStorage.setItem("bintang_selected_outlet", JSON.stringify(selectedOutlet));
-        localStorage.setItem("selectedOutlet", JSON.stringify(selectedOutlet));
+        if (itemBrand === 'Janji Jiwa') {
+            localStorage.setItem("bintang_selected_jj_outlet", JSON.stringify(selectedOutlet));
+        } else {
+            localStorage.setItem("bintang_selected_outlet", JSON.stringify(selectedOutlet));
+            localStorage.setItem("selectedOutlet", JSON.stringify(selectedOutlet));
+        }
         localStorage.setItem("bintang_order_type", currentOrderType);
     } catch(e) {}
 
     closeModal();
     updateCartUI();
+    if (typeof updateCheckoutSheetTotals === 'function') {
+        updateCheckoutSheetTotals();
+    }
 }
 
 function closeModal(e) {
@@ -1667,7 +2449,6 @@ function openCustomRequestModal(keyword = '') {
 
 // Inisialisasi Aplikasi Utama
 document.addEventListener('DOMContentLoaded', async () => {
-    initWifiDisplay();
     checkNightHours();
     initSocialProofTicker();
     updateBusyStatusUI();
@@ -1676,7 +2457,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     initSupabaseRealtimeStatus();
     await fetchStoreAdminStatus();
     await loadDataFiles();
-    renderMenu();
+
+    // Routing parameter URL untuk brand pilihan (?brand=janji-jiwa)
+    const urlParams = new URLSearchParams(window.location.search);
+    const brandParam = urlParams.get('brand');
+    if (brandParam === 'janji-jiwa' || brandParam === 'jj' || window.location.hash === '#janji-jiwa') {
+        switchBrandTab('janji-jiwa');
+    } else {
+        renderMenu();
+    }
 
     try {
         const savedCart = localStorage.getItem("bintang_cart") || localStorage.getItem("cart");
@@ -1694,12 +2483,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         (viewKopken && (!document.getElementById('portal-tab-fnb') || !document.getElementById('portal-tab-fnb').innerHTML.trim()));
 
     if (isStandaloneKopken) {
-        // Halaman Khusus Kopi Kenangan (kopken.html / kopken/) - default selalu tampilkan menu katalog
+        // Halaman Khusus Coffee Hub (kopken.html / kopken/) - default selalu tampilkan menu katalog
         if (viewKopken) viewKopken.classList.remove('hidden');
         if (viewPortal) viewPortal.classList.add('hidden');
         renderMenu();
 
-        const hasSavedOutlet = localStorage.getItem("bintang_selected_outlet") || localStorage.getItem("selectedOutlet");
+        const hasSavedOutlet = (currentActiveBrand === 'janji-jiwa')
+            ? localStorage.getItem("bintang_selected_jj_outlet")
+            : (localStorage.getItem("bintang_selected_outlet") || localStorage.getItem("selectedOutlet"));
         const hasCartItems = cart && cart.length > 0;
 
         // Hanya buka popup jika belum pernah pilih cabang dan keranjang kosong
@@ -1930,29 +2721,6 @@ function clearOrderHistory() {
     showToast("Riwayat pesanan dibersihkan");
 }
 
-function initWifiDisplay() {
-    const pass = getDailyWifiPassword();
-    const wifiPassEl = document.getElementById('wifi-pass-text');
-    if (wifiPassEl) wifiPassEl.textContent = pass;
-}
-
-function toggleWifiModal(show) {
-    const modal = document.getElementById('modal-wifi');
-    if (!modal) return;
-    if (show) {
-        modal.classList.remove('hidden');
-        setTimeout(() => modal.classList.remove('opacity-0'), 10);
-    } else {
-        modal.classList.add('opacity-0');
-        setTimeout(() => modal.classList.add('hidden'), 250);
-    }
-}
-
-function copyWifiPass() {
-    const pass = document.getElementById('wifi-pass-text')?.textContent || '';
-    navigator.clipboard.writeText(pass);
-    showToast("Password WiFi berhasil disalin!");
-}
 
 function showToast(message) {
     const container = document.getElementById('toast-container');

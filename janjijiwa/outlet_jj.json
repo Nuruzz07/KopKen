@@ -1,0 +1,3314 @@
+[
+  {
+    "name": "Kopi Janji Jiwa, ITC Kuningan",
+    "address": "ITC Kuningan Lt. 4 Jembatan 1 Food Area"
+  },
+  {
+    "name": "Janji Jiwa, Jiwa Toast, Jiwa Tea & Joomba, Kedoya",
+    "address": "Jl. Kedoya Raya no 2 Kedoya Utara"
+  },
+  {
+    "name": "Janji Jiwa, Jiwa Toast, Jiwa Tea & Joomba , Citra 6",
+    "address": "Jl Raya Citra Garden 6 Ruko Sixth Avenue"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Ewalk Balikpapan",
+    "address": "Ewalk BSB Balikpapan, Lantai UG, Island C2A,Jl. Jenderal Sudirman, Gunung Bahagia, Balikpapan"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Food Plaza PIK",
+    "address": "Food Plaza PIK Unit FMA12"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Bogor Selatan",
+    "address": "Abadi Mobil, Jl. Tajur Raya No. 32, Bogor Selatan, Bogor"
+  },
+  {
+    "name": "Janji Jiwa, Jiwa Toast & Jiwa Tea, Senapelan",
+    "address": "Jl. Riau no: 98C Padang Terubuk - Senapelan, Pekanbaru"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Green Garden",
+    "address": "Jl. Arteri Raya Blok Y-3 / 11 Green Garden, Jakarta Barat"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Gloria Suites",
+    "address": "Area Parkir Gloria Suites Apartment, Jl. Kyai Tapa No. 215, Tomang, Jakarta"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Teras Kota",
+    "address": "Mall Teras Kota, Jl. Pahlawan Seribu CBD, Lot 7B, Serpong, Tangerang"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Lagoon Avenue",
+    "address": "Bekasi Motor Honda Wing, Jl. M. Hasibuan no: 3 Bekasi Timur"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Colombo",
+    "address": "Komplek Colombo No. 8A, Jl. Cendrawasih, Depok, Yogyakarta"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Salihara",
+    "address": "Jl. Salihara No. 6, Pasar Minggu, Jakarta"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Alam Sutera",
+    "address": "Ruko Alam Sutera Town Center Blok B/43 Jl. Alam Sutera Boulevard (sebelah BCA Alam Sutera)"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Ruko Frangfurt",
+    "address": "Ruko Frankfurt, Blok A No. 8, Jl. Boulevard Raya Gading Serpong, Serpong Utara, Tangerang"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Mall Nipah Makassar",
+    "address": "Jl, Urip Sumoharjo, Panakukkang, Makassar"
+  },
+  {
+    "name": "Kopi Janji Jiwa, BCS",
+    "address": "BCS Mall lantai 3. Blok D1 no: 2. Lubuk Baja Batam"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Gunung Nona Makassar",
+    "address": "Jl. Gunung Nona No, 48, Ujung Pandang, Makassar"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Puri Indah",
+    "address": "PX Pavilion, Lantai GF-01B Outdoor, Jl. Puri Indah Raya, Blok U1, Puri Indah, Jakarta"
+  },
+  {
+    "name": "Janji Jiwa, Jiwa Toast & Joomba, Saharjo",
+    "address": "Saharajo Kuliner Center Jakarta Selatan"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Poin Square",
+    "address": "Lebak Bulus Poins Square Shopping Mall, Ground Floor CT No. 53 & 55, Jl. R.A. Kartini No. 1 Lebak Bulus, Jakarta Selatan 12440"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Mendrisio",
+    "address": "Ruko Mendrisio 1 Blok D No 22, Jl. BSD Raya Utama, Medang Pagedangan, Gading Serpong, Tangerang, Banten 15334"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Muara Karang",
+    "address": "Jalan Muara Karang Raya no: 47 Jakarta Utara"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Ruko Jati Bening",
+    "address": "Jl. Kincan Raya No. 22 Jatibening Baru, Pondok Gede, Bekasi"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Letkol Iskandar",
+    "address": "Jl. Letkol Iskandar, 24 Ilir, Bukit Kecil, Palembang"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Jambi",
+    "address": "Jl. Sumantri Brojonegoro, Solok Sipin, Telanaipura, Jambi"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Living World Pekanbaru",
+    "address": "Living World Pekanbaru, Ground floor depan farmers market. Jl. Soekarno Hatta, Tangerang Barat - Marpoyan Damai, Pekanbaru"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Gedong Panjang",
+    "address": "Jl. Pejagalan Raya 62 Blok B No. 6 - 7, Kota, Jakarta"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Mall Daan Mogot",
+    "address": "Mall Daan Mogot, Lantai 2 . Jl. Tanah Lot No. 21, Daan Mogot, Jakarta"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Darmawangsa Square",
+    "address": "Jl. Darmawangsa 6, Darmawangsa, Jakarta"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Solo Paragon Mall",
+    "address": "Solo Paragon Mall, Lantai 1, Jl. Yosodipuro No. 133, Banjarsari, Surakarta"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Mall Sarinah Agus Salim",
+    "address": "Jl. H. Agus Salim No.60A, (sederet Glodok Elektronik) Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10350"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Pasar Lama Tangerang",
+    "address": "Jl. A Damyati No. 12 F, Kec. Tanggerang, Tanggerang"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Kuta Bali",
+    "address": "Senggol Nusantara, Jl. Tukad Badung No. 6B Renon, Denpasar, Bali"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Syech Yusuf",
+    "address": "Jl. Syech Yusuf no: 19-20 (Ruko belakang bank mandiri), Mandonga, Kendari"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Patimura",
+    "address": "Jl. Patimura no 24 Denpasar Bali"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Taman Jajan Bintaro",
+    "address": "Taman Jajan CBD Bintaro Sektor 7. Jl. Boulevard Bintaro Jaya, Pondok Aren Tangerang Selatan"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Plaza Kalibata",
+    "address": "Plaza Kalibata lantai Ground Jl. Kalibata Raya"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Cirebon Sutomo",
+    "address": "Jl. Sutomo no 2 Cirebon"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Grand Mahakam",
+    "address": "Kopi Janji Jiwa Ruko Grand Mahakam Blok D-18 Lt.1, Jalan Siradj Salman, Teluk Lerong Ilir, Samarinda 75128"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Radio Dalam",
+    "address": "Jl. Radio Dalam Raya no: 2, Gandaria Utara. Kebayoran Baru. Jakarta. 12140"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Hartono Mall Solo Baru",
+    "address": "Hartono Mall Solo Baru, Ground Floor, Jl. Ir Soekarno, Sukoharjo Kota, Sukoharjo"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Centre Point Mall",
+    "address": "Centre Point Mall, Lantai 3A, Jl. Jawa No. 8, Medan Timur, Medan"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Ruko Citra Gran",
+    "address": "Ruko Citra Gran Blok R-6 No. 9 - 10, JL. Alternatif Cibubur"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Modernland",
+    "address": "Ruko lakeshop no: 38. Jl. Pulau Putri Raya, Modernland, Kelapa Indah, Tangerang, 15117"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Banjarmasin Pramuka",
+    "address": "Jl. Pramuka No. 16B, Banjarmasin Timur, Banjarmasin"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Brigjen Katamso",
+    "address": "Jl. Brigjen Katamso no: 32 Slipi Jakarta"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Sunter",
+    "address": "Jl. Danau Indah Raya Blok C2 No. 8/9, Sunter, Jakarta"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, FX Sudirman",
+    "address": "Mall FX Sudirman, Jl Jend. Sudirman, Sudirman, Jakarta"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Kebayoran Lama",
+    "address": "Jl. Raya kebayoran lama no: 42 (sebrang alfamidi kby lama 4) grogol sel"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Manado 17 Agustus",
+    "address": "Jl. 17 Agustus Lingkungan 5, Wanea, Manado"
+  },
+  {
+    "name": "Janji Jiwa, Jiwa Toast & Jiwa Tea, Citraland Banjarmasin",
+    "address": "uko i-walk 2 no 8, Perumahan Citraland (Jln. A-Yani km 7.8), Pemurus Luar, Banjarmasin Timur, Kec. Banjarmasin Timur, Kota Banjarmasin, Kal-Sel, 70654"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Percetakan Negara",
+    "address": "Jl. Percetakan Negara No. 566 A, Cempaka Putih, Jakarta"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Makasar Town Square",
+    "address": "Ramayana Makassar Town Square Jalan Perintis Kemerdekaan Km. 8 Kecamatan Tamalanrea Makassar Blok GF-K-004"
+  },
+  {
+    "name": "Kopi Janji Jiwa, TSM Makassar",
+    "address": "Trans Studio Mall Makassar LG C 11-B, Jl. Metro Tj Bunga, Tamalate, Makassar"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Ubaya",
+    "address": "Jl. Rungkut Mejoyo Raya, Blok AJ No. 8, Rungkut, Surabaya"
+  },
+  {
+    "name": "Janji Jiwa, Jiwa Toast, Jiwa Tea & Joomba, Grand Galaxy City Bekasi",
+    "address": "Unit 33 & 35, Jalan Boulevard Grand Galaxy City No RGG 35, Kel Jakasetia, Kec. Bekasi Selatan, Bekasi 17147"
+  },
+  {
+    "name": "Kopi Janji Jiwa, ITC Permata Hijau",
+    "address": "Grand ITC Permata Hijau Ground Floor HBD 4. Jl. Arteri Permata Hijau"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Poris Indah",
+    "address": "Ruko Grand Poris, Blok A9B No. 38, Cipondoh, Tangerang"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Menara Bidakara",
+    "address": "Rukan Crown Palace Blok B2-3, Jl. Prof. DR. Soepomo No.RT.7, RT.7/RW.1, Pancoran, Kec. Tebet, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12870"
+  },
+  {
+    "name": "Kopi Janji Jiwa, ITC Cempaka Mas",
+    "address": "ITC Cempaka Mas Mega Grosir Lantai LG Counter 31-32, Jl. Letjen. Suprapto Kavling 1, Kemayoran, Jakarta"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Mangga Dua",
+    "address": "ITC Mangga Dua, Jl. Mangga Dua Raya, Mangga Dua, Jakarta"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Medan Aipda",
+    "address": "Jln. H.adam Malik no: 90 Silalas, Medan, Sumatera Utara, 20235"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Apartemen Laguna",
+    "address": "Apartmen Laguna, Tower K Lt 1, Blok MM No. 46, Jl. Pluit Timur, Pluit, Jakarta"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Sapo Baung Kebagusan",
+    "address": "Jl. Baung No. 5, Jagakarsa, Jakarta"
+  },
+  {
+    "name": "Kopi Janji Jiwa, HM JONI",
+    "address": "Jl. HM Joni No. 34, Medan Area, Medan"
+  },
+  {
+    "name": "Kopi Janji Jiwa, DP Mall Semarang",
+    "address": "Jl. Pemuda No. 150, Semarang Tengah, Semarang"
+  },
+  {
+    "name": "Janji Jiwa, Jiwa Toast, Jiwa Tea & Joomba , Rukan Artha Gading",
+    "address": "Rukan Artha Gading, Komp. Rukan artha gading niaga Blok B kav. No 16. Jakarta Utara"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Kemanggisan",
+    "address": "Jl. Belong Rawa, Palmerah, Jakarta"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Palembang Icon",
+    "address": "Palembang Icon, Lt. 1, Jl. Angkatan 45, (Depan Celfit) Ilir Barat 1, Palembang"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Taman Harapan Indah",
+    "address": "Komplek Taman Harapan Indah Blok AA No. 5, Jelambar, Jakarta"
+  },
+  {
+    "name": "Janji Jiwa & JIwa Toast, Progo Pekalongan",
+    "address": "Jl. Progo No. 65A, Kandang Panjang, Pekalongan Utara, Kota Pekalongan, Jawa Tengah, 51145"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Greenlake City",
+    "address": "Ruko Cordoba, Blok A17, Cipondoh, Tangerang"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Kelapa Gading",
+    "address": "Jl. Gading Elok Raya Utara, blok FA2/7 Kelapa Gading"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Harmoni Exchange",
+    "address": "Harmoni Exchange Lantai 1 / IS 1-01C"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Puri Parkview",
+    "address": "Apartemen Puri Park View Tower E lantai 1 No. 7 Jl. Pesanggrahan No. 33 10, Kebon Jeruk, Jakarta"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Sudirman",
+    "address": "Jl. Jenderal Sudirman (Sebelah Hotel Sahid Imara), Ilir Timur 1, Palembang"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Kemang Pratama",
+    "address": "Jl. Kemang Pratama Raya Blok A No. 12, Rawalumbu, Bekasi,"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Apartemen Purimas",
+    "address": "Apartemen Purimas unit G-07, Jl. I Gusti Ngurah Rai, Gunung Anyar, Surabaya"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Setiabudi",
+    "address": "Jl. Setiabudi 3 no: 11A Setiabudi, Kuningan Jaksel"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Kedaton",
+    "address": "Jl. Sultan Agung, Kedaton, Bandar Lampung"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Pondok Bambu",
+    "address": "JL. Pahlawan Revolusi No.67, Pondok Bambu, Jakarta Timur, 13340"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Buaran",
+    "address": "Jl. Perumnas Buaran No. 9, Klender, Jakarta"
+  },
+  {
+    "name": "Janji Jiwa, Jiwa Toast, Jiwa Tea & Joomba , Tanjung Duren",
+    "address": "Jl. Tanjung Duren Raya No. 55, Tanjung Duren, Jakarta"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Zebra Raya",
+    "address": "Jl. Zebra Raya No. 24, Palu Selatan, Palu"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Mal @ Bassura",
+    "address": "Mall @ Bassura, Lantai Lower Ground, Jl. Basuki Rachmat, Jatinegara, Jakarta"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Suroto",
+    "address": "Jl. Suroto No.20, Kotabaru, Gondokusuman, Kota Yogyakarta, Daerah Istimewa Yogyakarta 55224, Indonesia"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Braga",
+    "address": "Braga citywalk no 99-101, lt. gf unit g-03 sumur bandung, 40111"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Jeruk Purut",
+    "address": "Jl. Jeruk Purut, No. 18A, Cilandak, Jakarta,"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, The Icon Business BSD",
+    "address": "Ruko ICON Business Park BSD Blok B-3 Lantai 2, Serpong, Tangerang"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Tanah Abang",
+    "address": "Jl. Tanah Abang II no: 69"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Mall Pesona Square",
+    "address": "Mall Pesona Square Depok Lantai UG A-B, Jl. Ir Haji Juanda No. 99, Sukmajaya, Depok"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, SKA Mall Pekanbaru",
+    "address": "Jl. Tuanku Tambusai Lantai 3A-6, Tampan, Pekanbaru"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, RC Veteran",
+    "address": "Jl. RC Veteran Raya No. 10, Bintaro, Jakarta"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Megamall Manado",
+    "address": "Megamall Manado, Lanta 1, Jl. Piere Tendean, Wenang, Manado"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Rukan Perjuangan Bekasi",
+    "address": "Jl. Perjuangan No. 12, Bekasi Utara, Bekasi"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Universitas Airlangga Surabaya",
+    "address": "Jl. Dharmawangsa No. 48, Universitas Airlangga, Gubeng, Surabaya"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Pasar Modern",
+    "address": "Ruko Pasar Modern BSD, Blok R-11 Lantai 2, Serpong, Tangerang"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Golden Boulevard",
+    "address": "Ruko Golden Boulevard, Blok M No. 10, Jl. Raya Serpong, Serpong Utara, Tangerang"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Bekasi Cyber Park",
+    "address": "Bekasi Cyber Park Mall, Lantai LG (Dekat KFC). Jl. K.H Noer Ali No.177 Marga Jaya, Kayuringin Jaya, Bekasi"
+  },
+  {
+    "name": "Janji Jiwa X Jiwa Toast, Summarecon Mutiara Makassar",
+    "address": "SUMMARECON MUTIARA MAKASSAR, Rainbow Food City, Jl. Rainbow Boulevard, Exit Tol Ir. Sutami No.KM 8, Kelurahan Bulurokeng, Kecamatan Biringkanaya, Kota Makassar, Sulawesi Selatan 90243"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Atrium Senen",
+    "address": "Plaza Atrium, Lantai 2, Jl. Senen Raya No. 135, Senen, Jakarta"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Bali Pulau Kawe",
+    "address": "Jl. Pulau Kawe No. 14, Denpasar, Bali"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Kalimalang",
+    "address": "Jl. KH Noer Ali No. 5a, Bekasi Barat, Bekasi"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Nagoya Hill Batam",
+    "address": "Nagoya Hill Mall, Lantai 2, Lubuk Baja, Batam"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast,  Green Pramuka Square",
+    "address": "Green Pramuka Square, UG - 34 B, Jl.Ahmad Yani Kav 49 RT.14/RW.08,, Rawasari, Cemp.Putih, Kota Administrasi Jakarta Pusat RT.13, RT.13/RW.9, Rawasari, Cempaka Putih, Central Jakarta City, Jakarta 10570"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Cihampelas",
+    "address": "Jl. Cihampelas No. 119 , Cihampelas, Bandung"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Maramis",
+    "address": "Jl. AA Maramis No. 28, Mapanget, Manado"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast Meruya",
+    "address": "Jl. Meruya Selatan No. 110, Meruya, Jakarta"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Sun City Mall Sidoarjo",
+    "address": "Sun City Mall, Lt. GF, Jl. Pahlawan No. 1, Sidoarjo Kota, Surabaya"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Erlangga",
+    "address": "Jl. Erlangga Raya No. 58A , Semarang"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, U51 Cikupa",
+    "address": "Perumahan Citra Raya, Ruko Garden Boulevard blok U51 no.83, Kecamatan Panongan, Kelurahan Panongan, kodepos 15710"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Mega Mall Batam",
+    "address": "Mega Mall Batam Lantai 1, F.I.25, Batam Kota, Batam"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Veteran Purwakarta",
+    "address": "JL. VETERAN NO.110 RT44/05, KEL. NAGRIKALER, KEC. PURWAKARTA, KAB. PURWAKARTA, 41115, JAWA BARAT"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Ayip Usman",
+    "address": "Jl. Aip Usman No. 88 A (hook), Kelurahan Unyur, Kecamatan Serang, Kota Serang, Banten 60141"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Apartment Gading Nias",
+    "address": "Apartment Gading Nias, Tower Emerald, Unit PL3B, Kelapa Gading, Jakarta"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Pamulang Square",
+    "address": "Pamulang Square, Jl. Siliwangi Kota, Pamulang, Tangerang"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Plaza Bintaro",
+    "address": "Bintaro Plaza lt. 3 counter 3-4. Jl. Bintaro utama 3A Tangsel"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Panjaitan",
+    "address": "Gedung Tamansari HIVE Cawang, Jl. DI. Panjaitan, Kampung Melayu, Jakarta"
+  },
+  {
+    "name": "Janji Jiwa X Jiwa Toast, Samasta",
+    "address": "Samasta Lifestyle Village, Ground Floor Unit D1B, Jl. Wanagiri, Jimbaran, Kuta Selatan"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast , Muchtar Depok",
+    "address": "Jl. Muchtar No. 40 RT. 002/ RW. 004"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Hertasning Makassar",
+    "address": "Jl. Hertasning Raya No. 88 H, Rappocini, Makassar"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Perum Alaya",
+    "address": "Alaya Food Festival, Blok C, Jl. Bukit Alaya, Sungai Pinang, Samarinda"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Gateway Pesanggrahan",
+    "address": "Apartemen Gateway kios AL-11, Jl. Ciledug Raya no 15 RT 04 RW 03, Kel.Petukangan Selatan, Kec. Pesanggrahan, Jakarta Selatan 12270"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Ruko Kevin Resort",
+    "address": "Ruko Kevin Resort No 05 , Jl. Karang Anyar 1, Landasan Ulin, Banjarbaru, Kalimantan Selatan"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Pondok Indah",
+    "address": "Jl. Terogong Raya No. 2, Pondok Indah, Jakarta"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast,  RS Hosana Cikarang",
+    "address": "Jl. Utama BIIE No. 01, Cikarang, Bekasi"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Taman Kuliner Pinang",
+    "address": "Taman Kuliner Pinang, Jl. KH Hasyim Ashari, Ciledug Tanggerang"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Duta Mall Banjar",
+    "address": "Jl. A Yani (KM 2), Melayu, Banjarmasin Tengah"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, PVJ Bandung",
+    "address": "Jl. Sukajadi No. 131-139 (Pintu Belakang PVJ), Sukajadi, Bandung"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Pamulang Permai",
+    "address": "Pamulang permai 1, SH 3 no.9, pamulang, tangerang selatan"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Kota Wisata Cibubur",
+    "address": "Ruko Paris Kota Wisata, Jl. Paris Boulevard Blok C1 No. 19, Gunung Putri, Bogor"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Pademangan",
+    "address": "Jl. Pademangan 2 Raya, Gang 5 No. 1, Gunung Sahari, Jakarta"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Agus Salim",
+    "address": "Jl. Kh. Agus Salim No. 181 B, Bekasi Timur, Bekasi"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Joglo",
+    "address": "Jl. Joglo Raya No. 10c, (Lampu Merah Pertigaan Mcdonalds & Giant), Meruya, Jakarta"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Mediterania Kemayoran",
+    "address": "Apartemen Mediterania Palace Residence, Lt Ground, Kios Ukm 6, Blok A1 No. 2, Jl. Landasan Pacu Utara Selatan, Kemayoran, Jakarta"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Ruko Piazza Mozia BSD",
+    "address": "Ruko Piazza The Mozia Blok E8 No. 5 - Bsd City Tangerang Selatan"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Golden City",
+    "address": "Jl. Nusantara Raya Blok C1 No. 17, RT 008/RW 037, Teluk Pucung,Kec. Bekasi Utara, Kota Bekasi, Jawa Barat 17121"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Pluit Selatan",
+    "address": "Jl. Pluit Selatan Raya No.50, RT.23/RW.8, Pluit, Kec. Penjaringan, Kota Jkt Utara, Daerah Khusus Ibukota Jakarta 14450"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Azores Banjarwijaya",
+    "address": "Ruko Azores, Blok B7 No. 31, Jl. Wijaya Kusuma, Kec Tangerang, Tangerang"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Slipi Jaya",
+    "address": "Plaza Slipi Jaya Lt 4 Unit E.4A\nJalan Letjen. S. Parman Kav.17-18, Slipi, Palmerah, Jakarta Barat"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Atum Mall",
+    "address": "Jl. Bunguran No. 45, Pabean Cantian, Surabaya"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Transmart Graha Raya",
+    "address": "Transmart Graha Raya, Jl. Kby Utama No. 2A, Serpong Utara, Tangerang"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Baranangsiang Bogor",
+    "address": "Jl. Padi Blok Amil Yasin No. 3, Bogor Timur, Bogor"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast , Kick Spot",
+    "address": "Kick Spot, Jl. Kuningan Barat Raya No. 8, Mampang Prapatan, Jakarta"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Regency Cibitung",
+    "address": "Ruko Regency 1.Blok.L.1.no 7.RT 07/RW 06, Jalan Bosih raya,Wanasari,Cibitung Bekasi ,Jawa Barat.17520"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, SPBU Cibubur",
+    "address": "SPBU Terpadu Buperta 34-16915, Jl. Akses Baru Buperta no. 1, kel. Harjamukti, kec. Cimanggis, Depok"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Pahlawan Bogor",
+    "address": "Jl. Pahlawan No. 78C , Bogor Selatan, Bogor"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Evergreen Cikupa",
+    "address": "jl evergreen boulevard barat block L 10/30 Rt 000 Rw 00 Ciakar Kab.Tangerang"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Citilike Mataram",
+    "address": "Jl. Balam No. 7, Cakranegara, Mataram"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Pangkal Pinang",
+    "address": "Jl. A Yani no. 95a Rt 002/03 Rawa Bangun, Taman Sari Bangka Belitung"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Plaza Kemang 88",
+    "address": "Jl. Kemang Raya Blok Kemang No. 88, Kemang, Jakarta"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Pangeran Samudera Banjarmasin",
+    "address": "Jl. Pangeran Samudera No. 61, Banjarmasin Tengah, Banjarmasin"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Apartemen Oak Tower",
+    "address": "Apartemen Gading Icon Jln. Perintis Kemerdekaan no.99 Pulogadung Jakarta Timur 13210"
+  },
+  {
+    "name": "Kopi Janji Jiwa, PTC Mall",
+    "address": "PTC Mall Lantai 1(Depan Miniso) Jl. R Soekamto, 8 Ilir, Ilir Timur 2, Palembang"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, TB Simatupang",
+    "address": "Jl. Tb. Simatupang No. 45, Pasar Minggu, Jakarta"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Duta Garden",
+    "address": "Ruko Boulevard Duta Garden, Blok H No. 16, Daan Mogot, Jakarta"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Jatiwaringin",
+    "address": "Jl. Jatiwaringin Raya No. 2, Pondok Gede, Bekasi"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Transmart Cilandak",
+    "address": "Kios Puskopalmar No. 21, Jl. Raya Cilandak Kko, RT.1/RW.5, Cilandak Timur, Pasar Minggu, Kota Jakarta Selatan, DKI Jakarta 12560"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Tanjung Pinang",
+    "address": "Jl. Engku Putri No. 20C, Bukit Bestari, Tanjung Pinang"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Asem Baris Tebet",
+    "address": "Jl. Asem Baris Raya No.110, Tebet, Jakarta"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Maple Park Apartment-GO-FOOD",
+    "address": "Tower A B103 Maple Park, Jl. HBR Motik Sunter Agung, Sunter, Jakarta"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Padang Batang Arau",
+    "address": "Jl.Batang arau no.38 kecamatan padang selatan.kota padang sumatera barat"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Kediri Joyoboyo",
+    "address": "Jl. Joyoboyo 37 Kediri, Kota Kediri, Kediri"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Plaza Blok M",
+    "address": "Bulungan Street No.78, RT.6/RW.6, Kramat Pela, Kebayoran Baru, South Jakarta City, Jakarta 12130. LT LG"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Jakal",
+    "address": "Jl. Kaliurang, Mlati, Sleman"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Pondok Labu",
+    "address": "Jl. Jati No. 41, Lebak Bulus, Jakarta"
+  },
+  {
+    "name": "Janji Jiwa, Jiwa Toast & Jiwa Tea, Antapani",
+    "address": "Jl. Terusan Jakarta No.170, RT 003 RW 012, Antapani Kulon, Antapani, Kota Bandung, Jawa Barat 40291"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Paragon Semarang",
+    "address": "Jl. pemuda no: 118, Semarang Tengah, Semarang"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Grand Batam Mall",
+    "address": "Grand Batam Mall, Jl. Pembangunan, Lubuk Baja, Batam"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Kramat Jaya Koja",
+    "address": "Jl. Kramat Jaya No. 8F, Koja, Jakarta"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Margonda Raya",
+    "address": "Jl. Margonda Raya No. 246B, Beji, Depok"
+  },
+  {
+    "name": "Janji Jiwa, Jiwa Toast, Jiwa Tea & Joomba , Plaza Semanggi",
+    "address": "Plaza semanggi Lt. 3A, Plaza Semanggi, Jalan Jendral Sudirman, RT.1/RW.4, Karet Semanggi, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12930"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Mutiara Gading Bekasi",
+    "address": "Ruko Mutiara Gading Timur, Jl. Mutiara Gading Timur Mustika Jaya (Seberang LIA Mutiara Gading), Mustika Jaya, Bekasi"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Grand Wisata",
+    "address": "Grand Wisata Jl. Celebration Boulevard, Ruko AA12 no.59, Tambun Selatan, Bekasi, 17510"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Mojokerto Sunrise Mall",
+    "address": "JL Benteng Pancasila no.9 Mergelo,Balongsari,Magersari Kota Mojokerto , Jawa Timur 61314 Outlet No 1"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, IR Juanda Ciputat",
+    "address": "Jl. IR. Juanda no 107 RT 02 RW 02, Kelurahan Cempaka Putih, Kecamatan Ciputat Timur, Kota Tangerang Selatan 15412"
+  },
+  {
+    "name": "Janji Jiwa X Jiwa Toast, Citra 2",
+    "address": "Citra Garden 2, Blok B7 No. 9, Benda, Tangerang"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Metro Park",
+    "address": "METRO PARK, RT.7/RW.3, Kedoya Sel., Kec. Kb. Jeruk, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11520"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Pahlawan Bandung",
+    "address": "Jl. PHH Mustofa No. 14, RT 01/15 Kel. Cikutra, Kecamatan Cibeunying Kidul, Bandung 40124"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Marsekal Tangerang",
+    "address": "Jl. Marsekal Surya Darma (Sebelah Kantor Air Fast), Neglasari, Tangerang"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Landasan Ulin Banjarbaru",
+    "address": "Jl. A Yani KM 23,8 No. 06, Banjarbaru Selatan, Banjarbaru"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Gading Festival",
+    "address": "Gading Carnival Booth 6, Sedayu City Kelapa Gading, Jl. Pegangsaan Dua, Blok S No. 17, Kelapa Gading, Jakarta"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Ruko Arcadia Square",
+    "address": "Jl. Raya Kampung Melayu No.3, RW.09, Teluknaga, Kec. Teluknaga, Tangerang, Banten 15510"
+  },
+  {
+    "name": "Janji Jiwa, Jiwa Toast & Joomba, Lokasari Square",
+    "address": "unit M-06 Lantai Dasar. Jln. Mangga Besar Raya no. 81, Jakarta"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast - Lippo Jambi",
+    "address": "Jl. Mayor Abd. Kartawirana No.14, Budiman - Jambi"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Ovis",
+    "address": "Jl.mt.haryono 59 karangsentul, padamara purbalingga"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Maranatha",
+    "address": "Jl. Surya Sumantri No. 63A, Sukawarna, Kec. Sukajadi, Bandung, Jawa Barat 40164"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Apartment Belmont",
+    "address": "Jl. Lapangan Bola, Meruya, Jakarta"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Plaza Pondok Gede",
+    "address": "Pertokoan Plaza Pondok Gede Ruko Blok G no.25 Pondok Gede, Kota Bekasi, 17411"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Batununggal",
+    "address": "JL. Batununggal Indah Raya no 130, Kompleks Batununggal, Bandung Kidul, Bandung 40266"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Food Vaganza",
+    "address": ":Jl. Meruya Ilir No.29, RT 04 / RW 08, Kembangan, Srengseng, RT.4/RW.8, Srengseng, Kec. Kembangan, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11630"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Otista Subang",
+    "address": "Jl.Otto Iskandar Dinata No.96,RT41 RW11,Kelurahan Karanganyar,Kecamatan Subang,Jawa Barat,41211"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Kings Shopping Centre",
+    "address": "King Shopping Centre Kav ND1 Unit 1 No. 2B-2C, Jl. Kepatihan No. 11-17, Regol, Bandung"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Gwalk Surabaya",
+    "address": "ruko gwalk Breeze FG-03. kec: sambikerep , kota: surabaya ,kode pos : 60217"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Ancol",
+    "address": "Jl. Parang Tritis Raya No. 12, Ancol, Jakarta"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Pontianak Paris 2",
+    "address": "Jln . Parit Haji Husin 2 No. 1A ( Samping Indomaret dan JNE ), RT:001 RW 001 kel.Bangka belitung barat kec.Pontianak Tenggara 78124"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Sukowati Salatiga",
+    "address": "Jln . Sukowati no 50 RT 005/ RW 003 kec Sidomukti kota Salatiga kodepos 50724"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Ruko A Yani",
+    "address": "Jl. Ahmad Yani No.12. RT/RW: 05/03. Kel: Sukmajaya. Kec: Jombang. Kota: Cilegon. Kode Pos: 42416"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Transmart Buah Batu",
+    "address": "Jalan Raya Bojongsoang No. 269, Cipagalo, Bojongsoang, Bandung, Jawa Barat 40287"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Bintaro Sektor 9",
+    "address": "PHX Bintaro - Jl. Senayan Utama Blok HJ1 No.1a, RW.3, Pd. Pucung, Kec. Pd. Aren, Kota Tangerang Selatan, Banten 15229"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Ruko Maris Square Magelang",
+    "address": "Jl. Sarwo Edhi Wibowo Ruko Maris Square A-9, RT. 005 RW. 008, Kec: Mertoyudan, Magelang, 56172"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Darmo Harapan Surabaya",
+    "address": "Jl Darmo Harapan 1, Tanjungsari, Sukomanunggal, Surabaya"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Hasan Basri",
+    "address": "Jl. Hasan Basri No. 11 Rt. 14 Kel. Alalak Utara Kec. Banjarmasin Utara Kota Banjarmasin Kalimantan Selatan 70124"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Cipayung",
+    "address": "Jl.Raya Cipayung Blok 1 No.23 Rt.005 Rw.01 Kel: Cipayung Kec: Cipayung Jakarta Timur 13840"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Sorong",
+    "address": "Jl. Arfak No. 31, Kampung Baru, Sorong Barat, 98413, Kota Sorong"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Tarum Barat",
+    "address": "Jalan Tarum Barat II Blok N4 No. 12A, Kecamatan Cikarang Pusat, Kelurahan Jayamukti, 17531"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Lampung Gatot Subroto",
+    "address": "Jl. Gatot Subroto Ruko No. 99L, Bandar Lampung,"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Sawojajar",
+    "address": "Jl. Danau Bratan Raya E2J21, Kel. Sawojajar, Kec. Kedungkandang, Kota Malang, Jawa Timur 65139"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Jatinangor Town Square",
+    "address": "Jatinangor Town Square, Lantai 2, Kav SFISL-OD03, Jl. Jatingangor Raya No. 150, Jatinangor, Sumedang"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Diponegoro Lampung",
+    "address": "SPBU Pertamina 24-352.42 - Jl. Diponegoro,Sumur Batu, Teluk Betung Utara, Bandar Lampung"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Terusan Borobudur Malang",
+    "address": "Jalan Terusan Borobudur no 65, kav. 9, Kecamatan Mojolangu, Kota Malang, Jawa Timur (65124)"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Transmart Yasmin",
+    "address": "Transmart Yasmin, Jl. KH Abdullah Bin Nuh, Tanah Sereal, Bogor"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Srondol Semarang",
+    "address": "Jl Setiabudi no 121 ( Me Time Family Reflexiology and Massage) , Kel. Srondol kulon, Kec. Banyumanik, Semarang 50263"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Apartemen Kalibata City",
+    "address": "Apartemen Kalibata City, Tower Akasia Unit SSG/06/02, Kalibata, Jakarta"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Transmart Tasikmalaya",
+    "address": "Transmart Tasikmalaya Jl. Ir. H. Juanda, Sukamulya, Bungursari, Tasikmalaya, Jawa Barat 46151"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Transmart Majapahit",
+    "address": "Jl. Brigjend Sudiarto No. 761, Pedurungan, Semarang"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Penggilingan",
+    "address": "JL. Penggilingan No.93, RT 003 RW 006, Penggilingan, Cakung, Jakarta Timur (13940)"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Pancoran China Town Poin Mall",
+    "address": "China Town, Jl. Pancoran No.42A, RW.6, Pinangsia, Kec. Taman Sari, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11110"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, ITC Fatmawati",
+    "address": "ITC Fatmawati, Jl. RS. Fatmawati Raya No.39, Cipete Utara, Kebayoran Baru, Jakarta"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Opi Mall",
+    "address": "Opi Mall, Lt. 1 (Depan Roti Boy), Jl. Gubernur HA Bastari, Seberang Ulu 1, Palembang"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Ps Mall",
+    "address": "Palembang Square, Carrefour Lt. 2, Jl. Angkatan 45, Lorok Pakjo, Ilir Barat 1, Palembang"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Gedong Air",
+    "address": "Jl. Imam Bonjol, No. 219, Gedong Air, Tanjung Karang Barat, Bandar Lampung"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Solo Square Mall",
+    "address": "Jl. Slamet Riyadi No 451-455, Laweyan, Surakarta"
+  },
+  {
+    "name": "Kopi Janji Jiwa, San Antonio",
+    "address": "Pakuwon City, Ruko San Antonio, Blok N1 No. 12, Mulyorejo, Surabaya"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Bali Dalung",
+    "address": "JL. Raya Pdang Luwih Dalung Kuta Utara, Badung, Bali, 80361"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Kaza Mall",
+    "address": "Raya Menganti Karangan No. 36, Babatan, Kec. Wiyung, Surabaya Jawa Timur"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Ciplaz Klender",
+    "address": "Plaza City Klender GF - B024, jl. I gusti ngurah rai no. 4, klender, jakarta timur"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Dr Sutomo",
+    "address": "Jalan Dr. Sutomo No. 125, Kubu Marapalam, Kec. Padang Timur, Kota Padang, Sumatera Barat 25143"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Karang Tengah",
+    "address": "Jl. Raden Saleh no. 96A, Karang Tengah, Ciledug, Tangerang"
+  },
+  {
+    "name": "Kopi Janji Jiwa Banjarsari",
+    "address": "Jalan Jenderal Jl. Jenderal Pol Anton Sujarwo No.119, Srondol Kulon, Banyumanik, Kota Semarang, Jawa Tengah 50263"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Jember",
+    "address": "Jl. Kalimantan No.12 Krajan Timur, Sumbersari Kec. Sumbersari Kabupaten Jember Jawa Timur 68121"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Taman Dayu Pasuruan",
+    "address": "Ruko Taman Dayu H1 No.6 JL. Raya Surabaya - Malang KM. 48, Prigen, Pasuruan"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Piringsewu",
+    "address": "Jl. Jendral Ahmad Yani No 25 B Kel: Sidoharjo Kec: Pringsewu Lampung Rt.001 Rw.03 35373"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Tanjung Pandan",
+    "address": "JL.Melati no.499 RT.008/003, Kel: Parit, Kec: Tanjung Pandan. KAB. Belitung, 33411"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Purnama",
+    "address": "Jl. Purnama no.2c, RT/RW 003/007, kel akcaya, pontianak selatan, kalimantan barat 78121"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Tentara Pelajar Magelang",
+    "address": "jl tentara pelajar no 59C kecamatan magelang tengah kelurahan kemirirejo RT 012 RW04Magelang 56122"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Sunan Muria Kudus",
+    "address": "Jl. Sunan Muria no.42, kel. Glantengan, kec. Kudus Kota, Kudus 59313"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Gateway Sidoarjo",
+    "address": "Kompleks Ruko & Perkantoran Gateway, Blok B No. 34, Jl. Waru-Sidoarjo Raya, Waru, Sidoarjo"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Mall Cipinang Indah",
+    "address": "Mall Cipinang Indah, Jl. Raya Kalimalang No.88, RT.18/RW.3, Pd. Bambu, Duren Sawit, Kota Jakarta Timur, Daerah Khusus Ibukota Jakarta 13430"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Panbil Mall Batam",
+    "address": "Panbil Mall Batam Lantai 1, Jl. Ahmad Yani, Kabil, Kecamatan Nongsa, Kota Batam, Kepulauan Riau 29433"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Kuta Bumi",
+    "address": "Jl. Raya Kutabumi, Ruko Blok CS3 No. 2, Periuk, Tangerang"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Metro Lampung",
+    "address": "Jl. Jendral Ahmad Yani Iring Mulya 15 A no.80 Metro Lampung Rt.05 Rw.03 35141"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, UNILA",
+    "address": "Jl. Prof. DR IR Soemantri Brojonegoro, Rajabasa, Lampung"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Basuki Rachmat ICBC Center",
+    "address": "Jl. Basuki Rahmat No. 16-18, Genteng, Surabaya"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Lombok Epicentrum",
+    "address": "Mall Lombok Epicentrum, Jl. Sriwijaya No. 333, Mataram Kota, Mataram"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Bumi Nirwana",
+    "address": "Ruko Bumi Nirwana, Komplek Pertokoan Nirwana Indah, Blok B No. 05, Jl. Soekarno Hatta (Balikpapan - Samarinda KM5), Batu Ampar, Balikpapan"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Pakubuwono Terrace",
+    "address": "Jl. Ciledug Raya no. 99, Jakarta Selatan"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Pamulang 2",
+    "address": "Jl. Benda Permai Raya Blok F6 No. 23B, Ciputat, Tangerang"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Ruko CBD Ciledug",
+    "address": "Ruko CBD Ciledug, Blok A5, no. 1, Jl. Hoscoroaminoto, Tangerang"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Canadian",
+    "address": "Ruko Canadian Broadway Blok CB - E 30, Jl. Canadian Broadway, Cileungsi, Bogor"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast,  Dipati Ukur",
+    "address": "Jl. Dipati Ukur No. 57G, Lantai 2, Lebak Gede, Kecamatan Coblong, Kota Bandung, Jawa Barat 40132"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Menoreh Semarang",
+    "address": "Jl. Menoreh Raya No.6, Gajahmungkur, Semarang"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast,  Solo Grand Mall",
+    "address": "Jl. Brigjend Slamet Riadi No 273 Lt 01 Blok EX no 03 Surakarta Jawa Tengah 57141"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Honggowongso",
+    "address": "Honggowongso No.35 Pasar Kembang Kel: Kemlayan Kec: Serengan Surakarta, Jawa Tengah 57141"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Sudirman Indramayu",
+    "address": "Jl. Jend Sudirman No. 137, Indramayu, Indramayu"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Jayapura",
+    "address": "Ruko Jayapura Pasifik Permai Blok B-3 ( Dok 2), Jl. APO Pantai, Jayaputra Utara, Jayaputra"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Banjarbaru Selatan",
+    "address": "Jl Nangka No. 4, Banjarbaru Selatan, Banjarbaru"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Hadiah Utama",
+    "address": "Jl. Hadiah Utama, Kavling Polri Blok C No. 728, Jelambar, Jakarta"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, KH Phinisi Point",
+    "address": "Phinisi Point , Jl. Metro Tanjung Bunga No. 2, Mariso, Makassar"
+  },
+  {
+    "name": "Kopi Janji Jiwa, SGC",
+    "address": "Jl. RE Martadinata, Cikarang, Bekasi"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Gagak Hitam",
+    "address": "JL.Arteri Ring Road No. 14, Asam Kumbang, Kec. Medan Selayang,Kota Medan,Sumatera Utara 20132"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast & Jiwa Tea,  Palu Grand Mall",
+    "address": "Ground Floor #G-0030 Palu Grand Mall, Jl. Diponegoro, Lere, Kec. Palu Bar., Kota Palu, Sulawesi Tengah 94221"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Abdrmh Saleh SMG",
+    "address": "Jl. Abdulrahman Saleh No.570, Manyaran, Kecamatan : Semarang Barat, Kota : Semarang, 50183"
+  },
+  {
+    "name": "Kopi Janji Jiwa, 23 Paskal",
+    "address": "Kompl. Paskal Hyper Square, Jl. Pasir Kaliki no. 25-27, Kel. Kebon Jeruk Kec. Andir, Bandung, Jawa Barat 40181"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Hang Lekir",
+    "address": "Jl Hang Lekir 1 no. 15, RT.4/RW.6. Gunung, Kec. Kby. Baru, Jakarta, Daerah Khusus Ibukota Jakarta 12120"
+  },
+  {
+    "name": "Janji Jiwa X, Plaza Indonesia",
+    "address": "Jl. M.H. Thamrin No.Kav. 28-30, RT.9/RW.5, Gondangdia, Kec. Menteng, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10350. UNIT LB #069, 069A"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Ahmad Yani Balikpapan",
+    "address": "Jl. Ahmad Yani No. 35, Gunung Sari, Balikpapan"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Plaza Balikpapan",
+    "address": "Plaza Balikpapan, Jl. Jendral Sudirman No. 1, Klandasan Ilir, Balikpapan"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Banyu Putih",
+    "address": "Jl. Banyu Putih Raya, Banyumanik, Semarang"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, BG Junction",
+    "address": "BG Junction, Jl. Bubutan 1 No. 7, Bubutan, Surabaya"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Ki Ajurum",
+    "address": "Jl. Ki Ajurum No. 1, Cipocok Jaya, Serang"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Ruko Palma Galeria",
+    "address": "Ruko Palma Galeria RB3-10, Citraland Utara, Surabaya (Sebrang Kantor kas BCA, deretan Apotek Kimia Farma)"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Sentra Kosambi",
+    "address": "Ruko Sentra Kosambi Jl.Kosambi Timur RT.02 Rw.09 Kelurahan kosambi timur kec.kosambi kabupatenTangerang 15213"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Rita Mall Purwokerto",
+    "address": "Jl. Jend. Soedirman No.296, Pereng, Sokanegara, Kec. Purwokerto Tim., Kabupaten Banyumas, Jawa Tengah 53116"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Sulfat Malang",
+    "address": "Jl. Raya Sulfat Ruko E5 No. 5, Blimbing, Malang"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Mustika Tigaraksa",
+    "address": "JLN ARIA SANTIKA NO.8, RUKO PERUM MUSTIKA, PASIR NANGKA, TIGARAKSA, TANGERANG, BANTEN"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Cirendeu",
+    "address": "Jl. Cirendeu Raya No.02 RT.006 RW 005 Ciputat Timur, Tangerang Selatan"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Kepri Mall Batam",
+    "address": "Kepri Mall Batam Jl. Jenderal Sudirman (Simpang Kabil), Batam, Kepulauan Riau 29462"
+  },
+  {
+    "name": "Kopi Janji Jiwa, UBM Lodan",
+    "address": "Jl. Lodan Raya No. 2, Ancol, Jakarta"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Bengkulu Indah Mall",
+    "address": "Bengkulu Indah Mall jl. Jalur BIM, Penurunan, Kec. Ratu Samban, Kota Bengkulu, Bengkulu"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Chrsoplanit Ambon",
+    "address": "Jl. MR.Chr.Soplanit RT 003 / RW 004, Rumah Tiga (Toko Jelita) Kecamatan Teluk Ambon - Kota Ambon"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Klungkung Bali",
+    "address": "Jl. Flamboyan No. 21, Gianyar Kota, Bali"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Alun Alun Batang",
+    "address": "Ruko Srikandi Jl. Diponegoro No.4, Batang, Proyonanggan Tengah, Kec. Batang, Kabupaten Batang, Jawa Tengah 51216"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Cikarang Baru Raya",
+    "address": "Jl. Cikarang Baru Raya No. 65, Cikarang, Bekasi"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Patra jasa",
+    "address": "Patra Jasa Office Tower, Jl. Jend. Gatot Subroto Kav 32-34, Gatot Subroto, Jakarta"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Pondok Ungu Bekasi",
+    "address": "Perumahan Pondok Ungu Permai Sektor 5 Blok AE No. 5A. Jl. Raya Candrabaga, Babelan, Bekasi"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Lapangan Tembak",
+    "address": "Jl.Mawar 54 Rt.1/Rw.10 Kelapa Dua Wetan, Kec.Ciracas, Kota Jakarta Timur, Daerah Khusus Ibu Kota Jakarta"
+  },
+  {
+    "name": "Janji Jiwa, Jiwa Toast & Jiwa Tea, Kol H. Burlian",
+    "address": "Jl. Kol. H. Burlian No.890, Karya Baru, Kec. Alang-Alang Lebar, Kota Palembang, Sumatera Selatan 30153"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Deltamas",
+    "address": "Ruko Palais De Paris Blok A No. 18, Jl. Deltamas Boulevard, Sukamahi, Kec. Cikarang Pusat 17530"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Sengkaling Malang",
+    "address": "Eighteen business center, Jl. KH. Ahmad Dahlan no: 18 (sebelah mie gacoan) kec. Jombang, Kel: Jombatan, Jombang 61419"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Ngaliyan",
+    "address": "Ruko Villa Ngaliyan Permai blok A no 8. Tambakaji, kec Ngaliyan, Semarang Jawa tengah 50185"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Teuku Umar Semarang",
+    "address": "Ruko Jalan Teuku Umar no. 30A, RT 001, RW008, Jatingaleh, Semarang 50231"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Pangeran Hidayatullah",
+    "address": "Jl. Pangeran Hidayatullah, Banjarmasin Utara, Banjarmasin"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Apartment Gading Mediterania",
+    "address": "Ruko Appartment Gading Medit Recident, Kelapa Gading, Jakarta"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, SPBU Tondo",
+    "address": "Jl. Soekarno Hatta KM 9, Tondo, Mantikulore, Kota Palu Sulawesi Tengah 94111"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Proklamasi Garut",
+    "address": "Toko Galeri Jati, Jl. Proklamasi No.143, Tarogong Kidul, Garut"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Kedungmundu Semarang",
+    "address": "Perum Kampoeng Semawis, Jl. Semawis Raya No. A1, Pedurungan, Semarang"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Tabanan Bali",
+    "address": "Jl. DR IR Soekarno No. 77, Kediri Tabanan, Tabanan"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Menco City UMS",
+    "address": "Ruko Menco City Blok A7, Jl. Menco Raya B7, Kartasura, Sukoharjo"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Grand City Mall Surabaya",
+    "address": "Grand City Mall, Jl. Walikota Mustajab No.1, Lantai 3, Genteng, Surabaya"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Nusa Indah",
+    "address": "Ruko Perumahan Villa Nusa Indah 5 Blok SB I No. 17 Rt 007 Rw 13 Kel Ciangsana Kec Gunung Putri 16969"
+  },
+  {
+    "name": "Kopi Janji Jiwa, HS Ronggo",
+    "address": "Jl. HS Ronggo Waluyo No. 1, Telukjambe Timur, Karawang"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Kerobokan Bali",
+    "address": "Jl. Gn Tangkuban Perahu No. 70, Kerobokan, Bali"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Bellagio Mall",
+    "address": "Bellagio Boutique Mall Ruang 6-26, Kuningan, Jakarta"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Jl. KH. Abdullah Bin Nuh",
+    "address": "Jl. KH. Abdullah Bin Nuh, Pamoyanan, Cianjur, Cianjur"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Cokroaminoto",
+    "address": "Jl. Cokroaminoto No.50 Kelurahan Kejuron Kecamatan Taman 63133"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Suzuya Plaza Binjai",
+    "address": "Jl Kapten Muslim No 1 D/H, Pekan Binjai, Binjai Kota, Binjai City, North Sumatra 20742"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Dukuh Kupang",
+    "address": "Jl. Dukuh Kupang 20 No. 31, Dukuh Pakis, Surabaya"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Tentrem Mall",
+    "address": "Jl. Gajahmada No.123, Pekunden, Kec. Semarang Tengah, Kota Semarang, Jawa Tengah 50241"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Kemayoran Surabaya",
+    "address": "Jl. Kemayoran 2 No. 31, Krembangan, Surabaya"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Trade Center Serang",
+    "address": "Trade Center Serang, Jl. Serang Raya, Cilegon KM. 4 No. 8, Drangong, Taktakan, Serang"
+  },
+  {
+    "name": "Kopi Janji JIwa, Talaga Bestari",
+    "address": "Marketing Gallery Talaga Bestari / Jungle Boulevard No. 1, Jl. Raya Serang No.KM 21, Cibadak, Kec. Cikupa, Tangerang, Banten 15710"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Ponorogo Diponegoro",
+    "address": "Jl. Diponegoro No. 29, Kec Ponorogo, Ponorogo"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Cilebut Bogor",
+    "address": "Jl. Raya Cilebut No. 4, Tanah Sereal, Bogor"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Ruko Tuparev",
+    "address": "Jl. Banten No. 8, Ruko 7, Karawang Barat, Karawangan"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Bandung Trade Center",
+    "address": "Bandung Trade Centre Fashion Mall, Lantai G BOO-014, Jl. Dr Djunjunan No. 143-149, Cicendo, Bojonagara"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Ahmad Sobana",
+    "address": "Jl. H. Achmad Sobana No. 48, Bogor Utara, Bogor"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Sam Ratulangi",
+    "address": "Jl. Sam Ratulangi No. 88, Tanjung Batu, Kecamatan Wanea, Kota Manado, Sulawesi Utara 95000"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Chubb Square",
+    "address": "Wisma Kartika Chubb Square Basement LT 1 Unit B1.B1, Jl. MH. Thamrin No. 8-9 Daerah Khusus Ibukota Jakarta 10230"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Aimas Sorong",
+    "address": "Jl. Nangka, Malawili, Aimas, Sorong, Papua barat 98414"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Teluk Intan",
+    "address": "Apartemen Teluk Intan Tower Sapphire Unit B8, Jl. Pejagalan, Penjaringan, Jakarta"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Merbabu Klaten",
+    "address": "Jl. Merbabu No. 36, Klaten Tengah, Surakarta"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Diponegoro Tegal",
+    "address": "JL. PANGERAN DIPONEGORO NO.88 Kel. Mangkukusuman Kec.Tegal Timur, Kota Tegal Timur Jawa Tengah 52123"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Ngemplak",
+    "address": "Jl. Letnan Sutoyo no 3, Gilingan, Banjarsari, Surakarta,"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Biolab Gorontalo",
+    "address": "Jl. Pangeran Diponegoro Limba B, Kota Selatan, Gorontalo"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Citra Land Serang",
+    "address": "Ruko Citra Land Puri Indah Serang, Jl. Lingkar Selatan Blok A7 No. 6, Serang Kota, Serang"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Mandau Mall Duri",
+    "address": "Mall Mandau City, Komp Duri Indah Raya Blok C1 No. 01/02, Jl. Jend Sudirman Kav. 109, Mandau, Bengkalis"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Cipondoh",
+    "address": "Jl. KH Hasyim Ashari No. 34, Ciledug, Tangerang"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Mall Alam Sutera",
+    "address": "Mall Alam Sutera, Lantat.2 No. Unit 02 IS 07 B, Pinang, Tangerang"
+  },
+  {
+    "name": "Kopi Janji Jiwa, South Quarter",
+    "address": "Marketing Galery, Jl. RA Kartini Kav. 8, Lebak Bulus, Jakarta"
+  },
+  {
+    "name": "Kopi Janji Jiwa, El-Rapha",
+    "address": "Klinik El-Rapha, Jl. Raya Bogor KM. 31 No. 3, Cimanggis, Depok"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Vigo Supermarket",
+    "address": "Jl. Kapten Pattimura No. 165, Medan Baru, Medan"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Payakumbuh",
+    "address": "Jl. Ade Irma Suryani No.22 RT/RW 002/001, Labuah Baru, Payakumbuh Utara, Payakumbuh, 26213"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Kota Kebumen",
+    "address": "Jl. HM Sarbini No. 13, Kebumen Kota, Kebumen"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Mawar Merah",
+    "address": "Jl. Mawar Merah No.16, RT.9/RW.12, Malaka Jaya, Kec. Duren Sawit, Kota Jakarta Timur, Daerah Khusus Ibukota Jakarta 13460"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Cimindi Cimahi",
+    "address": "Jl. Raya Cimindi No. 128, Andir, Bojanagara"
+  },
+  {
+    "name": "Janji Jiwa, Jiwa Toast & Jiwa Tea, Avira Hotel Panakukang",
+    "address": "Jl. Adhyaksa Baru No. 18A, Panakkukang, Makassar"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Ruko Zamrud Mustika Jaya",
+    "address": "Ruko Zamrud Blok B1 No. 7, Mustika Jaya, Bekasi"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Ruko Nirwana Regency",
+    "address": "Pakuwon City, Jl. Raya Laguna KJW Putih Tambak No. 2, Mulyorejo, Surabaya"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Balai KIIC Karawang",
+    "address": "Balai KIIC, Jl. Permata Raya (komplek Komersial SPBU) Kawasan Industri KIIC, Karawang Barat, Kab. Karawang 41361"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Hotel Grand Sahid Jaya",
+    "address": "HOTEL GRAND SAHID JAYA, Jalan Jendral Sudirman, RT.5/RW.3, Senayan, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 10220"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Cemara Asri",
+    "address": "Kompleks Cemara Asri Jl. Boulevard Raya No. H1-77, cemara asri, Kec. Percut Sei Tuan, Kabupaten Deli Serdang, Sumatera Utara 20371"
+  },
+  {
+    "name": "Kopi Janji Jiwa, CGK 2E",
+    "address": "Terminal Bandara Soekarno Hatta 2E, Benda, Tangerang"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Soekarno Hatta",
+    "address": "Jl. Soekarno Hatta No 101 Kav 12 Semarang"
+  },
+  {
+    "name": "kopi Janji Jiwa, Semarang Tanah Mas",
+    "address": "Jl. Hasanudin No. 51, Semarang Utara, Semarang"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Wolter Gorontalo",
+    "address": "Jl. Wolter Monginsidi No. 05, Kec. Hulonthalangi, Kel. Tenda, RT: 001, RW: 008, Kota Gorontalo, 96133"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Martapura",
+    "address": "Jl. A. Yani Km 38,5, Martapura Kota, Martapura"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, GKM Green Tower",
+    "address": "GKM Green Tower, Jl. TB Simatupang No.Kav. 89 G, Pasar Minggu, Jakarta"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Cokro Probolinggo",
+    "address": "Jl. Cokroaminoto No. 17, Kanigaran, Probolinggo"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Karawang Mall Cikampek",
+    "address": "Jl. Ahmad Yani No.76, Cikampek"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Marvel City Surabaya",
+    "address": "Jl. Ngagel No. 123, Gubeng, Surabaya"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Bekasi Sampoerna Square",
+    "address": "Ruko Sampoerna Square No. 12. Jl. Raya Kranggan, Cibubur, Bekasi"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Pematangsiantar",
+    "address": "Jl. Sutomo No. 57, Siantar Barat, Pematang Siantar"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Mauk Tangerang",
+    "address": "Jl. Raya Mauk km 9, Sepatan Wetan, Kecamatan Sepatan Kabupaten Tangerang"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Bendungan Hilir",
+    "address": "Jl. Bendungan Hilir No. 31a, Bendungan Hilir, Jakarta"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Gatsu Samarinda",
+    "address": "Gatsu Square No.11, Jl. Gatot Subroto, Sungai Pinang, Samarinda"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Ciekek",
+    "address": "Jl. Raya Labuan Km.2 No.7 Ciekek Malati Pandeglang"
+  },
+  {
+    "name": "Kopi Janji Jiwa, POP! Hotel Gubeng Surabaya",
+    "address": "Jl. Bangka No. 8-18, Gubeng, Surabaya"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Tanjung Redeb",
+    "address": "JL. DURIAN I NO.17,TANJUNG REDEB KABUPATEN BERAU, KALTIM"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Imam Bonjol",
+    "address": "Jl. Imam Bonjol No. 126, Semarang Tengah, Semarang"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Taman Cimanggu",
+    "address": "Jl. Raya Taman Cimanggu No. 20, Tanah Sereal, Bogor"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Summarecon Digital Center",
+    "address": "Mall Sumarecon Digital Center, GF-C-05A Lantai Dasar. Gading Serpong, Curug Sangereng, Kelapa Dua, Tangerang, Banten 15810"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Grand Icon Caman",
+    "address": "Jl. Caman Raya No. 1, Pondok Gede, Bekasi"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Nakula Bali",
+    "address": "Jl. Nakula No. 88, Legian, Bali"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Pasuruan Balongwatu",
+    "address": "Jl. Raya Balongwatu no. 17A, KM-1, Kel. Cangkringmalang, Kec. Beji, Kab. Pasuruan"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Metropolitan Mall",
+    "address": "Metropolitan Mall, Jl. K.H Noer Alie Lt. 2, No. 11 – 12, Pekayon, Bekasi Selatan, Bekasi"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, DI Panjaitan",
+    "address": "JL Raya Tanjung Uban KM 10 depan SPBU Batu 10 (Bintan retail Square no 4) Kec. Tanjung Pinang Timur Kelurahan Air Raja"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Jatiuwung",
+    "address": "Jl. Gatot Subroto No. 16/8, Jatiuwung, Tangerang"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Koja Trade Mall",
+    "address": "Koja Trade Mall, Jl. Kramat Jaya No. 30, Koja, Jakarta"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Kediri Town Square",
+    "address": "Kediri Town Square, Jl. Hasanudin No. 2, Kediri Kota, Kediri"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Taman Kopo Indah",
+    "address": "Taman Kopo Indah 2, Blok 1B No. 31, Margaasih, Bandung"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Ciplaz Cengkareng",
+    "address": "Ciplaz Cengkareng, 1, Cengkareng, Jakarta"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Sumber Mekar",
+    "address": "Jl. Sumber Mekar No. 33, Babakan Ciparay, Pasir Koja, Kota Bandung, Jawa Barat"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, GRAND Metropolitan Mall",
+    "address": "Mall Grand Metropolitan Bekasi Upper Ground, No. 32, Jl. KH. Noer Ali, Pekayon, Bekasi Selatan, Bekasi"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Spazio Tower Surabaya",
+    "address": "Jl. Mayjen Yono Suwoyo No. 3, Dukuh Pakis, Surabaya"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Arcadia Daan Mogot",
+    "address": "Ruko Daan Mogot Arcadia Blok E No 15, Jl. Arcadia Daan Mogot, Daan Mogot, Jakarta ."
+  },
+  {
+    "name": "Kopi Janji Jiwa, AEON Mall Sentul",
+    "address": "Aeon Mall Sentul, Food Court depan Supermarket Aeon Lantai Dasar IC-G01A, Jl. MH. Thamrin, Citaringgul, Kec. Babakan Madang, Bogor, Jawa Barat 16810"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Mall Lippo Plaza Jember",
+    "address": "Lippo Plaza, Jl. Gajah Mada No. 116, Kaliwates, Jember"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Wahid Hasyim",
+    "address": "Jl. Caraka Bhuwana Selatan VI No.47, Jurang Manggu Tim., Kec. Pd. Aren, Kota Tangerang Selatan, Banten 15155"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Cimanuk",
+    "address": "Jl. Cimanuk No.6, Citarum, Kec. Bandung Wetan, Kota Bandung, Jawa Barat 40115"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Cinere Mall",
+    "address": "Cinere mall Lt. Dasar, Unit no.39B Jl. Cinere Raya no.1 Kel. Pangkalan Jati Kec. Cinere - Depok 16514"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Proklamator Lampung",
+    "address": "Jl. Proklamator Raya No. 81, Gunung Sugih, Lampung"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Graha Mandiri Semarang",
+    "address": "Ruko 2 Graha Mandiri Residence, Jl. Talang Bengkok, Gunung Pati, Semarang"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Arion Mall",
+    "address": "Arion Mall, Lantai 2, Jl. Pemuda, Rawamangun, Jakarta"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Sriwijaya Mataram",
+    "address": "Jl. Sriwijaya No. 310-401, Mataram Kota, Mataram"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Kemiling",
+    "address": "Jl. Teuku Cik Ditiro No. 23, Kemiling, Bandar Lampung"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Imam Bonjol Cibitung",
+    "address": "Jl. Imam Bonjol No. 22, (Sebrang Kantor Kecamatan Cikarang Barat), Cikarang, Bekasi"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Boyolali Pandanaran",
+    "address": "Jl. Solo Semarang No. 21, Mojosongo, Boyolali"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Lippo Plaza Sidoarjo",
+    "address": "Lippo Plaza Sidoarjo, Jl. Jati Raya No.1, Jati, Kec. Sidoarjo, Kabupaten Sidoarjo, Jawa Timur 61226 , Lantai UG, CL-KOR-16"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Lebak Bulus",
+    "address": "Jl. Lebak Bulus Raya No. 38, Lebak Bulus, Jakarta"
+  },
+  {
+    "name": "Kopi Janji Jiwa, BEC Bandung",
+    "address": "Bandung Elektronic Center. Jl. Purnawarman No. 13-15, Braga, Bandung"
+  },
+  {
+    "name": "Janji Jiwa X, Bli Bli Sarana Jaya",
+    "address": "Jl. Budi Kemuliaan 2 No.1, Tanah Abang, Jakarta"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Katamso Cilacap",
+    "address": "Jl. Brigjen Katamso no.39 rt/rw 03/02, Sidanegara , Cilacap Tengah"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Sokaraja Banyumas",
+    "address": "Jl. Lkr. Tim. Kudus, Tanggulangin, Jati Wetan, Kec. Jati, Kabupaten Kudus, Jawa Tengah 59346"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Tohpati Bali",
+    "address": "Jl. WR Supratman No. 311, Denpasar, Bali"
+  },
+  {
+    "name": "Kopi Janji Jiwa, A Yani Gedangan",
+    "address": "Jalan Ahmad Yani 30, Gedangan, RT 4 RW 1, Sidoarjo 61254, sebelah kelurahan Gedangan"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Ciomas Bogor",
+    "address": "Jl. Ciomas Raya, Gang Sadarno No. 267, Bogor Barat, Bogor"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Makassar Wahidin",
+    "address": "jln. Doktor Wahidin Sudiro Husodo 274, Kel. Malimongan, Kec. Wajo, Makassar , Sulawesi Selatan"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Rest Area Surabaya",
+    "address": "jl jaksa agung suprapto no.49 A, ngipik, karangpoh, gresik, jawa timur 61111"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, By Pass Ngurah Rai",
+    "address": "Jl. By Pass Ngurah Rai No. 34XX, Benoa Nusa Dua, Kuta Selatan, Badung, Bali 80361"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Transmart Grand Kawanua",
+    "address": "Transmart Carrefour & Trans Studio Mini Manado, Jl. AA Maramis, Mapanget, Manado"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Sarangan",
+    "address": "Jalan Sarangan no. 14, Lowokwaru, Kec. Lowokwaru, Kota Malang, Jawa Timur 65141"
+  },
+  {
+    "name": "Kopi Janji Jiwa, De Keraton Karawang",
+    "address": "Perumahan De Keraton, Ruko No. 13, Jl. Telagasari - Kosambi, Klari, Karawang"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Nusantara Raya Bekasi",
+    "address": "Jl. Nusantara Raya No.28, RT.001/RW.009, Aren Jaya, Kec. Bekasi Tim., Kota Bks, Jawa Barat 17111"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Museum Angkut",
+    "address": "Terusan Agung No. 9, Batu, Malang"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Sei Serayu Medan",
+    "address": "Jl. Sei Serayu No. 48 B, Babura Sungga, Kec. Medan Sunggal, Medan – 20153"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Ruko Legenda Wisata",
+    "address": "Ruko Newton, Legenda Wisata Cibubur, Jl. Ruko Newton Square Blok U16 No.03, Nagrak, Kec. Gn. Putri, Bogor, Jawa Barat 16967"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Gedung AGD DINKES JKT",
+    "address": "Gedung Ambulans Gawat Darurat Dinkes Dki Jakarta, Jl. Kesehatan No.10, RT.3/RW.6, Petojo Sel., Kecamatan Gambir, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10160"
+  },
+  {
+    "name": "Kopi Janji Jiwa, City Mart Bitung",
+    "address": "Citymart Swalayan JL. Yos Sudarso Kel.Bitung Tengah Kec Maesa Kota Bitung Sulawesi Utara"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, IPB",
+    "address": "Jl. Nasional 11 143, Babakan, Kec. Dramaga, Bogor, Jawa Barat 16680"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Revo Town",
+    "address": "Jl. Jend. Ahmad Yani, RT.005/RW.002, Pekayon Jaya, Kec. Bekasi Sel., Kota Bks, Jawa Barat 17148 (Revo Town GF #02)"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Tiban",
+    "address": "Komp Pertokoan Vivo Square, Blok H No. 01 Patam Lestari, Sekupang, Batam"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, ITC Roxy",
+    "address": "KH Hasyim Azhari no 12-15 cideng, itc roxy mas lantai 3 no: 109, RW:8, Cideng Jakarta Pusat"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Season City",
+    "address": "Jl. Prof. Dr. Latumeten No.33, RT.13/RW.1, Jemb. Besi, Kec. Tambora, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11320"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Grand Residence Bekasi",
+    "address": "Jl. Grand Residence Boulevard No.1, Cijengkol, Kec. Setu, Bekasi, Jawa Barat, 17322"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Ramayana Cirebon Square",
+    "address": "Jl.Raya plered no.1, Kec.Weru, Kab.Cirebon, Jawa Barat, 45159"
+  },
+  {
+    "name": "Kopi Janji Jiwa,Ramayana Ciputat",
+    "address": "Plaza Ciputat Raya, Jl. Ciputat Raya, Pamulang, Cipayung, Ciputat, Cipayung, Kec. Ciputat, Kota Tangerang Selatan, Banten 15412"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Samarinda Bung Tomo",
+    "address": "Jl. Bung Tomo, Samarinda Seberang, Samarinda"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Ramayana Cityplaza Depok",
+    "address": "Jl. Margonda Raya No 1, Depok, Kec. Pancoran Mas, Kota Depok, Jawa Barat 16431"
+  },
+  {
+    "name": "Jiwa Tea, Janji Jiwa & Jiwa Toast - Golf Island PIK",
+    "address": "Ruko Beach Boulevard Blok A no. 79 Golf Island, Pantai Maju, Daerah Khusus Ibukota Jakarta 14470"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Natura Buduran",
+    "address": "Jl. Siwalanpanji 2 Ruko natura EE-2, Buduran - Sidoarjo"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Ramayana Ciplaz Ciledug",
+    "address": "Jl. HOS Cokroaminoto No.38B RT.005/RW.005, Sudimara Timur, Pd. Kacang Tim., Kota Tangerang, Banten 15151"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Rolling Hills",
+    "address": "Jl. Arteri KIIC, Margakaya, Kec. Telukjambe Bar., Kabupaten Karawang, Jawa Barat 41361"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, District 2 Meikarta",
+    "address": "Unit: 56088-L1-002 District 2 Meikarta Cibatu, South Cikarang, Bekasi, West Java 17530"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Tondano",
+    "address": "Jl. Tondano - Kakas, Lingkungan 1 Kel. Liningaan, Kec. Tondano Timur, Kab. Minahasa, Sulawesi Utara 95611"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Gandul Depok",
+    "address": "Jl. Raya Gandul No.37, RT.2, Gandul, Kec. Cinere, Kota Depok, Jawa Barat 16514"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Arandra Apartment",
+    "address": "Jl. Cemp. Putih No.1, Cemp. Putih Tim., Kec. Cemp. Putih, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10510"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Borma Gempol",
+    "address": "Borma Toserba - Gempol, Gempolsari, Kec. Bandung Kulon, Kota Bandung, Jawa Barat 40215"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Borma Cijerah",
+    "address": "Jl. Raya Cijerah No.90, Cijerah , Kec. Bandung Kulon, Kota Bandung, Jawa Barat 40213 (Borma Cijerah)"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Batu Ampar",
+    "address": "Jl. Batu Ampar 3 No. GA 26, Kramat Jati, Jakarta"
+  },
+  {
+    "name": "Kopi Janji Jiwa & Jiwa Toast, A Yani",
+    "address": "Jalan Ahmad YaniNo.118B, Benteng Pasar Atas Jalan Ahmad YaniNo.118B, Benteng Pasar Atas"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Tunjungan Plaza",
+    "address": "Jl. Basuki Rachmat no 8-12, Kedungdoro, Kec. Tegalsari, Kota Surabaya, Jawa Timur 60261"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Grand Mall Maros, MKS",
+    "address": "Grand Mall Maros, Jl. Poros Makassar - Maros, Bontoa, Kec. Mandai, Kabupaten Maros, Sulawesi Selatan 90552"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Ramayana Padalarang",
+    "address": "Jl. Raya Padalarang No.475, Kertamulya, Padalarang, Kabupaten Bandung Barat, Jawa Barat 40553"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Cianjur Arif Rahman",
+    "address": "Jl. Arif Rahman Hakim No. 60B, Cianjur Kota, Cianjur"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Muara Enim",
+    "address": "Jl. Jend Sudirman 56 Rt.003 Rw.03 Pasar III Talang Jawa Muara Enim Sumatera Selatan 31313"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Sunan Kalijogo",
+    "address": "LBH Sunan Kalijogo Demak, Jl. St. No.17, Bogorame, Bintoro, Kec. Demak, Kab. Demak, Jawa Tengah 59511"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, KH Mansyur Pasuruan",
+    "address": "Jl. KH Mansyur 88, Bugukidul, Pasuruan"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Grand Batavia Tangerang",
+    "address": "Grand Batavia Ruko Arcade Blok D No 35, Kel. Sindang Sari, Kec. Pasar Kemis, Kab. Tangerang, Banten, 15560"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Karanganyar",
+    "address": "Jl. Lawu no 213, Tegalrejo Rt03/ Rw03 Tegalgede, Kec. Karanganyar Kab. Karanganyar Jawa Tengah 57714"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Kota Baru Parahyangan",
+    "address": "Jl. Parahyangan Kav. 6A No. 10. Kota Baru Parahyangan. Cipeundeuy Padalarang, Kabupaten Bandung Barat, Jawa Barat 40553"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Supermarket Bravo Bojonegoro",
+    "address": "Jalan Pemuda No. 37 - 39, Ngrowo, Rt 08, Rw 02 Kec. Bojonegoro, Kab. Bojonegoro, Jawa Timur - 62119"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Ki Hajar Dewantara",
+    "address": "Jl. Ki Hajar Dewantara, Sawah Lama, Kec. Ciputat, Kota Tangerang Selatan, Banten 15413"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Lulu Hypermarket Cakung",
+    "address": "Grand Cakung MAll blok OD-KG-02 (lobby utama mall) Jl. Sri Sultan Hamengkubuwono IX No.KM. 25, RW.1, Ujung Menteng, Kec. Cakung, Kota Jakarta Timur, Daerah Khusus Ibukota Jakarta 13960"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Cikini Gold Center",
+    "address": "Jl. Cikini Ampiun, RT.1/RW.1, Pegangsaan, Kec. Menteng, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10320"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Taman Niaga",
+    "address": "Ruko Taman Niaga, Blok B 3A, Mijen, Semarang"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Katamso Sidoarjo",
+    "address": "Jl. Brigjen Katamso No. 404, Waru, Sidoarjo"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Rahadi Usman",
+    "address": "Jl. Rahadi Usman No. 84, Kel. Sawahan (Mentawa Baru Hulu Utara), Kec. Mentawa Baru (Ketapang), Kabupaten Kota waringin Timur, Kalimantan Tengah"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Menganti",
+    "address": "Jl. Menganti Raya No. 11, Wiyung, Surabaya"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Pemda Tigaraksa",
+    "address": "Jl. M. Atik Soeardia, kadu agung, tigaraksa kec. tangerang banten 15720"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Untung Suropati Samarinda",
+    "address": "Jl. Untung suropati no.35, Samarinda"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, ITC Depok",
+    "address": "LG, Jl. Margonda Raya Depok Kec. Pancoran Mas Kota Depok, Jawa Barat 16431"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Perintis",
+    "address": "Jalan Perintis Kemerdekaan KM.9 No.B6 (Samping Universitas Islam Makassar)"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Ruko Akita Buah Batu",
+    "address": "Terusan Buah Batu Ruko Akita 2 Blok 8L, Jl. Cikoneng, Bojongsoang, Bandung"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Manojaya Banjar",
+    "address": "Jl. Husen Kartasasmita No.81-79 Lingk. Banjar RT.002 RW.003 Kel. Banjar Kec. Banjar - Kota Banjar - Jawa Barat 46311"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Komyos",
+    "address": "Jl. Komyos Sudarso No.7, (Samping Warkop Millenial), Pontianak Barat, Pontianak"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Manukan",
+    "address": "Jl. Manukan Dalam No. 14, Tandes, Surabaya"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Ramayana Cibadak",
+    "address": "Jl. Siliwangi, Sekarwangi, Kec. Cibadak, Sukabumi Regency, Jawa Barat 43351"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Mayjend Sutoyo Asmara",
+    "address": "JL. Mayjend Sutoyo No. 1, (Sebelah Masjid Al-Mabrur), Sidomulyo, Ungaran Timur, Ungaran, Kab. Semarang (50514)"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast - Ruko Graha Mulya",
+    "address": "Ruko Graha Mulya Ruko No.1 Jl. Dr. Susanto 99 Desa Karangdowo RT.01/ RW.01 Kelurahan Kutoharjo. Pati - Jawa Tengah"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Haurgeulis",
+    "address": "Jl. Jendral Sudirman No.68 RT/RW : 017/008, Haurgeulis, Indramayu"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Plaza Cibubur",
+    "address": "Jl. Alternatif Cibubur, RT.001/RW.003, Jatikarya, Kec. Jatisampurna, Kota Bks, Jawa Barat 17435"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Hankam Raya",
+    "address": "Jl. Raya Hankam no 36 RT.001/ RW.005 Kel. Jatimelati Kec.Pondok Melati, Kota"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Minasaupa",
+    "address": "Jl. Minasa Upa Raya Blok L5 No. 12C, Rappocini, Makassar"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Indicafe Balikpapan",
+    "address": "Indicafe Telkom, Jl. MT Haryono, Damai Kecamatan Balikpapan Selatan, Kota Balikpapan Kalimantan Timur 76114"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Rukan Soreang Bandung",
+    "address": "Jl. Raya Soreang No.125, Soreang, Kec. Soreang, Bandung, Jawa Barat 40911"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Sunan Kalijaga Rangkasbitung",
+    "address": "Jl. Sunan Kalijaga, Rangkasbitung, Serang"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Kapten Mulyadi Karanganyar",
+    "address": "Jln. Kapten Mulyadi, Dompon RT 01/09 Karanganyar, Kec Karanganyar, Kabupaten Karanganyar, Jawa Tengah"
+  },
+  {
+    "name": "Janji Jiwa X, MKG 3",
+    "address": "Jl. Mandiri Tengah, RT.13/RW.18, Klp. Gading Tim., Kec. Klp. Gading, Kota Jkt Utara, Daerah Khusus Ibukota Jakarta 14240"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Jatimakmur",
+    "address": "Jl. Jati Makmur, Pondok Gede, Bekasi"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, WTC Surabaya",
+    "address": "Food Galeria WTC lantai 6 stand 6K5, Jl. Pemuda No.27-31, Embong Kaliasin, Kec. Genteng, Kota SBY, Jawa Timur 60263"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Ruko Swadarma Tabalong",
+    "address": "Ruko Swadarma (seberang Aston Tanjung) Jl. Ahmad Yani, Mabuun, Murung Pudak, Kabupaten Tabalong, Kalimantan Selatan 71571"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Esberg",
+    "address": "Jl. Esberg T2 No. 05, Sukun, Malang"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Jenderal Sudirman Temangggung",
+    "address": "Jl Jend Sudirman No 19 Kelurahan Dongkelan Utara Jampiroso  Kecamatan Temanggung Kabupaten Temanggung"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Mekarwangi",
+    "address": "JL. Mekar utama 1 no 12, Mekarwangi, Kec. Bojongloa Kidul, Bandung"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Apartemen Green Park View",
+    "address": "Tower F Blok FK No. 1, Jl. Daan Mogot No.26, RT.1/RW.5, Duri Kosambi, Kecamatan Cengkareng, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11750"
+  },
+  {
+    "name": "Kopi Janji Jiwa, MT Haryono",
+    "address": "Jl. M.T. Haryono No.116 Wowawanggu, Kec. Kadia, Kota Kendari 93117"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, AEON JGC",
+    "address": "Jl. Jkt Garden City, RT.1/RW.6, Cakung Tim., Kec. Cakung, Kota Jakarta Timur, Daerah Khusus Ibukota Jakarta 13910"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Agus Salim 48",
+    "address": "Jalan KH Agus Salim 48 Malang, Jawa Timur 65118"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, IR Juanda Karawang",
+    "address": "Jl. Ir. Haji Juanda No. 118, Kotabaru, Karawang"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Jalur Dua Poso",
+    "address": "Jalan Pulau Sulawesi nomor 11, Kelurahan Gerbang Rejo Barat, Kecamatan Poso Kota, Sulawesi Tengah"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Cikarees",
+    "address": "Jl. Cikarees Mekarsari No 9"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, ITC BSD",
+    "address": "Great Western Resort Ground Floor St 16, Jalan Mohammad Tamrin KM 2,7, RT.007/RW.001, Panunggangan Utara, Kec. Tangerang, Kota Tangerang, Banten 15143"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Letjen Ibrahim",
+    "address": "Jl. Raya Sindang Barang no. 8, Ciherang, Dramaga"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Bone",
+    "address": "jln. Jend. Sukawati ,Kel. Macege, Kec. Tanete Riattang Barat, Kab. Bone, Provinsi Sulawesi Selatan"
+  },
+  {
+    "name": "Kopi Janji Jiwa Kenjeran Sby Jilid 663",
+    "address": "Jl. Kedung Cowek 75,Surabaya"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Kartini",
+    "address": "Jalan Kartini No. 5, RT10/RW07, Kelurahan Kebon Pisang, Kecamatan Sumur Bandung, Bandung, Jawa Barat, 40112"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Amega Crown Residence",
+    "address": "Kp. Baru, Tambakoso, Waru, Sidoarjo Regency, East Java 61256"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Tomohon Sengsel",
+    "address": "Jl. Sengel No. 88, Tomohon Tengah, Tomohon"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast - Giant Express",
+    "address": "Jl. Kebraon V Taman Griya Kebraon II Kompleks Pertokoan Plaza Kartika Niaga Kebraon Surabaya"
+  },
+  {
+    "name": "Kopi Janji Jiwa, SIM Square Telogorejo",
+    "address": "Jl. Kh Ahmad Dahlan No. 39, Semarang Tengah, Semarang"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Gajahmada Banyuwangi",
+    "address": "Jl. Gajahmada no. 150 , Kecamatan: genteng, kabupaten Banyuwangi, Jawa Timur 68465"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Sepinggan",
+    "address": "Jl. Marsmar Riswahyudi No. 27 Gn. Bahagia, Sepinggan - Balikpapan - Kalimantan Timur"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Trenggalek P Sudirman",
+    "address": "Jalan Panglima Sudirman No. 38 Ngantru, Kec. Trenggalek, Kab. Trenggalek, Jawa Timur"
+  },
+  {
+    "name": "Kopi Janji Jiwa, The Park Solo",
+    "address": "Jl. Ir Soekarno, Dusun 2, Grogol, Solo"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Ruko Weleri",
+    "address": "Jl. Timur Kaliwungu Raya No. 229, Krajan Kulon, Kendal"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Jombang EBC",
+    "address": "Jl. Raya Curug (Samping Alfamidi II) RT 005 / 02, Kel Cukanggalih, Kec Curug, Suka Bakti, Tangerang, Banten 15134"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast,  Puri Mansion Apartment",
+    "address": "Puri Mansion Apartment RT.13/RW.2, Duri Kosambi, Kecamatan Cengkareng, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11750"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Istana Plaza",
+    "address": "Jl. Pasir Kaliki No. 121-123, Cicendo, Bandung"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Sunter Parkview",
+    "address": "Sunter Jaya Tj. Priok Kota Jkt Utara Daerah Khusus Ibukota Jakarta"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Alauddin Makassar",
+    "address": "Jl. Alauddin, Komp. Alauddin Plaza BA 07, Rappocini, Makassar"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Setia Budi Medan",
+    "address": "Jl. Setia Budi No. 104C, Pasar 1, Kel : Tanjung Sari, Kec: Medan Selayang, Medan, Sumatera Utara 20154"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Banyumanik",
+    "address": "Jalan Jati Raya blok F no 6, Srondol Wetan, kec Banyumanik, Semarang, Jawa Tengah 50263"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Veteran Medan",
+    "address": "Jl. Veteran Pasar 4 Helvetia (depan/seberang) SMPN 1 Tj. Gusta Kec. Labuhan Deli, Kab. Deli Serdang Sumatera Utara 20116"
+  },
+  {
+    "name": "Janji Jiwa, Jiwa Toast, Jiwa Tea Center Point of Indonesia",
+    "address": "Alamat: Citraland Losari-Makassar, Center Point of Indonesia,Blok B2 no 8 Kota Makassar, Sulawesi Selatan 90111"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Centro City",
+    "address": "Centro City Residences, Jl. Daan Mogot 2 No. 10, Green Ville, Jakarta"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Borobudur Tangerang",
+    "address": "Ruko Jalan Borobudur No. 87A, Tangerang, Banten"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Perintis KM 15",
+    "address": "Jln. Perintis Kemerdekaan KM 15. Ruko Insignia Blok A No. 5, Daya, Kec. Biringkanaya, Kota Makassar, Sulawesi Selatan 90245"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Mulyosari",
+    "address": "Jl. Raya Mulyosari no. 163, Kalisari, Mulyorejo, Surabaya, 60112"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Ruko Ciremai",
+    "address": "Jl. Gunung Tangkuban Perahu D 11 No. 165, Harjamukti, Cirebon"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Kampkei",
+    "address": "Jalan Raya Abepura No. 11 A Samping Apotek K-24, Depan Koramil, Abepura, Kota Jayapura, Papua 99351"
+  },
+  {
+    "name": "Janji Jiwa, Jiwa Toast & Joomba, Ruko Palem Semi",
+    "address": "Ruko CBD Palem Semi no. 22, Jalan Lingkar Palem Semi, Tangerang, Banten"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Kitapa Serang",
+    "address": "Jl. Kitapa No 30 Link Calung, RT/RW 04/02, Kel. Kotabaru, Kec. Serang, Kota Serang, Banten, 42112 (Seberang Persis Pecak Banden Ma-Ren)"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast,  Ruko Kahfi Square",
+    "address": "Jl. Moh. Kahfi 1, RT.7/RW.1, Ciganjur, Kec. Jagakarsa, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12630"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Bintaro Junction",
+    "address": "Jl. Jend. Sudirman No.6, Pd. Jaya, Kec. Pd. Aren, Kota Tangerang Selatan, Banten 15220"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, One Batam Mall",
+    "address": "ONE BATAM MALL, LANTAI B1-B12, KEL. TELUK TERING, KEC. BATAM KOTA, KOTA BATAM, KODE POS 29444"
+  },
+  {
+    "name": "Janji Jiwa X, Jiwa Toast, Jiwa Tea & Joomba , Gran Rubina Business Park",
+    "address": "Jl. Epicentrum Boulevard Bar., RT.2/RW.5, Karet Kuningan, Kecamatan Setiabudi, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12940"
+  },
+  {
+    "name": "Kopi Janji Jiwa, City Centrum",
+    "address": "Jl Mulawarman no 117, Samarinda, Kaltim"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Suzuya Superstore",
+    "address": "Jl. Brigjend Katamso No.710, Kp. Baru, Kec. Medan Maimun, Kota Medan, Sumatera Utara 20217"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Bangkalan Kota",
+    "address": "Jl. Jend. Ahmad Yani No.08 RT.02 RW.08 Kel. Demangan Bangkalan Madura"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Purwakarta Basuki Rachmat",
+    "address": "Jl Basuki rachmat No. 97 Rt 008/rw 002 kel. sindang kasih kec. purwakarta kab purwakarta 41112"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Pasuruan Diponegoro",
+    "address": "Jl. Diponegoro No.4 Kidul dalem, Kec. Bangil, Pasuruan, Jawa timur 67153"
+  },
+  {
+    "name": "Janji Jiwa X Jiwa Toast, Kemang 10",
+    "address": "Jl. Kemang Raya No.10, RT.3/RW.2, Bangka, Kec. Mampang Prpt., Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12730"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Indrakila",
+    "address": "Jl. Indrakila No. 17, Kel. Gunung Samarinda Baru, Kec. Balikpapan Utara, Balikpapan, Kal Tim 76125"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Hotel Amaris Cikupa",
+    "address": "Hotel Amaris Cikupa Tangerang, Perumahan Citra Raya Blok KA 01, Gg. Kav. No.2, Mekar Bakti, Kec. Panongan, Tangerang, Banten 15710"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Pelabuhan Ratu",
+    "address": "jalan siliwangi pelabuhan ratu no 15 RT.3 sukabumi regency, jawa barat"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Mojopahit Mojokerto",
+    "address": "Pojokan Jl. Mojopahit dan Jl Ahmad Yani, Depan alun alun. Kec Magersari, Kota Mojokerto, Jawa Timur"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Sultan Hasanuddin",
+    "address": "Jl. Sultan Hasanuddin, Ruko Graha Satelit A no.12A"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Click Square",
+    "address": "Jl. Naripan No.89, Kb. Pisang, Kec. Sumur Bandung, Kota Bandung, Jawa Barat 40112"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Rawa Lumbu Bekasi",
+    "address": "jl. Dasa Darma No.7b RT.001/RW.004, Pengasinan, Kec. Rawalumbu, Bekasi, Jawa Barat 171157"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Martandu",
+    "address": "Jl. Martandu No. 17-19, Kambu, Kec. Kambu, Kota Kendari, Sulawesi Tenggara 93231"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Garuda Green Garden",
+    "address": "Jalan Cendrawasih Raya, Halim Perdana Kusumah, Makasar, RT.1/RW.10, Halim Perdana Kusumah, Kec. Makasar, Kota Jakarta Timur, Daerah Khusus Ibukota Jakarta 13610"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Agil Kusumanadya",
+    "address": "Jl. Agil Kusumadya no 87, Jatimakmur, Jati Wetan, Kec. Jati, Kabupaten Kudus, Jawa Tengah 59346"
+  },
+  {
+    "name": "Janji Jiwa, Jiwa Toast & Jiwa Tea,  Tarakan Tengah",
+    "address": "JL MULAWARMAN NO.2, KARANG ANYAR, TARAKAN, KALIMANTAN UTARA"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Wotgandul Semarang",
+    "address": "Jl. Wotgandul Barat No.1, Kranggan, Kec. Semarang Tengah, Kota Semarang, Jawa Tengah 50137"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Flamboyan Ungaran",
+    "address": "Jl.Flamboyan, Gn.Pabongan, Kec.Ungaran Timur, Kab.Semarang"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Vivo Mall Sentul",
+    "address": "Jl. Raya Jakarta-Bogor, Cijujung, Kec. Sukaraja, Bogor, Jawa Barat 16710"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Citayam",
+    "address": "Jl. Raya Citayam No.11A Depok, Kec. Pancoran Mas Kota Depok Jawa Barat 16431"
+  },
+  {
+    "name": "Kopi Janji Jiwa, The Corner Airmadidi",
+    "address": "Ruko The Corner no.7 - Jln. Arnold Mononutu Airmadidi atas. Depan Universitas Klabat,Minahasa Utara"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Stasiun Kesenden Cirebon",
+    "address": "Jl. Stasiun No. 12, Kejaksan, Cirebon"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Puspitek Tangerang",
+    "address": "Ruko Orlin Arcade 2, Blok RF-15, Perumahan Serpong Jaya, Jl. Raya Puspitek, Rt 01 Rw 02 Kel. Buaran, Kec. Serpong, Kota Tangerang Selatan 1531"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Seturan Yogya",
+    "address": "Ruko Pulohdadi no. 1B, Jl. Seturan Raya,Kledokan, Caturtunggal, Kec. Depok, Kabupaten sleman, Daerah Istimewa Yogyakarta 55281"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Ruko de Leota",
+    "address": "Ruko De`Leota, Jl. Alam Asri No. 24, Tembalang, Semarang"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Juanda Tasikmalaya",
+    "address": "Jalan Ir. H. Juanda No. 2, Penyingkiran, Kec. Indihiang, Tasikmalaya, Jawa Barat, 46151"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Mall Botania 2",
+    "address": "Lantai Dasar Mall Botania 2"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Tanjung Balai",
+    "address": "Jl. Teuku Umar No. 151 Tanjung Balai, Kelurahan: Tanjung balai kota II ,Kecamatan: Tanjung balai selatan, Sumatera Utara 21311"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Blora DR Sutomo",
+    "address": "Jl. Dr. Sutomo No.18 RT.003/ RW.002. Tempelan. Kecamatan Blora. Kabupaten Blora. Jawa Tengah"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Woltermonginsidi Semarang",
+    "address": "Jl. Wolter Monginsidi No.109, Tlogosari Wetan, Kec. Pedurungan, Kota Semarang, Jawa Tengah 50196"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Perusahaan Raya",
+    "address": "Jl. Perusahaan Raya No. 8A, Kel. Tunjungtirto, Kec. Singosari, Malang"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Sangguminasa",
+    "address": "Jl. Masjid Raya No. 27 A Sungguminasa, Gowa, Sulawesi Selatan, 92114"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Pluit Village",
+    "address": ": Ruko Pluit Permai Raya, Ruko Pluit Village No. 54 Jakarta Utara"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Lamongan Kombespol",
+    "address": "Jalan Kombespol M. Duryat no 37 ( Depan Polres ) Lamongan"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Sukarame",
+    "address": "Jl. Rya Cudu No.4, Kel. Harapan Jaya, Kec. Sukarame, Kota Bandar Lampung, Lampung, Indonesia"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Perjuangan Cirebon",
+    "address": "Jl Perjuangan No.40 kel:Karyamulya kec:Kesambi, Cirebon Jawa Barat 45131"
+  },
+  {
+    "name": "kopi janji jiwa, purbalingga mt haryono",
+    "address": "Jl. MT.Haryono no 59 Karangsentul Purbalingga 53372"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Kuningan Salawati",
+    "address": "Jl. Salawati No.13, Rt 03 / Rw 04, Kecamatan Kuningan, Kabupaten Kuningan, Jawa Barat 45511"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Kudus Tirta Jaya",
+    "address": "Jl. Lkr. Utara, Kayuapu Kulon, Gondangmanis, Bae, kudus, jawa tengah 59327, Indonesia"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Rangkasbitung Multatuli",
+    "address": "Jl. Multatuli, Muara Ciujung Bar., Kec. Rangkasbitung, Kabupaten Lebak, Banten 42312"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Gunung Sari",
+    "address": "Jl.Gunungsari No.53 , Sawunggaling , Surabaya"
+  },
+  {
+    "name": "Kopi Janji Jiwa, GreenBay Apartment",
+    "address": "Apartemen greenbay tower c , floor 3, Blok C 10, RT.20/RW.2, Pluit, Kec. Penjaringan, Kota Jkt Utara, Daerah Khusus Ibukota Jakarta 14450"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Riyanto",
+    "address": "Jl. Riyanto 89, Kadisari, Sumampir, Kec. Purwokerto Utara, Kabupaten Banyumas, Jawa Tengah 53125"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Serpong Garden",
+    "address": "Perumahan Serpong Garden Ruko 3 Blok C1 no 16,Cisauk, Serpong Tangerang"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Kuningan IR H Juanda",
+    "address": "Jalan KH Agus Salim 48 Malang, Jawa Timur 65118"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Sultan Agung",
+    "address": "Jl Sultan Agung No.17 Rt.01 RW.01 kel.Sumber Kec.Sumber Kab. Cirebon Jawa Barat 45611"
+  },
+  {
+    "name": "Kopi Janji JIwa, POP Hotel Diponegoro",
+    "address": "Jl. Diponegoro No. 33, Surabaya"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Ruko Cicurug",
+    "address": "Desa Cicurug, Cicurug, Sukabumi"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Rogojampi Banyuwangi",
+    "address": "Jl. Raya Rogojampi no 193, Rogojampi, Banyuwangi,68462."
+  },
+  {
+    "name": "Kopi Janji Jiwa, Cibinong Raya Bogor",
+    "address": "Jl. Raya Bogor KM. 43 No. 13. RT.1/RW.13, Pabuaran, Cibinong, Bogor, Jawa Barat 16916"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Gresik Raya Mutiara",
+    "address": "Perumahan Pondok Pertama Suci Gresik, Jl. Mutiara Raya No. 100 , Manyar, Jawa Timur"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Gresik Kalimantan",
+    "address": "jl kalimantan no 87C, wonorejo, GKB gresik, kota gresik , jatim"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Sarana Square",
+    "address": "Ruko Sesendo, Jl. Tebet Barat IV No.20, Tebet Bar., Kec. Tebet, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12810 (GF 1D A)"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Kesuma Bangsa",
+    "address": "Jl. Kesuma Bangsa No,113 LK.04 RT.001 Rw. 001 Ds. Kalianda, Kec.Kalianda Kab.Lampung Selatan 35551"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Ruko Clandy",
+    "address": "Ruko Clandy's Jalan Masjid No.24 Kampung Longkrang, Wonosobo Timur"
+  },
+  {
+    "name": "Janji Jiwa X Jiwa Toast, Sunter",
+    "address": "Jl. Danau Sunter Utara Blok AC No. 2, Sunter, Jakarta"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Sukoharjo Slamet Riyadi",
+    "address": "Jl. Slamet Riyadi No 43 A Sukoharjo 57513"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Toserba Yogya Slawi",
+    "address": "Toserba Yogya Slawi, Jl. Jenderal Ahmad Yani No.18, RT.2 / RW.02 Kel. Procot Kec. Slawi Tegal Jawa Tengah 52412"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast RSUP Dokter Kariadi Semarang",
+    "address": "Jalan Dokter Sutomo No.16, Gedung Fasum No. 3, Semarang"
+  },
+  {
+    "name": "Janji Jiwa, Jiwa Toast & Joomba, WTC Mall Serpong",
+    "address": "Jl. Raya Serpong No.39, Pd. Jagung, Kec. Serpong, Kota Tangerang Selatan, Banten 15326"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Rukan Sentul Jungleland",
+    "address": "Karang Tengah, Kec. Babakan Madang, Bogor, Jawa Barat 16810"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Cipadung",
+    "address": "Borma Cipadung, Jl. A. H. Nasution no 4, RT 01, RW 07, Cipadung Kulon, Panyileukan, Bandung, 40164"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Semarang Taman Ngaliyan",
+    "address": "jl. Prof. Hamka no 90 ( Ruko Taman Ngaliyan), Semarang"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Klampis",
+    "address": "Jl. Klampis Jaya 31 G Surabaya"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Sragen Sukowati",
+    "address": "Jl. Raya Sukowati No 562D, kecamatan Sragen, Kabupaten Sragen"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Citimall Dumai",
+    "address": "Citimall Dumai G 0140, Jl. Bukit Datok, Dumai Barat, Kota Dumai, Riau 28826"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Jend Sudirman Sukoharjo",
+    "address": "Jl. Jend. Sudirman No. 133, Gabusan, Jombor, Kec. Bendosari, Kab. Sukoharjo"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Glodok Plaza",
+    "address": "Jl. Pinangsia Raya No.1, RT.1/RW.6, Mangga Besar, Kec. Taman Sari, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11180"
+  },
+  {
+    "name": "Janji Jiwa x Jiwa Toast, Ruko Villa Permata",
+    "address": "Ruko Villa Permata, Blok B16 No. 3A, Karawaci, Tangerang"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Lippo Kebon Raya Bogor",
+    "address": "Lodaya Bogor, Jl. Raya Pajajaran kota .12 C, RT.03/RW.08, Babakan, Kecamatan Bogor Tengah, Kota Bogor, Jawa Barat 16128"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Mulawarwan",
+    "address": "JL. MULAWARMAN NO.94, SEPINGGAN, KECAMATAN BALIKPAPAN SELATAN, KOTA BALIKPAPAN, KALIMANTAN SELATAN 76116"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Rita Pasaraya Isola",
+    "address": "Jl. Jend. Soedirman No.558, Kongsen, Purwokerto Kulon, Kec. Purwokerto Sel., Kabupaten Banyumas, Jawa Tengah 53141"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Sapugarut Pekalongan",
+    "address": "Jl. Raya Sapugarut No.130, Sapugarut Barat, Sapugarut, Kec. Buaran, Pekalongan, Jawa Tengah 51171"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Ruko Sentra Benda",
+    "address": "Ruko Sentra Benda Blok A No.8, Jl. Husein Sastranegara No.2, Rawa Bokor, RT/RW 002/001 Benda, Kota Jakarta Barat, Banten 15124"
+  },
+  {
+    "name": "Kopi Janji Jiwa, SMR Cipto",
+    "address": "Jl. Cipto Mangunkusumo no: 12, simpang tiga, kec. loa janan ilir, kota samarinda, kalimantan timur, 75391"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Lippo Ekalokasari",
+    "address": "Lippo plaza ekalokasari lantai 3 Jl. Raya Pajajaran, RT.01/RW.01, Sukasari, Kec. Bogor Tim., Kota Bogor, Jawa Barat 16134 tiitk koordinat: -6.6219295,106.8178305"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Bhayangkara",
+    "address": "Jl. Bhayangkara No. 38, Kec. Gunungpuyuh, Kota Sukabumi, Jawa Barat 43123"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Kemakmuran",
+    "address": "Jl. Kemakmuran No.73, Mappasaile, Kec. Pangkajene, Kabupaten Pangkajene dan Kepulauan, Sulawesi Selatan 90614"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Dave Apartment",
+    "address": "Dave Apartment, Jl. Palakali, Kukusan, Kecamatan Beji, Kota Depok, Jawa Barat 16425 (Ground Floor Unit A03)"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Jepara",
+    "address": "Jl. K. S. Tubun No.39, Demaan VIII, Demaan, Kec. Jepara, Kabupaten Jepara, Jawa Tengah 59419"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Taman Siswa",
+    "address": "Jl. Taman Siswa no.1A (Ruko 88C), Sekaran, Kec. Gn Pati, Kota Semarang, Jawa Tengah 50229"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Panglima Besar",
+    "address": "Jl. Panglima Besar No 4, RT 01/RW01, Tompokersan, Lumajang, Jawa Timur"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Apartemen Menteng Square",
+    "address": "Apartemen Menteng Square Tower B Unit B-R5 Jalan Matraman Raya No. 30E RT5 RW6  Kel. Kenari Kec. Senen Jakarta Pusat"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Nganjuk A Yani",
+    "address": "Jl. Ahmad Yani no.1,Mangundikaran, kec. nganjuk, Kota nganjuk, Jawa Timur 64411"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Kudus Extension Mall",
+    "address": "Jl. Kapas Krampung No.45,Tambakrejo, Kec. Simokerto, Kota SBY, Jawa Timur 60142"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Syiah Kuala",
+    "address": "Jl. Syiah Kuala No. 5 Komp. Pertokoan Darul Ulum Jambo Tape - Banda Aceh"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Temurasa BSD",
+    "address": "Jl. BSD Raya Utama, Lengkong Kulon, Kec. Pagedangan, Tangerang, Banten 15331"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Permata Cimahi",
+    "address": "Jl.Lukmonohadi no 1 Kudus"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Ciledug Cirebon",
+    "address": "Jl Raya Ciledug No.14 Ciledug Kulon Cirebon Jawa Barat 45188"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Talavera Office Park",
+    "address": "Jl. TB Simatupang No.22-26 RT.1/RW.1, Cilandak Bar. Kec. Cilandak Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12430"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Baruga",
+    "address": "JL. Kapten Piere tendean, baruga, seberang SPBU Baruga, Kendari 93116"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Pondok Jati Sidoarjo",
+    "address": "Ruko Sentra Niaga, Jl. Pondok Jati AJ 28A, Pagerwojo"
+  },
+  {
+    "name": "Kopi Janji Jiwa, PB Sudirman",
+    "address": "Jl. Pb sudirman no.14, plongko, kec. Pare, kediri, jawa timur, 64211"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast Mayor, Mayor Oking",
+    "address": "Jl. Mayor Oking Jaya Atmaja No. 26 Rt 04/01, Cirimekar, Cibinong, Bogor"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Pondok Kelapa Town Square",
+    "address": "Pondok Kelapa Town Square GF unit 3, Jl. Pd. Kelapa Raya, RT.16/RW.2, Pd. Klp., Kec. Duren Sawit, Kota Jakarta Timur, Daerah Khusus Ibukota Jakarta 13450"
+  },
+  {
+    "name": "Kopi Janji Jiwa, GWK Bali",
+    "address": "H5 Commercial Strip, GWK, Jl. Raya Uluwatu, Ungasan, Kuta Selatan Badung 80364, Bali"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Happy Walk Suvarna",
+    "address": "Jalan Suvarna Sutera Boulevard No.1, Suvarna Sutera"
+  },
+  {
+    "name": "Kopi Janji Jiwa, PSN Tretes",
+    "address": "JL.Raya Tretes No.6 semeru RT 1 RW 6 , Prigen , Pasuruan"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Tarakan",
+    "address": "Jl. Kusuma Bangsa No. 112 Tarakan"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Rest Area Karang Tengah",
+    "address": "Rest Area KM 13.5 Palm Square, Jalan Tol Jakarta - Tangerang, Tangerang, Banten (dekat pos security pintu keluar)"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Ruko Modern Serang",
+    "address": "Komplek ruko modern Cikande blok C no 5, Serang"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Trisakti Banjarmasin",
+    "address": "Jl. Ahmad Yani KM 18, Komplek Ruko Perumahan Kota Citra Graha, Banjarmasin. Kel. Ulin Barat, Kec. Liang Anggang. Kodepos 70722."
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Sentosa Raya",
+    "address": "Jln. Sentosa Raya Rukan Kiri dari depan Unit 1 (Depan kantor pos), Mekar Jaya, Kec. Sukmajaya, Kota Depok, Jawa Barat 16411"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast,  Metro Indah Mall Bandung",
+    "address": "Jl. Soekarno-Hatta, Sekejati, Kec. Buah Batu, Kota Bandung, Jawa Barat 40286 (Kompleks Metro Indah Mall Ruko Blok i-7)"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Soetta Kendal",
+    "address": "Jl. Raya Soekarno-Hatta no 257, Pegulon, kendal, jawa tengah"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Rest Area 456B",
+    "address": "Rest Pendopo 456 Jalan Tol Semarang - Solo KM 456 Desa Ujung-ujung, Kecamatan Pabelan, Kabupaten Semarang 50771"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Dinoyo",
+    "address": "Jl. MT. Haryono no 166, Dinoyo, Kec. Lowokwaru, Kota Malang"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Graha Isco Sawangan",
+    "address": "Depok, Graha Isco, Jalan Raya Sawangan Nomor 34c, RT/RW. 01/ 11, Kelurahan Mampang, Kecamatan Pancoran Mas, Depok, Jawa Barat"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Tomohon",
+    "address": "Jalan Raya Tomohon, Talete Satu, Kec. Tomohon Tengah Kota Tomohon, Sulawesi Utara"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Jendral Sudirman Wonogiri",
+    "address": "Jend Sudirman No 264 Donoharjo RT 01 RW 02 Wuryorejo, Kec. Wonogiri, Kab. Wonogiri, Jawa Tengah 57610"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Panglima Sudirman Bojonegoro",
+    "address": "Jl. Panglima Sudirman No.98 Kauman, Kec. Bojonegoro, Kabupaten Bojonegoro Jawa Timur 62113"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Magetan",
+    "address": "Jl. Sumatra No.8, Dusun Kebonagung, Kebonagung, Kec. Magetan, Kabupaten Magetan, Jawa Timur 63317"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Hayam Wuruk Purwodadi",
+    "address": "Optik Cemerlang, Jl. Hayam Wuruk No.37, Jetis Timur, Purwodadi, Grobogan Regency, Central Java 58111"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Dukuhwaluh",
+    "address": "Jl. Raden Patah No. 366, Dusun III, Dukuhwaluh, RT 03/RW 04, Kecamatan Kembaran, Kabupaten Banyumas, Jawa Tengah, 53182"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Brebes",
+    "address": "Jl. Ahmad Yani No.71A"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Banjarnegara Dutrac",
+    "address": "jalan Mayjend Soetoyo Gg. At-taqwa No.2, RT 5/5, Kutabanjarnegara,Kec. Banjarnegara, Banjarnegara, Jawa tengah 53415"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Kudus Jepara",
+    "address": "Jl. Jepara 412 , prambatan kidul, kaliwungu, kudus , jawa tengah 59332"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, The Village Resort Bogor",
+    "address": "Jl. Pasar cikreteg KM3,5, Caringin - Bogor"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast,, Wonocolo",
+    "address": "Jl. Wonocolo No. 74, RT: 001, RW: 001, Kelurahan: Wonocolo, Kecamatan: Taman, Sidoarjo 61257"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Meikarta",
+    "address": "District 1 Meikarta, Unit : 50022-L2-002A Lippo Cikarang (Unit 50022-L2-002A), Jl. Orange County Boulevard, Cibatu, Cikarang Sel., Bekasi, Jawa Barat 17530"
+  },
+  {
+    "name": "Kopi Janji Jiwa, A Yani ARdirejo",
+    "address": "Jalan ahmad yani no 17, Kepanjen, Kabupaten Malang"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Sunan Kalijaga",
+    "address": "Jl. Sunan Kalijaga No.15, Dinoyo, Kec. Lowokwaru Kota Malang, Jawa Timur 65149"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Merchand Hype",
+    "address": "Jl Emerald boulevard,parigi,kec pondok aren,tangsel"
+  },
+  {
+    "name": "Kopi Janji Jiwa, PLP Andi Djemma",
+    "address": "Jl. Andi Djemma No. 68, Wara, Tompotikka, Kota Palopo"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Kyai H Abdul Halim",
+    "address": "Jalan Kyai H. Abdul Halim No 144, Majalengka Kulon Kecamatan Majalengka, Kabupaten Majalengka"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Sayana Apartment",
+    "address": "Komplek Meli Melo 3, Jl. Harapan Indah Boulevard, RT.005/RW.010, Medan Satria, Kecamatan Medan Satria, Kota Bks, Jawa Barat 17132"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Bukit Golf Darmo",
+    "address": "Jl. Bukit Darmo Golf No.R 31, Pradahkalikendal, Kec. Dukuhpakis, Kota SBY, Jawa Timur 60225"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Singaraja Buleleng Umah Ketipat",
+    "address": "Jl. Sudirman No.43, Banyuasri, Kec. Buleleng, Kabupaten Buleleng, Bali 81116"
+  },
+  {
+    "name": "Kopi Janji Jiwa, S. Parman",
+    "address": "Jl. S. Parman No. 24, Melayu, Tenggarong, Kutai kartanegara, Kalimantan Timur"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Dhoho Plaza Kediri",
+    "address": "Jalan Brigjen Katamso No. 1A, Kampungdalem, Kec. Kota Kediri"
+  },
+  {
+    "name": "Kopi Janji Jiwa, 865 Juanda Ciamis",
+    "address": "Jl. Ir. H. Juanda No.203, Ciamis"
+  },
+  {
+    "name": "Janji Jiwa X, Summarecon Mall Serpong",
+    "address": "Sentra Gading Serpong, GF - C - 05 Jl. Boulevard Raya Gading Serpong, Pakulonan Bar., Kec. Klp. Dua, Tangerang, Banten 15810"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, RDTX Kuningan",
+    "address": "Jl. Prof. Dr. Satrio Kav. E-IV No.6, RT.5/RW.2, Kuningan, East Kuningan, South Jakarta City, Jakarta 12950"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Tirtayasa Lampung",
+    "address": "SPBU SUKABUMI, Jl. P. Tirtayasa No.23, Sukabumi, Kec. Sukabumi, Kota Bandar Lampung, Lampung 35122"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Pare-Pare Andi",
+    "address": "Jl. Andi Mappatola No.32, RT.002/ RW 02, Kelurahan Ujung Baru Soreang, Parepare 91131"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, RSUD Tarakan",
+    "address": "Rs. Tarakan Lobby B unit XDDW Jl. Kyai Caringin No.7, RT.11/RW.4, Cideng, Kecamatan Gambir, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10150"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Zoom Smart",
+    "address": "Jl. Raya Jemursari No.109 B-C, Jemur Wonosari. Kec. Wonocolo. Kota SBY 60237"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Foodbox Bima",
+    "address": "Jln. Datuk Dibanta No. 10 Kel. Suntu, Kec. Rasanae Barat, Kota Bima - Nusa Tenggara Barat. Rasanae Barat, Kota Bima,"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Gayungsari",
+    "address": "Jl. Gayungsari Bar. X. Menanggal. Kec. Gayungan. Kota SBY. Jawa Timur 60234"
+  },
+  {
+    "name": "Kopi Janji Jiwa, KWG Wadas",
+    "address": "jl. Raya wadas cikampek no 2, cikampek utara, kec kotabaru, kab karawang 41373"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Jatim Park 2",
+    "address": "Jl. Oro-oro Ombo no. 9. Batu. Jawa Timur"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Siliwangi",
+    "address": "Jl. Siliwangi No. 91, Kel. Kahuripan, Kec. Tawang, Kota. Tasikmalaya, Jawa Barat. 46115"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Tamini Square",
+    "address": "Jl. Taman Mini I No.1, Pinang Ranti, Kec. Makasar, Kota Jakarta Timur, Daerah Khusus Ibukota Jakarta 13560"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Ruko Otista Jatinegara",
+    "address": "Jalan Otto Iskandardinata No. 84B RT001/07 Kel. Bidaracina Kec. Jatinegara Jakarta Timur"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Palm Spring",
+    "address": "Komplek Ruko Palm Spring Blok A3 No. 9 Kel. Taman Baloi, Kec. Batam Kota Provinsi Kepulauan Riau 29444"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Graha Mulia Plaza Lumajang",
+    "address": "Graha Mulia Plaza lt 2, jl. Slamet Wardoyo , Jurang mangu, Labruk Lor, Lumajang Regency, Kec. Lumajang , Kab. Lumajang, Jawa Timur 67316"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Panjitilar",
+    "address": "Jl.Panjitilar Negara No 5 (ruko sebelah depot laris manis)"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Daeng Tata Raya",
+    "address": "jln.Dg.Tata Raya No. 50, Kel. Parang Tambung, Kec. Tamalate, Makassar , Sulawesi Selatan"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Tanjung Mas Raya",
+    "address": "Marketing Gallery Edenhaus Simatupang, Jl. Garuda Mas 1 Tanjung Mas Raya Blok D8 Rt 7, Rw 1Jakarta Selatan, 12530"
+  },
+  {
+    "name": "Janji Jiwa, Jiwa Toast & Joomba, RS Abdul Radjak",
+    "address": "Disamping Lobby Utama, Jl. Salemba Tengah No.24, RT.1/RW.4, Paseban, Kec. Senen, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10440"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Mall Lippo Cikarang",
+    "address": "Jl. MH. Thamrin, Cibatu, Cikarang Sel., Bekasi, Jawa Barat 17530"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Dempo",
+    "address": "Jl. Mayor HM. Rasyad Nawawi No. 64F, 15 Ilir, Ilir Timur 1, Palembang"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Simpang 4 Patal",
+    "address": "Jl. MP Mangkunegara 8 Ilir, Ilir Timur 2, Palembang"
+  },
+  {
+    "name": "Kopi Janji Jiwa, BIG Cibaduyut Bandung",
+    "address": "Jalan Cibaduyut Raya No. 188, Cibaduyut Kidul, Kec. Bojongloa Kidul, Kota Bandung, Jawa Barat, 40238"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, AEON BSD",
+    "address": "Ground FLoor G16 - 06 AEON Mall BSD City, Jl. BSD Raya Utama, Pagedangan, Kec. Pagedangan, Tangerang, Banten 15345"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Sor Eiger Store",
+    "address": "Jl.Pendidikan km.8, Sorong Timur, Papua"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Dr Ratna Bekasi",
+    "address": "Jl. Raya Jatibening Estate / Jl. Ratna no 36 RT 01/01 Jatibening Pondok Gede Bekasi 17412"
+  },
+  {
+    "name": "Janji Jiwa, Jiwa Toast, Jiwa Tea & Joomba, Apartemen Menara Kebon Jeruk",
+    "address": "Apartment Menara Kebon Jeruk, Ruko C, Jl. Arjuna Utara Kavling 16, Kebon Jeruk, Jakarta"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, RSUD Koja",
+    "address": "Samping Lobby RSUD Koja, Jl. Deli No. 4, Koja, Jakarta Utara"
+  },
+  {
+    "name": "Janji Jiwa, Jiwa Toast, Jiwa Tea & Joomba, Ruko Ciracas",
+    "address": "RUKO LA JAVANICA UNIT No. 2 JL. RAYA TANAH MERDEKA NO. 66 RT. 003 RW. 04 KEL. RAMBUTAN KEC. CIRACAS JAKARTA TIMUR"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Abdul Halim Majalengka",
+    "address": "Jalan Kyai H. Abdul Halim No 144, Majalengka Kulon Kecamatan Majalengka, Kabupaten Majalengka"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Palagan Yogya",
+    "address": "JL.PALAGAN TENTARA PELAJAR, PANGGUNG SARI, DUSUN SEDAN KEC. NGAGLIK SLEMAN YOGYAKARTA"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Perumnas Cilegon",
+    "address": "Jl. Boulevard Raya, Cibeber, Kec. Cibeber , Kota Cilegon, Banten42426"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Kopral Sayom",
+    "address": "Jl. Kopral Sayom No. 28, Jetak Kidul, Karanganom, Kec. Klaten Utara, Kabupaten Klaten, Jawa Tengah 57438"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Cilandak Town Square",
+    "address": "Jl. TB Simatupang No. Kav 17, Cilandak Barat, Kec. Cilandak, Kota Jakarta Selatan"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa toast, Tuban",
+    "address": "Jl. Pahlawan No. 78 A, Rt.05 / Rw. 07 Kelurahan Gedongombo, Kec. Semanding, Kab. Tuban Jawa timur"
+  },
+  {
+    "name": "Janji Jiwa X Jiwa Toast, Gastro Market",
+    "address": "Jl. Sultan Hasanudin, RT.6/RW.2, Melawai, Kec. Kby. Baru, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12160"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Citra Maja",
+    "address": "Ruko Park Ville Blok A62 No.630 Kelurahan Curug Badak , Kecamatan Maja Banten 42381"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Juwana",
+    "address": "Jl. Ps. Lama No. 24, Kauman, Kec. Juwana, Kab. Pati Jawa Tengah"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, UPJ",
+    "address": "Rukan Jaya Utown Universitas Pembangunan Jaya, Jln. Cendrawasih Raya Blok B7/P, Sawah Baru, Kec. Ciputat, Kota Tangerang Selatan, Banten 15413"
+  },
+  {
+    "name": "Janji Jiwa X Jiwa Toast, Jiwa Tea & Joomba, La Terazza Summarecon Bekasi",
+    "address": "Unit E Lantai Dasar La Terrazza Jl. Bulevar Ahmad Yani, Marga Mulya, Kec. Bekasi Utara, Kota Bks, Jawa Barat 17142"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Nusantara Makassar",
+    "address": "jl. nusantara no.66 kec.wajo kel.pattunuang, makassar"
+  },
+  {
+    "name": "Kopi Janji Jiwa - Tirtayasa",
+    "address": "Jl. Raya Natar No. 39, Merak Batin, Kec. Natar, Kabupaten Lampung Selatan, Lampung 35362"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Rinjani Cilacap",
+    "address": "Jl. Anjasmoro No.2, Rawagaru, Sidanegara, Kec. Cilacap Tengah, Kabupaten Cilacap, Jawa Tengah 53263"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Pancoran Riverside Apartment",
+    "address": "Jalan Pengadegan Timur I No.30 6 1, RT.6/RW.1, Pengadegan, Kec. Pancoran, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12770 (Tower 2 Lantai CK LG No.05)"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Soekarno Hatta KM.8 Balikpapan",
+    "address": "Jl. Soekarno Hatta KM. 8 no 101-78 , Batu Ampar , Balikpapan Utara, Balikpapan 76127"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Jepara Soekarno",
+    "address": "Jalan Soekarno Hatta, km.6, RT.5, RW.7, kec. Tahunan, kab. Jepara, Jawa Tengah, 59416"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Cendrawasih",
+    "address": "Jl. Cendrawasih No.242, Mattoangin, Kec. Mariso, Kota Makassar, Sulawesi Selatan 90122"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Tamalanrea",
+    "address": "Jl. Tamalanrea Raya Blok L No.27, Tamalanrea Kec. Tamalanrea, Kota Makassar, Sulawesi Selatan 90245"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Adam Malik",
+    "address": "Jl. Adam Malik N0.152"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Letjen Sutoyo",
+    "address": "Jalan letjen sutoyo no 6 perumnas mojo songo, solo - surakarta"
+  },
+  {
+    "name": "Janji Jiwa X, Jiwa Toast, Jiwa Tea & Joomba , Puri Indah Mall",
+    "address": "Unit 71, Jl. Puri Agung No.1, RW.2, Kembangan Sel., Kec. Kembangan, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11610"
+  },
+  {
+    "name": "Janji Jiwa X, Jiwa Toast & Joomba, Benton Karawaci",
+    "address": "Benton Junction, 38#21 B. Jl. Boulevard Palem Raya No. 38, Lippo Karawaci 1200, Curug, Neglasari, Kelapa Dua, Klp. Dua, Kec. Klp. Dua, Tangerang, Banten 15810"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Dangdeur Subang",
+    "address": "JL Brigjend Katamso No.10 RT23 RW 13 Kel. Dangdeur, Kec. Subang Kab. Subang, Jawa barat 41212"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Plaza Asia Sumedang",
+    "address": "MALL PLAZA ASIA SUMEDANG (GF ISL ABD 02) Jl. Mayor Abdurahman No 225 , Kotakaler, Kec . Sumedang utara, kab sumedang, Jawa Barat"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Tole Iskandar Depok",
+    "address": "Graha DL No.8B, Jl. Tole Iskandar, Kec. Sukmajaya, Kota Depok, Jawa Barat 16412"
+  },
+  {
+    "name": "Janji Jiwa, Jiwa Toast & Jiwa Tea, Antasari",
+    "address": "SPBU Pertamina 24.351-126, Jl Pangeran Antasari No.96, Kedamaian, Bandar Lampung - 35122"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Sudirman Park",
+    "address": "Unit No 17, Sudirman Park Rukan No. C17, Jl. K. H Mas Mansyur, RT. 12/ RW. 11, Karet Tengsin, Kec Tanah Abang, Jakarta Pusat"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Bali Plaza Renon",
+    "address": "Jl Raya Puputan no 210 Panjer Denpasar Selatan Bali 80239"
+  },
+  {
+    "name": "Janji Jiwa X Jiwa Toast, MKG - Gading Walk",
+    "address": "GW 23-25, GF, Gading Walk. Jl. Kelapa Gading Boulevard, Kelapa Gading Walk Lantai Dasar, RT.13/RW.18, Klp. Gading Tim., Kec. Klp. Gading, Kota Jkt Utara, Daerah Khusus Ibukota Jakarta 14240"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Allstay Semarang",
+    "address": "Jl. Veteran 51-53, Lempongsari, Kec. Gajahmungkur, Semarang, 50231"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Garut Ciledug",
+    "address": "Jalan ciledug no. 163 RT 001, RW 10, Kec. Garut Kota, Kel. Kulon, 44112"
+  },
+  {
+    "name": "Kopi Janji Jiwa & Jiwa Toast, Mall Taman Anggrek",
+    "address": "Mal Taman Anggrek Lot No. D18A Lt.1, Jl. Letjen S. Parman No.Kav 21, RT.12/RW.1, Tj. Duren Sel., Kec. Grogol petamburan, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11470"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Ngawi",
+    "address": "Jl. Ahmad Yani 109 RT 001/RW 001, Beran, Ngawi, Jawa Timur,63216"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Akasia",
+    "address": "Jalan Akasia no. 8 RT.001 RW.011 Kelurahan Pangkalan Kerinci Kota, Kecamatan Pangkalan Kerinci Kabupaten Pelalawan, Provinsi Riau. Kode Pos 28381"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Chartened Tower",
+    "address": "Jl. Prof. DR. Satrio No.164 RT.3/RW.4, Karet Semanggi Kecamatan Setiabudi Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12930"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Dr Murjani",
+    "address": "jln. Murjani 2,no.23, RT/RW 009, kelurahan karang ambun, kabupaten berau, kecamatan tanjung redeb, provinsi kalimantan timur"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Ruhuy Rahayu",
+    "address": "Ayam Bakar Chip Chip, Jl. Ruhui Rahayu, Gn. Bahagia, Kecamatan Balikpapan Selatan, Kota Balikpapan, Kalimantan Timur 76114"
+  },
+  {
+    "name": "Kopi Janji Jiwa SGN, Gemolong",
+    "address": "Jl. Gemolong- Sragen no.28, Sragen"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Smesco",
+    "address": "Samping Lobby Utama, Jl. Gatot Subroto No.Kav. 94, RT.11/RW.3, Pancoran, Kec. Pancoran, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12780"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Probolinggo Basuki Rahmad",
+    "address": "Jl. Basuki Rahmad No. 27B/3, Kel. Mangunharjo, Kec. Mayangan, Probolinggo 67217"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Genuksari",
+    "address": "JL. WOLTER MONGINSIDI NO.88,GENUKSARI,SEMARANG"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Sidrap Ahmad Yani",
+    "address": "Jl. Jenderal Ahmad Yani No. 47 (HK Dua Motor), Kel. Lautang Benteng, Kec. Maritengngae, Kab Sidrap, Sulawesi Selatan 91611"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast - JXTaste",
+    "address": "Jl. Medan Merdeka Sel. No.8-9, RT.11/RW.2, Gambir, Kecamatan Gambir, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10110"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Purbalingga Letjen S Parman",
+    "address": "Jalan Letjen S parman nomor 38, RT 003, RW 003, kel. Bancar, kec. Purbalingga, kab. Purbalingga, provinsi Jawa Tengah 53316"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Randudongkal Pemalang",
+    "address": "Kantorpos Randudongkal, Jl. Jendral Sudirman Timur, Dusun II, Karangmoncol, Kec. Randudongkal, Kab. Pemalang Regency, Central Java"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Mr Mohd Hasan-GO-FOOD",
+    "address": "Jl. Mr Mohd Hasan (Di samping Bank BSI Sp), Lueng Bata, Banda Aceh"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Allogio",
+    "address": "Ruko Allogio Barat No.33 Jl. Allogio, Kelurahan: Mendang, Kecamatan : Pagedangan, Tangerang, Banten 15334"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Muntilan",
+    "address": "Jl KH Ahmad Dahlan No 1 Kenalan Pucungrejo, Kec Muntilan, Magelang Jawa Tengah 56414"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Vasanta Innopark",
+    "address": "Vasanta Innopark Marketing Gallery. Gandamekar, West Cikarang, Bekasi, West Java 17530"
+  },
+  {
+    "name": "Janji Jiwa X, Mall Kota Kasablanka",
+    "address": "Kota Kasablanka Mall Lantai LG Jl Casablanca No 88, Menteng Dalam, Tebet, RT.14, RW.5, Daerah Khusus Ibukota Jakarta 12870 (patokan belakang monami dan di bawah eskalator)"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Tulukabessy",
+    "address": "TULUKABESY NO.57 (SEBELAH GRAND PALACE PUB & KARAOKE) RIJALI, SIRIMAU, KEL. RIJALI, KOTA AMBON, MALUKU"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Sutomo Tower",
+    "address": "JL. Sutomo Ujung no. 28D Medan Timur 20235"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Harapan Insani Pangkalan Bun",
+    "address": "RS Harapan Insani, Jl. Iskandar 88, Pangkalan Bun, Kabupaten Kotawaringin Barat Kalimantan Tengah, 74112"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Borma Kerkof",
+    "address": "Jl. Kerkof No.33, Leuwigajah, Kec. Cimahi Sel., Kota Cimahi, Jawa Barat 40532"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Kota Kisaran",
+    "address": "kota kisaran, Jl. P. Polem no.1, kisaran kota, Asahan regency, north sumatra"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Mayong Square",
+    "address": "PERTOKOAN MAYONG SQUARE KAV.5 BINA ARTHA,SAWAH, SENGONBUGEL, KEC. MAYONG, KAB.JEPARA, JAWA TENGAH (MAYONG SQUARE)"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Cepu",
+    "address": "Jl. Surabaya No.57, Sidomulyo, Cepu, Kec. Cepu, Kab. Blora, Jawa Tengah 58112"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Maritim Tower",
+    "address": "Jl. Yos Sudarso No. 9, RT. 006/RW. 013, Kel. Rawa Badak Utara, Kec. Koja 14230"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Cisoka",
+    "address": "JL Raya Tigaraksa Cisoka Jl Kp Saga RT 3 RW 3 , Caringin, Kec Cisoka, Tangerang Banten"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Summarecon Karawang",
+    "address": "Di samping Marketing Gallery , Jl. Bulevar Summarecon Emerald, Jl. Lingkar Tanjungpura No.1, Kondangjaya, Kec. Karawang Tim., Kabupaten Karawang, Jawa Barat 41371"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Mansion Kemayoran Jasmine",
+    "address": "The Mansion Jasmine Tower Bellavista, Jl. Trembesi No.D, Pademangan Tim., Kec. Pademangan, Kota Jkt Utara, Daerah Khusus Ibukota Jakarta 14410"
+  },
+  {
+    "name": "Janji Jiwa, Jiwa Toast & Jiwa Tea, Gn Bahagia",
+    "address": "Jl. MT Haryono, Gn. Bahagia, Kecamatan Balikpapan Selatan, Kota Balikpapan, Kalimantan Timur 76114"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Raya Kajen",
+    "address": "Kantor Pos Randudongkal, Jl. Jendral Sudirman Timur, Dusun II, Karangmoncol, Kec. Randudongkal, Kab. Pemalang, Jawa Tengah 52353"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Comal Jend Sudirman",
+    "address": "Kantor Pos Kajen, Jalan Raya Kajen, Nyamok Kajen, Kec. Kajen, Kab. Pekalongan, Jawa Tengah 51161"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Pattimura",
+    "address": "Jl. Pattimura no 60, (Depan Langgar Imaduddin) Rapak Dalam, Kec. Loa Janan Ilir, Samarinda Seberang, Kalimantan Timur 75132"
+  },
+  {
+    "name": "Kopi Janji Jiwa, Wahid Hasyim Samarinda",
+    "address": "JL. WAHID HASYIM NO. 50-52 SEMPAJA SELATAN SAMARINDA"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Gobah",
+    "address": "JL. WAHID HASYIM NO. 50-52 SEMPAJA SELATAN SAMARINDA"
+  },
+  {
+    "name": "Jiwa Toast & Joomba, Paskal",
+    "address": "Jl. Pasir Kaliki No. 25-27, Lantai 3, Unit ISO 13, Andir, Bandung"
+  },
+  {
+    "name": "Jiwa Toast, Summarecon Mal Bekasi",
+    "address": "Summarecon Mal Bekasi, Lt. GF - IC07, Jl. Bulevard Ahmad Yani Blok M, Sentra Summarecon Bekasi Bekasi 17142, (RT 006/RW 002)"
+  },
+  {
+    "name": "Jiwa Toast, Bendungan Hilir",
+    "address": "Gedung Grha Beta, Jl. Bendungan Hilir Raya No. 122, Bendungan Hilir, Jakarta Pusat"
+  },
+  {
+    "name": "Jiwa Toast & Jiwa Tea - ITC Permata Hijau",
+    "address": "Jl. Arteri Permata Hijau No.11, RT.11/RW.10, Grogol Utara, Kec. Kby. Lama, Kota Jakarta Selatan (Lantai Dasar)"
+  },
+  {
+    "name": "Jiwa Tea, Jiwa Toast & Joomba, Panjang Arteri",
+    "address": "Jl. Panjang Arteri Kelapa Dua No. 18, Kebon Jeruk, Jakarta"
+  },
+  {
+    "name": "Jiwa Toast, Banyuwangi",
+    "address": "Jl. Kepiting No. 77, Banyuwangi"
+  },
+  {
+    "name": "Jiwa Toast, Citraland Surabaya",
+    "address": "gwalk shophouse W1-1 Citraland, Lontar, Sambikerep, Surabaya City, East Java 60216"
+  },
+  {
+    "name": "Jiwa Toast, Yos Sudarso Surakarta",
+    "address": "Jl. Yos Sudarso No 351, Danukusuman, Kecamatan : Serengan, Kota Surakarta, Jawa Tengah 57115"
+  },
+  {
+    "name": "Janji Jiwa, Jiwa Toast & Jiwa Tea, Pa'baeng-Baeng",
+    "address": "Jl. Sultan Alauddin No.67 D, Pa'baeng-Baeng, Kec. Tamalate, Kota Makassar, Sulawesi Selatan 9022"
+  },
+  {
+    "name": "Jiwa Tea, Janji Jiwa & Jiwa Toast - Medan Selayang",
+    "address": "Jl. Arteri Ring Road No.17, Tj. Sari, Kec. Medan Selayang, Kota Medan, Sumatera Utara 20133"
+  },
+  {
+    "name": "Jiwa Toast & Jiwa Tea, HM Joni",
+    "address": "Jl. HM. Joni No.50, Teladan Timur, Kec. Medan Area, Kota Medan, Sumatera Utara"
+  },
+  {
+    "name": "Kopi Janji Jiwa, GTO Kalimantan",
+    "address": "Jl. Kalimantan, Kel. Dulalowo Timur, Kec. Kota Tengah, Kota Gorontalo, Gorontalo, 96138"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Batu Aji Batam",
+    "address": "Komplek Pertokoan Sentosa Perdana, Blok Eboni No.3, Batu Aji, Batam"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, One Belpark",
+    "address": "Lantai Dasar, Jl. RSFatmawati Raya No. 1, Fatmawati, Jakarta Selatan"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast - Raya Muchtar II",
+    "address": "Jl. Raya Muchtar RT 01/RW 05, Kel. Sawangan Baru, Kec. Sawangan, Kota Depok 16511"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Letnan Mukhtar",
+    "address": "Jl. Letnan Mukhtar Saleh No.169-170, RT/RW : 009/004, Mangun Jaya, Kayu Agung, Ogan Komering Ilir, Sumatera Selatan, 30618"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, All Season Thamrin",
+    "address": "Jl. Talang Betutu No.2, Kb. Melati, Kecamatan Tanah Abang, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10320"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Poros Pallangga",
+    "address": "SPBU Pertamina 74.921.01 Pallangga, Jl. Poros Pallangga, Gowa"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast - Ruko Jatinegara",
+    "address": "Jl. Jatinegara Timur No.33, RT.9/RW.4, Bali Mester, Kecamatan Jatinegara, Kota Jakarta Timur, DKI Jakarta 13310"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Mall Ambasador",
+    "address": "Mal Ambasador Lantai Dasar ex Atm center unit 5, Jl. Prof. DR. Satrio No.4, Kuningan, Karet Kuningan, Kecamatan Setiabudi, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12940"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Festival Citylink",
+    "address": "Lt. 3 Unit Lt3-Fc53 , Jl. Peta No. 241, Kelurahan Suka Asih, Kec. Bojongloa Kaler 40232"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, RS Hermina Kemayoran",
+    "address": "Gedung Hermina Tower P3 MPI, Blok B-10, Jl. HBR Motik, Komp Kemayoran Kav.4 RT 001/010, Kel. Gunung Sahari Selatan, Kec. Kemayoran, Jakarta Pusat"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Grand Depok City",
+    "address": "Grand Depok City, Ruko Waterpark, Jl. Boulevard Grand Depok City Raya No. 19, Sukmajaya, Depok"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Ruko Marbella",
+    "address": "Ruko Marbella 2 Blok D2 No 2 Belian, Batam Kota, Kepulauan Riau 29464"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Rest Area KM 19 Cikampek",
+    "address": "Tol Jakarta-Cikampek, Rest Area, KM 19, Lambangsari, Tambun Selatan, Kabupaten Bekasi, Jawa Barat"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Tanjung Uncang",
+    "address": "Komp. Tunas Regency Blok A6 No.6, Tanjung Uncang Batam, Tunas Regency, Jl. Brigjen Katamso, Sungai Binti, Kec. Sagulung, Kota Batam, Kepulauan Riau 29439"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Karya Wisata",
+    "address": "Jl.Karya Wisata No.20 a, Kel. Pangkalan Mansyhur, Kec.Medan Johor, Kota Medan 20142"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, The Park Sawangan",
+    "address": "Jl. Raya Parung Ciputat Rt. 006/Rw.004, Kel. Serua, Kec. Bojongsari, Kota Depok, Jawa Barat"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Metro Tanjung Bunga",
+    "address": "Jl. Metro Tanjung Bunga, RUKO SOMBA OPU B35, Makassar, Sulawesi Selatan 90124"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Ruko Cisarua Bogor",
+    "address": "Jl. Raya puncak RT04 RW02 desa citeko, Kec. Cisarua Kab. Bogor Jawa Barat 16750"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast - Trans Studio Mall Cibubur",
+    "address": "Lantai 3 Unit F3-52A , Jl. Alternatif Cibubur No. 230, Harjamukti, kec. Cimanggis Depok"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Ruko Raden Patah",
+    "address": "Jl. Raden Patah, RT.002/RW.010, Parung Serab, Kec. Ciledug, Kota Tangerang, Banten 15151"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Ruko Kosasih Sukabumi",
+    "address": "Jl. R.A. Kosasih KP. HAREMPOY No.253, Subangjaya, Kec. Cikole, Kota Sukabumi, Jawa Barat 43116"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, LRT City Sentul",
+    "address": "Ruko LRT Sentul (Royal Sentul Park)  Jl. Sentul Raya, Kadumangu, Kec. Babakan Madang 16810"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Ruko Setiabudi Bandung",
+    "address": "Jl. Setiabudi 171 B, RT 04/RW 02, Kel. Gegerkalong, Kec. Sukasari Bandung Jawa Barat 40153"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Sun Plaza",
+    "address": "Sun Plaza level 4 Jl. H.Zainul Arifin No. 7 Medan 20152"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Ruko Raya Banjaran",
+    "address": "Jl. Raya Banjaran Rt. 001/Rw.01, Kel. Sindang panon, Kec. Banjaran, Bandung, Jawa Barat 40377"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Telkom Landmark",
+    "address": "R3B Tower 2 Telkom Landmark Tower, Jl. Jend Gatot Subroto Kav. 52 Kec. Mampang Prapatan Jakarta Selatan 12710"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Pettarani",
+    "address": "Graha 18, Jl. A. P. Pettarani No.18, Tamamaung, Kec. Panakkukang, Kota Makassar, Sulawesi Selatan 90222"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast - Menteng Huis",
+    "address": "Jl. Cikini Raya No. 2-4 , RT. 16/RW 01, Menteng, Jakarta Pusat"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast - Plaza Metropolitan Tambun",
+    "address": "Jl. Sultan Hasanudin, Tambun, Kec. Tambun Sel., Kabupaten Bekasi, Jawa Barat 17510"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa toast, Ruko Jababeka",
+    "address": "Jl. Niaga Raya, Ruko Capitol Business park Blok 2K-L, Mekarmukti, Kec. Cikarang Utara, Kabupaten Bekasi, Jawa Barat 17530"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Ruko Ciparay",
+    "address": "Jl. Raya Laswi No. 47, Ruko No. 3, Perumahan Point Regencia, Bumiwangi, Ciparay Kabupaten Bandung, Jawa Barat 40381"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Ruko Permata Cimanggis",
+    "address": "Ruko Permata Cimanggis Blok CC.30, Jl. Raya Tapos, Cimpaeun, Kec. Tapos, Kota Depok 16467"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast - Lippo Plaza Kramat Jati",
+    "address": "Lantai GF-50, Jl. Raya Bogor Km 19, RT.14/RW.6, Kramat Jati, Kec. Kramat jati,Jakarta Timur"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast - Lotte Mart Taman Surya",
+    "address": "Unit outdoor Lotte mart Taman Surya, Jl. Satu Maret, RT.5/RW.2, Pegadungan, Kec. Kalideres, Kota Jakarta Barat, DKI Jakarta 11830"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Ruko Karang Satria",
+    "address": "Ruko Vila Mutiara Gading 2 Blok D1 No. 2 Karangsatria, Kec. Tambun Utara, Bekasi, Jawa Barat 17510"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Met Mall Cileungsi",
+    "address": "Metropolitan Mall Cileungsi (Lt. Ground No. 01A), Jl. Transyogi Jl. Metro, Cileungsi Kidul, Kec. Cileungsi, Kabupaten Bogor, Jawa Barat 16820"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Ruko Gadog Ciawi",
+    "address": "Jl. Raya Puncak Kp. Gadog, RT. 001/RW.003 , Desa/Kel. Gadog, Kec. Megamendung, Kab. Bogor, Jawa Barat 16720"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Ruko Pondok Rajeg",
+    "address": "Ruko R11 Jalan raya Pondok Rajek RT.5/05, Kelurahan tengah kecamatan Cibinong, Bogor Jawa Barat 16914"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Apartemen Northland Ancol",
+    "address": "Bizpoint Apartment Northland No.2 RT 011 Rw 011, Pademangan Bar., Kec. Pademangan, Kota Jkt Utara, Daerah Khusus Ibukota Jakarta 14420"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Menara Astra",
+    "address": "Menara Astra Level 10, Jl. Jendral Sudirman Kav P&K 5-6 No. 6, Sudirman, Jakarta Pusat"
+  },
+  {
+    "name": "Jiwa Tea, Soma Veteran",
+    "address": "Jl. Veteran No. 999 , Ilir Timur 2, Palembang"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Pasar Raya Parung",
+    "address": "Ruko Pasar Raya Parung (Jl. Raya Parung RT. 002/ RW.006, kel. Parung, kec. Parung, Kab, Bogor)"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Ruko Cikarang Central City",
+    "address": "Jl. Raya Cikarang - Cibarusah, Sukadami, Cikarang Sel., Kabupaten Bekasi, Jawa Barat 17530/unit 23"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Apartemen Apple I Jatipadang",
+    "address": "Apple 1 Jatipadang (Jl.Jatipadang Raya No.3 & No.42A Rt.08 Rw.03, Kel Jl. Jati Padang Raya, Kec. Ps. Minggu, Kota Jakarta Selatan12540)"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Ruko Raya Bogor",
+    "address": "Jl. Raya Bogor Rt. 001/017, Kel. Sukamaju, Kec. Cilodong, Kota Depok 16185"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Emporium Pluit Mall",
+    "address": "Emporium Pluit Mall Lantai 4 Unit 4-49B, Jalan Pluit Selatan Raya, Penjaringan, RT.23/RW.8, Penjaringan, Kec. Penjaringan, Kota Jkt Utara, Daerah Khusus Ibukota Jakarta 14440"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Ruko Kopo",
+    "address": "Jalan Kopo Margahayu 316, Kelurahan Margahayu Selatan Kecamatan Margahayu 40226"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Ruko Metland Cibitung",
+    "address": "Wahana Lazada Shopee Express LEX Drop Off Metland Cibitung\nJl. Raya Metland Cibitung Ruko Nagoya 2 Blok C2B No. 7, Jl. Telaga Murni Raya, Telagamurni, Kec. Cikarang Bar., Kabupaten Bekasi, Jawa Barat 17530"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Mediterania Gajah Mada",
+    "address": "Ruko Appartment Gading Medit Recident, Kelapa Gading, Jakarta"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Ruko Citayam Center",
+    "address": "Jl. Raya Citayam Jl. Raya Rawa Indah, Pd. Jaya, Kec. Cipayung, Kota Depok, Jawa Barat 16436"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Ruko Pasar Modern Sentraland",
+    "address": "RB 23 Pasar Modern Sentraland Parung Panjang, Kec. Parung Panjang, Kab. Bogor, Jawa Barat 16360"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Signature Park Grande",
+    "address": "Jl. Letjen Suprapto no 129 RT 01/ RW 01 , Kel. Kebonsari, Kec. Sumbersari, Kab. Jember 68122"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Ruko Singaparna",
+    "address": "Jl. Raya Timur, Kel Sukamulya, Kec. Singaparna Kab. Tasikmalaya Jawa Barat"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast - Ruko Ciawi Tasikmalaya",
+    "address": "Jl. Raya Perjuangan, Kurniabakti, Kec. Ciawi, Kabupaten Tasikmalaya, Jawa Barat"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Ruko Taman Harapan Baru",
+    "address": "Jl. Taman Harapan Baru Raya No. 32, RT.007/RW.026, Pejuang, Kecamatan Medan Satria 17125"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, WTC Sudirman",
+    "address": "World Trade Centre 6, Jl. Jend Sudirman Kav. 29-31, RT 8/3 Kuningan Karet Kec. Setiabudi 12920"
+  },
+  {
+    "name": "Janji Jiwa X Jiwa Toast & Jiwa Tea, Airport Terminal 3",
+    "address": "Terminal 3 Gate 14 Boarding Area Domestik, Bandar Udara Internasional Soekarno–Hatta Terminal 3 RT 001, Jl. P2 No.12, RT.001/RW. 010, Pajang, Benda, Kota Tangerang, Banten 15126"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast - Ruko Cianjur",
+    "address": "Jl. Raya Cianjur-Bandung Km. 2, Bojong Sabandar Karangtengah Kab. Cianjur, Jawa Barat"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast - Ruko Karadenan",
+    "address": "Jl. Karadenan Rt.004/Rw.003, Karadenan, Kec. Cibinong, Bogor, Jawa Barat 16913"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Transpark Mall Juanda",
+    "address": "Lantai Gf Unit 0C-3, Jl. Ir. H. Juanda No.19,Rt.003/Rw.011, Margahayu, Kec. Bekasi Tim, Bekasi, Jawa Barat,"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, RS Husada",
+    "address": "Jl. Raya Mangga Besar No.137-139, RW.1, Mangga Dua Sel., Kecamatan Sawah Besar, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10730"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Ruko Summarecon Bandung",
+    "address": "Summarecon Bandung Ruko Magna Comercial MB 18, Rancabolang, Kec. Gedebage, Kota Bandung, Jawa Barat"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Ruko Suprapto Jember",
+    "address": "Unit Commercial Tower C Upper Ground No. 01 Signature Park Grande, Jl. MT. Haryono Kav. 20 Cawang, Kec. Kramat Jati, Jakarta Timur 13630"
+  },
+  {
+    "name": "Janji Jiwa, Jiwa Toast & Jiwa Tea, Arau 19",
+    "address": "Jl. Batang Arau No.19, Pasa Gadang, Kec. Padang Selatan Kota Padang, Sumatera Barat 25134"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Ruko Bligo Candi Sidoarjo",
+    "address": "candi sidoarjo, Jl. Raya Bligo No.13, Bendungan, Bligo, Kec. Sidoarjo, Kabupaten Sidoarjo, Jawa Timur"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Metro Atom Plaza",
+    "address": "Jl. Haji Samanhudi No. 2B13 Rt 3 Rw 6, Lt. Gf (Ground) Unit Ex. Roti O, Pasar Baru Sawah Besar Jakarta Pusat 10710"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Rest Area KM 754",
+    "address": "Jl. Tol Surabaya - Gempol No.26, Ngepung, Sidokepung, Kec. Buduran, Kabupaten Sidoarjo, Jawa Timur 61252"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Ruko Fancy Mampang",
+    "address": "Graha Bimasakti, Jl. Mampang Prpt. Raya No.3, RW.1, Duren Tiga, Kec. Pancoran, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12740"
+  },
+  {
+    "name": "Janji Jiwa & Jiwa Toast, Ruko Kalisari",
+    "address": "Jl. H. Hasan RT 011/RW 02, Kelurahan Baru, Kec. Pasar Rebo, Jakarta Timur"
+  }
+]
