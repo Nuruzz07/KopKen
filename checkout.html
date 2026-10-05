@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -29,7 +29,7 @@
 
         <!-- HEADER KEMBALI & INFORMASI CABANG -->
         <div class="flex items-center justify-between px-1">
-            <a href="./kopken.html" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white text-stone-700 text-xs font-bold border border-stone-200 shadow-xs hover:bg-stone-50 active:scale-95 transition">
+            <a href="./kopken.html" id="checkout-back-btn" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white text-stone-700 text-xs font-bold border border-stone-200 shadow-xs hover:bg-stone-50 active:scale-95 transition">
                 <i class="fas fa-arrow-left text-[10px]"></i>
                 <span>Tambah Menu Lain</span>
             </a>
@@ -50,7 +50,7 @@
                     <h2 id="checkout-outlet-name" class="text-xs font-black text-stone-900 truncate mt-0.5">Memuat Outlet...</h2>
                 </div>
             </div>
-            <a href="./kopken.html" class="px-2.5 py-1.5 rounded-xl bg-stone-50 hover:bg-stone-100 text-stone-700 font-extrabold text-[10px] transition border border-stone-200 flex-shrink-0">
+            <a href="./kopken.html" id="checkout-outlet-change-btn" class="px-2.5 py-1.5 rounded-xl bg-stone-50 hover:bg-stone-100 text-stone-700 font-extrabold text-[10px] transition border border-stone-200 flex-shrink-0">
                 Ganti
             </a>
         </div>
@@ -248,6 +248,7 @@
         let coCart = [];
         let coOutlet = null;
         let coOrderType = 'takeaway';
+        let coBrand = 'kopi-kenangan';
         let coDeliveryFee = 0;
         let coDeliveryAddress = '';
         let coDeliveryMaps = '';
@@ -255,10 +256,10 @@
         let isCheckoutSubmitting = false;
 
         const CHECKOUT_PANTUN = [
-            "Beli kopi buat begadang, terima kasih sudah memesan! Pesananmu sedang dirangkai, santai dulu ya sayang! â˜•ðŸ«¶",
-            "Mantan boleh bikin trauma, kopi Bintang bikin bahagia. Pesananmu sedang meluncur cepat ke barista! ðŸš€âœ¨",
-            "Siang-siang makan bakwan, paling pas ditemani kenangan. Duduk manis ya kawan, pesananmu sedang disiapkan! ðŸ¥–â˜•",
-            "Beli melati di Pasar Minggu, kopi sejati setia menunggu. Sabar sebentar ya, barista lagi meracik pesananmu! â³ðŸ¤Ž"
+            "Beli kopi buat begadang, terima kasih sudah memesan! Pesananmu sedang dirangkai, santai dulu ya sayang! ☕🫶",
+            "Mantan boleh bikin trauma, kopi Bintang bikin bahagia. Pesananmu sedang meluncur cepat ke barista! 🚀✨",
+            "Siang-siang makan bakwan, paling pas ditemani kenangan. Duduk manis ya kawan, pesananmu sedang disiapkan! 🥐☕",
+            "Beli melati di Pasar Minggu, kopi sejati setia menunggu. Sabar sebentar ya, barista lagi meracik pesananmu! ⏳🤎"
         ];
 
         document.addEventListener("DOMContentLoaded", () => {
@@ -273,13 +274,30 @@
                 coDeliveryFee = parseInt(localStorage.getItem("bintang_delivery_fee")) || 0;
                 coDeliveryAddress = localStorage.getItem("bintang_delivery_address") || "";
                 coDeliveryMaps = localStorage.getItem("bintang_delivery_maps") || "";
+
+                const urlParams = new URLSearchParams(window.location.search);
+                const brandParam = urlParams.get('brand');
+                const storedBrand = localStorage.getItem("bintang_current_brand");
+                coBrand = brandParam || storedBrand || 'kopi-kenangan';
+
+                if (coCart && coCart.length > 0 && coCart.some(it => it.brand === 'janji-jiwa' || (it.id && String(it.id).startsWith('jj-')))) {
+                    coBrand = 'janji-jiwa';
+                }
             } catch (e) {
                 console.error("Gagal membaca localStorage:", e);
                 coCart = [];
             }
 
+            const catalogUrl = (coBrand === 'janji-jiwa') ? './janjijiwa.html' : './kopken.html';
+            const backBtn = document.getElementById("checkout-back-btn");
+            const outletChangeBtn = document.getElementById("checkout-outlet-change-btn");
+            if (backBtn) backBtn.href = catalogUrl;
+            if (outletChangeBtn) outletChangeBtn.href = catalogUrl;
+
             if (!coOutlet) {
-                coOutlet = { name: "Grand Indonesia", category: "Mall" };
+                coOutlet = (coBrand === 'janji-jiwa') 
+                    ? { name: "ITC Kuningan (Janji Jiwa)", category: "Mall" }
+                    : { name: "Grand Indonesia", category: "Mall" };
             }
 
             try {
@@ -460,9 +478,12 @@
                 return;
             }
 
+            const isJanjiJiwa = (coBrand === 'janji-jiwa');
+            const fallbackCatalogUrl = isJanjiJiwa ? './janjijiwa.html' : './kopken.html';
+
             if (!coCart || coCart.length === 0) {
                 alert("Keranjang belanja kosong. Kembali ke katalog menu!");
-                window.location.href = "./kopken.html";
+                window.location.href = fallbackCatalogUrl;
                 return;
             }
 
@@ -483,7 +504,7 @@
 
             if (coOrderType === "delivery" && (!coDeliveryAddress || coDeliveryAddress.length < 8)) {
                 alert("Alamat pengiriman belum lengkap! Silakan ganti atau lengkapi alamat di katalog menu.");
-                window.location.href = "./kopken.html";
+                window.location.href = fallbackCatalogUrl;
                 return;
             }
 
@@ -495,8 +516,10 @@
 
             const grandTotal = recalcTotals();
 
-            // Format Order ID konsisten & standar
-            const orderId = `ORD-${Date.now().toString().slice(-6)}`;
+            // Format Order ID konsisten: jj- untuk Janji Jiwa, ORD- untuk Kopi Kenangan
+            const orderId = isJanjiJiwa 
+                ? `jj-${Date.now().toString().slice(-6)}`
+                : `ORD-${Date.now().toString().slice(-6)}`;
 
             let cleanWa = wa.replace(/[^0-9]/g, '');
             if (cleanWa.startsWith('0')) cleanWa = '62' + cleanWa.slice(1);
@@ -623,21 +646,25 @@
                 deliveryTextTg = `ðŸ›µ <b>Tipe :</b> ${coOrderType === 'takeaway' ? 'Take Away' : 'Dine In'}\n`;
             }
 
-            const singleOrderMsg = `â”€â”€ .âœ¦ <b>ORDER KOPI KENANGAN MASUK</b> âœ¦.â”€â”€\n` +
-                `ðŸ†” <b>Order ID :</b> <code>${orderId}</code>\n` +
-                `ðŸ”— <b>Link Tracking :</b> <a href="${trackingUrl}">${trackingUrl}</a>\n` +
-                `ðŸ‘¤ <b>Nama Pemesan :</b> ${name}\n` +
-                `ðŸ“± <b>No. WhatsApp :</b> ${wa}\n` +
-                `ðŸ”— <b>Chat Customer :</b> <a href="${waDirectLink}">${waDirectLink}</a>\n` +
+                        const brandTgHeader = isJanjiJiwa 
+                ? '🥪 ── .✦ <b>PESANAN BARU: JANJI JIWA</b> ✦.──' 
+                : '── .✦ <b>ORDER KOPI KENANGAN MASUK</b> ✦.──';
+
+            const singleOrderMsg = `${brandTgHeader}\n` +
+                `🆔 <b>Order ID :</b> <code>${orderId}</code>\n` +
+                `🔗 <b>Link Tracking :</b> <a href="${trackingUrl}">${trackingUrl}</a>\n` +
+                `👤 <b>Nama Pemesan :</b> ${name}\n` +
+                `📱 <b>No. WhatsApp :</b> ${wa}\n` +
+                `🔗 <b>Chat Customer :</b> <a href="${waDirectLink}">${waDirectLink}</a>\n` +
                 deliveryTextTg +
-                `ðŸ“ <b>Outlet Asal :</b> ${coOutlet ? coOutlet.name : 'Kopi Kenangan'}\n` +
-                `â° <b>Waktu :</b> ${timeText}\n` +
-                `ðŸ“ <b>Catatan :</b> "${notes || '-'}"\n` +
+                `📍 <b>Outlet Asal :</b> ${coOutlet ? coOutlet.name : (isJanjiJiwa ? 'Janji Jiwa' : 'Kopi Kenangan')}\n` +
+                `⏰ <b>Waktu :</b> ${timeText}\n` +
+                `📝 <b>Catatan :</b> "${notes || '-'}"\n` +
                 `--------------------------------------------------\n` +
-                `ðŸ“‹ <b>Detail Menu:</b>\n${itemsMsg}\n` +
+                `📋 <b>Detail Menu:</b>\n${itemsMsg}\n` +
                 `--------------------------------------------------\n` +
-                `ðŸ’° <b>TOTAL TAGIHAN : Rp ${grandTotal.toLocaleString('id-ID')}</b>\n` +
-                `ðŸ“Œ <b>Status : [MENUNGGU PEMBAYARAN QRIS]</b>\n\n` +
+                `💰 <b>TOTAL TAGIHAN : Rp ${grandTotal.toLocaleString('id-ID')}</b>\n` +
+                `📌 <b>Status : [MENUNGGU PEMBAYARAN QRIS]</b>\n\n` +
                 `<i>Pelanggan sedang berada di tracking.html untuk transfer. Bukti bayar akan masuk otomatis ke bot setelah diunggah.</i>`;
 
             try {
@@ -685,7 +712,9 @@
 
             setTimeout(() => {
                 if (method === 'whatsapp') {
-                    const waMsg = `Halo Admin Bintang Store, saya mau bayar pesanan Kopi Kenangan:\n\nOrder ID: *${orderId}*\nNama: *${name}*\nTotal: *Rp ${grandTotal.toLocaleString('id-ID')}*\n\nSaya sedang di halaman QRIS tracking. Mohon standby! â˜•`;
+                    const brandName = isJanjiJiwa ? 'Janji Jiwa' : 'Kopi Kenangan';
+                    const brandIcon = isJanjiJiwa ? '🥪☕' : '☕';
+                    const waMsg = `Halo Admin Bintang Store, saya mau bayar pesanan ${brandName}:\n\nOrder ID: *${orderId}*\nNama: *${name}*\nTotal: *Rp ${grandTotal.toLocaleString('id-ID')}*\n\nSaya sedang di halaman QRIS tracking. Mohon standby! ${brandIcon}`;
                     window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(waMsg)}`, '_blank');
                 }
                 window.location.href = `./tracking.html?order_id=${encodeURIComponent(orderId)}`;

@@ -1,0 +1,1618 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Jasa Order Janji Jiwa &amp; Jiwa Toast — Bintang Store</title>
+    
+    <!-- SEO & Metadata -->
+    <meta name="description" content="Jasa Order Janji Jiwa & Jiwa Toast Hemat Bintang Store. Nikmati diskon jastip s/d 40%, kopi susu sahabat, jiwa toast mentai, dan pengantaran cepat.">
+    <link rel="icon" type="image/svg+xml" href="./assets/logo.svg">
+    
+    <!-- Typography: Plus Jakarta Sans & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome 6 Pro -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- Page Transition Styles -->
+    <link rel="stylesheet" href="./assets/transition.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        stone: { 950: '#0C0A09' },
+                        ivory: '#FAF8F5',
+                        terracotta: {
+                            DEFAULT: '#9C532B',
+                            hover: '#824321',
+                            soft: '#F5ECE5',
+                            border: '#E8D4C4'
+                        },
+                        amber: {
+                            500: '#D97706',
+                            600: '#B45309'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', '"Inter"', 'sans-serif'],
+                        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace']
+                    },
+                    boxShadow: {
+                        'xs': '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
+                        'sheet': '0 -10px 25px -5px rgba(28, 25, 23, 0.15)'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+            background-color: #FAF8F5;
+            color: #1C1917;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        .glass-nav {
+            background: rgba(250, 248, 245, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid #E7E5E4;
+        }
+
+        .mono-num {
+            font-feature-settings: "tnum";
+            font-variant-numeric: tabular-nums;
+        }
+
+        .cat-pill.active {
+            background-color: #0C0A09;
+            color: #FAF8F5;
+            border-color: #0C0A09;
+        }
+
+        #modal-content {
+            border-top-left-radius: 1.5rem;
+            border-top-right-radius: 1.5rem;
+            max-width: 28rem;
+            margin-left: auto;
+            margin-right: auto;
+            border: 1px solid #E7E5E4;
+            box-shadow: 0 -10px 25px -5px rgba(28, 25, 23, 0.15);
+        }
+
+        #shopee-bottom-bar {
+            max-width: 28rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(100%);
+            border-top: 1px solid #E7E5E4;
+            box-shadow: 0 -4px 16px rgba(28, 25, 23, 0.08);
+        }
+        #shopee-bottom-bar.translate-y-0 {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .bottom-nav-dock {
+            max-width: 28rem;
+            left: 50%;
+            transform: translateX(-50%);
+            border-top: 1px solid #E7E5E4;
+        }
+
+        .badge-pill {
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 9999px;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-stone-200 selection:text-stone-900">
+
+    <!-- Global Toast Container -->
+    <div id="toast-container" class="fixed top-4 left-1/2 transform -translate-x-1/2 z-[300] flex flex-col gap-2 w-[90%] max-w-sm pointer-events-none"></div>
+
+    <!-- Background Particle Container for Sound & Visual FX -->
+    <div id="particle-container" class="fixed inset-0 pointer-events-none z-0"></div>
+
+    <!-- ================================================================= -->
+    <!-- MOBILE-FIRST APP SHELL CONTAINER (Max-w-md 448px terpusat di layar)-->
+    <!-- ================================================================= -->
+    <div class="w-full max-w-md mx-auto min-h-screen bg-[#FAF8F5] relative shadow-sm border-x border-stone-200/60 flex flex-col justify-between">
+
+        <!-- ========================================== -->
+        <!-- VIEW: JANJI JIWA STORE (ACTIVE VIEW)       -->
+        <!-- ========================================== -->
+        <div id="view-janjijiwa" class="view-section w-full flex-grow flex flex-col text-stone-950 pb-28">
+
+            <!-- 1. NAVBAR ATAS RINGKAS -->
+            <header class="glass-nav sticky top-0 z-30 px-4 py-3 shadow-xs" id="main-header">
+                <div class="flex items-center justify-between gap-2.5">
+                    
+                    <!-- Kiri: Tombol Kembali + Logo Brand + Title -->
+                    <div class="flex items-center gap-2.5 min-w-0">
+                        <a href="./coffee.html" title="Kembali ke Coffee Hub" class="w-8 h-8 flex items-center justify-center rounded-xl bg-white text-stone-800 hover:bg-stone-100 transition border border-stone-200 shadow-xs flex-shrink-0 cursor-pointer active:scale-95">
+                            <i class="fas fa-arrow-left text-xs text-stone-700"></i>
+                        </a>
+                        <div class="flex items-center -space-x-1.5 flex-shrink-0">
+                            <div class="w-8 h-8 rounded-xl bg-white border border-stone-200 p-1 flex items-center justify-center shadow-xs z-10">
+                                <img src="./assets/logo.svg" alt="Logo Bintang Store" class="w-full h-full object-contain">
+                            </div>
+                            <div class="w-8 h-8 rounded-xl bg-white border border-stone-200 p-1 flex items-center justify-center shadow-xs">
+                                <img src="https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/assets/Janji%20Jiwa%20Logo.png" alt="Janji Jiwa Logo" class="w-full h-full object-contain">
+                            </div>
+                        </div>
+                        <div class="min-w-0">
+                            <h1 class="font-bold text-stone-900 text-sm leading-tight truncate">Janji Jiwa &amp; Jiwa Toast</h1>
+                            <p class="text-[11px] text-stone-600 font-medium truncate mt-0.5">Kopi Dari Hati &bull; Roti Panggang Gurih</p>
+                        </div>
+                    </div>
+
+                    <!-- Kanan: Action Buttons -->
+                    <div class="flex items-center gap-1.5 flex-shrink-0"></div>
+                </div>
+
+                <!-- 3. SEARCH BAR PENCARIAN -->
+                <div class="mt-2.5 relative w-full">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-stone-400">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                    </span>
+                    <input type="text" id="menu-search-input" oninput="searchJjMenu()" placeholder="Cari kopi susu, jiwa toast, americano..." class="w-full pl-9 pr-4 py-2 rounded-xl bg-white border border-stone-200 focus:outline-none focus:ring-2 focus:ring-stone-900 text-xs font-medium text-stone-900 placeholder-stone-400 shadow-xs transition">
+                </div>
+
+                <!-- 4. FILTER KATEGORI (KATEGORI RESMI JANJI JIWA) -->
+                <nav class="mt-2.5 overflow-x-auto no-scrollbar whitespace-nowrap flex gap-1.5 pb-0.5" id="category-nav-bar" aria-label="Kategori Menu Janji Jiwa">
+                    <button onclick="filterJjCategory('all', this)" class="cat-pill active px-3.5 py-1.5 rounded-full bg-stone-950 text-ivory text-xs font-semibold shadow-xs border border-stone-950 transition cursor-pointer">
+                        Semua
+                    </button>
+                    <button onclick="filterJjCategory('cat-jj-bundling', this)" class="cat-pill px-3.5 py-1.5 rounded-full bg-white text-stone-700 hover:text-stone-950 text-xs font-semibold shadow-xs border border-stone-200 transition cursor-pointer">
+                        Paket Bundling
+                    </button>
+                    <button onclick="filterJjCategory('cat-jj-coffee', this)" class="cat-pill px-3.5 py-1.5 rounded-full bg-white text-stone-700 hover:text-stone-950 text-xs font-semibold shadow-xs border border-stone-200 transition cursor-pointer">
+                        Coffee
+                    </button>
+                    <button onclick="filterJjCategory('cat-jj-toast', this)" class="cat-pill px-3.5 py-1.5 rounded-full bg-white text-stone-700 hover:text-stone-950 text-xs font-semibold shadow-xs border border-stone-200 transition cursor-pointer">
+                        Jiwa Toast
+                    </button>
+                    <button onclick="filterJjCategory('cat-jj-litetoast', this)" class="cat-pill px-3.5 py-1.5 rounded-full bg-white text-stone-700 hover:text-stone-950 text-xs font-semibold shadow-xs border border-stone-200 transition cursor-pointer">
+                        Lite Toast
+                    </button>
+                    <button onclick="filterJjCategory('cat-jj-americano', this)" class="cat-pill px-3.5 py-1.5 rounded-full bg-white text-stone-700 hover:text-stone-950 text-xs font-semibold shadow-xs border border-stone-200 transition cursor-pointer">
+                        Flavored Americano
+                    </button>
+                    <button onclick="filterJjCategory('cat-jj-bottled', this)" class="cat-pill px-3.5 py-1.5 rounded-full bg-white text-stone-700 hover:text-stone-950 text-xs font-semibold shadow-xs border border-stone-200 transition cursor-pointer">
+                        Bottled (1L)
+                    </button>
+                    <button onclick="filterJjCategory('cat-jj-noncoffee', this)" class="cat-pill px-3.5 py-1.5 rounded-full bg-white text-stone-700 hover:text-stone-950 text-xs font-semibold shadow-xs border border-stone-200 transition cursor-pointer">
+                        Non-Coffee
+                    </button>
+                    <button onclick="filterJjCategory('cat-jj-tea', this)" class="cat-pill px-3.5 py-1.5 rounded-full bg-white text-stone-700 hover:text-stone-950 text-xs font-semibold shadow-xs border border-stone-200 transition cursor-pointer">
+                        Tea Series
+                    </button>
+                    <button onclick="filterJjCategory('cat-jj-bites', this)" class="cat-pill px-3.5 py-1.5 rounded-full bg-white text-stone-700 hover:text-stone-950 text-xs font-semibold shadow-xs border border-stone-200 transition cursor-pointer">
+                        Bites &amp; Snack
+                    </button>
+                </nav>
+            </header>
+
+            <!-- MINIMUM ORDER GUARD NOTICE BANNER (CYBER-LUXURY V1.0) -->
+            <div class="mx-4 mt-3 p-3 bg-white border border-stone-200 rounded-2xl text-stone-900 shadow-xs flex items-center justify-between gap-3">
+                <div class="flex items-center gap-2.5 min-w-0">
+                    <div class="w-8 h-8 rounded-xl bg-stone-950 text-amber-400 flex items-center justify-center text-xs flex-shrink-0 shadow-2xs">
+                        <i class="fas fa-shield-halved text-xs"></i>
+                    </div>
+                    <div class="min-w-0">
+                        <h4 class="text-xs font-extrabold text-stone-950">Minimum Order Rp 25.000</h4>
+                        <p class="text-[11px] text-stone-500 font-medium truncate">Dapatkan jastip hemat &amp; potongan promo maksimal.</p>
+                    </div>
+                </div>
+                <span class="px-2 py-0.5 rounded-full bg-stone-950 text-amber-300 font-black text-[9px] uppercase tracking-wider flex-shrink-0">
+                    Min. Order
+                </span>
+            </div>
+
+            <!-- 5. SELECTOR OUTLET JANJI JIWA -->
+            <div class="mx-4 mt-3 p-3.5 bg-white rounded-2xl border border-stone-200 shadow-xs flex items-center justify-between gap-3">
+                <div class="flex items-center gap-3 min-w-0">
+                    <div class="w-10 h-10 rounded-xl bg-amber-50 border border-amber-200/60 flex items-center justify-center text-amber-700 flex-shrink-0">
+                        <i id="banner-order-type-icon" class="fas fa-bag-shopping text-sm"></i>
+                    </div>
+                    <div class="min-w-0">
+                        <div class="flex items-center gap-1.5 flex-wrap">
+                            <span id="banner-order-type-label" class="badge-pill bg-stone-100 text-stone-700 border border-stone-200">Take Away</span>
+                            <span id="banner-outlet-status" class="badge-pill bg-emerald-50 text-emerald-800 border border-emerald-200">BUKA</span>
+                        </div>
+                        <p id="banner-outlet-name" class="text-xs font-extrabold text-stone-900 truncate mt-1">Kopi Janji Jiwa, ITC Kuningan</p>
+                    </div>
+                </div>
+                <button onclick="openJjOutletModal(true)" class="px-3 py-1.5 rounded-xl bg-stone-50 hover:bg-stone-100 text-stone-800 font-bold text-xs transition border border-stone-200 flex-shrink-0 cursor-pointer active:scale-95 shadow-xs">
+                    Ganti
+                </button>
+            </div>
+
+            <!-- 6. KATALOG MENU (GRID 2 KOLOM) -->
+            <main class="px-4 space-y-6 mt-4 flex-grow" id="menu-container">
+                <!-- Skeleton Loader State -->
+                <div class="grid grid-cols-2 gap-2.5">
+                    <div class="bg-white rounded-2xl p-3 border border-stone-200 space-y-2 animate-pulse">
+                        <div class="w-full aspect-square bg-stone-100 rounded-xl"></div>
+                        <div class="h-3 bg-stone-200 rounded w-3/4"></div>
+                        <div class="h-3 bg-stone-100 rounded w-1/2"></div>
+                    </div>
+                    <div class="bg-white rounded-2xl p-3 border border-stone-200 space-y-2 animate-pulse">
+                        <div class="w-full aspect-square bg-stone-100 rounded-xl"></div>
+                        <div class="h-3 bg-stone-200 rounded w-3/4"></div>
+                        <div class="h-3 bg-stone-100 rounded w-1/2"></div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+    </div> <!-- End of Max-w-md Mobile Shell -->
+
+    <!-- ================================================================= -->
+    <!-- STICKY BOTTOM BAR (RINGKASAN KERANJANG JANJI JIWA)               -->
+    <!-- ================================================================= -->
+    <div id="shopee-bottom-bar" class="fixed bottom-14 z-40 p-3 bg-white/95 backdrop-blur-md border-t border-stone-200 shadow-sheet transition-all duration-300 transform translate-y-full hidden w-full">
+        <div class="flex items-center justify-between gap-3 px-1">
+            <div class="flex items-center gap-3 cursor-pointer" onclick="openCheckoutSheet()">
+                <div class="relative flex items-center justify-center w-11 h-11 rounded-xl bg-stone-950 text-ivory flex-shrink-0 shadow-xs">
+                    <i class="fas fa-shopping-basket text-base"></i>
+                    <span id="bottom-cart-badge" class="absolute -top-1 -right-1 bg-amber-600 text-white font-extrabold text-[10px] w-5 h-5 rounded-full flex items-center justify-center ring-2 ring-white">
+                        0
+                    </span>
+                </div>
+                <div>
+                    <div class="flex items-center gap-1.5">
+                        <span id="cart-item-count-text" class="text-[10px] font-bold text-stone-500 uppercase">0 Item</span>
+                    </div>
+                    <p id="bottom-cart-total" class="text-sm font-extrabold text-stone-950 leading-tight">Rp 0</p>
+                </div>
+            </div>
+
+            <button type="button" id="btn-bottom-checkout" onclick="openCheckoutSheet()" class="px-5 py-2.5 bg-stone-950 hover:bg-stone-800 active:scale-95 text-ivory font-bold text-xs rounded-xl shadow-xs transition flex items-center gap-2 cursor-pointer">
+                <span>Lihat Keranjang</span>
+                <i class="fas fa-arrow-right text-[10px]"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- TAB NAVIGASI BAWAH                                                -->
+    <!-- ================================================================= -->
+    <nav class="bottom-nav-dock fixed bottom-0 z-40 bg-white/95 backdrop-blur-md border-t border-stone-200 w-full py-2 px-6 flex items-center justify-between" aria-label="Navigasi Bawah">
+        <!-- Tab 1: Menu -->
+        <a href="./janjijiwa.html" class="flex flex-col items-center gap-1 text-stone-950 font-bold transition cursor-pointer">
+            <i class="fas fa-coffee text-base"></i>
+            <span class="text-[10px]">Menu</span>
+        </a>
+
+        <!-- Tab 2: Keranjang -->
+        <button onclick="openCheckoutSheet()" class="flex flex-col items-center gap-1 text-stone-500 hover:text-stone-950 font-semibold transition cursor-pointer relative">
+            <div class="relative">
+                <i class="fas fa-bag-shopping text-base"></i>
+                <span id="nav-cart-dot" class="hidden absolute -top-1 -right-1.5 w-2 h-2 rounded-full bg-amber-600"></span>
+            </div>
+            <span class="text-[10px]">Keranjang</span>
+        </button>
+
+        <!-- Tab 3: Tracking & Riwayat -->
+        <a href="./tracking.html" class="flex flex-col items-center gap-1 text-stone-500 hover:text-stone-950 font-semibold transition cursor-pointer">
+            <i class="fas fa-receipt text-base"></i>
+            <span class="text-[10px]">Tracking</span>
+        </a>
+    </nav>
+
+    <!-- ================================================================= -->
+    <!-- MODAL RACIKAN & VARIAN MENU JANJI JIWA                            -->
+    <!-- ================================================================= -->
+    <div id="modal-overlay" class="fixed inset-0 bg-stone-950/60 backdrop-blur-xs z-[200] hidden opacity-0 transition-opacity duration-200">
+        <div id="modal-content" class="fixed bottom-0 left-0 right-0 bg-white text-stone-900 pb-5 max-h-[88vh] flex flex-col transform translate-y-full transition-transform duration-300">
+            <!-- Drag Handle Bar -->
+            <div class="w-full flex justify-center pt-3 pb-1 cursor-pointer" onclick="closeJjModal()">
+                <div class="w-10 h-1 bg-stone-300 rounded-full"></div>
+            </div>
+            
+            <div class="px-5 pb-3 flex justify-between items-start border-b border-stone-100 shrink-0">
+                <div class="flex items-center gap-3">
+                    <img id="modal-item-img" src="" alt="Menu Image" class="w-12 h-12 rounded-xl object-cover border border-stone-200 bg-stone-100 flex-shrink-0">
+                    <div>
+                        <h3 id="modal-title" class="font-extrabold text-sm text-stone-950 leading-tight">Nama Menu</h3>
+                        <p id="modal-price" class="text-amber-700 font-extrabold text-xs mt-0.5">Rp 0</p>
+                    </div>
+                </div>
+                <button onclick="closeJjModal()" class="w-7 h-7 bg-stone-100 rounded-full flex justify-center items-center text-stone-500 hover:text-stone-800 cursor-pointer">
+                    <i class="fas fa-times text-xs"></i>
+                </button>
+            </div>
+
+            <!-- Options Container (Dinamis: Toast vs Drink vs Bundling) -->
+            <div id="modal-options-container" class="px-5 py-3 overflow-y-auto flex-grow space-y-3.5 text-xs">
+                <!-- Diisi otomatis oleh openJjModal() -->
+            </div>
+
+            <!-- Catatan Racikan Khusus -->
+            <div class="px-5 py-2.5 border-t border-stone-100 bg-stone-50/60">
+                <label class="block text-[10px] font-bold text-stone-600 uppercase mb-1">Catatan Khusus (Opsional):</label>
+                <input type="text" id="mod-note" placeholder="Misal: Kurangi es, saus dipisah, tanpa mayones..." class="w-full text-xs p-2 rounded-xl border border-stone-200 bg-white text-stone-900 outline-none focus:ring-1 focus:ring-stone-900 font-medium">
+            </div>
+
+            <!-- Stepper Quantity & Button Simpan -->
+            <div class="p-4 border-t border-stone-100 bg-stone-50 shrink-0 space-y-2">
+                <div class="flex items-center justify-between">
+                    <span class="text-xs font-bold text-stone-700">Jumlah Pesanan</span>
+                    <div class="flex items-center gap-3">
+                        <button type="button" onclick="adjustModalQty(-1)" class="w-7 h-7 rounded-lg bg-white border border-stone-200 text-stone-800 font-bold flex items-center justify-center active:scale-95 transition">-</button>
+                        <span id="modal-qty-val" class="font-black text-xs text-stone-900 mono-num">1</span>
+                        <button type="button" onclick="adjustModalQty(1)" class="w-7 h-7 rounded-lg bg-white border border-stone-200 text-stone-800 font-bold flex items-center justify-center active:scale-95 transition">+</button>
+                    </div>
+                </div>
+
+                <button onclick="saveJjCartItem()" class="w-full bg-stone-950 hover:bg-stone-800 text-ivory font-bold py-3.5 rounded-xl shadow-xs active:scale-[0.99] transition flex justify-between px-5 items-center text-xs cursor-pointer">
+                    <span id="modal-btn-label">Simpan ke Keranjang</span>
+                    <span id="modal-btn-price" class="bg-white/20 px-3 py-1 rounded-lg text-xs font-bold text-amber-200">Rp 0</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- MODAL CHECKOUT SHEET (SPLIT BILL & MINIMUM ORDER Rp 25.000)        -->
+    <!-- ================================================================= -->
+    <div id="checkout-sheet-overlay" class="fixed inset-0 bg-stone-950/60 backdrop-blur-xs z-[250] hidden opacity-0 transition-opacity duration-200">
+        <div id="checkout-sheet-content" class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white rounded-t-3xl border border-stone-200 shadow-sheet max-h-[92vh] flex flex-col transform translate-y-full transition-transform duration-300">
+            
+            <!-- Handle Bar -->
+            <div class="w-full flex justify-center pt-3 pb-1 cursor-pointer" onclick="closeCheckoutSheet()">
+                <div class="w-12 h-1 bg-stone-300 rounded-full"></div>
+            </div>
+
+            <!-- Header Modal Checkout -->
+            <div class="px-5 py-3 border-b border-stone-100 flex items-center justify-between shrink-0">
+                <div class="flex items-center gap-2">
+                    <span class="w-7 h-7 rounded-lg bg-stone-950 text-white flex items-center justify-center text-xs">
+                        <i class="fas fa-shopping-bag"></i>
+                    </span>
+                    <h3 class="font-extrabold text-sm text-stone-950">Keranjang Janji Jiwa</h3>
+                </div>
+                <button onclick="closeCheckoutSheet()" class="w-7 h-7 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-600 flex items-center justify-center text-xs cursor-pointer">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <!-- Content Area (Scrollable) -->
+            <div class="px-5 py-4 pb-32 sm:pb-36 overflow-y-auto space-y-4 flex-grow text-xs">
+                
+                <!-- BINTANG GROUP DISPATCH & SPLIT BILL TONGKRONGAN -->
+                <div id="split-bill-card" class="p-3.5 bg-gradient-to-br from-amber-500/10 via-stone-50 to-amber-500/5 rounded-2xl border border-amber-300/60 shadow-xs space-y-3 transition-all">
+                    <div class="flex items-center justify-between gap-3">
+                        <div class="flex items-start gap-2.5 min-w-0">
+                            <div class="w-8 h-8 rounded-xl bg-amber-500 text-stone-950 flex items-center justify-center text-xs font-black shrink-0 shadow-xs mt-0.5">
+                                <i class="fas fa-users-viewfinder text-sm"></i>
+                            </div>
+                            <div class="min-w-0">
+                                <div class="flex items-center gap-1.5 flex-wrap">
+                                    <span class="text-xs font-black text-stone-900 tracking-tight">Split Bill / Pesan Barengan Tongkrongan</span>
+                                    <span class="px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-900 text-[9px] font-extrabold uppercase">Bintang SplitPay</span>
+                                </div>
+                                <p class="text-[10px] text-stone-500 font-medium leading-tight mt-0.5">
+                                    Bagi tagihan otomatis, hitung porsi per teman, &amp; sediakan rekening/QRIS Host.
+                                </p>
+                            </div>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer shrink-0">
+                            <input type="checkbox" id="toggle-split-bill" onchange="handleSplitBillToggle(this.checked)" class="sr-only peer">
+                            <div class="w-11 h-6 bg-stone-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-stone-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-amber-600"></div>
+                        </label>
+                    </div>
+
+                    <!-- Accordion Drawer Info Pembayaran Host -->
+                    <div id="split-bill-drawer" class="hidden pt-3 border-t border-amber-200/70 space-y-2.5">
+                        <div class="bg-white/95 p-3 rounded-xl border border-amber-200/80 space-y-2.5 shadow-2xs">
+                            <div>
+                                <label class="block text-[10px] font-bold text-stone-700 mb-1 flex items-center justify-between">
+                                    <span class="flex items-center gap-1">
+                                        <i class="fas fa-credit-card text-amber-600"></i> Rekening / E-Wallet Host <span class="text-rose-500">*</span>
+                                    </span>
+                                </label>
+                                <input type="text" id="split-host-payment-info" 
+                                    placeholder="Misal: BCA 1234567890 a/n Dimas atau Dana 0812..." 
+                                    class="w-full p-2.5 text-xs rounded-xl bg-stone-50 border border-stone-200 font-semibold text-stone-900 placeholder:text-stone-400 outline-none focus:bg-white focus:border-amber-500 focus:ring-1 focus:ring-amber-500/20 transition">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DAFTAR ITEM YANG DIPESAN -->
+                <div>
+                    <span class="text-[10px] font-extrabold uppercase tracking-wider text-stone-500 block mb-2">Item Dipesan</span>
+                    <div id="checkout-sheet-items-list" class="divide-y divide-stone-100 space-y-2">
+                        <!-- Diisi via renderJjCheckoutItems() -->
+                    </div>
+                </div>
+
+                <!-- DATA PEMESAN -->
+                <div class="p-3.5 bg-stone-50 rounded-2xl border border-stone-200 space-y-2.5">
+                    <span class="text-[10px] font-extrabold uppercase tracking-wider text-stone-500 block">Data Pemesan</span>
+                    <div>
+                        <label class="block text-[10px] font-bold text-stone-600 mb-1">Nama Pemesan <span class="text-rose-500">*</span></label>
+                        <input type="text" id="sheet-cust-name" placeholder="Misal: Dimas / Siti" class="w-full p-2.5 rounded-xl bg-white border border-stone-200 font-semibold text-stone-900 outline-none focus:ring-1 focus:ring-stone-900">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-stone-600 mb-1">Nomor WhatsApp <span class="text-rose-500">*</span></label>
+                        <input type="tel" id="sheet-cust-wa" inputmode="numeric" placeholder="081234567890 (Untuk konfirmasi &amp; struk)" class="w-full p-2.5 rounded-xl bg-white border border-stone-200 font-semibold text-stone-900 outline-none focus:ring-1 focus:ring-stone-900">
+                    </div>
+                </div>
+
+                <!-- RINCIAN BIAYA -->
+                <div class="p-3.5 bg-white rounded-2xl border border-stone-200 space-y-1.5">
+                    <div class="flex justify-between items-center text-stone-600">
+                        <span>Subtotal Produk:</span>
+                        <span id="sheet-subtotal-val" class="font-semibold text-stone-900 mono-num">Rp 0</span>
+                    </div>
+                    <div id="sheet-mall-fee-row" class="flex justify-between items-center text-amber-900 hidden">
+                        <span>Biaya Outlet Mall:</span>
+                        <span class="font-semibold mono-num">+ Rp 3.000</span>
+                    </div>
+                    <div id="sheet-delivery-fee-row" class="flex justify-between items-center text-amber-900 hidden">
+                        <span>Ongkir Delivery Instan:</span>
+                        <span id="sheet-delivery-fee-val" class="font-semibold mono-num">+ Rp 0</span>
+                    </div>
+                    <div class="pt-2 border-t border-stone-100 flex justify-between items-center text-sm font-extrabold text-stone-950">
+                        <span>Total Pembayaran:</span>
+                        <span id="sheet-grandtotal-val" class="text-base text-amber-700 mono-num">Rp 0</span>
+                    </div>
+                </div>
+
+                <!-- GUARD MINIMUM ORDER Rp 25.000 BOX -->
+                <div id="min-order-status-box" class="p-3 bg-amber-500/10 border border-amber-500/30 rounded-2xl space-y-1.5">
+                    <div class="flex items-center justify-between text-xs">
+                        <span class="font-bold text-stone-900 flex items-center gap-1.5">
+                            <i class="fas fa-cart-shopping text-amber-600"></i>
+                            <span id="min-order-status-text">Target Min. Order Rp 25.000</span>
+                        </span>
+                        <span id="min-order-status-pct" class="text-[10px] font-black px-2 py-0.5 rounded-full bg-amber-200 text-amber-900">0%</span>
+                    </div>
+                    <div class="w-full bg-stone-200 rounded-full h-2 overflow-hidden">
+                        <div id="min-order-progress-bar" class="bg-amber-600 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                    </div>
+                    <p id="min-order-diff-text" class="text-[10px] text-stone-600 font-semibold leading-tight">
+                        Kurang Rp 25.000 lagi untuk membuka checkout jastip.
+                    </p>
+                </div>
+
+            </div>
+
+            <!-- FOOTER TOMBOL CHECKOUT -->
+            <div class="p-4 border-t border-stone-200 bg-white shrink-0 space-y-2">
+                <button type="button" id="btn-sheet-submit-order" onclick="proceedToCheckout()" class="w-full bg-stone-950 hover:bg-stone-800 disabled:opacity-50 disabled:cursor-not-allowed text-white font-extrabold py-3.5 rounded-2xl shadow-sm transition flex items-center justify-center gap-2 cursor-pointer active:scale-95 text-xs sm:text-sm">
+                    <span id="btn-submit-label">Lanjut ke Pembayaran QRIS</span>
+                    <i class="fas fa-arrow-right text-xs"></i>
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- MODAL PILIH OUTLET JANJI JIWA                                     -->
+    <!-- ================================================================= -->
+    <div id="modal-outlet-select" class="fixed inset-0 bg-stone-950/60 backdrop-blur-xs z-[260] hidden opacity-0 transition-opacity duration-200 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-5 max-w-sm w-full text-stone-900 shadow-xl border border-stone-200 space-y-3 max-h-[85vh] flex flex-col">
+            <div class="flex items-center justify-between pb-2 border-b border-stone-100">
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-store text-amber-600 text-xs"></i>
+                    <h3 class="font-bold text-xs text-stone-900">Pilih Gerai Janji Jiwa</h3>
+                </div>
+                <button onclick="openJjOutletModal(false)" class="w-6 h-6 bg-stone-100 rounded-full flex justify-center items-center text-stone-500 cursor-pointer">
+                    <i class="fas fa-times text-xs"></i>
+                </button>
+            </div>
+
+            <!-- Tipe Pesanan Toggle -->
+            <div class="grid grid-cols-3 gap-1.5 p-1 bg-stone-100 rounded-xl text-xs font-bold text-center">
+                <button type="button" id="btn-type-takeaway" onclick="setJjOrderType('takeaway')" class="py-1.5 rounded-lg bg-stone-950 text-white transition">Take Away</button>
+                <button type="button" id="btn-type-dinein" onclick="setJjOrderType('dinein')" class="py-1.5 rounded-lg text-stone-600 transition">Dine In</button>
+                <button type="button" id="btn-type-delivery" onclick="setJjOrderType('delivery')" class="py-1.5 rounded-lg text-stone-600 transition">Delivery</button>
+            </div>
+
+            <!-- Search Outlet -->
+            <div class="relative">
+                <input type="text" id="outlet-search-input" oninput="filterJjOutlets()" placeholder="Cari cabang Janji Jiwa / daerah..." class="w-full pl-8 pr-3 py-2 text-xs rounded-xl bg-stone-50 border border-stone-200 font-medium outline-none focus:ring-1 focus:ring-stone-900">
+                <i class="fas fa-search absolute left-2.5 top-2.5 text-stone-400 text-xs"></i>
+            </div>
+
+            <!-- List Outlet Container -->
+            <div id="outlet-list-container" class="overflow-y-auto space-y-2 flex-grow pr-1 max-h-60 text-xs">
+                <!-- Diisi otomatis oleh loadJjOutlets() -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- JANJI JIWA INTEGRATED SCRIPT & CONTROLLER                         -->
+    <!-- ================================================================= -->
+    <script>
+        const SUPABASE_URL = "https://axaoagzveujcgoxybdmp.supabase.co";
+        const SUPABASE_ANON_KEY = "sb_publishable_GQ19XRT7yWIBido0iXJvCQ_ybZ_I7ju";
+        const botToken = "8765196047:AAFA3XpCebL4WQDYgkZ0bDeyw-WqQKhCiXU";
+        const chatId = "6731058601";
+        const waNumber = "6285959633342";
+
+        let supabaseClient = null;
+        if (window.supabase && typeof window.supabase.createClient === 'function') {
+            supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        }
+
+        // Official Default Outlet: Kopi Janji Jiwa, ITC Kuningan
+        const DEFAULT_JJ_OUTLET = {
+            id: "1",
+            name: "Kopi Janji Jiwa, ITC Kuningan",
+            address: "ITC Kuningan Lt. 4 Jembatan 1 Food Area",
+            category: "Mall",
+            is_open: true
+        };
+
+        // State Management
+        let jjMenu = [];
+        let jjOutlets = [];
+        let currentOutlet = { ...DEFAULT_JJ_OUTLET };
+        let currentOrderType = 'takeaway';
+        let jjCart = [];
+        let activeModalItem = null;
+        let activeModalQty = 1;
+        let activeModalPrice = 0;
+        let activeCategoryFilter = 'all';
+
+        // Inisialisasi Halaman
+        document.addEventListener("DOMContentLoaded", async () => {
+            // Set brand ke localStorage
+            localStorage.setItem("bintang_current_brand", "janji-jiwa");
+
+            // Muat Keranjang Tersimpan
+            try {
+                const savedCart = localStorage.getItem("bintang_cart") || localStorage.getItem("cart");
+                if (savedCart) {
+                    const parsed = JSON.parse(savedCart);
+                    // Filter hanya item Janji Jiwa jika ada
+                    if (Array.isArray(parsed) && parsed.some(it => it.brand === 'Janji Jiwa' || (it.id && String(it.id).startsWith('jj_')))) {
+                        jjCart = parsed;
+                    }
+                }
+            } catch(e) {}
+
+            // Muat Outlets
+            await loadJjOutlets();
+
+            // Muat Menu (Supabase Live / Fallback menu_jj.json)
+            await loadJjMenu();
+
+            // Update UI Keranjang
+            updateJjCartUI();
+        });
+
+        // Toast Helper
+        function showToast(message) {
+            const container = document.getElementById('toast-container');
+            if (!container) return;
+            const toast = document.createElement('div');
+            toast.className = 'bg-[#1C1917] text-white border border-amber-500/30 px-4 py-3 rounded-2xl shadow-xl flex items-center gap-3 transform transition-all duration-300 translate-y-[-16px] opacity-0 z-[300] text-xs pointer-events-auto';
+            toast.innerHTML = `
+                <div class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/30 flex items-center justify-center flex-shrink-0">
+                    <i class="fas fa-check text-[10px]"></i>
+                </div>
+                <div class="flex-grow min-w-0 text-left font-semibold text-stone-100 text-xs">${message}</div>
+            `;
+            container.appendChild(toast);
+            requestAnimationFrame(() => {
+                toast.classList.remove('translate-y-[-16px]', 'opacity-0');
+                toast.classList.add('translate-y-0', 'opacity-100');
+            });
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-[-16px]', 'opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 3500);
+        }
+
+        // Muat Outlets dari Supabase janji_jiwa_outlets (Live 828 Gerai) / Fallback Lokal
+        async function loadJjOutlets() {
+            let loaded = [];
+
+            // 1. Ambil data langsung dari Supabase janji_jiwa_outlets (RLS Unrestricted)
+            try {
+                if (supabaseClient) {
+                    const { data, error } = await supabaseClient
+                        .from('janji_jiwa_outlets')
+                        .select('*')
+                        .eq('is_active', true)
+                        .order('id', { ascending: true })
+                        .range(0, 999);
+
+                    if (!error && Array.isArray(data) && data.length > 0) {
+                        loaded = data;
+                    }
+                }
+            } catch(e) {
+                console.warn("Koneksi Supabase outlets error:", e);
+            }
+
+            // 2. Fallback ke berkas lokal jika offline/network error
+            if (loaded.length === 0) {
+                const paths = ['./outlet_jj.json', 'outlet_jj.json', '../outlet_jj.json'];
+                for (const p of paths) {
+                    try {
+                        const res = await fetch(p);
+                        if (res.ok) {
+                            const data = await res.json();
+                            if (Array.isArray(data) && data.length > 0) {
+                                loaded = data;
+                                break;
+                            }
+                        }
+                    } catch(e) {}
+                }
+            }
+
+            // 3. Mapping data gerai resmi
+            if (loaded.length > 0) {
+                jjOutlets = loaded.map((o, idx) => ({
+                    id: o.id ? String(o.id) : `jj_out_${idx+1}`,
+                    name: o.name || 'Kopi Janji Jiwa',
+                    address: o.address || '',
+                    category: (o.name && /mall|plaza|square|itc/i.test(o.name)) ? 'Mall' : 'Shop House',
+                    is_open: true
+                }));
+            } else {
+                jjOutlets = [
+                    DEFAULT_JJ_OUTLET
+                ];
+            }
+
+            // 4. Isolasi LocalStorage: simpan dan baca dari key bintang_jj_selected_outlet
+            try {
+                const savedOut = localStorage.getItem("bintang_jj_selected_outlet");
+                if (savedOut) {
+                    const parsedOut = JSON.parse(savedOut);
+                    if (parsedOut && parsedOut.name) currentOutlet = parsedOut;
+                } else {
+                    currentOutlet = jjOutlets[0] || DEFAULT_JJ_OUTLET;
+                }
+            } catch(e) {
+                currentOutlet = jjOutlets[0] || DEFAULT_JJ_OUTLET;
+            }
+
+            updateOutletBanner();
+        }
+
+        function updateOutletBanner() {
+            const nameEl = document.getElementById('banner-outlet-name');
+            const typeLabel = document.getElementById('banner-order-type-label');
+            const typeIcon = document.getElementById('banner-order-type-icon');
+
+            if (nameEl) nameEl.textContent = currentOutlet.name;
+            if (typeLabel) {
+                typeLabel.textContent = currentOrderType === 'delivery' ? 'Delivery (Shopee)' : (currentOrderType === 'dinein' ? 'Dine In' : 'Take Away');
+            }
+            if (typeIcon) {
+                typeIcon.className = currentOrderType === 'delivery' ? 'fas fa-motorcycle text-sm' : (currentOrderType === 'dinein' ? 'fas fa-mug-hot text-sm' : 'fas fa-bag-shopping text-sm');
+            }
+        }
+
+        // Muat Data Menu dari Supabase public.janji_jiwa_menus / fallback menu_jj.json
+        async function loadJjMenu() {
+            let loaded = [];
+            
+            // 1. Coba fetch Supabase resmi
+            try {
+                if (supabaseClient) {
+                    const { data, error } = await supabaseClient
+                        .from('janji_jiwa_menus')
+                        .select('*')
+                        .eq('is_available', true);
+
+                    if (!error && Array.isArray(data) && data.length > 0) {
+                        loaded = data;
+                    }
+                }
+            } catch(e) {
+                console.warn("Koneksi Supabase error:", e);
+            }
+
+            // 2. Fallback ke berkas lokal menu_jj.json (69 item database resmi)
+            if (loaded.length === 0) {
+                const paths = ['./menu_jj.json', 'menu_jj.json', '../menu_jj.json'];
+                for (const p of paths) {
+                    try {
+                        const res = await fetch(p);
+                        if (res.ok) {
+                            const localData = await res.json();
+                            if (Array.isArray(localData) && localData.length > 0) {
+                                loaded = localData;
+                                break;
+                            }
+                        }
+                    } catch(e) {}
+                }
+            }
+
+            // 3. Normalisasi field database resmi
+            jjMenu = loaded.map((item, idx) => {
+                const rawCat = (item.category || item.cat || 'COFFEE').toString().toUpperCase().trim();
+                const rawImg = item.image_url || item.img || '';
+                const singlePrice = parseFloat(item.price_bintang ?? item.single_price ?? item.price) || 15000;
+                const realPrice = parseFloat(item.price_original ?? item.real_price) || 0;
+                
+                let type = 'drink';
+                if (rawCat.includes('TOAST') || rawCat === 'BITES') {
+                    type = 'toast';
+                } else if (rawCat.includes('BUNDLING') || item.is_bundle) {
+                    type = 'bundling';
+                }
+
+                let badge = item.badge || '';
+                if (!badge) {
+                    if (rawCat.includes('BUNDLING') || item.is_bundle) badge = 'BEST DEAL';
+                    else if (rawCat.includes('LITE')) badge = 'LITE';
+                    else if (rawCat.includes('BOTTLED')) badge = '1 LITER';
+                    else if (realPrice > singlePrice && (realPrice - singlePrice) >= 5000) badge = 'HEMAT';
+                }
+
+                let options = item.options || null;
+                if (!options && type === 'bundling') {
+                    const n = (item.name || '').toLowerCase();
+                    if (n.includes('bucin') || n.includes('berdua')) {
+                        options = ['2x Kopi Susu Sahabat (Reguler) + 1x Toast Egg & Cheese', '2x Americano (Reguler) + 1x Toast Crispy Chicken Mentai'];
+                    } else if (n.includes('4 cup') || n.includes('tongkrongan')) {
+                        options = ['4x Signature Kopi Susu', '2x Kopi Susu + 2x Americano'];
+                    } else {
+                        options = ['1x Kopi Susu Sahabat (Reguler) + 1x Toast Egg & Cheese', '1x Americano (Reguler) + 1x Toast Crispy Chicken Mentai'];
+                    }
+                }
+
+                return {
+                    id: item.id || `jj_${idx+1}`,
+                    name: item.name,
+                    cat: rawCat.toLowerCase(),
+                    category: rawCat,
+                    type: type,
+                    singlePrice: singlePrice,
+                    realPrice: realPrice,
+                    badge: badge,
+                    img: rawImg,
+                    opts: options,
+                    is_bundle: !!item.is_bundle,
+                    brand: 'Janji Jiwa'
+                };
+            });
+
+            renderJjMenu();
+        }
+
+        // Render Katalog Menu Terbagi per Kategori
+        function renderJjMenu() {
+            const container = document.getElementById('menu-container');
+            if (!container) return;
+
+            const categoriesDef = [
+                { id: 'cat-jj-bundling', title: 'Paket Bundling', match: (c) => c.includes('BUNDLING'), icon: 'fa-box-archive' },
+                { id: 'cat-jj-coffee', title: 'Coffee Series', match: (c) => c === 'COFFEE' || (c.includes('COFFEE') && !c.includes('NON')), icon: 'fa-mug-saucer' },
+                { id: 'cat-jj-toast', title: 'Jiwa Toast', match: (c) => c === 'JIWA TOAST' || (c.includes('TOAST') && !c.includes('LITE')), icon: 'fa-bread-slice' },
+                { id: 'cat-jj-litetoast', title: 'Lite Toast', match: (c) => c.includes('LITE'), icon: 'fa-cookie-bite' },
+                { id: 'cat-jj-americano', title: 'Flavored Americano', match: (c) => c.includes('AMERICANO') && c !== 'COFFEE', icon: 'fa-glass-water' },
+                { id: 'cat-jj-bottled', title: 'Bottled Series (1 Liter)', match: (c) => c.includes('BOTTLED'), icon: 'fa-bottle-water' },
+                { id: 'cat-jj-noncoffee', title: 'Non-Coffee Series', match: (c) => c.includes('NON-COFFEE'), icon: 'fa-mug-hot' },
+                { id: 'cat-jj-tea', title: 'Tea Series', match: (c) => c.includes('TEA'), icon: 'fa-leaf' },
+                { id: 'cat-jj-bites', title: 'Bites & Snack', match: (c) => c.includes('BITES'), icon: 'fa-cookie' },
+                { id: 'cat-jj-sahabat', title: 'Sahabat Series', match: (c) => c.includes('SAHABAT'), icon: 'fa-heart' }
+            ];
+
+            let html = '';
+
+            categoriesDef.forEach(cat => {
+                if (activeCategoryFilter !== 'all' && activeCategoryFilter !== cat.id) return;
+
+                const items = jjMenu.filter(m => cat.match(m.category));
+                if (items.length === 0) return;
+
+                html += `
+                    <section id="${cat.id}" class="space-y-3 pt-2">
+                        <div class="flex items-center justify-between border-b border-stone-200 pb-2">
+                            <div class="flex items-center gap-2">
+                                <span class="w-6 h-6 rounded-lg bg-amber-500/10 text-amber-700 flex items-center justify-center text-xs">
+                                    <i class="fas ${cat.icon}"></i>
+                                </span>
+                                <h3 class="font-extrabold text-xs uppercase tracking-wider text-stone-900">${cat.title}</h3>
+                            </div>
+                            <span class="text-[10px] font-bold text-stone-400 bg-stone-100 px-2 py-0.5 rounded-full">${items.length} Menu</span>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-2.5">
+                            ${items.map(item => renderMenuItemCard(item)).join('')}
+                        </div>
+                    </section>
+                `;
+            });
+
+            if (!html) {
+                html = `<div class="py-12 text-center text-xs text-stone-400 italic">Menu tidak ditemukan...</div>`;
+            }
+
+            container.innerHTML = html;
+        }
+
+        // Template Card Menu Cyber-Luxury
+        function renderMenuItemCard(item) {
+            const badgeHtml = item.badge ? `<span class="badge-pill bg-amber-500 text-stone-950 font-black tracking-wider shadow-2xs">${item.badge}</span>` : '';
+            const realPriceHtml = item.realPrice && item.realPrice > item.singlePrice ? `<span class="text-[10px] text-stone-400 line-through mono-num">Rp ${item.realPrice.toLocaleString('id-ID')}</span>` : '';
+
+            // Gambar produk me-render URL asli database Supabase, fallback ke Logo Resmi Janji Jiwa
+            const officialFallback = 'https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/assets/Janji%20Jiwa%20Logo.png';
+            const imgUrl = item.img || officialFallback;
+
+            return `
+                <div class="bg-white rounded-2xl p-2.5 border border-stone-200/90 hover:border-amber-500/40 shadow-xs flex flex-col justify-between transition-all duration-200 group">
+                    <div class="relative w-full aspect-square rounded-xl overflow-hidden bg-stone-50 mb-2 border border-stone-100 p-1">
+                        <img src="${imgUrl}" 
+                             alt="${item.name}" 
+                             loading="lazy"
+                             onerror="this.onerror=null; this.src='${officialFallback}';"
+                             class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
+                        ${badgeHtml ? `<div class="absolute top-1.5 left-1.5">${badgeHtml}</div>` : ''}
+                    </div>
+
+                    <div class="flex-grow flex flex-col justify-between">
+                        <div>
+                            <h4 class="font-extrabold text-stone-950 text-xs leading-snug line-clamp-2">${item.name}</h4>
+                        </div>
+                        <div class="mt-2 pt-2 border-t border-stone-100 flex items-center justify-between gap-1">
+                            <div>
+                                ${realPriceHtml}
+                                <p class="text-xs font-black text-amber-700 mono-num">Rp ${item.singlePrice.toLocaleString('id-ID')}</p>
+                            </div>
+                            <button type="button" onclick="openJjModal('${item.id}')" class="w-7 h-7 rounded-lg bg-stone-950 hover:bg-stone-800 active:scale-90 text-amber-400 flex items-center justify-center text-xs shadow-xs transition cursor-pointer" title="Tambah Menu">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Pencarian Menu
+        function searchJjMenu() {
+            const query = (document.getElementById('menu-search-input')?.value || '').toLowerCase().trim();
+            const container = document.getElementById('menu-container');
+            if (!container) return;
+
+            if (!query) {
+                renderJjMenu();
+                return;
+            }
+
+            const matched = jjMenu.filter(m => m.name.toLowerCase().includes(query) || (m.cat || '').toLowerCase().includes(query));
+            if (matched.length === 0) {
+                container.innerHTML = `<div class="py-12 text-center text-xs text-stone-400 italic">Menu "${query}" tidak ditemukan di Janji Jiwa...</div>`;
+                return;
+            }
+
+            container.innerHTML = `
+                <div class="space-y-3 pt-2">
+                    <div class="flex items-center justify-between border-b border-stone-200 pb-2">
+                        <h3 class="font-extrabold text-xs uppercase text-stone-900">Hasil Pencarian ("${query}")</h3>
+                        <span class="text-[10px] font-bold text-stone-400">${matched.length} Ditemukan</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2.5">
+                        ${matched.map(item => renderMenuItemCard(item)).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Filter Kategori Pill
+        function filterJjCategory(catId, btnEl) {
+            activeCategoryFilter = catId;
+            document.querySelectorAll('#category-nav-bar .cat-pill').forEach(btn => {
+                btn.className = 'cat-pill px-3.5 py-1.5 rounded-full bg-white text-stone-700 hover:text-stone-950 text-xs font-semibold shadow-xs border border-stone-200 transition cursor-pointer';
+            });
+            if (btnEl) {
+                btnEl.className = 'cat-pill active px-3.5 py-1.5 rounded-full bg-stone-950 text-ivory text-xs font-semibold shadow-xs border border-stone-950 transition cursor-pointer';
+            }
+            renderJjMenu();
+        }
+
+        // Buka Modal Racikan Janji Jiwa
+        function openJjModal(itemId) {
+            const item = jjMenu.find(m => String(m.id) === String(itemId));
+            if (!item) return;
+
+            activeModalItem = item;
+            activeModalQty = 1;
+            activeModalPrice = item.singlePrice;
+
+            const officialFallback = 'https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/assets/Janji%20Jiwa%20Logo.png';
+            document.getElementById('modal-title').textContent = item.name;
+            document.getElementById('modal-price').textContent = `Rp ${item.singlePrice.toLocaleString('id-ID')}`;
+            const mImg = document.getElementById('modal-item-img');
+            if (mImg) {
+                mImg.src = item.img || officialFallback;
+                mImg.onerror = () => { mImg.src = officialFallback; };
+            }
+            document.getElementById('modal-qty-val').textContent = '1';
+            document.getElementById('mod-note').value = '';
+
+            const optionsContainer = document.getElementById('modal-options-container');
+
+            if (item.type === 'bundling') {
+                let optsHtml = `
+                    <div class="space-y-2">
+                        <label class="block text-xs font-bold text-stone-900">Pilihan Varian Bundling <span class="text-rose-500">*</span></label>
+                        <select id="mod-bundle-opt" class="w-full p-2.5 rounded-xl border border-stone-200 bg-stone-50 text-xs font-semibold outline-none focus:ring-1 focus:ring-stone-900">
+                `;
+                (item.opts || ['1x Kopi Susu Sahabat (Reguler) + 1x Toast Egg & Cheese']).forEach(o => {
+                    optsHtml += `<option value="${o}">${o}</option>`;
+                });
+                optsHtml += `</select></div>`;
+                optionsContainer.innerHTML = optsHtml;
+
+            } else if (item.type === 'toast') {
+                optionsContainer.innerHTML = `
+                    <div class="space-y-3">
+                        <div>
+                            <label class="block text-xs font-bold text-stone-900 mb-1.5">Penyajian Toast <span class="text-rose-500">*</span></label>
+                            <div class="grid grid-cols-2 gap-2">
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="mod-toast-warm" value="Dipanggang Hangat" checked class="peer sr-only">
+                                    <div class="p-2.5 text-center rounded-xl border border-stone-200 bg-stone-50 peer-checked:bg-stone-950 peer-checked:text-white peer-checked:border-stone-950 font-bold text-xs transition">
+                                        <i class="fas fa-fire-burner mr-1"></i> Hangat
+                                    </div>
+                                </label>
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="mod-toast-warm" value="Standard" class="peer sr-only">
+                                    <div class="p-2.5 text-center rounded-xl border border-stone-200 bg-stone-50 peer-checked:bg-stone-950 peer-checked:text-white peer-checked:border-stone-950 font-bold text-xs transition">
+                                        Standard
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-stone-900 mb-1.5">Potongan Toast</label>
+                            <div class="grid grid-cols-2 gap-2">
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="mod-toast-cut" value="Utuh" checked class="peer sr-only">
+                                    <div class="p-2.5 text-center rounded-xl border border-stone-200 bg-stone-50 peer-checked:bg-stone-950 peer-checked:text-white peer-checked:border-stone-950 font-bold text-xs transition">
+                                        Utuh
+                                    </div>
+                                </label>
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="mod-toast-cut" value="Potong 2 Bagian" class="peer sr-only">
+                                    <div class="p-2.5 text-center rounded-xl border border-stone-200 bg-stone-50 peer-checked:bg-stone-950 peer-checked:text-white peer-checked:border-stone-950 font-bold text-xs transition">
+                                        <i class="fas fa-scissors mr-1"></i> Potong 2
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-stone-900 mb-1.5">Tingkat Kepedasan</label>
+                            <div class="grid grid-cols-3 gap-1.5">
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="mod-toast-spicy" value="Tidak Pedas" class="peer sr-only">
+                                    <div class="p-2 text-center rounded-xl border border-stone-200 bg-stone-50 peer-checked:bg-stone-950 peer-checked:text-white font-bold text-xs">Ori</div>
+                                </label>
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="mod-toast-spicy" value="Sedang" checked class="peer sr-only">
+                                    <div class="p-2 text-center rounded-xl border border-stone-200 bg-stone-50 peer-checked:bg-stone-950 peer-checked:text-white font-bold text-xs">Sedang</div>
+                                </label>
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="mod-toast-spicy" value="Pedas" class="peer sr-only">
+                                    <div class="p-2 text-center rounded-xl border border-stone-200 bg-stone-50 peer-checked:bg-stone-950 peer-checked:text-white font-bold text-xs">Pedas 🔥</div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-stone-900 mb-1.5">Extra Topping Toast</label>
+                            <div class="space-y-1.5">
+                                <label class="flex items-center justify-between p-2 rounded-xl bg-stone-50 border border-stone-200 cursor-pointer text-xs">
+                                    <div class="flex items-center gap-2">
+                                        <input type="checkbox" name="mod-toast-extra" value="Extra Keju Slice" data-price="4000" onchange="calcJjModalPrice()" class="rounded text-stone-900">
+                                        <span class="font-semibold text-stone-800">Extra Keju Slice</span>
+                                    </div>
+                                    <span class="font-bold text-stone-600">+Rp 4.000</span>
+                                </label>
+                                <label class="flex items-center justify-between p-2 rounded-xl bg-stone-50 border border-stone-200 cursor-pointer text-xs">
+                                    <div class="flex items-center gap-2">
+                                        <input type="checkbox" name="mod-toast-extra" value="Extra Telur" data-price="4000" onchange="calcJjModalPrice()" class="rounded text-stone-900">
+                                        <span class="font-semibold text-stone-800">Extra Telur</span>
+                                    </div>
+                                    <span class="font-bold text-stone-600">+Rp 4.000</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+            } else {
+                // Minuman / Coffee Janji Jiwa
+                optionsContainer.innerHTML = `
+                    <div class="space-y-3">
+                        <div>
+                            <label class="block text-xs font-bold text-stone-900 mb-1.5">Penyajian <span class="text-rose-500">*</span></label>
+                            <div class="grid grid-cols-2 gap-2">
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="mod-drink-temp" value="Ice" checked class="peer sr-only">
+                                    <div class="p-2.5 text-center rounded-xl border border-stone-200 bg-stone-50 peer-checked:bg-stone-950 peer-checked:text-white font-bold text-xs transition">
+                                        <i class="fas fa-snowflake mr-1"></i> Iced
+                                    </div>
+                                </label>
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="mod-drink-temp" value="Hot" class="peer sr-only">
+                                    <div class="p-2.5 text-center rounded-xl border border-stone-200 bg-stone-50 peer-checked:bg-stone-950 peer-checked:text-white font-bold text-xs transition">
+                                        <i class="fas fa-mug-hot mr-1"></i> Hot
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-stone-900 mb-1.5">Ukuran Cup</label>
+                            <div class="grid grid-cols-2 gap-2">
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="mod-drink-size" value="Regular" data-price="0" checked onchange="calcJjModalPrice()" class="peer sr-only">
+                                    <div class="p-2.5 text-center rounded-xl border border-stone-200 bg-stone-50 peer-checked:bg-stone-950 peer-checked:text-white font-bold text-xs transition">
+                                        Regular
+                                    </div>
+                                </label>
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="mod-drink-size" value="Large" data-price="6000" onchange="calcJjModalPrice()" class="peer sr-only">
+                                    <div class="p-2.5 text-center rounded-xl border border-stone-200 bg-stone-50 peer-checked:bg-stone-950 peer-checked:text-white font-bold text-xs transition">
+                                        Large (+Rp 6k)
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-stone-900 mb-1.5">Level Manis &amp; Es</label>
+                            <div class="grid grid-cols-2 gap-2">
+                                <select id="mod-drink-sugar" class="p-2 rounded-xl border border-stone-200 bg-stone-50 text-xs font-semibold outline-none">
+                                    <option value="Normal Sugar (100%)">Normal Sugar (100%)</option>
+                                    <option value="Less Sugar (50%)">Less Sugar (50%)</option>
+                                    <option value="No Sugar (0%)">No Sugar (0%)</option>
+                                </select>
+                                <select id="mod-drink-ice" class="p-2 rounded-xl border border-stone-200 bg-stone-50 text-xs font-semibold outline-none">
+                                    <option value="Normal Ice">Normal Ice</option>
+                                    <option value="Less Ice">Less Ice</option>
+                                    <option value="No Ice">No Ice</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-stone-900 mb-1.5">Extra Topping</label>
+                            <div class="space-y-1.5">
+                                <label class="flex items-center justify-between p-2 rounded-xl bg-stone-50 border border-stone-200 cursor-pointer text-xs">
+                                    <div class="flex items-center gap-2">
+                                        <input type="checkbox" name="mod-drink-topping" value="Extra Espresso Shot" data-price="4000" onchange="calcJjModalPrice()" class="rounded text-stone-900">
+                                        <span class="font-semibold text-stone-800">Extra Espresso Shot</span>
+                                    </div>
+                                    <span class="font-bold text-stone-600">+Rp 4.000</span>
+                                </label>
+                                <label class="flex items-center justify-between p-2 rounded-xl bg-stone-50 border border-stone-200 cursor-pointer text-xs">
+                                    <div class="flex items-center gap-2">
+                                        <input type="checkbox" name="mod-drink-topping" value="Grass Jelly" data-price="4000" onchange="calcJjModalPrice()" class="rounded text-stone-900">
+                                        <span class="font-semibold text-stone-800">Grass Jelly</span>
+                                    </div>
+                                    <span class="font-bold text-stone-600">+Rp 4.000</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            calcJjModalPrice();
+
+            const overlay = document.getElementById('modal-overlay');
+            const content = document.getElementById('modal-content');
+            overlay.classList.remove('hidden');
+            setTimeout(() => {
+                overlay.classList.remove('opacity-0');
+                content.classList.remove('translate-y-full');
+            }, 10);
+        }
+
+        function closeJjModal() {
+            const overlay = document.getElementById('modal-overlay');
+            const content = document.getElementById('modal-content');
+            if (!overlay || !content) return;
+            overlay.classList.add('opacity-0');
+            content.classList.add('translate-y-full');
+            setTimeout(() => overlay.classList.add('hidden'), 200);
+        }
+
+        function adjustModalQty(delta) {
+            activeModalQty = Math.max(1, activeModalQty + delta);
+            document.getElementById('modal-qty-val').textContent = activeModalQty;
+            calcJjModalPrice();
+        }
+
+        function calcJjModalPrice() {
+            if (!activeModalItem) return;
+            let unitPrice = activeModalItem.singlePrice;
+
+            // Extra Size
+            const sizeRadio = document.querySelector('input[name="mod-drink-size"]:checked');
+            if (sizeRadio) unitPrice += parseInt(sizeRadio.dataset.price || '0');
+
+            // Extra Topping Toast
+            document.querySelectorAll('input[name="mod-toast-extra"]:checked').forEach(chk => {
+                unitPrice += parseInt(chk.dataset.price || '0');
+            });
+
+            // Extra Topping Drink
+            document.querySelectorAll('input[name="mod-drink-topping"]:checked').forEach(chk => {
+                unitPrice += parseInt(chk.dataset.price || '0');
+            });
+
+            activeModalPrice = unitPrice * activeModalQty;
+            document.getElementById('modal-btn-price').textContent = `Rp ${activeModalPrice.toLocaleString('id-ID')}`;
+        }
+
+        // Simpan Item ke Keranjang
+        function saveJjCartItem() {
+            if (!activeModalItem) return;
+
+            let detailsArr = [];
+            const note = (document.getElementById('mod-note')?.value || '').trim();
+
+            if (activeModalItem.type === 'bundling') {
+                const opt = document.getElementById('mod-bundle-opt')?.value;
+                if (opt) detailsArr.push(opt);
+            } else if (activeModalItem.type === 'toast') {
+                const warm = document.querySelector('input[name="mod-toast-warm"]:checked')?.value;
+                const cut = document.querySelector('input[name="mod-toast-cut"]:checked')?.value;
+                const spicy = document.querySelector('input[name="mod-toast-spicy"]:checked')?.value;
+                if (warm) detailsArr.push(warm);
+                if (cut) detailsArr.push(cut);
+                if (spicy) detailsArr.push(`Level: ${spicy}`);
+                document.querySelectorAll('input[name="mod-toast-extra"]:checked').forEach(c => detailsArr.push(c.value));
+            } else {
+                const temp = document.querySelector('input[name="mod-drink-temp"]:checked')?.value;
+                const size = document.querySelector('input[name="mod-drink-size"]:checked')?.value;
+                const sugar = document.getElementById('mod-drink-sugar')?.value;
+                const ice = document.getElementById('mod-drink-ice')?.value;
+                if (temp) detailsArr.push(temp);
+                if (size) detailsArr.push(size);
+                if (sugar) detailsArr.push(sugar);
+                if (ice) detailsArr.push(ice);
+                document.querySelectorAll('input[name="mod-drink-topping"]:checked').forEach(c => detailsArr.push(c.value));
+            }
+
+            if (note) detailsArr.push(`Note: "${note}"`);
+
+            const unitPrice = activeModalPrice / activeModalQty;
+
+            jjCart.push({
+                id: `jj_${Date.now()}_${Math.random().toString(36).substring(2,5)}`,
+                name: activeModalItem.name,
+                price: unitPrice,
+                qty: activeModalQty,
+                details: detailsArr.join(', '),
+                brand: 'Janji Jiwa',
+                img: activeModalItem.img || '',
+                split_friend_name: '',
+                split_friend_wa: ''
+            });
+
+            localStorage.setItem("bintang_cart", JSON.stringify(jjCart));
+            localStorage.setItem("cart", JSON.stringify(jjCart));
+
+            closeJjModal();
+            updateJjCartUI();
+            showToast(`${activeModalItem.name} berhasil ditambahkan ke keranjang!`);
+        }
+
+        // Update Tampilan Bar & Bottom Nav
+        function updateJjCartUI() {
+            const bottomBar = document.getElementById('shopee-bottom-bar');
+            const cartBadge = document.getElementById('bottom-cart-badge');
+            const countText = document.getElementById('cart-item-count-text');
+            const totalText = document.getElementById('bottom-cart-total');
+            const navDot = document.getElementById('nav-cart-dot');
+
+            const totalQty = jjCart.reduce((sum, it) => sum + (Number(it.qty) || 1), 0);
+            const subtotal = jjCart.reduce((sum, it) => sum + ((Number(it.price) || 0) * (Number(it.qty) || 1)), 0);
+
+            if (totalQty > 0) {
+                if (bottomBar) bottomBar.classList.remove('hidden', 'translate-y-full');
+                if (bottomBar) bottomBar.classList.add('translate-y-0');
+                if (cartBadge) cartBadge.textContent = totalQty;
+                if (countText) countText.textContent = `${totalQty} Item`;
+                if (totalText) totalText.textContent = `Rp ${subtotal.toLocaleString('id-ID')}`;
+                if (navDot) navDot.classList.remove('hidden');
+            } else {
+                if (bottomBar) bottomBar.classList.add('translate-y-full');
+                if (bottomBar) bottomBar.classList.remove('translate-y-0');
+                if (navDot) navDot.classList.add('hidden');
+            }
+
+            updateMinimumOrderProgress(subtotal);
+        }
+
+        // Kalkulasi & Guard Minimum Order Rp 25.000
+        function updateMinimumOrderProgress(subtotal) {
+            const minReq = 25000;
+            const diff = minReq - subtotal;
+            const pct = Math.min(100, Math.round((subtotal / minReq) * 100));
+
+            const progressBar = document.getElementById('min-order-progress-bar');
+            const statusPct = document.getElementById('min-order-status-pct');
+            const diffText = document.getElementById('min-order-diff-text');
+            const submitBtn = document.getElementById('btn-sheet-submit-order');
+            const submitLabel = document.getElementById('btn-submit-label');
+
+            if (progressBar) progressBar.style.width = `${pct}%`;
+            if (statusPct) statusPct.textContent = `${pct}%`;
+
+            if (subtotal >= minReq) {
+                if (diffText) diffText.innerHTML = `<span class="text-emerald-700 font-bold">✓ Syarat Min. Order Terpenuhi! Siap Checkout Diskon Maksimal.</span>`;
+                if (statusPct) statusPct.className = 'text-[10px] font-black px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800';
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.className = 'w-full bg-stone-950 hover:bg-stone-800 active:scale-95 text-white font-extrabold py-3.5 rounded-2xl shadow-sm transition flex items-center justify-center gap-2 cursor-pointer text-xs sm:text-sm';
+                }
+                if (submitLabel) submitLabel.textContent = 'Lanjut ke Pembayaran QRIS';
+            } else {
+                if (diffText) diffText.innerHTML = `Kurang <b class="text-amber-800">Rp ${diff.toLocaleString('id-ID')}</b> lagi untuk mencapai Min. Order Rp 25.000.`;
+                if (statusPct) statusPct.className = 'text-[10px] font-black px-2 py-0.5 rounded-full bg-amber-200 text-amber-900';
+                if (submitBtn) {
+                    submitBtn.disabled = true;
+                    submitBtn.className = 'w-full bg-stone-400 text-white font-bold py-3.5 rounded-2xl shadow-sm cursor-not-allowed opacity-60 flex items-center justify-center gap-2 text-xs sm:text-sm';
+                }
+                if (submitLabel) submitLabel.textContent = `Tambah Menu (Kurang Rp ${diff.toLocaleString('id-ID')})`;
+            }
+        }
+
+        // Buka Checkout Sheet Drawer
+        function openCheckoutSheet() {
+            if (jjCart.length === 0) {
+                showToast("Keranjangmu masih kosong. Pilih kopi atau toast favoritmu dulu!");
+                return;
+            }
+
+            renderJjCheckoutItems();
+
+            const overlay = document.getElementById('checkout-sheet-overlay');
+            const sheet = document.getElementById('checkout-sheet-content');
+            overlay.classList.remove('hidden');
+            setTimeout(() => {
+                overlay.classList.remove('opacity-0');
+                sheet.classList.remove('translate-y-full');
+            }, 10);
+        }
+
+        function closeCheckoutSheet() {
+            const overlay = document.getElementById('checkout-sheet-overlay');
+            const sheet = document.getElementById('checkout-sheet-content');
+            if (!overlay || !sheet) return;
+            overlay.classList.add('opacity-0');
+            sheet.classList.add('translate-y-full');
+            setTimeout(() => overlay.classList.add('hidden'), 200);
+        }
+
+        // Render Item di Checkout Sheet
+        function renderJjCheckoutItems() {
+            const listEl = document.getElementById('checkout-sheet-items-list');
+            if (!listEl) return;
+
+            const isSplitOn = document.getElementById('toggle-split-bill')?.checked;
+
+            if (jjCart.length === 0) {
+                listEl.innerHTML = `<p class="text-stone-400 italic py-2 text-center">Keranjang kosong...</p>`;
+                calcSheetTotals();
+                return;
+            }
+
+            listEl.innerHTML = jjCart.map((it, idx) => {
+                const sub = (it.price || 0) * (it.qty || 1);
+                const splitTaggerHtml = isSplitOn ? `
+                    <div class="mt-2 pt-2 border-t border-dashed border-amber-200 grid grid-cols-2 gap-2 bg-amber-50/50 p-2 rounded-xl">
+                        <input type="text" placeholder="Nama Teman (Cth: Sarah)" value="${it.split_friend_name || ''}" onchange="updateItemSplitFriend(${idx}, this.value, null)" class="p-1.5 rounded-lg bg-white border border-stone-200 text-[10px] font-semibold outline-none">
+                        <input type="tel" inputmode="numeric" placeholder="No. WA Teman" value="${it.split_friend_wa || ''}" onchange="updateItemSplitFriend(${idx}, null, this.value)" class="p-1.5 rounded-lg bg-white border border-stone-200 text-[10px] font-semibold outline-none">
+                    </div>
+                ` : '';
+
+                return `
+                    <div class="py-2.5">
+                        <div class="flex items-start justify-between gap-2">
+                            <div class="min-w-0 flex-1">
+                                <h4 class="font-extrabold text-stone-900 text-xs leading-snug">${it.name}</h4>
+                                ${it.details ? `<p class="text-[10px] text-stone-500 mt-0.5 leading-tight">${it.details}</p>` : ''}
+                                <span class="text-xs font-bold text-amber-700 mono-num block mt-1">Rp ${sub.toLocaleString('id-ID')}</span>
+                            </div>
+                            <div class="flex items-center gap-2 flex-shrink-0">
+                                <button type="button" onclick="changeJjQty(${idx}, -1)" class="w-6 h-6 rounded-lg bg-stone-100 hover:bg-stone-200 text-stone-700 font-black text-xs flex items-center justify-center cursor-pointer active:scale-90">-</button>
+                                <span class="text-xs font-black text-stone-800 mono-num">${it.qty || 1}</span>
+                                <button type="button" onclick="changeJjQty(${idx}, 1)" class="w-6 h-6 rounded-lg bg-stone-100 hover:bg-stone-200 text-stone-700 font-black text-xs flex items-center justify-center cursor-pointer active:scale-90">+</button>
+                            </div>
+                        </div>
+                        ${splitTaggerHtml}
+                    </div>
+                `;
+            }).join('');
+
+            calcSheetTotals();
+        }
+
+        function changeJjQty(idx, delta) {
+            jjCart[idx].qty = (Number(jjCart[idx].qty) || 1) + delta;
+            if (jjCart[idx].qty <= 0) {
+                jjCart.splice(idx, 1);
+            }
+            localStorage.setItem("bintang_cart", JSON.stringify(jjCart));
+            localStorage.setItem("cart", JSON.stringify(jjCart));
+            renderJjCheckoutItems();
+            updateJjCartUI();
+        }
+
+        function updateItemSplitFriend(idx, name, wa) {
+            if (name !== null) jjCart[idx].split_friend_name = name;
+            if (wa !== null) jjCart[idx].split_friend_wa = wa;
+            localStorage.setItem("bintang_cart", JSON.stringify(jjCart));
+            localStorage.setItem("cart", JSON.stringify(jjCart));
+        }
+
+        function handleSplitBillToggle(checked) {
+            const drawer = document.getElementById('split-bill-drawer');
+            if (drawer) {
+                if (checked) drawer.classList.remove('hidden');
+                else drawer.classList.add('hidden');
+            }
+            renderJjCheckoutItems();
+        }
+
+        function calcSheetTotals() {
+            const subtotal = jjCart.reduce((sum, it) => sum + ((Number(it.price) || 0) * (Number(it.qty) || 1)), 0);
+            const isMall = currentOutlet && (currentOutlet.category === "Mall" || /mall|plaza|square/i.test(currentOutlet.name || ''));
+            const mallFee = (isMall && jjCart.length > 0) ? 3000 : 0;
+            const deliveryFee = currentOrderType === 'delivery' ? 10000 : 0;
+
+            document.getElementById('sheet-subtotal-val').textContent = `Rp ${subtotal.toLocaleString('id-ID')}`;
+
+            const mallRow = document.getElementById('sheet-mall-fee-row');
+            if (mallFee > 0) mallRow.classList.remove('hidden');
+            else mallRow.classList.add('hidden');
+
+            const delRow = document.getElementById('sheet-delivery-fee-row');
+            if (deliveryFee > 0) {
+                delRow.classList.remove('hidden');
+                document.getElementById('sheet-delivery-fee-val').textContent = `+ Rp ${deliveryFee.toLocaleString('id-ID')}`;
+            } else {
+                delRow.classList.add('hidden');
+            }
+
+            const grandTotal = subtotal + mallFee + deliveryFee;
+            document.getElementById('sheet-grandtotal-val').textContent = `Rp ${grandTotal.toLocaleString('id-ID')}`;
+
+            updateMinimumOrderProgress(subtotal);
+            return grandTotal;
+        }
+
+        // Eksekusi Pesanan ke Database & Dispatch Telegram
+        async function proceedToCheckout() {
+            const subtotal = jjCart.reduce((sum, it) => sum + ((Number(it.price) || 0) * (Number(it.qty) || 1)), 0);
+            if (subtotal < 25000) {
+                alert("Minimum order Janji Jiwa adalah Rp 25.000 untuk menikmati harga hemat jastip! Silakan tambah menu.");
+                return;
+            }
+
+            const name = (document.getElementById('sheet-cust-name')?.value || '').trim();
+            const wa = (document.getElementById('sheet-cust-wa')?.value || '').trim();
+
+            if (!name || name.length < 2) {
+                alert("Mohon isi Nama Pemesan!");
+                document.getElementById('sheet-cust-name')?.focus();
+                return;
+            }
+            if (!wa || wa.length < 9) {
+                alert("Mohon isi Nomor WhatsApp aktif!");
+                document.getElementById('sheet-cust-wa')?.focus();
+                return;
+            }
+
+            const isSplitOn = document.getElementById('toggle-split-bill')?.checked;
+            const hostInfo = (document.getElementById('split-host-payment-info')?.value || '').trim();
+            if (isSplitOn && !hostInfo) {
+                alert("Mohon isi rekening atau e-wallet Host untuk transfer tongkrongan!");
+                document.getElementById('split-host-payment-info')?.focus();
+                return;
+            }
+
+            const submitBtn = document.getElementById('btn-sheet-submit-order');
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Menyiapkan Ruang Pembayaran...</span>';
+            }
+
+            const grandTotal = calcSheetTotals();
+
+            // Order ID dengan prefix jj-
+            const orderId = `jj-${Date.now().toString().slice(-6)}`;
+
+            let cleanWa = wa.replace(/[^0-9]/g, '');
+            if (cleanWa.startsWith('0')) cleanWa = '62' + cleanWa.slice(1);
+
+            // Simpan ke orders di Supabase
+            const orderPayload = {
+                id: orderId,
+                customer_name: name,
+                customer_wa: cleanWa,
+                outlet_name: currentOutlet ? currentOutlet.name : 'Janji Jiwa',
+                order_type: currentOrderType,
+                delivery_fee: currentOrderType === 'delivery' ? 10000 : 0,
+                delivery_address: null,
+                delivery_maps_url: null,
+                order_items: jjCart,
+                total_price: grandTotal,
+                estimated_profit: Math.round(grandTotal * 0.35),
+                status: 'menunggu_pembayaran'
+            };
+
+            if (supabaseClient) {
+                try {
+                    await supabaseClient.from('orders').upsert([orderPayload], { onConflict: 'id' });
+                } catch(e) {
+                    console.warn("Gagal simpan Supabase order:", e);
+                }
+            }
+
+            // Simpan ke riwayat lokal
+            try {
+                localStorage.setItem("bintang_active_order_id", orderId);
+                localStorage.setItem("last_order_id", orderId);
+                sessionStorage.setItem("bintang_active_order_id", orderId);
+            } catch(e) {}
+
+            // Kirim notifikasi Telegram khusus Janji Jiwa
+            const trackingUrl = `https://bintanggstore.web.id/tracking.html?order_id=${orderId}`;
+            const waDirectLink = cleanWa ? `https://wa.me/${cleanWa}` : '-';
+
+            const itemsText = jjCart.map((it, idx) => {
+                const sub = (it.price || 0) * (it.qty || 1);
+                const dt = it.details ? `\n   └ <i>${it.details}</i>` : '';
+                const sp = (isSplitOn && it.split_friend_name) ? `\n   👤 <b>Porsi:</b> ${it.split_friend_name} (${it.split_friend_wa || '-'})` : '';
+                return `<b>${idx+1}. ${it.qty}x ${it.name}</b> (Rp ${sub.toLocaleString('id-ID')})${dt}${sp}`;
+            }).join('\n\n');
+
+            const tgMessage = `🥪 ── .✦ <b>PESANAN BARU: JANJI JIWA</b> ✦.──\n` +
+                `🆔 <b>Order ID :</b> <code>${orderId}</code>\n` +
+                `🔗 <b>Link Tracking :</b> <a href="${trackingUrl}">${trackingUrl}</a>\n` +
+                `👤 <b>Nama Pemesan :</b> ${name}\n` +
+                `📱 <b>No. WhatsApp :</b> ${wa}\n` +
+                `🔗 <b>Chat Customer :</b> <a href="${waDirectLink}">${waDirectLink}</a>\n` +
+                `📍 <b>Outlet Asal :</b> ${currentOutlet ? currentOutlet.name : 'Janji Jiwa'}\n` +
+                `🛵 <b>Tipe :</b> ${currentOrderType === 'takeaway' ? 'Take Away' : (currentOrderType === 'dinein' ? 'Dine In' : 'Delivery Shopee')}\n` +
+                (isSplitOn ? `👥 <b>Split Bill Tongkrongan:</b> AKTIF (Host: ${hostInfo})\n` : '') +
+                `--------------------------------------------------\n` +
+                `📋 <b>Detail Menu:</b>\n${itemsText}\n` +
+                `--------------------------------------------------\n` +
+                `💰 <b>TOTAL TAGIHAN : Rp ${grandTotal.toLocaleString('id-ID')}</b>\n` +
+                `📌 <b>Status : [MENUNGGU PEMBAYARAN QRIS]</b>\n\n` +
+                `<i>Pelanggan sedang di ruang pembayaran QRIS. Bukti bayar otomatis dikirim setelah diunggah.</i>`;
+
+            try {
+                await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: chatId,
+                        text: tgMessage,
+                        parse_mode: 'HTML',
+                        disable_web_page_preview: true
+                    })
+                });
+            } catch(e) {}
+
+            // Bersihkan keranjang
+            localStorage.removeItem("bintang_cart");
+            localStorage.removeItem("cart");
+
+            // Navigasi ke tracking.html
+            setTimeout(() => {
+                window.location.href = `./tracking.html?order_id=${encodeURIComponent(orderId)}`;
+            }, 500);
+        }
+
+        // Outlet Modal Controller
+        function openJjOutletModal(show) {
+            const modal = document.getElementById('modal-outlet-select');
+            if (!modal) return;
+            if (show) {
+                const searchInput = document.getElementById('outlet-search-input');
+                if (searchInput) searchInput.value = '';
+                renderOutletList(jjOutlets.slice(0, 50));
+                modal.classList.remove('hidden');
+                setTimeout(() => modal.classList.remove('opacity-0'), 10);
+            } else {
+                modal.classList.add('opacity-0');
+                setTimeout(() => modal.classList.add('hidden'), 200);
+            }
+        }
+
+        function setJjOrderType(type) {
+            currentOrderType = type;
+            ['takeaway', 'dinein', 'delivery'].forEach(t => {
+                const btn = document.getElementById(`btn-type-${t}`);
+                if (btn) {
+                    if (t === type) btn.className = 'py-1.5 rounded-lg bg-stone-950 text-white transition';
+                    else btn.className = 'py-1.5 rounded-lg text-stone-600 transition';
+                }
+            });
+            updateOutletBanner();
+        }
+
+        function renderOutletList(list) {
+            const container = document.getElementById('outlet-list-container');
+            if (!container) return;
+
+            if (!list || list.length === 0) {
+                container.innerHTML = `<p class="text-stone-400 italic text-center py-4">Gerai tidak ditemukan...</p>`;
+                return;
+            }
+
+            container.innerHTML = list.map(o => `
+                <div onclick="selectJjOutlet('${o.id}')" class="p-2.5 rounded-xl border border-stone-200 hover:border-amber-500 bg-stone-50 hover:bg-amber-50/30 cursor-pointer transition flex items-center justify-between gap-2">
+                    <div class="min-w-0">
+                        <p class="font-bold text-stone-900 text-xs truncate">${o.name}</p>
+                        <p class="text-[10px] text-stone-500 truncate mt-0.5">${o.address || 'Gerai Janji Jiwa'}</p>
+                    </div>
+                    <span class="text-[9px] font-bold px-1.5 py-0.5 rounded bg-stone-200 text-stone-700 uppercase flex-shrink-0">${o.category}</span>
+                </div>
+            `).join('');
+        }
+
+        function filterJjOutlets() {
+            const q = (document.getElementById('outlet-search-input')?.value || '').toLowerCase().trim();
+            if (!q) {
+                renderOutletList(jjOutlets.slice(0, 50));
+                return;
+            }
+            const filtered = jjOutlets.filter(o => o.name.toLowerCase().includes(q) || (o.address || '').toLowerCase().includes(q));
+            renderOutletList(filtered.slice(0, 50));
+        }
+
+        function selectJjOutlet(id) {
+            const found = jjOutlets.find(o => String(o.id) === String(id));
+            if (found) {
+                currentOutlet = found;
+                localStorage.setItem("bintang_jj_selected_outlet", JSON.stringify(found));
+                updateOutletBanner();
+                openJjOutletModal(false);
+                showToast(`Gerai ${found.name} dipilih!`);
+            }
+        }
+    </script>
+
+    <!-- Page Transition JS -->
+    <script src="./assets/transition.js"></script>
+</body>
+</html>
