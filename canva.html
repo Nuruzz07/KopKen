@@ -92,17 +92,11 @@
     }
 
   </style>
-  <script>
-    // Pastikan konten langsung terbuka halus jika dibuka langsung tanpa gate transition
-    if (!sessionStorage.getItem('bs_transition_incoming')) {
-      document.documentElement.classList.add('canva-content-reveal');
-      document.addEventListener('DOMContentLoaded', () => {
-        document.body.classList.add('canva-content-reveal');
-      });
-    }
-  </script>
 </head>
 <body class="min-h-screen flex flex-col antialiased selection:bg-stone-200 selection:text-stone-950">
+
+  <!-- Page Transition Script (The Obsidian Gate) -->
+  <script src="./assets/transition.js"></script>
 
   <!-- Toast Container -->
   <div id="toast-container" class="fixed top-5 left-1/2 -translate-x-1/2 z-[300] flex flex-col gap-2 w-[90%] max-w-sm pointer-events-none"></div>
@@ -1647,9 +1641,6 @@
       }
     });
   </script>
-
-  <!-- Page Transition JS (The Obsidian Gate) -->
-  <script src="./assets/transition.js"></script>
 
 </body>
 </html>

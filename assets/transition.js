@@ -3,6 +3,12 @@
    ========================================================================== */
 
 (function () {
+  if (window.__bs_transition_initialized) return;
+  window.__bs_transition_initialized = true;
+
+  const isCanvaPage = window.location.pathname.toLowerCase().includes('canva') || 
+                      window.location.href.toLowerCase().includes('canva');
+
   // 1. Inisialisasi Elemen Tirai Gerbang dengan Bentuk Asli Logo Bintang Store
   const overlay = document.createElement('div');
   overlay.id = 'bs-transition-layer';
@@ -43,7 +49,28 @@
       <div class="gate-sub-label" id="gate-status-text">BREWING CONCIERGE ACCESS</div>
     </div>
   `;
-  document.body.appendChild(overlay);
+
+  function attachOverlay() {
+    if (!document.getElementById('bs-transition-layer')) {
+      if (document.body) {
+        document.body.appendChild(overlay);
+      } else if (document.documentElement) {
+        document.documentElement.appendChild(overlay);
+      }
+    }
+  }
+
+  // If Canva page: arm immediately so shutters are closed from frame 1
+  if (isCanvaPage) {
+    overlay.className = 'active closing theme-canva';
+    const statusLabel = overlay.querySelector('#gate-status-text');
+    if (statusLabel) statusLabel.textContent = 'CANVA ACCESS GATEWAY';
+    if (document.body) {
+      document.body.classList.add('canva-internal-entrance', 'canva-gate-opening');
+    }
+  }
+
+  attachOverlay();
 
   // 2. Helper Resolusi URL Halaman Lokal & Web Server
   function resolveDestination(href) {
@@ -76,6 +103,7 @@
     if (targetUrl) {
       setTimeout(() => {
         sessionStorage.setItem('bs_transition_incoming', themeClass || 'theme-coffee');
+        sessionStorage.setItem('bs_transition_source', 'internal');
         sessionStorage.setItem('bs_transition_label', labelText);
         window.location.href = targetUrl;
       }, duration || 480);
@@ -83,43 +111,77 @@
   }
 
   // 4. Membuka Tirai Halus Saat Halaman Tujuan Terbuka (Entrance Reveal)
+  let canvaEntranceRunning = false;
+
+  function playCanvaEntrance() {
+    if (canvaEntranceRunning) return;
+    canvaEntranceRunning = true;
+    isNavigating = false;
+    attachOverlay();
+
+    // Clean up any session storage flags
+    sessionStorage.removeItem('bs_transition_incoming');
+    sessionStorage.removeItem('bs_transition_source');
+    sessionStorage.removeItem('bs_transition_label');
+
+    // Armed overlay with Canva Aurora theme
+    overlay.className = 'active closing theme-canva';
+    const statusLabel = document.getElementById('gate-status-text');
+    if (statusLabel) statusLabel.textContent = 'CANVA ACCESS GATEWAY';
+
+    if (document.body) {
+      document.body.classList.remove('canva-content-reveal');
+      document.body.classList.add('canva-internal-entrance', 'canva-gate-opening');
+    }
+
+    void overlay.offsetHeight; // Force reflow
+
+    // Hold closed for 260ms of obsidian depth, then open shutters & trigger reveal
+    setTimeout(() => {
+      overlay.classList.remove('closing');
+      if (document.body) {
+        document.body.classList.add('canva-content-reveal');
+      }
+      setTimeout(() => {
+        overlay.className = '';
+        if (document.body) {
+          document.body.classList.remove('canva-gate-opening');
+        }
+        canvaEntranceRunning = false;
+      }, 500);
+    }, 260);
+  }
+
   function handlePageEntrance() {
     isNavigating = false;
+
+    // CANVA PAGE: ALWAYS play the Obsidian Gate - Canva Aurora entrance animation
+    // Regardless of source: direct URL, refresh, new tab, bookmark, external link, or menu/CTA click
+    if (isCanvaPage) {
+      playCanvaEntrance();
+      return;
+    }
+
+    // OTHER THEMES (Coffee, Digital, Tracking - UNCHANGED):
     const incomingTheme = sessionStorage.getItem('bs_transition_incoming');
     const incomingLabel = sessionStorage.getItem('bs_transition_label');
+    sessionStorage.removeItem('bs_transition_incoming');
+    sessionStorage.removeItem('bs_transition_source');
+    sessionStorage.removeItem('bs_transition_label');
 
     if (incomingTheme) {
       overlay.className = 'active closing ' + incomingTheme;
       const statusLabel = document.getElementById('gate-status-text');
       if (statusLabel && incomingLabel) statusLabel.textContent = incomingLabel;
 
-      sessionStorage.removeItem('bs_transition_incoming');
-      sessionStorage.removeItem('bs_transition_label');
-
-      if (incomingTheme === 'theme-canva') {
-        document.body.classList.add('canva-gate-opening');
-        // Destination Reveal: keep brief obsidian hold (150ms), then open shutters and trigger content reveal
-        requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        setTimeout(() => {
+          overlay.classList.remove('closing');
           setTimeout(() => {
-            overlay.classList.remove('closing');
-            document.body.classList.add('canva-content-reveal');
-            setTimeout(() => {
-              overlay.className = '';
-              document.body.classList.remove('canva-gate-opening');
-            }, 500);
-          }, 150);
-        });
-      } else {
-        // Buka tirai belah atas-bawah standar (Coffee, Digital, Tracking - UNCHANGED)
-        requestAnimationFrame(() => {
-          setTimeout(() => {
-            overlay.classList.remove('closing');
-            setTimeout(() => {
-              overlay.className = '';
-            }, 450);
-          }, 150);
-        });
-      }
+            overlay.className = '';
+          }, 450);
+        }, 150);
+      });
     }
   }
 
@@ -128,8 +190,20 @@
   } else {
     document.addEventListener('DOMContentLoaded', handlePageEntrance);
   }
-  window.addEventListener('pageshow', function () {
+
+  window.addEventListener('pageshow', function (e) {
     isNavigating = false;
+    // On Canva page: always run the entrance reveal (including back/forward navigation)
+    if (isCanvaPage) {
+      canvaEntranceRunning = false;
+      playCanvaEntrance();
+      return;
+    }
+    // On other pages: if restored from bfcache, clear overlay and do not replay
+    if (e.persisted) {
+      overlay.className = '';
+      return;
+    }
     handlePageEntrance();
   });
 
