@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Laporan Lengkap Arsitektur Bintang Store</title>
+<style>
+  @page {
+    size: A4;
+    margin: 20mm 15mm 20mm 15mm;
+  }
+  body {
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+    color: #1C1917;
+    background: #FFFFFF;
+    line-height: 1.6;
+    font-size: 11pt;
+    padding: 0;
+    margin: 0;
+  }
+  .doc-title {
+    color: #1C1917;
+    font-size: 20pt;
+    font-weight: 800;
+    border-bottom: 3px solid #9C532B;
+    padding-bottom: 8px;
+    margin-top: 0;
+    margin-bottom: 6px;
+  }
+  .sec-title {
+    color: #9C532B;
+    font-size: 15pt;
+    font-weight: 700;
+    margin-top: 24px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #E7E5E4;
+    padding-bottom: 4px;
+    page-break-after: avoid;
+  }
+  .sub-title {
+    color: #1C1917;
+    font-size: 12.5pt;
+    font-weight: 700;
+    margin-top: 16px;
+    margin-bottom: 6px;
+    page-break-after: avoid;
+  }
+  .sub4-title {
+    color: #D97706;
+    font-size: 11pt;
+    font-weight: 700;
+    margin-top: 12px;
+    margin-bottom: 4px;
+    page-break-after: avoid;
+  }
+  .body-p {
+    margin-top: 0;
+    margin-bottom: 8px;
+    color: #292524;
+    text-align: justify;
+  }
+  .custom-list {
+    margin-top: 4px;
+    margin-bottom: 12px;
+    padding-left: 20px;
+    color: #292524;
+  }
+  .custom-list li {
+    margin-bottom: 5px;
+  }
+  .inline-code {
+    background: #F5F5F4;
+    color: #9C532B;
+    padding: 1px 5px;
+    border-radius: 4px;
+    font-family: Consolas, monospace;
+    font-size: 9.5pt;
+    border: 1px solid #E7E5E4;
+  }
+  .code-block {
+    background: #1C1917;
+    color: #FAF8F5;
+    padding: 12px 14px;
+    border-radius: 8px;
+    font-family: Consolas, monospace;
+    font-size: 9pt;
+    overflow-x: auto;
+    margin: 10px 0 14px 0;
+    border-left: 4px solid #D97706;
+    page-break-inside: avoid;
+  }
+  .code-block code {
+    color: #FAF8F5;
+  }
+  hr {
+    border: 0;
+    height: 1px;
+    background: #E7E5E4;
+    margin: 20px 0;
+  }
+</style>
+</head>
+<body>
+<h1 class="doc-title">📋 LAPORAN AUDIT & ANALISIS MENDALAM: STATUS PROYEK, ARSITEKTUR, DAN GAYA KERJA</h1>
+<strong>Bintang Store Unified Ecosystem — Concept 6C Monolith</strong>  
+<em>Tanggal Audit: 4 Oktober 2026</em>  
+<em>Dokumen Acuan: Single Source of Truth & Collaboration Memory</em>
+<p class="body-p">---</p>
+<h2 class="sec-title">1. Stack & Architecture Overview</h2>
+<h3 class="sub-title">A. Pola Struktur Folder & Routing</h3>
+<em> <strong>Kategori Arsitektur:</strong> </em>Static Multi-Page Application (MPA)* berbasis Vanilla JavaScript murni (ES6+), HTML5 Semantik, dan Tailwind CSS (CDN dengan Custom Extended Configuration). Sistem tidak menggunakan bundler runtime (zero-build deployment) demi portabilitas tinggi, performa pemuatan instan, dan kemudahan pengujian langsung di lingkungan lokal.
+<ul class="custom-list"><li><strong>Dual-Hierarchy Structure (Root vs Subdirectory Mirrors):</strong></li></ul>
+  * <strong>Root Entrypoints (Akses Cepat):</strong>
+    <em> <code class="inline-code">home.html</code> — Landing page portal utama (</em>Hub ekosistem*) yang menyatukan seluruh vertikal bisnis.
+    * <code class="inline-code">kopken.html</code> — Toko online Kopi Kenangan lengkap dengan katalog, modal kustomisasi minuman, bottom sheet keranjang, dan formulir checkout QRIS.
+    * <code class="inline-code">digital-legacy.html</code> — Showcase produk digital & akun premium (Google One AI, ChatGPT, YouTube, Spotify, Canva Pro Lead Magnet).
+    <em> <code class="inline-code">tracking.html</code> — Radar pelacakan pesanan terpadu (</em>Unified Live Tracker<em>) dilengkapi kartu QRIS, timer konfirmasi, dan modul interaktif </em>Bintang SplitPay*.
+  * <strong>Subdirectory Mirrors (Modular & Direct Sub-brand):</strong>
+    * <code class="inline-code">kopken/</code> (<code class="inline-code">kopken/index.html</code>, <code class="inline-code">kopken/tracking.html</code>, aset menu lokal).
+    * <code class="inline-code">digital/</code> (<code class="inline-code">digital/index.html</code>) — Portal produk digital mandiri.
+    * <code class="inline-code">studio/</code> (<code class="inline-code">studio/index.html</code>) — Portofolio & order bot development/engineering.
+<ul class="custom-list"><li><strong>Prinsip Routing & Navigasi Bersih (No Hashes & Direct File Links):</strong></li></ul>
+  * <strong>Larangan Anchor Hash:</strong> Seluruh tautan navigasi internal tidak boleh menggunakan pagar (seperti <code class="inline-code">href="#bento"</code>, <code class="inline-code">href="#kopken"</code>).
+  <em> <strong>Direct File Extension:</strong> Semua tautan internal wajib menggunakan ekstensi <code class="inline-code">.html</code> eksplisit (<code class="inline-code">./home.html</code>, <code class="inline-code">./kopken.html</code>, <code class="inline-code">./digital-legacy.html</code>, <code class="inline-code">./tracking.html</code>) agar tidak terjadi error </em>File Not Found* saat dijalankan di browser lokal (<code class="inline-code">file:///C:/...</code>).
+  * <strong>Integritas Relatif Subfolder:</strong> Berkas di dalam subfolder (misalnya <code class="inline-code">kopken/index.html</code>) menggunakan path relatif berjenjang naik (<code class="inline-code">../home.html</code>, <code class="inline-code">../tracking.html</code>, <code class="inline-code">../assets/</code>).
+<p class="body-p">---</p>
+<h3 class="sub-title">B. Transisi Halaman Sinematik (<em>The Obsidian Gate</em>)</h3>
+<ul class="custom-list"><li><strong>Aset Terpadu:</strong> <code class="inline-code">assets/transition.js</code> dan <code class="inline-code">assets/transition.css</code>.</li></ul><ul class="custom-list"><li><strong>Mekanisme Kerja:</strong></li></ul>
+  <em> <strong>Dual-Shutter Shutter:</strong> Tirai ganda simetris berbahan </em>Dark Obsidian* (<code class="inline-code">#0c0a09</code>) yang menutup dari atas (<code class="inline-code">gate-shutter-top</code>) dan bawah (<code class="inline-code">gate-shutter-bottom</code>) secara bersamaan dengan aksen garis emas/amber (<code class="inline-code">#d97706</code>).
+  <em> <strong>Emblem Asli Concept 6C:</strong> Di tengah tirai terdapat emblem SVG asli Bintang Store dengan animasi pendar aura radial bernapas (</em>pulsing breathing aura glow*).
+  * <strong>Navigation Interceptor:</strong> Mengintersepsi klik pada elemen <code class="inline-code"><a></code> internal (mengabaikan <code class="inline-code">#</code>, mailto, tel, dan link eksternal), mengunci tampilan, menutup tirai dalam 480–500ms, menyimpan state di <code class="inline-code">sessionStorage</code> (<code class="inline-code">bs_transition_incoming</code>), lalu me-redirect URL tujuan.
+  * <strong>Entrance Reveal:</strong> Saat halaman tujuan selesai dimuat, skrip membaca <code class="inline-code">sessionStorage</code> dan secara otomatis membuka tirai ke atas dan bawah dalam 450ms.
+  * <strong>Transaction Lock:</strong> Tombol checkout QRIS memanggil <code class="inline-code">window.triggerTransition('route-tracking', 'MEMPROSES TRANSAKSI AMAN...', callback)</code> untuk efek segel keamanan transaksi sebelum dialihkan ke halaman pelacakan.
+<p class="body-p">---</p>
+<h3 class="sub-title">C. Konfigurasi Deployment & Server</h3>
+<ul class="custom-list"><li><strong>Vercel (<code class="inline-code">vercel.json</code>):</strong></li></ul>
+  ``<code class="inline-code">json
+  {
+    "cleanUrls": true,
+    "rewrites": [
+      { "source": "/", "destination": "/home" }
+    ]
+  }
+  </code>`<code class="inline-code">
+<ul class="custom-list"><li><strong>Nginx Production VPS (</code>nginx-clean-urls.conf<code class="inline-code">):</strong></li></ul>
+  * Dikonfigurasi untuk domain resmi </code>bintanggstore.web.id<code class="inline-code">.
+  * <strong>Clean URLs:</strong> Aturan </code>try_files $uri $uri.html $uri/ /home.html /index.html;<code class="inline-code"> memastikan routing tanpa ekstensi </code>.html<code class="inline-code"> berjalan mulus.
+  * <strong>Security Headers:</strong> </code>X-Frame-Options SAMEORIGIN<code class="inline-code">, </code>X-Content-Type-Options nosniff<code class="inline-code">, </code>X-XSS-Protection "1; mode=block"<code class="inline-code">, dan </code>Referrer-Policy strict-origin-when-cross-origin<code class="inline-code">.
+  * <strong>Gzip Compression:</strong> Mengompresi seluruh file teks, CSS, JS, JSON, XML, dan SVG pada level kompresi 6.
+  * <strong>Static Caching:</strong> Header </code>Cache-Control: public, no-transform<code class="inline-code"> dengan durasi 30 hari untuk aset statis (gambar, font, css, js).
+<p class="body-p">---</p>
+<h2 class="sec-title">2. State Management & Data Flow Saat Ini</h2>
+<h3 class="sub-title">A. Pemuatan Data Katalog Produk & Gerai</h3>
+1. <strong>Katalog Kopi Kenangan (</code>menu.json<code class="inline-code">):</strong>
+   * Di-load secara asinkron via </code>fetch('./menu.json')<code class="inline-code"> di fungsi </code>loadDataFiles()<code class="inline-code"> pada </code>app.js<code class="inline-code">.
+   * Struktur hirarki JSON:
+     </code>"Kopi Kenangan"<code class="inline-code"> ➔ </code>"satuan"<code class="inline-code"> ➔ </code>baru<code class="inline-code">, </code>coffee<code class="inline-code">, </code>nonCoffee<code class="inline-code">, </code>oatside<code class="inline-code">, </code>frappe<code class="inline-code">, </code>food<code class="inline-code">.
+   * Properti per item: </code>id<code class="inline-code">, </code>name<code class="inline-code">, </code>price<code class="inline-code"> (harga jastip promo), </code>real_price<code class="inline-code"> (harga resmi outlet untuk harga coret), </code>badge<code class="inline-code">, </code>img<code class="inline-code"> (URL Supabase Storage bucket </code>menu-kopken<code class="inline-code">), serta flag </code>isFood<code class="inline-code">.
+2. <strong>Database Gerai / Outlet (</code>outlet.json<code class="inline-code">):</strong>
+   * Memuat data 1.328 gerai Kopi Kenangan di seluruh Indonesia.
+   <em> Berisi koordinat presisi (</code>latitude<code class="inline-code">, </code>longitude<code class="inline-code">), jam buka-tutup kasir (</code>hours<code class="inline-code">), status operasional, dan klasifikasi gerai (</em>Mall, Standalone, Signature*).
+   <em> Algoritma </em>Haversine Formula* (</code>calculateDistance<code class="inline-code">) di </code>app.js<code class="inline-code"> menghitung jarak gerai terdekat terhadap koordinat GPS pelanggan secara instan.
+   * Logika pengecekan jam operasional WIB otomatis memunculkan banner peringatan jika gerai terpilih akan tutup dalam waktu 30 menit ke depan.
+3. <strong>Katalog Produk Digital (</code>digital-legacy.html<code class="inline-code">):</strong>
+   * Dirender semi-statis dalam format Bento Grid Card.
+   * Pilihan paket harga dioper secara dinamis ke modal checkout via parameter JavaScript: </code>openDigitalCheckoutModal(productName, plans, snkList)<code class="inline-code">.
+<p class="body-p">---</p>
+<h3 class="sub-title">B. Alur Keranjang, Form Outlet, & Kalkulasi Harga</h3>
+1. <strong>Kustomisasi Minuman:</strong> Modal <em>Racikan Pas</em> di </code>app.js<code class="inline-code"> mengelola pilihan suhu (<em>Ice / Hot</em>), ukuran cup (<em>Regular / Large</em>), kadar gula (<em>Normal / Less / No Sugar</em>), kadar es, serta topping. Nilai dikompilasi ke dalam string </code>details<code class="inline-code">.
+2. <strong>State Keranjang (</code>cart<code class="inline-code">):</strong> Array </code>cart<code class="inline-code"> disimpan ke </code>localStorage<code class="inline-code"> (</code>bintang_cart<code class="inline-code"> dan </code>cart<code class="inline-code">) untuk persistensi sesi belanja.
+3. <strong>Mode Pengambilan:</strong> Mendukung <em>Takeaway</em> (ambil di gerai) dan <em>Delivery</em> (Shopee Instan). Pada mode Delivery, form memvalidasi alamat lengkap serta tautan Google Maps, dan mengenakan tarif pengiriman Rp 5.000.
+4. <strong>Evaluasi Cart Booster 50k:</strong> Logika progress bar menghitung selisih subtotal menuju target Rp 50.000. Saat syarat terpenuhi, sistem mengaktifkan status <em>Kualifikasi VIP Terpenuhi</em> untuk membuka akses gratis Bot Radar GetContact VIP.
+5. <strong>Kode Promo (Maintenance Mode):</strong> Input voucher tetap tampil secara visual, namun saat tombol <em>Terapkan</em> diklik, sistem memunculkan toast informasi: <em>"Fitur kode promo sedang dalam pemeliharaan berkala."</em> tanpa memotong tagihan (</code>discount = 0<code class="inline-code">).
+6. <strong>Validasi Formulir:</strong> Tombol checkout memeriksa kelengkapan nama pemesan (minimal 2 karakter), nomor WhatsApp aktif (minimal 9 digit), data alamat (jika delivery), dan info rekening Host (jika split bill aktif).
+<p class="body-p">---</p>
+<h3 class="sub-title">C. Alur Checkout ke Supabase & Bot Telegram</h3>
+Saat tombol <em>"Lanjut ke Pembayaran QRIS"</em> ditekan di </code>kopken.html<code class="inline-code">, fungsi </code>executeFullOrderFlow()<code class="inline-code"> menjalankan serangkaian proses paralel:
+1. <strong>Unggah QRIS Host:</strong> Jika Split Bill aktif dan Host melampirkan gambar QRIS, berkas diunggah ke Supabase Storage bucket </code>receipts<code class="inline-code"> dengan nama berkas </code>host_qris_${orderId}.${fileExt}<code class="inline-code">.
+2. <strong>Upsert ke Database Supabase (</code>orders<code class="inline-code">):</strong> Menyimpan data pesanan baru tanpa mengubah skema relasional tabel:
+   </code>`<code class="inline-code">javascript
+   await supabaseClient.from('orders').upsert([{
+       id: orderId,
+       customer_name: name,
+       customer_wa: cleanWa,
+       outlet_name: activeOutlet,
+       order_type: currentOrderType, // 'takeaway' | 'delivery'
+       delivery_fee: deliveryFee,
+       delivery_address: currentOrderType === 'delivery' ? deliveryAddress : null,
+       delivery_maps_url: currentOrderType === 'delivery' ? deliveryMapsUrl : null,
+       order_items: structuredOrderItems, // Array JSONB memuat metadata split_info
+       total_price: grandTotal,
+       estimated_profit: Math.round(grandTotal * 0.25),
+       status: 'menunggu_pembayaran'
+   }]);
+   </code>`<code class="inline-code">
+3. <strong>Dispatch Notifikasi Bot Telegram:</strong> Mengirim pesan HTML lengkap ke Admin Telegram Chat ID (</code>6731058601<code class="inline-code">) berisi Order ID, cabang outlet, rincian menu, info pengantaran, data patungan split bill, link pelacakan langsung, dan tautan direct WhatsApp pelanggan.
+4. <strong>Pembersihan & Redirect:</strong> Mengosongkan keranjang, menyimpan data ke riwayat lokal (</code>bintang_history<code class="inline-code">), memicu transisi segel The Obsidian Gate, dan mengarahkan ke </code>./tracking.html?order_id=${orderId}<code class="inline-code">.
+<p class="body-p">---</p>
+<h3 class="sub-title">D. Alur Pelacakan Realtime & Bintang SplitPay (</code>tracking.html<code class="inline-code">)</h3>
+1. <strong>Realtime Listener:</strong> Berlangganan kanal Supabase Realtime Postgres Changes:
+   </code>`<code class="inline-code">javascript
+   supabaseClient.channel(</code>order_tracking_room_${orderId}<code class="inline-code">)
+       .on('postgres_changes', { event: '*', schema: 'public', table: 'orders', filter: </code>id=eq.${orderId}<code class="inline-code"> }, (payload) => {
+           renderOrder(payload.new);
+       }).subscribe();
+   </code>`<code class="inline-code">
+2. <strong>Siklus 5 Status Pesanan:</strong>
+   * </code>menunggu_pembayaran<code class="inline-code"> ➔ Menampilkan QRIS dinamis & rincian nominal tagihan.
+   * </code>menunggu_konfirmasi<code class="inline-code"> ➔ Bukti transfer terkirim, timer hitung mundur konfirmasi admin (15–30 menit) aktif.
+   * </code>sedang_diproses<code class="inline-code"> ➔ Pembayaran terverifikasi, barista meracik kopi / akun digital disiapkan.
+   * </code>selesai<code class="inline-code"> ➔ Tiket antrean pengambilan / pesanan meluncur via kurir instan / kartu garansi digital aktif.
+   * </code>dibatalkan_pelanggan<code class="inline-code"> ➔ Formulir pengajuan refund dana ke rekening pembeli aktif.
+3. <strong>Modul Interaktif Bintang SplitPay (Split Bill Radar):</strong>
+   * Membaca metadata </code>split_info<code class="inline-code"> pada array </code>order_items<code class="inline-code">.
+   <em> Menghitung pembagian proporsional ongkir dan diskon per teman (</em>pro-rata share*).
+   <em> Menyediakan tab pill per anggota tongkrongan, sapaan personal hangat (</em>"Hai {nama}, total bagian kopimu: Rp {nominal}"<em>), box nomor rekening Host dengan </em>1-tap copy*, pratinjau QRIS Host dengan border emas bercahaya, serta tombol salin format pesan WhatsApp grup.
+<p class="body-p">---</p>
+<h2 class="sec-title">3. Coding Style & Development Pattern</h2>
+<h3 class="sub-title">A. Pola Penulisan JavaScript</h3>
+<ul class="custom-list"><li><strong>Vanilla Modular State:</strong> Variabel state dideklarasikan secara terorganisir di scope atas (</code>cart<code class="inline-code">, </code>selectedOutlet<code class="inline-code">, </code>isExecutingOrder<code class="inline-code">, </code>currentAppTab<code class="inline-code">).</li></ul>
+<em> <strong>Audio Synthesizer Engine:</strong> Class </code>SoundEffectsEngine<code class="inline-code"> memanfaatkan Web Audio API bawaan browser untuk menghasilkan efek ketukan (</em>sine wave 1200->800 Hz<em>) dan chime sukses (</em>triangle wave chord C5->E5*) secara sintetis tanpa ketergantungan file audio eksternal </code>.mp3<code class="inline-code">.
+<ul class="custom-list"><li><strong>Standard Helper Utils:</strong></li></ul>
+  * Format Rupiah: </code>const formatRp = (num) => 'Rp ' + parseInt(num || 0).toLocaleString('id-ID');<code class="inline-code">
+  * Waktu Indonesia Barat: </code>getWIBDate()<code class="inline-code"> menyelaraskan waktu ke UTC+7 (WIB) terlepas dari zona waktu perangkat pengguna.
+<ul class="custom-list"><li><strong>Cyber-Luxury Toast System:</strong> Fungsi </code>showToast(pesan)<code class="inline-code"> menginjeksikan komponen notifikasi kustom bertema Dark Obsidian (</code>#1C1917<code class="inline-code">), border aksen amber (</code>#F59E0B<code class="inline-code">), dan animasi transisi halus sebagai pengganti mutlak dialog </code>alert()<code class="inline-code"> bawaan browser.</li></ul>
+<p class="body-p">---</p>
+<h3 class="sub-title">B. Pola CSS & Design Tokens (</code>bintang-v1.css<code class="inline-code">)</h3>
+Styling mengikuti standar visual <em>Bintang Store Design System V1.0</em> (Bab 6–30) dengan filosofi <strong>Cyber-Luxury Monolith (Concept 6C)</strong>:
+<ul class="custom-list"><li><strong>Deep Ivory (</code>#FAF8F5<code class="inline-code"> / </code>#FAF7F2<code class="inline-code">):</strong> Latar belakang utama terang, bersih, dan hangat.</li></ul><ul class="custom-list"><li><strong>Dark Obsidian (</code>#1C1917<code class="inline-code"> / </code>#0C0A09<code class="inline-code">):</strong> Tipografi kontras tinggi, navbar, footer, elemen kartu dark, dan modal tirai.</li></ul>
+<em> <strong>Warm Terracotta (</code>#9C532B<code class="inline-code"> / </code>#82421E<code class="inline-code">):</strong> Warna brand kopi utama Kopi Kenangan untuk tombol aksi penting (</em>CTA*) dan sorotan harga.
+<ul class="custom-list"><li><strong>Roasted Amber & Gold (</code>#D97706<code class="inline-code"> / </code>#F59E0B<code class="inline-code">):</strong> Aksen pendar radar, bintang emblem, garis pembatas mewah, dan tier VIP.</li></ul><ul class="custom-list"><li><strong>Emerald Green (</code>#15803D<code class="inline-code"> / </code>#166534<code class="inline-code">):</strong> Tombol WhatsApp, indikator status lunas, dan kualifikasi booster tercapai.</li></ul><ul class="custom-list"><li><strong>Tipografi:</strong> Kombinasi </code>Plus Jakarta Sans<code class="inline-code"> (Brand & Headline), </code>Inter<code class="inline-code"> (Body & UI clean), dan </code>Monospace<code class="inline-code"> (Order ID, angka nominal, kode rekening).</li></ul><ul class="custom-list"><li><strong>Bento Grid Layout:</strong> Kartu modular dengan sudut kurva lembut (</code>rounded-2xl<code class="inline-code"> 16–24px, </code>rounded-3xl<code class="inline-code"> 24–32px), border tipis (</code>border-stone-200<code class="inline-code"> atau </code>border-amber-500/30<code class="inline-code">), dan efek kaca </code>.nav-glass<code class="inline-code"> (</code>backdrop-filter: blur(12px)<code class="inline-code">).</li></ul>
+<p class="body-p">---</p>
+<h2 class="sec-title">4. Existing Experiments & Utility Scripts (Folder </code>scratch/<code class="inline-code">)</h2>
+<p class="body-p">Folder </code>scratch/<code class="inline-code"> digunakan untuk utilitas otomatisasi lokal, pengujian sintaks, dan sinkronisasi berkas antarmuka:
+1. <strong></code>scratch/check_all.js<code class="inline-code">:</strong> Skrip pengujian regresi otomatis. Memverifikasi ketiadaan link hash </code>#<code class="inline-code">, keberadaan tautan </code>./kopken.html<code class="inline-code"> di landing page, memastikan form ulasan lama pada </code>tracking.html<code class="inline-code"> telah bersih, serta memvalidasi styling modal racikan di </code>app.js<code class="inline-code">.
+2. <strong></code>scratch/check_kopken.js<code class="inline-code">:</strong> Skrip verifikasi sintaksis JavaScript pada </code>kopken.html<code class="inline-code"> menggunakan JavaScript VM parser guna mendeteksi unclosed tags atau syntax error.
+3. <strong></code>scratch/create_kopken.js<code class="inline-code">:</strong> Skrip sinkronisasi berkas antar-tingkat direktori untuk menyalin </code>kopken/index.html<code class="inline-code"> menjadi </code>kopken.html<code class="inline-code"> di root sambil menyesuaikan path relatif (</code>../home.html<code class="inline-code"> ➔ </code>./home.html<code class="inline-code">).
+4. <strong></code>scratch/venv/<code class="inline-code"> & </code>scratch/generate_docx.py<code class="inline-code">:</strong> Utilitas Python terisolasi untuk membangun dokumen laporan formal berformat DOCX secara otomatis.</p>
+<p class="body-p">---</p>
+<h2 class="sec-title">5. Hal-hal yang Perlu Konsistensi (Aturan Emas Repositori)</h2>
+<p class="body-p">Demi menjaga keutuhan sistem dan mempermudah integrasi masa depan (seperti modul <strong>Janji Jiwa</strong>, <strong>Tomoro Coffee</strong>, atau backend multi-brand), 6 aturan tak tertulis berikut <strong>wajib dipertahankan 100%</strong>:</p>
+<h3 class="sub-title">1. Integritas Skema Supabase (Zero Root Column Breaking)</h3>
+<ul class="custom-list"><li>Tabel </code>orders<code class="inline-code"> di Supabase memiliki kolom root yang telah terhubung ke bot Telegram admin.</li></ul><ul class="custom-list"><li><strong>Aturan:</strong> Segala data tambahan baru (metadata split bill, catatan racikan, status reimbursement, maupun identitas multi-brand) <strong>wajib disimpan ke dalam kolom JSONB </code>order_items<code class="inline-code"></strong>. Dilarang menambah kolom baru di tabel root Supabase secara sepihak agar parser webhook Telegram admin tidak mengalami crash.</li></ul>
+<h3 class="sub-title">2. Sinkronisasi File Ganda (Root vs Subfolder Mirrors)</h3>
+<ul class="custom-list"><li>Setiap kali melakukan pembaruan pada modul Kopi Kenangan maupun Tracking, perubahan wajib diterapkan serentak pada kedua pasangan berkas:</li></ul>
+  * </code>kopken.html<code class="inline-code"> (root) ⬄ </code>kopken/index.html<code class="inline-code"> (subfolder)
+  * </code>tracking.html<code class="inline-code"> (root) ⬄ </code>kopken/tracking.html<code class="inline-code"> (subfolder)
+<ul class="custom-list"><li>Perhatikan perbedaan kedalaman path (</code>./assets/<code class="inline-code"> di root vs </code>../assets/<code class="inline-code"> di subfolder).</li></ul>
+<h3 class="sub-title">3. Nomenklatur Order ID per Brand</h3>
+<ul class="custom-list"><li>Format ID pesanan digunakan oleh </code>tracking.html<code class="inline-code"> untuk menentukan template tiket dan alur pelacakan:</li></ul>
+  * Kopi Kenangan: </code>kk-{nama}-{timestamp4}<code class="inline-code">
+  * Produk Digital: </code>dig-{nama}-{timestamp4}<code class="inline-code">
+  * Brand Baru (Janji Jiwa): </code>jj-{nama}-{timestamp4}<code class="inline-code">
+<h3 class="sub-title">4. Hirarki Multi-Brand pada </code>menu.json<code class="inline-code"></h3>
+<ul class="custom-list"><li>Di </code>menu.json<code class="inline-code">, key terluar saat ini adalah </code>"Kopi Kenangan"<code class="inline-code">.</li></ul><ul class="custom-list"><li>Saat menambahkan brand baru, posisikan sebagai sibling key baru di level terluar:</li></ul>
+  </code>`<code class="inline-code">json
+  {
+    "Kopi Kenangan": { "satuan": { ... } },
+    "Janji Jiwa": { "satuan": { ... } }
+  }
+  </code>`<code class="inline-code">
+  Hindari mengubah struktur key </code>"satuan"<code class="inline-code"> yang sudah ada agar fungsi render katalog eksisting tetap stabil.
+<h3 class="sub-title">5. Larangan Dialog Bawaan Browser (No </code>alert()<code class="inline-code"> / </code>confirm()<code class="inline-code">)</h3>
+<ul class="custom-list"><li>Dilarang keras menggunakan </code>alert(...)<code class="inline-code"> atau </code>confirm(...)<code class="inline-code"> bawaan browser.</li></ul><ul class="custom-list"><li>Selalu gunakan </code>showToast(pesan)<code class="inline-code"> untuk notifikasi status atau modal popup kustom bergaya Dark Obsidian untuk menjaga standar Cyber-Luxury UX.</li></ul>
+<h3 class="sub-title">6. Navigasi Bersih Tanpa Anchor Hash</h3>
+<ul class="custom-list"><li>Dilarang menggunakan tautan internal berbasis hash (</code>href="#..."<code class="inline-code">).</li></ul><ul class="custom-list"><li>Seluruh navigasi antar-modul wajib menggunakan direct file link bersih (</code>./home.html<code class="inline-code">, </code>./kopken.html<code class="inline-code">, </code>./digital-legacy.html<code class="inline-code">, </code>./tracking.html`).</li></ul>
+<p class="body-p">---
+<em>Laporan ini disimpan secara permanen di direktori proyek sebagai acuan memori kolaborasi teknis Bintang Store.</em>
+</p>
+</body>
+</html>

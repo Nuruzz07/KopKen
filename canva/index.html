@@ -1,0 +1,1655 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Canva Team — Akses Komunitas Eksklusif | Bintang Store</title>
+  <meta name="description" content="Ajukan akses Canva Team resmi melalui komunitas Bintang Store dengan proses transparan, sederhana, dan terkelola." />
+
+  <!-- Open Graph / Social Metadata -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://bintanggstore.web.id/canva" />
+  <meta property="og:title" content="Canva Team — Akses Komunitas Eksklusif | Bintang Store" />
+  <meta property="og:description" content="Ajukan akses Canva Team resmi melalui komunitas Bintang Store dengan proses transparan, sederhana, dan terkelola." />
+  <meta property="og:image" content="https://bintanggstore.web.id/assets/logo.svg" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Canva Team — Akses Komunitas Eksklusif | Bintang Store" />
+  <meta name="twitter:description" content="Ajukan akses Canva Team resmi melalui komunitas Bintang Store dengan proses transparan, sederhana, dan terkelola." />
+  <meta name="twitter:image" content="https://bintanggstore.web.id/assets/logo.svg" />
+
+  <link rel="icon" type="image/svg+xml" href="../assets/logo.svg" />
+
+  <!-- Page Transition CSS (The Obsidian Gate) -->
+  <link rel="stylesheet" href="../assets/transition.css" />
+
+  <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"Inter"', 'monospace']
+          },
+          colors: {
+            ivory: '#FAF8F5',
+            stone: {
+              950: '#1C1917',
+              900: '#292524',
+              800: '#44403C',
+              700: '#57534E',
+              600: '#78716C',
+              400: '#A8A29E',
+              300: '#D6D3D1',
+              200: '#E7E5E4',
+              100: '#F5F5F4',
+              50: '#FAFAF9',
+            },
+            terracotta: {
+              DEFAULT: '#9C532B',
+              soft: '#FBF5F1',
+              border: '#E8D5C8',
+              hover: '#834320'
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    body {
+      background-color: #FAF8F5;
+      color: #1C1917;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow-x: hidden;
+    }
+
+    .mono-num {
+      font-family: 'Inter', monospace;
+      font-feature-settings: "tnum";
+    }
+
+    .nav-glass {
+      background-color: rgba(250, 248, 245, 0.94);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+  </style>
+  <script>
+    // Pastikan konten langsung terbuka halus jika dibuka langsung tanpa gate transition
+    if (!sessionStorage.getItem('bs_transition_incoming')) {
+      document.documentElement.classList.add('canva-content-reveal');
+      document.addEventListener('DOMContentLoaded', () => {
+        document.body.classList.add('canva-content-reveal');
+      });
+    }
+  </script>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-stone-200 selection:text-stone-950">
+
+  <!-- Toast Container -->
+  <div id="toast-container" class="fixed top-5 left-1/2 -translate-x-1/2 z-[300] flex flex-col gap-2 w-[90%] max-w-sm pointer-events-none"></div>
+
+  <!-- ========================================== -->
+  <!-- 1. NAVBAR (CONCEPT 6C)                    -->
+  <!-- ========================================== -->
+  <header class="sticky top-0 z-40 nav-glass border-b border-stone-200/80 transition-all duration-200">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
+      
+      <!-- Brand Logo & Title -->
+      <a href="../home.html" class="flex items-center gap-3.5 group focus:outline-none focus-visible:ring-2 focus-visible:ring-stone-950 rounded-lg p-1">
+        <img src="../assets/logo.svg" alt="Bintang Store" class="w-8 h-8 object-contain" />
+        <div class="flex flex-col">
+          <span class="font-extrabold tracking-wider text-base text-stone-950 uppercase leading-none">Bintang Store</span>
+          <span class="text-[10px] tracking-widest text-stone-600 uppercase font-semibold mt-1">Ecosystem Portal</span>
+        </div>
+      </a>
+
+      <!-- Menu Link Tengah (PC View) -->
+      <nav class="hidden md:flex items-center space-x-7 text-sm">
+        <a href="../home.html" class="text-stone-600 hover:text-stone-950 font-medium transition-colors">Home</a>
+        <a href="../digital-legacy.html" class="text-stone-600 hover:text-stone-950 font-medium transition-colors">Digital Store</a>
+        <a href="../coffee.html" class="text-stone-600 hover:text-stone-950 font-medium transition-colors">Coffee Hub</a>
+        <a href="../studio/index.html" class="text-stone-600 hover:text-stone-950 font-medium transition-colors">Tech Studio</a>
+        <a href="./index.html" class="text-stone-950 font-bold border-b-2 border-stone-950 pb-1">Canva Team</a>
+        <a href="../tracking.html" class="text-stone-600 hover:text-stone-950 font-medium transition-colors">Unified Orders</a>
+      </nav>
+
+      <!-- Tombol CTA Kanan -->
+      <div class="flex items-center gap-3">
+        <a href="#application-form" 
+           class="inline-flex items-center gap-2 bg-stone-950 hover:bg-stone-800 text-ivory text-xs sm:text-sm font-semibold px-4 sm:px-5 py-2.5 rounded-full transition-all duration-200 shadow-sm active:scale-95">
+          <span>Daftar Akses</span>
+          <i class="fas fa-arrow-down text-[10px] text-amber-400"></i>
+        </a>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button id="mobileMenuBtn" aria-label="Toggle Menu" class="md:hidden p-2 rounded-lg text-stone-700 hover:bg-stone-100 focus:outline-none cursor-pointer">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Mobile Dropdown Navigation -->
+    <div id="mobileMenuDropdown" class="hidden md:hidden border-t border-stone-200 bg-[#FAF8F5] px-6 py-5 space-y-4">
+      <a href="../home.html" class="block text-sm font-medium text-stone-600 hover:text-stone-950">Home</a>
+      <a href="../digital-legacy.html" class="block text-sm font-medium text-stone-600 hover:text-stone-950">Digital Store</a>
+      <a href="../coffee.html" class="block text-sm font-medium text-stone-600 hover:text-stone-950">Coffee Hub</a>
+      <a href="../studio/index.html" class="block text-sm font-medium text-stone-600 hover:text-stone-950">Tech Studio</a>
+      <a href="./index.html" class="block text-sm font-bold text-stone-950">Canva Team</a>
+      <a href="../tracking.html" class="block text-sm font-medium text-stone-600 hover:text-stone-950">Unified Orders</a>
+    </div>
+  </header>
+
+  <!-- ========================================== -->
+  <!-- 2. MAIN CONTENT                            -->
+  <!-- ========================================== -->
+  <main class="flex-grow">
+    
+    <!-- HERO SECTION -->
+    <section class="relative pt-16 pb-16 md:pt-24 md:pb-24 overflow-hidden">
+      <!-- Ambient Glow (Subtle Amber & Restrained Canva Violet Blend) -->
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[640px] h-[320px] bg-gradient-to-r from-amber-300/15 via-purple-500/10 to-amber-300/15 rounded-full blur-3xl pointer-events-none -z-10"></div>
+
+      <!-- Subtle Horizontal Light Sweep Accent (Phase 12) -->
+      <div class="canva-hero-light-sweep" aria-hidden="true"></div>
+
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-5">
+        
+        <!-- Headline (Staggered Reveal 1) -->
+        <h1 class="reveal-hero-h1 text-3xl sm:text-5xl md:text-6xl font-extrabold text-stone-950 tracking-tight leading-[1.15]">
+          Create Without Limits.
+        </h1>
+
+        <!-- Supporting Copy (Staggered Reveal 2) -->
+        <p class="reveal-hero-p text-sm sm:text-base md:text-lg text-stone-600 max-w-2xl mx-auto font-normal leading-relaxed pt-1">
+          Ajukan akses Canva Team melalui sistem Bintang Store dengan proses yang sederhana dan transparan. Pengajuan diproses otomatis oleh sistem Bintang Store. Setelah pengajuan diproses, akses Canva akan dikirim ke email Anda.
+        </p>
+
+        <!-- CTA Action Buttons (Staggered Reveal 3) -->
+        <div class="reveal-hero-cta pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
+          <a href="#application-form" 
+             class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-stone-950 hover:bg-stone-800 text-white text-sm font-bold px-7 py-3.5 rounded-2xl transition shadow-sm active:scale-98">
+            <span>Dapatkan Akses Canva</span>
+            <i class="fas fa-arrow-right text-xs text-amber-400"></i>
+          </a>
+          <a href="#status-lookup" 
+             class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white hover:bg-stone-50 text-stone-800 text-sm font-bold px-6 py-3.5 rounded-2xl border border-stone-200 transition shadow-2xs active:scale-98">
+            <i class="fas fa-search text-xs text-stone-500"></i>
+            <span>Cek Status Pengajuan</span>
+          </a>
+        </div>
+
+        <!-- Transparency Note (Staggered Reveal 4) -->
+        <p class="reveal-hero-note text-xs text-stone-500 pt-3 font-medium">
+          Pengajuan diproses otomatis oleh sistem Bintang Store. Undangan Canva dikirim ke email secara manual oleh admin setelah verifikasi antrean.
+        </p>
+
+      </div>
+    </section>
+
+    <!-- BENEFITS SECTION -->
+    <section class="reveal-stagger-benefits max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+      <div class="text-center max-w-xl mx-auto mb-10 space-y-2">
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-stone-950 tracking-tight">
+          Kemudahan untuk Anda
+        </h2>
+        <p class="text-sm text-stone-600">
+          Tiga keunggulan praktis pengajuan akses Canva Team di Bintang Store.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- Benefit 1 -->
+        <div class="bg-white rounded-3xl border border-stone-200 p-6 sm:p-7 shadow-xs space-y-3.5 hover:border-stone-400 transition">
+          <div class="text-xs font-mono font-bold text-stone-500 uppercase tracking-widest">
+            01
+          </div>
+          <h3 class="text-base font-extrabold text-stone-950 tracking-tight">
+            Akses lebih mudah
+          </h3>
+          <p class="text-xs sm:text-sm text-stone-600 leading-relaxed font-normal">
+            Ajukan akses Canva Team melalui sistem Bintang Store tanpa proses yang berbelit.
+          </p>
+        </div>
+
+        <!-- Benefit 2 -->
+        <div class="bg-white rounded-3xl border border-stone-200 p-6 sm:p-7 shadow-xs space-y-3.5 hover:border-stone-400 transition">
+          <div class="text-xs font-mono font-bold text-stone-500 uppercase tracking-widest">
+            02
+          </div>
+          <h3 class="text-base font-extrabold text-stone-950 tracking-tight">
+            Satu akun, siap digunakan
+          </h3>
+          <p class="text-xs sm:text-sm text-stone-600 leading-relaxed font-normal">
+            Gunakan email Canva sendiri untuk menerima akses dan bergabung ke workspace.
+          </p>
+        </div>
+
+        <!-- Benefit 3 -->
+        <div class="bg-white rounded-3xl border border-stone-200 p-6 sm:p-7 shadow-xs space-y-3.5 hover:border-stone-400 transition">
+          <div class="text-xs font-mono font-bold text-stone-500 uppercase tracking-widest">
+            03
+          </div>
+          <h3 class="text-base font-extrabold text-stone-950 tracking-tight">
+            Status bisa dipantau
+          </h3>
+          <p class="text-xs sm:text-sm text-stone-600 leading-relaxed font-normal">
+            Setiap pengajuan memiliki ID yang dapat digunakan untuk mengecek perkembangannya.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- THREE-STEP REQUIREMENT SECTION (CLEAN & EDITORIAL - NO DECORATIVE ICONS) -->
+    <section class="reveal-stagger-steps max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+      <div class="bg-white rounded-3xl border border-stone-200 p-6 sm:p-10 shadow-xs space-y-8">
+        
+        <div class="text-center max-w-xl mx-auto space-y-2">
+          <span class="text-[11px] font-bold uppercase tracking-wider text-stone-500 bg-stone-100 px-3 py-1 rounded-full border border-stone-200 inline-block">
+            ALUR PENGAJUAN
+          </span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-stone-950 tracking-tight">
+            Tiga Langkah Mudah
+          </h2>
+          <p class="text-sm text-stone-600">
+            Selesaikan langkah partisipasi komunitas di bawah ini sebelum mengirimkan data pengajuan Anda.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          
+          <!-- STEP 1 (Clean Editorial - No Decorative Icon) -->
+          <div class="p-5 rounded-2xl bg-stone-50 border border-stone-200 space-y-3 flex flex-col justify-between">
+            <div class="space-y-2.5">
+              <div>
+                <span class="text-[11px] font-black uppercase text-amber-800 bg-amber-100 px-2.5 py-0.5 rounded-full inline-block">
+                  Langkah 01
+                </span>
+              </div>
+              <h3 class="text-sm font-extrabold text-stone-950">
+                Ikuti Channel
+              </h3>
+              <p class="text-xs text-stone-600 leading-relaxed">
+                Ikuti WhatsApp Channel resmi Bintang Store untuk informasi kuota kloter dan pembaruan tim.
+              </p>
+            </div>
+            <a href="https://whatsapp.com/channel/0029Vb91UWjInlqTkOqqUT06" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="inline-flex items-center justify-center gap-2 w-full py-2.5 px-3 rounded-xl bg-stone-950 hover:bg-stone-800 text-white text-xs font-bold transition shadow-2xs active:scale-98">
+              <span>Follow Channel</span>
+              <i class="fas fa-arrow-up-right-from-square text-[10px] text-amber-400"></i>
+            </a>
+          </div>
+
+          <!-- STEP 2 (Clean Editorial - No Decorative Icon) -->
+          <div class="p-5 rounded-2xl bg-stone-50 border border-stone-200 space-y-3 flex flex-col justify-between">
+            <div class="space-y-2.5">
+              <div>
+                <span class="text-[11px] font-black uppercase text-amber-800 bg-amber-100 px-2.5 py-0.5 rounded-full inline-block">
+                  Langkah 02
+                </span>
+              </div>
+              <h3 class="text-sm font-extrabold text-stone-950">
+                Ikuti Aktivitasnya
+              </h3>
+              <p class="text-xs text-stone-600 leading-relaxed">
+                Beri like atau reaksi pada postingan yang ditentukan di channel resmi Bintang Store.
+              </p>
+            </div>
+            <a href="https://whatsapp.com/channel/0029Vb91UWjInlqTkOqqUT06" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="inline-flex items-center justify-center gap-2 w-full py-2.5 px-3 rounded-xl bg-white hover:bg-stone-100 text-stone-800 text-xs font-bold border border-stone-200 transition shadow-2xs active:scale-98">
+              <span>Buka Postingan</span>
+              <i class="fas fa-arrow-up-right-from-square text-[10px]"></i>
+            </a>
+          </div>
+
+          <!-- STEP 3 (Clean Editorial - No Decorative Icon) -->
+          <div class="p-5 rounded-2xl bg-stone-50 border border-stone-200 space-y-3 flex flex-col justify-between">
+            <div class="space-y-2.5">
+              <div>
+                <span class="text-[11px] font-black uppercase text-amber-800 bg-amber-100 px-2.5 py-0.5 rounded-full inline-block">
+                  Langkah 03
+                </span>
+              </div>
+              <h3 class="text-sm font-extrabold text-stone-950">
+                Bagikan Tautan
+              </h3>
+              <p class="text-xs text-stone-600 leading-relaxed">
+                Bagikan tautan halaman akses ini kepada rekan kerja atau komunitas Anda.
+              </p>
+            </div>
+            <button type="button" 
+                    onclick="shareCanvaPage()" 
+                    class="inline-flex items-center justify-center gap-2 w-full py-2.5 px-3 rounded-xl bg-stone-950 hover:bg-stone-800 text-white text-xs font-bold transition shadow-2xs cursor-pointer active:scale-98">
+              <span>Bagikan Tautan</span>
+              <i class="fas fa-arrow-up-right-from-square text-[10px] text-amber-400"></i>
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Transparency Note -->
+        <div class="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-xs text-amber-950 leading-relaxed flex items-start gap-3">
+          <i class="fas fa-circle-exclamation text-amber-700 mt-0.5 flex-shrink-0"></i>
+          <div>
+            <strong>Transparansi Verifikasi:</strong> Sistem kami tidak melakukan pelacakan otomatis terhadap akun WhatsApp Anda. Tindakan di atas diserahkan melalui konfirmasi pengajuan (user attestation) dan dapat ditinjau oleh admin secara manual sebelum undangan diproses.
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- APPLICATION FORM & CONFIRMATION -->
+    <section id="application-form" class="reveal-stagger-form max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 scroll-mt-24">
+      <div class="bg-white rounded-3xl border border-stone-200 p-6 sm:p-9 shadow-sm space-y-6">
+        
+        <div class="border-b border-stone-100 pb-4 space-y-1">
+          <span class="text-[11px] font-black uppercase tracking-wider text-stone-500 block">
+            FORMULIR PENGAJUAN
+          </span>
+          <h2 class="text-xl sm:text-2xl font-extrabold text-stone-950 tracking-tight">
+            Lengkapi Data Akun Canva Anda
+          </h2>
+          <p class="text-xs text-stone-500">
+            Pastikan email terdaftar aktif di Canva. Kami tidak pernah meminta kata sandi Anda.
+          </p>
+        </div>
+
+        <form id="canvaApplicationForm" onsubmit="handleApplicationSubmit(event)" class="space-y-5">
+          
+          <!-- Field: Nama Lengkap -->
+          <div>
+            <label for="form-name" class="block text-xs font-bold text-stone-800 mb-1.5">
+              Nama Lengkap <span class="text-rose-500">*</span>
+            </label>
+            <input type="text" 
+                   id="form-name" 
+                   required 
+                   minlength="2" 
+                   placeholder="Contoh: Dimas Aditya"
+                   class="w-full px-3.5 py-2.5 rounded-xl bg-stone-50 border border-stone-200 text-xs sm:text-sm font-semibold text-stone-900 outline-none focus:bg-white focus:border-stone-950 transition" />
+            <p id="error-name" class="text-[11px] text-rose-600 mt-1 hidden"></p>
+          </div>
+
+          <!-- Field: Email Akun Canva -->
+          <div>
+            <label for="form-email" class="block text-xs font-bold text-stone-800 mb-1.5">
+              Email Akun Canva <span class="text-rose-500">*</span>
+            </label>
+            <input type="email" 
+                   id="form-email" 
+                   required 
+                   placeholder="nama@email.com"
+                   class="w-full px-3.5 py-2.5 rounded-xl bg-stone-50 border border-stone-200 text-xs sm:text-sm font-semibold text-stone-900 outline-none focus:bg-white focus:border-stone-950 transition" />
+            <p class="text-[11px] text-stone-500 mt-1">
+              Undangan tim Canva akan dikirimkan langsung ke alamat email ini.
+            </p>
+            <p id="error-email" class="text-[11px] text-rose-600 mt-1 hidden"></p>
+          </div>
+
+          <!-- Field: Nomor WhatsApp -->
+          <div>
+            <label for="form-phone" class="block text-xs font-bold text-stone-800 mb-1.5">
+              Nomor WhatsApp Aktif <span class="text-rose-500">*</span>
+            </label>
+            <input type="tel" 
+                   id="form-phone" 
+                   required 
+                   minlength="9" 
+                   placeholder="081234567890"
+                   class="w-full px-3.5 py-2.5 rounded-xl bg-stone-50 border border-stone-200 text-xs sm:text-sm font-semibold text-stone-900 outline-none focus:bg-white focus:border-stone-950 transition" />
+            <p class="text-[11px] text-stone-500 mt-1">
+              Digunakan untuk verifikasi antrean dan notifikasi jika kuota kloter siap.
+            </p>
+            <p id="error-phone" class="text-[11px] text-rose-600 mt-1 hidden"></p>
+          </div>
+
+          <!-- Field: Tasks / Kebutuhan Desain -->
+          <div>
+            <label class="block text-xs font-bold text-stone-800 mb-2">
+              Kebutuhan Desain Anda (Pilih yang relevan)
+            </label>
+            <div class="flex flex-wrap gap-2" id="tasksContainer">
+              <button type="button" onclick="toggleTaskSelection(this, 'Membuat poster')" class="task-chip px-3 py-1.5 rounded-full text-xs font-medium bg-stone-100 text-stone-700 border border-stone-200/80 hover:bg-stone-200 transition cursor-pointer">
+                Membuat poster
+              </button>
+              <button type="button" onclick="toggleTaskSelection(this, 'Membuat presentasi')" class="task-chip px-3 py-1.5 rounded-full text-xs font-medium bg-stone-100 text-stone-700 border border-stone-200/80 hover:bg-stone-200 transition cursor-pointer">
+                Membuat presentasi
+              </button>
+              <button type="button" onclick="toggleTaskSelection(this, 'Konten media sosial')" class="task-chip px-3 py-1.5 rounded-full text-xs font-medium bg-stone-100 text-stone-700 border border-stone-200/80 hover:bg-stone-200 transition cursor-pointer">
+                Konten media sosial
+              </button>
+              <button type="button" onclick="toggleTaskSelection(this, 'Edit template')" class="task-chip px-3 py-1.5 rounded-full text-xs font-medium bg-stone-100 text-stone-700 border border-stone-200/80 hover:bg-stone-200 transition cursor-pointer">
+                Edit template
+              </button>
+              <button type="button" onclick="toggleTaskSelection(this, 'Tugas kuliah/sekolah')" class="task-chip px-3 py-1.5 rounded-full text-xs font-medium bg-stone-100 text-stone-700 border border-stone-200/80 hover:bg-stone-200 transition cursor-pointer">
+                Tugas kuliah/sekolah
+              </button>
+              <button type="button" onclick="toggleTaskSelection(this, 'Kebutuhan bisnis/UMKM')" class="task-chip px-3 py-1.5 rounded-full text-xs font-medium bg-stone-100 text-stone-700 border border-stone-200/80 hover:bg-stone-200 transition cursor-pointer">
+                Kebutuhan bisnis/UMKM
+              </button>
+            </div>
+          </div>
+
+          <!-- REQUIREMENT CONFIRMATION (CHECKLIST) -->
+          <div class="p-5 rounded-2xl bg-stone-50 border border-stone-200 space-y-3">
+            <div>
+              <span class="text-sm font-extrabold text-stone-900 block tracking-tight">
+                Konfirmasi Pengajuan
+              </span>
+              <p class="text-xs text-stone-600 leading-relaxed mt-1">
+                Pastikan Anda telah menyelesaikan langkah-langkah di atas sebelum mengirim pengajuan.
+              </p>
+            </div>
+
+            <div class="space-y-3 pt-2">
+              <label class="flex items-start gap-3 p-2.5 rounded-xl hover:bg-stone-100/80 transition cursor-pointer border border-transparent hover:border-stone-200/80">
+                <input type="checkbox" id="attest-channel" required class="w-5 h-5 accent-stone-950 rounded cursor-pointer mt-0.5 flex-shrink-0" />
+                <span class="text-xs sm:text-sm text-stone-800 font-medium leading-snug">Saya sudah mengikuti WhatsApp Channel Bintang Store.</span>
+              </label>
+
+              <label class="flex items-start gap-3 p-2.5 rounded-xl hover:bg-stone-100/80 transition cursor-pointer border border-transparent hover:border-stone-200/80">
+                <input type="checkbox" id="attest-react" required class="w-5 h-5 accent-stone-950 rounded cursor-pointer mt-0.5 flex-shrink-0" />
+                <span class="text-xs sm:text-sm text-stone-800 font-medium leading-snug">Saya sudah melakukan like atau reaksi pada postingan yang ditentukan.</span>
+              </label>
+
+              <label class="flex items-start gap-3 p-2.5 rounded-xl hover:bg-stone-100/80 transition cursor-pointer border border-transparent hover:border-stone-200/80">
+                <input type="checkbox" id="attest-share" required class="w-5 h-5 accent-stone-950 rounded cursor-pointer mt-0.5 flex-shrink-0" />
+                <span class="text-xs sm:text-sm text-stone-800 font-medium leading-snug">Saya sudah menyelesaikan langkah sharing yang diminta.</span>
+              </label>
+
+              <label class="flex items-start gap-3 p-2.5 rounded-xl hover:bg-stone-100/80 transition cursor-pointer border border-transparent hover:border-stone-200/80">
+                <input type="checkbox" id="attest-consent" required class="w-5 h-5 accent-stone-950 rounded cursor-pointer mt-0.5 flex-shrink-0" />
+                <span class="text-xs sm:text-sm text-stone-800 font-medium leading-snug">Saya memahami bahwa pengajuan akan diproses oleh sistem Bintang Store.</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="pt-2">
+            <button type="submit" 
+                    id="submitAppBtn" 
+                    class="w-full inline-flex items-center justify-center gap-2.5 bg-stone-950 hover:bg-stone-800 text-white text-sm font-bold py-4 px-6 rounded-2xl transition shadow-sm active:scale-98 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed">
+              <span>Dapatkan Akses Canva</span>
+              <i class="fas fa-arrow-right text-xs text-amber-400"></i>
+            </button>
+          </div>
+
+        </form>
+
+      </div>
+    </section>
+
+    <!-- SUCCESS EXPERIENCE (APPLICATION CREATED) -->
+    <section id="application-success-box" class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 hidden">
+      <div class="bg-white rounded-3xl border border-stone-200 p-6 sm:p-9 shadow-md space-y-5 text-center">
+        
+        <div class="w-14 h-14 rounded-2xl bg-emerald-500/10 text-emerald-700 border border-emerald-500/20 flex items-center justify-center text-2xl mx-auto shadow-2xs">
+          <i class="fas fa-circle-check"></i>
+        </div>
+
+        <div class="space-y-1.5">
+          <span class="text-[11px] font-extrabold uppercase tracking-widest text-emerald-800 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200/60 inline-block">
+            PENGAJUAN BERHASIL DITERIMA
+          </span>
+          <h2 class="text-2xl font-extrabold text-stone-950 tracking-tight">
+            Tiket Antrean Terbit
+          </h2>
+          <p class="text-xs sm:text-sm text-stone-600 max-w-md mx-auto">
+            Data Anda telah tersimpan di sistem backend Bintang Store. Simpan nomor pengajuan ini untuk memantau status secara berkala.
+          </p>
+        </div>
+
+        <!-- Big Application ID Box -->
+        <div class="p-5 rounded-2xl bg-stone-50 border border-stone-200 space-y-2 max-w-sm mx-auto">
+          <span class="text-[11px] font-bold text-stone-500 uppercase tracking-wider block">
+            Nomor Pengajuan Kamu:
+          </span>
+          <div id="successAppIdText" class="text-3xl font-extrabold text-stone-950 mono-num tracking-tight">
+            BS-CNV-0
+          </div>
+          <div class="pt-1">
+            <button type="button" onclick="copyApplicationId()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-stone-200 text-stone-800 text-xs font-bold hover:bg-stone-100 transition shadow-2xs cursor-pointer">
+              <i class="fas fa-copy text-[11px]"></i>
+              <span id="copyBtnLabel">Salin ID</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Manual Process Clarification -->
+        <div class="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-xs text-amber-950 text-left leading-relaxed max-w-md mx-auto space-y-1">
+          <p class="font-bold flex items-center gap-1.5">
+            <i class="fas fa-user-clock text-amber-700"></i>
+            <span>Proses Undangan Manual oleh Admin</span>
+          </p>
+          <p>
+            Pengajuan diproses otomatis oleh sistem Bintang Store. Admin akan memvalidasi antrean dan mengirimkan undangan ke email Canva Anda secara manual. Notifikasi resmi akan masuk ke email saat status Anda berubah menjadi <strong>INVITED</strong>.
+          </p>
+        </div>
+
+        <!-- Actions -->
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
+          <button type="button" onclick="checkStatusFromSuccess()" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-stone-950 hover:bg-stone-800 text-white text-xs sm:text-sm font-bold py-3 px-6 rounded-xl transition cursor-pointer">
+            <i class="fas fa-search text-xs text-amber-400"></i>
+            <span>Cek Status Pengajuan</span>
+          </button>
+          <button type="button" onclick="resetFormForNewApplication()" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white hover:bg-stone-50 text-stone-800 text-xs sm:text-sm font-bold py-3 px-5 rounded-xl border border-stone-200 transition cursor-pointer">
+            <span>Daftar Akun Lain</span>
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- STATUS LOOKUP & TIMELINE -->
+    <section id="status-lookup" class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 scroll-mt-24">
+      <div class="bg-white rounded-3xl border border-stone-200 p-6 sm:p-9 shadow-sm space-y-6">
+        
+        <div class="border-b border-stone-100 pb-4 space-y-1">
+          <span class="text-[11px] font-black uppercase tracking-wider text-stone-500 block">
+            TRANSPARANSI PROSES
+          </span>
+          <h2 class="text-xl sm:text-2xl font-extrabold text-stone-950 tracking-tight">
+            Pantau Status Pengajuan Canva
+          </h2>
+          <p class="text-xs text-stone-500">
+            Masukkan ID pendaftaran Anda untuk melihat proses peninjauan dan status undangan real-time.
+          </p>
+        </div>
+
+        <!-- Search Input Form -->
+        <div class="flex items-center gap-2">
+          <div class="relative flex-grow">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-stone-400 font-mono text-xs font-bold">
+              ID
+            </span>
+            <input type="number" 
+                   id="lookupIdInput" 
+                   min="1" 
+                   placeholder="Contoh: 5"
+                   class="w-full pl-10 pr-3.5 py-3 rounded-xl bg-stone-50 border border-stone-200 text-sm font-bold font-mono text-stone-900 outline-none focus:bg-white focus:border-stone-950 transition" />
+          </div>
+          <button type="button" 
+                  id="lookupStatusBtn" 
+                  onclick="handleStatusLookup()" 
+                  class="px-5 py-3 rounded-xl bg-stone-950 hover:bg-stone-800 text-white text-xs sm:text-sm font-bold transition flex items-center gap-1.5 flex-shrink-0 cursor-pointer active:scale-95 shadow-xs">
+            <i class="fas fa-search text-xs text-amber-400"></i>
+            <span>Cek Status</span>
+          </button>
+        </div>
+
+        <!-- Status Result Display Box -->
+        <div id="statusResultContainer">
+          
+          <!-- Empty Initial State -->
+          <div id="statusEmptyPrompt" class="p-6 rounded-2xl bg-stone-50 border border-stone-200 text-center space-y-2">
+            <div class="w-10 h-10 rounded-xl bg-stone-200/70 text-stone-600 flex items-center justify-center mx-auto text-sm">
+              <i class="fas fa-ticket"></i>
+            </div>
+            <p class="text-xs font-bold text-stone-800">
+              Masukkan nomor pengajuan untuk melihat status.
+            </p>
+            <p class="text-[11px] text-stone-500">
+              Nomor pengajuan diperoleh sesaat setelah formulir pendaftaran berhasil dikirim.
+            </p>
+          </div>
+
+          <!-- Dynamic Status Card (Hidden initially) -->
+          <div id="statusCard" class="hidden space-y-6 pt-2">
+            
+            <!-- Summary Header Card -->
+            <div class="p-5 rounded-2xl bg-stone-50 border border-stone-200 space-y-3">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-stone-200/70 pb-3">
+                <div>
+                  <span class="text-[10px] font-bold text-stone-500 uppercase tracking-wider block">ID Pengajuan</span>
+                  <span id="resAppId" class="text-xl font-extrabold text-stone-950 mono-num">BS-CNV-0</span>
+                </div>
+                <div class="self-start sm:self-auto">
+                  <span id="resStatusBadge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase border">
+                    <span id="resStatusDot" class="w-2 h-2 rounded-full"></span>
+                    <span id="resStatusLabel">PENDING</span>
+                  </span>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                <div>
+                  <span class="text-stone-500 block">Nama Pemohon:</span>
+                  <span id="resName" class="font-bold text-stone-900">-</span>
+                </div>
+                <div>
+                  <span class="text-stone-500 block">Email Canva:</span>
+                  <span id="resEmail" class="font-bold text-stone-900">-</span>
+                </div>
+                <div class="sm:col-span-2">
+                  <span class="text-stone-500 block">Waktu Pengajuan:</span>
+                  <span id="resCreatedAt" class="font-semibold text-stone-800 mono-num">-</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- STATUS TIMELINE -->
+            <div class="space-y-3">
+              <span class="text-xs font-extrabold uppercase tracking-wider text-stone-900 block">
+                Tahapan Proses Verifikasi
+              </span>
+
+              <div class="relative pl-6 space-y-5 before:absolute before:left-2.5 before:top-2 before:bottom-2 before:w-0.5 before:bg-stone-200">
+                
+                <!-- Stage 1 -->
+                <div id="stage-1" class="relative">
+                  <div class="timeline-dot absolute -left-6 top-1 w-5 h-5 rounded-full border-2 border-white bg-stone-300 flex items-center justify-center text-[9px] text-white">
+                    <i class="fas fa-check"></i>
+                  </div>
+                  <h4 class="text-xs font-bold text-stone-900">1. Pengajuan Diterima (Application Received)</h4>
+                  <p class="text-[11px] text-stone-500">Data telah masuk antrean database backend Bintang Store.</p>
+                </div>
+
+                <!-- Stage 2 -->
+                <div id="stage-2" class="relative">
+                  <div class="timeline-dot absolute -left-6 top-1 w-5 h-5 rounded-full border-2 border-white bg-stone-300 flex items-center justify-center text-[9px] text-white">
+                    <i class="fas fa-check"></i>
+                  </div>
+                  <h4 class="text-xs font-bold text-stone-900">2. Peninjauan Antrean Admin (Under Review)</h4>
+                  <p class="text-[11px] text-stone-500">Admin meninjau antrean dan mempersiapkan alokasi tim Canva Pro.</p>
+                </div>
+
+                <!-- Stage 3 -->
+                <div id="stage-3" class="relative">
+                  <div class="timeline-dot absolute -left-6 top-1 w-5 h-5 rounded-full border-2 border-white bg-stone-300 flex items-center justify-center text-[9px] text-white">
+                    <i class="fas fa-check"></i>
+                  </div>
+                  <h4 class="text-xs font-bold text-stone-900">3. Undangan Disiapkan (Invite Queued)</h4>
+                  <p class="text-[11px] text-stone-500">Email pemohon sedang dalam proses pengiriman undangan Canva.</p>
+                </div>
+
+                <!-- Stage 4 -->
+                <div id="stage-4" class="relative">
+                  <div class="timeline-dot absolute -left-6 top-1 w-5 h-5 rounded-full border-2 border-white bg-stone-300 flex items-center justify-center text-[9px] text-white">
+                    <i class="fas fa-check"></i>
+                  </div>
+                  <h4 class="text-xs font-bold text-stone-900">4. Undangan Telah Terkirim (Invited)</h4>
+                  <p class="text-[11px] text-stone-500">Admin telah mengirimkan undangan tim resmi ke alamat email Canva Anda.</p>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Dynamic Result Notice (Invited / Rejected / Pending Details) -->
+            <div id="statusNoticeBox" class="p-4 rounded-2xl text-xs leading-relaxed space-y-2"></div>
+
+          </div>
+
+          <!-- Status Error / Not Found Display -->
+          <div id="statusErrorPrompt" class="hidden p-5 rounded-2xl bg-rose-50 border border-rose-200 text-center space-y-2">
+            <div class="w-10 h-10 rounded-full bg-rose-100 text-rose-700 flex items-center justify-center mx-auto text-sm">
+              <i class="fas fa-circle-exclamation"></i>
+            </div>
+            <p id="statusErrorMessage" class="text-xs font-bold text-rose-900">
+              Nomor pengajuan tidak ditemukan. Periksa kembali ID kamu.
+            </p>
+            <p class="text-[11px] text-rose-700">
+              Pastikan Anda memasukkan nomor ID angka yang benar, atau lakukan pengajuan baru melalui formulir di atas.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CANVA ACCESS GUIDE CAROUSEL SECTION -->
+    <section class="reveal-stagger-guide max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+      <div class="bg-white rounded-3xl border border-stone-200 p-6 sm:p-10 shadow-xs space-y-8">
+        
+        <div class="text-center max-w-xl mx-auto space-y-2">
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-stone-950 tracking-tight">
+            Sudah Dapat Undangan? Begini Cara Mulainya.
+          </h2>
+          <p class="text-xs sm:text-sm text-stone-600 leading-relaxed">
+            Undangan Canva akan masuk ke email yang kamu gunakan saat mendaftar. Ikuti langkah berikut untuk mengaktifkan akses dan masuk ke workspace.
+          </p>
+        </div>
+
+        <!-- Carousel Presentation Container -->
+        <div class="relative max-w-md mx-auto">
+          
+          <!-- Step Caption & Metadata Header -->
+          <div class="flex items-center justify-between pb-3 px-2 border-b border-stone-100 mb-3">
+            <div>
+              <p id="guideCaption" class="text-sm font-extrabold text-stone-950">
+                01 — Cek email
+              </p>
+              <p id="guideDesc" class="text-[11px] text-stone-500 line-clamp-1">
+                Buka kotak masuk email yang Anda daftarkan dan cari pesan undangan dari Canva.
+              </p>
+            </div>
+            <div id="guideCounter" class="text-xs font-mono font-bold text-stone-700 bg-stone-100 px-2.5 py-1 rounded-full border border-stone-200 shrink-0 ml-3">
+              01 / 05
+            </div>
+          </div>
+
+          <!-- Carousel Scroll Track -->
+          <div id="canvaGuideTrack" class="flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar py-2">
+            
+            <!-- Slide 01 -->
+            <div class="guide-slide snap-center shrink-0 w-full flex flex-col items-center">
+              <div class="bg-stone-50 border border-stone-200/80 rounded-2xl p-2 sm:p-3 shadow-2xs w-full flex justify-center">
+                <img src="https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/assets/BintangStore_Canva_Step_01.png" 
+                     alt="Panduan mengecek email undangan Canva" 
+                     class="w-full h-auto max-h-[560px] object-contain rounded-xl" />
+              </div>
+            </div>
+
+            <!-- Slide 02 -->
+            <div class="guide-slide snap-center shrink-0 w-full flex flex-col items-center">
+              <div class="bg-stone-50 border border-stone-200/80 rounded-2xl p-2 sm:p-3 shadow-2xs w-full flex justify-center">
+                <img src="https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/assets/BintangStore_Canva_Step_02.png" 
+                     alt="Panduan membuka undangan Canva" 
+                     loading="lazy" 
+                     class="w-full h-auto max-h-[560px] object-contain rounded-xl" />
+              </div>
+            </div>
+
+            <!-- Slide 03 -->
+            <div class="guide-slide snap-center shrink-0 w-full flex flex-col items-center">
+              <div class="bg-stone-50 border border-stone-200/80 rounded-2xl p-2 sm:p-3 shadow-2xs w-full flex justify-center">
+                <img src="https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/assets/BintangStore_Canva_Step_03.png" 
+                     alt="Panduan menerima undangan Canva" 
+                     loading="lazy" 
+                     class="w-full h-auto max-h-[560px] object-contain rounded-xl" />
+              </div>
+            </div>
+
+            <!-- Slide 04 -->
+            <div class="guide-slide snap-center shrink-0 w-full flex flex-col items-center">
+              <div class="bg-stone-50 border border-stone-200/80 rounded-2xl p-2 sm:p-3 shadow-2xs w-full flex justify-center">
+                <img src="https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/assets/BintangStore_Canva_Step_04.png" 
+                     alt="Panduan membuka workspace Bintang Store di Canva" 
+                     loading="lazy" 
+                     class="w-full h-auto max-h-[560px] object-contain rounded-xl" />
+              </div>
+            </div>
+
+            <!-- Slide 05 -->
+            <div class="guide-slide snap-center shrink-0 w-full flex flex-col items-center">
+              <div class="bg-stone-50 border border-stone-200/80 rounded-2xl p-2 sm:p-3 shadow-2xs w-full flex justify-center">
+                <img src="https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/assets/BintangStore_Canva_Step_05.png" 
+                     alt="Panduan mulai menggunakan Canva" 
+                     loading="lazy" 
+                     class="w-full h-auto max-h-[560px] object-contain rounded-xl" />
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Controls & Dots -->
+          <div class="flex items-center justify-between pt-4 px-2">
+            <button id="guidePrevBtn" 
+                    type="button" 
+                    onclick="goToGuideSlide(currentGuideSlide - 1)" 
+                    aria-label="Previous step" 
+                    class="w-10 h-10 rounded-full bg-white border border-stone-200 text-stone-800 hover:bg-stone-50 disabled:opacity-30 disabled:cursor-not-allowed transition flex items-center justify-center shadow-2xs active:scale-95 cursor-pointer">
+              <i class="fas fa-chevron-left text-xs"></i>
+            </button>
+
+            <!-- Dots Indicator -->
+            <div class="flex items-center gap-1.5" role="tablist" aria-label="Step progress">
+              <button type="button" onclick="goToGuideSlide(0)" class="guide-dot w-6 h-1.5 rounded-full bg-stone-950 transition-all cursor-pointer" aria-label="Step 1"></button>
+              <button type="button" onclick="goToGuideSlide(1)" class="guide-dot w-1.5 h-1.5 rounded-full bg-stone-300 hover:bg-stone-400 transition-all cursor-pointer" aria-label="Step 2"></button>
+              <button type="button" onclick="goToGuideSlide(2)" class="guide-dot w-1.5 h-1.5 rounded-full bg-stone-300 hover:bg-stone-400 transition-all cursor-pointer" aria-label="Step 3"></button>
+              <button type="button" onclick="goToGuideSlide(3)" class="guide-dot w-1.5 h-1.5 rounded-full bg-stone-300 hover:bg-stone-400 transition-all cursor-pointer" aria-label="Step 4"></button>
+              <button type="button" onclick="goToGuideSlide(4)" class="guide-dot w-1.5 h-1.5 rounded-full bg-stone-300 hover:bg-stone-400 transition-all cursor-pointer" aria-label="Step 5"></button>
+            </div>
+
+            <button id="guideNextBtn" 
+                    type="button" 
+                    onclick="goToGuideSlide(currentGuideSlide + 1)" 
+                    aria-label="Next step" 
+                    class="w-10 h-10 rounded-full bg-white border border-stone-200 text-stone-800 hover:bg-stone-50 disabled:opacity-30 disabled:cursor-not-allowed transition flex items-center justify-center shadow-2xs active:scale-95 cursor-pointer">
+              <i class="fas fa-chevron-right text-xs"></i>
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FAQ SECTION (CONCISE ACCORDIONS) -->
+    <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+      <div class="text-center max-w-xl mx-auto mb-8 space-y-1.5">
+        <span class="text-[11px] font-bold uppercase tracking-wider text-stone-500 bg-stone-100 px-3 py-1 rounded-full border border-stone-200 inline-block">
+          PERTANYAAN UMUM
+        </span>
+        <h2 class="text-2xl font-extrabold text-stone-950 tracking-tight">
+          Frequently Asked Questions
+        </h2>
+        <p class="text-xs sm:text-sm text-stone-600">
+          Penjelasan lengkap mengenai tata kelola akses tim Canva di Bintang Store.
+        </p>
+      </div>
+
+      <div class="space-y-3">
+        
+        <!-- FAQ 1 -->
+        <details class="group bg-white rounded-2xl border border-stone-200 p-4 transition-all open:border-stone-950">
+          <summary class="font-extrabold text-xs sm:text-sm text-stone-900 cursor-pointer list-none flex items-center justify-between gap-3">
+            <span>Apa itu akses Canva Team Bintang Store?</span>
+            <i class="fas fa-chevron-down text-xs text-stone-400 group-open:rotate-180 transition-transform"></i>
+          </summary>
+          <p class="text-xs text-stone-600 leading-relaxed pt-3 border-t border-stone-100 mt-3 font-normal">
+            Akses Canva Team adalah fasilitas keanggotaan tim resmi di bawah naungan Bintang Store. Pengguna diundang langsung ke ruang kerja tim Canva untuk menikmati fitur kreatif kolaboratif tanpa perlu membayar biaya langganan individu.
+          </p>
+        </details>
+
+        <!-- FAQ 2 -->
+        <details class="group bg-white rounded-2xl border border-stone-200 p-4 transition-all open:border-stone-950">
+          <summary class="font-extrabold text-xs sm:text-sm text-stone-900 cursor-pointer list-none flex items-center justify-between gap-3">
+            <span>Bagaimana alur kerja pengajuan ini?</span>
+            <i class="fas fa-chevron-down text-xs text-stone-400 group-open:rotate-180 transition-transform"></i>
+          </summary>
+          <p class="text-xs text-stone-600 leading-relaxed pt-3 border-t border-stone-100 mt-3 font-normal">
+            Alur pengajuan berlangsung transparan: Anda mengisi formulir pendaftaran &rarr; backend menerbitkan nomor tiket ID &rarr; admin Bintang Store meninjau antrean &rarr; admin melakukan invite email secara manual di platform Canva &rarr; status berubah menjadi INVITED &rarr; Anda menerima email undangan resmi dari Canva.
+          </p>
+        </details>
+
+        <!-- FAQ 3 -->
+        <details class="group bg-white rounded-2xl border border-stone-200 p-4 transition-all open:border-stone-950">
+          <summary class="font-extrabold text-xs sm:text-sm text-stone-900 cursor-pointer list-none flex items-center justify-between gap-3">
+            <span>Apakah langkah sosial media diverifikasi otomatis oleh bot?</span>
+            <i class="fas fa-chevron-down text-xs text-stone-400 group-open:rotate-180 transition-transform"></i>
+          </summary>
+          <p class="text-xs text-stone-600 leading-relaxed pt-3 border-t border-stone-100 mt-3 font-normal">
+            Tidak. Website ini tidak melakukan pelacakan otomatis yang invasif. Seluruh persyaratan diisi sebagai komitmen konfirmasi pendaftar (user attestation) dan dapat ditinjau oleh admin sebelum akses diberikan.
+          </p>
+        </details>
+
+        <!-- FAQ 4 -->
+        <details class="group bg-white rounded-2xl border border-stone-200 p-4 transition-all open:border-stone-950">
+          <summary class="font-extrabold text-xs sm:text-sm text-stone-900 cursor-pointer list-none flex items-center justify-between gap-3">
+            <span>Berapa lama proses undangan manual membutuhkan waktu?</span>
+            <i class="fas fa-chevron-down text-xs text-stone-400 group-open:rotate-180 transition-transform"></i>
+          </summary>
+          <p class="text-xs text-stone-600 leading-relaxed pt-3 border-t border-stone-100 mt-3 font-normal">
+            Pengajuan diproses bertahap dalam kloter batch harian oleh admin. Anda dapat mengecek status secara berkala menggunakan ID pendaftaran yang Anda peroleh.
+          </p>
+        </details>
+
+        <!-- FAQ 5 -->
+        <details class="group bg-white rounded-2xl border border-stone-200 p-4 transition-all open:border-stone-950">
+          <summary class="font-extrabold text-xs sm:text-sm text-stone-900 cursor-pointer list-none flex items-center justify-between gap-3">
+            <span>Apa yang harus saya lakukan saat status menjadi INVITED?</span>
+            <i class="fas fa-chevron-down text-xs text-stone-400 group-open:rotate-180 transition-transform"></i>
+          </summary>
+          <p class="text-xs text-stone-600 leading-relaxed pt-3 border-t border-stone-100 mt-3 font-normal">
+            Buka kotak masuk email yang Anda daftarkan, cari pesan resmi dari Canva berjudul undangan bergabung ke tim, lalu klik tombol "Gabung dengan Tim". Setelah itu, login ke canva.com dan beralih profil tim di pojok kiri atas dashboard Canva Anda.
+          </p>
+        </details>
+
+      </div>
+    </section>
+
+    <!-- ECOSYSTEM PRODUCT SHOWCASE SECTION -->
+    <section class="reveal-stagger-ecosystem max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+      <div class="bg-white rounded-3xl border border-stone-200 p-6 sm:p-9 shadow-xs space-y-7">
+        
+        <div class="text-center max-w-xl mx-auto space-y-1.5">
+          <span class="text-[10px] font-black uppercase tracking-widest text-[#9C532B] bg-orange-50 px-3 py-1 rounded-full border border-orange-200/60 inline-block">
+            BINTANG STORE ECOSYSTEM
+          </span>
+          <h3 class="text-xl sm:text-2xl font-extrabold text-stone-950 tracking-tight">
+            Jelajahi Solusi Layanan Lainnya
+          </h3>
+          <p class="text-xs sm:text-sm text-stone-600">
+            Ekosistem terpadu untuk gaya hidup modern, layanan digital, dan rekayasa software.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+          
+          <!-- Card 1: Coffee Hub (Product Showcase: Kopi Kenangan & Janji Jiwa) -->
+          <div class="p-6 rounded-2xl bg-white border border-stone-200 shadow-2xs space-y-4 flex flex-col justify-between hover:border-amber-500/50 hover:shadow-md transition">
+            <div>
+              <!-- Real Product Logo Showcase -->
+              <div class="p-3.5 rounded-2xl bg-stone-50 border border-stone-200/80 mb-4 flex items-center justify-between gap-3">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-11 h-11 rounded-xl bg-white border border-stone-200/90 p-1.5 flex items-center justify-center flex-shrink-0 shadow-2xs" title="Kopi Kenangan">
+                    <img src="https://i.postimg.cc/GpwttdxX/Logo-Kopi-Kenangan-Format-PNG-AI-EPS-CDR-PDF-SVG.png" alt="Logo Kopi Kenangan" class="max-w-full max-h-full object-contain" />
+                  </div>
+                  <div class="w-11 h-11 rounded-xl bg-white border border-stone-200/90 p-1.5 flex items-center justify-center flex-shrink-0 shadow-2xs" title="Janji Jiwa">
+                    <img src="https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/assets/Janji%20Jiwa%20Logo.png" alt="Logo Janji Jiwa" class="max-w-full max-h-full object-contain" />
+                  </div>
+                </div>
+                <div class="text-right">
+                  <span class="text-[10px] font-extrabold uppercase tracking-wider text-amber-900 bg-amber-100/80 px-2 py-0.5 rounded-md inline-block">1.300+ Gerai</span>
+                  <p class="text-[10px] font-semibold text-stone-500 mt-0.5">Diskon s/d 40%</p>
+                </div>
+              </div>
+
+              <div class="space-y-1.5">
+                <span class="text-[10px] font-bold text-amber-800 uppercase tracking-widest bg-amber-500/10 px-2.5 py-1 rounded-md inline-block">
+                  Coffee Hub
+                </span>
+                <h4 class="text-base font-extrabold text-stone-900 tracking-tight">
+                  Kopi Kenangan &amp; Janji Jiwa
+                </h4>
+                <p class="text-xs text-stone-500 leading-relaxed font-normal pt-1">
+                  Jastip hemat harian dengan diskon s/d 40% tanpa antre kasir, plus fitur split bill Bintang SplitPay bareng tongkrongan.
+                </p>
+              </div>
+            </div>
+
+            <div class="pt-4 border-t border-stone-100">
+              <a href="../coffee.html" class="inline-flex items-center gap-1.5 text-xs font-bold text-stone-900 hover:text-amber-800 transition">
+                <span>Pesan Kopi</span>
+                <i class="fas fa-arrow-right text-[10px] text-amber-600"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 2: Digital Store (Product Showcase: Netflix, Spotify, YouTube, AI) -->
+          <div class="p-6 rounded-2xl bg-white border border-stone-200 shadow-2xs space-y-4 flex flex-col justify-between hover:border-stone-400 hover:shadow-md transition">
+            <div>
+              <!-- Real Product Catalog Showcase -->
+              <div class="p-3.5 rounded-2xl bg-stone-50 border border-stone-200/80 mb-4 space-y-2.5">
+                <div class="flex items-center justify-between text-[11px] font-bold text-stone-700">
+                  <div class="flex items-center gap-1.5">
+                    <span class="w-6 h-6 rounded-lg bg-stone-950 text-white flex items-center justify-center text-[10px] font-black">N</span>
+                    <span class="text-xs font-extrabold text-stone-900">Netflix</span>
+                  </div>
+                  <div class="flex items-center gap-1.5">
+                    <span class="w-6 h-6 rounded-lg bg-[#1DB954] text-white flex items-center justify-center text-[10px]"><i class="fab fa-spotify"></i></span>
+                    <span class="text-xs font-extrabold text-stone-900">Spotify</span>
+                  </div>
+                  <div class="flex items-center gap-1.5">
+                    <span class="w-6 h-6 rounded-lg bg-[#FF0000] text-white flex items-center justify-center text-[10px]"><i class="fab fa-youtube"></i></span>
+                    <span class="text-xs font-extrabold text-stone-900">YouTube</span>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between pt-1 border-t border-stone-200/60 text-[11px] font-semibold text-stone-600">
+                  <span class="px-2 py-0.5 rounded bg-white border border-stone-200 text-[10px] font-bold text-stone-800">ChatGPT Plus</span>
+                  <span class="px-2 py-0.5 rounded bg-white border border-stone-200 text-[10px] font-bold text-stone-800">Gemini 2TB</span>
+                  <span class="px-2 py-0.5 rounded bg-white border border-stone-200 text-[10px] font-bold text-stone-800">Garansi 100%</span>
+                </div>
+              </div>
+
+              <div class="space-y-1.5">
+                <span class="text-[10px] font-bold text-stone-700 uppercase tracking-widest bg-stone-100 px-2.5 py-1 rounded-md inline-block">
+                  Digital Store
+                </span>
+                <h4 class="text-base font-extrabold text-stone-900 tracking-tight">
+                  Langganan Premium &amp; AI Tools
+                </h4>
+                <p class="text-xs text-stone-500 leading-relaxed font-normal pt-1">
+                  Akun resmi Netflix, Spotify, YouTube Premium, ChatGPT Plus, &amp; Gemini Pro legal bergaransi anti-hold dengan proses instan.
+                </p>
+              </div>
+            </div>
+
+            <div class="pt-4 border-t border-stone-100">
+              <a href="../digital-legacy.html" class="inline-flex items-center gap-1.5 text-xs font-bold text-stone-900 hover:text-stone-700 transition">
+                <span>Katalog Digital</span>
+                <i class="fas fa-arrow-right text-[10px]"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 3: Custom Tech Studio (Product Showcase: Code Terminal Daemon) -->
+          <div class="p-6 rounded-2xl bg-white border border-stone-200 shadow-2xs space-y-4 flex flex-col justify-between hover:border-stone-400 hover:shadow-md transition">
+            <div>
+              <!-- Real Engineering Terminal Showcase -->
+              <div class="p-3.5 rounded-2xl bg-stone-950 text-stone-200 font-mono text-[11px] border border-stone-800 mb-4 shadow-inner space-y-1.5 select-none">
+                <div class="flex items-center gap-1.5 pb-1.5 border-b border-stone-800/80 text-[10px] text-stone-400 font-sans">
+                  <span class="w-2 h-2 rounded-full bg-stone-700"></span>
+                  <span class="w-2 h-2 rounded-full bg-stone-700"></span>
+                  <span class="w-2 h-2 rounded-full bg-stone-700"></span>
+                  <span class="ml-auto font-mono text-[9px] text-stone-500">bot-daemon.ts</span>
+                </div>
+                <p class="text-stone-400 font-mono text-[10px]">// Webhook &amp; Bot Daemon</p>
+                <p><span class="text-amber-400">const</span> studio = <span class="text-emerald-400">new</span> QRISGateway();</p>
+                <p class="text-emerald-400 text-[10px]"><i class="fas fa-check text-[9px] mr-1"></i>Status: Online (0ms latency)</p>
+              </div>
+
+              <div class="space-y-1.5">
+                <span class="text-[10px] font-bold text-stone-900 uppercase tracking-widest bg-stone-100 px-2.5 py-1 rounded-md inline-block">
+                  Custom Tech Studio
+                </span>
+                <h4 class="text-base font-extrabold text-stone-900 tracking-tight">
+                  Otomasi Bot &amp; Webhook QRIS
+                </h4>
+                <p class="text-xs text-stone-500 leading-relaxed font-normal pt-1">
+                  Layanan rekayasa software custom: bot Telegram/WhatsApp mandiri, integrasi payment gateway QRIS otomatis, dan scraping data.
+                </p>
+              </div>
+            </div>
+
+            <div class="pt-4 border-t border-stone-100">
+              <a href="../studio/index.html" class="inline-flex items-center gap-1.5 text-xs font-bold text-stone-900 hover:text-stone-700 transition">
+                <span>Kunjungi Studio</span>
+                <i class="fas fa-arrow-right text-[10px]"></i>
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================== -->
+  <!-- 3. FOOTER (MONOLITH MINIMALIST)           -->
+  <!-- ========================================== -->
+  <footer class="mt-auto border-t border-stone-200/80 bg-white py-10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <img src="../assets/logo.svg" alt="Bintang Store" class="w-8 h-8 object-contain" />
+        <div>
+          <span class="font-extrabold tracking-wider text-sm text-stone-950 uppercase block">Bintang Store</span>
+          <span class="text-[11px] text-stone-500">Unified Lifestyle &amp; Digital Infrastructure</span>
+        </div>
+      </div>
+      <p class="text-xs text-stone-500 text-center sm:text-right">
+        &copy; 2026 Bintang Store. Seluruh hak cipta dilindungi undang-undang.
+      </p>
+    </div>
+  </footer>
+
+  <!-- ========================================== -->
+  <!-- 4. JAVASCRIPT LOGIC                        -->
+  <!-- ========================================== -->
+  <script>
+    // 1. Centralized Production API Configuration
+    const CANVA_API_BASE_URL = window.CANVA_API_BASE_URL || 'https://api.bintanggstore.web.id';
+
+    // State Variables
+    let selectedTasks = new Set();
+    let currentCreatedAppId = null;
+
+    // Toast Notification System (Unified Bintang Store Style)
+    function showToast(message, type = 'info') {
+      const container = document.getElementById('toast-container');
+      if (!container) return;
+      
+      const toast = document.createElement('div');
+      let iconClass = 'fas fa-info-circle text-amber-400';
+      if (type === 'success') iconClass = 'fas fa-circle-check text-emerald-400';
+      if (type === 'error') iconClass = 'fas fa-circle-exclamation text-rose-400';
+
+      toast.className = 'bg-stone-950 text-white border border-stone-800 px-4 py-3 rounded-2xl shadow-xl flex items-center gap-3 transform transition-all duration-300 translate-y-[-16px] opacity-0 text-xs pointer-events-auto';
+      toast.innerHTML = `
+        <div class="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0">
+          <i class="${iconClass} text-[10px]"></i>
+        </div>
+        <div class="flex-grow min-w-0 text-left font-semibold text-stone-100 text-xs">
+          ${message}
+        </div>
+      `;
+      container.appendChild(toast);
+      
+      requestAnimationFrame(() => {
+        toast.classList.remove('translate-y-[-16px]', 'opacity-0');
+        toast.classList.add('translate-y-0', 'opacity-100');
+      });
+
+      setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-[-16px]', 'opacity-0');
+        setTimeout(() => toast.remove(), 400);
+      }, 3500);
+    }
+
+    // Task Chip Toggle Handler
+    function toggleTaskSelection(btn, taskName) {
+      if (selectedTasks.has(taskName)) {
+        selectedTasks.delete(taskName);
+        btn.className = 'task-chip px-3 py-1.5 rounded-full text-xs font-medium bg-stone-100 text-stone-700 border border-stone-200/80 hover:bg-stone-200 transition cursor-pointer';
+      } else {
+        selectedTasks.add(taskName);
+        btn.className = 'task-chip px-3 py-1.5 rounded-full text-xs font-bold bg-stone-950 text-white border border-stone-950 shadow-2xs transition cursor-pointer';
+      }
+    }
+
+    // Single Convenient Share Handler
+    async function shareCanvaPage() {
+      const shareUrl = 'https://bintanggstore.web.id/canva';
+      const shareData = {
+        title: 'Canva Team — Akses Komunitas Eksklusif | Bintang Store',
+        text: 'Ajukan akses Canva Team melalui sistem Bintang Store dengan proses transparan.',
+        url: shareUrl
+      };
+
+      if (navigator.share) {
+        try {
+          await navigator.share(shareData);
+          showToast("Tautan berhasil dibagikan!", "success");
+          return;
+        } catch (err) {
+          if (err.name === 'AbortError') return;
+        }
+      }
+
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(shareUrl).then(() => {
+          showToast("Tautan pengajuan disalin ke clipboard!", "success");
+        }).catch(() => {
+          showToast("Tautan: " + shareUrl, "info");
+        });
+      } else {
+        showToast("Tautan: " + shareUrl, "info");
+      }
+    }
+
+    // Form Submission Handler
+    async function handleApplicationSubmit(e) {
+      e.preventDefault();
+      
+      const nameInput = document.getElementById('form-name');
+      const emailInput = document.getElementById('form-email');
+      const phoneInput = document.getElementById('form-phone');
+      const submitBtn = document.getElementById('submitAppBtn');
+
+      const name = nameInput.value.trim();
+      const email = emailInput.value.trim().toLowerCase();
+      let phone = phoneInput.value.trim().replace(/[^0-9]/g, '');
+
+      // Validation
+      if (!name || name.length < 2) {
+        showToast("Mohon isi nama lengkap dengan benar (min. 2 karakter).", "error");
+        nameInput.focus();
+        return;
+      }
+
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showToast("Format alamat email akun Canva tidak valid.", "error");
+        emailInput.focus();
+        return;
+      }
+
+      if (!phone || phone.length < 9) {
+        showToast("Nomor WhatsApp minimal 9 digit.", "error");
+        phoneInput.focus();
+        return;
+      }
+
+      // Check attestations
+      const chk1 = document.getElementById('attest-channel')?.checked;
+      const chk2 = document.getElementById('attest-react')?.checked;
+      const chk3 = document.getElementById('attest-share')?.checked;
+      const chk4 = document.getElementById('attest-consent')?.checked;
+
+      if (!chk1 || !chk2 || !chk3 || !chk4) {
+        showToast("Mohon centang seluruh konfirmasi pengajuan untuk melanjutkan.", "error");
+        return;
+      }
+
+      // Normalisasi phone format
+      if (phone.startsWith('0')) phone = '62' + phone.slice(1);
+      else if (!phone.startsWith('62')) phone = '62' + phone;
+
+      const tasksArray = selectedTasks.size > 0 ? Array.from(selectedTasks) : ['Kebutuhan Umum'];
+
+      const payload = {
+        name: name,
+        email: email,
+        phone: phone,
+        tasks: tasksArray
+      };
+
+      // Loading state
+      submitBtn.disabled = true;
+      const originalBtnHtml = submitBtn.innerHTML;
+      submitBtn.innerHTML = `
+        <i class="fas fa-spinner fa-spin text-amber-400 text-xs"></i>
+        <span>Memproses pengajuan...</span>
+      `;
+
+      try {
+        const response = await fetch(`${CANVA_API_BASE_URL}/api/applications`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await response.json().catch(() => null);
+
+        if (response.ok && data && (data.success || data.application_id)) {
+          const createdId = data.application_id || (data.application && data.application.id) || 1;
+          currentCreatedAppId = createdId;
+          
+          try {
+            localStorage.setItem('bintang_canva_app_id', createdId.toString());
+          } catch (e) {}
+
+          renderSuccessState(createdId);
+          showToast("Pengajuan berhasil diterima oleh sistem!", "success");
+        } else {
+          const errMsg = data && data.message ? data.message : "Gagal mengirim pengajuan. Silakan coba kembali.";
+          showToast(errMsg, "error");
+        }
+      } catch (err) {
+        console.warn("Application Submit Error:", err);
+        showToast("Koneksi gagal. Periksa koneksi internet Anda dan coba lagi.", "error");
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnHtml;
+      }
+    }
+
+    function renderSuccessState(appId) {
+      const formSection = document.getElementById('application-form');
+      const successBox = document.getElementById('application-success-box');
+      const idDisplay = document.getElementById('successAppIdText');
+      const lookupInput = document.getElementById('lookupIdInput');
+
+      if (idDisplay) idDisplay.textContent = `BS-CNV-${appId}`;
+      if (lookupInput) lookupInput.value = appId;
+
+      formSection.classList.add('hidden');
+      successBox.classList.remove('hidden');
+
+      successBox.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function copyApplicationId() {
+      if (!currentCreatedAppId) return;
+      const text = `BS-CNV-${currentCreatedAppId}`;
+      const label = document.getElementById('copyBtnLabel');
+
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(text).then(() => {
+          if (label) label.textContent = "Tersalin!";
+          showToast(`ID ${text} berhasil disalin ke clipboard.`, "success");
+          setTimeout(() => { if (label) label.textContent = "Salin ID"; }, 2000);
+        }).catch(() => {
+          showToast(`Nomor Tiket: ${text}`, "info");
+        });
+      } else {
+        showToast(`Nomor Tiket: ${text}`, "info");
+      }
+    }
+
+    function checkStatusFromSuccess() {
+      const lookupSection = document.getElementById('status-lookup');
+      if (lookupSection) {
+        lookupSection.scrollIntoView({ behavior: 'smooth' });
+        handleStatusLookup();
+      }
+    }
+
+    function resetFormForNewApplication() {
+      const formSection = document.getElementById('application-form');
+      const successBox = document.getElementById('application-success-box');
+      const form = document.getElementById('canvaApplicationForm');
+
+      if (form) form.reset();
+      selectedTasks.clear();
+      document.querySelectorAll('.task-chip').forEach(btn => {
+        btn.className = 'task-chip px-3 py-1.5 rounded-full text-xs font-medium bg-stone-100 text-stone-700 border border-stone-200/80 hover:bg-stone-200 transition cursor-pointer';
+      });
+
+      successBox.classList.add('hidden');
+      formSection.classList.remove('hidden');
+      formSection.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Status Lookup System
+    const STATUS_UI_MAPPING = {
+      'PENDING': {
+        label: 'Menunggu Verifikasi Tim',
+        badgeClass: 'bg-amber-50 text-amber-900 border-amber-300',
+        dotClass: 'bg-amber-500 animate-pulse',
+        stepIndex: 1
+      },
+      'UNDER_REVIEW': {
+        label: 'Sedang Ditinjau Admin',
+        badgeClass: 'bg-amber-50 text-amber-900 border-amber-300',
+        dotClass: 'bg-amber-500 animate-pulse',
+        stepIndex: 2
+      },
+      'APPROVED': {
+        label: 'Pengajuan Disetujui',
+        badgeClass: 'bg-emerald-50 text-emerald-800 border-emerald-300',
+        dotClass: 'bg-emerald-500',
+        stepIndex: 2
+      },
+      'INVITE_QUEUED': {
+        label: 'Masuk Antrean Undangan',
+        badgeClass: 'bg-amber-50 text-amber-900 border-amber-300',
+        dotClass: 'bg-amber-500',
+        stepIndex: 3
+      },
+      'PROCESSING': {
+        label: 'Sedang Mengirim Undangan',
+        badgeClass: 'bg-blue-50 text-blue-800 border-blue-300',
+        dotClass: 'bg-blue-500 animate-pulse',
+        stepIndex: 3
+      },
+      'INVITED': {
+        label: 'Undangan Canva Telah Terkirim!',
+        badgeClass: 'bg-emerald-100 text-emerald-900 border-emerald-400 font-black',
+        dotClass: 'bg-emerald-600 animate-pulse',
+        stepIndex: 4
+      },
+      'REJECTED': {
+        label: 'Pendaftaran Ditolak',
+        badgeClass: 'bg-rose-50 text-rose-800 border-rose-200',
+        dotClass: 'bg-rose-500',
+        stepIndex: 0
+      },
+      'FAILED': {
+        label: 'Terjadi Kendala Teknis',
+        badgeClass: 'bg-rose-50 text-rose-800 border-rose-200',
+        dotClass: 'bg-rose-500',
+        stepIndex: 0
+      }
+    };
+
+    async function handleStatusLookup() {
+      const input = document.getElementById('lookupIdInput');
+      const btn = document.getElementById('lookupStatusBtn');
+      const emptyPrompt = document.getElementById('statusEmptyPrompt');
+      const card = document.getElementById('statusCard');
+      const errBox = document.getElementById('statusErrorPrompt');
+
+      const rawVal = input.value.trim().replace(/[^0-9]/g, '');
+      const id = parseInt(rawVal, 10);
+
+      if (!id || isNaN(id) || id <= 0) {
+        showToast("Masukkan nomor ID pengajuan yang valid.", "error");
+        input.focus();
+        return;
+      }
+
+      btn.disabled = true;
+      const originalBtnHtml = btn.innerHTML;
+      btn.innerHTML = `<i class="fas fa-spinner fa-spin text-xs"></i> <span>Mengecek status...</span>`;
+
+      emptyPrompt.classList.add('hidden');
+      card.classList.add('hidden');
+      errBox.classList.add('hidden');
+
+      try {
+        const response = await fetch(`${CANVA_API_BASE_URL}/api/applications/${id}`, {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+
+        const data = await response.json().catch(() => null);
+
+        if (response.ok && data && (data.success || data.application)) {
+          const app = data.application || data;
+          renderStatusCard(app);
+        } else if (response.status === 404) {
+          document.getElementById('statusErrorMessage').textContent = "Nomor pengajuan tidak ditemukan. Periksa kembali ID kamu.";
+          errBox.classList.remove('hidden');
+        } else {
+          document.getElementById('statusErrorMessage').textContent = data && data.message ? data.message : "Pengajuan belum dapat dicek saat ini.";
+          errBox.classList.remove('hidden');
+        }
+      } catch (err) {
+        console.warn("Lookup Error:", err);
+        document.getElementById('statusErrorMessage').textContent = "Server sedang mengalami gangguan. Silakan coba lagi.";
+        errBox.classList.remove('hidden');
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = originalBtnHtml;
+      }
+    }
+
+    function renderStatusCard(app) {
+      const card = document.getElementById('statusCard');
+      const resAppId = document.getElementById('resAppId');
+      const resName = document.getElementById('resName');
+      const resEmail = document.getElementById('resEmail');
+      const resCreatedAt = document.getElementById('resCreatedAt');
+      const resStatusBadge = document.getElementById('resStatusBadge');
+      const resStatusDot = document.getElementById('resStatusDot');
+      const resStatusLabel = document.getElementById('resStatusLabel');
+      const noticeBox = document.getElementById('statusNoticeBox');
+
+      const statusKey = (app.status || 'PENDING').toUpperCase();
+      const conf = STATUS_UI_MAPPING[statusKey] || {
+        label: statusKey,
+        badgeClass: 'bg-stone-100 text-stone-700 border-stone-300',
+        dotClass: 'bg-stone-500',
+        stepIndex: 1
+      };
+
+      resAppId.textContent = `BS-CNV-${app.id || '0'}`;
+      resName.textContent = app.name || '-';
+      resEmail.textContent = app.email || '-';
+      resCreatedAt.textContent = app.created_at ? new Date(app.created_at).toLocaleString('id-ID') : '-';
+
+      resStatusBadge.className = `inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase border ${conf.badgeClass}`;
+      resStatusDot.className = `w-2 h-2 rounded-full ${conf.dotClass}`;
+      resStatusLabel.textContent = conf.label;
+
+      // Update Timeline Steps (1 to 4)
+      for (let s = 1; s <= 4; s++) {
+        const stageEl = document.getElementById(`stage-${s}`);
+        if (!stageEl) continue;
+        const dot = stageEl.querySelector('.timeline-dot');
+        const title = stageEl.querySelector('h4');
+
+        if (conf.stepIndex >= s) {
+          dot.className = 'timeline-dot absolute -left-6 top-1 w-5 h-5 rounded-full border-2 border-white bg-emerald-600 flex items-center justify-center text-[9px] text-white shadow-2xs';
+          title.className = 'text-xs font-extrabold text-stone-950';
+        } else {
+          dot.className = 'timeline-dot absolute -left-6 top-1 w-5 h-5 rounded-full border-2 border-white bg-stone-300 flex items-center justify-center text-[9px] text-white';
+          title.className = 'text-xs font-medium text-stone-400';
+        }
+      }
+
+      // Contextual Notice
+      if (statusKey === 'INVITED') {
+        noticeBox.className = 'p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-950 leading-relaxed space-y-2';
+        noticeBox.innerHTML = `
+          <div class="flex items-center gap-2 font-bold text-emerald-900">
+            <i class="fas fa-envelope-circle-check text-sm"></i>
+            <span>Undangan Canva Sudah Dikirim!</span>
+          </div>
+          <p>
+            Admin telah mengirimkan undangan ke email <strong>${app.email}</strong>. Silakan buka kotak masuk email Anda dan klik <em>"Bergabung dengan Tim"</em>, atau login ke canva.com lalu alihkan tim di pojok kiri atas.
+          </p>
+          <div class="pt-1">
+            <a href="https://www.canva.com" target="_blank" rel="noopener noreferrer" 
+               class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-stone-950 hover:bg-stone-800 text-white text-xs font-bold transition shadow-2xs">
+              <span>Buka Canva.com</span>
+              <i class="fas fa-arrow-up-right-from-square text-[10px] text-amber-400"></i>
+            </a>
+          </div>
+        `;
+      } else if (statusKey === 'REJECTED') {
+        noticeBox.className = 'p-4 rounded-2xl bg-rose-50 border border-rose-200 text-xs text-rose-950 leading-relaxed space-y-1';
+        noticeBox.innerHTML = `
+          <div class="flex items-center gap-2 font-bold text-rose-900">
+            <i class="fas fa-circle-xmark text-sm"></i>
+            <span>Pengajuan Belum Disetujui</span>
+          </div>
+          <p>
+            Alasan: ${app.reject_reason || 'Persyaratan attestation atau data akun tidak memenuhi ketentuan komunitas.'}
+          </p>
+        `;
+      } else {
+        noticeBox.className = 'p-4 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-xs text-amber-950 leading-relaxed space-y-1';
+        noticeBox.innerHTML = `
+          <div class="flex items-center gap-2 font-bold text-amber-900">
+            <i class="fas fa-clock text-sm"></i>
+            <span>Sedang Dalam Antrean Batch</span>
+          </div>
+          <p>
+            Pengajuan diproses otomatis oleh sistem Bintang Store. Undangan Canva dikirim ke email secara manual oleh admin setelah verifikasi antrean. Pantau halaman ini secara berkala untuk pembaruan status Anda.
+          </p>
+        `;
+      }
+
+      card.classList.remove('hidden');
+    }
+
+    // Canva Guide Carousel State & Logic
+    const guideSlides = [
+      {
+        step: "STEP 01",
+        caption: "01 — Cek email",
+        desc: "Buka kotak masuk email yang Anda daftarkan dan cari pesan undangan dari Canva."
+      },
+      {
+        step: "STEP 02",
+        caption: "02 — Buka undangan",
+        desc: "Buka email undangan dan klik tautan atau tombol resmi untuk menerima akses tim."
+      },
+      {
+        step: "STEP 03",
+        caption: "03 — Masuk dengan akun yang sama",
+        desc: "Masuk ke akun Canva menggunakan alamat email yang sama dengan yang didaftarkan."
+      },
+      {
+        step: "STEP 04",
+        caption: "04 — Buka workspace",
+        desc: "Buka dashboard Canva dan alihkan tim ke workspace Bintang Store di pojok kiri atas."
+      },
+      {
+        step: "STEP 05",
+        caption: "05 — Mulai mendesain",
+        desc: "Akses fitur Canva Pro dan mulai mendesain bersama tim tanpa batas."
+      }
+    ];
+
+    let currentGuideSlide = 0;
+
+    function goToGuideSlide(index) {
+      if (index < 0 || index >= guideSlides.length) return;
+      currentGuideSlide = index;
+      const track = document.getElementById('canvaGuideTrack');
+      const slides = track ? track.querySelectorAll('.guide-slide') : [];
+      if (slides[index]) {
+        const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        slides[index].scrollIntoView({
+          behavior: prefersReduced ? 'auto' : 'smooth',
+          block: 'nearest',
+          inline: 'center'
+        });
+      }
+      updateGuideUI();
+    }
+
+    function updateGuideUI() {
+      const counter = document.getElementById('guideCounter');
+      const caption = document.getElementById('guideCaption');
+      const desc = document.getElementById('guideDesc');
+      const prevBtn = document.getElementById('guidePrevBtn');
+      const nextBtn = document.getElementById('guideNextBtn');
+      const dots = document.querySelectorAll('.guide-dot');
+
+      const data = guideSlides[currentGuideSlide];
+      if (counter) counter.textContent = `0${currentGuideSlide + 1} / 05`;
+      if (caption) caption.textContent = data.caption;
+      if (desc) desc.textContent = data.desc;
+
+      if (prevBtn) prevBtn.disabled = (currentGuideSlide === 0);
+      if (nextBtn) nextBtn.disabled = (currentGuideSlide === guideSlides.length - 1);
+
+      dots.forEach((dot, idx) => {
+        if (idx === currentGuideSlide) {
+          dot.className = 'guide-dot w-6 h-1.5 rounded-full bg-stone-950 transition-all';
+        } else {
+          dot.className = 'guide-dot w-1.5 h-1.5 rounded-full bg-stone-300 hover:bg-stone-400 transition-all cursor-pointer';
+        }
+      });
+    }
+
+    // Auto Initializer (Load saved ID or query parameters)
+    document.addEventListener('DOMContentLoaded', () => {
+      // Mobile menu
+      const mobileBtn = document.getElementById('mobileMenuBtn');
+      const mobileDropdown = document.getElementById('mobileMenuDropdown');
+      if (mobileBtn && mobileDropdown) {
+        mobileBtn.addEventListener('click', () => {
+          mobileDropdown.classList.toggle('hidden');
+        });
+      }
+
+      // Guide Carousel Scroll Listener (Touch swipe synchronization)
+      const guideTrack = document.getElementById('canvaGuideTrack');
+      if (guideTrack) {
+        let scrollTimeout;
+        guideTrack.addEventListener('scroll', () => {
+          clearTimeout(scrollTimeout);
+          scrollTimeout = setTimeout(() => {
+            const slides = guideTrack.querySelectorAll('.guide-slide');
+            const trackCenter = guideTrack.scrollLeft + guideTrack.offsetWidth / 2;
+            let closestIdx = 0;
+            let minDiff = Infinity;
+            slides.forEach((slide, idx) => {
+              const slideCenter = slide.offsetLeft + slide.offsetWidth / 2;
+              const diff = Math.abs(trackCenter - slideCenter);
+              if (diff < minDiff) {
+                minDiff = diff;
+                closestIdx = idx;
+              }
+            });
+            if (closestIdx !== currentGuideSlide) {
+              currentGuideSlide = closestIdx;
+              updateGuideUI();
+            }
+          }, 60);
+        }, { passive: true });
+      }
+
+      updateGuideUI();
+
+      // Check URL parameters ?id=... or ?status=...
+      const urlParams = new URLSearchParams(window.location.search);
+      const queryId = urlParams.get('id') || urlParams.get('status') || urlParams.get('app_id');
+      const savedId = localStorage.getItem('bintang_canva_app_id');
+
+      const targetId = queryId || savedId;
+      if (targetId && !isNaN(parseInt(targetId, 10))) {
+        const input = document.getElementById('lookupIdInput');
+        if (input) input.value = targetId;
+        if (queryId) {
+          document.getElementById('status-lookup')?.scrollIntoView({ behavior: 'smooth' });
+          handleStatusLookup();
+        }
+      }
+    });
+  </script>
+
+  <!-- Page Transition JS (The Obsidian Gate) -->
+  <script src="../assets/transition.js"></script>
+
+</body>
+</html>

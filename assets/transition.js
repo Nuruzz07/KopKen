@@ -16,8 +16,9 @@
         <!-- LOGO ASLI BINTANG STORE (CONCEPT 6C) -->
         <svg class="trans-logo-svg" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
           <!-- Garis Horizon Tipis -->
-          <line x1="8" y1="64" x2="120" y2="64" stroke="#44403c" stroke-width="1.5" stroke-opacity="0.6"/>
-          <line x1="32" y1="64" x2="96" y2="64" stroke="#d97706" stroke-width="2.5" stroke-linecap="round"/>
+          <line class="trans-horizon-base" x1="8" y1="64" x2="120" y2="64" stroke="#44403c" stroke-width="1.5" stroke-opacity="0.6"/>
+          <line class="trans-horizon-amber" x1="32" y1="64" x2="96" y2="64" stroke="#d97706" stroke-width="2.5" stroke-linecap="round"/>
+          <line class="trans-horizon-violet" x1="44" y1="64" x2="84" y2="64" stroke="#a78bfa" stroke-width="2" stroke-linecap="round"/>
 
           <!-- Chevron Atas (Obsidian Dark Metal) -->
           <path d="M28 54L64 18L100 54" stroke="#292524" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
@@ -52,13 +53,19 @@
       if (href.startsWith('/tracking')) return href.replace(/^\/tracking/, './tracking.html');
       if (href.startsWith('/digital-legacy')) return href.replace(/^\/digital-legacy/, './digital-legacy.html');
       if (href.startsWith('/studio')) return href.replace(/^\/studio/, './studio/index.html');
+      if (href.startsWith('/canva')) return href.replace(/^\/canva/, './canva.html');
     }
     return href;
   }
   window.resolveDestination = resolveDestination;
 
   // 3. Menutup Tirai Secara Sinematik Saat Tombol Diklik
+  let isNavigating = false;
+
   function runCinematicTransition(targetUrl, themeClass, labelText, duration) {
+    if (isNavigating && targetUrl) return; // Prevent accidental double navigation
+    isNavigating = true;
+
     const statusLabel = document.getElementById('gate-status-text');
     if (statusLabel) statusLabel.textContent = labelText;
 
@@ -77,6 +84,7 @@
 
   // 4. Membuka Tirai Halus Saat Halaman Tujuan Terbuka (Entrance Reveal)
   function handlePageEntrance() {
+    isNavigating = false;
     const incomingTheme = sessionStorage.getItem('bs_transition_incoming');
     const incomingLabel = sessionStorage.getItem('bs_transition_label');
 
@@ -88,15 +96,30 @@
       sessionStorage.removeItem('bs_transition_incoming');
       sessionStorage.removeItem('bs_transition_label');
 
-      // Buka tirai belah atas-bawah
-      requestAnimationFrame(() => {
-        setTimeout(() => {
-          overlay.classList.remove('closing');
+      if (incomingTheme === 'theme-canva') {
+        document.body.classList.add('canva-gate-opening');
+        // Destination Reveal: keep brief obsidian hold (150ms), then open shutters and trigger content reveal
+        requestAnimationFrame(() => {
           setTimeout(() => {
-            overlay.className = '';
-          }, 450);
-        }, 150);
-      });
+            overlay.classList.remove('closing');
+            document.body.classList.add('canva-content-reveal');
+            setTimeout(() => {
+              overlay.className = '';
+              document.body.classList.remove('canva-gate-opening');
+            }, 500);
+          }, 150);
+        });
+      } else {
+        // Buka tirai belah atas-bawah standar (Coffee, Digital, Tracking - UNCHANGED)
+        requestAnimationFrame(() => {
+          setTimeout(() => {
+            overlay.classList.remove('closing');
+            setTimeout(() => {
+              overlay.className = '';
+            }, 450);
+          }, 150);
+        });
+      }
     }
   }
 
@@ -105,7 +128,10 @@
   } else {
     document.addEventListener('DOMContentLoaded', handlePageEntrance);
   }
-  window.addEventListener('pageshow', handlePageEntrance);
+  window.addEventListener('pageshow', function () {
+    isNavigating = false;
+    handlePageEntrance();
+  });
 
   // 5. Interceptor Navigasi Menu
   document.addEventListener('click', function (e) {
@@ -122,12 +148,14 @@
     const destination = resolveDestination(href);
 
     // Context-Aware Transition (Label & Nuansa Sesuai Produk)
-    if (destination.includes('kopken')) {
+    if (destination.includes('kopken') || destination.includes('coffee')) {
       runCinematicTransition(destination, 'theme-coffee', 'BREWING CONCIERGE ACCESS', 500);
     } else if (destination.includes('digital-legacy')) {
       runCinematicTransition(destination, 'theme-digital', 'INITIALIZING DIGITAL VAULT', 500);
     } else if (destination.includes('tracking')) {
       runCinematicTransition(destination, 'theme-coffee', 'FETCHING ORDER DISPATCH', 500);
+    } else if (destination.includes('canva')) {
+      runCinematicTransition(destination, 'theme-canva', 'CANVA ACCESS GATEWAY', 500);
     } else {
       runCinematicTransition(destination, 'theme-coffee', 'PORTAL OVERVIEW', 500);
     }
