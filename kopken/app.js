@@ -565,7 +565,7 @@ function refreshAdminControlUI() {
 async function updateStoreAdminStatus(newStatus) {
     sfx.playTap();
     const isOnlineBool = newStatus === 'online';
-    const statusLabel = isOnlineBool ? 'Admin Online & Proses Cepat' : 'Admin Sedang Kuliah/Sibuk (Proses ±15-30 Mnt)';
+    const statusLabel = isOnlineBool ? 'Admin Online & Proses Cepat' : 'Admin Sedang Sibuk (Diproses Sesuai Antrean)';
 
     try {
         if (supabaseClient) {
@@ -628,7 +628,7 @@ function applyAdminStatusToUI(status) {
                     <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
                     <span class="relative inline-flex rounded-full h-2 w-2 bg-amber-600"></span>
                 </span>
-                <span>Admin Sedang Sibuk (Proses ±15-30 Mnt)</span>
+                <span>Admin Sedang Sibuk (Diproses Sesuai Antrean)</span>
             `;
         }
         if (busyBanner) busyBanner.classList.remove('hidden');

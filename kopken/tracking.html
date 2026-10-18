@@ -296,7 +296,7 @@
               <h3 class="text-xs font-black text-amber-950 uppercase tracking-wide">Pemberitahuan Antrean Padat</h3>
             </div>
             <p class="text-[11px] text-stone-700 font-medium leading-relaxed">
-              Admin sedang dalam operasional luar ruangan atau menangani antrean jam sibuk. Estimasi pemrosesan otomatis disesuaikan maksimal <b>30 menit</b>. Terima kasih atas kesabarannya!
+              Admin sedang dalam operasional luar ruangan atau menangani antrean jam sibuk. Pesanan kamu tetap tercatat aman dan diproses sesuai urutan antrean ya Kak. Terima kasih atas kesabarannya! 🫶
             </p>
           </div>
 
@@ -737,23 +737,19 @@
     let currentOrder = null;
     let rawOrderTotal = 0;
 
-    // Evaluasi Jam Sibuk
-    function checkIsBusySchedule() {
-      const now = new Date();
-      const day = now.getDay(); // 2 = Selasa, 4 = Kamis
-      const minutes = (now.getHours() * 60) + now.getMinutes();
-
-      if (day === 2) {
-        if ((minutes >= 420 && minutes <= 700) || (minutes >= 860 && minutes <= 960)) return true;
-      } else if (day === 4) {
-        if ((minutes >= 520 && minutes <= 620) || (minutes >= 860 && minutes <= 960)) return true;
-      }
-      return false;
+    let isBusyMode = false;
+    async function checkStoreBusyStatus() {
+      try {
+        const { data } = await supabaseClient.from("store_settings").select("*").eq("id", "main").single();
+        if (data && data.is_online === false) {
+          isBusyMode = true;
+          if (elBusyBanner) elBusyBanner.classList.remove("hidden");
+        }
+      } catch (e) {}
     }
 
-    const isBusyMode = checkIsBusySchedule();
-    const TOTAL_TIMER_MINUTES = isBusyMode ? 30 : 15;
-    const LOCK_MINUTES = isBusyMode ? 20 : 10;
+    const TOTAL_TIMER_MINUTES = 15;
+    const LOCK_MINUTES = 10;
     const TOTAL_TIMER_SECONDS = TOTAL_TIMER_MINUTES * 60;
     const LOCK_SECONDS = LOCK_MINUTES * 60;
 
@@ -1068,6 +1064,7 @@
       }
 
       if (elOrderId) elOrderId.textContent = orderId;
+      await checkStoreBusyStatus();
 
       let { data, error } = await supabaseClient
         .from("orders")
@@ -1346,13 +1343,69 @@
             if (deliveryInfoCard) deliveryInfoCard.classList.add("hidden");
             if (queueBox) {
               queueBox.classList.remove("hidden");
-              if (elQueueNumber) elQueueNumber.textContent = order.queue_number || "-";
-            }
 
-            if (guideIcon) guideIcon.className = "fas fa-lightbulb text-amber-700 text-sm mt-0.5 flex-shrink-0";
-            if (guideTitle) guideTitle.textContent = "Panduan Pengambilan di Kasir:";
-            if (guideText) {
-              guideText.innerHTML = `Sebutkan <span class="font-bold underline">nama pemesan</span> dan <span class="font-bold underline">nomor antrean</span> di atas ke barista, atau perlihatkan foto struk resmi di atas jika barista meminta verifikasi.`;
+              if (order.status === "sedang_diproses") {
+                queueBox.className = "bg-gradient-to-b from-amber-500/10 via-amber-500/5 to-white border-2 border-amber-500/40 rounded-3xl p-5 text-center shadow-xs space-y-2";
+                queueBox.innerHTML = `
+                  <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-amber-500/20 text-amber-700 text-xl mx-auto shadow-inner">
+                    <i class="fas fa-mug-hot animate-bounce"></i>
+                  </div>
+                  <div class="space-y-0.5">
+                    <p class="text-[11px] text-amber-950 font-black uppercase tracking-wide">Pesanan Sedang Diinput ke Kasir</p>
+                    <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-200/80 text-amber-900 text-[11px] font-black my-1">
+                      <span class="w-2 h-2 rounded-full bg-amber-600 animate-ping"></span>
+                      <span>Mengantre ke Aplikasi Kasir...</span>
+                    </div>
+                    <p class="text-[11px] text-stone-600 font-medium leading-tight">
+                      Nomor antrean & struk resmi kasir akan muncul otomatis di sini.
+                    </p>
+                  </div>
+                  <p class="text-xs text-stone-500 font-semibold pt-1 border-t border-amber-200/60">
+                    Atas Nama: <span class="underline font-bold text-stone-900">${order.customer_name || '-'}</span>
+                  </p>
+                `;
+
+                const guideBoxContainer = document.getElementById("guide-box-container");
+                if (guideBoxContainer) {
+                  guideBoxContainer.className = "bg-rose-50 rounded-2xl p-3.5 text-xs text-rose-950 leading-relaxed border border-rose-200 flex items-start gap-2.5 shadow-xs";
+                }
+                if (guideIcon) guideIcon.className = "fas fa-hand text-rose-600 text-base mt-0.5 flex-shrink-0 animate-pulse";
+                if (guideTitle) guideTitle.textContent = "🛑 Jangan Ambil ke Kasir Dulu:";
+                if (guideText) {
+                  guideText.innerHTML = `Kopi belum bisa diambil ya Kak. Barista sedang meracik pesananmu di gerai. Mohon tetap duduk santai sampai status pesanan berubah menjadi <b class="text-emerald-700 font-black underline">HIJAU (Pesanan Selesai)</b>.`;
+                }
+              } else {
+                queueBox.className = "bg-gradient-to-b from-[#FAF8F5] to-white border border-stone-200 rounded-2xl p-5 text-center shadow-xs space-y-3 relative overflow-hidden";
+                queueBox.innerHTML = `
+                  <div class="flex items-center justify-between pb-3 border-b border-dashed border-stone-200">
+                    <span class="tracking-[0.2em] uppercase text-[10px] text-stone-500 font-bold">OFFICIAL STORE ORDER PASS</span>
+                    <span class="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-800 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200/80">
+                      <i class="fas fa-check-circle text-emerald-600"></i> SIAP DIAMBIL
+                    </span>
+                  </div>
+                  <div class="py-1">
+                    <p class="text-[10px] text-stone-400 font-bold uppercase tracking-wider mb-1">Nomor Antrean Kasir</p>
+                    <p id="queue-number" class="text-4xl sm:text-5xl font-black text-stone-950 tracking-tight my-1 mono-num">${order.queue_number || '-'}</p>
+                  </div>
+                  <div class="pt-3 border-t border-dashed border-stone-200 flex justify-center">
+                    <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-[11px] font-bold">
+                      <span>Atas Nama:</span>
+                      <span id="customer-name" class="font-extrabold text-stone-900 underline decoration-emerald-500/50">${order.customer_name || '-'}</span>
+                      <i class="fas fa-circle-check text-emerald-600 text-[11px]"></i>
+                    </div>
+                  </div>
+                `;
+
+                const guideBoxContainer = document.getElementById("guide-box-container");
+                if (guideBoxContainer) {
+                  guideBoxContainer.className = "bg-emerald-50 rounded-2xl p-3.5 text-xs text-emerald-950 leading-relaxed border border-emerald-300 flex items-start gap-2.5 shadow-xs";
+                }
+                if (guideIcon) guideIcon.className = "fas fa-check-circle text-emerald-600 text-base mt-0.5 flex-shrink-0";
+                if (guideTitle) guideTitle.textContent = "Panduan Pengambilan di Kasir:";
+                if (guideText) {
+                  guideText.innerHTML = `Sebutkan nama <b class="font-bold underline">${order.customer_name || '-'}</b> dan nomor antrean <b class="font-extrabold text-sm text-emerald-900">${order.queue_number || '-'}</b> ke barista kasir, atau perlihatkan foto struk resmi di bawah jika barista meminta verifikasi.`;
+                }
+              }
             }
           }
 
