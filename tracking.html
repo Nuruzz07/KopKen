@@ -558,6 +558,41 @@
             </div>
           </div>
 
+          <!-- KARTU RATING & ULASAN PELANGGAN (MUNCUL SAAT SELESAI) -->
+          <div id="review-card" class="hidden bg-white rounded-3xl p-5 sm:p-6 shadow-sm border border-stone-200 space-y-3.5">
+            <div class="flex items-start gap-3">
+              <span class="text-2xl flex-shrink-0">☕</span>
+              <div class="min-w-0 flex-1">
+                <h2 class="text-xs font-black text-stone-900">Pesanan Selesai? Beri Ulasan!</h2>
+                <p class="text-[11px] text-stone-500 leading-snug mt-0.5">
+                  Bagikan kepuasanmu jastip di Bintang Store agar kami bisa terus melayani lebih baik ✨
+                </p>
+              </div>
+            </div>
+
+            <form id="review-form" class="space-y-3 pt-1" onsubmit="submitCustomerReview(event)">
+              <div class="flex gap-2 justify-center py-1 text-3xl" id="star-container">
+                <button type="button" class="star-btn text-amber-400 transition-transform active:scale-125 cursor-pointer" onclick="setStarRating(1)">★</button>
+                <button type="button" class="star-btn text-amber-400 transition-transform active:scale-125 cursor-pointer" onclick="setStarRating(2)">★</button>
+                <button type="button" class="star-btn text-amber-400 transition-transform active:scale-125 cursor-pointer" onclick="setStarRating(3)">★</button>
+                <button type="button" class="star-btn text-amber-400 transition-transform active:scale-125 cursor-pointer" onclick="setStarRating(4)">★</button>
+                <button type="button" class="star-btn text-amber-400 transition-transform active:scale-125 cursor-pointer" onclick="setStarRating(5)">★</button>
+              </div>
+
+              <textarea id="review-comment" rows="2" placeholder="Tulis ulasan singkat atau kesan kopimu di sini..." class="w-full text-xs p-3 rounded-2xl border border-stone-200 bg-stone-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-stone-900 resize-none font-medium text-stone-800"></textarea>
+
+              <button type="submit" id="submit-review-btn" class="w-full py-2.5 bg-stone-900 hover:bg-stone-800 text-white rounded-2xl text-xs font-extrabold transition shadow-sm active:scale-95 cursor-pointer flex items-center justify-center gap-1.5">
+                <i class="fas fa-paper-plane text-[10px]"></i>
+                <span>Kirim Ulasan</span>
+              </button>
+            </form>
+
+            <div id="review-submitted-badge" class="hidden py-3 text-center space-y-1 bg-emerald-50 rounded-2xl border border-emerald-200">
+              <p class="text-xs font-black text-emerald-950" id="review-submitted-stars">Ulasanmu Sudah Tersimpan ⭐⭐⭐⭐⭐</p>
+              <p class="text-[11px] text-emerald-800 italic" id="review-submitted-text">"Terima kasih banyak atas ulasanmu!"</p>
+            </div>
+          </div>
+
           <!-- RINCIAN MENU PESANAN (DIGITAL LUXURY RECEIPT) -->
           <div class="bg-white rounded-3xl p-5 sm:p-6 shadow-sm border border-stone-200 space-y-3.5">
             <div class="flex items-center justify-between border-b border-stone-100 pb-3">
@@ -1416,6 +1451,32 @@
         }
       }
 
+      // Kontrol Kartu Rating & Ulasan Pelanggan
+      const elReviewCard = document.getElementById("review-card");
+      const elReviewForm = document.getElementById("review-form");
+      const elReviewBadge = document.getElementById("review-submitted-badge");
+      const elReviewStars = document.getElementById("review-submitted-stars");
+      const elReviewText = document.getElementById("review-submitted-text");
+
+      if (elReviewCard) {
+        if (order.status === "selesai") {
+          elReviewCard.classList.remove("hidden");
+          if (order.rating) {
+            if (elReviewForm) elReviewForm.classList.add("hidden");
+            if (elReviewBadge) {
+              elReviewBadge.classList.remove("hidden");
+              if (elReviewStars) elReviewStars.textContent = `Ulasanmu Sudah Tersimpan: ${'★'.repeat(order.rating)}`;
+              if (elReviewText) elReviewText.textContent = `"${order.review || 'Terima kasih banyak atas ulasanmu!'}"`;
+            }
+          } else {
+            if (elReviewForm) elReviewForm.classList.remove("hidden");
+            if (elReviewBadge) elReviewBadge.classList.add("hidden");
+          }
+        } else {
+          elReviewCard.classList.add("hidden");
+        }
+      }
+
       // Cek Kelayakan VIP Cart Booster (Total >= 50.000 dan status terkonfirmasi)
       const elVipPass = document.getElementById("vip-utility-pass-card");
       const elVipWa = document.getElementById("vip-customer-wa");
@@ -1942,6 +2003,70 @@
         if (btn) {
           btn.disabled = false;
           btn.innerHTML = '<i class="fas fa-satellite-dish text-amber-400"></i> <span>Lacak Pesanan</span>';
+        }
+      }
+    }
+
+    let currentCustomerRating = 5;
+    function setStarRating(val) {
+      currentCustomerRating = val;
+      const starButtons = document.querySelectorAll("#star-container .star-btn");
+      starButtons.forEach((btn, idx) => {
+        if (idx < val) {
+          btn.className = "star-btn text-amber-400 transition-transform active:scale-125 cursor-pointer";
+        } else {
+          btn.className = "star-btn text-stone-200 transition-transform active:scale-125 cursor-pointer";
+        }
+      });
+    }
+
+    async function submitCustomerReview(e) {
+      e.preventDefault();
+      const comment = (document.getElementById("review-comment")?.value || "").trim();
+      const btn = document.getElementById("submit-review-btn");
+
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Mengirim...</span>';
+      }
+
+      try {
+        await supabaseClient
+          .from("orders")
+          .update({
+            rating: currentCustomerRating,
+            review: comment || "Puas jastip di Bintang Store"
+          })
+          .eq("id", orderId);
+
+        const textTg =
+          `🌟 <b>ULASAN PELANGGAN BARU MASUK!</b>\n\n` +
+          `🆔 <b>Order ID:</b> <code>${orderId}</code>\n` +
+          `👤 <b>Nama:</b> ${currentOrder?.customer_name || '-'}\n` +
+          `📱 <b>WhatsApp:</b> ${currentOrder?.customer_wa || '-'}\n` +
+          `⭐ <b>Rating:</b> ${'★'.repeat(currentCustomerRating)} (${currentCustomerRating}/5)\n` +
+          `💬 <b>Ulasan:</b> "${comment || 'Pelanggan memberi bintang 5'}"`;
+
+        await sendTelegramAlert(textTg);
+        showToast("Terima kasih! Ulasanmu berhasil dikirimkan ✨");
+
+        const elReviewForm = document.getElementById("review-form");
+        const elReviewBadge = document.getElementById("review-submitted-badge");
+        const elReviewStars = document.getElementById("review-submitted-stars");
+        const elReviewText = document.getElementById("review-submitted-text");
+
+        if (elReviewForm) elReviewForm.classList.add("hidden");
+        if (elReviewBadge) {
+          elReviewBadge.classList.remove("hidden");
+          if (elReviewStars) elReviewStars.textContent = `Ulasanmu Sudah Tersimpan: ${'★'.repeat(currentCustomerRating)}`;
+          if (elReviewText) elReviewText.textContent = `"${comment || 'Terima kasih banyak atas ulasanmu!'}"`;
+        }
+      } catch (err) {
+        console.error("Gagal kirim ulasan:", err);
+        showToast("Gagal menyimpan ulasan. Coba lagi.");
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = '<i class="fas fa-paper-plane text-[10px]"></i> <span>Kirim Ulasan</span>';
         }
       }
     }
