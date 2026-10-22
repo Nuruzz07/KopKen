@@ -1218,10 +1218,11 @@ async function loadDataFiles() {
                                 type: p.type || typeSlug,
                                 singlePrice: parseFloat(p.price) || 15000,
                                 realPrice: parseFloat(p.originalPrice) || 0,
-                                badge: p.badge || (p.isSoldOut ? 'SOLD OUT' : (catSlug === 'bundling' ? 'HEMAT' : (p.discountPercent ? `HEMAT ${p.discountPercent}%` : ''))),
+                                badge: p.isSoldOut ? 'SOLD OUT' : (p.badge && !p.badge.toUpperCase().includes('HEMAT') ? p.badge : ''),
                                 img: p.image || 'https://placehold.co/400x400/9C532B/FBF5EE?text=Kopi+Kenangan',
+                                imgs: p.imgs || (p.image ? [p.image] : null),
                                 isSoldOut: Boolean(p.isSoldOut),
-                                opts: p.opts || (typeSlug === 'bundling' ? ['2x Regular Cup', 'Normal Ice, Normal Sugar'] : undefined)
+                                opts: p.opts || (typeSlug === 'bundling' ? ['Varian Default Paket'] : undefined)
                             });
                         });
                     });
@@ -1579,18 +1580,30 @@ function renderMenu(filterKeyword = '') {
 
                 let imageBoxHtml = '';
                 if (item.imgs && item.imgs.length > 1) {
-                    imageBoxHtml = `
-                        <div class="w-full rounded-2xl bg-gradient-to-b from-[#FAF8F5] to-[#F5F0E6] p-3 h-36 flex items-center justify-center relative overflow-hidden mb-2.5">
-                            <div class="w-full h-full grid grid-cols-2 gap-1.5 items-center justify-center">
-                                <img src="${item.imgs[0]}" alt="${item.name} 1" class="max-h-full object-contain drop-shadow-[0_6px_12px_rgba(0,0,0,0.1)] pointer-events-none transition-transform duration-300 group-hover:scale-105" loading="lazy">
-                                <img src="${item.imgs[1]}" alt="${item.name} 2" class="max-h-full object-contain drop-shadow-[0_6px_12px_rgba(0,0,0,0.1)] pointer-events-none transition-transform duration-300 group-hover:scale-105" loading="lazy">
+                    if (item.imgs.length === 2) {
+                        imageBoxHtml = `
+                            <div class="w-full h-44 flex items-center justify-center relative mb-2.5 overflow-hidden">
+                                <div class="flex items-center justify-center w-full h-full relative">
+                                    <img src="${item.imgs[0]}" alt="${item.name} 1" class="h-36 sm:h-40 w-auto object-contain -mr-4 z-10 drop-shadow-md pointer-events-none transition-transform duration-300 group-hover:-translate-x-1" loading="lazy">
+                                    <img src="${item.imgs[1]}" alt="${item.name} 2" class="h-32 sm:h-36 w-auto object-contain -ml-4 z-0 opacity-95 drop-shadow pointer-events-none transition-transform duration-300 group-hover:translate-x-1" loading="lazy">
+                                </div>
                             </div>
-                        </div>
-                    `;
+                        `;
+                    } else {
+                        imageBoxHtml = `
+                            <div class="w-full h-44 flex items-center justify-center relative mb-2.5 overflow-hidden">
+                                <div class="flex items-center justify-center w-full h-full relative">
+                                    <img src="${item.imgs[0]}" alt="${item.name} 1" class="h-28 sm:h-32 w-auto object-contain -mr-5 z-0 opacity-90 drop-shadow pointer-events-none" loading="lazy">
+                                    <img src="${item.imgs[1]}" alt="${item.name} 2" class="h-36 sm:h-40 w-auto object-contain z-10 drop-shadow-lg pointer-events-none transition-transform duration-300 group-hover:scale-105" loading="lazy">
+                                    <img src="${item.imgs[2] || item.imgs[0]}" alt="${item.name} 3" class="h-28 sm:h-32 w-auto object-contain -ml-5 z-0 opacity-90 drop-shadow pointer-events-none" loading="lazy">
+                                </div>
+                            </div>
+                        `;
+                    }
                 } else {
                     imageBoxHtml = `
-                        <div class="w-full rounded-2xl bg-gradient-to-b from-[#FAF8F5] to-[#F5F0E6] p-3 h-36 flex items-center justify-center relative overflow-hidden mb-2.5">
-                            <img src="${item.img || (item.imgs && item.imgs[0]) || defaultImgFallback}" alt="${item.name}" class="max-h-full object-contain drop-shadow-[0_8px_16px_rgba(0,0,0,0.1)] pointer-events-none transition-transform duration-300 group-hover:scale-105" loading="lazy" onerror="this.src='${defaultImgFallback}';">
+                        <div class="w-full h-44 flex items-center justify-center relative mb-2.5 overflow-hidden">
+                            <img src="${item.img || (item.imgs && item.imgs[0]) || defaultImgFallback}" alt="${item.name}" class="h-40 sm:h-44 w-auto max-w-full object-contain drop-shadow-[0_8px_16px_rgba(0,0,0,0.06)] pointer-events-none transition-transform duration-300 group-hover:scale-105" loading="lazy" onerror="this.src='${defaultImgFallback}';">
                         </div>
                     `;
                 }
@@ -1600,13 +1613,14 @@ function renderMenu(filterKeyword = '') {
                 if (isSoldOut) {
                     badgeHtml = `<div class="bg-rose-600 text-white text-[10px] font-bold tracking-wider uppercase px-2.5 py-0.5 rounded-full absolute top-2 left-2 z-10 shadow-xs">SOLD OUT</div>`;
                 } else {
-                    let badgeLabel = item.badge ? item.badge.replace(/[^\w\s&]/gi, '').trim().toUpperCase() : '';
-                    if (!badgeLabel) {
-                        if (item.isNew) badgeLabel = 'NEW';
-                        else if (item.cat === 'bundling' || item.type === 'bundling') badgeLabel = 'BUNDLE';
-                        else badgeLabel = 'BEST SELLER';
+                    // Suppress any badge containing HEMAT / DISKON
+                    let rawBadge = item.badge ? item.badge.trim() : '';
+                    if (rawBadge && !rawBadge.toUpperCase().includes('HEMAT') && !rawBadge.toUpperCase().includes('DISKON') && !rawBadge.toUpperCase().includes('BUNDLE')) {
+                        const cleanLabel = rawBadge.replace(/[^\w\s&]/gi, '').trim().toUpperCase();
+                        if (cleanLabel) {
+                            badgeHtml = `<div class="bg-stone-900/80 backdrop-blur-md text-amber-300 text-[10px] font-bold tracking-wider uppercase px-2.5 py-0.5 rounded-full absolute top-2 left-2 z-10 shadow-xs border border-stone-800/50">${cleanLabel}</div>`;
+                        }
                     }
-                    badgeHtml = `<div class="bg-stone-900/80 backdrop-blur-md text-amber-300 text-[10px] font-bold tracking-wider uppercase px-2.5 py-0.5 rounded-full absolute top-2 left-2 z-10 shadow-xs border border-stone-800/50">${badgeLabel}</div>`;
                 }
 
                 const cardStyle = isSoldOut ? 'opacity-60 grayscale-[35%]' : '';
@@ -1830,10 +1844,11 @@ async function refreshKopkenMenuForOutlet(outlet) {
                             type: p.type || typeSlug,
                             singlePrice: parseFloat(p.price) || 15000,
                             realPrice: parseFloat(p.originalPrice) || 0,
-                            badge: p.badge || (p.isSoldOut ? 'SOLD OUT' : (catSlug === 'bundling' ? 'HEMAT' : (p.discountPercent ? `HEMAT ${p.discountPercent}%` : ''))),
+                            badge: p.isSoldOut ? 'SOLD OUT' : (p.badge && !p.badge.toUpperCase().includes('HEMAT') ? p.badge : ''),
                             img: p.image || 'https://placehold.co/400x400/9C532B/FBF5EE?text=Kopi+Kenangan',
+                            imgs: p.imgs || (p.image ? [p.image] : null),
                             isSoldOut: Boolean(p.isSoldOut),
-                            opts: p.opts || (typeSlug === 'bundling' ? ['2x Regular Cup', 'Normal Ice, Normal Sugar'] : undefined)
+                            opts: p.opts || (typeSlug === 'bundling' ? ['Varian Default Paket'] : undefined)
                         });
                     });
                 });
