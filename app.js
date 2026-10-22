@@ -859,7 +859,7 @@ function renderCategoryPills(brand = currentActiveBrand) {
                 Semua
             </button>
             <button onclick="scrollToCategory('cat-bundling', event); setActivePill(this)" class="cat-pill px-3.5 py-1.5 rounded-full bg-white text-stone-700 hover:text-stone-950 text-xs font-semibold shadow-xs border border-stone-200 transition cursor-pointer">
-                Bundling Hemat
+                Paket Kombo
             </button>
             <button onclick="scrollToCategory('cat-coffee', event); setActivePill(this)" class="cat-pill px-3.5 py-1.5 rounded-full bg-white text-stone-700 hover:text-stone-950 text-xs font-semibold shadow-xs border border-stone-200 transition cursor-pointer">
                 Coffee
@@ -1521,7 +1521,7 @@ function renderMenu(filterKeyword = '') {
         { id: 'cat-jj-litetoast', title: 'Lite Toast', filter: 'lite toast' },
         { id: 'cat-jj-bottled', title: 'Bottled Series (1 Liter)', filter: 'bottled' }
     ] : [
-        { id: 'cat-bundling', title: 'Paket Bundling Hemat', filter: 'bundling' },
+        { id: 'cat-bundling', title: 'Paket Kombo Bintang Store', filter: 'bundling' },
         { id: 'cat-new', title: 'New Variant (Varian Baru)', filter: 'new' },
         { id: 'cat-coffee', title: 'Coffee Series (Kopi)', filter: 'coffee' },
         { id: 'cat-noncoffee', title: 'Non-Coffee Series (Non-Kopi)', filter: 'noncoffee' },
