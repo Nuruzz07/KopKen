@@ -1,6 +1,7 @@
 {
   "cleanUrls": true,
   "rewrites": [
-    { "source": "/", "destination": "/home" }
+    { "source": "/", "destination": "/home" },
+    { "source": "/api/oracle/:path*", "destination": "https://kopken.bintanggitar.tech/api/:path*" }
   ]
 }

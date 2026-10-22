@@ -1140,6 +1140,16 @@ async function loadJanjiJiwaData() {
     allJanjiJiwaOutlets = jjOutlets;
 }
 
+async function fetchOracleMenuSafe(storeCode, outletId) {
+    const maskedUrl = `/api/oracle/menu?storeCode=${encodeURIComponent(storeCode)}&outletId=${outletId}`;
+    const directUrl = `https://kopken.bintanggitar.tech/api/menu?storeCode=${encodeURIComponent(storeCode)}&outletId=${outletId}`;
+    try {
+        const res = await fetch(maskedUrl, { signal: AbortSignal.timeout(3500) });
+        if (res.ok) return res;
+    } catch(e) {}
+    return await fetch(directUrl, { signal: AbortSignal.timeout(4000) });
+}
+
 async function loadDataFiles() {
     const outletPaths = ['./outlet.json', 'outlet.json', '../outlet.json', '/outlet.json'];
     for (const path of outletPaths) {
@@ -1182,8 +1192,7 @@ async function loadDataFiles() {
     // 1. Tembak Live Oracle API Kopi Kenangan Bintang Tech
     if (selectedOutlet && selectedOutlet.code && selectedOutlet.id) {
         try {
-            const oracleUrl = `https://kopken.bintanggitar.tech/api/menu?storeCode=${encodeURIComponent(selectedOutlet.code)}&outletId=${selectedOutlet.id}`;
-            const oracleRes = await fetch(oracleUrl, { signal: AbortSignal.timeout(4000) });
+            const oracleRes = await fetchOracleMenuSafe(selectedOutlet.code, selectedOutlet.id);
             if (oracleRes.ok) {
                 const oracleData = await oracleRes.json();
                 if (oracleData.success && Array.isArray(oracleData.categories)) {
@@ -1815,8 +1824,7 @@ function selectOutletItem(outletId) {
 async function refreshKopkenMenuForOutlet(outlet) {
     if (!outlet || !outlet.code || !outlet.id) return;
     try {
-        const oracleUrl = `https://kopken.bintanggitar.tech/api/menu?storeCode=${encodeURIComponent(outlet.code)}&outletId=${outlet.id}`;
-        const res = await fetch(oracleUrl, { signal: AbortSignal.timeout(4000) });
+        const res = await fetchOracleMenuSafe(outlet.code, outlet.id);
         if (res.ok) {
             const data = await res.json();
             if (data.success && Array.isArray(data.categories)) {
