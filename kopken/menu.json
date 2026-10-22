@@ -913,6 +913,94 @@
           "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/choco-chip-cookies-1784202526295.webp"
         }
       ]
-    }
+    },
+    "bundling": [
+      {
+        "id": "bintang_combo_1",
+        "name": "Duo Mantan (2 Cup)",
+        "price": 28000,
+        "real_price": 38000,
+        "badge": "",
+        "type": "bundling",
+        "img": "https://cdn.kopikenangan.com/public/da484154-47b1-a756-54a4-8b3490fb0eae",
+        "imgs": [
+          "https://cdn.kopikenangan.com/public/da484154-47b1-a756-54a4-8b3490fb0eae",
+          "https://cdn.kopikenangan.com/public/da484154-47b1-a756-54a4-8b3490fb0eae"
+        ],
+        "options": [
+          "2x Kopi Kenangan Mantan (Regular, Normal Ice, Normal Sugar)"
+        ]
+      },
+      {
+        "id": "bintang_combo_2",
+        "name": "Kombo Ngopi + Toast",
+        "price": 27000,
+        "real_price": 36000,
+        "badge": "",
+        "type": "bundling",
+        "img": "https://cdn.kopikenangan.com/public/da484154-47b1-a756-54a4-8b3490fb0eae",
+        "imgs": [
+          "https://cdn.kopikenangan.com/public/da484154-47b1-a756-54a4-8b3490fb0eae",
+          "https://cdn.kopikenangan.com/public/bccc5e24-0e25-1a67-1361-5b22783c1833"
+        ],
+        "options": [
+          "1x Kopi Kenangan Mantan",
+          "1x Kenangan Toast Bambang"
+        ]
+      },
+      {
+        "id": "bintang_combo_3",
+        "name": "Paket Bestie (2 Latte + 1 Roti)",
+        "price": 37000,
+        "real_price": 53000,
+        "badge": "",
+        "type": "bundling",
+        "img": "https://cdn.kopikenangan.com/public/8a0d42d0-4801-ca84-48e9-7b434b22aee4",
+        "imgs": [
+          "https://cdn.kopikenangan.com/public/8a0d42d0-4801-ca84-48e9-7b434b22aee4",
+          "https://cdn.kopikenangan.com/public/c45258b8-74b3-fb41-090d-b9f3a58cc343",
+          "https://cdn.kopikenangan.com/public/8a0d42d0-4801-ca84-48e9-7b434b22aee4"
+        ],
+        "options": [
+          "2x Caffe Latte / Americano",
+          "1x Chocolate Croissant"
+        ]
+      },
+      {
+        "id": "bintang_combo_4",
+        "name": "Trio Tongkrongan (3 Cup Kopi)",
+        "price": 39000,
+        "real_price": 57000,
+        "badge": "",
+        "type": "bundling",
+        "img": "https://cdn.kopikenangan.com/public/da484154-47b1-a756-54a4-8b3490fb0eae",
+        "imgs": [
+          "https://cdn.kopikenangan.com/public/da484154-47b1-a756-54a4-8b3490fb0eae",
+          "https://cdn.kopikenangan.com/ID/release/pub/kk-api-management/product/4f6889ec-6103-4fa0-a447-b7b3ee2742c9?",
+          "https://cdn.kopikenangan.com/public/8a0d42d0-4801-ca84-48e9-7b434b22aee4"
+        ],
+        "options": [
+          "3x Cup Kopi Mantan / Thai Tea"
+        ]
+      },
+      {
+        "id": "bintang_combo_5",
+        "name": "Sultan Office Combo (3 Kopi + 2 Toast)",
+        "price": 46000,
+        "real_price": 70000,
+        "badge": "",
+        "type": "bundling",
+        "img": "https://cdn.kopikenangan.com/public/8a0d42d0-4801-ca84-48e9-7b434b22aee4",
+        "imgs": [
+          "https://cdn.kopikenangan.com/public/8a0d42d0-4801-ca84-48e9-7b434b22aee4",
+          "https://cdn.kopikenangan.com/public/bccc5e24-0e25-1a67-1361-5b22783c1833",
+          "https://cdn.kopikenangan.com/public/da484154-47b1-a756-54a4-8b3490fb0eae"
+        ],
+        "options": [
+          "3x Kopi Pilihan",
+          "2x Kenangan Toast"
+        ]
+      }
+    ]
   }
 }
