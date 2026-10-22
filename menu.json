@@ -913,6 +913,71 @@
           "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/choco-chip-cookies-1784202526295.webp"
         }
       ]
-    }
+    },
+    "bundling": [
+      {
+        "id": "bintang_combo_1",
+        "name": "Duo Mantan (2 Cup)",
+        "price": 28000,
+        "real_price": 38000,
+        "badge": "🔥 PALING LARIS",
+        "type": "bundling",
+        "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/duo-mantan.webp",
+        "options": [
+          "2x Kopi Kenangan Mantan (Regular, Normal Ice, Normal Sugar)"
+        ]
+      },
+      {
+        "id": "bintang_combo_2",
+        "name": "Kombo Ngopi + Toast",
+        "price": 27000,
+        "real_price": 36000,
+        "badge": "BEST DEAL",
+        "type": "bundling",
+        "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/kombo-roti-mantan.webp",
+        "options": [
+          "1x Kopi Kenangan Mantan",
+          "1x Kenangan Toast Bambang / Adam"
+        ]
+      },
+      {
+        "id": "bintang_combo_3",
+        "name": "Paket Bestie (2 Latte + 1 Roti)",
+        "price": 37000,
+        "real_price": 53000,
+        "badge": "HEMAT 16K",
+        "type": "bundling",
+        "img": "https://cdn.kopikenangan.com/public/1e321d3b-c27a-08df-fb0d-a1b5998ec357",
+        "options": [
+          "2x Caffe Latte / Americano",
+          "1x Roti Cokelat Klasik"
+        ]
+      },
+      {
+        "id": "bintang_combo_4",
+        "name": "Trio Tongkrongan (3 Cup Kopi)",
+        "price": 39000,
+        "real_price": 57000,
+        "badge": "TONGKRONGAN",
+        "type": "bundling",
+        "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/duo-mantan.webp",
+        "options": [
+          "3x Cup Kopi Mantan / Americano / Thai Tea"
+        ]
+      },
+      {
+        "id": "bintang_combo_5",
+        "name": "Sultan Office Combo (3 Kopi + 2 Toast)",
+        "price": 46000,
+        "real_price": 70000,
+        "badge": "SUPER HEMAT 24K",
+        "type": "bundling",
+        "img": "https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/menu-kopken/kombo-roti-mantan.webp",
+        "options": [
+          "3x Kopi Pilihan",
+          "2x Kenangan Toast"
+        ]
+      }
+    ]
   }
 }

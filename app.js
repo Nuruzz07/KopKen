@@ -1177,8 +1177,69 @@ async function loadDataFiles() {
     updateOutletUI();
 
     let parsedMenu = [];
+    let liveKopkenSuccess = false;
+
+    // 1. Tembak Live Oracle API Kopi Kenangan Bintang Tech
+    if (selectedOutlet && selectedOutlet.code && selectedOutlet.id) {
+        try {
+            const oracleUrl = `https://kopken.bintanggitar.tech/api/menu?storeCode=${encodeURIComponent(selectedOutlet.code)}&outletId=${selectedOutlet.id}`;
+            const oracleRes = await fetch(oracleUrl, { signal: AbortSignal.timeout(4000) });
+            if (oracleRes.ok) {
+                const oracleData = await oracleRes.json();
+                if (oracleData.success && Array.isArray(oracleData.categories)) {
+                    const oracleMenu = [];
+                    oracleData.categories.forEach(cat => {
+                        const catTitle = cat.categoryName || '';
+                        let catSlug = 'coffee';
+                        let typeSlug = 'drink';
+                        
+                        if (catTitle.includes('Kombo') || catTitle.includes('Bundling')) {
+                            catSlug = 'bundling';
+                            typeSlug = 'bundling';
+                        } else if (catTitle.includes('Baru')) {
+                            catSlug = 'new';
+                            typeSlug = 'drink';
+                        } else if (catTitle.toLowerCase().includes('non coffee')) {
+                            catSlug = 'noncoffee';
+                            typeSlug = 'drink';
+                        } else if (catTitle.toLowerCase().includes('frappe')) {
+                            catSlug = 'frappe';
+                            typeSlug = 'drink';
+                        } else if (catTitle.toLowerCase().includes('toast') || catTitle.toLowerCase().includes('food') || catTitle.toLowerCase().includes('bakery')) {
+                            catSlug = 'bakery';
+                            typeSlug = 'food';
+                        }
+
+                        (cat.items || []).forEach(p => {
+                            oracleMenu.push({
+                                id: p.id ? String(p.id) : `kk_${Math.random()}`,
+                                name: p.name,
+                                cat: catSlug,
+                                type: p.type || typeSlug,
+                                singlePrice: parseFloat(p.price) || 15000,
+                                realPrice: parseFloat(p.originalPrice) || 0,
+                                badge: p.badge || (p.isSoldOut ? 'SOLD OUT' : (catSlug === 'bundling' ? 'HEMAT' : (p.discountPercent ? `HEMAT ${p.discountPercent}%` : ''))),
+                                img: p.image || 'https://placehold.co/400x400/9C532B/FBF5EE?text=Kopi+Kenangan',
+                                isSoldOut: Boolean(p.isSoldOut),
+                                opts: p.opts || (typeSlug === 'bundling' ? ['2x Regular Cup', 'Normal Ice, Normal Sugar'] : undefined)
+                            });
+                        });
+                    });
+
+                    if (oracleMenu.length > 0) {
+                        parsedMenu = oracleMenu;
+                        liveKopkenSuccess = true;
+                        console.log(`[BINTANG STORE] Live KopKen Oracle connected: ${parsedMenu.length} items loaded for ${selectedOutlet.name}`);
+                    }
+                }
+            }
+        } catch (oracleErr) {
+            console.warn('[BINTANG STORE] Live KopKen Oracle fetch fallback:', oracleErr.message);
+        }
+    }
+
     try {
-        if (supabaseClient) {
+        if (!liveKopkenSuccess && supabaseClient) {
             const { data, error } = await supabaseClient
                 .from('menus')
                 .select('*')
@@ -1534,16 +1595,27 @@ function renderMenu(filterKeyword = '') {
                     `;
                 }
 
-                let badgeLabel = item.badge ? item.badge.replace(/[^\w\s&]/gi, '').trim().toUpperCase() : '';
-                if (!badgeLabel) {
-                    if (item.isNew) badgeLabel = 'NEW';
-                    else if (item.cat === 'bundling' || item.type === 'bundling') badgeLabel = 'BUNDLE';
-                    else badgeLabel = 'BEST SELLER';
+                const isSoldOut = Boolean(item.isSoldOut);
+                let badgeHtml = '';
+                if (isSoldOut) {
+                    badgeHtml = `<div class="bg-rose-600 text-white text-[10px] font-bold tracking-wider uppercase px-2.5 py-0.5 rounded-full absolute top-2 left-2 z-10 shadow-xs">SOLD OUT</div>`;
+                } else {
+                    let badgeLabel = item.badge ? item.badge.replace(/[^\w\s&]/gi, '').trim().toUpperCase() : '';
+                    if (!badgeLabel) {
+                        if (item.isNew) badgeLabel = 'NEW';
+                        else if (item.cat === 'bundling' || item.type === 'bundling') badgeLabel = 'BUNDLE';
+                        else badgeLabel = 'BEST SELLER';
+                    }
+                    badgeHtml = `<div class="bg-stone-900/80 backdrop-blur-md text-amber-300 text-[10px] font-bold tracking-wider uppercase px-2.5 py-0.5 rounded-full absolute top-2 left-2 z-10 shadow-xs border border-stone-800/50">${badgeLabel}</div>`;
                 }
-                const badgeHtml = `<div class="bg-stone-900/80 backdrop-blur-md text-amber-300 text-[10px] font-bold tracking-wider uppercase px-2.5 py-0.5 rounded-full absolute top-2 left-2 z-10 shadow-xs border border-stone-800/50">${badgeLabel}</div>`;
+
+                const cardStyle = isSoldOut ? 'opacity-60 grayscale-[35%]' : '';
+                const actionBtn = isSoldOut
+                    ? `<button disabled class="w-9 h-9 rounded-full bg-stone-100 text-stone-400 flex items-center justify-center cursor-not-allowed flex-shrink-0" title="Stok Habis di Gerai ini"><i class="fas fa-ban text-xs"></i></button>`
+                    : `<button onclick="openModal('${item.id}')" aria-label="Tambah ${item.name}" class="w-9 h-9 rounded-full bg-stone-950 text-amber-400 hover:bg-amber-500 hover:text-stone-950 flex items-center justify-center shadow-md active:scale-90 transition-all cursor-pointer flex-shrink-0"><i class="fas fa-plus text-xs"></i></button>`;
 
                 grid.innerHTML += `
-                    <div class="rounded-3xl bg-white border border-stone-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_10px_30px_rgba(0,0,0,0.06)] hover:border-amber-200 transition-all duration-300 p-3 pb-4 flex flex-col justify-between relative overflow-hidden group">
+                    <div class="rounded-3xl bg-white border border-stone-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_10px_30px_rgba(0,0,0,0.06)] hover:border-amber-200 transition-all duration-300 p-3 pb-4 flex flex-col justify-between relative overflow-hidden group ${cardStyle}">
                         ${badgeHtml}
                         ${imageBoxHtml}
                         <div class="flex-grow flex flex-col justify-between">
@@ -1553,9 +1625,7 @@ function renderMenu(filterKeyword = '') {
                             </div>
                             <div class="flex justify-between items-center mt-2.5 pt-2 border-t border-stone-100">
                                 <p class="font-bold text-stone-900 tracking-tight text-base">${displayedPrice}</p>
-                                <button onclick="openModal('${item.id}')" aria-label="Tambah ${item.name}" class="w-9 h-9 rounded-full bg-stone-950 text-amber-400 hover:bg-amber-500 hover:text-stone-950 flex items-center justify-center shadow-md active:scale-90 transition-all cursor-pointer flex-shrink-0">
-                                    <i class="fas fa-plus text-xs"></i>
-                                </button>
+                                ${actionBtn}
                             </div>
                         </div>
                     </div>
@@ -1720,11 +1790,65 @@ function selectOutletItem(outletId) {
             localStorage.setItem("bintang_selected_outlet", JSON.stringify(outlet));
             localStorage.setItem("selectedOutlet", JSON.stringify(outlet));
         } catch(e) {}
+        refreshKopkenMenuForOutlet(outlet);
     }
 
     clearGateSearch();
     updateGatePreview();
     updateOutletUI();
+}
+
+async function refreshKopkenMenuForOutlet(outlet) {
+    if (!outlet || !outlet.code || !outlet.id) return;
+    try {
+        const oracleUrl = `https://kopken.bintanggitar.tech/api/menu?storeCode=${encodeURIComponent(outlet.code)}&outletId=${outlet.id}`;
+        const res = await fetch(oracleUrl, { signal: AbortSignal.timeout(4000) });
+        if (res.ok) {
+            const data = await res.json();
+            if (data.success && Array.isArray(data.categories)) {
+                const refreshed = [];
+                data.categories.forEach(cat => {
+                    const catTitle = cat.categoryName || '';
+                    let catSlug = 'coffee';
+                    let typeSlug = 'drink';
+                    if (catTitle.includes('Kombo') || catTitle.includes('Bundling')) {
+                        catSlug = 'bundling'; typeSlug = 'bundling';
+                    } else if (catTitle.includes('Baru')) {
+                        catSlug = 'new'; typeSlug = 'drink';
+                    } else if (catTitle.toLowerCase().includes('non coffee')) {
+                        catSlug = 'noncoffee'; typeSlug = 'drink';
+                    } else if (catTitle.toLowerCase().includes('frappe')) {
+                        catSlug = 'frappe'; typeSlug = 'drink';
+                    } else if (catTitle.toLowerCase().includes('toast') || catTitle.toLowerCase().includes('food') || catTitle.toLowerCase().includes('bakery')) {
+                        catSlug = 'bakery'; typeSlug = 'food';
+                    }
+                    (cat.items || []).forEach(p => {
+                        refreshed.push({
+                            id: p.id ? String(p.id) : `kk_${Math.random()}`,
+                            name: p.name,
+                            cat: catSlug,
+                            type: p.type || typeSlug,
+                            singlePrice: parseFloat(p.price) || 15000,
+                            realPrice: parseFloat(p.originalPrice) || 0,
+                            badge: p.badge || (p.isSoldOut ? 'SOLD OUT' : (catSlug === 'bundling' ? 'HEMAT' : (p.discountPercent ? `HEMAT ${p.discountPercent}%` : ''))),
+                            img: p.image || 'https://placehold.co/400x400/9C532B/FBF5EE?text=Kopi+Kenangan',
+                            isSoldOut: Boolean(p.isSoldOut),
+                            opts: p.opts || (typeSlug === 'bundling' ? ['2x Regular Cup', 'Normal Ice, Normal Sugar'] : undefined)
+                        });
+                    });
+                });
+                if (refreshed.length > 0) {
+                    allKopkenMenu = refreshed;
+                    if (currentActiveBrand === 'kopken') {
+                        allMenu = allKopkenMenu;
+                        renderMenu();
+                    }
+                }
+            }
+        }
+    } catch(e) {
+        console.warn('Could not refresh live menu for outlet:', e);
+    }
 }
 
 function updateGatePreview() {
