@@ -198,6 +198,7 @@ const officialOriginalPriceMap = {
     'seliter kenangan - kopi kenangan mantan': 90000,
     'seliter kenangan - latte': 90000,
     'seliter kenangan - caramel latte': 100000,
+    'seliter kenangan - caramel macchiato': 110000,
     'seliter kenangan - thai tea': 85000,
     'seliter kenangan - kopi susu black aren': 95000,
     'roti coklat klasik': 9000,
