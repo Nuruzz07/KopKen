@@ -2,6 +2,19 @@
 // BINTANG STORE - CORE APPLICATION LOGIC (app.js)
 // ==========================================
 
+const BINTANG_BUILD_VERSION = "2026.10.23.02";
+
+// Auto cache-buster: check if app version is newer than stored version
+(function checkAppCacheVersion() {
+    try {
+        const storedVer = localStorage.getItem("bintang_client_version");
+        if (storedVer !== BINTANG_BUILD_VERSION) {
+            localStorage.setItem("bintang_client_version", BINTANG_BUILD_VERSION);
+            localStorage.removeItem("bintang_cached_menu");
+        }
+    } catch(e) {}
+})();
+
 class SoundEffectsEngine {
     constructor() { this.ctx = null; }
     init() {
@@ -1152,11 +1165,12 @@ async function fetchOracleMenuSafe(storeCode, outletId) {
 }
 
 async function loadDataFiles() {
+    const cacheBuster = `?_v=${BINTANG_BUILD_VERSION}_${Date.now()}`;
     const outletPaths = ['./outlet.json', 'outlet.json', '../outlet.json', '/outlet.json'];
     for (const path of outletPaths) {
         if (allOutlets && allOutlets.length > 0) break;
         try {
-            const outletRes = await fetch(path);
+            const outletRes = await fetch(path + cacheBuster, { cache: 'no-cache' });
             if (outletRes.ok) {
                 allOutlets = await outletRes.json();
                 break;
@@ -1177,7 +1191,9 @@ async function loadDataFiles() {
     const savedOutletRaw = localStorage.getItem("bintang_selected_outlet") || localStorage.getItem("selectedOutlet");
     if (savedOutletRaw) {
         try {
-            selectedOutlet = JSON.parse(savedOutletRaw);
+            const parsedSaved = JSON.parse(savedOutletRaw);
+            const matchedInFresh = allOutlets.find(o => o.id === parsedSaved.id || (o.name && o.name.toLowerCase() === parsedSaved.name?.toLowerCase()));
+            selectedOutlet = matchedInFresh || parsedSaved;
         } catch(e) {
             selectedOutlet = allOutlets[0];
         }
@@ -1282,7 +1298,7 @@ async function loadDataFiles() {
         for (const path of menuPaths) {
             if (parsedMenu.length > 0) break;
             try {
-                const menuRes = await fetch(path);
+                const menuRes = await fetch(path + cacheBuster, { cache: 'no-cache' });
                 if (menuRes.ok) {
                     const menuData = await menuRes.json();
                     if (menuData && menuData["Kopi Kenangan"]) {
@@ -1472,6 +1488,34 @@ async function loadDataFiles() {
         allOutlets = (allJanjiJiwaOutlets && allJanjiJiwaOutlets.length > 0) ? allJanjiJiwaOutlets : defaultCuratedJanjiJiwaOutlets;
         selectedOutlet = selectedJjOutlet || allOutlets[0];
     }
+
+    // Auto-sync cart prices with fresh catalog prices
+    reconcileCartWithFreshMenu();
+}
+
+function reconcileCartWithFreshMenu() {
+    try {
+        const savedCart = localStorage.getItem("bintang_cart") || localStorage.getItem("cart");
+        if (!savedCart) return;
+        const currentCart = JSON.parse(savedCart);
+        if (!Array.isArray(currentCart) || currentCart.length === 0 || !allMenu || allMenu.length === 0) return;
+        let modified = false;
+        currentCart.forEach(item => {
+            const fresh = allMenu.find(p => p.id === item.id || (p.name && p.name.trim().toLowerCase() === item.name.trim().toLowerCase()));
+            if (fresh && (item.singlePrice !== fresh.singlePrice || item.realPrice !== fresh.realPrice)) {
+                item.singlePrice = fresh.singlePrice;
+                item.realPrice = fresh.realPrice;
+                item.price = fresh.singlePrice * (item.qty || 1);
+                modified = true;
+            }
+        });
+        if (modified) {
+            cart = currentCart;
+            localStorage.setItem("bintang_cart", JSON.stringify(cart));
+            localStorage.setItem("cart", JSON.stringify(cart));
+            updateCartUI();
+        }
+    } catch(e) {}
 }
 
 function updateOutletUI() {
