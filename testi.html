@@ -9,7 +9,7 @@
   <meta http-equiv="Expires" content="0" />
   
   <title>Bukti Transaksi &amp; Testimoni Pelanggan — Bintang Store</title>
-  <meta name="description" content="Bukti transaksi otentik, struk fisik kasir Kopi Kenangan & Janji Jiwa, tangkapan layar WhatsApp, dan testimoni GetContact Bintang Store." />
+  <meta name="description" content="Bukti transaksi otentik, struk fisik kasir Kopi Kenangan, tangkapan layar pembayaran DANA Bisnis, dan hasil intelijen ABANG.GTC." />
   <link rel="icon" type="image/svg+xml" href="./assets/logo.svg" />
 
   <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
@@ -85,11 +85,6 @@
       transform: translateY(-2px);
       box-shadow: 0 12px 28px -6px rgba(156, 83, 43, 0.12);
     }
-    .receipt-paper {
-      background: #FAF8F5;
-      border: 1px dashed #D6D3D1;
-      font-family: 'JetBrains Mono', monospace;
-    }
     .censor-tag {
       background: #FBF5F1;
       color: #9C532B;
@@ -111,6 +106,13 @@
     .animate-marquee:hover {
       animation-play-state: paused;
     }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
   </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-[#9C532B] selection:text-white">
@@ -118,17 +120,17 @@
   <!-- Background Subtle Grid -->
   <div class="fixed inset-0 grid-pattern pointer-events-none -z-10"></div>
 
-  <!-- Ambient Warm Glow (Soft Luxury) -->
+  <!-- Ambient Warm Glow -->
   <div class="fixed top-[-140px] left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-amber-500/5 rounded-full blur-3xl pointer-events-none -z-10"></div>
   <div class="fixed bottom-[-140px] right-[-100px] w-[500px] h-[350px] bg-[#9C532B]/5 rounded-full blur-3xl pointer-events-none -z-10"></div>
 
   <!-- ========================================== -->
-  <!-- 1. NAVBAR (Exact www.bintanggstore.web.id) -->
+  <!-- 1. NAVBAR                                  -->
   <!-- ========================================== -->
   <header class="nav-glass sticky top-0 z-40 border-b border-stone-200/80 transition-all">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
       
-      <!-- Brand Logo Concept 6C -->
+      <!-- Brand Logo -->
       <a href="./home.html" class="flex items-center gap-3.5 group">
         <img src="./assets/logo.svg" alt="Logo Bintang Store" class="w-9 h-9 transition-transform group-hover:scale-105 duration-200 shadow-xs" />
         <div class="flex flex-col">
@@ -142,7 +144,7 @@
         <a href="./home.html" class="text-stone-600 hover:text-stone-950 transition-colors">Home</a>
         <a href="./coffee.html" class="text-stone-600 hover:text-stone-950 transition-colors">Coffee Hub</a>
         <a href="./kopken.html" class="text-stone-600 hover:text-stone-950 transition-colors">Kopi Kenangan</a>
-        <a href="./gtc.html" class="text-stone-600 hover:text-stone-950 transition-colors">Cek GTC</a>
+        <a href="./gtc.html" class="text-stone-600 hover:text-stone-950 transition-colors">ABANG.GTC</a>
         <a href="./tracking.html" class="text-stone-600 hover:text-stone-950 transition-colors">Unified Orders</a>
         <span class="text-stone-950 font-bold border-b-2 border-stone-950 pb-1">Testimoni</span>
       </nav>
@@ -176,9 +178,9 @@
       <a href="./home.html" class="block text-sm font-medium text-stone-700">Home</a>
       <a href="./coffee.html" class="block text-sm font-medium text-stone-700">Coffee Hub</a>
       <a href="./kopken.html" class="block text-sm font-medium text-stone-700">Kopi Kenangan</a>
-      <a href="./gtc.html" class="block text-sm font-medium text-stone-700">Cek GTC</a>
+      <a href="./gtc.html" class="block text-sm font-medium text-stone-700">ABANG.GTC</a>
       <a href="./tracking.html" class="block text-sm font-medium text-stone-700">Unified Orders</a>
-      <a href="./testi.html" class="block text-sm font-bold text-stone-950">Testimoni</a>
+      <a href="./testi.html" class="block text-sm font-bold text-stone-950">Testimoni &amp; Bukti</a>
     </div>
   </header>
 
@@ -192,23 +194,21 @@
     <section class="text-center space-y-3.5 max-w-3xl mx-auto">
       <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-terracotta-soft border border-terracotta-border text-terracotta text-xs font-bold uppercase tracking-wider shadow-2xs">
         <i class="fas fa-certificate text-[11px]"></i>
-        <span>BUKTI TRANSAKSI OTENTIK &bull; SENSOR PRIVASI AKTIF</span>
+        <span>100% TRANSAKSI ASLI &bull; DATABASE BINTANG STORE</span>
       </div>
 
       <h1 class="text-3xl sm:text-5xl font-extrabold text-stone-950 tracking-tight leading-[1.15]">
-        Bukan Janji Manis, Ini Bukti Nyata.<br>
-        <span class="text-stone-600 font-semibold text-2xl sm:text-3xl">Ratusan Struk &amp; Chat Kasir Terverifikasi.</span>
+        Bukan Rekaan, Ini Bukti Nyata.<br>
+        <span class="text-terracotta font-semibold text-2xl sm:text-3xl">Foto Layar Pesanan &amp; Transfer Pelanggan.</span>
       </h1>
 
       <p class="text-sm sm:text-base text-stone-600 max-w-2xl mx-auto leading-relaxed">
-        Seluruh pesanan Kopi Kenangan, Janji Jiwa, dan pengecekan GetContact diproses transparan melalui sistem kasir resmi POS dan bot server otomatis 24 jam.
+        Tangkapan layar pesanan asli dari aplikasi kasir resmi Kopi Kenangan, bukti mutasi transfer DANA Bisnis, hingga sistem validasi nomor telepon ABANG.GTC. Seluruh privasi identitas disensor aman.
       </p>
     </section>
 
-    <!-- Bento Trust Meter (4 White Cards on Warm Ivory) -->
+    <!-- Bento Trust Meter -->
     <section class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-      
-      <!-- Card 1: Coffee Volume -->
       <div class="bg-white p-5 rounded-2xl border border-stone-200/90 shadow-xs space-y-1.5">
         <div class="flex items-center justify-between text-stone-500 text-xs font-semibold">
           <span>VOLUME KOPI</span>
@@ -217,73 +217,69 @@
           </div>
         </div>
         <div class="text-2xl sm:text-3xl font-extrabold text-stone-950 mono">1.850+</div>
-        <div class="text-xs text-stone-600 font-medium">Cup KopKen &amp; Janji Jiwa</div>
+        <div class="text-xs text-stone-600 font-medium">Cup Kopi Selesai</div>
         <div class="text-[10px] text-emerald-700 font-bold pt-0.5 flex items-center gap-1">
-          <i class="fas fa-check-circle text-[9px]"></i> 100% Struk Kasir Asli
+          <i class="fas fa-check-circle text-[9px]"></i> Garansi Pickup Kasir
         </div>
       </div>
 
-      <!-- Card 2: GTC Checked -->
       <div class="bg-white p-5 rounded-2xl border border-stone-200/90 shadow-xs space-y-1.5">
         <div class="flex items-center justify-between text-stone-500 text-xs font-semibold">
-          <span>CEK GETCONTACT</span>
+          <span>MEMBER GTC</span>
           <div class="w-7 h-7 rounded-lg bg-sky-50 text-sky-600 flex items-center justify-center text-xs">
             <i class="fas fa-fingerprint"></i>
           </div>
         </div>
-        <div class="text-2xl sm:text-3xl font-extrabold text-stone-950 mono">220+</div>
-        <div class="text-xs text-stone-600 font-medium">Nomor Terlacak Privat</div>
+        <div class="text-2xl sm:text-3xl font-extrabold text-stone-950 mono">200+</div>
+        <div class="text-xs text-stone-600 font-medium">User Cek Tagar Aktif</div>
         <div class="text-[10px] text-sky-700 font-bold pt-0.5 flex items-center gap-1">
-          <i class="fas fa-bolt text-[9px]"></i> Rata-rata 3.2 Detik
+          <i class="fas fa-bolt text-[9px]"></i> 100% Anonim
         </div>
       </div>
 
-      <!-- Card 3: Satisfaction Score -->
       <div class="bg-white p-5 rounded-2xl border border-stone-200/90 shadow-xs space-y-1.5">
         <div class="flex items-center justify-between text-stone-500 text-xs font-semibold">
-          <span>SKOR KEPUASAN</span>
+          <span>RATA-RATA DISKON</span>
           <div class="w-7 h-7 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center text-xs">
-            <i class="fas fa-star"></i>
+            <i class="fas fa-percent"></i>
           </div>
         </div>
-        <div class="text-2xl sm:text-3xl font-extrabold text-stone-950 mono">4.98<span class="text-xs font-normal text-stone-400"> / 5.0</span></div>
-        <div class="text-xs text-stone-600 font-medium">Ulasan Follow-up WA</div>
+        <div class="text-2xl sm:text-3xl font-extrabold text-stone-950 mono">50%</div>
+        <div class="text-xs text-stone-600 font-medium">Hemat Tiap Cup Kopi</div>
         <div class="text-[10px] text-amber-700 font-bold pt-0.5 flex items-center gap-1">
-          <i class="fas fa-arrow-trend-up text-[9px]"></i> 99.4% Repeat Order
+          <i class="fas fa-tags text-[9px]"></i> Menu Resmi Kenangan
         </div>
       </div>
 
-      <!-- Card 4: Processing Speed -->
       <div class="bg-white p-5 rounded-2xl border border-stone-200/90 shadow-xs space-y-1.5">
         <div class="flex items-center justify-between text-stone-500 text-xs font-semibold">
-          <span>PROSES KASIR</span>
+          <span>STATUS ENGINE</span>
           <div class="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center text-xs">
-            <i class="fas fa-receipt"></i>
+            <i class="fas fa-server"></i>
           </div>
         </div>
-        <div class="text-2xl sm:text-3xl font-extrabold text-stone-950 mono">&lt; 3.5<span class="text-xs font-normal text-stone-400"> mnt</span></div>
-        <div class="text-xs text-stone-600 font-medium">Masuk Antrean Barista</div>
+        <div class="text-2xl sm:text-3xl font-extrabold text-stone-950 mono">ONLINE</div>
+        <div class="text-xs text-stone-600 font-medium">Sistem Kasir 24 Jam</div>
         <div class="text-[10px] text-emerald-700 font-bold pt-0.5 flex items-center gap-1">
-          <i class="fas fa-shield-alt text-[9px]"></i> Garansi Anti-Hold
+          <i class="fas fa-shield-alt text-[9px]"></i> Auto-Fulfillment
         </div>
       </div>
-
     </section>
 
-    <!-- Live Transaction Ticker (Smooth Moving Bar) -->
+    <!-- Live Transaction Ticker -->
     <div class="w-full overflow-hidden rounded-xl bg-white border border-stone-200/80 py-2.5 px-3 flex items-center gap-3 shadow-2xs">
       <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-stone-950 text-ivory text-[10px] mono font-bold flex-shrink-0">
         <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-        <span>LIVE AKTIVITAS</span>
+        <span>TRANSAKSI DATABASE</span>
       </div>
       <div class="overflow-hidden relative w-full">
         <div class="animate-marquee flex items-center gap-8 text-[11px] mono text-stone-600 whitespace-nowrap">
-          <span>☕ Order <b>#KPK-9421</b>: 2x Kopi Kenangan Mantan &bull; Outlet Ruko Wates &bull; Selesai 3 mnt lalu</span>
-          <span>🔍 Cek GTC <b>#GTC-0882</b>: 1x Cek Tagar Telkomsel (18 Tags) &bull; Selesai 3 detik</span>
-          <span>🥪 Order <b>#JJ-1049</b>: Jiwa Toast Beef Truffle &bull; Outlet Margonda &bull; Selesai 11 mnt lalu</span>
-          <span>☕ Order <b>#KPK-9430</b>: 1x Spanish Latte Large &bull; Outlet Grand Indonesia &bull; Selesai 17 mnt lalu</span>
-          <span>☕ Order <b>#KPK-9433</b>: 4x Kenangan Milk Tea &bull; Outlet PIM 2 &bull; Selesai 22 mnt lalu</span>
-          <span>🔍 Cek GTC <b>#GTC-0885</b>: 1x Validasi Indosat Spam Score &bull; Selesai 2 detik</span>
+          <span>☕ <b>#kk-oby-3181</b>: 4x Trio Tongkrongan (12 Cup) &bull; Graha POS RE Martadinata &bull; Rp 156.000 (Selesai)</span>
+          <span>☕ <b>#kk-dony-1792</b>: Taro Cloud Matcha &bull; Ruko Kol. Sugiono Wates &bull; &ldquo;kirain scam&rdquo; ⭐⭐⭐⭐⭐</span>
+          <span>☕ <b>#kk-yannu-3404</b>: Taro Cloud Milk Tea Large &bull; Pertamina Serang &bull; Rp 21.000 (Selesai)</span>
+          <span>☕ <b>#kk-denso-0697</b>: Blueberry Americano &bull; Ruko Ambengan Surabaya &bull; Rp 14.500 (Selesai)</span>
+          <span>💳 <b>#tf-dana</b>: Pembayaran DANA Bisnis ke Bintang Store &bull; Rp 49.000 Lunas</span>
+          <span>☕ <b>#kk-hilal-0283</b>: Cafe Malt + Taro Milk &bull; Ibrahim Adjie Bandung &bull; Rp 30.000 (Selesai)</span>
         </div>
       </div>
     </div>
@@ -294,440 +290,76 @@
     <!-- ========================================== -->
     <section class="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-stone-200 pb-4">
       
-      <!-- Kategori Filter Pills -->
+      <!-- Filter Kategori -->
       <div class="flex items-center gap-2 overflow-x-auto w-full sm:w-auto pb-1 sm:pb-0 text-xs no-scrollbar">
         <button onclick="filterCategory('all')" id="tab-all" class="filter-tab px-4 py-2 rounded-full bg-stone-950 text-ivory font-bold shadow-xs transition active:scale-95 flex items-center gap-1.5 cursor-pointer">
-          <span>Semua Bukti</span>
-          <span class="text-[10px] mono bg-white/20 px-1.5 py-0.2 rounded-full font-bold ml-0.5">51</span>
+          <span>Semua Bukti Asli</span>
         </button>
 
         <button onclick="filterCategory('kopken')" id="tab-kopken" class="filter-tab px-4 py-2 rounded-full bg-white text-stone-700 hover:text-stone-950 font-semibold transition active:scale-95 border border-stone-200 shadow-2xs flex items-center gap-1.5 cursor-pointer">
           <i class="fas fa-mug-hot text-terracotta text-[11px]"></i>
-          <span>Kopi Kenangan</span>
+          <span>Aplikasi Kopi Kenangan</span>
         </button>
 
-        <button onclick="filterCategory('janjiw')" id="tab-janjiw" class="filter-tab px-4 py-2 rounded-full bg-white text-stone-700 hover:text-stone-950 font-semibold transition active:scale-95 border border-stone-200 shadow-2xs flex items-center gap-1.5 cursor-pointer">
-          <i class="fas fa-bread-slice text-amber-600 text-[11px]"></i>
-          <span>Janji Jiwa &amp; Toast</span>
+        <button onclick="filterCategory('dana')" id="tab-dana" class="filter-tab px-4 py-2 rounded-full bg-white text-stone-700 hover:text-stone-950 font-semibold transition active:scale-95 border border-stone-200 shadow-2xs flex items-center gap-1.5 cursor-pointer">
+          <i class="fas fa-wallet text-sky-600 text-[11px]"></i>
+          <span>Transfer DANA Bisnis</span>
         </button>
 
         <button onclick="filterCategory('gtc')" id="tab-gtc" class="filter-tab px-4 py-2 rounded-full bg-white text-stone-700 hover:text-stone-950 font-semibold transition active:scale-95 border border-stone-200 shadow-2xs flex items-center gap-1.5 cursor-pointer">
           <i class="fas fa-fingerprint text-sky-600 text-[11px]"></i>
           <span>Cek GetContact</span>
         </button>
-
-        <button onclick="filterCategory('chat')" id="tab-chat" class="filter-tab px-4 py-2 rounded-full bg-white text-stone-700 hover:text-stone-950 font-semibold transition active:scale-95 border border-stone-200 shadow-2xs flex items-center gap-1.5 cursor-pointer">
-          <i class="fab fa-whatsapp text-emerald-600 text-[11px]"></i>
-          <span>Chat WhatsApp</span>
-        </button>
       </div>
 
       <!-- Kotak Pencarian Outlet / Kota -->
       <div class="w-full sm:w-64 relative">
         <i class="fas fa-search absolute left-3.5 top-1/2 -translate-y-1/2 text-stone-400 text-xs"></i>
-        <input type="text" id="filter-search" oninput="handleSearch(this.value)" placeholder="Cari outlet atau kota..." 
+        <input type="text" id="filter-search" oninput="handleSearch(this.value)" placeholder="Cari outlet / kota..." 
                class="w-full pl-9 pr-3.5 py-2 rounded-xl bg-white border border-stone-200 text-xs text-stone-900 placeholder-stone-400 outline-none focus:ring-2 focus:ring-stone-900 transition shadow-2xs">
       </div>
     </section>
 
 
     <!-- ========================================== -->
-    <!-- 4. MASONRY GRID BUKTI OTENTIK DENGAN SENSOR-->
+    <!-- 4. GRID BUKTI NYATA DARI DATABASE          -->
     <!-- ========================================== -->
     <section id="proofs-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
 
-      <!-- BUKTI 1: Struk Kasir POS Kopi Kenangan Asli -->
-      <article class="proof-item p-4 rounded-2xl card-proof space-y-3 cursor-pointer group" data-category="kopken" onclick="openLightbox('receipt-1')">
-        <div class="flex items-center justify-between text-xs pb-1 border-b border-stone-100">
-          <div class="flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-            <span class="font-extrabold text-stone-900 text-xs">Kopi Kenangan POS</span>
-          </div>
-          <span class="text-[10px] mono text-stone-500">Hari ini &bull; 13:42 WIB</span>
-        </div>
-
-        <div class="receipt-paper rounded-xl p-4 text-[11px] leading-relaxed shadow-2xs select-none">
-          <div class="text-center pb-2 border-b border-dashed border-stone-300">
-            <div class="font-extrabold text-sm tracking-tight text-stone-900">KOPI KENANGAN</div>
-            <div class="text-[10px] text-stone-600">Ruko Kol. Sugiono Wates</div>
-            <div class="text-[9px] text-stone-500">POS #02 &bull; Trx ID: KPK-882194</div>
-          </div>
-
-          <div class="py-2 border-b border-dashed border-stone-300 space-y-1 text-[10px]">
-            <div class="flex justify-between">
-              <span class="text-stone-500">Pelanggan:</span>
-              <span class="censor-tag">Kak D**** (0857-****-0133)</span>
-            </div>
-            <div class="flex justify-between">
-              <span class="text-stone-500">Metode:</span>
-              <span class="font-bold text-stone-800">Pick Up Kasir (App)</span>
-            </div>
-          </div>
-
-          <div class="py-2.5 border-b border-dashed border-stone-300 space-y-1.5">
-            <div class="flex justify-between">
-              <div>
-                <span class="font-bold text-stone-900">1x Kopi Kenangan Mantan (R)</span>
-                <div class="text-[9px] text-stone-500">Ice, Less Sugar, Normal Ice</div>
-              </div>
-              <span class="font-mono text-stone-900">19.000</span>
-            </div>
-            <div class="flex justify-between">
-              <div>
-                <span class="font-bold text-stone-900">1x Wahyu Sapi Toast</span>
-                <div class="text-[9px] text-stone-500">Crispy Bun, Spicy Mayo</div>
-              </div>
-              <span class="font-mono text-stone-900">19.000</span>
-            </div>
-          </div>
-
-          <div class="pt-2 space-y-1 text-[10px]">
-            <div class="flex justify-between text-stone-500">
-              <span>Subtotal Normal:</span>
-              <span class="line-through">38.000</span>
-            </div>
-            <div class="flex justify-between text-terracotta font-bold">
-              <span>Diskon Bintang Store (50%):</span>
-              <span>-19.000</span>
-            </div>
-            <div class="flex justify-between font-black text-xs text-stone-950 pt-1 border-t border-stone-300">
-              <span>TOTAL DIBAYAR:</span>
-              <span class="text-emerald-700">Rp 19.000</span>
-            </div>
-          </div>
-
-          <div class="pt-3 text-center">
-            <div class="inline-block px-3 py-1 rounded bg-stone-900 text-stone-100 text-[9px] mono font-bold">
-              ||||| ||||||| |||| |||||| |||||
-            </div>
-            <p class="text-[8px] text-stone-500 mt-0.5">STRUK RESMI &bull; LUNAS DI KASIR</p>
-          </div>
-        </div>
-
-        <div class="flex items-center justify-between text-[11px] pt-1">
-          <span class="text-stone-600 flex items-center gap-1.5 font-medium">
-            <i class="fas fa-location-dot text-terracotta text-[10px]"></i>
-            <span>Outlet Wates, Kulon Progo</span>
-          </span>
-          <span class="mono text-[10px] font-bold text-emerald-700 flex items-center gap-1">
-            <i class="fas fa-check-circle"></i> Selesai
-          </span>
-        </div>
-      </article>
-
-      <!-- BUKTI 2: WhatsApp Chat Otentik (Order Kantor PIM 2) -->
-      <article class="proof-item p-4 rounded-2xl card-proof space-y-3 cursor-pointer group" data-category="chat" onclick="openLightbox('chat-1')">
-        <div class="flex items-center justify-between text-xs pb-1 border-b border-stone-100">
-          <div class="flex items-center gap-2">
-            <i class="fab fa-whatsapp text-emerald-600 text-sm"></i>
-            <span class="font-extrabold text-stone-900 text-xs">Chat WhatsApp Pelanggan</span>
-          </div>
-          <span class="text-[10px] mono text-stone-500">Kemarin &bull; 14:15 WIB</span>
-        </div>
-
-        <div class="rounded-xl p-3 bg-[#EFEAE2] border border-stone-200/80 space-y-2.5 text-xs text-stone-800">
-          <div class="flex items-center justify-between pb-2 border-b border-stone-300/80 text-[10px]">
-            <div class="flex items-center gap-2">
-              <div class="w-6 h-6 rounded-full bg-emerald-700 text-white flex items-center justify-center font-bold text-[10px]">
-                R
-              </div>
-              <div>
-                <span class="censor-tag">Kak Rian S. (0812-****-8842)</span>
-                <span class="text-stone-500 block text-[9px] mt-0.5">PIM 2 South Skywalk</span>
-              </div>
-            </div>
-            <span class="text-amber-500 font-bold">⭐⭐⭐⭐⭐</span>
-          </div>
-
-          <div class="flex justify-start">
-            <div class="max-w-[85%] rounded-2xl rounded-tl-none p-3 bg-white text-stone-900 text-[11px] leading-relaxed shadow-xs">
-              <p>Kak makasih banyak yaa! Kopi Kenangan pesenan anak-anak divisi finance udah sampe di meja resepsionis ☕🙌</p>
-              <p class="mt-1">Struknya pas diskon 50%, lumayan hemat hampir 60rb. Besok jajan ke kamu lagi yaa min!</p>
-              <span class="text-[9px] text-stone-400 float-right mt-1 ml-2">14:12</span>
-            </div>
-          </div>
-
-          <div class="flex justify-end">
-            <div class="max-w-[85%] rounded-2xl rounded-tr-none p-3 bg-[#D9FDD3] text-stone-900 text-[11px] leading-relaxed shadow-xs">
-              <p>Alhamdulillah sama-sama Kak Rian! Selamat menikmati ngopi sorenya bareng tim yaa kak 🙏✨</p>
-              <div class="flex items-center justify-end gap-1 mt-1 text-[9px] text-stone-500">
-                <span>14:14</span>
-                <i class="fas fa-check-double text-[8px] text-sky-500"></i>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="flex items-center justify-between text-[11px] pt-1">
-          <span class="text-stone-600 flex items-center gap-1.5 font-medium">
-            <i class="fas fa-building text-stone-500 text-[10px]"></i>
-            <span>Order Divisi Kantor &bull; 4 Cup</span>
-          </span>
-          <span class="mono text-[10px] font-bold text-emerald-700 flex items-center gap-1">
-            <i class="fas fa-check-circle"></i> Terverifikasi
-          </span>
-        </div>
-      </article>
-
-      <!-- BUKTI 3: Hasil Pengecekan GetContact (ABANG.GTC) -->
-      <article class="proof-item p-4 rounded-2xl card-proof space-y-3 cursor-pointer group" data-category="gtc" onclick="openLightbox('gtc-1')">
-        <div class="flex items-center justify-between text-xs pb-1 border-b border-stone-100">
-          <div class="flex items-center gap-2">
-            <i class="fab fa-telegram-plane text-sky-600 text-sm"></i>
-            <span class="font-extrabold text-stone-900 text-xs">ABANG.GTC Bot Hasil</span>
-          </div>
-          <span class="text-[10px] mono text-stone-500">Hari ini &bull; 11:08 WIB</span>
-        </div>
-
-        <div class="rounded-xl p-3.5 bg-stone-950 text-white space-y-2.5 text-xs mono shadow-xs">
-          <div class="flex items-center justify-between pb-2 border-b border-white/10 text-[10px]">
-            <span class="text-sky-400 font-bold">@NGECEKGETCONTACT_BOT</span>
-            <span class="px-2 py-0.5 rounded bg-sky-500/20 text-sky-300 font-bold">PROSES: 2.8s</span>
-          </div>
-
-          <div class="space-y-1.5 text-[11px]">
-            <div>
-              <span class="text-stone-400 block text-[9px]">NOMOR TARGET DICARI:</span>
-              <span class="censor-tag font-bold">+62 813-****-9182 (Telkomsel)</span>
-            </div>
-            <div>
-              <span class="text-stone-400 block text-[9px]">NAMA SISTEM DITEMUKAN:</span>
-              <span class="text-white font-bold">Budi Santoso Logistik</span>
-            </div>
-            <div>
-              <span class="text-stone-400 block text-[9px]">TAGAR UTAMA TERDAFTAR (16 TAGS):</span>
-              <div class="flex flex-wrap gap-1 pt-1 text-[9px]">
-                <span class="px-1.5 py-0.5 rounded bg-white/10 text-stone-300">#Budi Ekspedisi</span>
-                <span class="px-1.5 py-0.5 rounded bg-white/10 text-stone-300">#Pak Budi Gudang</span>
-                <span class="px-1.5 py-0.5 rounded bg-white/10 text-stone-300">#Kurir Sparepart</span>
-                <span class="px-1.5 py-0.5 rounded bg-rose-500/20 text-rose-300 font-bold">#Spam Penipu ❌</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="p-2 rounded-lg bg-stone-900 border border-white/10 text-[10px] text-stone-300 italic sans">
-            &ldquo;Gila sih gercep bgt cuma 3 detik langsung tau kalo yg nelpon tadi siang nomor penipu ngaku kurir. Ngebantu bgt min!&rdquo;
-          </div>
-        </div>
-
-        <div class="flex items-center justify-between text-[11px] pt-1">
-          <span class="text-stone-600 flex items-center gap-1.5 font-medium">
-            <i class="fas fa-user-shield text-sky-600 text-[10px]"></i>
-            <span>100% Anonim &bull; Target Gak Tau</span>
-          </span>
-          <span class="mono text-[10px] font-bold text-sky-700 flex items-center gap-1">
-            <i class="fas fa-check-circle"></i> Sukses
-          </span>
-        </div>
-      </article>
-
-      <!-- BUKTI 4: Struk Kasir Janji Jiwa & Jiwa Toast -->
-      <article class="proof-item p-4 rounded-2xl card-proof space-y-3 cursor-pointer group" data-category="janjiw" onclick="openLightbox('receipt-2')">
-        <div class="flex items-center justify-between text-xs pb-1 border-b border-stone-100">
-          <div class="flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-amber-500"></span>
-            <span class="font-extrabold text-stone-900 text-xs">Janji Jiwa &amp; Toast POS</span>
-          </div>
-          <span class="text-[10px] mono text-stone-500">22 Okt &bull; 17:10 WIB</span>
-        </div>
-
-        <div class="receipt-paper rounded-xl p-4 text-[11px] leading-relaxed shadow-2xs select-none">
-          <div class="text-center pb-2 border-b border-dashed border-stone-300">
-            <div class="font-extrabold text-sm tracking-tight text-stone-900">JANJI JIWA &amp; TOAST</div>
-            <div class="text-[10px] text-stone-600">Margonda Raya No. 120, Depok</div>
-            <div class="text-[9px] text-stone-500">KASIR #01 &bull; Trx ID: JJ-740112</div>
-          </div>
-
-          <div class="py-2 border-b border-dashed border-stone-300 space-y-1 text-[10px]">
-            <div class="flex justify-between">
-              <span class="text-stone-500">Member:</span>
-              <span class="censor-tag">Kak Nadh*** (0858-****-8543)</span>
-            </div>
-            <div class="flex justify-between">
-              <span class="text-stone-500">Status:</span>
-              <span class="font-bold text-stone-800">Take Away Diproses</span>
-            </div>
-          </div>
-
-          <div class="py-2.5 border-b border-dashed border-stone-300 space-y-1.5">
-            <div class="flex justify-between">
-              <div>
-                <span class="font-bold text-stone-900">1x Beef Truffle Mayo Toast</span>
-                <div class="text-[9px] text-stone-500">Extra Cheese, Crispy Toast</div>
-              </div>
-              <span class="font-mono text-stone-900">26.500</span>
-            </div>
-            <div class="flex justify-between">
-              <div>
-                <span class="font-bold text-stone-900">1x Kopi Susu Sahabat (R)</span>
-                <div class="text-[9px] text-stone-500">Less Sugar, Normal Ice</div>
-              </div>
-              <span class="font-mono text-stone-900">13.500</span>
-            </div>
-          </div>
-
-          <div class="pt-2 space-y-1 text-[10px]">
-            <div class="flex justify-between text-stone-500">
-              <span>Total Harga Menu:</span>
-              <span class="line-through">40.000</span>
-            </div>
-            <div class="flex justify-between text-terracotta font-bold">
-              <span>Diskon Bintang Store:</span>
-              <span>-16.000</span>
-            </div>
-            <div class="flex justify-between font-black text-xs text-stone-950 pt-1 border-t border-stone-300">
-              <span>TOTAL SETTLEMENT:</span>
-              <span class="text-emerald-700">Rp 24.000</span>
-            </div>
-          </div>
-
-          <div class="pt-3 text-center">
-            <div class="inline-block px-3 py-1 rounded bg-stone-900 text-stone-100 text-[9px] mono font-bold">
-              ||||| ||||||| |||| |||||| |||||
-            </div>
-            <p class="text-[8px] text-stone-500 mt-0.5">STRUK RESMI &bull; LUNAS DI KASIR</p>
-          </div>
-        </div>
-
-        <div class="flex items-center justify-between text-[11px] pt-1">
-          <span class="text-stone-600 flex items-center gap-1.5 font-medium">
-            <i class="fas fa-location-dot text-amber-600 text-[10px]"></i>
-            <span>Outlet Margonda, Depok</span>
-          </span>
-          <span class="mono text-[10px] font-bold text-emerald-700 flex items-center gap-1">
-            <i class="fas fa-check-circle"></i> Selesai
-          </span>
-        </div>
-      </article>
-
-      <!-- BUKTI 5: WhatsApp Chat Repeat Order & Sandi Wi-Fi -->
-      <article class="proof-item p-4 rounded-2xl card-proof space-y-3 cursor-pointer group" data-category="chat" onclick="openLightbox('chat-2')">
-        <div class="flex items-center justify-between text-xs pb-1 border-b border-stone-100">
-          <div class="flex items-center gap-2">
-            <i class="fab fa-whatsapp text-emerald-600 text-sm"></i>
-            <span class="font-extrabold text-stone-900 text-xs">Chat WhatsApp Pelanggan</span>
-          </div>
-          <span class="text-[10px] mono text-stone-500">21 Okt &bull; 19:40 WIB</span>
-        </div>
-
-        <div class="rounded-xl p-3 bg-[#EFEAE2] border border-stone-200/80 space-y-2.5 text-xs text-stone-800">
-          <div class="flex items-center justify-between pb-2 border-b border-stone-300/80 text-[10px]">
-            <div class="flex items-center gap-2">
-              <div class="w-6 h-6 rounded-full bg-purple-700 text-white flex items-center justify-center font-bold text-[10px]">
-                A
-              </div>
-              <div>
-                <span class="censor-tag">Kak Anisa W. (0877-****-4419)</span>
-                <span class="text-stone-500 block text-[9px] mt-0.5">23Paskal Bandung</span>
-              </div>
-            </div>
-            <span class="text-amber-500 font-bold">⭐⭐⭐⭐⭐</span>
-          </div>
-
-          <div class="flex justify-start">
-            <div class="max-w-[85%] rounded-2xl rounded-tl-none p-3 bg-white text-stone-900 text-[11px] leading-relaxed shadow-xs">
-              <p>Min udah repeat order ke-4 nih minggu ini wkwk. Sandi Wi-Fi outlet di saluran WA kamu beneran connect, mantul bgt sambil nugas di Paskal 👍</p>
-              <span class="text-[9px] text-stone-400 float-right mt-1 ml-2">19:38</span>
-            </div>
-          </div>
-
-          <div class="flex justify-end">
-            <div class="max-w-[85%] rounded-2xl rounded-tr-none p-3 bg-[#D9FDD3] text-stone-900 text-[11px] leading-relaxed shadow-xs">
-              <p>Mantap Kak Anisa! Makasih banyak udah langganan terus di Bintang Store. Semangat nugasnya yaa kak! 🙌☕</p>
-              <div class="flex items-center justify-end gap-1 mt-1 text-[9px] text-stone-500">
-                <span>19:39</span>
-                <i class="fas fa-check-double text-[8px] text-sky-500"></i>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="flex items-center justify-between text-[11px] pt-1">
-          <span class="text-stone-600 flex items-center gap-1.5 font-medium">
-            <i class="fas fa-wifi text-emerald-600 text-[10px]"></i>
-            <span>Wi-Fi &amp; Coffee Regular Buyer</span>
-          </span>
-          <span class="mono text-[10px] font-bold text-emerald-700 flex items-center gap-1">
-            <i class="fas fa-check-circle"></i> Langganan
-          </span>
-        </div>
-      </article>
-
-      <!-- BUKTI 6: QRIS Settlement Otomatis -->
-      <article class="proof-item p-4 rounded-2xl card-proof space-y-3 cursor-pointer group" data-category="gtc" onclick="openLightbox('gtc-2')">
-        <div class="flex items-center justify-between text-xs pb-1 border-b border-stone-100">
-          <div class="flex items-center gap-2">
-            <i class="fas fa-qrcode text-emerald-600 text-sm"></i>
-            <span class="font-extrabold text-stone-900 text-xs">QRIS Settlement Otomatis</span>
-          </div>
-          <span class="text-[10px] mono text-stone-500">Hari ini &bull; 09:20 WIB</span>
-        </div>
-
-        <div class="rounded-xl p-3.5 bg-white border border-stone-200 space-y-2 text-xs mono shadow-2xs">
-          <div class="flex items-center justify-between pb-2 border-b border-stone-100 text-[10px]">
-            <span class="text-stone-900 font-bold">QRIS NATIONAL STANDARD (NMID)</span>
-            <span class="text-emerald-700 font-bold">SETTLED // 0.4s</span>
-          </div>
-
-          <div class="space-y-1.5 text-[11px]">
-            <div class="flex justify-between">
-              <span class="text-stone-500">Merchant:</span>
-              <span class="text-stone-900 font-bold">BINTANG STORE GTC</span>
-            </div>
-            <div class="flex justify-between">
-              <span class="text-stone-500">User / Buyer:</span>
-              <span class="censor-tag">Member #GTC-219 (0896-****-2201)</span>
-            </div>
-            <div class="flex justify-between">
-              <span class="text-stone-500">Produk:</span>
-              <span class="text-stone-800">Top-Up Saldo Cek Tagar 10x</span>
-            </div>
-            <div class="flex justify-between text-emerald-700 font-bold pt-1 border-t border-stone-100">
-              <span>Nominal Masuk:</span>
-              <span>Rp 10.000 (Lunas)</span>
-            </div>
-          </div>
-
-          <div class="p-2 rounded-lg bg-emerald-50 border border-emerald-200/80 text-[10px] text-emerald-800 sans">
-            <i class="fas fa-check-circle mr-1"></i> Webhook nembak otomatis &bull; Saldo langsung masuk tanpa nunggu konfirmasi admin manual.
-          </div>
-        </div>
-
-        <div class="flex items-center justify-between text-[11px] pt-1">
-          <span class="text-stone-600 flex items-center gap-1.5 font-medium">
-            <i class="fas fa-bolt text-emerald-600 text-[10px]"></i>
-            <span>Instant Auto-Fulfillment</span>
-          </span>
-          <span class="mono text-[10px] font-bold text-emerald-700 flex items-center gap-1">
-            <i class="fas fa-check-circle"></i> Sukses
-          </span>
-        </div>
-      </article>
-
-      <!-- BUKTI 7: Foto Asli Order Kopi Kenangan App (Graha POS RE Martadinata) -->
-      <article class="proof-item p-4 rounded-2xl card-proof space-y-3 cursor-pointer group" data-category="kopken" onclick="openLightbox('real-order-1')">
+      <!-- BUKTI 1: Kak Dony (Wates) - Review Asli: "kirain scam" -->
+      <article class="proof-item p-4 rounded-2xl card-proof space-y-3 cursor-pointer group" data-category="kopken" onclick="openLightbox('kk-dony')">
         <div class="flex items-center justify-between text-xs pb-1 border-b border-stone-100">
           <div class="flex items-center gap-2">
             <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
             <span class="font-extrabold text-stone-900 text-xs">Aplikasi Kopi Kenangan Asli</span>
           </div>
-          <span class="text-[10px] mono text-stone-500">04 Okt &bull; 14:46 WIB</span>
+          <span class="text-[10px] mono text-stone-500">22 Okt &bull; 22:04 WIB</span>
         </div>
 
         <div class="relative rounded-xl overflow-hidden border border-stone-200 bg-stone-100 shadow-2xs group-hover:border-terracotta transition">
-          <img src="https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/receipts/receipt_anan-1099_1791100068641.jpg" 
-               alt="Bukti Order Kopi Kenangan Asli" 
-               class="w-full h-44 object-cover object-top transition duration-300 group-hover:scale-[1.02]" loading="lazy">
+          <img src="https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/receipts/receipt_kk-dony-1792_1792681685401.jpg" 
+               alt="Bukti Order Kopi Kenangan Kak Dony" 
+               class="w-full h-52 object-cover object-top transition duration-300 group-hover:scale-[1.02]" loading="lazy">
           <div class="absolute bottom-2 left-2 right-2 flex items-center justify-between pointer-events-none">
-            <span class="censor-tag shadow-sm bg-white/95">Pelanggan: Kak An** (Pickup Counter)</span>
-            <span class="text-[9px] mono bg-stone-900/90 text-white px-2 py-0.5 rounded font-bold">2 Items</span>
+            <span class="censor-tag shadow-sm bg-white/95">Pelanggan: dony</span>
+            <span class="text-[9px] mono bg-emerald-700 text-white px-2 py-0.5 rounded font-bold">Rp 16.000</span>
           </div>
+        </div>
+
+        <div class="p-2.5 rounded-xl bg-amber-50/80 border border-amber-200/80 text-[11px] space-y-1">
+          <div class="flex items-center justify-between">
+            <span class="text-amber-500 font-bold text-[10px]">⭐⭐⭐⭐⭐ Review Nyata</span>
+            <span class="mono text-[9px] text-stone-500">kk-dony-1792</span>
+          </div>
+          <p class="text-stone-800 italic leading-snug">
+            &ldquo;prosesnya boleh agak cepet lagi min. kirain scam&rdquo;
+          </p>
         </div>
 
         <div class="flex items-center justify-between text-[11px] pt-1">
           <span class="text-stone-600 flex items-center gap-1.5 font-medium">
             <i class="fas fa-location-dot text-terracotta text-[10px]"></i>
-            <span>Graha POS RE Martadinata</span>
+            <span>Ruko Kol. Sugiono Wates (Yogyakarta)</span>
           </span>
           <span class="mono text-[10px] font-bold text-emerald-700 flex items-center gap-1">
             <i class="fas fa-check-circle"></i> Selesai
@@ -735,8 +367,44 @@
         </div>
       </article>
 
-      <!-- BUKTI 8: Bukti Transfer Pembayaran DANA Bisnis Asli -->
-      <article class="proof-item p-4 rounded-2xl card-proof space-y-3 cursor-pointer group" data-category="chat" onclick="openLightbox('real-tf-1')">
+      <!-- BUKTI 2: Kak Oby (Bandung) - Pesanan Jumbo 12 Cup Rp 156.000 -->
+      <article class="proof-item p-4 rounded-2xl card-proof space-y-3 cursor-pointer group" data-category="kopken" onclick="openLightbox('kk-oby-large')">
+        <div class="flex items-center justify-between text-xs pb-1 border-b border-stone-100">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+            <span class="font-extrabold text-stone-900 text-xs">Pesanan Kantor (12 Cup)</span>
+          </div>
+          <span class="text-[10px] mono text-stone-500">23 Okt &bull; 20:09 WIB</span>
+        </div>
+
+        <div class="relative rounded-xl overflow-hidden border border-stone-200 bg-stone-100 shadow-2xs group-hover:border-terracotta transition">
+          <img src="https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/receipts/receipt_kk-oby-3181_1792746582508.jpg" 
+               alt="Bukti Order Kopi Kenangan Kak Oby" 
+               class="w-full h-52 object-cover object-top transition duration-300 group-hover:scale-[1.02]" loading="lazy">
+          <div class="absolute bottom-2 left-2 right-2 flex items-center justify-between pointer-events-none">
+            <span class="censor-tag shadow-sm bg-white/95">Pelanggan: oby</span>
+            <span class="text-[9px] mono bg-stone-900/90 text-white px-2 py-0.5 rounded font-bold">4x Trio (12 Cup)</span>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between text-[11px] p-2 bg-stone-50 rounded-lg">
+          <span class="text-stone-600">Total Transaksi:</span>
+          <span class="font-bold text-stone-950 mono">Rp 156.000 (Hemat 50%)</span>
+        </div>
+
+        <div class="flex items-center justify-between text-[11px] pt-1">
+          <span class="text-stone-600 flex items-center gap-1.5 font-medium">
+            <i class="fas fa-location-dot text-terracotta text-[10px]"></i>
+            <span>Graha POS RE Martadinata (Bandung)</span>
+          </span>
+          <span class="mono text-[10px] font-bold text-emerald-700 flex items-center gap-1">
+            <i class="fas fa-check-circle"></i> Selesai
+          </span>
+        </div>
+      </article>
+
+      <!-- BUKTI 3: Bukti Transfer DANA Bisnis Asli Rp 49.000 -->
+      <article class="proof-item p-4 rounded-2xl card-proof space-y-3 cursor-pointer group" data-category="dana" onclick="openLightbox('dana-yusep')">
         <div class="flex items-center justify-between text-xs pb-1 border-b border-stone-100">
           <div class="flex items-center gap-2">
             <i class="fas fa-wallet text-sky-600 text-sm"></i>
@@ -747,18 +415,23 @@
 
         <div class="relative rounded-xl overflow-hidden border border-stone-200 bg-stone-100 shadow-2xs group-hover:border-sky-500 transition">
           <img src="https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/receipts/tf_kk-yusep-7848_1792584757084.jpg" 
-               alt="Bukti Pembayaran DANA Bisnis" 
-               class="w-full h-44 object-cover object-top transition duration-300 group-hover:scale-[1.02]" loading="lazy">
+               alt="Bukti Transfer DANA Bisnis" 
+               class="w-full h-52 object-cover object-top transition duration-300 group-hover:scale-[1.02]" loading="lazy">
           <div class="absolute bottom-2 left-2 right-2 flex items-center justify-between pointer-events-none">
             <span class="censor-tag shadow-sm bg-white/95">ID DANA: 0813••••6322</span>
             <span class="text-[9px] mono bg-emerald-700 text-white px-2 py-0.5 rounded font-bold">LUNAS Rp49.000</span>
           </div>
         </div>
 
+        <div class="flex items-center justify-between text-[11px] p-2 bg-stone-50 rounded-lg">
+          <span class="text-stone-600">Merchant Penerima:</span>
+          <span class="font-bold text-sky-700 mono">Bintang Store</span>
+        </div>
+
         <div class="flex items-center justify-between text-[11px] pt-1">
           <span class="text-stone-600 flex items-center gap-1.5 font-medium">
-            <i class="fas fa-store text-sky-600 text-[10px]"></i>
-            <span>Merchant: Bintang Store</span>
+            <i class="fas fa-check-double text-sky-600 text-[10px]"></i>
+            <span>DANA SmartPay Otomatis</span>
           </span>
           <span class="mono text-[10px] font-bold text-emerald-700 flex items-center gap-1">
             <i class="fas fa-check-circle"></i> Terverifikasi
@@ -766,33 +439,229 @@
         </div>
       </article>
 
-      <!-- BUKTI 9: Foto Layar Pesanan Selesai Cibabat Cimahi -->
-      <article class="proof-item p-4 rounded-2xl card-proof space-y-3 cursor-pointer group" data-category="kopken" onclick="openLightbox('real-order-2')">
+      <!-- BUKTI 4: Kak Yannu (Serang) - Taro Cloud Milk Tea Large -->
+      <article class="proof-item p-4 rounded-2xl card-proof space-y-3 cursor-pointer group" data-category="kopken" onclick="openLightbox('kk-yannu')">
         <div class="flex items-center justify-between text-xs pb-1 border-b border-stone-100">
           <div class="flex items-center gap-2">
             <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-            <span class="font-extrabold text-stone-900 text-xs">Detail Pesanan Kenangan App</span>
+            <span class="font-extrabold text-stone-900 text-xs">Aplikasi Kopi Kenangan Asli</span>
+          </div>
+          <span class="text-[10px] mono text-stone-500">23 Okt &bull; 20:06 WIB</span>
+        </div>
+
+        <div class="relative rounded-xl overflow-hidden border border-stone-200 bg-stone-100 shadow-2xs group-hover:border-terracotta transition">
+          <img src="https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/receipts/receipt_kk-yannu-3404_1792746388992.jpg" 
+               alt="Bukti Order Kopi Kenangan Kak Yannu" 
+               class="w-full h-52 object-cover object-top transition duration-300 group-hover:scale-[1.02]" loading="lazy">
+          <div class="absolute bottom-2 left-2 right-2 flex items-center justify-between pointer-events-none">
+            <span class="censor-tag shadow-sm bg-white/95">Pelanggan: Yannu</span>
+            <span class="text-[9px] mono bg-stone-900/90 text-white px-2 py-0.5 rounded font-bold">Rp 21.000</span>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between text-[11px] p-2 bg-stone-50 rounded-lg">
+          <span class="text-stone-600">Menu Dipesan:</span>
+          <span class="font-bold text-stone-950 truncate max-w-[170px]">Taro Cloud Milk Tea (L)</span>
+        </div>
+
+        <div class="flex items-center justify-between text-[11px] pt-1">
+          <span class="text-stone-600 flex items-center gap-1.5 font-medium">
+            <i class="fas fa-location-dot text-terracotta text-[10px]"></i>
+            <span>Benggala Yumaga, Serang</span>
+          </span>
+          <span class="mono text-[10px] font-bold text-emerald-700 flex items-center gap-1">
+            <i class="fas fa-check-circle"></i> Selesai
+          </span>
+        </div>
+      </article>
+
+      <!-- BUKTI 5: Kak Denso (Surabaya) - Blueberry Americano -->
+      <article class="proof-item p-4 rounded-2xl card-proof space-y-3 cursor-pointer group" data-category="kopken" onclick="openLightbox('kk-denso')">
+        <div class="flex items-center justify-between text-xs pb-1 border-b border-stone-100">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+            <span class="font-extrabold text-stone-900 text-xs">Aplikasi Kopi Kenangan Asli</span>
+          </div>
+          <span class="text-[10px] mono text-stone-500">23 Okt &bull; 15:50 WIB</span>
+        </div>
+
+        <div class="relative rounded-xl overflow-hidden border border-stone-200 bg-stone-100 shadow-2xs group-hover:border-terracotta transition">
+          <img src="https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/receipts/receipt_kk-denso-0697_1792731020318.jpg" 
+               alt="Bukti Order Kopi Kenangan Kak Denso" 
+               class="w-full h-52 object-cover object-top transition duration-300 group-hover:scale-[1.02]" loading="lazy">
+          <div class="absolute bottom-2 left-2 right-2 flex items-center justify-between pointer-events-none">
+            <span class="censor-tag shadow-sm bg-white/95">Pelanggan: Denso</span>
+            <span class="text-[9px] mono bg-stone-900/90 text-white px-2 py-0.5 rounded font-bold">Rp 14.500</span>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between text-[11px] p-2 bg-stone-50 rounded-lg">
+          <span class="text-stone-600">Menu Dipesan:</span>
+          <span class="font-bold text-stone-950 truncate max-w-[170px]">Blueberry Americano</span>
+        </div>
+
+        <div class="flex items-center justify-between text-[11px] pt-1">
+          <span class="text-stone-600 flex items-center gap-1.5 font-medium">
+            <i class="fas fa-location-dot text-terracotta text-[10px]"></i>
+            <span>Ruko Ambengan, Surabaya</span>
+          </span>
+          <span class="mono text-[10px] font-bold text-emerald-700 flex items-center gap-1">
+            <i class="fas fa-check-circle"></i> Selesai
+          </span>
+        </div>
+      </article>
+
+      <!-- BUKTI 6: Kak Hilal (Bandung) - 2 Cup Sore Rp 30.000 -->
+      <article class="proof-item p-4 rounded-2xl card-proof space-y-3 cursor-pointer group" data-category="kopken" onclick="openLightbox('kk-hilal')">
+        <div class="flex items-center justify-between text-xs pb-1 border-b border-stone-100">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+            <span class="font-extrabold text-stone-900 text-xs">Aplikasi Kopi Kenangan Asli</span>
+          </div>
+          <span class="text-[10px] mono text-stone-500">22 Okt &bull; 20:56 WIB</span>
+        </div>
+
+        <div class="relative rounded-xl overflow-hidden border border-stone-200 bg-stone-100 shadow-2xs group-hover:border-terracotta transition">
+          <img src="https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/receipts/receipt_kk-hilal-0283_1792677415624.jpg" 
+               alt="Bukti Order Kopi Kenangan Kak Hilal" 
+               class="w-full h-52 object-cover object-top transition duration-300 group-hover:scale-[1.02]" loading="lazy">
+          <div class="absolute bottom-2 left-2 right-2 flex items-center justify-between pointer-events-none">
+            <span class="censor-tag shadow-sm bg-white/95">Pelanggan: Hilal</span>
+            <span class="text-[9px] mono bg-stone-900/90 text-white px-2 py-0.5 rounded font-bold">2 Cup &bull; Rp 30.000</span>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between text-[11px] p-2 bg-stone-50 rounded-lg">
+          <span class="text-stone-600">Menu Dipesan:</span>
+          <span class="font-bold text-stone-950 truncate max-w-[170px]">Cafe Malt + Taro Milk</span>
+        </div>
+
+        <div class="flex items-center justify-between text-[11px] pt-1">
+          <span class="text-stone-600 flex items-center gap-1.5 font-medium">
+            <i class="fas fa-location-dot text-terracotta text-[10px]"></i>
+            <span>Ibrahim Adjie, Bandung</span>
+          </span>
+          <span class="mono text-[10px] font-bold text-emerald-700 flex items-center gap-1">
+            <i class="fas fa-check-circle"></i> Selesai
+          </span>
+        </div>
+      </article>
+
+      <!-- BUKTI 7: Kak Stef (Cimahi) - Foto Layar Pesanan Resmi -->
+      <article class="proof-item p-4 rounded-2xl card-proof space-y-3 cursor-pointer group" data-category="kopken" onclick="openLightbox('kk-stef')">
+        <div class="flex items-center justify-between text-xs pb-1 border-b border-stone-100">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+            <span class="font-extrabold text-stone-900 text-xs">Foto Layar Pesanan Resmi</span>
           </div>
           <span class="text-[10px] mono text-stone-500">06 Okt &bull; 11:47 WIB</span>
         </div>
 
         <div class="relative rounded-xl overflow-hidden border border-stone-200 bg-stone-100 shadow-2xs group-hover:border-terracotta transition">
           <img src="https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/receipts/receipt_kk-stef-9023_1791262115444.jpg" 
-               alt="Bukti Order Kopi Kenangan Cimahi" 
-               class="w-full h-44 object-cover object-top transition duration-300 group-hover:scale-[1.02]" loading="lazy">
+               alt="Bukti Order Kopi Kenangan Kak Stef" 
+               class="w-full h-52 object-cover object-top transition duration-300 group-hover:scale-[1.02]" loading="lazy">
           <div class="absolute bottom-2 left-2 right-2 flex items-center justify-between pointer-events-none">
-            <span class="censor-tag shadow-sm bg-white/95">Member: Stef (Pickup Counter)</span>
-            <span class="text-[9px] mono bg-stone-900/90 text-white px-2 py-0.5 rounded font-bold">Mocha Caramel + Donut</span>
+            <span class="censor-tag shadow-sm bg-white/95">Pelanggan: Stef</span>
+            <span class="text-[9px] mono bg-stone-900/90 text-white px-2 py-0.5 rounded font-bold">2 Items</span>
           </div>
+        </div>
+
+        <div class="flex items-center justify-between text-[11px] p-2 bg-stone-50 rounded-lg">
+          <span class="text-stone-600">Menu Dipesan:</span>
+          <span class="font-bold text-stone-950 truncate max-w-[170px]">Mocha Caramel + Donut</span>
         </div>
 
         <div class="flex items-center justify-between text-[11px] pt-1">
           <span class="text-stone-600 flex items-center gap-1.5 font-medium">
             <i class="fas fa-location-dot text-terracotta text-[10px]"></i>
-            <span>Outlet Cibabat, Cimahi</span>
+            <span>Cibabat, Cimahi</span>
           </span>
           <span class="mono text-[10px] font-bold text-emerald-700 flex items-center gap-1">
             <i class="fas fa-check-circle"></i> Selesai
+          </span>
+        </div>
+      </article>
+
+      <!-- BUKTI 8: Kak Afif Fadilah (Wates) - OG Thai Tea Rp 14.500 -->
+      <article class="proof-item p-4 rounded-2xl card-proof space-y-3 cursor-pointer group" data-category="kopken" onclick="openLightbox('kk-afif')">
+        <div class="flex items-center justify-between text-xs pb-1 border-b border-stone-100">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+            <span class="font-extrabold text-stone-900 text-xs">Aplikasi Kopi Kenangan Asli</span>
+          </div>
+          <span class="text-[10px] mono text-stone-500">22 Okt &bull; 20:19 WIB</span>
+        </div>
+
+        <div class="relative rounded-xl overflow-hidden border border-stone-200 bg-stone-100 shadow-2xs group-hover:border-terracotta transition">
+          <img src="https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/receipts/receipt_kk-afiffadilah-0870_1792675161135.jpg" 
+               alt="Bukti Order Kopi Kenangan Kak Afif" 
+               class="w-full h-52 object-cover object-top transition duration-300 group-hover:scale-[1.02]" loading="lazy">
+          <div class="absolute bottom-2 left-2 right-2 flex items-center justify-between pointer-events-none">
+            <span class="censor-tag shadow-sm bg-white/95">Pelanggan: Afif Fadilah</span>
+            <span class="text-[9px] mono bg-stone-900/90 text-white px-2 py-0.5 rounded font-bold">Rp 14.500</span>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between text-[11px] p-2 bg-stone-50 rounded-lg">
+          <span class="text-stone-600">Menu Dipesan:</span>
+          <span class="font-bold text-stone-950 truncate max-w-[170px]">OG Thai Tea (Regular)</span>
+        </div>
+
+        <div class="flex items-center justify-between text-[11px] pt-1">
+          <span class="text-stone-600 flex items-center gap-1.5 font-medium">
+            <i class="fas fa-location-dot text-terracotta text-[10px]"></i>
+            <span>Ruko Kol. Sugiono Wates (Yogyakarta)</span>
+          </span>
+          <span class="mono text-[10px] font-bold text-emerald-700 flex items-center gap-1">
+            <i class="fas fa-check-circle"></i> Selesai
+          </span>
+        </div>
+      </article>
+
+      <!-- BUKTI 9: Layanan Intelijen GetContact ABANG.GTC 24 Jam -->
+      <article class="proof-item p-4 rounded-2xl card-proof space-y-3 cursor-pointer group" data-category="gtc" onclick="openLightbox('gtc-real')">
+        <div class="flex items-center justify-between text-xs pb-1 border-b border-stone-100">
+          <div class="flex items-center gap-2">
+            <i class="fab fa-telegram-plane text-sky-600 text-sm"></i>
+            <span class="font-extrabold text-stone-900 text-xs">ABANG.GTC Engine v1.8.4</span>
+          </div>
+          <span class="text-[10px] mono text-stone-500">24 Jam &bull; Real-time</span>
+        </div>
+
+        <div class="rounded-xl p-3.5 bg-stone-950 text-white space-y-2.5 text-xs mono shadow-xs">
+          <div class="flex items-center justify-between pb-2 border-b border-white/10 text-[10px]">
+            <span class="text-sky-400 font-bold">@NGECEKGETCONTACT_BOT</span>
+            <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold">ONLINE ✓</span>
+          </div>
+
+          <div class="space-y-1.5 text-[11px]">
+            <div>
+              <span class="text-stone-400 block text-[9px]">ENGINE STATUS:</span>
+              <span class="text-white font-bold">200+ Member Aktif Terdaftar</span>
+            </div>
+            <div>
+              <span class="text-stone-400 block text-[9px]">JALUR AKSES:</span>
+              <span class="text-emerald-400 font-bold">Bot Telegram, Web App, &amp; WhatsApp</span>
+            </div>
+            <div>
+              <span class="text-stone-400 block text-[9px]">SISTEM TOP UP:</span>
+              <span class="text-stone-300">QRIS Realtime Otomatis Mulai 500 Perak</span>
+            </div>
+          </div>
+
+          <div class="p-2 rounded-lg bg-stone-900 border border-white/10 text-[10px] text-stone-300 sans">
+            Ekstraksi tagar dan nama pemilik nomor telepon tanpa ketahuan target (100% anonim).
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between text-[11px] pt-1">
+          <span class="text-stone-600 flex items-center gap-1.5 font-medium">
+            <i class="fas fa-shield-halved text-sky-600 text-[10px]"></i>
+            <span>Verifikasi Nomor Satset</span>
+          </span>
+          <span class="mono text-[10px] font-bold text-emerald-700 flex items-center gap-1">
+            <i class="fas fa-check-circle"></i> Live Engine
           </span>
         </div>
       </article>
@@ -830,21 +699,25 @@
     <section class="rounded-3xl bg-stone-950 text-ivory p-8 sm:p-12 text-center space-y-4 shadow-md">
       <div class="max-w-xl mx-auto space-y-2">
         <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-          Sudah Ribuan Orang Ngopi Hemat &amp; Lacak Aman.
+          Puas dengan Pesanan atau Layanan Kami?
         </h2>
         <p class="text-xs sm:text-sm text-stone-400 font-normal leading-relaxed">
-          Pesan Kopi Kenangan diskon 50% atau cek nomor kontak anonim sekarang dalam hitungan detik.
+          Kirimkan tangkapan layar pesanan kamu, testimoni, atau masukan langsung ke Admin Bintang Store via WhatsApp. Masukan kamu bikin kami terus berbenah!
         </p>
       </div>
 
       <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
-        <a href="./kopken.html" class="px-6 py-3.5 rounded-full bg-white hover:bg-stone-100 text-stone-950 text-xs sm:text-sm font-bold transition shadow-sm active:scale-95 flex items-center gap-2">
-          <i class="fas fa-mug-hot text-terracotta"></i>
-          <span>Pesan Kopi Kenangan</span>
+        <a href="https://wa.me/6285959633342?text=Halo%20Admin%20Bintang%20Store,%20mau%20kirim%20testimoni%20dan%20ulasan%20pesanan%20dong" 
+           target="_blank" 
+           rel="noopener noreferrer" 
+           class="px-6 py-3.5 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white text-xs sm:text-sm font-bold transition shadow-sm active:scale-95 flex items-center gap-2">
+          <i class="fab fa-whatsapp text-sm"></i>
+          <span>Kirim Testimoni via WhatsApp</span>
         </a>
-        <a href="./gtc.html" class="px-6 py-3.5 rounded-full bg-stone-800 hover:bg-stone-700 border border-stone-700 text-ivory text-xs sm:text-sm font-bold transition active:scale-95 flex items-center gap-2">
-          <i class="fas fa-fingerprint text-sky-400"></i>
-          <span>Cek GetContact (Trial)</span>
+        <a href="./kopken.html" 
+           class="px-6 py-3.5 rounded-full bg-stone-800 hover:bg-stone-700 border border-stone-700 text-ivory text-xs sm:text-sm font-bold transition active:scale-95 flex items-center gap-2">
+          <i class="fas fa-coffee text-terracotta"></i>
+          <span>Pesan Kopi Kenangan Hemat</span>
         </a>
       </div>
     </section>
@@ -853,7 +726,7 @@
 
 
   <!-- ========================================== -->
-  <!-- 7. MODAL LIGHTBOX ZOOM (HIGH-RES PREVIEW) -->
+  <!-- 7. MODAL LIGHTBOX ZOOM                     -->
   <!-- ========================================== -->
   <div id="lightbox-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs hidden items-center justify-center p-4 transition-opacity duration-200 opacity-0" onclick="closeLightbox()">
     <div class="relative max-w-lg w-full bg-white border border-stone-200 rounded-3xl p-6 shadow-2xl space-y-4 text-stone-900" onclick="event.stopPropagation()">
@@ -880,7 +753,7 @@
 
 
   <!-- ========================================== -->
-  <!-- 8. FOOTER (Exact www.bintanggstore.web.id) -->
+  <!-- 8. FOOTER                                  -->
   <!-- ========================================== -->
   <footer class="w-full border-t border-stone-200 bg-white py-8 px-4 text-center space-y-3">
     <div class="flex items-center justify-center gap-2">
@@ -897,7 +770,7 @@
       <span>&bull;</span>
       <a href="./kopken.html" class="hover:text-stone-950 transition">Kopi Kenangan</a>
       <span>&bull;</span>
-      <a href="./gtc.html" class="hover:text-stone-950 transition">Cek GTC</a>
+      <a href="./gtc.html" class="hover:text-stone-950 transition">ABANG.GTC</a>
       <span>&bull;</span>
       <a href="./tracking.html" class="hover:text-stone-950 transition">Unified Orders</a>
     </div>
@@ -952,103 +825,138 @@
       const title = document.getElementById('modal-title');
       const content = document.getElementById('modal-content');
 
-      if (id === 'receipt-1') {
-        title.textContent = 'Struk Kasir POS #KPK-882194 (Outlet Wates)';
-        content.innerHTML = `
-          <div class="p-4 bg-stone-50 rounded-2xl border border-stone-200 space-y-2.5 text-xs text-stone-800">
-            <p class="text-emerald-700 font-bold mono flex items-center gap-1.5">
-              <i class="fas fa-check-circle"></i> TRANSAKSI TERVERIFIKASI SISTEM KASIR
-            </p>
-            <p class="text-stone-600 leading-relaxed">Pesanan diproses langsung lewat sistem POS Kopi Kenangan Ruko Kol. Sugiono Wates. Diskon pengguna baru diterapkan secara sah.</p>
-            <div class="p-3 rounded-xl bg-white border border-stone-200 mono text-[11px] space-y-1 text-stone-700">
-              <div>Nomor Antrean: <b class="text-stone-950">#A-24</b></div>
-              <div>Pelanggan: <span class="censor-tag">Kak D**** (0857-****-0133)</span></div>
-              <div>Metode Pengambilan: <b class="text-stone-950">Pick Up Kasir</b></div>
-              <div>Total Settlement: <b class="text-emerald-700">Rp 19.000 (Hemat Rp 19.000)</b></div>
-            </div>
-          </div>
-        `;
-      } else if (id === 'chat-1') {
-        title.textContent = 'Konfirmasi Pesanan Sampai (Kak Rian S. - PIM 2)';
-        content.innerHTML = `
-          <div class="p-4 bg-stone-50 rounded-2xl border border-stone-200 space-y-2.5 text-xs text-stone-800">
-            <p class="text-emerald-700 font-bold mono flex items-center gap-1.5">
-              <i class="fab fa-whatsapp"></i> CHAT WHATSAPP OTENTIK
-            </p>
-            <p class="text-stone-600 leading-relaxed">Tangkapan layar chat dari pembeli reguler Kopi Kenangan di area perkantoran Pondok Indah Mall 2 Jakarta.</p>
-            <div class="p-3 rounded-xl bg-white border border-stone-200 text-[11px] space-y-1 text-stone-700">
-              <div>Nomor WhatsApp: <span class="censor-tag">0812-****-8842</span></div>
-              <div>Rating Ulasan: <span class="text-amber-500 font-bold">⭐⭐⭐⭐⭐ (5/5)</span></div>
-              <div>Catatan: Pesanan 4 cup tiba tepat waktu untuk rapat divisi finance.</div>
-            </div>
-          </div>
-        `;
-      } else if (id === 'gtc-1') {
-        title.textContent = 'Hasil Pengecekan Nomor Anonim (@ngecekgetcontact_bot)';
-        content.innerHTML = `
-          <div class="p-4 bg-stone-50 rounded-2xl border border-stone-200 space-y-2.5 text-xs text-stone-800">
-            <p class="text-sky-700 font-bold mono flex items-center gap-1.5">
-              <i class="fab fa-telegram-plane"></i> TELEGRAM INTEL ENGINE SUCCESS
-            </p>
-            <p class="text-stone-600 leading-relaxed">Pengecekan nomor telepon berhasil membongkar 16 tagar terdaftar, nama pemilik, dan skor spam hanya dalam 2.8 detik.</p>
-            <div class="p-3 rounded-xl bg-white border border-stone-200 mono text-[11px] space-y-1 text-stone-700">
-              <div>Target: <span class="censor-tag">+62 813-****-9182</span></div>
-              <div>Nama: <b class="text-stone-950">Budi Santoso Logistik (Spam)</b></div>
-              <div>Status Privasi: <b class="text-emerald-700">Target 100% Tidak Menerima Notifikasi</b></div>
-            </div>
-          </div>
-        `;
-      } else if (id === 'real-order-1') {
-        title.textContent = 'Bukti Order Kopi Kenangan App (Graha POS RE Martadinata)';
+      if (id === 'kk-dony') {
+        title.textContent = 'Bukti Order Kak Dony & Review Asli';
         content.innerHTML = `
           <div class="space-y-3">
             <div class="rounded-xl overflow-hidden border border-stone-200">
-              <img src="https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/receipts/receipt_anan-1099_1791100068641.jpg" class="w-full max-h-72 object-contain bg-black" alt="Struk App Order" />
+              <img src="https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/receipts/receipt_kk-dony-1792_1792681685401.jpg" class="w-full max-h-80 object-contain bg-black" alt="Struk Dony" />
             </div>
-            <div class="p-3 bg-stone-50 rounded-xl border border-stone-200 text-xs space-y-1 text-stone-700">
-              <div>Pelanggan: <span class="censor-tag">Kak An**</span> &bull; <b>Pickup Counter</b></div>
-              <div>Outlet: <b>Graha POS RE Martadinata</b></div>
-              <div>Menu: <b>Double Choco Bagel + Spanish Latte Ice Regular</b></div>
-              <div class="text-emerald-700 font-bold mono pt-1">✓ Pesanan Selesai Diambil di Kasir</div>
+            <div class="p-3 bg-stone-50 rounded-xl border border-stone-200 text-xs space-y-1.5 text-stone-700">
+              <div>Pelanggan: <b class="text-stone-950">dony</b> &bull; <b>Pickup Counter</b></div>
+              <div>Outlet: <b>Ruko Kol. Sugiono Wates (Yogyakarta)</b></div>
+              <div>Menu: <b>Taro Cloud Matcha X Haechan (Rp 16.000)</b></div>
+              <div class="p-2 bg-amber-50 rounded-lg border border-amber-200 text-stone-900 mt-2">
+                <span class="text-amber-600 font-bold">⭐⭐⭐⭐⭐ Review Pelanggan:</span>
+                <p class="italic mt-0.5">&ldquo;prosesnya boleh agak cepet lagi min. kirain scam&rdquo;</p>
+              </div>
             </div>
           </div>
         `;
-      } else if (id === 'real-tf-1') {
-        title.textContent = 'Bukti Pembayaran DANA Bisnis (Rp 49.000 Lunas)';
+      } else if (id === 'kk-oby-large') {
+        title.textContent = 'Order Kantor Kak Oby (12 Cup Kopi)';
         content.innerHTML = `
           <div class="space-y-3">
             <div class="rounded-xl overflow-hidden border border-stone-200">
-              <img src="https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/receipts/tf_kk-yusep-7848_1792584757084.jpg" class="w-full max-h-72 object-contain bg-black" alt="Bukti DANA" />
+              <img src="https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/receipts/receipt_kk-oby-3181_1792746582508.jpg" class="w-full max-h-80 object-contain bg-black" alt="Struk Oby" />
             </div>
-            <div class="p-3 bg-stone-50 rounded-xl border border-stone-200 text-xs space-y-1 text-stone-700">
+            <div class="p-3 bg-stone-50 rounded-xl border border-stone-200 text-xs space-y-1.5 text-stone-700">
+              <div>Pelanggan: <b class="text-stone-950">oby</b></div>
+              <div>Outlet: <b>Graha POS RE Martadinata (Bandung)</b></div>
+              <div>Rincian: <b>4x Paket Trio Tongkrongan (Total 12 Cup Kopi)</b></div>
+              <div>Total Bayar: <b class="text-emerald-700 mono">Rp 156.000</b></div>
+              <div class="text-emerald-700 font-bold mono pt-1">✓ Pesanan Selesai Diambil di Counter Kasir</div>
+            </div>
+          </div>
+        `;
+      } else if (id === 'dana-yusep') {
+        title.textContent = 'Bukti Pembayaran DANA Bisnis Lunas';
+        content.innerHTML = `
+          <div class="space-y-3">
+            <div class="rounded-xl overflow-hidden border border-stone-200">
+              <img src="https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/receipts/tf_kk-yusep-7848_1792584757084.jpg" class="w-full max-h-80 object-contain bg-black" alt="Bukti DANA" />
+            </div>
+            <div class="p-3 bg-stone-50 rounded-xl border border-stone-200 text-xs space-y-1.5 text-stone-700">
               <div>Nomor Akun: <span class="censor-tag">ID DANA 0813••••6322</span></div>
               <div>Tujuan: <b class="text-stone-950">Pembayaran ke Bintang Store (DANA Bisnis)</b></div>
-              <div>Nominal: <b class="text-emerald-700">Rp 49.000 (SmartPay)</b></div>
-              <div class="text-emerald-700 font-bold mono pt-1">✓ Transaksi Berhasil Masuk Rekening Bisnis</div>
+              <div>Nominal: <b class="text-emerald-700 mono">Rp 49.000 (SmartPay)</b></div>
+              <div class="text-emerald-700 font-bold mono pt-1">✓ Saldo Berhasil Masuk Rekening Bisnis</div>
             </div>
           </div>
         `;
-      } else if (id === 'real-order-2') {
-        title.textContent = 'Foto Layar Pesanan Kenangan App (Cibabat Cimahi)';
+      } else if (id === 'kk-yannu') {
+        title.textContent = 'Bukti Order Kak Yannu (Serang)';
         content.innerHTML = `
           <div class="space-y-3">
             <div class="rounded-xl overflow-hidden border border-stone-200">
-              <img src="https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/receipts/receipt_kk-stef-9023_1791262115444.jpg" class="w-full max-h-72 object-contain bg-black" alt="Foto Layar Cimahi" />
+              <img src="https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/receipts/receipt_kk-yannu-3404_1792746388992.jpg" class="w-full max-h-80 object-contain bg-black" alt="Struk Yannu" />
             </div>
-            <div class="p-3 bg-stone-50 rounded-xl border border-stone-200 text-xs space-y-1 text-stone-700">
-              <div>Pelanggan: <span class="censor-tag">Kak Stef</span> &bull; <b>Pickup Counter</b></div>
-              <div>Outlet: <b>Cibabat Cimahi</b></div>
-              <div>Item: <b>Mocha Caramel Ice (R) + Donut Almond</b></div>
-              <div class="text-emerald-700 font-bold mono pt-1">✓ Terverifikasi Kasir Resmi</div>
+            <div class="p-3 bg-stone-50 rounded-xl border border-stone-200 text-xs space-y-1.5 text-stone-700">
+              <div>Pelanggan: <b class="text-stone-950">Yannu</b></div>
+              <div>Outlet: <b>Pertamina Benggala Yumaga, Serang</b></div>
+              <div>Menu: <b>Taro Cloud Milk Tea (Large) - Rp 21.000</b></div>
+              <div class="text-emerald-700 font-bold mono pt-1">✓ Status: Selesai Diambil</div>
             </div>
           </div>
         `;
-      } else {
-        title.textContent = 'Detail Bukti Transaksi Terverifikasi';
+      } else if (id === 'kk-denso') {
+        title.textContent = 'Bukti Order Kak Denso (Surabaya)';
         content.innerHTML = `
-          <div class="p-4 bg-stone-50 rounded-2xl border border-stone-200 space-y-2.5 text-xs text-stone-800">
-            <p class="text-emerald-700 font-bold mono">✓ BUKTI TERVERIFIKASI BINTANG STORE</p>
-            <p class="text-stone-600">Seluruh riwayat pembayaran melalui QRIS, E-Wallet, dan kasir tercatat secara aman dalam database.</p>
+          <div class="space-y-3">
+            <div class="rounded-xl overflow-hidden border border-stone-200">
+              <img src="https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/receipts/receipt_kk-denso-0697_1792731020318.jpg" class="w-full max-h-80 object-contain bg-black" alt="Struk Denso" />
+            </div>
+            <div class="p-3 bg-stone-50 rounded-xl border border-stone-200 text-xs space-y-1.5 text-stone-700">
+              <div>Pelanggan: <b class="text-stone-950">Denso</b></div>
+              <div>Outlet: <b>Ruko Ambengan, Surabaya</b></div>
+              <div>Menu: <b>Blueberry Americano (Less Sugar) - Rp 14.500</b></div>
+              <div class="text-emerald-700 font-bold mono pt-1">✓ Status: Selesai Diambil</div>
+            </div>
+          </div>
+        `;
+      } else if (id === 'kk-hilal') {
+        title.textContent = 'Bukti Order Kak Hilal (Bandung)';
+        content.innerHTML = `
+          <div class="space-y-3">
+            <div class="rounded-xl overflow-hidden border border-stone-200">
+              <img src="https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/receipts/receipt_kk-hilal-0283_1792677415624.jpg" class="w-full max-h-80 object-contain bg-black" alt="Struk Hilal" />
+            </div>
+            <div class="p-3 bg-stone-50 rounded-xl border border-stone-200 text-xs space-y-1.5 text-stone-700">
+              <div>Pelanggan: <b class="text-stone-950">Hilal</b></div>
+              <div>Outlet: <b>Ibrahim Adjie, Bandung</b></div>
+              <div>Menu: <b>Cafe Malt Latte + Taro Milk (Rp 30.000)</b></div>
+              <div class="text-emerald-700 font-bold mono pt-1">✓ Status: Selesai Diambil</div>
+            </div>
+          </div>
+        `;
+      } else if (id === 'kk-stef') {
+        title.textContent = 'Foto Layar Pesanan Resmi Kak Stef';
+        content.innerHTML = `
+          <div class="space-y-3">
+            <div class="rounded-xl overflow-hidden border border-stone-200">
+              <img src="https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/receipts/receipt_kk-stef-9023_1791262115444.jpg" class="w-full max-h-80 object-contain bg-black" alt="Foto Layar Stef" />
+            </div>
+            <div class="p-3 bg-stone-50 rounded-xl border border-stone-200 text-xs space-y-1.5 text-stone-700">
+              <div>Pelanggan: <b class="text-stone-950">Stef</b> &bull; <b>Pickup Counter</b></div>
+              <div>Outlet: <b>Cibabat Cimahi</b></div>
+              <div>Item: <b>Mocha Caramel Ice (R) + Donut Almond</b></div>
+              <div class="text-emerald-700 font-bold mono pt-1">✓ Foto Layar Kasir Asli</div>
+            </div>
+          </div>
+        `;
+      } else if (id === 'kk-afif') {
+        title.textContent = 'Bukti Order Kak Afif Fadilah';
+        content.innerHTML = `
+          <div class="space-y-3">
+            <div class="rounded-xl overflow-hidden border border-stone-200">
+              <img src="https://axaoagzveujcgoxybdmp.supabase.co/storage/v1/object/public/receipts/receipt_kk-afiffadilah-0870_1792675161135.jpg" class="w-full max-h-80 object-contain bg-black" alt="Struk Afif" />
+            </div>
+            <div class="p-3 bg-stone-50 rounded-xl border border-stone-200 text-xs space-y-1.5 text-stone-700">
+              <div>Pelanggan: <b class="text-stone-950">Afif Fadilah</b></div>
+              <div>Outlet: <b>Ruko Kol. Sugiono Wates (Yogyakarta)</b></div>
+              <div>Menu: <b>OG Thai Tea (Regular) - Rp 14.500</b></div>
+              <div class="text-emerald-700 font-bold mono pt-1">✓ Status: Selesai Diambil</div>
+            </div>
+          </div>
+        `;
+      } else if (id === 'gtc-real') {
+        title.textContent = 'ABANG.GTC Intelligence Division';
+        content.innerHTML = `
+          <div class="p-3.5 bg-stone-950 text-white rounded-xl space-y-2 mono text-xs">
+            <div class="text-sky-400 font-bold">@NGECEKGETCONTACT_BOT</div>
+            <div>Sistem Pengecekan Nomor Telepon Otomatis 24 Jam.</div>
+            <div class="text-stone-400 text-[11px]">Database tagar komprehensif, integrasi QRIS otomatis, dan kecepatan pengecekan 2-3 detik.</div>
+            <div class="text-emerald-400 font-bold pt-1">✓ Lebih dari 200 member aktif menggunakan layanan ini.</div>
           </div>
         `;
       }
