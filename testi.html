@@ -1,91 +1,104 @@
 <!DOCTYPE html>
-<html lang="id" class="dark scroll-smooth">
+<html lang="id" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <!-- Anti-Cache Directives -->
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
   
-  <title>Bukti Transaksi & Ulasan Asli Pelanggan — Bintang Store</title>
-  <meta name="description" content="Bukti transaksi otentik, struk fisik kasir, tangkapan layar WhatsApp, dan ulasan pelanggan Kopi Kenangan, Janji Jiwa, dan GetContact Bintang Store.">
-  <link rel="icon" type="image/svg+xml" href="./assets/logo.svg">
+  <title>Bukti Transaksi &amp; Testimoni Pelanggan — Bintang Store</title>
+  <meta name="description" content="Bukti transaksi otentik, struk fisik kasir Kopi Kenangan & Janji Jiwa, tangkapan layar WhatsApp, dan testimoni GetContact Bintang Store." />
+  <link rel="icon" type="image/svg+xml" href="./assets/logo.svg" />
 
-  <!-- Google Fonts: Plus Jakarta Sans, Inter & JetBrains Mono -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Tailwind CSS CDN with Official Bintang Store Theme -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            ivory: '#FAF8F5',
+            stone: {
+              950: '#1C1917',
+              900: '#292524',
+              700: '#44403C',
+              600: '#78716C',
+              500: '#A8A29E',
+              400: '#A8A29E',
+              300: '#D6D3D1',
+              200: '#E7E5E4',
+              100: '#F5F5F4',
+              50: '#FAFAF9',
+            },
+            terracotta: {
+              DEFAULT: '#9C532B',
+              soft: '#FBF5F1',
+              border: '#E8D5C8',
+              hover: '#834320'
+            }
+          }
+        }
+      }
+    };
+  </script>
 
   <style>
-    :root {
-      --bg-base: #07080A;
-      --card-base: #0E1015;
-      --card-elevated: #13161F;
-      --border-subtle: rgba(255, 255, 255, 0.08);
-      --border-hover: rgba(217, 83, 56, 0.4);
-      --terracotta: #D95338;
-      --terracotta-glow: rgba(217, 83, 56, 0.15);
-      --emerald-glow: rgba(16, 185, 129, 0.15);
-    }
     body {
+      background-color: #FAF8F5;
+      color: #1C1917;
       font-family: 'Plus Jakarta Sans', sans-serif;
-      background-color: var(--bg-base);
-      color: #FAF8F5;
       overflow-x: hidden;
     }
     .mono {
       font-family: 'JetBrains Mono', monospace;
     }
-    .inter {
-      font-family: 'Inter', sans-serif;
+    .nav-glass {
+      background-color: rgba(250, 248, 245, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
     }
-    .grid-bg {
-      background-size: 36px 36px;
+    .grid-pattern {
+      background-size: 32px 32px;
       background-image: 
-        linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+        linear-gradient(to right, rgba(28, 25, 23, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(28, 25, 23, 0.03) 1px, transparent 1px);
     }
-    .card-matte {
-      background: var(--card-base);
-      border: 1px solid var(--border-subtle);
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    .card-proof {
+      background: #FFFFFF;
+      border: 1px solid #E7E5E4;
+      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .card-matte:hover {
-      border-color: var(--border-hover);
+    .card-proof:hover {
+      border-color: #E8D5C8;
       transform: translateY(-2px);
-      box-shadow: 0 16px 36px -12px var(--terracotta-glow);
-    }
-    .card-green-hover:hover {
-      border-color: rgba(16, 185, 129, 0.4);
-      transform: translateY(-2px);
-      box-shadow: 0 16px 36px -12px var(--emerald-glow);
+      box-shadow: 0 12px 28px -6px rgba(156, 83, 43, 0.12);
     }
     .receipt-paper {
-      background: #FBF9F5;
-      color: #1C1917;
+      background: #FAF8F5;
+      border: 1px dashed #D6D3D1;
       font-family: 'JetBrains Mono', monospace;
-      position: relative;
     }
-    .receipt-jagged-bottom {
-      background: radial-gradient(circle, transparent, transparent 50%, #FBF9F5 50%, #FBF9F5 100%);
-      background-size: 12px 12px;
-    }
-    .censor-badge {
-      background: rgba(0, 0, 0, 0.85);
-      color: #FAF8F5;
-      letter-spacing: 1px;
-    }
-    .censor-highlight {
-      background: #18191E;
-      color: #F59E0B;
+    .censor-tag {
+      background: #FBF5F1;
+      color: #9C532B;
+      border: 1px dashed #E8D5C8;
       padding: 1px 6px;
       border-radius: 4px;
-      border: 1px dashed rgba(245, 158, 11, 0.3);
+      font-weight: 700;
+      font-size: 10px;
     }
-    /* Marquee animation */
     @keyframes marquee {
       0% { transform: translateX(0%); }
       100% { transform: translateX(-50%); }
@@ -93,267 +106,298 @@
     .animate-marquee {
       display: flex;
       width: 200%;
-      animation: marquee 32s linear infinite;
+      animation: marquee 34s linear infinite;
     }
     .animate-marquee:hover {
       animation-play-state: paused;
     }
   </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between selection:bg-[#D95338] selection:text-white">
+<body class="min-h-screen flex flex-col justify-between selection:bg-[#9C532B] selection:text-white">
 
-  <!-- Background Ambient Mesh -->
-  <div class="fixed top-[-180px] left-1/2 -translate-x-1/2 w-[700px] h-[450px] bg-gradient-to-b from-[#D95338]/12 via-amber-600/5 to-transparent blur-[140px] pointer-events-none -z-10"></div>
-  <div class="fixed bottom-[-180px] right-[-100px] w-[500px] h-[400px] bg-gradient-to-t from-emerald-600/10 via-teal-600/5 to-transparent blur-[140px] pointer-events-none -z-10"></div>
-  <div class="fixed inset-0 grid-bg pointer-events-none -z-20"></div>
+  <!-- Background Subtle Grid -->
+  <div class="fixed inset-0 grid-pattern pointer-events-none -z-10"></div>
 
-  <!-- Single Fixed Glass Header (Linear Parity) -->
-  <header class="fixed top-0 left-0 right-0 z-50 h-16 bg-[#080808]/85 backdrop-blur-md border-b border-[#22232a]">
-    <div class="max-w-6xl mx-auto h-full px-4 sm:px-6 flex items-center justify-between">
-      <!-- Left: Brand Logo -->
-      <a href="./kopken.html" class="flex items-center gap-3 group">
-        <div class="w-9 h-9 rounded-xl bg-[#14171F] border border-white/15 flex items-center justify-center p-1.5 shadow-sm group-hover:border-[#D95338]/50 transition">
-          <svg viewBox="0 0 120 120" fill="none" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-            <line x1="8" y1="60" x2="112" y2="60" stroke="#E7E5E4" stroke-width="3" stroke-linecap="round"/>
-            <line x1="30" y1="60" x2="90" y2="60" stroke="#E8A359" stroke-width="4" stroke-linecap="round"/>
-            <path d="M28 50 L60 14 L92 50" stroke="#FAF8F5" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-            <path d="M28 70 L60 106 L92 70" stroke="#D95338" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-            <polygon points="60,36 78,60 60,84 42,60" fill="#FAF8F5"/>
-            <path d="M60 42 C60 54 52 60 46 60 C52 60 60 66 60 78 C60 66 68 60 74 60 C68 60 60 54 60 42 Z" fill="#E8A359"/>
-          </svg>
-        </div>
-        <div>
-          <span class="text-xs font-black text-white tracking-wider block">BINTANG STORE</span>
-          <span class="text-[9px] mono text-[#D95338] font-bold tracking-widest block uppercase">OFFICIAL TRUST VERIFIER</span>
+  <!-- Ambient Warm Glow (Soft Luxury) -->
+  <div class="fixed top-[-140px] left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-amber-500/5 rounded-full blur-3xl pointer-events-none -z-10"></div>
+  <div class="fixed bottom-[-140px] right-[-100px] w-[500px] h-[350px] bg-[#9C532B]/5 rounded-full blur-3xl pointer-events-none -z-10"></div>
+
+  <!-- ========================================== -->
+  <!-- 1. NAVBAR (Exact www.bintanggstore.web.id) -->
+  <!-- ========================================== -->
+  <header class="nav-glass sticky top-0 z-40 border-b border-stone-200/80 transition-all">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Brand Logo Concept 6C -->
+      <a href="./home.html" class="flex items-center gap-3.5 group">
+        <img src="./assets/logo.svg" alt="Logo Bintang Store" class="w-9 h-9 transition-transform group-hover:scale-105 duration-200 shadow-xs" />
+        <div class="flex flex-col">
+          <span class="font-extrabold tracking-wider text-base text-stone-950 uppercase leading-none">Bintang Store</span>
+          <span class="text-[10px] tracking-widest text-stone-500 uppercase font-semibold mt-1">Ecosystem Portal</span>
         </div>
       </a>
 
-      <!-- Center Navigation Links -->
-      <nav class="hidden md:flex items-center gap-6 text-xs font-semibold text-[#8a8f98]">
-        <a href="./kopken.html" class="hover:text-white transition">Katalog KopKen</a>
-        <a href="./coffee.html" class="hover:text-white transition">Janji Jiwa</a>
-        <a href="./gtc.html" class="hover:text-white transition">Cek GTC</a>
-        <a href="./tracking.html" class="hover:text-white transition">Lacak Pesanan</a>
-        <span class="text-white font-bold px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-[11px]">Testimoni</span>
+      <!-- Menu Navigasi Tengah -->
+      <nav class="hidden md:flex items-center space-x-7 text-sm font-medium">
+        <a href="./home.html" class="text-stone-600 hover:text-stone-950 transition-colors">Home</a>
+        <a href="./coffee.html" class="text-stone-600 hover:text-stone-950 transition-colors">Coffee Hub</a>
+        <a href="./kopken.html" class="text-stone-600 hover:text-stone-950 transition-colors">Kopi Kenangan</a>
+        <a href="./gtc.html" class="text-stone-600 hover:text-stone-950 transition-colors">Cek GTC</a>
+        <a href="./tracking.html" class="text-stone-600 hover:text-stone-950 transition-colors">Unified Orders</a>
+        <span class="text-stone-950 font-bold border-b-2 border-stone-950 pb-1">Testimoni</span>
       </nav>
 
-      <!-- Right Action CTAs -->
-      <div class="flex items-center gap-2.5">
-        <a href="https://whatsapp.com/channel/0029Vb91UWjInlqTkOqqUT06" target="_blank" rel="noopener noreferrer" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-stone-300 hover:text-white text-xs font-medium transition">
-          <i class="fab fa-whatsapp text-emerald-400"></i>
-          <span>Saluran Resmi</span>
+      <!-- Tombol CTA Kanan -->
+      <div class="flex items-center gap-3">
+        <a href="https://whatsapp.com/channel/0029Vb91UWjInlqTkOqqUT06" 
+           target="_blank" 
+           rel="noopener noreferrer" 
+           class="hidden sm:inline-flex items-center gap-2 bg-white hover:bg-stone-50 border border-stone-200 text-stone-800 text-xs sm:text-sm font-semibold px-4 py-2.5 rounded-full transition shadow-xs">
+          <i class="fab fa-whatsapp text-emerald-600 text-sm"></i>
+          <span>Saluran WA</span>
         </a>
-        <a href="./kopken.html" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white hover:bg-gray-100 text-black text-xs font-bold transition shadow-sm active:scale-95">
+
+        <a href="./kopken.html" 
+           class="inline-flex items-center gap-2 bg-stone-950 hover:bg-stone-800 text-ivory text-xs sm:text-sm font-semibold px-4 sm:px-5 py-2.5 rounded-full transition shadow-xs active:scale-95">
           <span>Pesan Sekarang</span>
-          <i class="fas fa-arrow-right text-[10px]"></i>
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
         </a>
+
+        <!-- Mobile Toggle -->
+        <button onclick="toggleMobileNav()" class="md:hidden p-2 rounded-lg text-stone-700 hover:bg-stone-100">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
       </div>
+
+    </div>
+
+    <!-- Mobile Dropdown -->
+    <div id="mobileMenu" class="hidden md:hidden border-t border-stone-200 bg-[#FAF8F5] px-6 py-4 space-y-3">
+      <a href="./home.html" class="block text-sm font-medium text-stone-700">Home</a>
+      <a href="./coffee.html" class="block text-sm font-medium text-stone-700">Coffee Hub</a>
+      <a href="./kopken.html" class="block text-sm font-medium text-stone-700">Kopi Kenangan</a>
+      <a href="./gtc.html" class="block text-sm font-medium text-stone-700">Cek GTC</a>
+      <a href="./tracking.html" class="block text-sm font-medium text-stone-700">Unified Orders</a>
+      <a href="./testi.html" class="block text-sm font-bold text-stone-950">Testimoni</a>
     </div>
   </header>
 
-  <!-- Main Container -->
-  <main class="w-full max-w-6xl mx-auto px-4 sm:px-6 pt-24 pb-20 space-y-10 flex-grow">
 
-    <!-- Hero Section -->
-    <section class="text-center space-y-4 pt-4 sm:pt-6">
-      <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#18191E] border border-white/10 text-stone-300 text-xs mono font-bold uppercase tracking-wider">
-        <i class="fas fa-shield-halved text-[#D95338]"></i>
+  <!-- ========================================== -->
+  <!-- 2. HERO SECTION & TRUST BAROMETER          -->
+  <!-- ========================================== -->
+  <main class="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 sm:pt-14 pb-20 space-y-10 flex-grow">
+
+    <!-- Hero Title -->
+    <section class="text-center space-y-3.5 max-w-3xl mx-auto">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-terracotta-soft border border-terracotta-border text-terracotta text-xs font-bold uppercase tracking-wider shadow-2xs">
+        <i class="fas fa-certificate text-[11px]"></i>
         <span>BUKTI TRANSAKSI OTENTIK &bull; SENSOR PRIVASI AKTIF</span>
       </div>
 
-      <h1 class="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-tight max-w-3xl mx-auto">
+      <h1 class="text-3xl sm:text-5xl font-extrabold text-stone-950 tracking-tight leading-[1.15]">
         Bukan Janji Manis, Ini Bukti Nyata.<br>
-        <span class="text-stone-400 font-semibold text-2xl sm:text-3xl md:text-4xl">Ratusan Struk &amp; Chat Kasir Terverifikasi.</span>
+        <span class="text-stone-600 font-semibold text-2xl sm:text-3xl">Ratusan Struk &amp; Chat Kasir Terverifikasi.</span>
       </h1>
 
-      <p class="text-xs sm:text-sm text-stone-400 max-w-2xl mx-auto leading-relaxed inter">
-        Seluruh pesanan Kopi Kenangan, Janji Jiwa, dan layanan pengecekan GetContact diproses transparan melalui sistem resmi kasir POS dan server bot otomatis 24 jam.
+      <p class="text-sm sm:text-base text-stone-600 max-w-2xl mx-auto leading-relaxed">
+        Seluruh pesanan Kopi Kenangan, Janji Jiwa, dan pengecekan GetContact diproses transparan melalui sistem kasir resmi POS dan bot server otomatis 24 jam.
       </p>
     </section>
 
-    <!-- Bento Trust Meter (4 Key Metrics) -->
-    <section class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
-      <!-- Metric 1: Coffee Cups -->
-      <div class="p-5 rounded-2xl card-matte space-y-1 relative overflow-hidden">
-        <div class="flex items-center justify-between text-stone-400 text-xs mono">
-          <span>VOLUME TERKIRIM</span>
-          <i class="fas fa-mug-hot text-[#D95338]"></i>
+    <!-- Bento Trust Meter (4 White Cards on Warm Ivory) -->
+    <section class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+      
+      <!-- Card 1: Coffee Volume -->
+      <div class="bg-white p-5 rounded-2xl border border-stone-200/90 shadow-xs space-y-1.5">
+        <div class="flex items-center justify-between text-stone-500 text-xs font-semibold">
+          <span>VOLUME KOPI</span>
+          <div class="w-7 h-7 rounded-lg bg-terracotta-soft text-terracotta flex items-center justify-center text-xs">
+            <i class="fas fa-mug-hot"></i>
+          </div>
         </div>
-        <div class="text-2xl sm:text-3xl font-black text-white mono pt-1">1.850+</div>
-        <div class="text-[11px] text-stone-400 font-medium">Cup KopKen &amp; Janji Jiwa</div>
-        <div class="text-[10px] mono text-emerald-400 font-bold pt-1 flex items-center gap-1">
-          <i class="fas fa-arrow-trend-up text-[9px]"></i> 100% Struk Kasir Asli
+        <div class="text-2xl sm:text-3xl font-extrabold text-stone-950 mono">1.850+</div>
+        <div class="text-xs text-stone-600 font-medium">Cup KopKen &amp; Janji Jiwa</div>
+        <div class="text-[10px] text-emerald-700 font-bold pt-0.5 flex items-center gap-1">
+          <i class="fas fa-check-circle text-[9px]"></i> 100% Struk Kasir Asli
         </div>
       </div>
 
-      <!-- Metric 2: GTC Verified -->
-      <div class="p-5 rounded-2xl card-matte space-y-1 relative overflow-hidden">
-        <div class="flex items-center justify-between text-stone-400 text-xs mono">
-          <span>GTC PENGECEKAN</span>
-          <i class="fas fa-fingerprint text-sky-400"></i>
+      <!-- Card 2: GTC Checked -->
+      <div class="bg-white p-5 rounded-2xl border border-stone-200/90 shadow-xs space-y-1.5">
+        <div class="flex items-center justify-between text-stone-500 text-xs font-semibold">
+          <span>CEK GETCONTACT</span>
+          <div class="w-7 h-7 rounded-lg bg-sky-50 text-sky-600 flex items-center justify-center text-xs">
+            <i class="fas fa-fingerprint"></i>
+          </div>
         </div>
-        <div class="text-2xl sm:text-3xl font-black text-white mono pt-1">220+</div>
-        <div class="text-[11px] text-stone-400 font-medium">Nomor Terlacak Privat</div>
-        <div class="text-[10px] mono text-sky-400 font-bold pt-1 flex items-center gap-1">
+        <div class="text-2xl sm:text-3xl font-extrabold text-stone-950 mono">220+</div>
+        <div class="text-xs text-stone-600 font-medium">Nomor Terlacak Privat</div>
+        <div class="text-[10px] text-sky-700 font-bold pt-0.5 flex items-center gap-1">
           <i class="fas fa-bolt text-[9px]"></i> Rata-rata 3.2 Detik
         </div>
       </div>
 
-      <!-- Metric 3: Customer Score -->
-      <div class="p-5 rounded-2xl card-matte space-y-1 relative overflow-hidden">
-        <div class="flex items-center justify-between text-stone-400 text-xs mono">
+      <!-- Card 3: Satisfaction Score -->
+      <div class="bg-white p-5 rounded-2xl border border-stone-200/90 shadow-xs space-y-1.5">
+        <div class="flex items-center justify-between text-stone-500 text-xs font-semibold">
           <span>SKOR KEPUASAN</span>
-          <i class="fas fa-star text-amber-400"></i>
+          <div class="w-7 h-7 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center text-xs">
+            <i class="fas fa-star"></i>
+          </div>
         </div>
-        <div class="text-2xl sm:text-3xl font-black text-white mono pt-1">4.98<span class="text-sm text-stone-500 font-normal"> / 5.0</span></div>
-        <div class="text-[11px] text-stone-400 font-medium">Ulasan Follow-up WA</div>
-        <div class="text-[10px] mono text-amber-400 font-bold pt-1 flex items-center gap-1">
-          <i class="fas fa-check-circle text-[9px]"></i> 99.4% Repeat Order
+        <div class="text-2xl sm:text-3xl font-extrabold text-stone-950 mono">4.98<span class="text-xs font-normal text-stone-400"> / 5.0</span></div>
+        <div class="text-xs text-stone-600 font-medium">Ulasan Follow-up WA</div>
+        <div class="text-[10px] text-amber-700 font-bold pt-0.5 flex items-center gap-1">
+          <i class="fas fa-arrow-trend-up text-[9px]"></i> 99.4% Repeat Order
         </div>
       </div>
 
-      <!-- Metric 4: Kasir Speed -->
-      <div class="p-5 rounded-2xl card-matte space-y-1 relative overflow-hidden">
-        <div class="flex items-center justify-between text-stone-400 text-xs mono">
-          <span>PROSES DISKON</span>
-          <i class="fas fa-receipt text-emerald-400"></i>
+      <!-- Card 4: Processing Speed -->
+      <div class="bg-white p-5 rounded-2xl border border-stone-200/90 shadow-xs space-y-1.5">
+        <div class="flex items-center justify-between text-stone-500 text-xs font-semibold">
+          <span>PROSES KASIR</span>
+          <div class="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center text-xs">
+            <i class="fas fa-receipt"></i>
+          </div>
         </div>
-        <div class="text-2xl sm:text-3xl font-black text-white mono pt-1">&lt; 3.5<span class="text-sm text-stone-500 font-normal"> mnt</span></div>
-        <div class="text-[11px] text-stone-400 font-medium">Kasir ke Meja Antrean</div>
-        <div class="text-[10px] mono text-emerald-400 font-bold pt-1 flex items-center gap-1">
-          <i class="fas fa-shield text-[9px]"></i> Garansi Anti-Hold
+        <div class="text-2xl sm:text-3xl font-extrabold text-stone-950 mono">&lt; 3.5<span class="text-xs font-normal text-stone-400"> mnt</span></div>
+        <div class="text-xs text-stone-600 font-medium">Masuk Antrean Barista</div>
+        <div class="text-[10px] text-emerald-700 font-bold pt-0.5 flex items-center gap-1">
+          <i class="fas fa-shield-alt text-[9px]"></i> Garansi Anti-Hold
         </div>
       </div>
+
     </section>
 
-    <!-- Live Transaction Ticker (Real-Time Marquee Bar) -->
-    <div class="w-full overflow-hidden rounded-xl bg-[#0B0D12] border border-white/5 py-2.5 px-3 flex items-center gap-3">
-      <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#D95338]/15 border border-[#D95338]/30 text-[#D95338] text-[10px] mono font-bold flex-shrink-0">
-        <span class="w-1.5 h-1.5 rounded-full bg-[#D95338] animate-ping"></span>
+    <!-- Live Transaction Ticker (Smooth Moving Bar) -->
+    <div class="w-full overflow-hidden rounded-xl bg-white border border-stone-200/80 py-2.5 px-3 flex items-center gap-3 shadow-2xs">
+      <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-stone-950 text-ivory text-[10px] mono font-bold flex-shrink-0">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
         <span>LIVE AKTIVITAS</span>
       </div>
       <div class="overflow-hidden relative w-full">
-        <div class="animate-marquee flex items-center gap-8 text-[11px] mono text-stone-400 whitespace-nowrap">
-          <span>☕ Order <b>#KPK-9421</b>: 2x Kopi Kenangan Mantan &bull; Outlet Ruko Wates &bull; Selesai 4 mnt lalu</span>
+        <div class="animate-marquee flex items-center gap-8 text-[11px] mono text-stone-600 whitespace-nowrap">
+          <span>☕ Order <b>#KPK-9421</b>: 2x Kopi Kenangan Mantan &bull; Outlet Ruko Wates &bull; Selesai 3 mnt lalu</span>
           <span>🔍 Cek GTC <b>#GTC-0882</b>: 1x Cek Tagar Telkomsel (18 Tags) &bull; Selesai 3 detik</span>
-          <span>🥪 Order <b>#JJ-1049</b>: Jiwa Toast Beef Truffle &bull; Outlet Margonda &bull; Selesai 12 mnt lalu</span>
-          <span>☕ Order <b>#KPK-9430</b>: 1x Spanish Latte Large &bull; Outlet Grand Indonesia &bull; Selesai 18 mnt lalu</span>
-          <span>☕ Order <b>#KPK-9433</b>: 4x Kenangan Milk Tea &bull; Outlet PIM 2 &bull; Selesai 23 mnt lalu</span>
+          <span>🥪 Order <b>#JJ-1049</b>: Jiwa Toast Beef Truffle &bull; Outlet Margonda &bull; Selesai 11 mnt lalu</span>
+          <span>☕ Order <b>#KPK-9430</b>: 1x Spanish Latte Large &bull; Outlet Grand Indonesia &bull; Selesai 17 mnt lalu</span>
+          <span>☕ Order <b>#KPK-9433</b>: 4x Kenangan Milk Tea &bull; Outlet PIM 2 &bull; Selesai 22 mnt lalu</span>
           <span>🔍 Cek GTC <b>#GTC-0885</b>: 1x Validasi Indosat Spam Score &bull; Selesai 2 detik</span>
         </div>
       </div>
     </div>
 
-    <!-- Category Filter Controls -->
-    <section class="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-white/5 pb-4">
-      <div class="flex items-center gap-2 overflow-x-auto w-full sm:w-auto pb-2 sm:pb-0 text-xs no-scrollbar">
-        <button onclick="filterCategory('all')" id="tab-all" class="filter-tab px-4 py-2 rounded-xl bg-white text-black font-extrabold shadow-sm transition active:scale-95 flex items-center gap-1.5 cursor-pointer">
-          <i class="fas fa-layer-group text-[10px]"></i>
+
+    <!-- ========================================== -->
+    <!-- 3. FILTER TAB & PENCARIAN                  -->
+    <!-- ========================================== -->
+    <section class="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-stone-200 pb-4">
+      
+      <!-- Kategori Filter Pills -->
+      <div class="flex items-center gap-2 overflow-x-auto w-full sm:w-auto pb-1 sm:pb-0 text-xs no-scrollbar">
+        <button onclick="filterCategory('all')" id="tab-all" class="filter-tab px-4 py-2 rounded-full bg-stone-950 text-ivory font-bold shadow-xs transition active:scale-95 flex items-center gap-1.5 cursor-pointer">
           <span>Semua Bukti</span>
-          <span class="text-[10px] mono bg-black/10 px-1.5 py-0.2 rounded-full font-bold ml-1">48</span>
+          <span class="text-[10px] mono bg-white/20 px-1.5 py-0.2 rounded-full font-bold ml-0.5">48</span>
         </button>
 
-        <button onclick="filterCategory('kopken')" id="tab-kopken" class="filter-tab px-4 py-2 rounded-xl bg-[#12151D] hover:bg-[#181C26] text-stone-300 font-bold transition active:scale-95 border border-white/5 flex items-center gap-1.5 cursor-pointer">
-          <i class="fas fa-mug-hot text-[#D95338] text-[10px]"></i>
+        <button onclick="filterCategory('kopken')" id="tab-kopken" class="filter-tab px-4 py-2 rounded-full bg-white text-stone-700 hover:text-stone-950 font-semibold transition active:scale-95 border border-stone-200 shadow-2xs flex items-center gap-1.5 cursor-pointer">
+          <i class="fas fa-mug-hot text-terracotta text-[11px]"></i>
           <span>Kopi Kenangan</span>
         </button>
 
-        <button onclick="filterCategory('janjiw')" id="tab-janjiw" class="filter-tab px-4 py-2 rounded-xl bg-[#12151D] hover:bg-[#181C26] text-stone-300 font-bold transition active:scale-95 border border-white/5 flex items-center gap-1.5 cursor-pointer">
-          <i class="fas fa-bread-slice text-amber-500 text-[10px]"></i>
+        <button onclick="filterCategory('janjiw')" id="tab-janjiw" class="filter-tab px-4 py-2 rounded-full bg-white text-stone-700 hover:text-stone-950 font-semibold transition active:scale-95 border border-stone-200 shadow-2xs flex items-center gap-1.5 cursor-pointer">
+          <i class="fas fa-bread-slice text-amber-600 text-[11px]"></i>
           <span>Janji Jiwa &amp; Toast</span>
         </button>
 
-        <button onclick="filterCategory('gtc')" id="tab-gtc" class="filter-tab px-4 py-2 rounded-xl bg-[#12151D] hover:bg-[#181C26] text-stone-300 font-bold transition active:scale-95 border border-white/5 flex items-center gap-1.5 cursor-pointer">
-          <i class="fas fa-fingerprint text-sky-400 text-[10px]"></i>
+        <button onclick="filterCategory('gtc')" id="tab-gtc" class="filter-tab px-4 py-2 rounded-full bg-white text-stone-700 hover:text-stone-950 font-semibold transition active:scale-95 border border-stone-200 shadow-2xs flex items-center gap-1.5 cursor-pointer">
+          <i class="fas fa-fingerprint text-sky-600 text-[11px]"></i>
           <span>Cek GetContact</span>
         </button>
 
-        <button onclick="filterCategory('chat')" id="tab-chat" class="filter-tab px-4 py-2 rounded-xl bg-[#12151D] hover:bg-[#181C26] text-stone-300 font-bold transition active:scale-95 border border-white/5 flex items-center gap-1.5 cursor-pointer">
-          <i class="fab fa-whatsapp text-emerald-400 text-[10px]"></i>
+        <button onclick="filterCategory('chat')" id="tab-chat" class="filter-tab px-4 py-2 rounded-full bg-white text-stone-700 hover:text-stone-950 font-semibold transition active:scale-95 border border-stone-200 shadow-2xs flex items-center gap-1.5 cursor-pointer">
+          <i class="fab fa-whatsapp text-emerald-600 text-[11px]"></i>
           <span>Chat WhatsApp</span>
         </button>
       </div>
 
-      <!-- Quick Search Bar -->
+      <!-- Kotak Pencarian Outlet / Kota -->
       <div class="w-full sm:w-64 relative">
-        <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-stone-500 text-xs"></i>
+        <i class="fas fa-search absolute left-3.5 top-1/2 -translate-y-1/2 text-stone-400 text-xs"></i>
         <input type="text" id="filter-search" oninput="handleSearch(this.value)" placeholder="Cari outlet atau kota..." 
-               class="w-full pl-8 pr-3 py-1.5 rounded-xl bg-[#0E1015] border border-white/10 text-xs text-stone-200 placeholder-stone-500 outline-none focus:border-[#D95338] transition mono">
+               class="w-full pl-9 pr-3.5 py-2 rounded-xl bg-white border border-stone-200 text-xs text-stone-900 placeholder-stone-400 outline-none focus:ring-2 focus:ring-stone-900 transition shadow-2xs">
       </div>
     </section>
 
-    <!-- Masonry Grid: Authentic Proofs with Privacy Sensor -->
+
+    <!-- ========================================== -->
+    <!-- 4. MASONRY GRID BUKTI OTENTIK DENGAN SENSOR-->
+    <!-- ========================================== -->
     <section id="proofs-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
 
-      <!-- ======================================================== -->
-      <!-- CARD 1: Physical Cashier POS Receipt (Kopi Kenangan)     -->
-      <!-- ======================================================== -->
-      <article class="proof-item p-4 rounded-2xl card-matte space-y-3 cursor-pointer group" data-category="kopken" onclick="openLightbox('receipt-1')">
-        <div class="flex items-center justify-between text-xs pb-1 border-b border-white/5">
+      <!-- BUKTI 1: Struk Kasir POS Kopi Kenangan Asli -->
+      <article class="proof-item p-4 rounded-2xl card-proof space-y-3 cursor-pointer group" data-category="kopken" onclick="openLightbox('receipt-1')">
+        <div class="flex items-center justify-between text-xs pb-1 border-b border-stone-100">
           <div class="flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-            <span class="font-bold text-stone-200 text-xs">Kopi Kenangan POS</span>
+            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+            <span class="font-extrabold text-stone-900 text-xs">Kopi Kenangan POS</span>
           </div>
-          <span class="text-[10px] mono text-stone-400">Hari ini &bull; 13:42 WIB</span>
+          <span class="text-[10px] mono text-stone-500">Hari ini &bull; 13:42 WIB</span>
         </div>
 
-        <!-- Realistic Physical Receipt Graphic -->
-        <div class="receipt-paper rounded-xl p-4 shadow-md text-[11px] leading-relaxed border border-stone-300 select-none">
-          <div class="text-center pb-2 border-b border-dashed border-stone-400">
-            <div class="font-black text-sm tracking-tight text-stone-900">KOPI KENANGAN</div>
+        <div class="receipt-paper rounded-xl p-4 text-[11px] leading-relaxed shadow-2xs select-none">
+          <div class="text-center pb-2 border-b border-dashed border-stone-300">
+            <div class="font-extrabold text-sm tracking-tight text-stone-900">KOPI KENANGAN</div>
             <div class="text-[10px] text-stone-600">Ruko Kol. Sugiono Wates</div>
             <div class="text-[9px] text-stone-500">POS #02 &bull; Trx ID: KPK-882194</div>
           </div>
 
-          <!-- Censored Customer Metadata -->
-          <div class="py-2 border-b border-dashed border-stone-400 space-y-1 text-[10px]">
+          <div class="py-2 border-b border-dashed border-stone-300 space-y-1 text-[10px]">
             <div class="flex justify-between">
               <span class="text-stone-500">Pelanggan:</span>
-              <span class="censor-highlight font-bold">Kak D**** (0857-****-0133)</span>
+              <span class="censor-tag">Kak D**** (0857-****-0133)</span>
             </div>
             <div class="flex justify-between">
               <span class="text-stone-500">Metode:</span>
-              <span class="font-bold">Pick Up / Take Away (App)</span>
+              <span class="font-bold text-stone-800">Pick Up Kasir (App)</span>
             </div>
           </div>
 
-          <!-- Items Ordered -->
-          <div class="py-2.5 border-b border-dashed border-stone-400 space-y-1.5">
+          <div class="py-2.5 border-b border-dashed border-stone-300 space-y-1.5">
             <div class="flex justify-between">
               <div>
-                <span class="font-bold">1x Kopi Kenangan Mantan (R)</span>
+                <span class="font-bold text-stone-900">1x Kopi Kenangan Mantan (R)</span>
                 <div class="text-[9px] text-stone-500">Ice, Less Sugar, Normal Ice</div>
               </div>
-              <span class="font-mono">19.000</span>
+              <span class="font-mono text-stone-900">19.000</span>
             </div>
             <div class="flex justify-between">
               <div>
-                <span class="font-bold">1x Wahyu Sapi Toast</span>
+                <span class="font-bold text-stone-900">1x Wahyu Sapi Toast</span>
                 <div class="text-[9px] text-stone-500">Crispy Bun, Spicy Mayo</div>
               </div>
-              <span class="font-mono">19.000</span>
+              <span class="font-mono text-stone-900">19.000</span>
             </div>
           </div>
 
-          <!-- Total & Discount Breakdown -->
           <div class="pt-2 space-y-1 text-[10px]">
-            <div class="flex justify-between text-stone-600">
+            <div class="flex justify-between text-stone-500">
               <span>Subtotal Normal:</span>
               <span class="line-through">38.000</span>
             </div>
-            <div class="flex justify-between text-[#D95338] font-bold">
+            <div class="flex justify-between text-terracotta font-bold">
               <span>Diskon Bintang Store (50%):</span>
               <span>-19.000</span>
             </div>
-            <div class="flex justify-between font-black text-xs text-stone-900 pt-1 border-t border-stone-300">
+            <div class="flex justify-between font-black text-xs text-stone-950 pt-1 border-t border-stone-300">
               <span>TOTAL DIBAYAR:</span>
               <span class="text-emerald-700">Rp 19.000</span>
             </div>
           </div>
 
-          <!-- Barcode Stamp -->
           <div class="pt-3 text-center">
-            <div class="inline-block px-4 py-1 rounded bg-stone-900 text-stone-100 text-[9px] mono font-bold">
+            <div class="inline-block px-3 py-1 rounded bg-stone-900 text-stone-100 text-[9px] mono font-bold">
               ||||| ||||||| |||| |||||| |||||
             </div>
             <p class="text-[8px] text-stone-500 mt-0.5">STRUK RESMI &bull; LUNAS DI KASIR</p>
@@ -361,196 +405,184 @@
         </div>
 
         <div class="flex items-center justify-between text-[11px] pt-1">
-          <span class="text-stone-400 inter flex items-center gap-1.5">
-            <i class="fas fa-location-dot text-[#D95338] text-[10px]"></i>
+          <span class="text-stone-600 flex items-center gap-1.5 font-medium">
+            <i class="fas fa-location-dot text-terracotta text-[10px]"></i>
             <span>Outlet Wates, Kulon Progo</span>
           </span>
-          <span class="mono text-[10px] font-bold text-emerald-400 flex items-center gap-1">
-            <i class="fas fa-circle-check"></i> Selesai
+          <span class="mono text-[10px] font-bold text-emerald-700 flex items-center gap-1">
+            <i class="fas fa-check-circle"></i> Selesai
           </span>
         </div>
       </article>
 
-      <!-- ======================================================== -->
-      <!-- CARD 2: Authentic WhatsApp Chat (Delivery Kantor KopKen) -->
-      <!-- ======================================================== -->
-      <article class="proof-item p-4 rounded-2xl card-matte space-y-3 cursor-pointer group" data-category="chat" onclick="openLightbox('chat-1')">
-        <div class="flex items-center justify-between text-xs pb-1 border-b border-white/5">
+      <!-- BUKTI 2: WhatsApp Chat Otentik (Order Kantor PIM 2) -->
+      <article class="proof-item p-4 rounded-2xl card-proof space-y-3 cursor-pointer group" data-category="chat" onclick="openLightbox('chat-1')">
+        <div class="flex items-center justify-between text-xs pb-1 border-b border-stone-100">
           <div class="flex items-center gap-2">
-            <i class="fab fa-whatsapp text-emerald-400 text-sm"></i>
-            <span class="font-bold text-stone-200 text-xs">WhatsApp Chat Pelanggan</span>
+            <i class="fab fa-whatsapp text-emerald-600 text-sm"></i>
+            <span class="font-extrabold text-stone-900 text-xs">Chat WhatsApp Pelanggan</span>
           </div>
-          <span class="text-[10px] mono text-stone-400">Kemarin &bull; 14:15 WIB</span>
+          <span class="text-[10px] mono text-stone-500">Kemarin &bull; 14:15 WIB</span>
         </div>
 
-        <!-- WhatsApp Conversation Frame -->
-        <div class="rounded-xl p-3 bg-[#0B141B] border border-white/5 space-y-2.5 text-xs text-stone-200">
-          <!-- WhatsApp Chat Header -->
-          <div class="flex items-center justify-between pb-2 border-b border-white/5 text-[10px]">
+        <div class="rounded-xl p-3 bg-[#EFEAE2] border border-stone-200/80 space-y-2.5 text-xs text-stone-800">
+          <div class="flex items-center justify-between pb-2 border-b border-stone-300/80 text-[10px]">
             <div class="flex items-center gap-2">
               <div class="w-6 h-6 rounded-full bg-emerald-700 text-white flex items-center justify-center font-bold text-[10px]">
                 R
               </div>
               <div>
-                <span class="censor-highlight font-bold">Kak Rian S. (0812-****-8842)</span>
-                <span class="text-stone-500 block text-[9px]">PIM 2 South Skywalk</span>
+                <span class="censor-tag">Kak Rian S. (0812-****-8842)</span>
+                <span class="text-stone-500 block text-[9px] mt-0.5">PIM 2 South Skywalk</span>
               </div>
             </div>
-            <span class="text-emerald-400 mono font-bold">⭐⭐⭐⭐⭐</span>
+            <span class="text-amber-500 font-bold">⭐⭐⭐⭐⭐</span>
           </div>
 
-          <!-- Customer Message Bubble -->
           <div class="flex justify-start">
-            <div class="max-w-[85%] rounded-2xl rounded-tl-none p-3 bg-[#202C33] text-stone-100 text-[11px] leading-relaxed shadow-sm">
-              <p>Kak makasih banyak yaa! Kopi Kenangan pesenan anak-anak divisi udah sampe di meja resepsionis ☕🙌</p>
+            <div class="max-w-[85%] rounded-2xl rounded-tl-none p-3 bg-white text-stone-900 text-[11px] leading-relaxed shadow-xs">
+              <p>Kak makasih banyak yaa! Kopi Kenangan pesenan anak-anak divisi finance udah sampe di meja resepsionis ☕🙌</p>
               <p class="mt-1">Struknya pas diskon 50%, lumayan hemat hampir 60rb. Besok jajan ke kamu lagi yaa min!</p>
               <span class="text-[9px] text-stone-400 float-right mt-1 ml-2">14:12</span>
             </div>
           </div>
 
-          <!-- Admin Reply Bubble -->
           <div class="flex justify-end">
-            <div class="max-w-[85%] rounded-2xl rounded-tr-none p-3 bg-[#005C4B] text-stone-100 text-[11px] leading-relaxed shadow-sm">
+            <div class="max-w-[85%] rounded-2xl rounded-tr-none p-3 bg-[#D9FDD3] text-stone-900 text-[11px] leading-relaxed shadow-xs">
               <p>Alhamdulillah sama-sama Kak Rian! Selamat menikmati ngopi sorenya bareng tim yaa kak 🙏✨</p>
-              <div class="flex items-center justify-end gap-1 mt-1 text-[9px] text-emerald-200">
+              <div class="flex items-center justify-end gap-1 mt-1 text-[9px] text-stone-500">
                 <span>14:14</span>
-                <i class="fas fa-check-double text-[8px] text-sky-300"></i>
+                <i class="fas fa-check-double text-[8px] text-sky-500"></i>
               </div>
             </div>
           </div>
         </div>
 
         <div class="flex items-center justify-between text-[11px] pt-1">
-          <span class="text-stone-400 inter flex items-center gap-1.5">
+          <span class="text-stone-600 flex items-center gap-1.5 font-medium">
             <i class="fas fa-building text-stone-500 text-[10px]"></i>
             <span>Order Divisi Kantor &bull; 4 Cup</span>
           </span>
-          <span class="mono text-[10px] font-bold text-emerald-400 flex items-center gap-1">
-            <i class="fas fa-circle-check"></i> Terverifikasi
+          <span class="mono text-[10px] font-bold text-emerald-700 flex items-center gap-1">
+            <i class="fas fa-check-circle"></i> Terverifikasi
           </span>
         </div>
       </article>
 
-      <!-- ======================================================== -->
-      <!-- CARD 3: GetContact (GTC) Verification Telegram Result    -->
-      <!-- ======================================================== -->
-      <article class="proof-item p-4 rounded-2xl card-matte card-green-hover space-y-3 cursor-pointer group" data-category="gtc" onclick="openLightbox('gtc-1')">
-        <div class="flex items-center justify-between text-xs pb-1 border-b border-white/5">
+      <!-- BUKTI 3: Hasil Pengecekan GetContact (ABANG.GTC) -->
+      <article class="proof-item p-4 rounded-2xl card-proof space-y-3 cursor-pointer group" data-category="gtc" onclick="openLightbox('gtc-1')">
+        <div class="flex items-center justify-between text-xs pb-1 border-b border-stone-100">
           <div class="flex items-center gap-2">
-            <i class="fab fa-telegram-plane text-sky-400 text-sm"></i>
-            <span class="font-bold text-stone-200 text-xs">ABANG.GTC Bot Hasil</span>
+            <i class="fab fa-telegram-plane text-sky-600 text-sm"></i>
+            <span class="font-extrabold text-stone-900 text-xs">ABANG.GTC Bot Hasil</span>
           </div>
-          <span class="text-[10px] mono text-stone-400">Hari ini &bull; 11:08 WIB</span>
+          <span class="text-[10px] mono text-stone-500">Hari ini &bull; 11:08 WIB</span>
         </div>
 
-        <!-- GTC Result Telegram Card -->
-        <div class="rounded-xl p-3.5 bg-[#0C0E14] border border-sky-500/20 space-y-2.5 text-xs text-stone-200 mono">
+        <div class="rounded-xl p-3.5 bg-stone-950 text-white space-y-2.5 text-xs mono shadow-xs">
           <div class="flex items-center justify-between pb-2 border-b border-white/10 text-[10px]">
             <span class="text-sky-400 font-bold">@NGECEKGETCONTACT_BOT</span>
-            <span class="px-2 py-0.5 rounded bg-sky-500/10 text-sky-300 border border-sky-500/20 font-bold">PROSES: 2.8s</span>
+            <span class="px-2 py-0.5 rounded bg-sky-500/20 text-sky-300 font-bold">PROSES: 2.8s</span>
           </div>
 
           <div class="space-y-1.5 text-[11px]">
             <div>
-              <span class="text-stone-500 block text-[9px]">NOMOR TARGET DICARI:</span>
-              <span class="censor-highlight font-bold">+62 813-****-9182 (Telkomsel)</span>
+              <span class="text-stone-400 block text-[9px]">NOMOR TARGET DICARI:</span>
+              <span class="censor-tag font-bold">+62 813-****-9182 (Telkomsel)</span>
             </div>
             <div>
-              <span class="text-stone-500 block text-[9px]">NAMA SISTEM DITEMUKAN:</span>
+              <span class="text-stone-400 block text-[9px]">NAMA SISTEM DITEMUKAN:</span>
               <span class="text-white font-bold">Budi Santoso Logistik</span>
             </div>
             <div>
-              <span class="text-stone-500 block text-[9px]">TAGAR UTAMA TERDAFTAR (16 TAGS):</span>
+              <span class="text-stone-400 block text-[9px]">TAGAR UTAMA TERDAFTAR (16 TAGS):</span>
               <div class="flex flex-wrap gap-1 pt-1 text-[9px]">
-                <span class="px-1.5 py-0.5 rounded bg-white/5 text-stone-300">#Budi Ekspedisi</span>
-                <span class="px-1.5 py-0.5 rounded bg-white/5 text-stone-300">#Pak Budi Gudang</span>
-                <span class="px-1.5 py-0.5 rounded bg-white/5 text-stone-300">#Kurir Sparepart</span>
-                <span class="px-1.5 py-0.5 rounded bg-rose-500/20 text-rose-300">#Spam Penipu ❌</span>
+                <span class="px-1.5 py-0.5 rounded bg-white/10 text-stone-300">#Budi Ekspedisi</span>
+                <span class="px-1.5 py-0.5 rounded bg-white/10 text-stone-300">#Pak Budi Gudang</span>
+                <span class="px-1.5 py-0.5 rounded bg-white/10 text-stone-300">#Kurir Sparepart</span>
+                <span class="px-1.5 py-0.5 rounded bg-rose-500/20 text-rose-300 font-bold">#Spam Penipu ❌</span>
               </div>
             </div>
           </div>
 
-          <!-- Customer Testimonial Bubble on WA -->
-          <div class="p-2 rounded-lg bg-stone-900 border border-white/5 text-[10px] text-stone-300 italic inter">
+          <div class="p-2 rounded-lg bg-stone-900 border border-white/10 text-[10px] text-stone-300 italic sans">
             &ldquo;Gila sih gercep bgt cuma 3 detik langsung tau kalo yg nelpon tadi siang nomor penipu ngaku kurir. Ngebantu bgt min!&rdquo;
           </div>
         </div>
 
         <div class="flex items-center justify-between text-[11px] pt-1">
-          <span class="text-stone-400 inter flex items-center gap-1.5">
-            <i class="fas fa-user-shield text-sky-400 text-[10px]"></i>
+          <span class="text-stone-600 flex items-center gap-1.5 font-medium">
+            <i class="fas fa-user-shield text-sky-600 text-[10px]"></i>
             <span>100% Anonim &bull; Target Gak Tau</span>
           </span>
-          <span class="mono text-[10px] font-bold text-sky-400 flex items-center gap-1">
-            <i class="fas fa-circle-check"></i> Sukses
+          <span class="mono text-[10px] font-bold text-sky-700 flex items-center gap-1">
+            <i class="fas fa-check-circle"></i> Sukses
           </span>
         </div>
       </article>
 
-      <!-- ======================================================== -->
-      <!-- CARD 4: Janji Jiwa & Jiwa Toast Physical POS Receipt     -->
-      <!-- ======================================================== -->
-      <article class="proof-item p-4 rounded-2xl card-matte space-y-3 cursor-pointer group" data-category="janjiw" onclick="openLightbox('receipt-2')">
-        <div class="flex items-center justify-between text-xs pb-1 border-b border-white/5">
+      <!-- BUKTI 4: Struk Kasir Janji Jiwa & Jiwa Toast -->
+      <article class="proof-item p-4 rounded-2xl card-proof space-y-3 cursor-pointer group" data-category="janjiw" onclick="openLightbox('receipt-2')">
+        <div class="flex items-center justify-between text-xs pb-1 border-b border-stone-100">
           <div class="flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-amber-400"></span>
-            <span class="font-bold text-stone-200 text-xs">Janji Jiwa &amp; Toast POS</span>
+            <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+            <span class="font-extrabold text-stone-900 text-xs">Janji Jiwa &amp; Toast POS</span>
           </div>
-          <span class="text-[10px] mono text-stone-400">22 Okt &bull; 17:10 WIB</span>
+          <span class="text-[10px] mono text-stone-500">22 Okt &bull; 17:10 WIB</span>
         </div>
 
-        <div class="receipt-paper rounded-xl p-4 shadow-md text-[11px] leading-relaxed border border-stone-300 select-none">
-          <div class="text-center pb-2 border-b border-dashed border-stone-400">
-            <div class="font-black text-sm tracking-tight text-stone-900">JANJI JIWA &amp; TOAST</div>
+        <div class="receipt-paper rounded-xl p-4 text-[11px] leading-relaxed shadow-2xs select-none">
+          <div class="text-center pb-2 border-b border-dashed border-stone-300">
+            <div class="font-extrabold text-sm tracking-tight text-stone-900">JANJI JIWA &amp; TOAST</div>
             <div class="text-[10px] text-stone-600">Margonda Raya No. 120, Depok</div>
             <div class="text-[9px] text-stone-500">KASIR #01 &bull; Trx ID: JJ-740112</div>
           </div>
 
-          <div class="py-2 border-b border-dashed border-stone-400 space-y-1 text-[10px]">
+          <div class="py-2 border-b border-dashed border-stone-300 space-y-1 text-[10px]">
             <div class="flex justify-between">
               <span class="text-stone-500">Member:</span>
-              <span class="censor-highlight font-bold">Kak Nadh*** (0858-****-8543)</span>
+              <span class="censor-tag">Kak Nadh*** (0858-****-8543)</span>
             </div>
             <div class="flex justify-between">
               <span class="text-stone-500">Status:</span>
-              <span class="font-bold">Take Away Diproses</span>
+              <span class="font-bold text-stone-800">Take Away Diproses</span>
             </div>
           </div>
 
-          <div class="py-2.5 border-b border-dashed border-stone-400 space-y-1.5">
+          <div class="py-2.5 border-b border-dashed border-stone-300 space-y-1.5">
             <div class="flex justify-between">
               <div>
-                <span class="font-bold">1x Beef Truffle Mayo Toast</span>
+                <span class="font-bold text-stone-900">1x Beef Truffle Mayo Toast</span>
                 <div class="text-[9px] text-stone-500">Extra Cheese, Crispy Toast</div>
               </div>
-              <span class="font-mono">26.500</span>
+              <span class="font-mono text-stone-900">26.500</span>
             </div>
             <div class="flex justify-between">
               <div>
-                <span class="font-bold">1x Kopi Susu Sahabat (R)</span>
+                <span class="font-bold text-stone-900">1x Kopi Susu Sahabat (R)</span>
                 <div class="text-[9px] text-stone-500">Less Sugar, Normal Ice</div>
               </div>
-              <span class="font-mono">13.500</span>
+              <span class="font-mono text-stone-900">13.500</span>
             </div>
           </div>
 
           <div class="pt-2 space-y-1 text-[10px]">
-            <div class="flex justify-between text-stone-600">
+            <div class="flex justify-between text-stone-500">
               <span>Total Harga Menu:</span>
               <span class="line-through">40.000</span>
             </div>
-            <div class="flex justify-between text-[#D95338] font-bold">
+            <div class="flex justify-between text-terracotta font-bold">
               <span>Diskon Bintang Store:</span>
               <span>-16.000</span>
             </div>
-            <div class="flex justify-between font-black text-xs text-stone-900 pt-1 border-t border-stone-300">
+            <div class="flex justify-between font-black text-xs text-stone-950 pt-1 border-t border-stone-300">
               <span>TOTAL SETTLEMENT:</span>
               <span class="text-emerald-700">Rp 24.000</span>
             </div>
           </div>
 
           <div class="pt-3 text-center">
-            <div class="inline-block px-4 py-1 rounded bg-stone-900 text-stone-100 text-[9px] mono font-bold">
+            <div class="inline-block px-3 py-1 rounded bg-stone-900 text-stone-100 text-[9px] mono font-bold">
               ||||| ||||||| |||| |||||| |||||
             </div>
             <p class="text-[8px] text-stone-500 mt-0.5">STRUK RESMI &bull; LUNAS DI KASIR</p>
@@ -558,163 +590,166 @@
         </div>
 
         <div class="flex items-center justify-between text-[11px] pt-1">
-          <span class="text-stone-400 inter flex items-center gap-1.5">
-            <i class="fas fa-location-dot text-amber-500 text-[10px]"></i>
+          <span class="text-stone-600 flex items-center gap-1.5 font-medium">
+            <i class="fas fa-location-dot text-amber-600 text-[10px]"></i>
             <span>Outlet Margonda, Depok</span>
           </span>
-          <span class="mono text-[10px] font-bold text-emerald-400 flex items-center gap-1">
-            <i class="fas fa-circle-check"></i> Selesai
+          <span class="mono text-[10px] font-bold text-emerald-700 flex items-center gap-1">
+            <i class="fas fa-check-circle"></i> Selesai
           </span>
         </div>
       </article>
 
-      <!-- ======================================================== -->
-      <!-- CARD 5: WhatsApp Chat Jastip Flash Sale / Repeat Order   -->
-      <!-- ======================================================== -->
-      <article class="proof-item p-4 rounded-2xl card-matte space-y-3 cursor-pointer group" data-category="chat" onclick="openLightbox('chat-2')">
-        <div class="flex items-center justify-between text-xs pb-1 border-b border-white/5">
+      <!-- BUKTI 5: WhatsApp Chat Repeat Order & Sandi Wi-Fi -->
+      <article class="proof-item p-4 rounded-2xl card-proof space-y-3 cursor-pointer group" data-category="chat" onclick="openLightbox('chat-2')">
+        <div class="flex items-center justify-between text-xs pb-1 border-b border-stone-100">
           <div class="flex items-center gap-2">
-            <i class="fab fa-whatsapp text-emerald-400 text-sm"></i>
-            <span class="font-bold text-stone-200 text-xs">WhatsApp Chat Pelanggan</span>
+            <i class="fab fa-whatsapp text-emerald-600 text-sm"></i>
+            <span class="font-extrabold text-stone-900 text-xs">Chat WhatsApp Pelanggan</span>
           </div>
-          <span class="text-[10px] mono text-stone-400">21 Okt &bull; 19:40 WIB</span>
+          <span class="text-[10px] mono text-stone-500">21 Okt &bull; 19:40 WIB</span>
         </div>
 
-        <div class="rounded-xl p-3 bg-[#0B141B] border border-white/5 space-y-2.5 text-xs text-stone-200">
-          <div class="flex items-center justify-between pb-2 border-b border-white/5 text-[10px]">
+        <div class="rounded-xl p-3 bg-[#EFEAE2] border border-stone-200/80 space-y-2.5 text-xs text-stone-800">
+          <div class="flex items-center justify-between pb-2 border-b border-stone-300/80 text-[10px]">
             <div class="flex items-center gap-2">
               <div class="w-6 h-6 rounded-full bg-purple-700 text-white flex items-center justify-center font-bold text-[10px]">
                 A
               </div>
               <div>
-                <span class="censor-highlight font-bold">Kak Anisa W. (0877-****-4419)</span>
-                <span class="text-stone-500 block text-[9px]">23Paskal Bandung</span>
+                <span class="censor-tag">Kak Anisa W. (0877-****-4419)</span>
+                <span class="text-stone-500 block text-[9px] mt-0.5">23Paskal Bandung</span>
               </div>
             </div>
-            <span class="text-emerald-400 mono font-bold">⭐⭐⭐⭐⭐</span>
+            <span class="text-amber-500 font-bold">⭐⭐⭐⭐⭐</span>
           </div>
 
           <div class="flex justify-start">
-            <div class="max-w-[85%] rounded-2xl rounded-tl-none p-3 bg-[#202C33] text-stone-100 text-[11px] leading-relaxed shadow-sm">
+            <div class="max-w-[85%] rounded-2xl rounded-tl-none p-3 bg-white text-stone-900 text-[11px] leading-relaxed shadow-xs">
               <p>Min udah repeat order ke-4 nih minggu ini wkwk. Sandi Wi-Fi outlet di saluran WA kamu beneran connect, mantul bgt sambil nugas di Paskal 👍</p>
               <span class="text-[9px] text-stone-400 float-right mt-1 ml-2">19:38</span>
             </div>
           </div>
 
           <div class="flex justify-end">
-            <div class="max-w-[85%] rounded-2xl rounded-tr-none p-3 bg-[#005C4B] text-stone-100 text-[11px] leading-relaxed shadow-sm">
+            <div class="max-w-[85%] rounded-2xl rounded-tr-none p-3 bg-[#D9FDD3] text-stone-900 text-[11px] leading-relaxed shadow-xs">
               <p>Mantap Kak Anisa! Makasih banyak udah langganan terus di Bintang Store. Semangat nugasnya yaa kak! 🙌☕</p>
-              <div class="flex items-center justify-end gap-1 mt-1 text-[9px] text-emerald-200">
+              <div class="flex items-center justify-end gap-1 mt-1 text-[9px] text-stone-500">
                 <span>19:39</span>
-                <i class="fas fa-check-double text-[8px] text-sky-300"></i>
+                <i class="fas fa-check-double text-[8px] text-sky-500"></i>
               </div>
             </div>
           </div>
         </div>
 
         <div class="flex items-center justify-between text-[11px] pt-1">
-          <span class="text-stone-400 inter flex items-center gap-1.5">
-            <i class="fas fa-wifi text-emerald-400 text-[10px]"></i>
+          <span class="text-stone-600 flex items-center gap-1.5 font-medium">
+            <i class="fas fa-wifi text-emerald-600 text-[10px]"></i>
             <span>Wi-Fi &amp; Coffee Regular Buyer</span>
           </span>
-          <span class="mono text-[10px] font-bold text-emerald-400 flex items-center gap-1">
-            <i class="fas fa-circle-check"></i> Langganan
+          <span class="mono text-[10px] font-bold text-emerald-700 flex items-center gap-1">
+            <i class="fas fa-check-circle"></i> Langganan
           </span>
         </div>
       </article>
 
-      <!-- ======================================================== -->
-      <!-- CARD 6: Dynamic QRIS Settlement & Auto Topup GTC         -->
-      <!-- ======================================================== -->
-      <article class="proof-item p-4 rounded-2xl card-matte space-y-3 cursor-pointer group" data-category="gtc" onclick="openLightbox('gtc-2')">
-        <div class="flex items-center justify-between text-xs pb-1 border-b border-white/5">
+      <!-- BUKTI 6: QRIS Settlement Otomatis -->
+      <article class="proof-item p-4 rounded-2xl card-proof space-y-3 cursor-pointer group" data-category="gtc" onclick="openLightbox('gtc-2')">
+        <div class="flex items-center justify-between text-xs pb-1 border-b border-stone-100">
           <div class="flex items-center gap-2">
-            <i class="fas fa-qrcode text-emerald-400 text-sm"></i>
-            <span class="font-bold text-stone-200 text-xs">QRIS Settlement Otomatis</span>
+            <i class="fas fa-qrcode text-emerald-600 text-sm"></i>
+            <span class="font-extrabold text-stone-900 text-xs">QRIS Settlement Otomatis</span>
           </div>
-          <span class="text-[10px] mono text-stone-400">Hari ini &bull; 09:20 WIB</span>
+          <span class="text-[10px] mono text-stone-500">Hari ini &bull; 09:20 WIB</span>
         </div>
 
-        <div class="rounded-xl p-3.5 bg-[#0D1017] border border-emerald-500/20 space-y-2 text-xs mono">
-          <div class="flex items-center justify-between pb-2 border-b border-white/10 text-[10px]">
-            <span class="text-emerald-400 font-bold">QRIS NATIONAL STANDARD (NMID)</span>
-            <span class="text-stone-400">SETTLED // 0.4s</span>
+        <div class="rounded-xl p-3.5 bg-white border border-stone-200 space-y-2 text-xs mono shadow-2xs">
+          <div class="flex items-center justify-between pb-2 border-b border-stone-100 text-[10px]">
+            <span class="text-stone-900 font-bold">QRIS NATIONAL STANDARD (NMID)</span>
+            <span class="text-emerald-700 font-bold">SETTLED // 0.4s</span>
           </div>
 
           <div class="space-y-1.5 text-[11px]">
             <div class="flex justify-between">
               <span class="text-stone-500">Merchant:</span>
-              <span class="text-white font-bold">BINTANG STORE GTC</span>
+              <span class="text-stone-900 font-bold">BINTANG STORE GTC</span>
             </div>
             <div class="flex justify-between">
               <span class="text-stone-500">User / Buyer:</span>
-              <span class="censor-highlight font-bold">Member #GTC-219 (0896-****-2201)</span>
+              <span class="censor-tag">Member #GTC-219 (0896-****-2201)</span>
             </div>
             <div class="flex justify-between">
               <span class="text-stone-500">Produk:</span>
-              <span class="text-stone-300">Top-Up Saldo Cek Tagar 10x</span>
+              <span class="text-stone-800">Top-Up Saldo Cek Tagar 10x</span>
             </div>
-            <div class="flex justify-between text-emerald-400 font-bold pt-1 border-t border-white/10">
+            <div class="flex justify-between text-emerald-700 font-bold pt-1 border-t border-stone-100">
               <span>Nominal Masuk:</span>
               <span>Rp 10.000 (Lunas)</span>
             </div>
           </div>
 
-          <div class="p-2 rounded-lg bg-emerald-950/20 border border-emerald-800/30 text-[10px] text-emerald-300">
+          <div class="p-2 rounded-lg bg-emerald-50 border border-emerald-200/80 text-[10px] text-emerald-800 sans">
             <i class="fas fa-check-circle mr-1"></i> Webhook nembak otomatis &bull; Saldo langsung masuk tanpa nunggu konfirmasi admin manual.
           </div>
         </div>
 
         <div class="flex items-center justify-between text-[11px] pt-1">
-          <span class="text-stone-400 inter flex items-center gap-1.5">
-            <i class="fas fa-bolt text-emerald-400 text-[10px]"></i>
+          <span class="text-stone-600 flex items-center gap-1.5 font-medium">
+            <i class="fas fa-bolt text-emerald-600 text-[10px]"></i>
             <span>Instant Auto-Fulfillment</span>
           </span>
-          <span class="mono text-[10px] font-bold text-emerald-400 flex items-center gap-1">
-            <i class="fas fa-circle-check"></i> Sukses
+          <span class="mono text-[10px] font-bold text-emerald-700 flex items-center gap-1">
+            <i class="fas fa-check-circle"></i> Sukses
           </span>
         </div>
       </article>
 
     </section>
 
-    <!-- Data Privacy Guarantee Notice (Anti-Leak Protocol) -->
-    <section class="p-5 rounded-2xl bg-[#0D1015] border border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-      <div class="flex items-start gap-3.5 min-w-0">
-        <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center text-lg flex-shrink-0">
-          <i class="fas fa-user-lock"></i>
+
+    <!-- ========================================== -->
+    <!-- 5. PROTOKOL PERLINDUNGAN PRIVASI           -->
+    <!-- ========================================== -->
+    <section class="p-5 sm:p-6 rounded-2xl bg-white border border-stone-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xs">
+      <div class="flex items-start gap-4 min-w-0">
+        <div class="w-10 h-10 rounded-xl bg-terracotta-soft border border-terracotta-border text-terracotta flex items-center justify-center text-lg flex-shrink-0">
+          <i class="fas fa-user-shield"></i>
         </div>
         <div>
-          <h3 class="text-xs font-bold text-white tracking-wide">Protokol Perlindungan Privasi Pelanggan (Anti-Doxxing)</h3>
-          <p class="text-[11px] text-stone-400 inter leading-relaxed mt-0.5">
-            Setiap nomor telepon, nama lengkap, dan data sensitif disamarkan secara otomatis demi menjaga kerahasiaan customer Bintang Store.
+          <h3 class="text-sm font-extrabold text-stone-950 tracking-tight">Protokol Perlindungan Privasi Pelanggan (Anti-Doxxing)</h3>
+          <p class="text-xs text-stone-600 leading-relaxed mt-0.5">
+            Setiap nomor telepon, nama lengkap, dan data sensitif disamarkan secara otomatis demi menjaga kerahasiaan &amp; keamanan seluruh customer Bintang Store.
           </p>
         </div>
       </div>
       <div class="flex-shrink-0">
-        <span class="px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-[10px] mono text-stone-300 font-bold">
-          <i class="fas fa-shield text-emerald-400 mr-1"></i> PRIVACY COMPLIANT
+        <span class="px-3.5 py-1.5 rounded-full bg-stone-100 border border-stone-200 text-[10px] mono text-stone-800 font-bold inline-flex items-center gap-1.5 shadow-2xs">
+          <i class="fas fa-shield text-emerald-600"></i>
+          <span>PRIVACY COMPLIANT</span>
         </span>
       </div>
     </section>
 
-    <!-- Bottom Action CTA -->
-    <section class="rounded-3xl card-matte p-6 sm:p-8 text-center space-y-4 relative overflow-hidden bg-gradient-to-b from-[#10131B] to-[#0A0C10]">
+
+    <!-- ========================================== -->
+    <!-- 6. CALL TO ACTION SECTION                  -->
+    <!-- ========================================== -->
+    <section class="rounded-3xl bg-stone-950 text-ivory p-8 sm:p-12 text-center space-y-4 shadow-md">
       <div class="max-w-xl mx-auto space-y-2">
-        <h2 class="text-xl sm:text-2xl font-black text-white">
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
           Sudah Ribuan Orang Ngopi Hemat &amp; Lacak Aman.
         </h2>
-        <p class="text-xs sm:text-sm text-stone-400 inter">
+        <p class="text-xs sm:text-sm text-stone-400 font-normal leading-relaxed">
           Pesan Kopi Kenangan diskon 50% atau cek nomor kontak anonim sekarang dalam hitungan detik.
         </p>
       </div>
 
       <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
-        <a href="./kopken.html" class="px-6 py-3 rounded-full bg-[#D95338] hover:bg-[#C2452C] text-white text-xs font-bold transition shadow-lg active:scale-95 flex items-center gap-2">
-          <i class="fas fa-mug-hot"></i>
+        <a href="./kopken.html" class="px-6 py-3.5 rounded-full bg-white hover:bg-stone-100 text-stone-950 text-xs sm:text-sm font-bold transition shadow-sm active:scale-95 flex items-center gap-2">
+          <i class="fas fa-mug-hot text-terracotta"></i>
           <span>Pesan Kopi Kenangan</span>
         </a>
-        <a href="./gtc.html" class="px-6 py-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/15 text-stone-200 text-xs font-bold transition active:scale-95 flex items-center gap-2">
+        <a href="./gtc.html" class="px-6 py-3.5 rounded-full bg-stone-800 hover:bg-stone-700 border border-stone-700 text-ivory text-xs sm:text-sm font-bold transition active:scale-95 flex items-center gap-2">
           <i class="fas fa-fingerprint text-sky-400"></i>
           <span>Cek GetContact (Trial)</span>
         </a>
@@ -723,64 +758,79 @@
 
   </main>
 
-  <!-- Interactive Lightbox Zoom Modal (High-Res Inspection) -->
-  <div id="lightbox-modal" class="fixed inset-0 z-[100] bg-black/85 backdrop-blur-md hidden items-center justify-center p-4 transition-opacity duration-200 opacity-0" onclick="closeLightbox()">
-    <div class="relative max-w-lg w-full bg-[#0E1015] border border-white/15 rounded-3xl p-6 shadow-2xl space-y-4 text-stone-200" onclick="event.stopPropagation()">
-      <div class="flex items-center justify-between pb-3 border-b border-white/10">
+
+  <!-- ========================================== -->
+  <!-- 7. MODAL LIGHTBOX ZOOM (HIGH-RES PREVIEW) -->
+  <!-- ========================================== -->
+  <div id="lightbox-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs hidden items-center justify-center p-4 transition-opacity duration-200 opacity-0" onclick="closeLightbox()">
+    <div class="relative max-w-lg w-full bg-white border border-stone-200 rounded-3xl p-6 shadow-2xl space-y-4 text-stone-900" onclick="event.stopPropagation()">
+      <div class="flex items-center justify-between pb-3 border-b border-stone-100">
         <div class="flex items-center gap-2">
-          <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
-          <span id="modal-title" class="text-xs font-extrabold text-white">Detail Bukti Transaksi</span>
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span id="modal-title" class="text-xs font-extrabold text-stone-950">Detail Bukti Transaksi</span>
         </div>
-        <button onclick="closeLightbox()" class="w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 text-stone-300 flex items-center justify-center text-xs transition cursor-pointer">
+        <button onclick="closeLightbox()" class="w-7 h-7 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-600 flex items-center justify-center text-xs transition cursor-pointer">
           <i class="fas fa-times"></i>
         </button>
       </div>
 
-      <!-- Modal Body Content Injection -->
       <div id="modal-content" class="py-2">
         <!-- Injected dynamically -->
       </div>
 
-      <div class="pt-3 border-t border-white/10 flex items-center justify-between text-[11px] mono text-stone-400">
+      <div class="pt-3 border-t border-stone-100 flex items-center justify-between text-[11px] mono text-stone-500">
         <span>Bintang Store &bull; Terverifikasi Resmi</span>
-        <button onclick="closeLightbox()" class="text-[#D95338] font-bold hover:underline cursor-pointer">Tutup Preview</button>
+        <button onclick="closeLightbox()" class="text-terracotta font-bold hover:underline cursor-pointer">Tutup Preview</button>
       </div>
     </div>
   </div>
 
-  <!-- Footer -->
-  <footer class="w-full border-t border-white/5 py-6 px-4 text-center space-y-2 bg-[#060709]">
-    <p class="text-[11px] mono text-stone-500">
+
+  <!-- ========================================== -->
+  <!-- 8. FOOTER (Exact www.bintanggstore.web.id) -->
+  <!-- ========================================== -->
+  <footer class="w-full border-t border-stone-200 bg-white py-8 px-4 text-center space-y-3">
+    <div class="flex items-center justify-center gap-2">
+      <img src="./assets/logo.svg" alt="Logo" class="w-5 h-5" />
+      <span class="font-extrabold text-xs text-stone-950 tracking-wider uppercase">Bintang Store</span>
+    </div>
+    <p class="text-[11px] text-stone-500">
       &copy; 2026 Bintang Store &bull; Part of Bintang Tech Studio Ecosystem
     </p>
-    <div class="flex items-center justify-center gap-3 text-[11px] text-stone-400 font-medium">
-      <a href="./kopken.html" class="hover:text-white transition">Kopi Kenangan</a>
+    <div class="flex items-center justify-center gap-4 text-xs text-stone-600 font-medium">
+      <a href="./home.html" class="hover:text-stone-950 transition">Home</a>
       <span>&bull;</span>
-      <a href="./coffee.html" class="hover:text-white transition">Janji Jiwa</a>
+      <a href="./coffee.html" class="hover:text-stone-950 transition">Coffee Hub</a>
       <span>&bull;</span>
-      <a href="./gtc.html" class="hover:text-white transition">Cek GTC</a>
+      <a href="./kopken.html" class="hover:text-stone-950 transition">Kopi Kenangan</a>
       <span>&bull;</span>
-      <a href="./tracking.html" class="hover:text-white transition">Lacak Pesanan</a>
+      <a href="./gtc.html" class="hover:text-stone-950 transition">Cek GTC</a>
+      <span>&bull;</span>
+      <a href="./tracking.html" class="hover:text-stone-950 transition">Unified Orders</a>
     </div>
   </footer>
 
-  <!-- Filter & Lightbox Script -->
+
+  <!-- Interactive Client Logic -->
   <script>
+    function toggleMobileNav() {
+      const menu = document.getElementById('mobileMenu');
+      menu.classList.toggle('hidden');
+    }
+
     function filterCategory(cat) {
       const items = document.querySelectorAll('.proof-item');
       const tabs = document.querySelectorAll('.filter-tab');
 
-      // Update Tab Styles
       tabs.forEach(tab => {
-        tab.className = "filter-tab px-4 py-2 rounded-xl bg-[#12151D] hover:bg-[#181C26] text-stone-300 font-bold transition active:scale-95 border border-white/5 flex items-center gap-1.5 cursor-pointer";
+        tab.className = "filter-tab px-4 py-2 rounded-full bg-white text-stone-700 hover:text-stone-950 font-semibold transition active:scale-95 border border-stone-200 shadow-2xs flex items-center gap-1.5 cursor-pointer";
       });
 
       const activeTab = document.getElementById(`tab-${cat}`);
       if (activeTab) {
-        activeTab.className = "filter-tab px-4 py-2 rounded-xl bg-white text-black font-extrabold shadow-sm transition active:scale-95 flex items-center gap-1.5 cursor-pointer";
+        activeTab.className = "filter-tab px-4 py-2 rounded-full bg-stone-950 text-ivory font-bold shadow-xs transition active:scale-95 flex items-center gap-1.5 cursor-pointer";
       }
 
-      // Filter Item Visibility
       items.forEach(item => {
         const itemCat = item.getAttribute('data-category');
         if (cat === 'all' || itemCat === cat) {
@@ -812,49 +862,55 @@
       if (id === 'receipt-1') {
         title.textContent = 'Struk Kasir POS #KPK-882194 (Outlet Wates)';
         content.innerHTML = `
-          <div class="p-3 bg-stone-900 rounded-xl space-y-2 text-xs">
-            <p class="text-emerald-400 font-bold mono">✓ TRANSAKSI TERVERIFIKASI SISTEM RESMI</p>
-            <p class="text-stone-300 inter">Pesanan diproses langsung lewat sistem POS Kopi Kenangan Ruko Kol. Sugiono Wates. Diskon pengguna baru diterapkan secara sah.</p>
-            <div class="p-2.5 rounded bg-black/40 border border-white/5 mono text-[11px] space-y-1">
-              <div>No Antrean: <b>#A-24</b></div>
-              <div>Pelanggan: <span class="censor-highlight">Kak D**** (0857-****-0133)</span></div>
-              <div>Pengambilan: <b>Pick Up Kasir</b></div>
-              <div>Total: <b>Rp 19.000 (Hemat Rp 19.000)</b></div>
+          <div class="p-4 bg-stone-50 rounded-2xl border border-stone-200 space-y-2.5 text-xs text-stone-800">
+            <p class="text-emerald-700 font-bold mono flex items-center gap-1.5">
+              <i class="fas fa-check-circle"></i> TRANSAKSI TERVERIFIKASI SISTEM KASIR
+            </p>
+            <p class="text-stone-600 leading-relaxed">Pesanan diproses langsung lewat sistem POS Kopi Kenangan Ruko Kol. Sugiono Wates. Diskon pengguna baru diterapkan secara sah.</p>
+            <div class="p-3 rounded-xl bg-white border border-stone-200 mono text-[11px] space-y-1 text-stone-700">
+              <div>Nomor Antrean: <b class="text-stone-950">#A-24</b></div>
+              <div>Pelanggan: <span class="censor-tag">Kak D**** (0857-****-0133)</span></div>
+              <div>Metode Pengambilan: <b class="text-stone-950">Pick Up Kasir</b></div>
+              <div>Total Settlement: <b class="text-emerald-700">Rp 19.000 (Hemat Rp 19.000)</b></div>
             </div>
           </div>
         `;
       } else if (id === 'chat-1') {
         title.textContent = 'Konfirmasi Pesanan Sampai (Kak Rian S. - PIM 2)';
         content.innerHTML = `
-          <div class="p-3 bg-stone-900 rounded-xl space-y-2 text-xs">
-            <p class="text-emerald-400 font-bold mono">✓ CHAT WHATSAPP OTENTIK</p>
-            <p class="text-stone-300 inter">Tangkapan layar chat dari pembeli reguler Kopi Kenangan di area perkantoran Pondok Indah Mall 2 Jakarta.</p>
-            <div class="p-2.5 rounded bg-black/40 border border-white/5 text-[11px] space-y-1">
-              <div>Nomor WhatsApp: <span class="censor-highlight">0812-****-8842</span></div>
-              <div>Rating Ulasan: <span class="text-amber-400">⭐⭐⭐⭐⭐ (5/5)</span></div>
-              <div>Catatan: Pesanan 4 cup tiba tepat waktu untuk rapat divisi.</div>
+          <div class="p-4 bg-stone-50 rounded-2xl border border-stone-200 space-y-2.5 text-xs text-stone-800">
+            <p class="text-emerald-700 font-bold mono flex items-center gap-1.5">
+              <i class="fab fa-whatsapp"></i> CHAT WHATSAPP OTENTIK
+            </p>
+            <p class="text-stone-600 leading-relaxed">Tangkapan layar chat dari pembeli reguler Kopi Kenangan di area perkantoran Pondok Indah Mall 2 Jakarta.</p>
+            <div class="p-3 rounded-xl bg-white border border-stone-200 text-[11px] space-y-1 text-stone-700">
+              <div>Nomor WhatsApp: <span class="censor-tag">0812-****-8842</span></div>
+              <div>Rating Ulasan: <span class="text-amber-500 font-bold">⭐⭐⭐⭐⭐ (5/5)</span></div>
+              <div>Catatan: Pesanan 4 cup tiba tepat waktu untuk rapat divisi finance.</div>
             </div>
           </div>
         `;
       } else if (id === 'gtc-1') {
         title.textContent = 'Hasil Pengecekan Nomor Anonim (@ngecekgetcontact_bot)';
         content.innerHTML = `
-          <div class="p-3 bg-stone-900 rounded-xl space-y-2 text-xs">
-            <p class="text-sky-400 font-bold mono">✓ TELEGRAM INTEL ENGINE SUCCESS</p>
-            <p class="text-stone-300 inter">Pengecekan nomor telepon berhasil membongkar 16 tagar terdaftar, nama pemilik, dan skor spam hanya dalam 2.8 detik.</p>
-            <div class="p-2.5 rounded bg-black/40 border border-white/5 mono text-[11px] space-y-1">
-              <div>Target: <span class="censor-highlight">+62 813-****-9182</span></div>
-              <div>Hasil: Budi Santoso Logistik (Terdeteksi Spam)</div>
-              <div>Status Privasi: Target 100% Tidak Menerima Notifikasi</div>
+          <div class="p-4 bg-stone-50 rounded-2xl border border-stone-200 space-y-2.5 text-xs text-stone-800">
+            <p class="text-sky-700 font-bold mono flex items-center gap-1.5">
+              <i class="fab fa-telegram-plane"></i> TELEGRAM INTEL ENGINE SUCCESS
+            </p>
+            <p class="text-stone-600 leading-relaxed">Pengecekan nomor telepon berhasil membongkar 16 tagar terdaftar, nama pemilik, dan skor spam hanya dalam 2.8 detik.</p>
+            <div class="p-3 rounded-xl bg-white border border-stone-200 mono text-[11px] space-y-1 text-stone-700">
+              <div>Target: <span class="censor-tag">+62 813-****-9182</span></div>
+              <div>Nama: <b class="text-stone-950">Budi Santoso Logistik (Spam)</b></div>
+              <div>Status Privasi: <b class="text-emerald-700">Target 100% Tidak Menerima Notifikasi</b></div>
             </div>
           </div>
         `;
       } else {
         title.textContent = 'Detail Bukti Transaksi Terverifikasi';
         content.innerHTML = `
-          <div class="p-3 bg-stone-900 rounded-xl space-y-2 text-xs">
-            <p class="text-emerald-400 font-bold mono">✓ BUKTI TERVERIFIKASI BINTANG STORE</p>
-            <p class="text-stone-300 inter">Seluruh riwayat pembayaran melalui QRIS, E-Wallet, dan kasir tercatat secara aman dalam database.</p>
+          <div class="p-4 bg-stone-50 rounded-2xl border border-stone-200 space-y-2.5 text-xs text-stone-800">
+            <p class="text-emerald-700 font-bold mono">✓ BUKTI TERVERIFIKASI BINTANG STORE</p>
+            <p class="text-stone-600">Seluruh riwayat pembayaran melalui QRIS, E-Wallet, dan kasir tercatat secara aman dalam database.</p>
           </div>
         `;
       }
