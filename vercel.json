@@ -15,7 +15,7 @@
       ]
     },
     {
-      "source": "/(home|coffee|kopken|canva|digital|checkout|tracking|gallery|poster)",
+      "source": "/(home|coffee|kopken|canva|digital|checkout|tracking|gallery|poster|gtc)",
       "headers": [
         {
           "key": "Cache-Control",
