@@ -2483,7 +2483,7 @@ function applyRacikanPas() {
 function getDailyWifiPassword() {
     const now = getWIBDate();
     const dayNum = now.getDate();
-    return wifiPasswords[dayNum] || "TemanKenangan#01";
+    return `BahagiaItuSederhana${dayNum}`;
 }
 
 async function lookupCustomerLoyaltyHistory() {
